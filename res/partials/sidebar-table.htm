@@ -1,0 +1,547 @@
+<div class="sidebar-table">
+	<div class="head" data-click="sidebar-select-tab">
+		<span class="active">Table</span>
+		<span>Cell</span>
+		<span>Text</span>
+		<span>Arrange</span>
+	</div>
+
+	<!-- Table body -->
+	<div class="body active">
+		<div class="styles">
+			<span class="active1">
+				<svg filter="url(#ds1)"><use href="#icon-table-style-1"></use></svg>
+			</span>
+			<span>
+				<svg filter="url(#ds1)"><use href="#icon-table-style-2"></use></svg>
+			</span>
+			<span>
+				<svg filter="url(#ds1)"><use href="#icon-table-style-3"></use></svg>
+			</span>
+			<span>
+				<svg filter="url(#ds1)"><use href="#icon-table-style-4"></use></svg>
+			</span>
+			<span>
+				<svg filter="url(#ds1)"><use href="#icon-table-style-5"></use></svg>
+			</span>
+			<span>
+				<svg filter="url(#ds1)"><use href="#icon-table-style-6"></use></svg>
+			</span>
+		</div>
+
+		<div class="group-row">
+			<legend>Headers &amp; Footer</legend>
+			<div class="flex-row">
+				<div>
+					<selectbox data-menu="table-header-rows">
+						<svg class="prefix"><use href="#icon-column-cells"></use></svg>
+						<selected>0</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+
+				<div>
+					<selectbox data-menu="table-header-columns">
+						<svg class="prefix"><use href="#icon-row-cells"></use></svg>
+						<selected>0</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+
+				<div>
+					<selectbox data-menu="table-footer-rows">
+						<svg class="prefix"><use href="#icon-foot-cells"></use></svg>
+						<selected>0</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+			</div>
+			<div>
+				<input type="checkbox" id="table-name"/>
+				<label for="table-name">Table Name</label>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Rows</legend>
+				<div>
+					<input type="number" value="8"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<legend class="bold">Columns</legend>
+				<div>
+					<input type="number" value="12"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Table Font Size</legend>
+				<div class="options">
+					<span>
+						<svg><use href="#icon-small-a"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-big-a"></use></svg>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<legend>Table Outline</legend>
+			<div class="flex-row">
+				<div>
+					<selectbox data-menu="table-footer-rows">
+						<selected><div class="select-option-border-solid"></div></selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+				<div class="color-preset" style="--preset-color: #bbb;">
+					<span>
+						<svg><use href="#icon-color-preset"></use></svg>
+					</span>
+				</div>
+				<div>
+					<input type="number" value="1"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div>
+				<input type="checkbox" id="outline-table-name" checked />
+				<label for="outline-table-name">Outline Table Name</label>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<legend>Gridlines</legend>
+			<div class="flex-row">
+				<div class="w30">
+					<div class="options">
+						<span class="active">
+							<svg class="c13x19"><use href="#icon-gridlines-horizontal"></use></svg>
+						</span>
+						<span class="active">
+							<svg class="c13x19"><use href="#icon-gridlines-vertical"></use></svg>
+						</span>
+					</div>
+				</div>
+				<div class="w63">
+					<div class="options">
+						<span class="active">
+							<svg class="c13x19"><use href="#icon-row-gridlines"></use></svg>
+						</span>
+						<span class="active">
+							<svg class="c13x19"><use href="#icon-column-gridlines"></use></svg>
+						</span>
+						<span class="active">
+							<svg class="c13x19"><use href="#icon-footer-gridlines"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<div class="w63">
+					<input type="checkbox" id="alternate-row-color"/>
+					<label for="alternate-row-color">Alternating Row Colour</label>
+				</div>
+				<div class="color-preset" style="--preset-color: #f90;">
+					<span>
+						<svg><use href="#icon-color-preset"></use></svg>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<legend>Row &amp; Column Size</legend>
+			<div class="flex-row">
+				<legend>Height</legend>
+				<div>
+					<input type="number" value="20"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+				<div>
+					<button>Fit</button>
+				</div>
+			</div>
+			<div class="flex-row">
+				<legend>Width</legend>
+				<div>
+					<input type="number" value="98"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+				<div>
+					<button disabled>Fit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Cell body -->
+	<div class="body">
+		<div class="group-row">
+			<legend>Data Format</legend>
+			<div>
+				<selectbox data-menu="table-header-rows">
+					<selected>Number</selected>
+					<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+				</selectbox>
+			</div>
+			<div class="flex-row">
+				<legend>Decimals:</legend>
+				<div class="indent">
+					<input type="number" value="12"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+				<div>
+					<selectbox data-menu="table-header-rows">
+						<selected>-100</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div class="w30"></div>
+				<div class="w63 indent">
+					<input type="checkbox" id="table-name"/>
+					<label for="table-name">Thousands Separator</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Fill</legend>
+				<div class="color-preset" style="--preset-color: #f90;">
+					<span>
+						<svg><use href="#icon-color-preset"></use></svg>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<legend>Border</legend>
+			<div class="flex-row">
+				<div class="borders">
+					<span>
+						<svg><use href="#icon-border-1"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-2"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-3"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-4"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-5"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-6"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-7"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-8"></use></svg>
+					</span>
+					<span>
+						<svg><use href="#icon-border-9"></use></svg>
+					</span>
+				</div>
+
+				<div class="flex-col w60">
+					<selectbox data-menu="table-header-rows">
+						<selected>Border Styles</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+
+					<selectbox data-menu="table-header-rows">
+						<selected><div class="select-option-border-solid"></div></selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+
+					<div class="flex-row">
+						<div class="color-preset" style="--preset-color: #000;">
+							<span>
+								<svg><use href="#icon-color-preset"></use></svg>
+							</span>
+						</div>
+
+						<div>
+							<input type="number" value="1"/>
+							<div>
+								<span>
+									<svg class="up"><use href="#icon-chevron-down"></use></svg>
+								</span>
+								<span>
+									<svg><use href="#icon-chevron-down"></use></svg>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Text body -->
+	<div class="body">
+		<!--
+		<div class="group-row">
+			<div class="options">
+				<span class="active"><span>Style</span></span>
+				<span><span>Layout</span></span>
+			</div>
+		</div>
+		-->
+
+		<div class="group-row">
+			<legend>Font</legend>
+			<div>
+				<selectbox data-menu="table-header-rows">
+					<selected>Arial</selected>
+					<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+				</selectbox>
+			</div>
+
+			<div class="flex-row">
+				<div class="w63">
+					<selectbox data-menu="table-header-rows">
+						<selected>Regular</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+				<div>
+					<input type="number" value="10"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="options">
+				<span>
+					<svg><use href="#icon-bold"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-italic"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-underline"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-strike"></use></svg>
+				</span>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Text Colour</legend>
+				<div class="color-preset" style="--preset-color: #f90;">
+					<span>
+						<svg><use href="#icon-color-preset"></use></svg>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<legend>Alignment</legend>
+			<div class="options">
+				<span>
+					<svg><use href="#icon-justify-left"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-justify-center"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-justify-right"></use></svg>
+				</span>
+				<span class="active">
+					<svg><use href="#icon-justify-full"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-justify-fit"></use></svg>
+				</span>
+			</div>
+			
+			<div class="options">
+				<span>
+					<svg><use href="#icon-valign-top"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-valign-middle"></use></svg>
+				</span>
+				<span>
+					<svg><use href="#icon-valign-bottom"></use></svg>
+				</span>
+			</div>
+			<div>
+				<input type="checkbox" id="wrap-text-in-cell" checked />
+				<label for="wrap-text-in-cell">Wrap Text In Cell</label>
+			</div>
+		</div>
+	</div>
+
+	<!-- Arrange body -->
+	<div class="body">
+		<div class="group-row">
+			<div class="flex-row arrange">
+				<div class="w48">
+					<div class="options has-title">
+						<span title="Back">
+							<svg class="c13x19"><use href="#icon-arrange-back"></use></svg>
+						</span>
+						<span title="Front">
+							<svg class="c13x19"><use href="#icon-arrange-front"></use></svg>
+						</span>
+					</div>
+				</div>
+
+				<div class="w48">
+					<div class="options has-title">
+						<span title="Backward">
+							<svg class="c13x19"><use href="#icon-arrange-backward"></use></svg>
+						</span>
+						<span title="Forward">
+							<svg class="c13x19"><use href="#icon-arrange-forward"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex-row">
+				<div class="w48">
+					<selectbox data-menu="table-header-rows">
+						<selected>Align</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+
+				<div class="w48">
+					<selectbox disabled data-menu="table-header-rows">
+						<selected>Distribute</selected>
+						<svg><use xlink:href="#icon-chevron-sort"></use></svg>
+					</selectbox>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Size</legend>
+				<div class="indent has-title" title="Width">
+					<input type="number" value="20"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+				<div class="has-title" title="Height">
+					<input type="number" value="20"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Position</legend>
+				<div class="indent has-title" title="X">
+					<input type="number" value="20"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+				<div class="has-title" title="Y">
+					<input type="number" value="20"/>
+					<div>
+						<span>
+							<svg class="up"><use href="#icon-chevron-down"></use></svg>
+						</span>
+						<span>
+							<svg><use href="#icon-chevron-down"></use></svg>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

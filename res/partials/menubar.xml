@@ -1,0 +1,70 @@
+<MenuBar>
+	<Menu name="Numbers">
+		<Menu name="About Numbers"/>
+		<Menu type="divider"/>
+		<Menu name="Preferences"/>
+		<Menu type="divider"/>
+		<Menu name="Emptry Trash"/>
+		<Menu type="divider"/>
+		<Menu name="Services">
+			<Menu name="Open"/>
+			<Menu name="Close"/>
+		</Menu>
+		<Menu type="divider"/>
+		<Menu name="Hide Numbers"/>
+		<Menu name="Hide Others"/>
+		<Menu name="Show All" disabled="1"/>
+		<Menu type="divider"/>
+		<Menu name="Quit Numbers" shell="win -c"/>
+	</Menu>
+	<Menu name="Table">
+		<Menu name="Header Rows&#8230;" for="table-header-rows">
+			<Menu name="0" is-checked="1"/>
+			<Menu name="1"/>
+			<Menu name="2"/>
+			<Menu name="3"/>
+			<Menu name="4"/>
+			<Menu name="5"/>
+			<Menu type="divider"/>
+			<Menu name="Freeze Header Rows" is-checked="1"/>
+		</Menu>
+		<Menu name="Header Columns&#8230;" for="table-header-columns">
+			<Menu name="0" is-checked="1"/>
+			<Menu name="1"/>
+			<Menu name="2"/>
+			<Menu name="3"/>
+			<Menu name="4"/>
+			<Menu name="5"/>
+			<Menu type="divider"/>
+			<Menu name="Freeze Header Columns" is-checked="1"/>
+		</Menu>
+		<Menu name="Footer Columns&#8230;" for="table-footer-rows">
+			<Menu name="0" is-checked="1"/>
+			<Menu name="1"/>
+			<Menu name="2"/>
+			<Menu name="3"/>
+			<Menu name="4"/>
+			<Menu name="5"/>
+			<Menu type="divider"/>
+			<Menu name="Freeze Footer Rows" is-checked="1"/>
+		</Menu>
+	</Menu>
+	<Menu name="View">
+		<Menu name="Zoom In"/>
+		<Menu name="Zoom Out"/>
+		<Menu name="Zoom&#8230;" for="view-zoom">
+			<Menu name="75%"/>
+			<Menu name="100%"/>
+			<Menu name="125%"/>
+			<Menu name="150%"/>
+			<Menu name="200%"/>
+		</Menu>
+		<Menu type="divider"/>
+		<Menu name="Hide Toolbar"/>
+	</Menu>
+	<Menu name="Help">
+		<Menu name="Send Numbers Feedback"/>
+		<Menu type="divider"/>
+		<Menu name="License"/>
+	</Menu>
+</MenuBar>

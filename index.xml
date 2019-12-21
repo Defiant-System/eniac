@@ -1,0 +1,23 @@
+<Application>
+	<Head>
+		<meta name="id" value="numbers"/>
+		<meta name="title" value="Numbers" version="1.0"/>
+		<meta name="license" value="AGPL-3.0-or-later"/>
+		<meta name="width" value="860" min="720"/>
+		<meta name="height" value="490" min="320"/>
+		<meta name="top" value="180"/>
+		<meta name="left" value="200"/>
+		<meta name="minimize"/>
+		<meta name="maximize"/>
+		<meta name="resize"/>
+		<meta name="script" value="res/js/main.js"/>
+		<meta name="style" value="res/css/main.less"/>
+		<meta name="icons" value="res/svg/icons.svg"/>
+		<meta name="appIcon" value="res/svg/app-icon.svg"/>
+		<meta name="content" value="res/partials/content.htm"/>
+		<meta name="xsl" value="res/partials/templates.xsl"/>
+		
+		@import "res/partials/toolbar.xml"
+		@import "res/partials/menubar.xml"
+	</Head>
+</Application>

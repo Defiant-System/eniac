@@ -1,0 +1,58 @@
+<layout>
+	<content>
+		<div class="head">
+			<span>
+				<svg><use href="#icon-add"></use></svg>
+			</span>
+			<span class="active">Sheet 1</span>
+			<!--
+			<span>Sheet 2</span>
+			<span>Sheet 3</span>
+			-->
+		</div>
+		<div class="body">
+			
+			<div class="table">
+				<div class="tool move">
+					<svg><use href="#tool-move"></use></svg>
+				</div>
+				<div class="tool h-resize">
+					<svg><use href="#tool-h_resize"></use></svg>
+				</div>
+				<div class="tool v-resize">
+					<svg><use href="#tool-v_resize"></use></svg>
+				</div>
+				<div class="tool resize">
+					<svg><use href="#tool-resize"></use></svg>
+				</div>
+				<ul class="tool cols"><li></li><li class="active"></li><li></li><li></li></ul>
+				<ul class="tool rows"><li></li><li></li><li class="active"></li><li></li><li></li><li></li><li></li></ul>
+				<div class="tool selection"></div>
+
+				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">656 351</div><div class="cell"></div></div>
+				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">323</div><div class="cell"></div></div>
+				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">171 501</div><div class="cell"></div></div>
+				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">97 866</div><div class="cell"></div></div>
+				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">362</div><div class="cell"></div></div>
+				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">6 752</div><div class="cell"></div></div>
+				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">1 245 107</div><div class="cell"></div></div>
+			</div>
+
+		</div>
+		<div class="foot">
+			<div class="cell-type">Formula</div>
+			<div class="cell-value">
+				<div class="formula">
+					<span class="formula-method">Sum</span>
+					<span class="formula-value">D1:D15</span>
+				</div>
+			</div>
+		</div>
+	</content>
+	<sidebar class="right">
+		<div class="container">
+			@import "sidebar-empty.htm"
+			@import "sidebar-table.htm"
+		</div>
+	</sidebar>
+</layout>
