@@ -2,6 +2,7 @@
 	<Head>
 		<meta name="id" value="numbers"/>
 		<meta name="title" value="Numbers" version="1.0"/>
+		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0-or-later"/>
 		<meta name="width" value="860" min="720"/>
 		<meta name="height" value="490" min="320"/>

@@ -133,52 +133,52 @@
 	</svg>
 
 	<svg id="icon-gridlines-horizontal" viewBox="0 0 570 390">
-		<rect opacity="0.3" x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="544" height="364"/>
-		<line stroke="#333" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line stroke="#333" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
+		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
+		<line stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
+		<line stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
 	</svg>
 
 	<svg id="icon-gridlines-vertical" viewBox="0 0 570 390">
-		<rect opacity="0.3" x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line stroke="#333" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line stroke="#333" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
+		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
+		<line stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
+		<line stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
 	</svg>
 
 	<svg id="icon-row-gridlines" viewBox="0 0 570 390">
-		<rect opacity="0.3" x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
-		<rect opacity="0.15" x="13" y="13" fill="#333" width="184" height="364"/>
-		<line stroke="#333" stroke-width="26" x1="9" y1="131" x2="197" y2="131"/>
-		<line stroke="#333" stroke-width="26" x1="9" y1="257" x2="197" y2="257"/>
+		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
+		<rect opacity="0.15" x="13" y="13" fill="#fff" width="184" height="364"/>
+		<line stroke="#fff" stroke-width="26" x1="9" y1="131" x2="197" y2="131"/>
+		<line stroke="#fff" stroke-width="26" x1="9" y1="257" x2="197" y2="257"/>
 	</svg>
 
 	<svg id="icon-column-gridlines" viewBox="0 0 570 390">
-		<rect opacity="0.3" x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
-		<rect opacity="0.15" x="13" y="13" fill="#333" width="544" height="118"/>
-		<line stroke="#333" stroke-width="26" x1="197" y1="13" x2="197" y2="131"/>
-		<line stroke="#333" stroke-width="26" x1="375" y1="13" x2="375" y2="131"/>
+		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
+		<rect opacity="0.15" x="13" y="13" fill="#fff" width="544" height="118"/>
+		<line stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="131"/>
+		<line stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="131"/>
 	</svg>
 
 	<svg id="icon-footer-gridlines" viewBox="0 0 570 390">
-		<rect opacity="0.3" x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.3" stroke="#333" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
-		<rect opacity="0.15" x="13" y="257" fill="#333" width="544" height="118"/>
-		<line stroke="#333" stroke-width="26" x1="197" y1="259" x2="197" y2="377"/>
-		<line stroke="#333" stroke-width="26" x1="375" y1="259" x2="375" y2="377"/>
+		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
+		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
+		<rect opacity="0.15" x="13" y="257" fill="#fff" width="544" height="118"/>
+		<line stroke="#fff" stroke-width="26" x1="197" y1="259" x2="197" y2="377"/>
+		<line stroke="#fff" stroke-width="26" x1="375" y1="259" x2="375" y2="377"/>
 	</svg>
 
 	<svg id="icon-column-cells" viewBox="0 0 480 390">
@@ -528,26 +528,26 @@
 	</svg>
 
 	<svg id="icon-add" viewBox="0 0 500 500">
-		<line fill="none" stroke="#333" stroke-width="20" x1="390" y1="250" x2="110" y2="250"/>
-		<line fill="none" stroke="#333" stroke-width="20" x1="250" y1="390" x2="250" y2="110"/>
+		<line fill="none" stroke="#4591e8" stroke-width="20" x1="390" y1="250" x2="110" y2="250"/>
+		<line fill="none" stroke="#4591e8" stroke-width="20" x1="250" y1="390" x2="250" y2="110"/>
 	</svg>
 
 	<svg id="tool-move" viewBox="0 0 500 500">
-		<circle fill="none" stroke="#333" stroke-width="40" cx="250" cy="250" r="110"/>
+		<circle fill="none" stroke="#4591e8" stroke-width="40" cx="250" cy="250" r="110"/>
 	</svg>
 
 	<svg id="tool-h_resize" viewBox="0 0 500 500">
-		<line fill="none" stroke="#333" stroke-width="40" stroke-linecap="round" x1="195" y1="140" x2="195" y2="360"/>
-		<line fill="none" stroke="#333" stroke-width="40" stroke-linecap="round" x1="305" y1="140" x2="305" y2="360"/>
+		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="195" y1="140" x2="195" y2="360"/>
+		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="305" y1="140" x2="305" y2="360"/>
 	</svg>
 
 	<svg id="tool-v_resize" viewBox="0 0 500 500">
-		<line fill="none" stroke="#333" stroke-width="40" stroke-linecap="round" x1="360" y1="195" x2="140" y2="195"/>
-		<line fill="none" stroke="#333" stroke-width="40" stroke-linecap="round" x1="360" y1="305" x2="140" y2="305"/>
+		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="360" y1="195" x2="140" y2="195"/>
+		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="360" y1="305" x2="140" y2="305"/>
 	</svg>
 
 	<svg id="tool-resize" viewBox="0 0 500 500">
-		<polyline fill="none" stroke="#333" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" points="130,330 330,330 330,130"/>
+		<polyline fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" points="130,330 330,330 330,130"/>
 	</svg>
 
 </svg>
