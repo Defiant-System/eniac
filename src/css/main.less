@@ -21,7 +21,7 @@
 			.table {
 				.tool {
 					color: #555;
-					--color-1: #489bf7;
+					//--color-1: #489bf7;
 
 					&.cols,
 					&.rows {
@@ -66,7 +66,7 @@
 				> span.active {
 					background: #6da6f9 linear-gradient(#6da6f9 0%, #1a73fb 100%);
 					color: #fff;
-					--color-1: #fff;
+					//--color-1: #fff;
 					box-shadow: 0 0 0 1px #1a73fb;
 					border-color: transparent;
 				}
@@ -117,7 +117,7 @@ layout {
 		display: flex;
 		height: 37px;
 		border-top: 1px solid @layout_outline;
-		--color-1: #333;
+		//--color-1: #333;
 
 		.cell-type {
 			padding: 12px 13px 0;
@@ -166,14 +166,14 @@ content {
 		display: flex;
 		background: #eee;
 		color: #333;
-		--color-1: #333;
+		//--color-1: #333;
 
 		span {
 			position: relative;
 			padding: 8px 17px 0;
 			height: 100%;
 			text-align: center;
-			.select(none);
+			user-select: none;
 
 			&.active {
 				background: #e6e6e6;
@@ -220,7 +220,7 @@ content {
 sidebar {
 	width: 270px;
 	height: 100%;
-	.transitionWhat(width, @sidebar_speed * 0.75);
+	transition: width, @sidebar_speed * 0.75;
 
 	&:after {
 		border-color: @layout_outline;
@@ -254,7 +254,7 @@ sidebar {
 			padding-top: 9px;
 			font-weight: 400;
 			text-align: center;
-			.select(none);
+			user-select: none;
 
 			&:not(:first-child) {
 				border-left: 1px solid @layout_outline;
@@ -342,7 +342,7 @@ sidebar {
 
 			legend {
 				margin-bottom: 7px;
-				.select(none);
+				user-select: none;
 			}
 
 			.flex-row {
@@ -401,8 +401,8 @@ sidebar {
 				}
 			}
 			.arrange .options {
-				--color-1: #55a6f6;
-				--color-2: #9fafbf;
+				//--color-1: #55a6f6;
+				//--color-2: #9fafbf;
 			}
 		}
 
@@ -417,7 +417,7 @@ sidebar {
 			border: 1px solid @outline_color;
 			box-shadow: 0 1px 1px rgba(0,0,0,0.075);
 			margin-bottom: 11px;
-			--color-1: #333;
+			//--color-1: #333;
 
 			&.has-title {
 				margin-bottom: 29px;
@@ -458,7 +458,7 @@ sidebar {
 				&.active {
 					background: lighten(@outline_color, 13%);
 					color: #333;
-					--color-1: #333;
+					//--color-1: #333;
 					box-shadow: 0 0 0 1px @outline_color;
 					border-color: transparent;
 				}
@@ -480,7 +480,7 @@ sidebar {
 			padding: 3px 0 0 3px;
 			margin-bottom: 11px;
 			font-size: 0;
-			--color-1: #333;
+			//--color-1: #333;
 
 			svg {
 				width: 15px;
@@ -542,7 +542,7 @@ sidebar {
 	font-size: 12px;
 
 	svg {
-		--color-1: #33333320;
+		//--color-1: #33333320;
 		width: 73px;
 		height: 73px;
 	}
@@ -608,7 +608,7 @@ sidebar {
 					0 1px 3px rgba(0,0,0,0.35);
 		text-align: center;
 		color: #888;
-		--color-1: #bbb;
+		//--color-1: #bbb;
 
 		&.move {
 			top: -29px;

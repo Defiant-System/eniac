@@ -1,0 +1,16 @@
+<ToolBar>
+	<Group width="30%">
+		<Tool symbol="icon-sidebar"/>
+		<Select name="125%" width="35" menu="view-zoom"></Select>
+	</Group>
+	<Group width="40%" align="center">
+		<Tool symbol="icon-formula"/>
+		<Tool symbol="icon-table"/>
+		<Tool symbol="icon-chart"/>
+		<Tool symbol="icon-text"/>
+		<Tool symbol="icon-image"/>
+	</Group>
+	<Group width="30%">
+		<Tool symbol="icon-format" state="active" click="sidebar-toggle-view"/>
+	</Group>
+</ToolBar>
