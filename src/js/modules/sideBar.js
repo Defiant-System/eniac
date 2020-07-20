@@ -9,6 +9,9 @@ let sideBar = {
 		contentView = _contentView;
 
 		this.el = window.find("sidebar");
+
+		// temp
+		this.el.find(".head span:nth-child(2)").trigger("click");
 	},
 	async dispatch(event) {
 		let el,

@@ -9,50 +9,32 @@
 	<!-- Table body -->
 	<div class="body active">
 		<div class="styles">
-			<span class="active1">
-				<svg filter="url(#ds1)"><use href="#icon-table-style-1"></use></svg>
-			</span>
-			<span>
-				<svg filter="url(#ds1)"><use href="#icon-table-style-2"></use></svg>
-			</span>
-			<span>
-				<svg filter="url(#ds1)"><use href="#icon-table-style-3"></use></svg>
-			</span>
-			<span>
-				<svg filter="url(#ds1)"><use href="#icon-table-style-4"></use></svg>
-			</span>
-			<span>
-				<svg filter="url(#ds1)"><use href="#icon-table-style-5"></use></svg>
-			</span>
-			<span>
-				<svg filter="url(#ds1)"><use href="#icon-table-style-6"></use></svg>
-			</span>
+			<span class="icon-table-style-1"></span>
+			<span class="icon-table-style-2"></span>
+			<span class="icon-table-style-3"></span>
+			<span class="icon-table-style-4 active"></span>
+			<span class="icon-table-style-5"></span>
+			<span class="icon-table-style-6"></span>
 		</div>
 
 		<div class="group-row">
 			<legend>Headers &amp; Footer</legend>
 			<div class="flex-row">
 				<div>
-					<selectbox data-menu="table-header-rows">
-						<span class="icon-prefix" style="background-image: url(/app/ant/numbers/icons/icon-column-cells.png);"></span>
-						<selected>0</selected>
-						<span class="icon-chevron-sort"></span>
+					<selectbox class="table-header-rows" data-menu="table-header-rows">
+						<option class="prefix-icon" selected="1" value="0">0</option>
 					</selectbox>
 				</div>
 
 				<div>
-					<selectbox data-menu="table-header-columns">
-						<span class="icon-prefix" style="background-image: url(/app/ant/numbers/icons/icon-row-cells.png);"></span>
-						<selected>0</selected>
-						<span class="icon-chevron-sort"></span>
+					<selectbox class="table-header-columns" data-menu="table-header-columns">
+						<option class="prefix-icon" selected="1" value="0">0</option>
 					</selectbox>
 				</div>
 
 				<div>
-					<selectbox data-menu="table-footer-rows">
-						<span class="icon-prefix" style="background-image: url(/app/ant/numbers/icons/icon-foot-cells.png);"></span>
-						<selected>0</selected>
-						<span class="icon-chevron-sort"></span>
+					<selectbox class="table-footer-rows" data-menu="table-footer-rows">
+						<option class="prefix-icon" selected="1" value="0">0</option>
 					</selectbox>
 				</div>
 			</div>
@@ -98,10 +80,10 @@
 				<legend class="bold">Table Font Size</legend>
 				<div class="options">
 					<span>
-						<svg><use href="#icon-small-a"></use></svg>
+						<span class="icon-small-a"></span>
 					</span>
 					<span>
-						<svg><use href="#icon-big-a"></use></svg>
+						<span class="icon-big-a"></span>
 					</span>
 				</div>
 			</div>
@@ -112,8 +94,9 @@
 			<div class="flex-row">
 				<div>
 					<selectbox data-menu="table-footer-rows">
-						<selected><div class="select-option-border-solid"></div></selected>
-						<span class="icon-chevron-sort"></span>
+						<option selected="1">
+							<div class="select-option-border-solid">sdf</div>
+						</option>
 					</selectbox>
 				</div>
 				<div class="color-preset" style="--preset-color: #bbb;">
@@ -145,23 +128,23 @@
 				<div class="w30">
 					<div class="options">
 						<span class="active">
-							<svg class="c13x19"><use href="#icon-gridlines-horizontal"></use></svg>
+							<span class="icon-gridlines-horizontal c13x19"></span>
 						</span>
 						<span class="active">
-							<svg class="c13x19"><use href="#icon-gridlines-vertical"></use></svg>
+							<span class="icon-gridlines-vertical c13x19"></span>
 						</span>
 					</div>
 				</div>
 				<div class="w63">
 					<div class="options">
 						<span class="active">
-							<svg class="c13x19"><use href="#icon-row-gridlines"></use></svg>
+							<span class="icon-row-gridlines c13x19"></span>
 						</span>
 						<span class="active">
-							<svg class="c13x19"><use href="#icon-column-gridlines"></use></svg>
+							<span class="icon-column-gridlines c13x19"></span>
 						</span>
 						<span class="active">
-							<svg class="c13x19"><use href="#icon-footer-gridlines"></use></svg>
+							<span class="icon-footer-gridlines c13x19"></span>
 						</span>
 					</div>
 				</div>
@@ -228,7 +211,6 @@
 			<div>
 				<selectbox data-menu="table-header-rows">
 					<selected>Number</selected>
-					<span class="icon-chevron-sort"></span>
 				</selectbox>
 			</div>
 			<div class="flex-row">
@@ -247,7 +229,6 @@
 				<div>
 					<selectbox data-menu="table-header-rows">
 						<selected>-100</selected>
-						<span class="icon-chevron-sort"></span>
 					</selectbox>
 				</div>
 			</div>
@@ -275,44 +256,24 @@
 			<legend>Border</legend>
 			<div class="flex-row">
 				<div class="borders">
-					<span>
-						<svg><use href="#icon-border-1"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-2"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-3"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-4"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-5"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-6"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-7"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-8"></use></svg>
-					</span>
-					<span>
-						<svg><use href="#icon-border-9"></use></svg>
-					</span>
+					<span class="icon-border-1"></span>
+					<span class="icon-border-2"></span>
+					<span class="icon-border-3"></span>
+					<span class="icon-border-4"></span>
+					<span class="icon-border-5"></span>
+					<span class="icon-border-6"></span>
+					<span class="icon-border-7"></span>
+					<span class="icon-border-8"></span>
+					<span class="icon-border-9"></span>
 				</div>
 
 				<div class="flex-col w60">
 					<selectbox data-menu="table-header-rows">
 						<selected>Border Styles</selected>
-						<span class="icon-chevron-sort"></span>
 					</selectbox>
 
 					<selectbox data-menu="table-header-rows">
 						<selected><div class="select-option-border-solid"></div></selected>
-						<span class="icon-chevron-sort"></span>
 					</selectbox>
 
 					<div class="flex-row">
@@ -355,7 +316,6 @@
 			<div>
 				<selectbox data-menu="table-header-rows">
 					<selected>Arial</selected>
-					<span class="icon-chevron-sort"></span>
 				</selectbox>
 			</div>
 
@@ -363,7 +323,6 @@
 				<div class="w63">
 					<selectbox data-menu="table-header-rows">
 						<selected>Regular</selected>
-						<span class="icon-chevron-sort"></span>
 					</selectbox>
 				</div>
 				<div>
@@ -475,14 +434,12 @@
 				<div class="w48">
 					<selectbox data-menu="table-header-rows">
 						<selected>Align</selected>
-						<span class="icon-chevron-sort"></span>
 					</selectbox>
 				</div>
 
 				<div class="w48">
 					<selectbox disabled data-menu="table-header-rows">
 						<selected>Distribute</selected>
-						<span class="icon-chevron-sort"></span>
 					</selectbox>
 				</div>
 			</div>
