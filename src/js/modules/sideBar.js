@@ -11,7 +11,7 @@ let sideBar = {
 		this.el = window.find("sidebar");
 
 		// temp
-		this.el.find(".head span:nth-child(2)").trigger("click");
+		//this.el.find(".head span:nth-child(4)").trigger("click");
 	},
 	async dispatch(event) {
 		let el,

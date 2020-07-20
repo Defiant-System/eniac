@@ -145,7 +145,27 @@ layout {
 	.icon-row-gridlines        { background-image: url(~/icons/icon-row-gridlines.png); }
 	.icon-column-gridlines     { background-image: url(~/icons/icon-column-gridlines.png); }
 	.icon-footer-gridlines     { background-image: url(~/icons/icon-footer-gridlines.png); }
+	.icon-color-preset         { background-image: url(~/icons/icon-color-preset.png); }
 	.icon-add                  { background-image: url(~/icons/icon-add.png); }
+	.icon-format               { background-image: url(~/icons/icon-format.png); }
+
+	.icon-bold                 { background-image: url(~/icons/icon-bold.png); }
+	.icon-italic               { background-image: url(~/icons/icon-italic.png); }
+	.icon-underline            { background-image: url(~/icons/icon-underline.png); }
+	.icon-strike               { background-image: url(~/icons/icon-strike.png); }
+	.icon-justify-left         { background-image: url(~/icons/icon-justify-left.png); }
+	.icon-justify-center       { background-image: url(~/icons/icon-justify-center.png); }
+	.icon-justify-right        { background-image: url(~/icons/icon-justify-right.png); }
+	.icon-justify-full         { background-image: url(~/icons/icon-justify-full.png); }
+	.icon-justify-fit          { background-image: url(~/icons/icon-justify-fit.png); }
+	.icon-valign-top           { background-image: url(~/icons/icon-valign-top.png); }
+	.icon-valign-middle        { background-image: url(~/icons/icon-valign-middle.png); }
+	.icon-valign-bottom        { background-image: url(~/icons/icon-valign-bottom.png); }
+
+	.icon-arrange-back         { background-image: url(~/icons/icon-arrange-back.png); }
+	.icon-arrange-front        { background-image: url(~/icons/icon-arrange-front.png); }
+	.icon-arrange-backward     { background-image: url(~/icons/icon-arrange-backward.png); }
+	.icon-arrange-forward      { background-image: url(~/icons/icon-arrange-forward.png); }
 
 	.icon-border-1 { background-image: url(~/icons/icon-border-1.png) }
 	.icon-border-2 { background-image: url(~/icons/icon-border-2.png) }
@@ -241,12 +261,7 @@ content {
 			}
 
 			&:first-child {
-				padding: 5.5px 13px 0;
-
-				svg {
-					width: 19px;
-					height: 19px;
-				}
+				padding: 5.5px 17px 0;
 			}
 
 			&:not(:first-child) {
@@ -373,7 +388,7 @@ sidebar {
 
 		.group-row {
 			position: relative;
-			padding: 11px 16px 2px;
+			padding: 13px 16px 5px;
 			margin-bottom: 1px;
 
 			&:not(:last-child):after {
@@ -440,11 +455,11 @@ sidebar {
 						}
 					}
 				}
-				// .flex-row {
-				// 	> div {
-				// 		width: 47%;
-				// 	}
-				// }
+				.flex-row {
+					> div {
+						width: 47%;
+					}
+				}
 			}
 			.flex-col {
 				selectbox {
@@ -598,10 +613,11 @@ sidebar {
 	color: #33333390;
 	font-size: 12px;
 
-	svg {
-		//--color-1: #33333320;
+	.icon-format {
+		margin: 0 auto;
 		width: 73px;
 		height: 73px;
+		opacity: .25;
 	}
 
 	b {
