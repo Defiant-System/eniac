@@ -1,6 +1,6 @@
 <MenuBar>
 	<Menu name="Numbers">
-		<Menu name="About Numbers"/>
+		<Menu name="About Numbers" shell="win -a"/>
 		<Menu type="divider"/>
 		<Menu name="Preferences"/>
 		<Menu type="divider"/>
