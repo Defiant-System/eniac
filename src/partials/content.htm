@@ -10,23 +10,8 @@
 		</div>
 		<div class="body">
 			
-			<div class="table">
-				<div class="tool move"></div>
-				<div class="tool h-resize"></div>
-				<div class="tool v-resize"></div>
-				<div class="tool resize"></div>
-				<ul class="tool cols"><li></li><li class="active"></li><li></li><li></li></ul>
-				<ul class="tool rows"><li></li><li></li><li class="active"></li><li></li><li></li><li></li><li></li></ul>
-				<div class="tool selection"></div>
-
-				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">656 351</div><div class="cell"></div></div>
-				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">323</div><div class="cell"></div></div>
-				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">171 501</div><div class="cell"></div></div>
-				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">97 866</div><div class="cell"></div></div>
-				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">362</div><div class="cell"></div></div>
-				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">6 752</div><div class="cell"></div></div>
-				<div class="row"><div class="cell"></div><div class="cell"></div><div class="cell">1 245 107</div><div class="cell"></div></div>
-			</div>
+			@import "sections/table-tools.htm"
+			@import "sections/sheet-table.htm"
 
 		</div>
 		<div class="foot">
@@ -39,10 +24,10 @@
 			</div>
 		</div>
 	</content>
-	<sidebar class="right">
+	<sidebar class="right hidden">
 		<div class="container">
-			@import "sidebar-empty.htm"
-			@import "sidebar-table.htm"
+			@import "sections/sidebar-empty.htm"
+			@import "sections/sidebar-table.htm"
 		</div>
 	</sidebar>
 </layout>
