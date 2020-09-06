@@ -1,4 +1,6 @@
 
+defiant.require("modules/formula.js")
+
 const numbers = {
 	init() {
 		// init all sub-objects
