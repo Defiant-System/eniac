@@ -1,5 +1,5 @@
 <layout>
-	<content>
+	<content data-area="content">
 		<div class="head">
 			<span class="icon-add"></span>
 			<span class="active">Sheet 1</span>
@@ -8,7 +8,7 @@
 			<span>Sheet 3</span>
 			-->
 		</div>
-		<div class="body">
+		<div class="body" data-click="blur-table">
 			
 			@import "sections/table-tools.htm"
 			@import "sections/sheet-table.htm"
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 	</content>
-	<sidebar class="right hidden">
+	<sidebar class="right hidden" data-area="sidebar">
 		<div class="container">
 			@import "sections/sidebar-empty.htm"
 			@import "sections/sidebar-table.htm"

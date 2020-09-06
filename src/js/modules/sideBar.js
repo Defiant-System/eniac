@@ -1,22 +1,15 @@
 
-let numbers;
-let contentView;
-
-let sideBar = {
-	init(_numbers, _contentView) {
-		// fast and direct references
-		numbers = _numbers;
-		contentView = _contentView;
-
-		this.el = window.find("sidebar");
-
-		// temp
-		//this.el.find(".head span:nth-child(4)").trigger("click");
+{
+	init() {
+		// fast references
+		this.els = {};
 	},
-	async dispatch(event) {
-		let el,
+	dispatch(event) {
+		let APP = numbers,
+			Self = APP.sidebar,
 			pEl,
-			isOn;
+			isOn,
+			el;
 		switch (event.type) {
 			case "sidebar-toggle-view":
 				isOn = sideBar.el.hasClass("hidden");
@@ -32,6 +25,4 @@ let sideBar = {
 				break;
 		}
 	}
-};
-
-export default sideBar;
+}
