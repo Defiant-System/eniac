@@ -9,18 +9,19 @@
 			selection: window.find(".selection"),
 		};
 
-		setTimeout(() => this.compute("C2"), 100);
+		setTimeout(() => Parser.compute(7), 100);
 	},
 	dispatch(event) {
 		let APP = numbers,
 			Self = APP.content,
 			top, left, width, height,
 			xNum, yNum,
-			formula,
+			table,
 			el;
 		switch (event.type) {
 			case "focus-table":
-				Self.currentTable = event.el.parents("table.sheet");
+				table = event.el.parents("table.sheet");
+				Parser.setTable(table);
 				Self.els.tools.removeClass("hidden");
 				break;
 			case "blur-table":
@@ -51,9 +52,5 @@
 			case "blur-cell":
 				break;
 		}
-	},
-	compute(id) {
-		let test = Formula.parse(this.currentTable, id);
-		console.log(test);
 	}
 }

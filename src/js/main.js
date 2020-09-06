@@ -1,5 +1,5 @@
 
-defiant.require("modules/formula.js")
+defiant.require("modules/parser.js")
 
 const numbers = {
 	init() {
