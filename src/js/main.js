@@ -19,8 +19,12 @@ const numbers = {
 			case "window.close":
 				break;
 			case "window.keystroke":
-				break;
-			case "window.keyup":
+				el = $(event.target);
+				pEl = el.parents("[data-area]");
+				name = pEl.data("area");
+				if (pEl.length && Self[name].dispatch) {
+					Self[name].dispatch(event);
+				}
 				break;
 			// custom events
 			case "toggle-sidebar":
@@ -38,6 +42,7 @@ const numbers = {
 	},
 	sidebar: defiant.require("modules/sidebar.js"),
 	content: defiant.require("modules/content.js"),
+	selection: defiant.require("modules/selection.js"),
 };
 
 window.exports = numbers;

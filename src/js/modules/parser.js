@@ -35,6 +35,10 @@ const Parser = {
 			num = ((y - 1) * this.colNum) + x;
 		return this.cells.get(num);
 	},
+	getCellByCoord(x, y) {
+		let num = (y * this.colNum) + x;
+		return this.cells.get(num);
+	},
 	compute(n) {
 		let num = n - 1,
 			cell = this.cells.get(num),

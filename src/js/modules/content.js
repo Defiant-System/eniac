@@ -10,26 +10,15 @@
 			selText: window.find(".selection textarea"),
 		};
 
-		/*
-		switch (event.char) {
-			case "esc": // 27
-			case "return": // 13
-			case "tab": // 9
-			case "up": // 38
-			case "down": // 40
-			case "right": // 39
-			case "left": // 337
-				Self.content.dispatch({ type: "blur-cell" });
-				break;
-		}
-		*/
-
 		setTimeout(() => {
 			// temp
 			window.find("table.sheet td").get(5).trigger("click");
-
 			Parser.compute(7);
-		}, 100);
+		}, 300);
+
+		// setTimeout(() => {
+		// 	numbers.selection.dispatch({ type: "move-right" });
+		// }, 1000);
 	},
 	dispatch(event) {
 		let APP = numbers,
@@ -40,6 +29,27 @@
 			val,
 			el;
 		switch (event.type) {
+			// system events
+			case "window.keystroke":
+
+				switch (event.char) {
+					case "esc":
+						//Self.dispatch({ type: "blur-table" });
+						break;
+					case "tab":
+					case "return":
+						APP.selection.dispatch({ type: "move-right" });
+						break;
+					case "up":
+					case "down":
+					case "right":
+					case "left":
+						APP.selection.dispatch({ type: "move-"+ event.char });
+						break;
+				}
+
+				break;
+			// custom events
 			case "focus-table":
 				// set table for parser
 				table = event.el.parents("table.sheet");
@@ -84,6 +94,8 @@
 
 				Self.activeEl.text(Self.els.selText.val());
 				Self.activeEl.removeClass("active");
+
+				Self.els.selText.val("");
 
 				// check cell and compute if needed
 				Parser.checkCell(Self.activeEl);
