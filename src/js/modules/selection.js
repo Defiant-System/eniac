@@ -15,29 +15,17 @@
 		switch (event.type) {
 			// custom events
 			case "move-up":
-				xNum = active.index();
-				yNum = active.parent().index() - 1;
-				next = Parser.getCellByCoord(xNum, yNum);
-				if (next.length) {
-					Content.dispatch({ type: "focus-cell", target: next[0] });
-				}
-				break;
 			case "move-down":
 				xNum = active.index();
-				yNum = active.parent().index() + 1;
+				yNum = active.parent().index() + (event.type === "move-up" ? -1 : 1);
 				next = Parser.getCellByCoord(xNum, yNum);
 				if (next.length) {
 					Content.dispatch({ type: "focus-cell", target: next[0] });
 				}
 				break;
 			case "move-right":
-				next = active.next("td");
-				if (next.length) {
-					Content.dispatch({ type: "focus-cell", target: next[0] });
-				}
-				break;
 			case "move-left":
-				next = active.prev("td");
+				next = active[ event.type === "move-right" ? "next" : "prev" ]("td");
 				if (next.length) {
 					Content.dispatch({ type: "focus-cell", target: next[0] });
 				}
