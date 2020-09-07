@@ -19,11 +19,13 @@ const numbers = {
 			case "window.close":
 				break;
 			case "window.keystroke":
-				el = $(event.target);
-				pEl = el.parents("[data-area]");
-				name = pEl.data("area");
-				if (pEl.length && Self[name].dispatch) {
-					Self[name].dispatch(event);
+				if (event.target) {
+					el = $(event.target);
+					pEl = el.parents("[data-area]");
+					name = pEl.data("area");
+					if (pEl.length && Self[name].dispatch) {
+						Self[name].dispatch(event);
+					}
 				}
 				break;
 			// custom events

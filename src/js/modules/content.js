@@ -12,7 +12,7 @@
 
 		setTimeout(() => {
 			// temp
-		//	window.find("table.sheet td").get(5).trigger("click");
+			window.find("table.sheet td").get(5).trigger("click");
 		//	Parser.compute(7);
 		}, 300);
 
