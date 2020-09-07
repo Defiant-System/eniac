@@ -7,6 +7,12 @@ const Parser = {
 		this.rowNum = table.find("tr").length;
 		this.colNum = this.cells.length / this.rowNum;
 	},
+	reset() {
+		delete this.table;
+		delete this.cells;
+		delete this.rowNum;
+		delete this.colNum;
+	},
 	parse(num) {
 		let expression = this.cells.get(num).data("formula"),
 			tokens = expression.match(/([A-Z]+[0-9]+)/g);

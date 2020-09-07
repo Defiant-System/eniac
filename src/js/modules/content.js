@@ -12,8 +12,8 @@
 
 		setTimeout(() => {
 			// temp
-			window.find("table.sheet td").get(5).trigger("click");
-			Parser.compute(7);
+		//	window.find("table.sheet td").get(5).trigger("click");
+		//	Parser.compute(7);
 		}, 300);
 
 		// setTimeout(() => {
@@ -34,7 +34,7 @@
 
 				switch (event.char) {
 					case "esc":
-						//Self.dispatch({ type: "blur-table" });
+						Self.dispatch({ type: "blur-table" });
 						break;
 					case "tab":
 					case "return":
@@ -58,8 +58,17 @@
 				Self.els.tools.removeClass("hidden");
 				break;
 			case "blur-table":
-				el = $(event.target);
-				if (el.parents(".table-tools").length) return;
+				if (event.target) {
+					// don't blur table, if event originated in tools
+					if ($(event.target).parents(".table-tools").length) return;
+				}
+
+				if (!Parser.table) return;
+				// auto blur active cell
+				Self.dispatch({ type: "blur-cell" });
+
+				Parser.reset();
+
 				Self.els.tools.addClass("hidden");
 				break;
 			case "focus-cell":

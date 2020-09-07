@@ -40,9 +40,10 @@ const numbers = {
 				}
 		}
 	},
+	tools: defiant.require("modules/tools.js"),
+	selection: defiant.require("modules/selection.js"),
 	sidebar: defiant.require("modules/sidebar.js"),
 	content: defiant.require("modules/content.js"),
-	selection: defiant.require("modules/selection.js"),
 };
 
 window.exports = numbers;
