@@ -2,7 +2,9 @@
 {
 	init() {
 		// fast references
-		this.els = {};
+		this.els = {
+			root: window.find("[data-area='sidebar'"),
+		};
 	},
 	dispatch(event) {
 		let APP = numbers,
@@ -11,11 +13,11 @@
 			isOn,
 			el;
 		switch (event.type) {
-			case "sidebar-toggle-view":
-				isOn = sideBar.el.hasClass("hidden");
-				sideBar.el.toggleClass("hidden", isOn);
+			case "toggle-sidebar":
+				isOn = Self.els.root.hasClass("hidden");
+				Self.els.root.toggleClass("hidden", isOn);
 				return isOn ? "active" : "";
-			case "sidebar-select-tab":
+			case "select-tab":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
 				

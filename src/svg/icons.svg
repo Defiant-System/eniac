@@ -562,8 +562,8 @@
 	</svg>
 
 	<svg id="icon-add" viewBox="0 0 500 500">
-		<line fill="none" stroke="#4591e8" stroke-width="20" x1="390" y1="250" x2="110" y2="250"/>
-		<line fill="none" stroke="#4591e8" stroke-width="20" x1="250" y1="390" x2="250" y2="110"/>
+		<line fill="none" stroke="#777" stroke-width="20" x1="390" y1="250" x2="110" y2="250"/>
+		<line fill="none" stroke="#777" stroke-width="20" x1="250" y1="390" x2="250" y2="110"/>
 	</svg>
 
 	<svg id="tool-move" viewBox="0 0 500 500">

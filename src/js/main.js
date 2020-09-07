@@ -15,16 +15,16 @@ const numbers = {
 		switch (event.type) {
 			// system events
 			case "window.open":
-				// temp
-				window.find("table.sheet td").get(13).trigger("click");
 				break;
 			case "window.close":
 				break;
 			case "window.keystroke":
 				break;
+			case "window.keyup":
+				break;
 			// custom events
 			case "toggle-sidebar":
-				break;
+				return Self.sidebar.dispatch(event);
 			// forwards events
 			default:
 				if (event.el) {

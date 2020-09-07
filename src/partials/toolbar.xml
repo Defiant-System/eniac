@@ -11,6 +11,6 @@
 		<Tool symbol="icon-image"/>
 	</Group>
 	<Group width="30%">
-		<Tool symbol="icon-format" state="active1" click="sidebar-toggle-view"/>
+		<Tool symbol="icon-format" state="active1" click="toggle-sidebar"/>
 	</Group>
 </ToolBar>

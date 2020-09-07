@@ -111,7 +111,7 @@ layout {
 			width: 19px;
 			height: 13px;
 		}
-		&.icon-add { background-size: auto 90%; }
+		&.icon-add { background-size: auto 67%; }
 	}
 
 	.icon-small-a              { background-image: url(~/icons/icon-small-a.png); }
@@ -629,15 +629,19 @@ table {
 	}
 }
 
+.selection textarea,
+table.sheet {
+	font-family: 'Helvetica Neue';
+	font-size: 13px;
+	color: #333;
+}
+
 table.sheet {
 	position: absolute;
 	top: 40px;
 	left: 40px;
 	border-left: 1px solid @table_border;
 	border-top: 1px solid @table_border;
-	font-family: 'Helvetica Neue';
-	font-size: 13px;
-	color: #333;
 
 	td {
 		border-right: 1px solid @table_border;
@@ -645,6 +649,10 @@ table.sheet {
 		text-align: right;
 		padding: 1px 4px 0;
 		vertical-align: middle;
+
+		&.active {
+			color: transparent;
+		}
 	}
 }
 
@@ -734,14 +742,17 @@ table.sheet {
 			}
 
 			textarea {
+				background: transparent;
 				width: 100%;
 				height: 100%;
 				resize: none;
 				border: 0;
-				background: transparent;
+				padding: 5px 4px 0 0;
+				text-align: right;
 			}
 		}
 	}
+
 	table {
 		position: absolute;
 		top: 0;

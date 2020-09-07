@@ -8,8 +8,8 @@ const Parser = {
 		this.colNum = this.cells.length / this.rowNum;
 	},
 	parse(num) {
-		let expression = this.cells.get(num).data("formula");
-		let tokens = expression.match(/([A-Z]+[0-9]+)/g);
+		let expression = this.cells.get(num).data("formula"),
+			tokens = expression.match(/([A-Z]+[0-9]+)/g);
 
 		tokens.map(token => {
 			let rx = new RegExp(token);
@@ -18,16 +18,27 @@ const Parser = {
 
 		return eval(expression.slice(1));
 	},
+	checkCell(cell) {
+		let x = cell.index(),
+			y = cell.parent().index() + 1,
+			token = this.alphabet[x] + y;
+		// find related formulas and compute them
+		this.table.find(`td[data-formula*="${token}"]`).map(item => {
+			let el = $(item),
+				num = (el.parent().index() * this.colNum) + el.index() + 1;
+			this.compute(num);
+		});
+	},
 	getCell(token) {
-		let [ e, c, y ] = token.match(/([A-Z]+)(\d+)/);
-		let x = this.alphabet.indexOf(c);
-		let num = ((y - 1) * this.colNum) + x;
+		let [ e, c, y ] = token.match(/([A-Z]+)(\d+)/),
+			x = this.alphabet.indexOf(c),
+			num = ((y - 1) * this.colNum) + x;
 		return this.cells.get(num);
 	},
 	compute(n) {
-		let num = n - 1;
-		let cell = this.cells.get(num);
-		let value = this.parse(num);
+		let num = n - 1,
+			cell = this.cells.get(num),
+			value = this.parse(num);
 		cell.text(value);
 	}
 };
