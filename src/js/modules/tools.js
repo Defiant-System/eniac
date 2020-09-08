@@ -7,13 +7,12 @@
 			root,
 			doc: $(document),
 			move: root.find(".tool.move"),
-			resize: root.find(".tool.resize"),
-			vResize: root.find(".tool.v-resize"),
-			hResize: root.find(".tool.h-resize"),
+			resizes: root.find(".tool.resize, .tool.v-resize, .tool.h-resize"),
 		};
 
 		// bind event handlers
 		this.els.move.on("mousedown", this.move);
+		this.els.resizes.on("mousedown", this.resize);
 	},
 	dispatch(event) {
 		let APP = numbers,
@@ -21,7 +20,34 @@
 			el;
 		switch (event.type) {
 			// custom events
-			case "move-table":
+			case "select-columns":
+				console.log(event.type, event.target);
+				break;
+			case "select-rows":
+				console.log(event.type, event.target);
+				break;
+		}
+	},
+	resize(event) {
+		let APP = numbers,
+			Self = APP.tools,
+			Drag = Self.drag,
+			top, left,
+			table,
+			el;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.resize);
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.resize);
 				break;
 		}
 	},
@@ -32,7 +58,6 @@
 			top, left,
 			table,
 			el;
-		
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
@@ -40,7 +65,7 @@
 				
 				el = window.find(".sheet, .table-tools");
 				table = window.find(".sheet");
-
+				// create drag object
 				Self.drag = {
 					el,
 					clickX: event.clientX,
@@ -50,7 +75,7 @@
 						y: table.prop("offsetTop"),
 					}
 				};
-
+				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.move);
 				break;
 			case "mousemove":
@@ -63,6 +88,7 @@
 				});
 				break;
 			case "mouseup":
+				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.move);
 				break;
 		}
