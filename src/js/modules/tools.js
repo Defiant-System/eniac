@@ -19,6 +19,25 @@
 			Self = APP.tools,
 			el;
 		switch (event.type) {
+			// system events
+			case "window.keystroke":
+				// special handling of special keys
+				switch (event.char) {
+					case "esc":
+						Self.dispatch({ type: "blur-table" });
+						break;
+					case "tab":
+					case "return":
+						APP.selection.dispatch({ type: "move-right" });
+						break;
+					case "up":
+					case "down":
+					case "right":
+					case "left":
+						APP.selection.dispatch({ type: "move-"+ event.char });
+						break;
+				}
+				break;
 			// custom events
 			case "select-columns":
 				console.log(event.type, event.target);
@@ -39,7 +58,7 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
-				
+
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;

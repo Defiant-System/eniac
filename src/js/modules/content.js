@@ -29,26 +29,6 @@
 			val,
 			el;
 		switch (event.type) {
-			// system events
-			case "window.keystroke":
-
-				switch (event.char) {
-					case "esc":
-						Self.dispatch({ type: "blur-table" });
-						break;
-					case "tab":
-					case "return":
-						APP.selection.dispatch({ type: "move-right" });
-						break;
-					case "up":
-					case "down":
-					case "right":
-					case "left":
-						APP.selection.dispatch({ type: "move-"+ event.char });
-						break;
-				}
-
-				break;
 			// custom events
 			case "focus-table":
 				// set table for parser

@@ -124,6 +124,7 @@ layout {
 	.icon-color-preset         { background-image: url(~/icons/icon-color-preset.png); }
 	.icon-add                  { background-image: url(~/icons/icon-add.png); }
 	.icon-format               { background-image: url(~/icons/icon-format.png); }
+	.icon-chevron-down         { background-image: url(~/icons/icon-chevron-down.png); }
 
 	.icon-bold                 { background-image: url(~/icons/icon-bold.png); }
 	.icon-italic               { background-image: url(~/icons/icon-italic.png); }
@@ -722,7 +723,7 @@ table.sheet {
 			z-index: 2;
 
 			&:before {
-				pointer-events: none;
+				//pointer-events: none;
 			}
 
 			.handle {
@@ -788,11 +789,16 @@ table.sheet {
 
 			td {
 				counter-increment: col-counter;
+				position: relative;
 				text-align: center;
 				vertical-align: middle;
 
 				&:before {
 					content: counter(col-counter, upper-alpha);
+				}
+
+				&:hover s {
+					background-image: url(~/icons/icon-chevron-down.png);
 				}
 
 				&:not(:last-child) {
@@ -821,9 +827,37 @@ table.sheet {
 					&:last-child:after {
 						border-radius: 0 4px 4px 0;
 					}
+
+					s {
+						filter: none;
+					}
+				}
+
+				s {
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+					background-size: 7px 7px;
+					filter: grayscale(100%);
+					position: absolute;
+					top: 2px;
+					bottom: 2px;
+					right: 5px;
+					width: 11px;
+
+					&:after {
+						content: "";
+						position: absolute;
+						top: -2px;
+						bottom: -2px;
+						right: -5px;
+						width: 4px;
+						cursor: col-resize;
+						z-index: 2;
+					}
 				}
 			}
 		}
+
 		&.table-rows {
 			counter-reset: row-counter;
 			left: -27px;
@@ -835,17 +869,41 @@ table.sheet {
 			tr {
 				counter-increment: row-counter;
 
+				&:first-child td {
+					border-radius: 4px 4px 0 0;
+
+					s {
+						top: 3px;
+
+						&:before {
+							top: 8px;
+						}
+					}
+				}
+
+				&:last-child td {
+					border-radius: 0 0 4px 4px;
+
+					s {
+						bottom: 3px;
+
+						&:before {
+							top: 7px;
+						}
+					}
+				}
+
 				&:not(:last-child) {
-					border-bottom: 1px solid @table_border;
+					border-bottom: 1px solid lighten(@table_border, 11%);
 				}
 
 				&.active {
 					position: relative;
-					background: #d6e6fb;
-					color: #4591e8;
 
 					td {
-						position: relative;
+						background: #d6e6fb;
+						color: #4591e8;
+
 						&:after {
 							content: "";
 							position: absolute;
@@ -854,6 +912,10 @@ table.sheet {
 							right: -1px;
 							bottom: -1px;
 							border: 1px solid darken(#d6e6fb, 7%);
+						}
+
+						&:hover s:before {
+							filter: none;
 						}
 					}
 
@@ -867,10 +929,62 @@ table.sheet {
 				}
 
 				td {
+					position: relative;
+					background: #fff;
+
 					&:before {
 						content: counter(row-counter);
 					}
 
+					&:hover {
+						s {
+							opacity: 1;
+
+							&:after {
+								left: auto;
+								right: 100%;
+								width: 16px;
+							}
+						}
+					}
+
+					s {
+						opacity: 0;
+						background: inherit;
+						position: absolute;
+						top: -1px;
+						bottom: -1px;
+						left: 100%;
+						width: 9px;
+						z-index: 2;
+						border: 1px solid #d0d0d0;
+						border-left: 0;
+						border-radius: 0 3px 3px 0;
+						cursor: pointer;
+
+						&:before {
+							content: "";
+							background: url(~/icons/icon-chevron-down.png) 50% 50%/contain no-repeat;
+							position: absolute;
+							top: 9px;
+							left: -1px;
+							width: 7px;
+							height: 7px;
+							opacity: .6;
+							filter: grayscale(100%);
+						}
+						
+						&:after {
+							content: "";
+							position: absolute;
+							bottom: 0;
+							left: 0;
+							right: 0;
+							height: 4px;
+							cursor: row-resize;
+							z-index: 2;
+						}
+					}
 				}
 			}
 		}
