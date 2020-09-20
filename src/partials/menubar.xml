@@ -2,19 +2,6 @@
 	<Menu name="Numbers">
 		<Menu name="About Numbers" shell="win -a"/>
 		<Menu type="divider"/>
-		<Menu name="Preferences"/>
-		<Menu type="divider"/>
-		<Menu name="Emptry Trash"/>
-		<Menu type="divider"/>
-		<Menu name="Services">
-			<Menu name="Open"/>
-			<Menu name="Close"/>
-		</Menu>
-		<Menu type="divider"/>
-		<Menu name="Hide Numbers"/>
-		<Menu name="Hide Others"/>
-		<Menu name="Show All" disabled="1"/>
-		<Menu type="divider"/>
 		<Menu name="Quit Numbers" shell="win -c"/>
 	</Menu>
 	<Menu name="Table">
