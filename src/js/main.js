@@ -1,6 +1,9 @@
 
 defiant.require("modules/parser.js")
 
+let XLSX;
+
+
 const numbers = {
 	init() {
 		// init all sub-objects
@@ -10,13 +13,22 @@ const numbers = {
 	},
 	async dispatch(event) {
 		let Self = numbers,
+			file,
+			workbook,
+			name,
 			pEl,
-			name;
+			el;
 		switch (event.type) {
 			// system events
 			case "window.open":
+				XLSX = await window.fetch("~/xlsx.js");
 				break;
 			case "window.close":
+				break;
+			case "open.file":
+				file = await event.open({ arrayBuffer: true });
+				workbook = XLSX.read(file.data, {type:"array"});
+				console.log(workbook);
 				break;
 			case "window.keystroke":
 				if (event.target) {
