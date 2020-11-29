@@ -38,10 +38,6 @@ const numbers = {
 				window.find("content > .head").append(str.join(""));
 
 				// render sheet table
-				// str = [`<table class="sheet" data-click="focus-cell">`];
-				// workbook.Sheets["No Filter"]
-				// str.push(`</table>`);
-
 				str = XLSX.write(workbook, {
 					sheet: "No Filter",
 					type: "string",

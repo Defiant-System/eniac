@@ -4,8 +4,6 @@
 		// fast references
 		this.els = {
 			tools: window.find(".table-tools"),
-			toolCols: window.find(".table-cols"),
-			toolRows: window.find(".table-rows"),
 			selection: window.find(".selection"),
 			selText: window.find(".selection textarea"),
 		};
@@ -24,6 +22,9 @@
 		let APP = numbers,
 			Self = APP.content,
 			top, left, width, height,
+			tableTools,
+			toolCols,
+			toolRows,
 			xNum, yNum,
 			table,
 			val,
@@ -55,6 +56,9 @@
 				// auto blur active cell
 				Self.dispatch({ type: "blur-cell" });
 
+				tableTools = window.find(".table-tools");
+				toolCols = tableTools.find(".table-cols");
+				toolRows = tableTools.find(".table-rows");
 				el = $(event.target).addClass("active");
 				xNum = el.index();
 				yNum = el.parent().index();
@@ -62,10 +66,10 @@
 				// focus table
 				Self.dispatch({ type: "focus-table", el });
 				// make column + row active
-				Self.els.toolCols.find(".active").removeClass("active");
-				Self.els.toolCols.find("td").get(xNum).addClass("active");
-				Self.els.toolRows.find(".active").removeClass("active");
-				Self.els.toolRows.find("tr").get(yNum).addClass("active");
+				toolCols.find(".active").removeClass("active");
+				toolCols.find("td").get(xNum).addClass("active");
+				toolRows.find(".active").removeClass("active");
+				toolRows.find("tr").get(yNum).addClass("active");
 
 				top = (event.target.offsetTop - 2) +"px";
 				left = (event.target.offsetLeft - 2) +"px";
@@ -73,7 +77,7 @@
 				height = (event.target.offsetHeight + 5) +"px";
 
 				Self.els.selection.css({ top, left, width, height, });
-				Self.els.selText.val(el.text()).focus();
+				// Self.els.selText.val(el.text()).focus();
 
 				// remember active cell
 				Self.activeEl = el;
