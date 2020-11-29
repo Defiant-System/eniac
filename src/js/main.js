@@ -1,8 +1,7 @@
 
 defiant.require("modules/parser.js")
 
-let XLSX;
-
+const XLSX = await window.fetch("~/xlsx.js")
 
 const numbers = {
 	init() {
@@ -17,11 +16,11 @@ const numbers = {
 			workbook,
 			name,
 			pEl,
-			el;
+			el,
+			str;
 		switch (event.type) {
 			// system events
 			case "window.open":
-				XLSX = await window.fetch("~/xlsx.js");
 				break;
 			case "window.close":
 				break;
@@ -29,6 +28,27 @@ const numbers = {
 				file = await event.open({ arrayBuffer: true });
 				workbook = XLSX.read(file.data, {type:"array"});
 				console.log(workbook);
+				
+				// render sheet names
+				str = [];
+				workbook.SheetNames.map((name, i) => {
+					let cn = i === 0 ? 'class="active"' : "";
+					str.push(`<span ${cn}>${name}</span>`);
+				});
+				window.find(".head").append(str[0]);
+
+				// render sheet table
+				// str = [`<table class="sheet" data-click="focus-cell">`];
+				// workbook.Sheets["No Filter"]
+				// str.push(`</table>`);
+				str = XLSX.write(workbook, {
+					sheet: "No Filter",
+					type: "string",
+					bookType: "html"
+				});
+				str = str.match(/<table>.*?<\/table>/gm)[0];
+				str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
+				window.find("content > .body").append(str);
 				break;
 			case "window.keystroke":
 				if (event.target) {
