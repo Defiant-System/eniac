@@ -1,7 +1,7 @@
 
 defiant.require("modules/parser.js")
 
-const XLSX = await window.fetch("~/xlsx.js")
+const XLSX = await window.fetch("~/js/xlsx.min.js")
 
 const numbers = {
 	init() {
@@ -35,12 +35,13 @@ const numbers = {
 					let cn = i === 0 ? 'class="active"' : "";
 					str.push(`<span ${cn}>${name}</span>`);
 				});
-				window.find(".head").append(str[0]);
+				window.find("content > .head").append(str.join(""));
 
 				// render sheet table
 				// str = [`<table class="sheet" data-click="focus-cell">`];
 				// workbook.Sheets["No Filter"]
 				// str.push(`</table>`);
+
 				str = XLSX.write(workbook, {
 					sheet: "No Filter",
 					type: "string",
@@ -48,7 +49,8 @@ const numbers = {
 				});
 				str = str.match(/<table>.*?<\/table>/gm)[0];
 				str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
-				window.find("content > .body").append(str);
+				// str = str.replace(/<td /, `<td width="100" `);
+				window.find("content > .body .wrapper").append(str);
 				break;
 			case "window.keystroke":
 				if (event.target) {

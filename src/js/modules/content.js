@@ -10,11 +10,11 @@
 			selText: window.find(".selection textarea"),
 		};
 
-		setTimeout(() => {
-			// temp
-			window.find("table.sheet td").get(5).trigger("click");
-		//	Parser.compute(7);
-		}, 300);
+		// setTimeout(() => {
+		// 	// temp
+		// 	window.find("table.sheet td").get(5).trigger("click");
+		// //	Parser.compute(7);
+		// }, 300);
 
 		// setTimeout(() => {
 		// 	numbers.selection.dispatch({ type: "move-right" });
