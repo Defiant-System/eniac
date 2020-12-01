@@ -1,10 +1,13 @@
 
+defiant.require("modules/render.js")
 defiant.require("modules/parser.js")
 
-const XLSX = await window.fetch("~/js/xlsx.min.js")
+const XLSX = await window.fetch("~/js/xlsx.js")
 
 const numbers = {
 	init() {
+		// init renderer
+		Render.init();
 		// init all sub-objects
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
@@ -13,6 +16,7 @@ const numbers = {
 	async dispatch(event) {
 		let Self = numbers,
 			file,
+			data,
 			workbook,
 			name,
 			pEl,
@@ -25,28 +29,14 @@ const numbers = {
 			case "window.close":
 				break;
 			case "open.file":
-				file = await event.open({ arrayBuffer: true });
-				workbook = XLSX.read(file.data, {type:"array"});
+				file = await event.open();
+				data = await file.read();
+				workbook = XLSX.read(data, { type:"array" });
 				console.log(workbook);
-				
-				// render sheet names
-				str = [];
-				workbook.SheetNames.map((name, i) => {
-					let cn = i === 0 ? 'class="active"' : "";
-					str.push(`<span ${cn}>${name}</span>`);
-				});
-				window.find("content > .head").append(str.join(""));
 
-				// render sheet table
-				str = XLSX.write(workbook, {
-					sheet: "No Filter",
-					type: "string",
-					bookType: "html"
-				});
-				str = str.match(/<table>.*?<\/table>/gm)[0];
-				str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
-				// str = str.replace(/<td /, `<td width="100" `);
-				window.find("content > .body .wrapper").append(str);
+				// file = await event.open({ arrayBuffer: true });
+				// workbook = XLSX.read(file.data, { type:"array" });
+				// Render.workbook(workbook);
 				break;
 			case "window.keystroke":
 				if (event.target) {
