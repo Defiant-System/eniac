@@ -1,6 +1,6 @@
 
-defiant.require("modules/render.js")
-defiant.require("modules/parser.js")
+@import "modules/render.js"
+@import "modules/parser.js"
 
 const XLSX = await window.fetch("~/js/xlsx.js")
 
@@ -62,10 +62,10 @@ const numbers = {
 				}
 		}
 	},
-	tools: defiant.require("modules/tools.js"),
-	selection: defiant.require("modules/selection.js"),
-	sidebar: defiant.require("modules/sidebar.js"),
-	content: defiant.require("modules/content.js"),
+	tools: @import "modules/tools.js",
+	selection: @import "modules/selection.js",
+	sidebar: @import "modules/sidebar.js",
+	content: @import "modules/content.js",
 };
 
 window.exports = numbers;
