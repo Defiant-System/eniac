@@ -22,7 +22,7 @@ const Parser = {
 			expression = expression.replace(rx, +this.getCell(token).text());
 		});
 
-		return eval(expression.slice(1));
+		// return eval(expression.slice(1));
 	},
 	checkCell(cell) {
 		let x = cell.index(),
