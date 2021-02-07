@@ -651,6 +651,7 @@ table.sheet {
 	position: absolute;
 	top: 40px;
 	left: 40px;
+	width: 463px;
 	table-layout: fixed;
 	white-space: nowrap;
 	border-left: 1px solid @table_border;
@@ -676,8 +677,10 @@ table.sheet {
 	position: absolute;
 	top: 40px;
 	left: 40px;
-	width: 607px;
-	height: 550px;
+	// width: 607px;
+	// height: 550px;
+	width: 462px;
+	height: 325px;
 
 	&.hidden {
 		display: none;
@@ -736,6 +739,11 @@ table.sheet {
 			box-shadow: 0 0 0;
 			padding: 2px;
 			z-index: 2;
+			display: none;
+
+			&.show {
+				display: block;
+			}
 
 			&:before {
 				//pointer-events: none;

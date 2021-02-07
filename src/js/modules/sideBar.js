@@ -22,8 +22,8 @@
 				el = $(event.target).addClass("active");
 				
 				pEl = event.el.parent();
-				pEl.find(".body.active").removeClass("active");
-				pEl.find(".body").get(el.index()).addClass("active");
+				pEl.find(".sidebar-body.active").removeClass("active");
+				pEl.find(".sidebar-body").get(el.index()).addClass("active");
 				break;
 		}
 	}

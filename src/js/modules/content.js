@@ -76,8 +76,10 @@
 				width = (event.target.offsetWidth + 5) +"px";
 				height = (event.target.offsetHeight + 5) +"px";
 
-				Self.els.selection.css({ top, left, width, height, });
-				// Self.els.selText.val(el.text()).focus();
+				Self.els.selection
+					.addClass("show")
+					.css({ top, left, width, height, });
+				Self.els.selText.val(el.text()).focus();
 
 				// remember active cell
 				Self.activeEl = el;
