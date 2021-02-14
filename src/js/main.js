@@ -4,7 +4,7 @@
 
 const XLSX = await window.fetch("~/js/xlsx.js")
 
-const numbers = {
+const eniac = {
 	init() {
 		// init renderer
 		Render.init();
@@ -14,7 +14,7 @@ const numbers = {
 			.map(i => this[i].init());
 	},
 	async dispatch(event) {
-		let Self = numbers,
+		let Self = eniac,
 			file,
 			data,
 			workbook,
@@ -68,4 +68,4 @@ const numbers = {
 	content: @import "modules/content.js",
 };
 
-window.exports = numbers;
+window.exports = eniac;

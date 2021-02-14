@@ -1,8 +1,8 @@
 <MenuBar>
-	<Menu name="Numbers">
-		<Menu name="About Numbers" shell="win -a"/>
+	<Menu name="Eniac">
+		<Menu name="About Eniac" shell="win -a"/>
 		<Menu type="divider"/>
-		<Menu name="Quit Numbers" shell="win -c"/>
+		<Menu name="Quit Eniac" shell="win -c"/>
 	</Menu>
 	<Menu name="Table">
 		<Menu name="Header Rows&#8230;" for="table-header-rows">

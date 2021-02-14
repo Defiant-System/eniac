@@ -15,11 +15,11 @@
 		// }, 300);
 
 		// setTimeout(() => {
-		// 	numbers.selection.dispatch({ type: "move-right" });
+		// 	eniac.selection.dispatch({ type: "move-right" });
 		// }, 1000);
 	},
 	dispatch(event) {
-		let APP = numbers,
+		let APP = eniac,
 			Self = APP.content,
 			top, left, width, height,
 			tableTools,

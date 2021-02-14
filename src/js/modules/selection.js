@@ -5,7 +5,7 @@
 		this.el = window.find(".selection");
 	},
 	dispatch(event) {
-		let APP = numbers,
+		let APP = eniac,
 			Self = APP.selection,
 			Content = APP.content,
 			active = Content.activeEl,

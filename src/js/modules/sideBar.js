@@ -7,7 +7,7 @@
 		};
 	},
 	dispatch(event) {
-		let APP = numbers,
+		let APP = eniac,
 			Self = APP.sidebar,
 			pEl,
 			isOn,

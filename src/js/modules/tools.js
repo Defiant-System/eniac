@@ -15,7 +15,7 @@
 		this.els.resizes.on("mousedown", this.resize);
 	},
 	dispatch(event) {
-		let APP = numbers,
+		let APP = eniac,
 			Self = APP.tools,
 			el;
 		switch (event.type) {
@@ -48,7 +48,7 @@
 		}
 	},
 	resize(event) {
-		let APP = numbers,
+		let APP = eniac,
 			Self = APP.tools,
 			Drag = Self.drag,
 			top, left,
@@ -71,7 +71,7 @@
 		}
 	},
 	move(event) {
-		let APP = numbers,
+		let APP = eniac,
 			Self = APP.tools,
 			Drag = Self.drag,
 			top, left,
