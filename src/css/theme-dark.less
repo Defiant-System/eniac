@@ -18,7 +18,7 @@
 		}
 
 		.sidebar-head {
-			background: rgba(0,0,0,.125);
+			background: rgba(0,0,0,.1);
 			color: var( --sidebar-fg );
 			border-bottom-color: var( --sidebar-border );
 
@@ -33,6 +33,20 @@
 			.group-row {
 				&:not(:last-child):after {
 					background: var( --sidebar-border );
+				}
+			}
+
+			.options {
+				background: rgba(0,0,0,.15);
+				border-color: rgba(0,0,0,.15);
+				// box-shadow: 0 1px 1px rgba(0,0,0,0.075);
+
+				> span {
+					border-right-color: rgba(0,0,0,.15);
+
+					&:not(.active) span {
+						filter: invert() drop-shadow(0 1px 0 #333);
+					}
 				}
 			}
 

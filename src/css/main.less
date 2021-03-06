@@ -358,13 +358,11 @@ sidebar {
 		position: relative;
 		overflow: auto;
 
-		input {
-			&[type=radio],
-			&[type=checkbox] {
-				margin: 0 0 11px;
-			}
+		.form-radio_,
+		.form-checkbox_ {
+			margin: 0 0 11px;
 		}
-		
+
 		button {
 			width: calc(100% - 11px);
 			margin-left: 11px;
@@ -742,7 +740,7 @@ table.sheet {
 			right: -29px;
 			cursor: nwse-resize;
 		}
-		
+
 		&.selection {
 			position: absolute;
 			border: 1px solid #3583d0;
