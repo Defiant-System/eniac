@@ -1,10 +1,14 @@
 
-@sidebar_bg: #ececec;
+// for dark theme
+@import "theme-dark";
 
+
+@sidebar_bg: #ececec;
 @layout_outline: #bbb;
 @outline_color: #bbb;
 @table_border: #bbb;
 @sidebar_speed: 280ms;
+
 
 &.focused {
 	sidebar {
@@ -18,6 +22,7 @@
 				}
 			}
 		}
+
 		.sidebar-body {
 			.options {
 				> span:active,
@@ -29,6 +34,7 @@
 					border-color: transparent;
 				}
 			}
+
 			.styles {
 				svg {
 					filter: initial;
@@ -205,6 +211,7 @@ content {
 				width: 1px;
 				background: rgba(0,0,0,0.15);
 			}
+
 			&:not(.active):last-child:after {
 				left: auto;
 				right: 0;
@@ -237,6 +244,7 @@ content {
 			color: #999;
 			border-right: 1px solid @layout_outline;
 		}
+
 		.cell-value {
 			flex: auto;
 			padding: 12px 13px 0;
@@ -299,7 +307,6 @@ sidebar {
 	}
 
 	.sidebar-head {
-		background: #f0f0f0;
 		height: 29px;
 		border-bottom: 1px solid @layout_outline;
 		display: flex;
@@ -717,21 +724,25 @@ table.sheet {
 			left: -29px;
 			cursor: move;
 		}
+
 		&.h-resize {
 			top: -29px;
 			right: -29px;
 			cursor: col-resize;
 		}
+
 		&.v-resize {
 			bottom: -29px;
 			left: -29px;
 			cursor: row-resize;
 		}
+
 		&.resize {
 			bottom: -29px;
 			right: -29px;
 			cursor: nwse-resize;
 		}
+		
 		&.selection {
 			position: absolute;
 			border: 1px solid #3583d0;
@@ -816,6 +827,15 @@ table.sheet {
 				position: relative;
 				text-align: center;
 				vertical-align: middle;
+				background: #fff;
+
+				&:first-child {
+					border-radius: 4px 0 0 4px;
+				}
+
+				&:last-child {
+					border-radius: 0 4px 4px 0;
+				}
 
 				&:before {
 					content: counter(col-counter, upper-alpha);
