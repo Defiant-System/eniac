@@ -42,50 +42,65 @@
 		<path fill="#333" d="M173.712,140.82c5.404-5.984,109.904-120.574,115.593-126.977c5.689-6.402,20.983-11.734,31.297-5.691 c10.314,6.048,18.855,12.453,22.41,16.008s1.779,7.469-2.134,12.092c-3.91,4.625-78.601,99.23-78.601,99.23 s99.943-75.043,104.566-78.246c4.623-3.202,16.004-3.914,21.697,1.777c5.69,5.693,100.658,125.556,104.566,133.733 c3.912,8.179-0.713,25.604-8.895,31.651c-8.18,6.049-117.02,102.082-121.283,105.639c-4.266,3.555-15.294,7.473-23.116-1.066 c-7.823-8.542-160.077-160.028-165.756-165.731C168.378,157.535,168.624,146.452,173.712,140.82z"/>
 	</svg>
 
-	<svg id="icon-justify-left" viewBox="0 0 512 512">
-		<rect fill="#333" x="77" y="78" width="355" height="40"/>
-		<rect fill="#333" x="77" y="155" width="230" height="40"/>
-		<rect fill="#333" x="77" y="233" width="320" height="40"/>
-		<rect fill="#333" x="77" y="311" width="230" height="40"/>
-		<rect fill="#333" x="77" y="389" width="355" height="40"/>
+	<svg id="icon-justify-left" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="3" y="5" class="st0" width="13" height="1"/>
+		<rect x="3" y="7" class="st0" width="9" height="1"/>
+		<rect x="3" y="9" class="st0" width="12" height="1"/>
+		<rect x="3" y="11" class="st0" width="8" height="1"/>
+		<rect x="3" y="13" class="st0" width="13" height="1"/>
 	</svg>
 
-	<svg id="icon-justify-center" viewBox="0 0 512 512">
-		<rect fill="#333" x="77" y="78" width="355" height="40"/>
-		<rect fill="#333" x="160" y="155" width="200" height="40"/>
-		<rect fill="#333" x="120" y="233" width="270" height="40"/>
-		<rect fill="#333" x="160" y="311" width="200" height="40"/>
-		<rect fill="#333" x="77" y="389" width="355" height="40"/>
+	<svg id="icon-justify-center" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="3" y="5" class="st0" width="13" height="1"/>
+		<rect x="5" y="7" class="st0" width="9" height="1"/>
+		<rect x="4" y="9" class="st0" width="11" height="1"/>
+		<rect x="6" y="11" class="st0" width="7" height="1"/>
+		<rect x="3" y="13" class="st0" width="13" height="1"/>
 	</svg>
 
-	<svg id="icon-justify-right" viewBox="0 0 512 512">
-		<rect fill="#333" x="77" y="78" width="355" height="40"/>
-		<rect fill="#333" x="202" y="155" width="230" height="40"/>
-		<rect fill="#333" x="112" y="233" width="320" height="40"/>
-		<rect fill="#333" x="202" y="311" width="230" height="40"/>
-		<rect fill="#333" x="77" y="389" width="355" height="40"/>
+	<svg id="icon-justify-right" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="3" y="5" class="st0" width="13" height="1"/>
+		<rect x="7" y="7" class="st0" width="9" height="1"/>
+		<rect x="5" y="9" class="st0" width="11" height="1"/>
+		<rect x="9" y="11" class="st0" width="7" height="1"/>
+		<rect x="3" y="13" class="st0" width="13" height="1"/>>
 	</svg>
 
-	<svg id="icon-justify-full" viewBox="0 0 512 512">
-		<rect fill="#333" x="77" y="78" width="355" height="40"/>
-		<rect fill="#333" x="77" y="155" width="355" height="40"/>
-		<rect fill="#333" x="77" y="233" width="355" height="40"/>
-		<rect fill="#333" x="77" y="311" width="355" height="40"/>
-		<rect fill="#333" x="77" y="389" width="355" height="40"/>
+	<svg id="icon-justify-full" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="3" y="5" class="st0" width="13" height="1"/>
+		<rect x="3" y="7" class="st0" width="13" height="1"/>
+		<rect x="3" y="9" class="st0" width="13" height="1"/>
+		<rect x="3" y="11" class="st0" width="13" height="1"/>
+		<rect x="3" y="13" class="st0" width="13" height="1"/>
 	</svg>
 
-	<svg id="icon-justify-fit" viewBox="0 0 512 512">
-		<path fill="#333" d="M77,78v40h113.249c4.963-13.64,10.048-26.996,15.229-40H77z"/>
-		<path fill="#333" d="M432,118V78H305.716c5.015,13.002,9.954,26.357,14.792,40H432z"/>
-		<path fill="#333" d="M177.321,155H77v40h87.23c3.649-11.379,7.361-22.774,11.126-34.145C176.006,158.896,176.667,156.952,177.321,155z"/>
-		<path fill="#333" d="M345.947,195H432v-40h-98.854c0.653,1.985,1.311,3.961,1.959,5.955C338.788,172.293,342.404,183.655,345.947,195z"/>
-		<path fill="#333" d="M152.267,233H77v40h63.156c1.857-6.264,3.732-12.537,5.633-18.82C147.913,247.153,150.076,240.088,152.267,233z"/>
-		<path fill="#333" d="M369.205,273H432v-40h-74.452c2.136,7.16,4.238,14.297,6.298,21.395C365.653,260.63,367.437,266.827,369.205,273z"/>
-		<path fill="#333" d="M390.916,351H432v-40h-52.033c3.221,11.518,6.354,22.858,9.383,33.968C389.904,347.005,390.425,349.013,390.916,351z"/>
-		<path fill="#333" d="M129.115,311H77v40h41.093c0.489-1.994,1.007-4.004,1.56-6.031C122.705,333.774,125.864,322.436,129.115,311z"/>
-		<path fill="#333" d="M77,389v40h33.326c0.027-13.193,0.275-26.373,1.512-40H77z"/>
-		<path fill="#333" d="M432,429v-40h-34.754c1.181,13.167,1.405,26.134,1.43,40H432z"/>
-		<text fill="#333" transform="matrix(1 0 0 1 135 409)" font-family="'Verdana'" font-size="350">A</text>
+	<svg id="icon-justify-fit" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="3" y="5" class="st0" width="5.2" height="1"/>
+		<rect x="10.8" y="5" class="st0" width="5.2" height="1"/>
+		<rect x="3" y="7" class="st0" width="4.2" height="1"/>
+		<rect x="11.7" y="7" class="st0" width="4.2" height="1"/>
+		<rect x="3" y="9" class="st0" width="3.6" height="1"/>
+		<rect x="12.4" y="9" class="st0" width="3.6" height="1"/>
+		<rect x="3" y="11" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 8.8092 23)" class="st0" width="2.8" height="1"/>
+		<rect x="13.2" y="11" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 29.1908 23)" class="st0" width="2.8" height="1"/>
+		<rect x="3" y="13" class="st0" width="2" height="1"/>
+		<rect x="14" y="13" class="st0" width="2" height="1"/>
+		<path d="M8.1,11.6L7.3,14h-1l2.6-7.6h1.2l2.6,7.6h-1l-0.8-2.4H8.1z M10.6,10.9L9.9,8.7C9.7,8.2,9.6,7.7,9.5,7.3h0 C9.3,7.7,9.2,8.2,9.1,8.7l-0.7,2.2H10.6z"/>
 	</svg>
 
 	<svg id="icon-big-a" viewBox="0 0 500 500">
