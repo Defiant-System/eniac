@@ -60,6 +60,23 @@
 
 			.cell-type {
 				color: var( --content-fg );
+				border-right-color: rgba(0,0,0,.15);
+			}
+
+			.cell-value {
+				.formula {
+					.formula-method {
+						background: rgba(0,0,0,.15);
+						color: var( --content-fg );
+						border-color: rgba(0,0,0,.15);
+					}
+
+					.formula-value {
+						background: var( --sidebar-bg );
+						border-color: rgba(0,0,0,.15);
+						filter: saturate(1.5) brightness(1.125);
+					}
+				}
 			}
 		}
 	}
