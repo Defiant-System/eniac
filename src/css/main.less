@@ -24,9 +24,9 @@
 		}
 
 		.sidebar-body {
-			.options {
+			.option-buttons_ {
 				> span:active,
-				> span.active {
+				> span.active_ {
 					background: #6da6f9 linear-gradient(#6da6f9 0%, #1a73fb 100%);
 					color: #fff;
 					//--color-1: #fff;
@@ -111,7 +111,7 @@ layout {
 		height: 13px;
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
-		background-size: auto 100%;
+		// background-size: contain;
 
 		&.c13x19 {
 			width: 19px;
@@ -357,10 +357,11 @@ sidebar {
 		flex: auto;
 		position: relative;
 		overflow: auto;
+		font-size: 12px;
 
 		.form-radio_,
 		.form-checkbox_ {
-			margin: 0 0 11px;
+			margin: 0 2px 7px 0;
 		}
 
 		button {
@@ -382,7 +383,7 @@ sidebar {
 
 		.group-row {
 			position: relative;
-			padding: 13px 16px 5px;
+			padding: 13px 16px 7px;
 			margin-bottom: 1px;
 
 			&:not(:last-child):after {
@@ -415,24 +416,36 @@ sidebar {
 					margin: 0;
 					padding-top: 5px;
 				}
+
 				> div {
 					width: 30%;
 
 					&.w30 { width: 33%; }
+					&.w30 + .w63 { padding-top: 0; }
 					&.w48 { width: 48%; }
 					&.w60 { width: 60%; }
 					&.w63 { width: 63%; }
 					&.w73 { width: 73%; }
+
 					&.indent {
 						position: relative;
 						left: -11px;
 					}
-					&.w63.indent {
-						left: -4px;
+
+					&.w63 {
+						.form-checkbox_ {
+							margin-top: 3px;
+
+							& + label { top: 0; }
+						}
+
+						&.indent { left: -4px; }
 					}
+
 					&.borders {
 						width: 83px;
 					}
+
 					&.has-title {
 						position: relative;
 						margin-bottom: 29px;
@@ -449,6 +462,7 @@ sidebar {
 						}
 					}
 				}
+
 				.flex-row {
 					> div {
 						width: 47%;
@@ -456,14 +470,11 @@ sidebar {
 					}
 				}
 			}
+
 			.flex-col {
 				selectbox {
 					margin-bottom: 7px;
 				}
-			}
-			.arrange .options {
-				//--color-1: #55a6f6;
-				//--color-2: #9fafbf;
 			}
 		}
 
@@ -471,63 +482,10 @@ sidebar {
 			margin-bottom: 11px;
 		}
 
-		.options {
-			display: flex;
-			background: #fff;
-			border-radius: 4px;
-			border: 1px solid @outline_color;
-			box-shadow: 0 1px 1px rgba(0,0,0,0.075);
-			margin-bottom: 11px;
-			//--color-1: #333;
-
+		.option-buttons_ {
 			&.has-title {
 				margin-bottom: 29px;
 				color: #333;
-			}
-
-			> span {
-				flex: 1;
-				position: relative;
-				padding: 3px 0 1px;
-				text-align: center;
-				border-right: 1px solid @outline_color;
-
-				&:after {
-					content: attr(title);
-					position: absolute;
-					top: 100%;
-					left: 0;
-					right: 0;
-					text-align: center;
-					margin-top: 5px;
-					font-size: 11px;
-				}
-
-				&:first-child {
-					border-radius: 2px;
-					border-top-right-radius: 0;
-					border-bottom-right-radius: 0;
-				}
-
-				&:last-child {
-					border: 0;
-					border-radius: 2px;
-					border-top-left-radius: 0;
-					border-bottom-left-radius: 0;
-				}
-
-				&.active {
-					background: lighten(@outline_color, 13%);
-					color: #333;
-					//--color-1: #333;
-					box-shadow: 0 0 0 1px @outline_color;
-					border-color: transparent;
-				}
-
-				span {
-					display: inline-block;
-					padding: 1px 0 2px;
-				}
 			}
 		}
 
@@ -545,12 +503,12 @@ sidebar {
 
 			span {
 				//background-color: rgba(0,0,0,0.1);
-				background-size: auto 15px;
+				background-size: 100% auto;
 				display: inline-block;
-				width: 21px;
-				height: 21px;
-				margin: 2px;
-				padding: 4px 0 0 4px;
+				width: 19px;
+				height: 19px;
+				margin: 3px;
+				// padding: 4px 0 0 4px;
 				vertical-align: middle;
 				border-radius: 2px;
 			}

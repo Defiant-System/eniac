@@ -136,77 +136,133 @@
 		<path fill="#55a6f6" d="M504.5,217.5c17.008-30.577,18-130-65.815-122.33l-0.119,37.736l-56.908-57.271l57.271-56.907l-0.117,36.925 C554.5,52.5,546.378,172.524,504.5,217.5z"/>
 	</svg>
 
-	<svg id="icon-gridlines-horizontal" viewBox="0 0 570 390">
-		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
-		<line stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
+
+	<svg id="icon-gridlines-horizontal" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.4;}
+		</style>
+		<rect x="0" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="3" class="st0" width="17" height="1"/>
+		<rect x="18" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="15" class="st0" width="17" height="1"/>
+		<rect x="6" y="4" class="st0" width="1" height="11"/>
+		<rect x="12" y="4" class="st0" width="1" height="11"/>
+		<rect x="1" y="11" width="17" height="1"/>
+		<rect x="1" y="7" width="17" height="1"/>
 	</svg>
 
-	<svg id="icon-gridlines-vertical" viewBox="0 0 570 390">
-		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
+
+	<svg id="icon-gridlines-vertical" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.4;}
+		</style>
+		<rect x="0" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="3" class="st0" width="17" height="1"/>
+		<rect x="18" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="15" class="st0" width="17" height="1"/>
+		<rect x="6" y="4" width="1" height="11"/>
+		<rect x="12" y="4" width="1" height="11"/>
+		<rect x="1" y="11" class="st0" width="17" height="1"/>
+		<rect x="1" y="7" class="st0" width="17" height="1"/>
 	</svg>
 
-	<svg id="icon-row-gridlines" viewBox="0 0 570 390">
-		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
-		<rect opacity="0.15" x="13" y="13" fill="#fff" width="184" height="364"/>
-		<line stroke="#fff" stroke-width="26" x1="9" y1="131" x2="197" y2="131"/>
-		<line stroke="#fff" stroke-width="26" x1="9" y1="257" x2="197" y2="257"/>
+	<svg id="icon-row-gridlines" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.4;}
+			.st1{opacity:.3;}
+		</style>
+		<rect x="0" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="3" class="st0" width="17" height="1"/>
+		<rect x="18" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="15" class="st0" width="17" height="1"/>
+		<rect x="6" y="4" class="st0" width="1" height="11"/>
+		<rect x="12" y="4" class="st0" width="1" height="11"/>
+		<rect x="7" y="11" class="st0" width="11" height="1"/>
+		<rect x="7" y="7" class="st0" width="11" height="1"/>
+		<rect x="1" y="4" class="st1" width="5" height="11"/>
+		<rect x="0" y="7" width="7" height="1"/>
+		<rect x="0" y="11" width="7" height="1"/>
 	</svg>
 
-	<svg id="icon-column-gridlines" viewBox="0 0 570 390">
-		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
-		<rect opacity="0.15" x="13" y="13" fill="#fff" width="544" height="118"/>
-		<line stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="131"/>
-		<line stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="131"/>
+	<svg id="icon-column-gridlines" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.4;}
+			.st1{opacity:.3;}
+		</style>
+		<rect x="0" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="3" class="st0" width="17" height="1"/>
+		<rect x="18" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="15" class="st0" width="17" height="1"/>
+		<rect x="6" y="8" class="st0" width="1" height="7"/>
+		<rect x="12" y="8" class="st0" width="1" height="7"/>
+		<rect x="1" y="11" class="st0" width="17" height="1"/>
+		<rect x="1" y="7" class="st0" width="17" height="1"/>
+		<rect x="1" y="4" class="st1" width="17" height="3"/>
+		<rect x="6" y="3" width="1" height="5"/>
+		<rect x="12" y="3" width="1" height="5"/>
 	</svg>
 
-	<svg id="icon-footer-gridlines" viewBox="0 0 570 390">
-		<rect opacity="0.4" x="13" y="13" fill="none" stroke="#fff" stroke-width="26" width="544" height="364"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="131" x2="557" y2="131"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="9" y1="257" x2="557" y2="257"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="197" y1="13" x2="197" y2="377"/>
-		<line opacity="0.4" stroke="#fff" stroke-width="26" x1="375" y1="13" x2="375" y2="377"/>
-		<rect opacity="0.15" x="13" y="257" fill="#fff" width="544" height="118"/>
-		<line stroke="#fff" stroke-width="26" x1="197" y1="259" x2="197" y2="377"/>
-		<line stroke="#fff" stroke-width="26" x1="375" y1="259" x2="375" y2="377"/>
+	<svg id="icon-footer-gridlines" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.4;}
+			.st1{opacity:.3;}
+		</style>
+		<rect x="0" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="3" class="st0" width="17" height="1"/>
+		<rect x="18" y="3" class="st0" width="1" height="13"/>
+		<rect x="1" y="15" class="st0" width="17" height="1"/>
+		<rect x="6" y="4" class="st0" width="1" height="7"/>
+		<rect x="12" y="4" class="st0" width="1" height="7"/>
+		<rect x="1" y="11" class="st0" width="17" height="1"/>
+		<rect x="1" y="7" class="st0" width="17" height="1"/>
+		<rect x="1" y="12" class="st1" width="17" height="3"/>
+		<rect x="6" y="11" width="1" height="5"/>
+		<rect x="12" y="11" width="1" height="5"/>
 	</svg>
 
-	<svg id="icon-column-cells" viewBox="0 0 480 390">
-		<rect x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="454" height="364"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="13" y1="195" x2="467" y2="195"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="165" y1="13" x2="165" y2="377"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="318" y1="17" x2="318" y2="377"/>
-		<rect fill="#333" x="13" y="15" opacity="0.25" width="152" height="364"/>
+	<svg id="icon-column-cells" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#666;}
+			.st1{opacity:.3;}
+		</style>
+		<rect y="4" class="st0" width="19" height="1"/>
+		<rect y="14" class="st0" width="19" height="1"/>
+		<rect y="5" class="st0" width="1" height="9.1"/>
+		<rect x="18" y="5" class="st0" width="1" height="9.1"/>
+		<rect x="6" y="5" class="st0" width="1" height="9"/>
+		<rect x="12" y="5" class="st0" width="1" height="9"/>
+		<rect x="1" y="9" class="st0" width="17" height="1"/>
+		<rect x="1" y="5" class="st1" width="5" height="9"/>
 	</svg>
 
-	<svg id="icon-row-cells" viewBox="0 0 480 390">
-		<rect x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="454" height="364"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="13" y1="195" x2="467" y2="195"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="165" y1="13" x2="165" y2="377"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="318" y1="17" x2="318" y2="377"/>
-		<rect opacity="0.25" fill="#333" x="13" y="13" width="454" height="182"/>
+	<svg id="icon-row-cells" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#666;}
+			.st1{opacity:.3;}
+		</style>
+		<rect y="4" class="st0" width="19" height="1"/>
+		<rect y="14" class="st0" width="19" height="1"/>
+		<rect y="5" class="st0" width="1" height="9.1"/>
+		<rect x="18" y="5" class="st0" width="1" height="9.1"/>
+		<rect x="6" y="9" class="st0" width="1" height="5"/>
+		<rect x="12" y="9" class="st0" width="1" height="5"/>
+		<rect x="1" y="9" class="st0" width="17" height="1"/>
+		<rect x="1" y="5" class="st1" width="17" height="4"/>
 	</svg>
 
-	<svg id="icon-foot-cells" viewBox="0 0 480 390">
-		<rect x="13" y="13" fill="none" stroke="#333" stroke-width="26" width="454" height="364"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="13" y1="195" x2="467" y2="195"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="165" y1="13" x2="165" y2="377"/>
-		<line fill="none" stroke="#333" stroke-width="26" x1="318" y1="17" x2="318" y2="377"/>
-		<rect opacity="0.25" fill="#333" x="13" y="193" width="454" height="182"/>
+	<svg id="icon-foot-cells" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#666;}
+			.st1{opacity:.3;}
+		</style>
+		<rect y="4" class="st0" width="19" height="1"/>
+		<rect y="14" class="st0" width="19" height="1"/>
+		<rect y="5" class="st0" width="1" height="9.1"/>
+		<rect x="18" y="5" class="st0" width="1" height="9.1"/>
+		<rect x="6" y="5" class="st0" width="1" height="5"/>
+		<rect x="12" y="5" class="st0" width="1" height="5"/>
+		<rect x="1" y="9" class="st0" width="17" height="1"/>
+		<rect x="1" y="10" class="st1" width="17" height="4"/>
 	</svg>
 
 	<svg id="icon-valign-top" viewBox="0 0 500 500">
@@ -233,65 +289,109 @@
 		<line fill="none" stroke="#333" stroke-width="40" x1="269.5" y1="392" x2="162.627" y2="285.127"/>
 	</svg>
 
-	<svg id="icon-border-1" viewBox="0 0 450 450">
-		<rect x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
+	<svg id="icon-border-1" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" width="15" height="1"/>
+		<rect x="3" y="9" class="st0" width="13" height="1"/>
+		<rect x="2" y="16" width="15" height="1"/>
+		<rect x="2" y="3" width="1" height="13"/>
+		<rect x="16" y="3" width="1" height="13"/>
+		<rect x="9" y="3" class="st0" width="1" height="13"/>
 	</svg>
 
-	<svg id="icon-border-2" viewBox="0 0 450 450">
-		<rect opacity="0.25" x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
+	<svg id="icon-border-2" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" class="st0" width="15" height="1"/>
+		<rect x="3" y="9" class="st1" width="13" height="1"/>
+		<rect x="2" y="16" class="st0" width="15" height="1"/>
+		<rect x="2" y="3" class="st0" width="1" height="13"/>
+		<rect x="16" y="3" class="st0" width="1" height="13"/>
+		<rect x="9" y="3" width="1" height="13"/>
 	</svg>
 
-	<svg id="icon-border-3" viewBox="0 0 450 450">
-		<rect x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
+	<svg id="icon-border-3" viewBox="0 0 19 19">
+		<rect x="2" y="2" width="15" height="1"/>
+		<rect x="3" y="9" width="13" height="1"/>
+		<rect x="2" y="16" width="15" height="1"/>
+		<rect x="2" y="3" width="1" height="13"/>
+		<rect x="16" y="3" width="1" height="13"/>
+		<rect x="9" y="3" width="1" height="13"/>
 	</svg>
 
-	<svg id="icon-border-4" viewBox="0 0 450 450">
-		<rect opacity="0.25" x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
-		<line stroke="#333" stroke-width="30" x1="15" y1="15" x2="15" y2="435"/>
+	<svg id="icon-border-4" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" class="st0" width="15" height="1"/>
+		<rect x="3" y="9" class="st0" width="13" height="1"/>
+		<rect x="2" y="16" class="st0" width="15" height="1"/>
+		<rect x="2" y="2" width="1" height="15"/>
+		<rect x="16" y="3" class="st0" width="1" height="13"/>
+		<rect x="9" y="3" class="st0" width="1" height="13"/>
 	</svg>
 
-	<svg id="icon-border-5" viewBox="0 0 450 450">
-		<rect opacity="0.25" x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
-		<line stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
+	<svg id="icon-border-5" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" class="st0" width="15" height="1"/>
+		<rect x="3" y="9" class="st0" width="13" height="1"/>
+		<rect x="2" y="16" class="st0" width="15" height="1"/>
+		<rect x="2" y="2" class="st0" width="1" height="15"/>
+		<rect x="16" y="2" class="st0" width="1" height="15"/>
+		<rect x="9" y="2" width="1" height="15"/>
 	</svg>
 
-	<svg id="icon-border-6" viewBox="0 0 450 450">
-		<rect opacity="0.25" x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
-		<line stroke="#333" stroke-width="30" x1="435" y1="15" x2="435" y2="435"/>
+	<svg id="icon-border-6" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" class="st0" width="15" height="1"/>
+		<rect x="3" y="9" class="st0" width="13" height="1"/>
+		<rect x="2" y="16" class="st0" width="15" height="1"/>
+		<rect x="2" y="2" class="st0" width="1" height="15"/>
+		<rect x="16" y="2" width="1" height="15"/>
+		<rect x="9" y="3" class="st0" width="1" height="13"/>
 	</svg>
 
-
-	<svg id="icon-border-7" viewBox="0 0 450 450">
-		<rect opacity="0.25" x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
-		<line stroke="#333" stroke-width="30" x1="435" y1="15" x2="15" y2="15"/>
+	<svg id="icon-border-7" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" width="15" height="1"/>
+		<rect x="3" y="9" class="st0" width="13" height="1"/>
+		<rect x="2" y="16" class="st0" width="15" height="1"/>
+		<rect x="2" y="2" class="st0" width="1" height="15"/>
+		<rect x="16" y="2" class="st0" width="1" height="15"/>
+		<rect x="9" y="3" class="st0" width="1" height="13"/>
 	</svg>
 
-	<svg id="icon-border-8" viewBox="0 0 450 450">
-		<rect opacity="0.25" x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
-		<line stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
+	<svg id="icon-border-8" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" class="st0" width="15" height="1"/>
+		<rect x="2" y="9" width="15" height="1"/>
+		<rect x="2" y="16" class="st0" width="15" height="1"/>
+		<rect x="2" y="2" class="st0" width="1" height="15"/>
+		<rect x="16" y="2" class="st0" width="1" height="15"/>
+		<rect x="9" y="3" class="st0" width="1" height="13"/>
 	</svg>
 
-	<svg id="icon-border-9" viewBox="0 0 450 450">
-		<rect opacity="0.25" x="15" y="15" fill="none" stroke="#333" stroke-width="30" width="420" height="420"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="225" y1="15" x2="225" y2="435"/>
-		<line opacity="0.25" stroke="#333" stroke-width="30" x1="435" y1="225" x2="15" y2="225"/>
-		<line stroke="#333" stroke-width="30" x1="435" y1="435" x2="15" y2="435"/>
+	<svg id="icon-border-9" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.3;}
+		</style>
+		<rect x="2" y="2" class="st0" width="15" height="1"/>
+		<rect x="3" y="9" class="st0" width="13" height="1"/>
+		<rect x="2" y="16" width="15" height="1"/>
+		<rect x="2" y="2" class="st0" width="1" height="15"/>
+		<rect x="16" y="2" class="st0" width="1" height="15"/>
+		<rect x="9" y="3" class="st0" width="1" height="13"/>
 	</svg>
 
 	<svg id="icon-table-style-1" viewBox="0 0 780 580">
