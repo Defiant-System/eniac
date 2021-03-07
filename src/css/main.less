@@ -183,15 +183,20 @@ content {
 			height: 100%;
 			text-align: center;
 			user-select: none;
+			cursor: pointer;
 
 			&.active {
 				background: #d6e6fb;
 				color: #4591e8;
+				cursor: default;
 
 				+ span:before {
 					display: none;
 				}
 			}
+
+			&:hover:not(.active) { color: #333; }
+			&:active:not(.active) { color: #111; }
 
 			&:first-child {
 				padding: 5.5px 17px 0;
@@ -218,7 +223,6 @@ content {
 			}
 
 			&.icon-add {
-				cursor: pointer;
 				opacity: .5;
 
 				&:hover { opacity: 1; }
