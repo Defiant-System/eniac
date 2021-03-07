@@ -117,7 +117,7 @@ layout {
 			width: 19px;
 			height: 13px;
 		}
-		&.icon-add { background-size: auto 67%; }
+		&.icon-add { background-size: 13px 13px; }
 	}
 
 	.icon-small-a              { background-image: url(~/icons/icon-small-a.png); }
@@ -215,6 +215,14 @@ content {
 			&:not(.active):last-child:after {
 				left: auto;
 				right: 0;
+			}
+
+			&.icon-add {
+				cursor: pointer;
+				opacity: .5;
+
+				&:hover { opacity: 1; }
+				&:active { opacity: .75; }
 			}
 		}
 	}
