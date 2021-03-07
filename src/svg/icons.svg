@@ -1,45 +1,72 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
-	<svg id="icon-sidebar" viewBox="0 0 500 500">
-		<path fill="#333" d="M480,40H20C8.954,40,0,48.954,0,60v380c0,11.046,8.954,20,20,20h460c11.046,0,20-8.954,20-20V60 C500,48.954,491.046,40,480,40z M40,80h120v340H40V80z M460,420H200V80h260V420z"/>
-		<rect fill="#333" x="70" y="120" width="50" height="50"/>
-		<rect fill="#333" x="70" y="210" width="50" height="50"/>
+	<svg id="icon-sidebar" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<path class="st0" d="M11,2H6H5H2H1v1v7v1h1h3h1h5h1v-1V3V2H11z M2,10V3h3v7H2z M11,10H6V3h5V10z"/>
+		<rect x="3" y="4" class="st0" width="1" height="1"/>
+		<rect x="3" y="6" class="st0" width="1" height="1"/>
 	</svg>
 
-	<svg id="icon-formula" viewBox="0 0 500 500">
-		<path fill="#333" d="M353.045,245.455h-81.301v-85.296c0-11.157-9.041-20.199-20.196-20.199s-20.199,9.042-20.199,20.199v85.296h-81.298 c-11.155,0-20.198,9.043-20.198,20.198s9.043,20.199,20.198,20.199h81.298v86.296c0,11.157,9.044,20.198,20.199,20.198 s20.196-9.041,20.196-20.198v-86.296h81.301c11.152,0,20.196-9.044,20.196-20.199S364.197,245.455,353.045,245.455z"/>
-		<path fill="#333" d="M503.773,383.025V100.572c0-11.155-9.043-20.197-20.2-20.197H67.498c-8.135-18.134-26.346-30.803-47.473-30.803 c-28.68,0-52.012,23.331-52.012,52.012c0,21.126,12.669,39.336,30.803,47.473v283.689c0,11.153,9.043,20.196,20.197,20.196h417.043 c8.347,17.596,26.279,29.793,47.014,29.793c28.677,0,52.011-23.334,52.011-52.011C535.081,409.403,522.177,391.044,503.773,383.025z  M-1.689,101.584c0-11.975,9.742-21.713,21.715-21.713c1.584,0,3.126,0.18,4.615,0.504c9.761,2.124,17.098,10.82,17.098,21.209 c0,11.973-9.74,21.713-21.713,21.713c-10.389,0-19.085-7.337-21.209-17.1C-1.508,104.709-1.689,103.168-1.689,101.584z  M434.345,412.547H39.214V149.909c13.263-5.285,23.852-15.874,29.138-29.138h395.024v261.826 C450.013,388.088,439.422,398.979,434.345,412.547z M500.921,443.06c-3.927,5.66-10.461,9.378-17.851,9.378 c-11.974,0-21.715-9.737-21.715-21.713c0-11.972,9.741-21.714,21.715-21.714c9.693,0,17.92,6.391,20.703,15.176 c0.651,2.065,1.01,4.263,1.01,6.538C504.783,435.304,503.35,439.555,500.921,443.06z"/>
+	<svg id="icon-formula" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<polygon class="st0" points="9,6 7,6 7,4 6,4 6,6 4,6 4,7 6,7 6,9 7,9 7,7 9,7 "/>
+		<path class="st0" d="M12,9.1V3V2h-1H2.9C2.7,1.4,2.2,1,1.5,1C0.7,1,0,1.7,0,2.5c0,0.7,0.4,1.2,1,1.4V10v1h1h8.1c0.2,0.6,0.8,1,1.4,1 c0.8,0,1.5-0.7,1.5-1.5C13,9.8,12.6,9.3,12,9.1z M1.5,2C1.8,2,2,2.2,2,2.5S1.8,3,1.5,3S1,2.8,1,2.5S1.2,2,1.5,2z M2,3.9 C2.4,3.8,2.8,3.4,2.9,3H11v6.1c-0.4,0.2-0.8,0.5-0.9,0.9H2V3.9z M11.5,11c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5s0.5,0.2,0.5,0.5 S11.8,11,11.5,11z"/>
 	</svg>
 
-	<svg id="icon-table" viewBox="0 0 500 500">
-		<rect fill="#333" y="42.468" width="223.215" height="101.205"/>
-		<rect fill="#333" x="276.785" y="42.468" width="223.215" height="101.205"/>
-		<rect fill="#333" y="199.897" width="223.215" height="101.206"/>
-		<rect fill="#333" x="276.785" y="199.897" width="223.215" height="101.206"/>
-		<rect fill="#333" y="357.327" width="223.215" height="101.204"/>
-		<rect fill="#333" x="276.785" y="357.327" width="223.215" height="101.204"/>
+	<svg id="icon-table" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="1" y="1" class="st0" width="5" height="3"/>
+		<rect x="7" y="1" class="st0" width="5" height="3"/>
+		<rect x="1" y="5" class="st0" width="5" height="3"/>
+		<rect x="7" y="5" class="st0" width="5" height="3"/>
+		<rect x="1" y="9" class="st0" width="5" height="3"/>
+		<rect x="7" y="9" class="st0" width="5" height="3"/>
 	</svg>
 
-	<svg id="icon-chart" viewBox="0 0 500 500">
-		<rect fill="#333" x="361" y="39.5" width="139" height="421"/>
-		<rect fill="#333" x="180.5" y="149.5" width="139" height="311"/>
-		<rect fill="#333" y="279.5" width="139" height="181"/>
+	<svg id="icon-chart" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="1" y="7" class="st0" width="3" height="5"/>
+		<rect x="5" y="4" class="st0" width="3" height="8"/>
+		<rect x="9" y="1" class="st0" width="3" height="11"/>
 	</svg>
 
-	<svg id="icon-text" viewBox="0 0 500 500">
-		<polygon fill="#333" points="500,34.5 0,34.5 0,119.5 207.5,119.5 207.5,500 292.5,500 292.5,119.5 500,119.5"/>
+	<svg id="icon-text" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="5" y="1" class="st0" width="3" height="11"/>
+		<rect x="1" y="1" class="st0" width="11" height="2"/>
 	</svg>
 
-	<svg id="icon-image" viewBox="0 0 500 500">
-		<rect fill="#333" y="70" width="500" height="345"/>
+	<svg id="icon-image" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<polygon class="st0" points="11,7.2 8.3,4.6 5.1,7.8 4.1,6.8 2,8.8 2,10 11,10 "/>
+		<path class="st0" d="M0,2v1v8v1h13v-1V3V2H0z M12,11H1V3h11V11z"/>
+		<path class="st0" d="M3.2,6.4c0.7,0,1.2-0.5,1.2-1.2C4.5,4.5,3.9,4,3.2,4C2.6,4,2,4.5,2,5.2C2,5.9,2.6,6.4,3.2,6.4z"/>
 	</svg>
 
-	<svg id="icon-chevron-down" viewBox="0 0 1024 1024">
-		<path fill="#27d" d="M978.511 367.46l-439.767 439.174c-14.817 14.817-38.524 14.817-53.341 0l-439.767-439.174c-14.817-14.817-14.817-39.117 0-53.934l98.384-97.792c14.817-14.817 38.524-14.817 53.341 0l314.712 314.712 314.712-314.712c14.817-14.817 38.524-14.817 53.341 0l98.384 97.792c14.817 14.817 14.817 39.117 0 53.934z"/>
+	<svg id="icon-chevron-down" viewBox="0 0 14 14">
+		<style type="text/css">
+			.st0{fill:#27d;}
+		</style>
+		<polygon class="st0" points="11.7,4.2 7,8.9 2.3,4.2 1,5.6 5.7,10.2 7,11.6 8.3,10.2 13,5.6 "/>
 	</svg>
 
-	<svg id="icon-format" viewBox="0 0 500 500">
-		<path fill="#333" d="M219.95,354.929c37.764,19.827,55.848,50.863,104.217,2.493c-44.106-44.106-182.104-182.105-182.104-182.105 c-37.351,37.35-27.747,62.599-0.007,101.011c26.344,36.472-46.23,74.692-62.592,85.362C63.099,372.36,5.919,405.058,5.485,439.935 c-0.358,28.811,28.68,56.823,55.125,54.417c31.299-2.846,60.104-44.454,79.314-75.043 C159.133,388.718,186.442,337.336,219.95,354.929z M44.967,454.512c-7.265-7.266-7.262-19.045,0.003-26.311 c7.264-7.263,19.043-7.264,26.307,0c7.269,7.269,7.269,19.049,0.006,26.313C64.017,461.779,52.237,461.779,44.967,454.512z"/>
-		<path fill="#333" d="M173.712,140.82c5.404-5.984,109.904-120.574,115.593-126.977c5.689-6.402,20.983-11.734,31.297-5.691 c10.314,6.048,18.855,12.453,22.41,16.008s1.779,7.469-2.134,12.092c-3.91,4.625-78.601,99.23-78.601,99.23 s99.943-75.043,104.566-78.246c4.623-3.202,16.004-3.914,21.697,1.777c5.69,5.693,100.658,125.556,104.566,133.733 c3.912,8.179-0.713,25.604-8.895,31.651c-8.18,6.049-117.02,102.082-121.283,105.639c-4.266,3.555-15.294,7.473-23.116-1.066 c-7.823-8.542-160.077-160.028-165.756-165.731C168.378,157.535,168.624,146.452,173.712,140.82z"/>
+	<svg id="icon-format" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<path class="st0" d="M5.8,8.9C6.7,9.3,7.1,10,8.2,8.9c-1-1-4.1-4.1-4.1-4.1c-0.8,0.8-0.6,1.4,0,2.3C4.7,7.9,3,8.8,2.7,9 C2.3,9.2,1,10,1,10.8C1,11.4,1.7,12,2.2,12c0.7-0.1,1.4-1,1.8-1.7C4.5,9.6,5.1,8.5,5.8,8.9z M1.9,11.1c-0.2-0.2-0.2-0.4,0-0.6 c0.2-0.2,0.4-0.2,0.6,0c0.2,0.2,0.2,0.4,0,0.6C2.3,11.3,2.1,11.3,1.9,11.1z"/>
+		<path class="st0" d="M4.8,4c0.1-0.1,2.5-2.7,2.6-2.9C7.5,1,7.9,0.9,8.1,1.1c0.2,0.1,0.4,0.3,0.5,0.4s0,0.2,0,0.3 C8.5,1.8,6.8,3.9,6.8,3.9S9,2.2,9.1,2.2c0.1-0.1,0.4-0.1,0.5,0c0.1,0.1,2.3,2.8,2.3,3c0.1,0.2,0,0.6-0.2,0.7C11.6,6.1,9.1,8.2,9,8.3 c-0.1,0.1-0.3,0.2-0.5,0C8.3,8.1,4.9,4.7,4.8,4.6C4.7,4.4,4.7,4.2,4.8,4z"/>
 	</svg>
 
 	<svg id="icon-justify-left" viewBox="0 0 19 19">
@@ -301,7 +328,7 @@
 
 	<svg id="icon-valign-top" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{fill:#333333;}
+			.st0{fill:#333;}
 			.st1{opacity:.35;}
 		</style>
 		<rect x="9" y="6" class="st1" width="1" height="9"/>
@@ -312,7 +339,7 @@
 
 	<svg id="icon-valign-middle" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{fill:#333333;}
+			.st0{fill:#333;}
 			.st1{opacity:.35;}
 		</style>
 		<rect x="9" y="2" class="st1" width="1" height="6"/>
@@ -326,7 +353,7 @@
 
 	<svg id="icon-valign-bottom" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{fill:#333333;}
+			.st0{fill:#333;}
 			.st1{opacity:.35;}
 		</style>
 		<rect x="9" y="4" class="st1" width="1" height="9"/>
@@ -440,30 +467,48 @@
 		<rect x="9" y="3" class="st0" width="1" height="13"/>
 	</svg>
 
-	<svg id="icon-table-style-1" viewBox="0 0 780 580">
-		<rect x="4" y="4" fill="#fff" stroke="#000" stroke-width="8" width="760" height="560"/>
-		<line opacity="0.75" stroke="#000" stroke-width="8" x1="0" y1="116" x2="768" y2="116"/>
-		<line opacity="0.25" stroke="#000" stroke-width="8" x1="0" y1="226" x2="768" y2="226"/>
-		<line opacity="0.25" stroke="#000" stroke-width="8" x1="0" y1="336" x2="768" y2="336"/>
-		<line opacity="0.75" stroke="#000" stroke-width="8" x1="0" y1="454" x2="768" y2="454"/>
-		<line opacity="0.25" stroke="#000" stroke-width="8" x1="194" y1="0" x2="194" y2="564"/>
-		<line opacity="0.25" stroke="#000" stroke-width="8" x1="384" y1="0" x2="384" y2="564"/>
-		<line opacity="0.25" stroke="#000" stroke-width="8" x1="574" y1="0" x2="574" y2="564"/>
-		<line opacity="0.75" stroke="#000" stroke-width="8" x1="194" y1="116" x2="194" y2="454"/>
-		<rect opacity="0.25" x="4" y="4" fill="#333" width="760" height="112"/>
-		<rect opacity="0.25" x="4" y="116" fill="#888" width="190" height="338"/>
-		<rect opacity="0.25" x="4" y="454" fill="#ccc" width="760" height="110"/>
+	<svg id="icon-table-style-1" viewBox="0 0 77 56">
+		<style type="text/css">
+			.st0{fill:#77777770;}
+			.st1{fill:#CCCCCC70;}
+			.st2{fill:#aaaaaa70;}
+			.st3{fill:#999;}
+		</style>
+		<rect x="1" y="1" class="st0" width="75" height="10"/>
+		<rect x="1" y="45" class="st1" width="75" height="10"/>
+		<rect x="1" y="12" class="st2" width="18" height="32"/>
+		<rect x="0" y="22" class="st3" width="77" height="1"/>
+		<rect x="0" y="33" class="st3" width="77" height="1"/>
+		<rect x="19" class="st3" width="1" height="56"/>
+		<rect x="38" class="st3" width="1" height="56"/>
+		<rect x="57" class="st3" width="1" height="56"/>
+		<rect x="0" width="77" height="1"/>
+		<rect x="0" width="1" height="56"/>
+		<rect x="76" width="1" height="56"/>
+		<rect x="0" y="55" width="77" height="1"/>
+		<rect x="0" y="11" width="77" height="1"/>
+		<rect x="0" y="44" width="77" height="1"/>
+		<rect x="19" y="12" width="1" height="32"/>
 	</svg>
 
-	<svg id="icon-table-style-2" viewBox="0 0 780 580">
-		<rect x="4" y="4" fill="#fff" stroke="#000" stroke-width="8" width="760" height="560"/>
-		<line opacity="0.75" stroke="#000" stroke-width="8" x1="0" y1="116" x2="768" y2="116"/>
-		<line opacity="0.15" stroke="#000" stroke-width="8" x1="0" y1="226" x2="768" y2="226"/>
-		<line opacity="0.15" stroke="#000" stroke-width="8" x1="0" y1="336" x2="768" y2="336"/>
-		<line opacity="0.75" stroke="#000" stroke-width="8" x1="0" y1="454" x2="768" y2="454"/>
-		<line stroke="#000" stroke-width="8" x1="194" y1="116" x2="194" y2="454"/>
-		<rect opacity="0.75" x="4" y="116" fill="#17b" width="190" height="338"/>
-		<rect opacity="0.25" x="194" y="226" fill="#ccc" width="570" height="110"/>
+	<svg id="icon-table-style-2" viewBox="0 0 77 56">
+		<style type="text/css">
+			.st0{fill:#FFFFFF;}
+			.st1{fill:#4D4D4D70;}
+			.st2{fill:#3FA9F570;}
+		</style>
+		<rect x="1" y="1" class="st0" width="75" height="10"/>
+		<rect x="1" y="45" class="st0" width="75" height="10"/>
+		<rect x="0" y="22" class="st1" width="77" height="1"/>
+		<rect x="0" y="33" class="st1" width="77" height="1"/>
+		<rect x="0" width="77" height="1"/>
+		<rect x="0" width="1" height="56"/>
+		<rect x="76" width="1" height="56"/>
+		<rect x="0" y="55" width="77" height="1"/>
+		<rect x="0" y="11" width="77" height="1"/>
+		<rect x="0" y="44" width="77" height="1"/>
+		<rect x="19" y="12" width="1" height="32"/>
+		<rect x="1" y="12" class="st2" width="18" height="32"/>
 	</svg>
 
 	<svg id="icon-table-style-3" viewBox="0 0 780 580">
