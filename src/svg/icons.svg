@@ -111,46 +111,66 @@
 		<text fill="#333" stroke="#333" stroke-width="20" transform="matrix(1 0 0 1 70 443)" font-family="'ArialMT'" font-size="415">A</text>
 	</svg>
 
-	<svg id="icon-bold" viewBox="0 0 500 500">
-		<text fill="#333" transform="matrix(1 0 0 1 77 442)" font-family="'Arial-BoldMT'" font-size="494">B</text>
+	<svg id="icon-bold" viewBox="0 0 19 19">
+		<path d="M5.7,5h3.6c0.7,0,1.2,0,1.6,0.1s0.7,0.2,0.9,0.4c0.3,0.2,0.5,0.4,0.7,0.8s0.3,0.7,0.3,1.1c0,0.4-0.1,0.8-0.3,1.2 C12.3,8.8,12,9,11.6,9.2c0.6,0.2,1,0.4,1.3,0.8c0.3,0.4,0.4,0.8,0.4,1.4c0,0.4-0.1,0.8-0.3,1.2c-0.2,0.4-0.5,0.7-0.8,0.9 c-0.3,0.2-0.7,0.4-1.2,0.4c-0.3,0-1,0.1-2.2,0.1H5.7V5z M7.5,6.5v2.1h1.2c0.7,0,1.2,0,1.3,0c0.3,0,0.6-0.1,0.7-0.3 C11,8,11.1,7.8,11.1,7.5c0-0.3-0.1-0.5-0.2-0.7s-0.4-0.3-0.7-0.3c-0.2,0-0.7,0-1.6,0H7.5z M7.5,10.1v2.4h1.7c0.7,0,1.1,0,1.3-0.1 c0.3,0,0.5-0.2,0.7-0.4c0.2-0.2,0.3-0.4,0.3-0.8c0-0.3-0.1-0.5-0.2-0.7s-0.3-0.3-0.6-0.4c-0.2-0.1-0.8-0.1-1.6-0.1H7.5z"/>
 	</svg>
 
-	<svg id="icon-italic" viewBox="0 0 500 500">
-		<text fill="#333" transform="matrix(1 0 0 1 161 442)" font-family="'Arial-BoldItalicMT'" font-size="494">I</text>
+	<svg id="icon-italic" viewBox="0 0 19 19">
+		<path d="M8,14l1.9-9H11l-1.9,9H8z"/>
+		<rect x="8.2" y="5" width="4" height="1"/>
+		<rect x="6.7" y="13" width="4" height="1"/>
 	</svg>
 
-	<svg id="icon-underline" viewBox="0 0 500 500">
-		<text fill="#333" transform="matrix(1 0 0 1 115 365)" font-family="'Arial-BoldMT'" font-size="384">U</text>
-		<rect fill="#333" x="110" y="389" width="280" height="40"/>
+	<svg id="icon-underline" viewBox="0 0 19 19">
+		<rect x="6" y="13" width="7" height="1"/>
+		<path d="M11,5v4.5c0,0.8-0.7,1.5-1.5,1.5S8,10.3,8,9.5V5H7v4.5C7,10.8,8.1,12,9.5,12c1.4,0,2.5-1.1,2.5-2.5V5H11z"/>
 	</svg>
 
-	<svg id="icon-strike" viewBox="0 0 500 500">
-		<text fill="#333" stroke="#333" stroke-width="30" transform="matrix(1 0 0 1 161 442)" font-family="'ArialMT'" font-size="454">S</text>
-		<rect fill="#333" x="110" y="235" width="450" height="40"/>
+	<svg id="icon-strike" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{opacity:.7;}
+		</style>
+		<rect x="4" y="9" width="11" height="1"/>
+		<path class="st0" d="M6.1,11l1.1-0.1c0.1,0.4,0.2,0.8,0.4,1.1s0.5,0.5,0.9,0.7s0.8,0.3,1.3,0.3c0.4,0,0.8-0.1,1.1-0.2s0.6-0.3,0.7-0.5 s0.2-0.5,0.2-0.7c0-0.3-0.1-0.5-0.2-0.7s-0.4-0.4-0.8-0.5c-0.2-0.1-0.7-0.2-1.5-0.4S7.9,9.5,7.6,9.3C7.2,9.1,6.9,8.8,6.7,8.5 S6.4,7.8,6.4,7.4c0-0.4,0.1-0.8,0.4-1.2s0.6-0.7,1.1-0.9s1-0.3,1.6-0.3c0.6,0,1.2,0.1,1.7,0.3s0.9,0.5,1.1,0.9s0.4,0.8,0.4,1.4 l-1.1,0.1c-0.1-0.5-0.3-1-0.6-1.2s-0.8-0.4-1.5-0.4C8.8,6.1,8.3,6.2,8,6.4S7.5,7,7.5,7.3c0,0.3,0.1,0.6,0.3,0.8 c0.2,0.2,0.8,0.4,1.7,0.6s1.6,0.4,1.9,0.5c0.5,0.2,0.9,0.5,1.1,0.9s0.4,0.8,0.4,1.2c0,0.5-0.1,0.9-0.4,1.3s-0.6,0.7-1.1,0.9 s-1,0.3-1.7,0.3c-0.8,0-1.4-0.1-2-0.3s-0.9-0.6-1.2-1C6.3,12.1,6.1,11.6,6.1,11z"/>
 	</svg>
 
-	<svg id="icon-arrange-back" viewBox="0 0 570 390">
-		<rect fill="#9fafbf" x="91" y="28" width="237" height="237"/>
-		<polygon fill="#55a6f6" points="357,150 357,297 207,297 207,381 447,381 447,150"/>
+	<svg id="icon-arrange-back" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#9FAFBF;}
+			.st1{fill:#55A6F6;}
+		</style>
+		<rect x="3" y="3" class="st0" width="9" height="9"/>
+		<polygon class="st1" points="13,7 13,13 7,13 7,16 13,16 14,16 16,16 16,7 "/>
 	</svg>
 
-	<svg id="icon-arrange-front" viewBox="0 0 570 390">
-		<rect fill="#55a6f6" x="91" y="28" width="237" height="237"/>
-		<polygon fill="#9fafbf" points="357,150 357,297 207,297 207,381 447,381 447,150"/>
+	<svg id="icon-arrange-front" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#55A6F6;}
+			.st1{fill:#9FAFBF;}
+		</style>
+		<rect x="3" y="3" class="st0" width="9" height="9"/>
+		<polygon class="st1" points="13,7 13,13 7,13 7,16 13,16 14,16 16,16 16,7 "/>
 	</svg>
 
-	<svg id="icon-arrange-backward" viewBox="0 0 570 390">
-		<rect fill="#55a6f6" x="91" y="28" width="237" height="237"/>
-		<polygon fill="#9fafbf" points="357,150 357,297 207,297 207,381 447,381 447,150"/>
-		<path fill="#55a6f6" d="M55.682,163.946C31.017,190.722,5.749,291.044,92.398,303.741l9.331-38.141l43.583,71.818L73.497,381l9.129-37.319 C-35.16,318.636,2.348,199.217,55.682,163.946z"/>
+	<svg id="icon-arrange-backward" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#9FAFBF;}
+			.st1{fill:#55A6F6;}
+		</style>
+		<rect x="3" y="3" class="st0" width="9" height="9"/>
+	<polygon class="st1" points="13,7 13,13 7,13 7,16 13,16 14,16 16,16 16,7 "/>
+	<path class="st1" d="M1.3,8.9c-0.5,1.2-0.2,5,3,4.4l-0.1-1.4l2.4,2l-2,2.4l-0.1-1.4C0.1,15.3-0.1,10.8,1.3,8.9z"/>
 	</svg>
 
-	<svg id="icon-arrange-forward" viewBox="0 0 570 390">
-		<rect fill="#55a6f6" x="91" y="28" width="237" height="237"/>
-		<polygon fill="#9fafbf" points="357,150 357,297 207,297 207,381 447,381 447,150"/>
-		<path fill="#55a6f6" d="M504.5,217.5c17.008-30.577,18-130-65.815-122.33l-0.119,37.736l-56.908-57.271l57.271-56.907l-0.117,36.925 C554.5,52.5,546.378,172.524,504.5,217.5z"/>
+	<svg id="icon-arrange-forward" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#55A6F6;}
+			.st1{fill:#9FAFBF;}
+		</style>
+		<rect x="3" y="3" class="st0" width="9" height="9"/>
+		<polygon class="st1" points="13,7 13,13 7,13 7,16 13,16 14,16 16,16 16,7 "/>
+		<path class="st0" d="M16.9,9.6c0.7-1.1,1-4.9-2.2-4.8l-0.1,1.4l-2-2.3l2.3-2l-0.1,1.4C19.2,3.4,18.6,8,16.9,9.6"/>
 	</svg>
-
 
 	<svg id="icon-gridlines-horizontal" viewBox="0 0 19 19">
 		<style type="text/css">
@@ -165,7 +185,6 @@
 		<rect x="1" y="11" width="17" height="1"/>
 		<rect x="1" y="7" width="17" height="1"/>
 	</svg>
-
 
 	<svg id="icon-gridlines-vertical" viewBox="0 0 19 19">
 		<style type="text/css">
@@ -280,28 +299,40 @@
 		<rect x="1" y="10" class="st1" width="17" height="4"/>
 	</svg>
 
-	<svg id="icon-valign-top" viewBox="0 0 500 500">
-		<rect fill="#333" x="77" y="78" width="355" height="40"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="250" y1="137.5" x2="250" y2="444.5"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="260.873" y1="127.5" x2="154" y2="234.374"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="239.5" y1="127.5" x2="346.373" y2="234.373"/>
+	<svg id="icon-valign-top" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333333;}
+			.st1{opacity:.35;}
+		</style>
+		<rect x="9" y="6" class="st1" width="1" height="9"/>
+		<rect x="4" y="4" class="st0" width="11" height="1"/>
+		<rect x="6" y="6.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.5511 7.8913)" class="st0" width="4.6" height="1"/>
+		<rect x="10.3" y="4.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -1.8109 9.6784)" class="st0" width="1" height="4.6"/>
 	</svg>
 
-	<svg id="icon-valign-middle" viewBox="0 0 500 500">
-		<rect fill="#333" x="72.5" y="231.75" width="355" height="40"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="250.186" y1="234.25" x2="250.186" y2="27.25"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="239.312" y1="244.25" x2="336.187" y2="147.377"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="260.686" y1="244.25" x2="163.812" y2="147.377"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="249.814" y1="266.75" x2="249.814" y2="472.75"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="260.688" y1="256.75" x2="163.813" y2="353.623"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="239.314" y1="256.75" x2="336.188" y2="353.623"/>
+	<svg id="icon-valign-middle" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333333;}
+			.st1{opacity:.35;}
+		</style>
+		<rect x="9" y="2" class="st1" width="1" height="6"/>
+		<rect x="9" y="11" class="st1" width="1" height="6"/>
+		<rect x="4" y="9" class="st0" width="11" height="1"/>
+		<rect x="8.5" y="6.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -1.8109 9.6784)" class="st0" width="4.6" height="1"/>
+		<rect x="7.8" y="4.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.5511 7.8913)" class="st0" width="1" height="4.6"/>
+		<rect x="6" y="11.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.0866 9.3558)" class="st0" width="4.6" height="1"/>
+		<rect x="10.3" y="9.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -5.3464 11.1429)" class="st0" width="1" height="4.6"/>
 	</svg>
 
-	<svg id="icon-valign-bottom" viewBox="0 0 500 500">
-		<rect fill="#333" x="77" y="389" width="355" height="40"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="259" y1="382" x2="259" y2="75"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="248.127" y1="392" x2="355.001" y2="285.127"/>
-		<line fill="none" stroke="#333" stroke-width="40" x1="269.5" y1="392" x2="162.627" y2="285.127"/>
+	<svg id="icon-valign-bottom" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#333333;}
+			.st1{opacity:.35;}
+		</style>
+		<rect x="9" y="4" class="st1" width="1" height="9"/>
+		<rect x="4" y="14" class="st0" width="11" height="1"/>
+		<rect x="8.5" y="11.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -5.3464 11.1429)" class="st0" width="4.6" height="1"/>
+		<rect x="7.8" y="9.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.0866 9.3558)" class="st0" width="1" height="4.6"/>
 	</svg>
 
 	<svg id="icon-border-1" viewBox="0 0 19 19">
