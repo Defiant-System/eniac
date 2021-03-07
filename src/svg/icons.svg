@@ -986,22 +986,35 @@
 		<rect class="st0" x="1" y="6" width="11" height="1"/>
 	</svg>
 
-	<svg id="tool-move" viewBox="0 0 500 500">
-		<circle fill="none" stroke="#4591e8" stroke-width="40" cx="250" cy="250" r="110"/>
+	<svg id="tool-move" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:none;stroke:#4591E8;stroke-width:1.5;}
+		</style>
+		<circle class="st0" cx="9.5" cy="9.5" r="4.5"/>
 	</svg>
 
-	<svg id="tool-h_resize" viewBox="0 0 500 500">
-		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="195" y1="140" x2="195" y2="360"/>
-		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="305" y1="140" x2="305" y2="360"/>
+	<svg id="tool-h_resize" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#4591E8;}
+		</style>
+		<rect x="6" y="5" class="st0" width="2" height="9"/>
+		<rect x="11" y="5" class="st0" width="2" height="9"/>
 	</svg>
 
-	<svg id="tool-v_resize" viewBox="0 0 500 500">
-		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="360" y1="195" x2="140" y2="195"/>
-		<line fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" x1="360" y1="305" x2="140" y2="305"/>
+	<svg id="tool-v_resize" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#4591E8;}
+		</style>
+		<rect x="5" y="6" class="st0" width="9" height="2"/>
+		<rect x="5" y="11" class="st0" width="9" height="2"/>
 	</svg>
 
-	<svg id="tool-resize" viewBox="0 0 500 500">
-		<polyline fill="none" stroke="#4591e8" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" points="130,330 330,330 330,130"/>
+	<svg id="tool-resize" viewBox="0 0 19 19">
+		<style type="text/css">
+			.st0{fill:#4591E8;}
+		</style>
+		<rect x="11" y="4" class="st0" width="2" height="9"/>
+		<rect x="4" y="11" class="st0" width="9" height="2"/>
 	</svg>
 
 </svg>
