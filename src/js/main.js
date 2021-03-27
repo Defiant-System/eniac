@@ -25,7 +25,7 @@ const eniac = {
 		switch (event.type) {
 			// system events
 			case "window.open":
-				window.find(".sidebar-head > span").get(1).trigger("click");
+				// window.find(".sidebar-head > span").get(1).trigger("click");
 				break;
 			case "window.close":
 				break;

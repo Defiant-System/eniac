@@ -16,7 +16,7 @@
 			case "toggle-sidebar":
 				isOn = Self.els.root.hasClass("hidden");
 				Self.els.root.toggleClass("hidden", isOn);
-				return isOn ? "active" : "";
+				return isOn;
 			case "select-tab":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
