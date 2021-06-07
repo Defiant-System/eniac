@@ -17,7 +17,6 @@ const eniac = {
 		let Self = eniac,
 			file,
 			data,
-			workbook,
 			name,
 			pEl,
 			el,
@@ -30,10 +29,17 @@ const eniac = {
 			case "window.close":
 				break;
 			case "open.file":
-				file = await event.open();
-				data = await file.read();
-				workbook = XLSX.read(data, { type:"array" });
-				console.log(workbook);
+				event.open({ responseType: "arrayBuffer" })
+					.then(file => {
+						// console.log(file.arrayBuffer);
+						let workbook = XLSX.read(file.arrayBuffer, { type:"array" });
+						console.log(workbook);
+					});
+
+				// file = await event.open();
+				// data = await file.read();
+				// workbook = XLSX.read(data, { type:"array" });
+				// console.log(workbook);
 
 				// file = await event.open({ arrayBuffer: true });
 				// workbook = XLSX.read(file.data, { type:"array" });
