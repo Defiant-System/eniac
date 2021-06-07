@@ -56,15 +56,19 @@
 				// auto blur active cell
 				Self.dispatch({ type: "blur-cell" });
 
+				// focus table
+				el = $(event.target).addClass("active");
+				// sync tools table
+				APP.tools.dispatch({ type: "sync-sheet-table", table: el.parents("table.sheet") });
+				// focus clicked table
+				Self.dispatch({ type: "focus-table", el });
+
+				xNum = el.index();
+				yNum = el.parent().index();
 				tableTools = window.find(".table-tools");
 				toolCols = tableTools.find(".table-cols");
 				toolRows = tableTools.find(".table-rows");
-				el = $(event.target).addClass("active");
-				xNum = el.index();
-				yNum = el.parent().index();
 
-				// focus table
-				Self.dispatch({ type: "focus-table", el });
 				// make column + row active
 				toolCols.find(".active").removeClass("active");
 				toolCols.find("td").get(xNum).addClass("active");

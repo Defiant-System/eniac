@@ -6,8 +6,10 @@ const Render = {
 		this.els.body = window.find("content > .body > .wrapper");
 	},
 	workbook(book) {
-		console.log(book);
+		// console.log(book);
 
+		// clear sheet names
+		this.els.head.find("span:not(.icon-add)").remove();
 		// render sheet names
 		let str = [];
 		book.SheetNames.map((name, i) => {
@@ -25,5 +27,7 @@ const Render = {
 		str = str.match(/<table>.*?<\/table>/gm)[0];
 		str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
 		this.els.body.append(str);
+
+		this.els.body.find("td:nth(0)").trigger("click");
 	}
 };

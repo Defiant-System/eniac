@@ -31,19 +31,9 @@ const eniac = {
 			case "open.file":
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
-						// console.log(file.arrayBuffer);
-						let workbook = XLSX.read(file.arrayBuffer, { type:"array" });
-						console.log(workbook);
+						let book = XLSX.read(file.arrayBuffer, { type: "array" });
+						Render.workbook(book);
 					});
-
-				// file = await event.open();
-				// data = await file.read();
-				// workbook = XLSX.read(data, { type:"array" });
-				// console.log(workbook);
-
-				// file = await event.open({ arrayBuffer: true });
-				// workbook = XLSX.read(file.data, { type:"array" });
-				// Render.workbook(workbook);
 				break;
 			case "window.keystroke":
 				if (event.target) {

@@ -17,6 +17,9 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
+			rect,
+			cols,
+			str,
 			el;
 		switch (event.type) {
 			// system events
@@ -39,6 +42,23 @@
 				}
 				break;
 			// custom events
+			case "sync-sheet-table":
+				rect = event.table[0].getBoundingClientRect();
+				Self.els.root.css({ width: rect.width, height: rect.height });
+
+				// tools columns
+				cols = event.table.find("tr:nth(0) td");
+				str = cols.map(col => {
+						let rect = col.getBoundingClientRect();
+						return `<col width="${Math.round(rect.width)}"/>`;
+					}).join("");
+				str += `<tr>`+ cols.map(col => `<td><s></s></td>`).join("") +`</tr>`;
+				Self.els.root.find(".table-cols").html(str);
+
+				// tools rows
+				str = event.table.find("tr").map(row => `<tr><td><s></s></td></tr>`).join("");
+				Self.els.root.find(".table-rows").html(str);
+				break;
 			case "select-columns":
 				console.log(event.type, event.target);
 				break;

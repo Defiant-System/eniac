@@ -169,6 +169,7 @@ content {
 	flex: auto;
 	display: flex;
 	flex-direction: column;
+	padding-right: 270px;
 
 	.head {
 		background: #f0f0f0;
@@ -501,7 +502,7 @@ sidebar {
 			}
 		}
 
-		.borders {
+		.borders {
 			background: #fff;
 			width: 83px;
 			height: 83px;
@@ -633,6 +634,15 @@ table.sheet {
 	border-left: 1px solid @table_border;
 	border-top: 1px solid @table_border;
 
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 100%;
+		height: 40px;
+		width: 40px;
+	}
+
 	td {
 		border-right: 1px solid @table_border;
 		border-bottom: 1px solid @table_border;
@@ -655,8 +665,8 @@ table.sheet {
 	left: 40px;
 	// width: 607px;
 	// height: 550px;
-	width: 462px;
-	height: 325px;
+	// width: 462px;
+	// height: 325px;
 
 	&.hidden {
 		display: none;
@@ -711,7 +721,7 @@ table.sheet {
 			cursor: nwse-resize;
 		}
 
-		&.selection {
+		&.selection {
 			position: absolute;
 			border: 1px solid #3583d0;
 			border-radius: 0;
@@ -755,8 +765,9 @@ table.sheet {
 				height: 100%;
 				resize: none;
 				border: 0;
-				padding: 5px 4px 0 0;
-				text-align: right;
+				padding: 5px 4px 0;
+				// text-align: right;
+				white-space: nowrap;
 			}
 		}
 	}
@@ -817,7 +828,7 @@ table.sheet {
 					border-right: 1px solid @table_border;
 				}
 
-				&.active {
+				&.active {
 					position: relative;
 					background: #d6e6fb;
 					color: #4591e8;
@@ -909,7 +920,7 @@ table.sheet {
 					border-bottom: 1px solid lighten(@table_border, 11%);
 				}
 
-				&.active {
+				&.active {
 					position: relative;
 
 					td {
