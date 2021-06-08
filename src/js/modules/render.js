@@ -18,14 +18,18 @@ const Render = {
 		});
 		this.els.head.append(str.join(""));
 
+
+		str = XLSX.utils.sheet_to_html(book.Sheets[book.SheetNames[0]], { editable: true });
+		str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell"`);
+
 		// render sheet table
-		str = XLSX.write(book, {
-			sheet: "No Filter",
-			type: "string",
-			bookType: "html"
-		});
-		str = str.match(/<table>.*?<\/table>/gm)[0];
-		str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
+		// str = XLSX.write(book, {
+		// 	sheet: "No Filter",
+		// 	type: "string",
+		// 	bookType: "html"
+		// });
+		// str = str.match(/<table>.*?<\/table>/gm)[0];
+		// str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
 		this.els.body.append(str);
 
 		this.els.body.find("td:nth(0)").trigger("click");

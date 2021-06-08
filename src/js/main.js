@@ -2,7 +2,7 @@
 @import "modules/render.js"
 @import "modules/parser.js"
 
-const XLSX = await window.fetch("~/js/xlsx.js")
+const XLSX = await window.fetch("~/js/xlsx.full.min.js")
 
 const eniac = {
 	init() {
@@ -31,7 +31,8 @@ const eniac = {
 			case "open.file":
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
-						let book = XLSX.read(file.arrayBuffer, { type: "array" });
+						let data = new Uint8Array(file.arrayBuffer);
+						let book = XLSX.read(data, { type: "array" });
 						Render.workbook(book);
 					});
 				break;
