@@ -447,11 +447,11 @@ function general_fmt(v, opts) {
 }
 SSF._general = general_fmt;
 function fix_hijri(date, o) {
-  /* TODO: properly adjust y/m/d and  */
-  o[0] -= 581;
-  var dow = date.getDay();
-  if(date < 60) dow = (dow + 6) % 7;
-  return dow;
+	/* TODO: properly adjust y/m/d and  */
+	o[0] -= 581;
+	var dow = date.getDay();
+	if(date < 60) dow = (dow + 6) % 7;
+	return dow;
 }
 //var THAI_DIGITS = "\u0E50\u0E51\u0E52\u0E53\u0E54\u0E55\u0E56\u0E57\u0E58\u0E59".split("");
 /*jshint -W086 */
@@ -1372,9 +1372,9 @@ function filename(p) {
 }
 /* -------------------------------------------------------------------------- */
 /* DOS Date format:
-   high|YYYYYYYm.mmmddddd.HHHHHMMM.MMMSSSSS|low
-   add 1980 to stored year
-   stored second should be doubled
+	 high|YYYYYYYm.mmmddddd.HHHHHMMM.MMMSSSSS|low
+	 add 1980 to stored year
+	 stored second should be doubled
 */
 
 /* write JS date to buf as a DOS date */
@@ -1636,7 +1636,7 @@ function get_mfat_entry(entry, payload, mini) {
 }
 
 /** Chase down the rest of the DIFAT chain to build a comprehensive list
-    DIFAT chains by storing the next sector number as the last 32 bits */
+		DIFAT chains by storing the next sector number as the last 32 bits */
 function sleuth_fat(idx, cnt, sectors, ssz, fat_addrs) {
 	var q = ENDOFCHAIN;
 	if(idx === ENDOFCHAIN) {
@@ -10257,14 +10257,14 @@ RELS.DRAW = "http://schemas.openxmlformats.org/officeDocument/2006/relationships
 function parse_drawing(data, rels) {
 	if(!data) return "??";
 	/*
-	  Chartsheet Drawing:
-	   - 20.5.2.35 wsDr CT_Drawing
-	    - 20.5.2.1  absoluteAnchor CT_AbsoluteAnchor
-	     - 20.5.2.16 graphicFrame CT_GraphicalObjectFrame
-	      - 20.1.2.2.16 graphic CT_GraphicalObject
-	       - 20.1.2.2.17 graphicData CT_GraphicalObjectData
-          - chart reference
-	   the actual type is based on the URI of the graphicData
+		Chartsheet Drawing:
+		 - 20.5.2.35 wsDr CT_Drawing
+			- 20.5.2.1  absoluteAnchor CT_AbsoluteAnchor
+			 - 20.5.2.16 graphicFrame CT_GraphicalObjectFrame
+				- 20.1.2.2.16 graphic CT_GraphicalObject
+				 - 20.1.2.2.17 graphicData CT_GraphicalObjectData
+					- chart reference
+		 the actual type is based on the URI of the graphicData
 		TODO: handle embedded charts and other types of graphics
 	*/
 	var id = (data.match(/<c:chart [^>]*r:id="([^"]*)"/)||["",""])[1];

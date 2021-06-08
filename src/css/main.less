@@ -656,6 +656,10 @@ table.sheet {
 		&.active {
 			color: transparent;
 		}
+
+		&.selected {
+			background: #eef5fd;
+		}
 	}
 }
 
@@ -663,10 +667,6 @@ table.sheet {
 	position: absolute;
 	top: 40px;
 	left: 40px;
-	// width: 607px;
-	// height: 550px;
-	// width: 462px;
-	// height: 325px;
 
 	&.hidden {
 		display: none;
@@ -806,6 +806,7 @@ table.sheet {
 				position: relative;
 				text-align: center;
 				vertical-align: middle;
+				line-height: .5;
 				background: #fff;
 
 				&:first-child {
@@ -934,6 +935,7 @@ table.sheet {
 							left: -1px;
 							right: -1px;
 							bottom: -1px;
+							border-radius: inherit;
 							border: 1px solid darken(#d6e6fb, 7%);
 						}
 

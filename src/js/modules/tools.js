@@ -1,4 +1,6 @@
 
+// eniac.tools
+
 {
 	init() {
 		// fast references
@@ -8,6 +10,8 @@
 			doc: $(document),
 			move: root.find(".tool.move"),
 			resizes: root.find(".tool.resize, .tool.v-resize, .tool.h-resize"),
+			cols: root.find(".table-cols"),
+			rows: root.find(".table-rows"),
 		};
 
 		// bind event handlers
@@ -18,6 +22,7 @@
 		let APP = eniac,
 			Self = APP.tools,
 			rect,
+			rows,
 			cols,
 			str,
 			el;
@@ -53,17 +58,46 @@
 						return `<col width="${Math.round(rect.width)}"/>`;
 					}).join("");
 				str += `<tr>`+ cols.map(col => `<td><s></s></td>`).join("") +`</tr>`;
-				Self.els.root.find(".table-cols").html(str);
+				Self.els.cols.html(str);
 
 				// tools rows
 				str = event.table.find("tr").map(row => `<tr><td><s></s></td></tr>`).join("");
-				Self.els.root.find(".table-rows").html(str);
+				Self.els.rows.html(str);
+				break;
+			case "select-coord":
+				Self.els.cols.find(".active").removeClass("active");
+				Self.els.cols.find("td").get(event.xNum).addClass("active");
+				Self.els.rows.find(".active").removeClass("active");
+				Self.els.rows.find("tr").get(event.yNum).addClass("active");
 				break;
 			case "select-columns":
-				console.log(event.type, event.target);
+				el = $(event.target);
+				// UI change on sheet table
+				Parser.table.find(".selected").removeClass("selected");
+				cols = Parser.table.find(`td:nth-child(${el.index()+1})`).addClass("selected");
+
+				// selection element
+				APP.selection.dispatch({ type: "select-column", cols });
+				// make all rows "active"
+				Self.els.rows.find("tr").addClass("active");
+				// make column active
+				Self.els.cols.find(".active").removeClass("active");
+				el.addClass("active");
 				break;
 			case "select-rows":
-				console.log(event.type, event.target);
+				el = $(event.target);
+				rows = Parser.table.find("tr").get(el.parent().index());
+				// UI change on sheet table
+				rows.parent().find("td.selected").removeClass("selected");
+				rows.find("td").addClass("selected");
+
+				// selection element
+				APP.selection.dispatch({ type: "select-row", target: rows[0] });
+				// make all columns "active"
+				Self.els.cols.find("td").addClass("active");
+				// make row active
+				Self.els.rows.find(".active").removeClass("active");
+				el.parent().addClass("active");
 				break;
 		}
 	},

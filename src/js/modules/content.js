@@ -1,4 +1,6 @@
 
+// eniac.content
+
 {
 	init() {
 		// fast references
@@ -21,10 +23,6 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.content,
-			top, left, width, height,
-			tableTools,
-			toolCols,
-			toolRows,
 			xNum, yNum,
 			table,
 			val,
@@ -65,25 +63,11 @@
 
 				xNum = el.index();
 				yNum = el.parent().index();
-				tableTools = window.find(".table-tools");
-				toolCols = tableTools.find(".table-cols");
-				toolRows = tableTools.find(".table-rows");
 
 				// make column + row active
-				toolCols.find(".active").removeClass("active");
-				toolCols.find("td").get(xNum).addClass("active");
-				toolRows.find(".active").removeClass("active");
-				toolRows.find("tr").get(yNum).addClass("active");
-
-				top = (event.target.offsetTop - 2) +"px";
-				left = (event.target.offsetLeft - 2) +"px";
-				width = (event.target.offsetWidth + 5) +"px";
-				height = (event.target.offsetHeight + 5) +"px";
-
-				Self.els.selection
-					.addClass("show")
-					.css({ top, left, width, height, });
-				Self.els.selText.val(el.text()).focus();
+				APP.tools.dispatch({ type: "select-coord", yNum, xNum });
+				// selection element
+				APP.selection.dispatch({ ...event, el, type: "select-cell" });
 
 				// remember active cell
 				Self.activeEl = el;

@@ -1,4 +1,6 @@
 
+// eniac.sidebar
+
 {
 	init() {
 		// fast references
