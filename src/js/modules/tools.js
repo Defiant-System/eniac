@@ -47,6 +47,12 @@
 				}
 				break;
 			// custom events
+			case "hide":
+				// auto blur active cell
+				APP.content.dispatch({ type: "blur-cell" });
+
+				Self.els.root.addClass("hidden");
+				break;
 			case "sync-sheet-table":
 				rect = event.table[0].getBoundingClientRect();
 				Self.els.root.css({ width: rect.width, height: rect.height });

@@ -51,6 +51,11 @@
 				left = event.target.offsetLeft - 2;
 				width = event.target.offsetWidth + 5;
 				height = event.target.offsetHeight + 5;
+				
+				// console.log(event.target.clientWidth);
+				// console.log(event.target.getBoundingClientRect().width);
+				// console.log(event.target.offsetWidth, width);
+
 				Self.el.addClass("show").css({ top, left, width, height });
 
 				if (event.el) {

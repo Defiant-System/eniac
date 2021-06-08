@@ -9,7 +9,7 @@ const Render = {
 	workbook(book) {
 		// save reference to book
 		this.book = book;
-		console.log(book);
+		// console.log(book);
 
 		// render sheet names
 		let str = [];
@@ -28,7 +28,7 @@ const Render = {
 		// render sheet table
 		let sheet = this.book.Sheets[name],
 			str = XLSX.utils.sheet_to_html(sheet);
-		
+
 		str = str.match(/<table>.*?<\/table>/gm)[0];
 		str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
 
@@ -36,5 +36,8 @@ const Render = {
 		this.els.body.find("table.sheet").remove();
 		// append new sheet
 		this.els.body.append(str);
+
+		// hide tools
+		eniac.tools.dispatch({ type: "hide" });
 	}
 };
