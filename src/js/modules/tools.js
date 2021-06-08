@@ -71,6 +71,9 @@
 				Self.els.rows.find("tr").get(event.yNum).addClass("active");
 				break;
 			case "select-columns":
+				// auto blur active cell
+				APP.content.dispatch({ type: "blur-cell" });
+
 				el = $(event.target);
 				// UI change on sheet table
 				Parser.table.find(".selected").removeClass("selected");
@@ -79,12 +82,15 @@
 				// selection element
 				APP.selection.dispatch({ type: "select-column", cols });
 				// make all rows "active"
-				Self.els.rows.find("tr").addClass("active");
+				Self.els.rows.find("tr.active").removeClass("active");
 				// make column active
 				Self.els.cols.find(".active").removeClass("active");
 				el.addClass("active");
 				break;
 			case "select-rows":
+				// auto blur active cell
+				APP.content.dispatch({ type: "blur-cell" });
+
 				el = $(event.target);
 				rows = Parser.table.find("tr").get(el.parent().index());
 				// UI change on sheet table
@@ -94,7 +100,7 @@
 				// selection element
 				APP.selection.dispatch({ type: "select-row", target: rows[0] });
 				// make all columns "active"
-				Self.els.cols.find("td").addClass("active");
+				Self.els.cols.find("td.active").removeClass("active");
 				// make row active
 				Self.els.rows.find(".active").removeClass("active");
 				el.parent().addClass("active");
