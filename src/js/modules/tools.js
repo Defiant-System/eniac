@@ -21,7 +21,6 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
-			rect,
 			rows,
 			cols,
 			str,
@@ -54,8 +53,10 @@
 				Self.els.root.addClass("hidden");
 				break;
 			case "sync-sheet-table":
-				rect = event.table[0].getBoundingClientRect();
-				Self.els.root.css({ width: rect.width, height: rect.height });
+				Self.els.root.css({
+					width: event.table[0].offsetWidth,
+					height: event.table[0].offsetHeight,
+				});
 
 				// tools columns
 				cols = event.table.find("tr:nth(0) td");

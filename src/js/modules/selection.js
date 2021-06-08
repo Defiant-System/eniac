@@ -12,7 +12,7 @@
 			Self = APP.selection,
 			Content = APP.content,
 			active = Content.activeEl,
-			top, left, width, height,
+			rect, top, left, width, height,
 			xNum, yNum,
 			next,
 			el;
@@ -47,15 +47,13 @@
 				break;
 			case "select-row":
 			case "select-cell":
+				rect = event.target.getBoundingClientRect();
+
 				top = event.target.offsetTop - 2;
 				left = event.target.offsetLeft - 2;
-				width = event.target.offsetWidth + 5;
+				width = rect.width + 5;
 				height = event.target.offsetHeight + 5;
 				
-				// console.log(event.target.clientWidth);
-				// console.log(event.target.getBoundingClientRect().width);
-				// console.log(event.target.offsetWidth, width);
-
 				Self.el.addClass("show").css({ top, left, width, height });
 
 				if (event.el) {

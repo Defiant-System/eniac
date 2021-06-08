@@ -661,6 +661,7 @@ table.sheet {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		min-width: 90px;
 
 		&.active {
 			color: transparent;
@@ -674,7 +675,9 @@ table.sheet {
 			
 		}
 
+		&[t="z"],
 		&[t="n"] {
+			min-width: 50px;
 			text-align: right;
 			padding-left: 17px;
 			padding-right: 5px;
@@ -756,6 +759,7 @@ table.sheet {
 
 			&:before {
 				//pointer-events: none;
+				display: none;
 			}
 
 			.handle {
