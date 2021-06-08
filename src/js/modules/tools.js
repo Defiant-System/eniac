@@ -65,6 +65,8 @@
 				Self.els.rows.html(str);
 				break;
 			case "select-coord":
+				Parser.table.find(".selected").removeClass("selected");
+
 				Self.els.cols.find(".active").removeClass("active");
 				Self.els.cols.find("td").get(event.xNum).addClass("active");
 				Self.els.rows.find(".active").removeClass("active");
