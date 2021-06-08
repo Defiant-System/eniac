@@ -56,6 +56,16 @@ layout {
 	flex-flow: wrap;
 	font-family: Helvetica Neue;
 
+	&.show-sidebar {
+		content {
+			padding-right: 270px;
+		}
+
+		sidebar {
+			right: 0;
+		}
+	}
+
 	.nowrap {
 		white-space: nowrap;
 
@@ -169,7 +179,8 @@ content {
 	flex: auto;
 	display: flex;
 	flex-direction: column;
-	padding-right: 270px;
+	padding-right: 0;
+	transition: padding-right @sidebar_speed * 0.75;
 
 	.head {
 		background: #f0f0f0;
@@ -199,16 +210,8 @@ content {
 			&:hover:not(.active) { color: #333; }
 			&:active:not(.active) { color: #111; }
 
-			&:first-child {
-				padding: 5.5px 17px 0;
-			}
-
-			&:not(:first-child) {
-				min-width: 114px;
-			}
-
 			&:not(.active):last-child:after,
-			&:not(.active):not(:first-child):before {
+			&:not(.active):before {
 				content: "";
 				position: absolute;
 				top: 5px;
@@ -225,9 +228,20 @@ content {
 
 			&.icon-add {
 				opacity: .5;
+				padding: 5.5px 17px 0;
 
 				&:hover { opacity: 1; }
 				&:active { opacity: .75; }
+			}
+		}
+
+		> div {
+			display: flex;
+			flex: 1;
+
+			span {
+				white-space: nowrap;
+				min-width: 114px;
 			}
 		}
 	}
@@ -294,16 +308,12 @@ sidebar {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	right: 0;
+	right: -270px;
 	width: 270px;
 	transition: right @sidebar_speed * 0.75;
 
 	&:after {
 		border-color: @layout_outline;
-	}
-
-	&.hidden {
-		right: -270px;
 	}
 
 	> .container {
@@ -628,7 +638,7 @@ table.sheet {
 	position: absolute;
 	top: 40px;
 	left: 40px;
-	width: 463px;
+	// width: 463px;
 	table-layout: fixed;
 	white-space: nowrap;
 	border-left: 1px solid @table_border;
@@ -647,7 +657,7 @@ table.sheet {
 		border-right: 1px solid @table_border;
 		border-bottom: 1px solid @table_border;
 		// text-align: right;
-		padding: 1px 5px 0;
+		padding: 1px 17px 0 5px;
 		vertical-align: middle;
 		white-space: nowrap;
 		overflow: hidden;
@@ -659,6 +669,16 @@ table.sheet {
 
 		&.selected {
 			background: #eef5fd;
+		}
+
+		&[t="s"] {
+			
+		}
+
+		&[t="n"] {
+			text-align: right;
+			padding-left: 17px;
+			padding-right: 5px;
 		}
 	}
 }

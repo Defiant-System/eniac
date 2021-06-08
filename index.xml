@@ -8,7 +8,7 @@
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0-or-later"/>
 		<meta name="repository" value="https://github.com/Defiant-System/eniac"/>
-		<meta name="width" value="940" min="720"/>
+		<meta name="width" value="980" min="720"/>
 		<meta name="height" value="640" min="420"/>
 		<meta name="top" value="180"/>
 		<meta name="left" value="200"/>

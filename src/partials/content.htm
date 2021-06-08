@@ -1,10 +1,12 @@
 <layout>
 	<content data-area="content">
-		<div class="head">
+		<div class="head" data-area="head">
 			<span class="icon-add"></span>
-			<!-- Sheet names goes here -->
+			<div data-click="select-sheet">
+				<!-- Sheet names goes here -->
+			</div>
 		</div>
-		<div class="body" data-click1="blur-table">
+		<div class="body" data-click="blur-table">
 			<div class="wrapper">
 				<!-- sheet tables goes here -->
 
@@ -21,7 +23,7 @@
 			</div>
 		</div>
 	</content>
-	<sidebar class="right hidden1" data-area="sidebar">
+	<sidebar class="right" data-area="sidebar">
 		<div class="container">
 			@import "sections/sidebar-empty.htm"
 			@import "sections/sidebar-table.htm"

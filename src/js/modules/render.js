@@ -1,37 +1,40 @@
 
 const Render = {
-	els: {},
 	init() {
-		this.els.head = window.find("content > .head");
-		this.els.body = window.find("content > .body > .wrapper");
+		this.els = {
+			head: window.find("content > .head > div"),
+			body: window.find("content > .body > .wrapper"),
+		};
 	},
 	workbook(book) {
-		// console.log(book);
+		// save reference to book
+		this.book = book;
+		console.log(book);
 
-		// clear sheet names
-		this.els.head.find("span:not(.icon-add)").remove();
 		// render sheet names
 		let str = [];
 		book.SheetNames.map((name, i) => {
 			let cn = i === 0 ? 'class="active"' : "";
 			str.push(`<span ${cn}>${name}</span>`);
 		});
-		this.els.head.append(str.join(""));
-
-
-		str = XLSX.utils.sheet_to_html(book.Sheets[book.SheetNames[0]], { editable: true });
-		str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell"`);
+		this.els.head.html(str.join(""));
 
 		// render sheet table
-		// str = XLSX.write(book, {
-		// 	sheet: "No Filter",
-		// 	type: "string",
-		// 	bookType: "html"
-		// });
-		// str = str.match(/<table>.*?<\/table>/gm)[0];
-		// str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
-		this.els.body.append(str);
+		this.sheet(book.SheetNames[0]);
 
-		this.els.body.find("td:nth(0)").trigger("click");
+		// this.els.body.find("td:nth(0)").trigger("click");
+	},
+	sheet(name) {
+		// render sheet table
+		let sheet = this.book.Sheets[name],
+			str = XLSX.utils.sheet_to_html(sheet);
+		
+		str = str.match(/<table>.*?<\/table>/gm)[0];
+		str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
+
+		// remove existing sheet
+		this.els.body.find("table.sheet").remove();
+		// append new sheet
+		this.els.body.append(str);
 	}
 };

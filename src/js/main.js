@@ -31,8 +31,8 @@ const eniac = {
 			case "open.file":
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
-						let data = new Uint8Array(file.arrayBuffer);
-						let book = XLSX.read(data, { type: "array" });
+						let data = new Uint8Array(file.arrayBuffer),
+							book = XLSX.read(data, { type: "array" });
 						Render.workbook(book);
 					});
 				break;
@@ -64,6 +64,7 @@ const eniac = {
 	selection: @import "modules/selection.js",
 	sidebar: @import "modules/sidebar.js",
 	content: @import "modules/content.js",
+	head: @import "modules/head.js",
 };
 
 window.exports = eniac;
