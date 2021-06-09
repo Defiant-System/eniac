@@ -35,14 +35,19 @@ const eniac = {
 					.then(file => {
 						let data = new Uint8Array(file.arrayBuffer),
 							book = XLSX.read(data, { type: "array" });
+						// render workbook
 						Render.workbook(book);
+						// save reference to file
+						Self.file = new File(file);
 					});
 				break;
 			case "save-file-as":
-				table = Parser.table[0];
-				data = XLSX.utils.table_to_book(table);
-				file = XLSX.write(data, { bookType: "xlsx", type: "binary" });
-				console.log(file);
+				file = Self.file;
+				// pass on available file types
+				window.dialog.saveAs(file._file, {
+					xlsx: () => file.toBlob("xlsx"),
+					xml:  () => file.toBlob("xml"),
+				});
 				break;
 			case "window.keystroke":
 				if (event.target) {
