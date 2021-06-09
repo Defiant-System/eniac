@@ -39,6 +39,8 @@ const eniac = {
 						Render.workbook(book);
 						// save reference to file
 						Self.file = new File(file);
+
+						// setTimeout(() => Self.dispatch({ type: "save-file-as" }), 500);
 					});
 				break;
 			case "save-file":
