@@ -66,6 +66,17 @@ layout {
 		}
 	}
 
+	&.cover:before {
+		// background: rgba(255,0,0,.1);
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 999;
+	}
+
 	.nowrap {
 		white-space: nowrap;
 
@@ -662,6 +673,7 @@ table.sheet {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		min-width: 90px;
+		max-width: 170px;
 
 		&.active {
 			color: transparent;

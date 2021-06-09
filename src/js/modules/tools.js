@@ -12,6 +12,7 @@
 			resizes: root.find(".tool.resize, .tool.v-resize, .tool.h-resize"),
 			cols: root.find(".table-cols"),
 			rows: root.find(".table-rows"),
+			layout: window.find("layout"),
 		};
 
 		// bind event handlers
@@ -31,7 +32,7 @@
 				// special handling of special keys
 				switch (event.char) {
 					case "esc":
-						Self.dispatch({ type: "blur-table" });
+						APP.content.dispatch({ type: "blur-table" });
 						break;
 					case "tab":
 					case "return":
@@ -46,12 +47,6 @@
 				}
 				break;
 			// custom events
-			case "hide":
-				// auto blur active cell
-				APP.content.dispatch({ type: "blur-cell" });
-
-				Self.els.root.addClass("hidden");
-				break;
 			case "sync-sheet-table":
 				Self.els.root.css({
 					width: event.table[0].offsetWidth,
@@ -120,20 +115,77 @@
 		let APP = eniac,
 			Self = APP.tools,
 			Drag = Self.drag,
-			top, left,
+			top, left, width, height,
 			table,
+			last,
+			add,
 			el;
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover");
+
+				el = Self.els.root;
+				table = Parser.table;
+				width = table.prop("offsetWidth");
+				height = table.prop("offsetHeight");
+
+				let tbody = table.find("tbody"),
+					row = tbody.find("tr:last").clone(true);
+				// empty cells of cloned row
+				row.find("td").html("");
+
+				// create drag object
+				Self.drag = {
+					el,
+					table,
+					tbody,
+					row,
+					clickX: event.clientX,
+					clickY: event.clientY,
+					offset: { width, height },
+					min: {
+						y: height,
+						x: width,
+					},
+					add: { y: 0, x: 0 },
+					snap: { x: 90, y: 25 },
+				};
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
+				height = Math.max(event.clientY - Drag.clickY + Drag.offset.height, Drag.min.y);
+				width = Math.max(event.clientX - Drag.clickX + Drag.offset.width, Drag.min.x);
+				// Drag.el.css({ height, width });
+
+				// calculate how much to add to table
+				add = {
+					y: Math.floor((height - Drag.min.y) / Drag.snap.y),
+					x: Math.floor((width - Drag.min.x) / Drag.snap.x),
+				}
+
+				if (add.y !== Drag.add.y) {
+					if (add.y > Drag.add.y) {
+						Drag.tbody[0].appendChild(Drag.row[0].cloneNode(true));
+					} else {
+						last = Drag.tbody[0].childNodes[Drag.tbody[0].childNodes.length-1];
+						last.parentNode.removeChild(last);
+					}
+					// this prevents unnecessary DOM manipulation
+					Drag.add.y = add.y;
+				}
+				if (add.x !== Drag.add.x) {
+					// this prevents unnecessary DOM manipulation
+					Drag.add.x = add.x;
+				}
 				break;
 			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
 				break;
@@ -169,11 +221,7 @@
 			case "mousemove":
 				top = event.clientY - Drag.clickY + Drag.offset.y;
 				left = event.clientX - Drag.clickX + Drag.offset.x;
-
-				Drag.el.css({
-					top: top +"px",
-					left: left +"px",
-				});
+				Drag.el.css({ top, left });
 				break;
 			case "mouseup":
 				// unbind event

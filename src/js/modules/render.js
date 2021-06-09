@@ -9,7 +9,7 @@ const Render = {
 	workbook(book) {
 		// save reference to book
 		this.book = book;
-		console.log(book);
+		// console.log(book);
 
 		// render sheet names
 		let str = [];
@@ -22,7 +22,8 @@ const Render = {
 		// render sheet table
 		this.sheet(book.SheetNames[0]);
 
-		// this.els.body.find("td:nth(0)").trigger("click");
+		// temporary
+		this.els.body.find("td:nth(0)").trigger("click");
 	},
 	sheet(name) {
 		// render sheet table
@@ -37,6 +38,6 @@ const Render = {
 		// append new sheet
 		this.els.body.append(str);
 		// hide tools
-		eniac.tools.dispatch({ type: "hide" });
+		eniac.content.dispatch({ type: "blur-table" });
 	}
 };

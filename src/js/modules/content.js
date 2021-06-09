@@ -41,19 +41,18 @@
 					// don't blur table, if event originated in tools
 					if ($(event.target).parents(".table-tools").length) return;
 				}
-
+				// if no table in Parser, exit
 				if (!Parser.table) return;
 				// auto blur active cell
 				Self.dispatch({ type: "blur-cell" });
-
+				// reset parser
 				Parser.reset();
-
+				// hide tools
 				Self.els.tools.addClass("hidden");
 				break;
 			case "focus-cell":
 				// auto blur active cell
 				Self.dispatch({ type: "blur-cell" });
-
 				// focus table
 				el = $(event.target).addClass("active");
 				// sync tools table
