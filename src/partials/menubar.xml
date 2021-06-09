@@ -4,6 +4,24 @@
 		<Menu type="divider"/>
 		<Menu name="Quit Eniac" shell="win -c"/>
 	</Menu>
+	<Menu name="File">
+		<Menu name="New" click="new-file" hotkey="alt+n"/>
+		<Menu name="Open&#8230;" click="open-file" hotkey="alt+o"/>
+		<Menu type="divider"/>
+		<Menu name="Save" click="save-file" hotkey="alt+s"/>
+		<Menu name="Save as&#8230;" hotkey="alt+shift+s" click="save-file-as"/>
+		<Menu type="divider"/>
+		<Menu name="Close File"/>
+	</Menu>
+	<Menu name="Edit">
+		<Menu name="Undo" click="history-undo" hotkey="meta+z"/>
+		<Menu name="Redo" click="history-redo" hotkey="meta+shift+z"/>
+		<Menu type="divider"/>
+		<Menu name="Cut"/>
+		<Menu name="Copy"/>
+		<Menu name="Paste"/>
+		<Menu name="Select All" click="select-all" arg="selectAll" hotkey="meta+a"/>
+	</Menu>
 	<Menu name="Table">
 		<Menu name="Header Rows&#8230;" for="table-header-rows">
 			<Menu name="0" is-checked="1"/>

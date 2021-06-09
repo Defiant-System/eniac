@@ -1,6 +1,7 @@
 
 @import "modules/render.js"
 @import "modules/parser.js"
+@import "modules/file.js"
 
 const XLSX = await window.fetch("~/js/xlsx.full.min.js")
 
@@ -16,6 +17,7 @@ const eniac = {
 	async dispatch(event) {
 		let Self = eniac,
 			file,
+			table,
 			data,
 			name,
 			pEl,
@@ -35,6 +37,12 @@ const eniac = {
 							book = XLSX.read(data, { type: "array" });
 						Render.workbook(book);
 					});
+				break;
+			case "save-file-as":
+				table = Parser.table[0];
+				data = XLSX.utils.table_to_book(table);
+				file = XLSX.write(data, { bookType: "xlsx", type: "binary" });
+				console.log(file);
 				break;
 			case "window.keystroke":
 				if (event.target) {
