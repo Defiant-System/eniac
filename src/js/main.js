@@ -41,6 +41,9 @@ const eniac = {
 						Self.file = new File(file);
 					});
 				break;
+			case "save-file":
+				console.log("todo");
+				break;
 			case "save-file-as":
 				file = Self.file;
 				// pass on available file types

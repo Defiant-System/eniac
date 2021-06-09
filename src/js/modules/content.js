@@ -74,7 +74,8 @@
 			case "blur-cell":
 				if (!Self.activeEl) return;
 
-				Self.activeEl.text(Self.els.selText.val());
+				let v = Self.els.selText.val();
+				Self.activeEl.attr({ v }).text(v);
 				Self.activeEl.removeClass("active");
 
 				Self.els.selText.val("");
