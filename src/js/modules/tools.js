@@ -126,6 +126,8 @@
 				event.preventDefault();
 				// cover layout
 				Self.els.layout.addClass("cover");
+				// blur cell, if any
+				APP.content.dispatch({ type: "blur-cell" });
 
 				el = Self.els.root;
 				table = Parser.table;
@@ -136,6 +138,9 @@
 					row = tbody.find("tr:last").clone(true);
 				// empty cells of cloned row
 				row.find("td").html("");
+				// clone and reset cell node
+				let cell = row.find("td:last").clone();
+				[...cell[0].attributes].map(a => cell.removeAttr(a.name));
 
 				// create drag object
 				Self.drag = {
@@ -143,6 +148,7 @@
 					table,
 					tbody,
 					row,
+					cell,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: { width, height },
@@ -153,33 +159,40 @@
 					add: { y: 0, x: 0 },
 					snap: { x: 90, y: 25 },
 				};
-
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
 				height = Math.max(event.clientY - Drag.clickY + Drag.offset.height, Drag.min.y);
 				width = Math.max(event.clientX - Drag.clickX + Drag.offset.width, Drag.min.x);
-				// Drag.el.css({ height, width });
 
 				// calculate how much to add to table
 				add = {
 					y: Math.floor((height - Drag.min.y) / Drag.snap.y),
 					x: Math.floor((width - Drag.min.x) / Drag.snap.x),
 				}
-
+				// this prevents unnecessary DOM manipulation
 				if (add.y !== Drag.add.y) {
 					if (add.y > Drag.add.y) {
+						// add rows
 						Drag.tbody[0].appendChild(Drag.row[0].cloneNode(true));
 					} else {
-						last = Drag.tbody[0].childNodes[Drag.tbody[0].childNodes.length-1];
-						last.parentNode.removeChild(last);
+						// delete rows
+						Drag.tbody[0].removeChild(Drag.tbody[0].lastChild);
 					}
-					// this prevents unnecessary DOM manipulation
 					Drag.add.y = add.y;
 				}
+				// this prevents unnecessary DOM manipulation
 				if (add.x !== Drag.add.x) {
-					// this prevents unnecessary DOM manipulation
+					if (add.x > Drag.add.x) {
+						// add cells
+						Drag.tbody.find("tr").map(row =>
+							row.appendChild(Drag.cell[0].cloneNode()));
+					} else {
+						// delete cells
+						Drag.tbody.find("tr").map(row =>
+							row.removeChild(row.lastChild));
+					}
 					Drag.add.x = add.x;
 				}
 				break;

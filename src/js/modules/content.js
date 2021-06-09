@@ -83,7 +83,7 @@
 				Parser.checkCell(Self.activeEl);
 
 				// delete reference to cell
-				delete Self.activeEl;
+				Self.activeEl = false;
 				break;
 		}
 	}
