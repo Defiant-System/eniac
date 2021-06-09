@@ -158,6 +158,28 @@
 					},
 					add: { y: 0, x: 0 },
 					snap: { x: 90, y: 25 },
+					syncRows: (Drag, add) => {
+						if (add.y > Drag.add.y) {
+							// add rows
+							Drag.tbody[0].appendChild(Drag.row[0].cloneNode(true));
+						} else {
+							// delete rows
+							Drag.tbody[0].removeChild(Drag.tbody[0].lastChild);
+						}
+						Drag.add.y = add.y;
+					},
+					syncCols: (Drag, add) => {
+						if (add.x > Drag.add.x) {
+							// add cells
+							Drag.tbody.find("tr").map(row =>
+								row.appendChild(Drag.cell[0].cloneNode()));
+						} else {
+							// delete cells
+							Drag.tbody.find("tr").map(row =>
+								row.removeChild(row.lastChild));
+						}
+						Drag.add.x = add.x;
+					},
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
@@ -172,29 +194,9 @@
 					x: Math.floor((width - Drag.min.x) / Drag.snap.x),
 				}
 				// this prevents unnecessary DOM manipulation
-				if (add.y !== Drag.add.y) {
-					if (add.y > Drag.add.y) {
-						// add rows
-						Drag.tbody[0].appendChild(Drag.row[0].cloneNode(true));
-					} else {
-						// delete rows
-						Drag.tbody[0].removeChild(Drag.tbody[0].lastChild);
-					}
-					Drag.add.y = add.y;
-				}
+				if (add.y !== Drag.add.y) Drag.syncRows(Drag, add);
 				// this prevents unnecessary DOM manipulation
-				if (add.x !== Drag.add.x) {
-					if (add.x > Drag.add.x) {
-						// add cells
-						Drag.tbody.find("tr").map(row =>
-							row.appendChild(Drag.cell[0].cloneNode()));
-					} else {
-						// delete cells
-						Drag.tbody.find("tr").map(row =>
-							row.removeChild(row.lastChild));
-					}
-					Drag.add.x = add.x;
-				}
+				if (add.x !== Drag.add.x) Drag.syncCols(Drag, add);
 				break;
 			case "mouseup":
 				// uncover layout
