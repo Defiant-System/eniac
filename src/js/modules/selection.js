@@ -127,8 +127,8 @@
 				Drag.el.css({ height, width });
 
 				// make tool columns + rows active
-				yNum = [Drag.coords.y, ...Drag.snap.filterY.map((e,i) => Drag.coords.y + i)];
-				xNum = [Drag.coords.x, ...Drag.snap.filterX.map((e,i) => Drag.coords.x + i)];
+				yNum = Drag.snap.filterY.map((e,i) => Drag.coords.y + i);
+				xNum = Drag.snap.filterX.map((e,i) => Drag.coords.x + i);
 				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				break;
 			case "mouseup":
