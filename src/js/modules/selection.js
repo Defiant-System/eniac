@@ -101,7 +101,7 @@
 					clickY: event.clientY,
 					offset: { width, height },
 					snap: {
-						x: [width, ...cell.nextAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width - width + 10)],
+						x: [width, ...cell.nextAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width)],
 						y: [height, ...row.nextAll("tr").map(tr => tr.offsetTop + tr.offsetHeight - top)],
 					}
 				};
