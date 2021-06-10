@@ -101,10 +101,11 @@
 					clickY: event.clientY,
 					offset: { width, height },
 					snap: {
-						x: [width, ...cell.nextAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width)],
+						x: [width, ...cell.nextAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width - left)],
 						y: [height, ...row.nextAll("tr").map(tr => tr.offsetTop + tr.offsetHeight - top)],
 					}
 				};
+				// console.log(Self.drag.snap.x);
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
@@ -112,7 +113,6 @@
 			case "mousemove":
 				width = event.clientX - Drag.clickX + Drag.offset.width;
 				height = event.clientY - Drag.clickY + Drag.offset.height;
-
 				width = Math.max(...Drag.snap.x.filter(w => w < width)) + 5;
 				height = Math.max(...Drag.snap.y.filter(h => h < height)) + 5;
 
