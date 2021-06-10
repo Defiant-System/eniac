@@ -23,7 +23,7 @@ const Render = {
 		this.sheet(book.SheetNames[0]);
 
 		// temporary
-		this.els.body.find("td:nth(0)").trigger("click");
+		this.els.body.find("td:nth(10)").trigger("click");
 	},
 	sheet(name) {
 		// render sheet table

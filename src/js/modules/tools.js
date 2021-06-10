@@ -8,11 +8,11 @@
 		this.els = {
 			root,
 			doc: $(document),
+			layout: window.find("layout"),
 			move: root.find(".tool.move"),
 			resizes: root.find(".tool.resize, .tool.v-resize, .tool.h-resize"),
 			cols: root.find(".table-cols"),
 			rows: root.find(".table-rows"),
-			layout: window.find("layout"),
 		};
 
 		// bind event handlers
@@ -152,10 +152,7 @@
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: { width, height },
-					min: {
-						y: height,
-						x: width,
-					},
+					min: { y: height, x: width },
 					add: { y: 0, x: 0 },
 					snap: { x: 90, y: 25 },
 					syncRows: (Drag, add) => {

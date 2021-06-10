@@ -87,5 +87,18 @@
 				Self.activeEl = false;
 				break;
 		}
+	},
+	active: {
+		get cell() {
+			return eniac.content.activeEl || null;
+		},
+		get row() {
+			let active = eniac.content.activeEl;
+			return active ? active.parent() : null;
+		},
+		get table() {
+			let active = eniac.content.activeEl;
+			return active ? active.parents("table:first")[0] : null;
+		},
 	}
 }
