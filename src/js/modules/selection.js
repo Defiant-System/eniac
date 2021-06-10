@@ -78,6 +78,7 @@
 			Self = APP.selection,
 			Drag = Self.drag,
 			top, left, width, height,
+			yNum, xNum,
 			cell,
 			row,
 			el;
@@ -103,9 +104,13 @@
 					snap: {
 						x: [width, ...cell.nextAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width - left)],
 						y: [height, ...row.nextAll("tr").map(tr => tr.offsetTop + tr.offsetHeight - top)],
-					}
+					},
+					coords: {
+						x: cell.index(),
+						y: row.index(),
+					},
 				};
-				// console.log(Self.drag.snap.x);
+				// console.log(Self.drag.coords);
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
@@ -113,10 +118,18 @@
 			case "mousemove":
 				width = event.clientX - Drag.clickX + Drag.offset.width;
 				height = event.clientY - Drag.clickY + Drag.offset.height;
-				width = Math.max(...Drag.snap.x.filter(w => w < width)) + 5;
-				height = Math.max(...Drag.snap.y.filter(h => h < height)) + 5;
+				Drag.snap.filterX = Drag.snap.x.filter(w => w < width);
+				Drag.snap.filterY = Drag.snap.y.filter(h => h < height);
+				width = Math.max(...Drag.snap.filterX) + 5;
+				height = Math.max(...Drag.snap.filterY) + 5;
 
+				// resize selection box
 				Drag.el.css({ height, width });
+
+				// make tool columns + rows active
+				yNum = [Drag.coords.y, ...Drag.snap.filterY.map((e,i) => Drag.coords.y + i)];
+				xNum = [Drag.coords.x, ...Drag.snap.filterX.map((e,i) => Drag.coords.x + i)];
+				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				break;
 			case "mouseup":
 				// uncover layout

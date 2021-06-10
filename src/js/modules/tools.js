@@ -66,13 +66,16 @@
 				str = event.table.find("tr").map(row => `<tr><td><s></s></td></tr>`).join("");
 				Self.els.rows.html(str);
 				break;
-			case "select-coord":
+			case "select-coords":
 				Parser.table.find(".selected").removeClass("selected");
 
+				cols = event.xNum.length ? event.xNum : [event.xNum];
+				rows = event.yNum.length ? event.yNum : [event.yNum];
+
 				Self.els.cols.find(".active").removeClass("active");
-				Self.els.cols.find("td").get(event.xNum).addClass("active");
+				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));
 				Self.els.rows.find(".active").removeClass("active");
-				Self.els.rows.find("tr").get(event.yNum).addClass("active");
+				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
 				break;
 			case "select-columns":
 				// auto blur active cell

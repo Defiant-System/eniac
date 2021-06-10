@@ -64,7 +64,7 @@
 				yNum = el.parent().index();
 
 				// make column + row active
-				APP.tools.dispatch({ type: "select-coord", yNum, xNum });
+				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				// selection element
 				APP.selection.dispatch({ ...event, el, type: "select-cell" });
 
