@@ -71,6 +71,7 @@
 
 				cols = event.xNum.length ? event.xNum : [event.xNum];
 				rows = event.yNum.length ? event.yNum : [event.yNum];
+				console.log( cols, rows );
 
 				Self.els.cols.find(".active").removeClass("active");
 				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));

@@ -79,8 +79,9 @@
 			Drag = Self.drag,
 			top, left, width, height,
 			yNum, xNum,
-			cell,
-			row,
+			cell, cells,
+			row, rows,
+			isTop,
 			el;
 		switch (event.type) {
 			case "mousedown":
@@ -94,16 +95,26 @@
 				left = cell.prop("offsetLeft");
 				width = cell.prop("offsetWidth");
 				height = cell.prop("offsetHeight");
+				isTop = event.target.classList.contains("top-left");
+
+				if (isTop) {
+					cells = cell.prevAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width - left);
+					rows = row.prevAll("tr").map(tr => tr.offsetTop + tr.offsetHeight - top);
+				} else {
+					cells = cell.nextAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width - left);
+					rows = row.nextAll("tr").map(tr => tr.offsetTop + tr.offsetHeight - top);
+				}
 
 				// create drag object
 				Self.drag = {
 					el,
+					isTop,
 					clickX: event.clientX,
 					clickY: event.clientY,
-					offset: { width, height },
+					offset: { top, left, width, height },
 					snap: {
-						x: [width, ...cell.nextAll("td").map(td => td.offsetLeft + td.getBoundingClientRect().width - left)],
-						y: [height, ...row.nextAll("tr").map(tr => tr.offsetTop + tr.offsetHeight - top)],
+						x: [width, ...cells],
+						y: [height, ...rows],
 					},
 					coords: {
 						x: cell.index(),
@@ -116,20 +127,29 @@
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
-				width = event.clientX - Drag.clickX + Drag.offset.width;
-				height = event.clientY - Drag.clickY + Drag.offset.height;
-				Drag.snap.filterX = Drag.snap.x.filter(w => w < width);
-				Drag.snap.filterY = Drag.snap.y.filter(h => h < height);
-				width = Math.max(...Drag.snap.filterX) + 5;
-				height = Math.max(...Drag.snap.filterY) + 5;
+				if (Drag.isTop) {
+					top = event.clientY - Drag.clickY + Drag.offset.top;
+					left = event.clientX - Drag.clickX + Drag.offset.left;
+					height = Drag.offset.height + Drag.clickY - event.clientY + 3;
+					width = Drag.offset.width + Drag.clickX - event.clientX + 3;
 
-				// resize selection box
-				Drag.el.css({ height, width });
+					// resize selection box
+					Drag.el.css({ top, left, height, width });
+				} else {
+					height = event.clientY - Drag.clickY + Drag.offset.height;
+					width = event.clientX - Drag.clickX + Drag.offset.width;
+					Drag.snap.filterY = Drag.snap.y.filter(h => h < height);
+					Drag.snap.filterX = Drag.snap.x.filter(w => w < width);
+					height = Math.max(...Drag.snap.filterY) + 5;
+					width = Math.max(...Drag.snap.filterX) + 5;
 
-				// make tool columns + rows active
-				yNum = Drag.snap.filterY.map((e,i) => Drag.coords.y + i);
-				xNum = Drag.snap.filterX.map((e,i) => Drag.coords.x + i);
-				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+					// resize selection box
+					Drag.el.css({ height, width });
+					// make tool columns + rows active
+					yNum = Drag.snap.filterY.map((e,i) => Drag.coords.y + i).unshift(Drag.coords.y);
+					xNum = Drag.snap.filterX.map((e,i) => Drag.coords.x + i).unshift(Drag.coords.x);
+					APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+				}
 				break;
 			case "mouseup":
 				// uncover layout
