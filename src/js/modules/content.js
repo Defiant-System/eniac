@@ -50,7 +50,9 @@
 				// auto blur active cell
 				Self.dispatch({ type: "blur-cell" });
 				// focus table
-				el = $(event.target).addClass("active");
+				el = $(event.target);
+				if (!event.blur) el.addClass("active");
+
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", table: el.parents("table.sheet") });
 				// focus clicked table

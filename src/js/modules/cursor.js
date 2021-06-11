@@ -61,11 +61,17 @@ const Cursor = {
 				height = event.target.offsetHeight + 5;
 				width = rect.width + 5;
 				
-				Self.els.root.addClass("show").css({ top, left, width, height });
+				Self.els.root
+					.removeClass("no-edit")
+					.addClass("show")
+					.css({ top, left, width, height });
+				
+				if (event.blur) {
+					return Self.els.root.addClass("no-edit");
+				}
 
 				if (event.el) {
-					el = Self.els.selText.val(event.el.text());
-					if (!event.blur) el.focus();
+					Self.els.selText.val(event.el.text()).focus();
 				} else {
 					Self.els.selText.val("");
 				}
@@ -76,39 +82,37 @@ const Cursor = {
 		let APP = eniac,
 			Self = Cursor,
 			Drag = Self.drag,
-			top, left, width, height,
 			el;
 		switch (event.type) {
-			case "mousedown":
+			case "mousedown": {
 				// prevent default behaviour
 				event.preventDefault();
-
+				// cursor UI element
 				el = Self.els.root;
 				
 				let cell = $(event.target),
+					top = cell.prop("offsetTop"),
+					left = cell.prop("offsetLeft"),
+					width = cell[0].getBoundingClientRect().width,
+					height = cell.prop("offsetHeight"),
 					row = cell.parent(),
 					table = row.parents("table:first"),
-					cells = table.find("tr:nth(2) td").map(td => {
+					cells = table.find("tr:nth(2) td").map((td, index) => {
 						return {
+							index,
 							left: td.offsetLeft,
-							right: td.offsetLeft + td.getBoundingClientRect().width,
+							right: td.offsetLeft + td.getBoundingClientRect().width - left,
 						};
 					}),
-					rows = table.find("tr").map(tr => {
+					rows = table.find("tr").map((tr, index) => {
 						return {
+							index,
 							top: tr.offsetTop,
-							bottom: tr.offsetTop + tr.offsetHeight
+							bottom: tr.offsetTop + tr.offsetHeight - top,
 						};
 					});
-
 				// focus on cell
 				APP.content.dispatch({ type: "focus-cell", target: cell[0], blur: true });
-
-				top = cell.prop("offsetTop");
-				left = cell.prop("offsetLeft");
-				width = cell.prop("offsetWidth");
-				height = cell.prop("offsetHeight");
-
 				// create drag object
 				Self.drag = {
 					el,
@@ -120,22 +124,36 @@ const Cursor = {
 						y: [height, ...rows],
 					},
 				};
-
 				// cover layout
 				Self.els.layout.addClass("cover");
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
-				break;
+				break; }
 			case "mousemove":
-				top = Drag.offset.top;
-				left = Drag.offset.left;
-				height = event.clientY - Drag.clickY + Drag.offset.height;
-				width = event.clientX - Drag.clickX + Drag.offset.width;
+				let top = Drag.offset.top,
+					left = Drag.offset.left,
+					height = event.clientY - Drag.clickY + Drag.offset.height,
+					width = event.clientX - Drag.clickX + Drag.offset.width;
 
-				Drag.grid.filterY = Drag.grid.y.filter(b => b.bottom < height + Drag.offset.top);
-				Drag.grid.filterX = Drag.grid.x.filter(b => b.right < width + Drag.offset.left);
-				height = Math.max(...Drag.grid.filterY.map(b => b.bottom - Drag.offset.top));
-				width = Math.max(...Drag.grid.filterX.map(b => b.right - Drag.offset.left));
+				if (height < 0) {
+					top = event.clientY - Drag.clickY + Drag.offset.top;
+					Drag.grid.filterY = Drag.grid.y.filter(b => b.top > top);
+					top = Math.min(...Drag.grid.filterY.map(b => b.top));
+					height = Drag.offset.top + Drag.offset.height - top;
+				} else {
+					Drag.grid.filterY = Drag.grid.y.filter(b => b.bottom < height);
+					height = Math.max(...Drag.grid.filterY.map(b => b.bottom));
+				}
+
+				if (width < 0) {
+					left = event.clientX - Drag.clickX + Drag.offset.left;
+					Drag.grid.filterX = Drag.grid.x.filter(b => b.left > left);
+					left = Math.min(...Drag.grid.filterX.map(b => b.left));
+					width = Drag.offset.left + Drag.offset.width - left;
+				} else {
+					Drag.grid.filterX = Drag.grid.x.filter(b => b.right < width);
+					width = Math.max(...Drag.grid.filterX.map(b => b.right));
+				}
 
 				if (height < Drag.offset.height) height = Drag.offset.height;
 				if (width < Drag.offset.width) width = Drag.offset.width;

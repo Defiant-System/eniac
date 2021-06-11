@@ -765,9 +765,16 @@ table.sheet {
 			padding: 2px;
 			z-index: 2;
 			display: none;
+			pointer-events: none;
 
 			&.show {
 				display: block;
+			}
+
+			&.no-edit {
+				textarea {
+					display: none;
+				}
 			}
 
 			&:before {
@@ -783,6 +790,7 @@ table.sheet {
 				border-radius: 50%;
 				box-shadow: 0 0 0 1px #3583d0;
 				cursor: nwse-resize;
+				pointer-events: all;
 
 				&.top-left {
 					top: -2px;
