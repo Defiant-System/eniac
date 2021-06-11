@@ -124,6 +124,8 @@ const Cursor = {
 					el,
 					clickX: event.clientX,
 					clickY: event.clientY,
+					cellIndex: cell.index(),
+					rowIndex: row.index(),
 					offset: { top, left, width, height },
 					grid: {
 						x: [width, ...cells],
@@ -139,16 +141,22 @@ const Cursor = {
 				let top = Drag.offset.top,
 					left = Drag.offset.left,
 					height = event.clientY - Drag.clickY + Drag.offset.height,
-					width = event.clientX - Drag.clickX + Drag.offset.width;
+					width = event.clientX - Drag.clickX + Drag.offset.width,
+					yNum,
+					xNum;
 
 				if (height < 0) {
 					top = event.clientY - Drag.clickY + Drag.offset.top;
 					Drag.grid.filterY = Drag.grid.y.filter(b => b.top > top);
 					top = Math.min(...Drag.grid.filterY.map(b => b.top));
 					height = Drag.offset.top + Drag.offset.height - top;
+					// get columns to be highlighted
+					yNum = [Drag.rowIndex, ...Drag.grid.filterY.map(b => b.index).filter(i => i < Drag.rowIndex)];
 				} else {
 					Drag.grid.filterY = Drag.grid.y.filter(b => b.bottom < height);
 					height = Math.max(...Drag.grid.filterY.map(b => b.bottom));
+					// get columns to be highlighted
+					yNum = [Drag.rowIndex, ...Drag.grid.filterY.map(b => b.index).filter(i => i > Drag.rowIndex)];
 				}
 
 				if (width < 0) {
@@ -156,9 +164,13 @@ const Cursor = {
 					Drag.grid.filterX = Drag.grid.x.filter(b => b.left > left);
 					left = Math.min(...Drag.grid.filterX.map(b => b.left));
 					width = Drag.offset.left + Drag.offset.width - left;
+					// get rows to be highlighted
+					xNum = [Drag.cellIndex, ...Drag.grid.filterX.map(b => b.index).filter(i => i < Drag.cellIndex)];
 				} else {
 					Drag.grid.filterX = Drag.grid.x.filter(b => b.right < width);
 					width = Math.max(...Drag.grid.filterX.map(b => b.right));
+					// get rows to be highlighted
+					xNum = [Drag.cellIndex, ...Drag.grid.filterX.map(b => b.index).filter(i => i > Drag.cellIndex)];
 				}
 
 				if (height < Drag.offset.height) height = Drag.offset.height;
@@ -171,6 +183,9 @@ const Cursor = {
 					height: height + 5,
 					width: width + 5
 				});
+
+				// make tool columns + rows active
+				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				break;
 			case "mouseup":
 				// uncover layout
