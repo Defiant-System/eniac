@@ -12,6 +12,7 @@ const Cursor = {
 		};
 
 		// bind event handlers
+		this.els.handles.on("mousedown", this.resize);
 		this.els.layout.on("mousedown", ".sheet td", this.resize);
 	},
 	dispatch(event) {
@@ -89,9 +90,14 @@ const Cursor = {
 				event.preventDefault();
 				// cursor UI element
 				el = Self.els.root;
+
+				let cell = $(event.target);
+				if (cell.hasClass("handle")) {
+					cell = APP.content.active.cell;
+					APP.content.dispatch({ type: "blur-cell" });
+				}
 				
-				let cell = $(event.target),
-					top = cell.prop("offsetTop"),
+				let top = cell.prop("offsetTop"),
 					left = cell.prop("offsetLeft"),
 					width = cell[0].getBoundingClientRect().width,
 					height = cell.prop("offsetHeight"),
