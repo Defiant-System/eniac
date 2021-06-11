@@ -78,14 +78,19 @@
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
 
 				// UI change on sheet table
-				Parser.table.find(".selected").removeClass("selected");
+				Parser.table.find(".selected, .anchor").removeClass("selected anchor");
 
-				rows.map(i => {
-					Parser.table.find(`tr:nth(${i}) td`).map(td => {
-						let cell = $(td);
-						if (cols.includes(cell.index())) cell.addClass("selected");
+				let anchor;
+				rows.sort((a, b) => a - b)
+					.map(i => {
+						Parser.table.find(`tr:nth(${i}) td`).map(td => {
+							let cell = $(td);
+							if (cols.includes(cell.index())) {
+								cell.addClass("selected");
+								if (!anchor) anchor = cell.addClass("anchor");
+							}
+						});
 					});
-				});
 				break;
 			case "select-columns":
 				// auto blur active cell
