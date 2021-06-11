@@ -127,16 +127,26 @@ const Cursor = {
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
+				top = Drag.offset.top;
+				left = Drag.offset.left;
 				height = event.clientY - Drag.clickY + Drag.offset.height;
 				width = event.clientX - Drag.clickX + Drag.offset.width;
 
 				Drag.grid.filterY = Drag.grid.y.filter(b => b.bottom < height + Drag.offset.top);
 				Drag.grid.filterX = Drag.grid.x.filter(b => b.right < width + Drag.offset.left);
-				height = Math.max(...Drag.grid.filterY.map(b => b.bottom - Drag.offset.top)) + 5;
-				width = Math.max(...Drag.grid.filterX.map(b => b.right - Drag.offset.left)) + 5;
+				height = Math.max(...Drag.grid.filterY.map(b => b.bottom - Drag.offset.top));
+				width = Math.max(...Drag.grid.filterX.map(b => b.right - Drag.offset.left));
+
+				if (height < Drag.offset.height) height = Drag.offset.height;
+				if (width < Drag.offset.width) width = Drag.offset.width;
 
 				// resize selection box
-				Drag.el.css({ height, width });
+				Drag.el.css({
+					top: top - 2,
+					left: left - 2,
+					height: height + 5,
+					width: width + 5
+				});
 				break;
 			case "mouseup":
 				// uncover layout
