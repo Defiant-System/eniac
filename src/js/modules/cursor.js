@@ -1,7 +1,5 @@
 
-// eniac.selection
-
-{
+const Cursor = {
 	init() {
 		// fast references
 		let root = window.find(".selection");
@@ -18,7 +16,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.selection,
+			Self = Cursor,
 			Content = APP.content,
 			active = Content.activeEl,
 			rect, top, left, width, height,
@@ -66,7 +64,8 @@
 				Self.els.root.addClass("show").css({ top, left, width, height });
 
 				if (event.el) {
-					Self.els.selText.val(event.el.text()).focus();
+					el = Self.els.selText.val(event.el.text());
+					if (!event.blur) el.focus();
 				} else {
 					Self.els.selText.val("");
 				}
@@ -75,7 +74,7 @@
 	},
 	resize(event) {
 		let APP = eniac,
-			Self = APP.selection,
+			Self = Cursor,
 			Drag = Self.drag,
 			top, left, width, height,
 			el;
@@ -89,8 +88,21 @@
 				let cell = $(event.target),
 					row = cell.parent(),
 					table = row.parents("table:first"),
-					cells = table.find("td");
-					rows = table.find("tr");
+					cells = table.find("tr:nth(2) td").map(td => {
+						return {
+							left: 0,
+							right: 0,
+						};
+					}),
+					rows = table.find("tr").map(tr => {
+						return {
+							top: tr.offsetTop,
+							bottom: tr.offsetTop + tr.offsetHeight
+						};
+					});
+
+				// focus on cell
+				APP.content.dispatch({ type: "focus-cell", target: cell[0], blur: true });
 
 				top = cell.prop("offsetTop");
 				left = cell.prop("offsetLeft");
@@ -124,4 +136,4 @@
 				break;
 		}
 	}
-}
+};

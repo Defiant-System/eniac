@@ -36,13 +36,13 @@
 						break;
 					case "tab":
 					case "return":
-						APP.selection.dispatch({ type: "move-right" });
+						Cursor.dispatch({ type: "move-right" });
 						break;
 					case "up":
 					case "down":
 					case "right":
 					case "left":
-						APP.selection.dispatch({ type: "move-"+ event.char });
+						Cursor.dispatch({ type: "move-"+ event.char });
 						break;
 				}
 				break;
@@ -87,7 +87,7 @@
 				cols = Parser.table.find(`td:nth-child(${el.index()+1})`).addClass("selected");
 
 				// selection element
-				APP.selection.dispatch({ type: "select-column", cols });
+				Cursor.dispatch({ type: "select-column", cols });
 				// make all rows "active"
 				Self.els.rows.find("tr.active").removeClass("active");
 				// make column active
@@ -105,7 +105,7 @@
 				rows.find("td").addClass("selected");
 
 				// selection element
-				APP.selection.dispatch({ type: "select-row", target: rows[0] });
+				Cursor.dispatch({ type: "select-row", target: rows[0] });
 				// make all columns "active"
 				Self.els.cols.find("td.active").removeClass("active");
 				// make row active

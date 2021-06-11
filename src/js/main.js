@@ -1,6 +1,7 @@
 
 @import "modules/render.js"
 @import "modules/parser.js"
+@import "modules/cursor.js"
 @import "modules/file.js"
 
 const XLSX = await window.fetch("~/js/xlsx.full.min.js")
@@ -8,6 +9,7 @@ const XLSX = await window.fetch("~/js/xlsx.full.min.js")
 const eniac = {
 	init() {
 		// init renderer
+		Cursor.init();
 		Render.init();
 		// init all sub-objects
 		Object.keys(this)
@@ -79,7 +81,6 @@ const eniac = {
 		}
 	},
 	tools: @import "modules/tools.js",
-	selection: @import "modules/selection.js",
 	sidebar: @import "modules/sidebar.js",
 	content: @import "modules/content.js",
 	head: @import "modules/head.js",

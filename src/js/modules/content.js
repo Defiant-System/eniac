@@ -6,7 +6,7 @@
 		// fast references
 		this.els = {
 			tools: window.find(".table-tools"),
-			selection: window.find(".selection"),
+			// selection: window.find(".selection"),
 			selText: window.find(".selection textarea"),
 		};
 
@@ -15,10 +15,6 @@
 		// 	window.find("table.sheet td").get(5).trigger("click");
 		// //	Parser.compute(7);
 		// }, 300);
-
-		// setTimeout(() => {
-		// 	eniac.selection.dispatch({ type: "move-right" });
-		// }, 1000);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -65,8 +61,8 @@
 
 				// make column + row active
 				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
-				// selection element
-				APP.selection.dispatch({ ...event, el, type: "select-cell" });
+				// cursor element
+				Cursor.dispatch({ ...event, el, type: "select-cell" });
 
 				// remember active cell
 				Self.activeEl = el;
