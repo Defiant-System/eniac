@@ -90,8 +90,8 @@ const Cursor = {
 					table = row.parents("table:first"),
 					cells = table.find("tr:nth(2) td").map(td => {
 						return {
-							left: 0,
-							right: 0,
+							left: td.offsetLeft,
+							right: td.offsetLeft + td.getBoundingClientRect().width,
 						};
 					}),
 					rows = table.find("tr").map(tr => {
@@ -127,6 +127,16 @@ const Cursor = {
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
+				height = event.clientY - Drag.clickY + Drag.offset.height;
+				width = event.clientX - Drag.clickX + Drag.offset.width;
+
+				Drag.grid.filterY = Drag.grid.y.filter(b => b.bottom < height + Drag.offset.top);
+				Drag.grid.filterX = Drag.grid.x.filter(b => b.right < width + Drag.offset.left);
+				height = Math.max(...Drag.grid.filterY.map(b => b.bottom - Drag.offset.top)) + 5;
+				width = Math.max(...Drag.grid.filterX.map(b => b.right - Drag.offset.left)) + 5;
+
+				// resize selection box
+				Drag.el.css({ height, width });
 				break;
 			case "mouseup":
 				// uncover layout
