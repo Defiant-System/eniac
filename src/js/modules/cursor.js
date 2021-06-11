@@ -184,8 +184,13 @@ const Cursor = {
 					width: width + 5
 				});
 
-				// make tool columns + rows active
-				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+				let selection = yNum.join() + xNum.join();
+				if (Drag.selection !== selection) {
+					// prevents unnecessary DOM manipulation
+					Drag.selection = selection;
+					// make tool columns + rows active
+					APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+				}
 				break;
 			case "mouseup":
 				// uncover layout

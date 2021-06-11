@@ -76,6 +76,16 @@
 				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));
 				Self.els.rows.find(".active").removeClass("active");
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
+
+				// UI change on sheet table
+				Parser.table.find(".selected").removeClass("selected");
+
+				rows.map(i => {
+					Parser.table.find(`tr:nth(${i}) td`).map(td => {
+						let cell = $(td);
+						if (cols.includes(cell.index())) cell.addClass("selected");
+					});
+				});
 				break;
 			case "select-columns":
 				// auto blur active cell
