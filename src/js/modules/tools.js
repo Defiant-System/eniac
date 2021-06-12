@@ -32,7 +32,7 @@
 				// special handling of special keys
 				switch (event.char) {
 					case "esc":
-						APP.content.dispatch({ type: "blur-table" });
+						Cursor.dispatch({ type: "blur-table" });
 						break;
 					case "tab":
 					case "return":
@@ -48,6 +48,9 @@
 				break;
 			// custom events
 			case "sync-sheet-table":
+				if (event.table.isSame(Self.table)) return;
+				Self.table = event.table;
+
 				Self.els.root.css({
 					width: event.table[0].offsetWidth,
 					height: event.table[0].offsetHeight,
@@ -67,8 +70,6 @@
 				Self.els.rows.html(str);
 				break;
 			case "select-coords":
-				Parser.table.find(".selected").removeClass("selected");
-
 				cols = event.xNum.length ? event.xNum : [event.xNum];
 				rows = event.yNum.length ? event.yNum : [event.yNum];
 

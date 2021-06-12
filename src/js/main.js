@@ -82,7 +82,6 @@ const eniac = {
 	},
 	tools: @import "modules/tools.js",
 	sidebar: @import "modules/sidebar.js",
-	content: @import "modules/content.js",
 	head: @import "modules/head.js",
 };
 

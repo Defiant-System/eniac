@@ -7,6 +7,7 @@ const Cursor = {
 			root,
 			doc: $(document),
 			layout: window.find("layout"),
+			tools: window.find(".table-tools"),
 			selText: root.find("textarea"),
 			handles: root.find(".handle"),
 		};
@@ -15,13 +16,25 @@ const Cursor = {
 		this.els.handles.on("mousedown", this.resize);
 		this.els.layout.on("mousedown", ".sheet td", this.resize);
 	},
+	active: {
+		get cell() {
+			return Cursor.anchor || null;
+		},
+		get row() {
+			let active = Cursor.anchor;
+			return active ? active.parent() : null;
+		},
+		get table() {
+			return Parser.table || null;
+		},
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = Cursor,
-			Content = APP.content,
-			active = Content.activeEl,
-			rect, top, left, width, height,
+			anchor = Self.anchor,
+			top, left, width, height,
 			xNum, yNum,
+			table,
 			next,
 			el;
 		switch (event.type) {
@@ -32,15 +45,42 @@ const Cursor = {
 				yNum = active.parent().index() + (event.type === "move-up" ? -1 : 1);
 				next = Parser.getCellByCoord(xNum, yNum);
 				if (next.length) {
-					Content.dispatch({ type: "focus-cell", target: next[0] });
+					Self.dispatch({ type: "focus-cell", anchor: next[0] });
 				}
 				break;
 			case "move-right":
 			case "move-left":
 				next = active[ event.type === "move-right" ? "next" : "prev" ]("td");
 				if (next.length) {
-					Content.dispatch({ type: "focus-cell", target: next[0] });
+					Self.dispatch({ type: "focus-cell", anchor: next[0] });
 				}
+				break;
+			case "focus-table":
+				if (event.table.isSame(Parser.table)) return;
+				// set table for parser
+				Parser.setTable(event.table);
+				// show tools for table
+				Self.els.tools.removeClass("hidden");
+				break;
+			case "blur-table":
+				break;
+			case "focus-cell":
+				// anchor cell
+				el = $(event.anchor);
+				table = el.parents("table.sheet");
+				// focus clicked table
+				Self.dispatch({ type: "focus-table", table });
+				// sync tools table
+				APP.tools.dispatch({ type: "sync-sheet-table", table });
+				
+				// make column + row active
+				xNum = el.index();
+				yNum = el.parent().index();
+				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+				// UI select element
+				Self.dispatch({ ...event, el, type: "select-cell" });
+				break;
+			case "blur-cell":
 				break;
 			case "select-column":
 				let first = event.cols[0] ,
@@ -51,31 +91,29 @@ const Cursor = {
 				height = last.offsetTop + last.offsetHeight + 5;
 
 				Self.els.root.addClass("show").css({ top, left, width, height });
-				Self.els.selText.val("");
+				// Self.els.selText.val("");
 				break;
 			case "select-row":
 			case "select-cell":
-				rect = event.target.getBoundingClientRect();
-
-				top = event.target.offsetTop - 2;
-				left = event.target.offsetLeft - 2;
-				height = event.target.offsetHeight + 5;
-				width = rect.width + 5;
+				top = event.anchor.offsetTop - 2;
+				left = event.anchor.offsetLeft - 2;
+				height = event.anchor.offsetHeight + 5;
+				width = event.anchor.getBoundingClientRect().width + 5;
 				
 				Self.els.root
 					.removeClass("no-edit")
 					.addClass("show")
 					.css({ top, left, width, height });
 				
-				if (event.blur) {
-					return Self.els.root.addClass("no-edit");
-				}
+				// if (event.blur) {
+				// 	return Self.els.root.addClass("no-edit");
+				// }
 
-				if (event.el) {
-					Self.els.selText.val(event.el.text()).focus();
-				} else {
-					Self.els.selText.val("");
-				}
+				// if (event.el) {
+				// 	Self.els.selText.val(event.el.text()).focus();
+				// } else {
+				// 	Self.els.selText.val("");
+				// }
 				break;
 		}
 	},
@@ -93,9 +131,10 @@ const Cursor = {
 
 				let cell = $(event.target);
 				if (cell.hasClass("handle")) {
-					cell = APP.content.active.cell;
-					APP.content.dispatch({ type: "blur-cell" });
+					cell = Cursor.active.cell;
 				}
+				// auto blur active cell
+				// Self.dispatch({ type: "blur-cell" });
 				
 				let top = cell.prop("offsetTop"),
 					left = cell.prop("offsetLeft"),
@@ -118,12 +157,13 @@ const Cursor = {
 						};
 					});
 				// focus on cell
-				APP.content.dispatch({ type: "focus-cell", target: cell[0], blur: true });
+				// Self.dispatch({ type: "focus-cell", anchor: cell[0] });
 				// create drag object
 				Self.drag = {
 					el,
 					clickX: event.clientX,
 					clickY: event.clientY,
+					target: cell,
 					cellIndex: cell.index(),
 					rowIndex: row.index(),
 					offset: { top, left, width, height },
@@ -193,6 +233,10 @@ const Cursor = {
 				}
 				break;
 			case "mouseup":
+				if (!Drag.selection) {
+					// auto blur active cell
+					Self.dispatch({ type: "focus-cell", anchor: Drag.target[0] });
+				}
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind event

@@ -31,13 +31,13 @@ const Render = {
 			str = XLSX.utils.sheet_to_html(sheet);
 
 		str = str.match(/<table>.*?<\/table>/gm)[0];
-		str = str.replace(/<table>/, `<table class="sheet" data-click="focus-cell">`);
+		str = str.replace(/<table>/, `<table class="sheet">`);
 
 		// remove existing sheet
 		this.els.body.find("table.sheet").remove();
 		// append new sheet
 		this.els.body.append(str);
 		// hide tools
-		eniac.content.dispatch({ type: "blur-table" });
+		Cursor.dispatch({ type: "blur-table" });
 	}
 };
