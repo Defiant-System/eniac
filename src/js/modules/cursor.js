@@ -36,6 +36,7 @@ const Cursor = {
 			anchor,
 			table,
 			next,
+			v = "",
 			el;
 		switch (event.type) {
 			// system events
@@ -51,9 +52,8 @@ const Cursor = {
 						break;
 					case "del":
 					case "backspace":
-						Parser.table.find("td.selected")
-							.html("")
-							.attr({ v: "" });
+						// empty selected cells
+						Parser.table.find("td.selected").html(v).attr({ v });
 						break;
 					case "up":
 					case "down":
