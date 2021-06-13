@@ -2,7 +2,7 @@
 const Render = {
 	init() {
 		this.els = {
-			head: window.find("content > .head > div"),
+			head: window.find("content > .head .sheet-reel"),
 			body: window.find("content > .body > .wrapper"),
 		};
 	},

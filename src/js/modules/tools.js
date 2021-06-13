@@ -101,10 +101,13 @@
 					});
 				break;
 			case "select-columns":
+				el = $(event.target);
+				if (el.prop("nodeName") === "S") {
+					return console.log(defiant);
+				}
 				// auto blur active cell
 				Cursor.dispatch({ type: "blur-cell" });
 
-				el = $(event.target);
 				// UI change on sheet table
 				Parser.table.find(".selected").removeClass("selected");
 				cols = Parser.table.find(`td:nth-child(${el.index()+1})`).addClass("selected");

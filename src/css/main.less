@@ -208,35 +208,6 @@ content {
 			user-select: none;
 			cursor: pointer;
 
-			&.active {
-				background: #d6e6fb;
-				color: #4591e8;
-				cursor: default;
-
-				+ span:before {
-					display: none;
-				}
-			}
-
-			&:hover:not(.active) { color: #333; }
-			&:active:not(.active) { color: #111; }
-
-			&:not(.active):last-child:after,
-			&:not(.active):before {
-				content: "";
-				position: absolute;
-				top: 5px;
-				bottom: 5px;
-				left: 0;
-				width: 1px;
-				background: rgba(0,0,0,0.15);
-			}
-
-			&:not(.active):last-child:after {
-				left: auto;
-				right: 0;
-			}
-
 			&.icon-add {
 				opacity: .5;
 				padding: 5.5px 17px 0;
@@ -247,12 +218,48 @@ content {
 		}
 
 		> div {
+			position: relative;
 			display: flex;
 			flex: 1;
+			overflow: hidden;
 
-			span {
-				white-space: nowrap;
-				min-width: 114px;
+			.sheet-reel {
+				position: relative;
+				display: flex;
+
+				span {
+					white-space: nowrap;
+					min-width: 114px;
+
+					&.active {
+						background: #d6e6fb;
+						color: #4591e8;
+						cursor: default;
+
+						+ span:before {
+							display: none;
+						}
+					}
+
+					&:hover:not(.active) { color: #333; }
+					&:active:not(.active) { color: #111; }
+
+					// &:not(.active):last-child:after,
+					&:not(.active):before {
+						content: "";
+						position: absolute;
+						top: 5px;
+						bottom: 5px;
+						left: 0;
+						width: 1px;
+						background: rgba(0,0,0,0.15);
+					}
+
+					&:not(.active):last-child:after {
+						left: auto;
+						right: 0;
+					}
+				}
 			}
 		}
 	}
