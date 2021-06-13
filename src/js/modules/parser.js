@@ -8,6 +8,9 @@ const Parser = {
 		this.colNum = this.cells.length / this.rowNum;
 	},
 	reset() {
+		if (this.table && this.table.length) {
+			this.table.find(".selected, .anchor").removeClass("selected anchor");
+		}
 		delete this.table;
 		delete this.cells;
 		delete this.rowNum;
