@@ -27,25 +27,6 @@
 			str,
 			el;
 		switch (event.type) {
-			// system events
-			case "window.keystroke":
-				// special handling of special keys
-				switch (event.char) {
-					case "esc":
-						Cursor.dispatch({ type: "blur-table" });
-						break;
-					case "tab":
-					case "return":
-						Cursor.dispatch({ type: "move-right" });
-						break;
-					case "up":
-					case "down":
-					case "right":
-					case "left":
-						Cursor.dispatch({ type: "move-"+ event.char });
-						break;
-				}
-				break;
 			// custom events
 			case "sync-sheet-table":
 				if (event.table.isSame(Self.table)) return;
@@ -88,7 +69,6 @@
 							let cell = $(td);
 							if (cols.includes(cell.index())) {
 								cell.addClass("selected");
-								if (!anchor) anchor = cell.addClass("anchor");
 							}
 						});
 					});
@@ -121,7 +101,7 @@
 				rows.find("td").addClass("selected");
 
 				// selection element
-				Cursor.dispatch({ type: "select-row", target: rows[0] });
+				Cursor.dispatch({ type: "select-row", anchor: rows[0] });
 				// make all columns "active"
 				Self.els.cols.find("td.active").removeClass("active");
 				// make row active

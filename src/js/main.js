@@ -28,7 +28,6 @@ const eniac = {
 		switch (event.type) {
 			// system events
 			case "window.open":
-				// window.find(".sidebar-head > span").get(1).trigger("click");
 				break;
 			case "window.close":
 				break;
@@ -57,7 +56,7 @@ const eniac = {
 				});
 				break;
 			case "window.keystroke":
-				Self.tools.dispatch(event);
+				Cursor.dispatch(event);
 				break;
 			// custom events
 			case "toggle-sidebar":
@@ -73,9 +72,9 @@ const eniac = {
 				}
 		}
 	},
+	head: @import "modules/head.js",
 	tools: @import "modules/tools.js",
 	sidebar: @import "modules/sidebar.js",
-	head: @import "modules/head.js",
 };
 
 window.exports = eniac;

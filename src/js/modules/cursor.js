@@ -33,10 +33,30 @@ const Cursor = {
 			Self = Cursor,
 			top, left, width, height,
 			xNum, yNum,
+			anchor,
 			table,
 			next,
 			el;
 		switch (event.type) {
+			// system events
+			case "window.keystroke":
+				// special handling of special keys
+				switch (event.char) {
+					case "esc":
+						Self.dispatch({ type: "blur-table" });
+						break;
+					case "tab":
+					case "return":
+						Self.dispatch({ type: "move-right" });
+						break;
+					case "up":
+					case "down":
+					case "right":
+					case "left":
+						Self.dispatch({ type: "move-"+ event.char });
+						break;
+				}
+				break;
 			// custom events
 			case "move-up":
 			case "move-down":
@@ -52,11 +72,16 @@ const Cursor = {
 			case "move-right":
 			case "move-left":
 				if (!Self.anchor) return;
-				
+
 				next = Self.anchor[ event.type === "move-right" ? "next" : "prev" ]("td");
 				if (next.length) {
 					Self.dispatch({ type: "focus-cell", anchor: next[0] });
 				}
+				break;
+			case "collapse-selection":
+				anchor = Parser.table.find("td.anchor");
+				if (!anchor) return;
+				Self.dispatch({ type: "", anchor });
 				break;
 			case "focus-table":
 				if (event.table.isSame(Parser.table)) return;
@@ -75,21 +100,19 @@ const Cursor = {
 				break;
 			case "focus-cell":
 				// anchor cell
-				el = $(event.anchor);
-				table = el.parents("table.sheet");
+				anchor = $(event.anchor);
+				table = anchor.parents("table.sheet");
 				// focus clicked table
 				Self.dispatch({ type: "focus-table", table });
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", table });
 				
 				// make column + row active
-				xNum = el.index();
-				yNum = el.parent().index();
+				xNum = anchor.index();
+				yNum = anchor.parent().index();
 				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				// UI select element
-				Self.dispatch({ ...event, el, type: "select-cell" });
-				// reference to cell
-				Self.anchor = el;
+				Self.dispatch({ ...event, anchor, type: "select-cell" });
 				break;
 			case "blur-cell":
 				// reset reference to cell
@@ -104,29 +127,24 @@ const Cursor = {
 				height = last.offsetTop + last.offsetHeight + 5;
 
 				Self.els.root.addClass("show").css({ top, left, width, height });
-				// Self.els.selText.val("");
+				// UI show anchor cell
+				Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				break;
 			case "select-row":
 			case "select-cell":
-				top = event.anchor.offsetTop - 2;
-				left = event.anchor.offsetLeft - 2;
-				height = event.anchor.offsetHeight + 5;
-				width = event.anchor.getBoundingClientRect().width + 5;
+				anchor = event.anchor.length ? event.anchor[0] : event.anchor;
+				top = anchor.offsetTop - 2;
+				left = anchor.offsetLeft - 2;
+				height = anchor.offsetHeight + 5;
+				width = anchor.getBoundingClientRect().width + 5;
 				
 				Self.els.root
 					.removeClass("no-edit")
 					.addClass("show")
 					.css({ top, left, width, height });
 				
-				// if (event.blur) {
-				// 	return Self.els.root.addClass("no-edit");
-				// }
-
-				// if (event.el) {
-				// 	Self.els.selText.val(event.el.text()).focus();
-				// } else {
-				// 	Self.els.selText.val("");
-				// }
+				// UI show anchor cell
+				Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				break;
 			case "edit-focus-cell":
 				break;
@@ -245,6 +263,8 @@ const Cursor = {
 					Drag.selection = selection;
 					// make tool columns + rows active
 					APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+					// UI indicate anchor cell
+					Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				}
 				break;
 			case "mouseup":
