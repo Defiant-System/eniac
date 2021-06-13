@@ -22,7 +22,7 @@
 			case "wheel":
 				delta = event.deltaY === 0 ? event.deltaX : event.deltaY;
 				max = Self.els.root.prop("offsetWidth") - Self.els.reel.prop("offsetWidth");
-				left = Math.max(Math.min(Self.els.reel.prop("offsetLeft") - delta, 0), max);
+				left = Math.min(Math.max(Self.els.reel.prop("offsetLeft") - delta, max), 0);
 				Self.els.reel.css({ left });
 				break;
 			// custom events
