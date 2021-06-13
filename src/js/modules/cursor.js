@@ -147,8 +147,6 @@ const Cursor = {
 				// UI show anchor cell
 				Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				break;
-			case "edit-focus-cell":
-				break;
 		}
 	},
 	resize(event) {
@@ -167,9 +165,7 @@ const Cursor = {
 				if (cell.hasClass("handle")) {
 					cell = Cursor.active.cell;
 				}
-				// auto blur active cell
-				// Self.dispatch({ type: "blur-cell" });
-				
+				// pre-mousemove info
 				let top = cell.prop("offsetTop"),
 					left = cell.prop("offsetLeft"),
 					width = cell[0].getBoundingClientRect().width,
@@ -190,8 +186,6 @@ const Cursor = {
 							bottom: tr.offsetTop + tr.offsetHeight - top,
 						};
 					});
-				// focus on cell
-				// Self.dispatch({ type: "focus-cell", anchor: cell[0] });
 				// create drag object
 				Self.drag = {
 					el,
@@ -271,7 +265,11 @@ const Cursor = {
 			case "mouseup":
 				if (!Drag.selection) {
 					// auto blur active cell
-					Self.dispatch({ type: "focus-cell", anchor: Drag.target[0] });
+					Self.dispatch({
+						type: "focus-cell",
+						anchor: Drag.target[0],
+						shift: event.shiftKey,
+					});
 				}
 				// uncover layout
 				Self.els.layout.removeClass("cover");
