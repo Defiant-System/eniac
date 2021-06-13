@@ -41,7 +41,7 @@ const Cursor = {
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				// special handling of special keys
+				// handling of special keys
 				switch (event.char) {
 					case "esc":
 						Self.dispatch({ type: "blur-table" });
@@ -59,7 +59,7 @@ const Cursor = {
 					case "down":
 					case "right":
 					case "left":
-						Self.dispatch({ type: "move-"+ event.char });
+						Self.dispatch({ type: "move-"+ event.char, shift: event.shiftKey });
 						break;
 				}
 				break;
@@ -84,21 +84,6 @@ const Cursor = {
 					Self.dispatch({ type: "focus-cell", anchor: next[0] });
 				}
 				break;
-			case "focus-table":
-				if (event.table.isSame(Parser.table)) return;
-				// set table for parser
-				Parser.setTable(event.table);
-				// show tools for table
-				Self.els.tools.removeClass("hidden");
-				break;
-			case "blur-table":
-				// auto blur active cell
-				Self.dispatch({ type: "blur-cell" });
-				// reset parser
-				Parser.reset();
-				// hide tools
-				Self.els.tools.addClass("hidden");
-				break;
 			case "focus-cell":
 				// anchor cell
 				anchor = $(event.anchor);
@@ -118,6 +103,21 @@ const Cursor = {
 			case "blur-cell":
 				// reset reference to cell
 				Self.anchor = false;
+				break;
+			case "focus-table":
+				if (event.table.isSame(Parser.table)) return;
+				// set table for parser
+				Parser.setTable(event.table);
+				// show tools for table
+				Self.els.tools.removeClass("hidden");
+				break;
+			case "blur-table":
+				// auto blur active cell
+				Self.dispatch({ type: "blur-cell" });
+				// reset parser
+				Parser.reset();
+				// hide tools
+				Self.els.tools.addClass("hidden");
 				break;
 			case "select-column":
 				let first = event.cols[0] ,
