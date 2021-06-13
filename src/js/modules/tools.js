@@ -15,6 +15,13 @@
 			rows: root.find(".table-rows"),
 		};
 
+		let templ = $(`<table><col width="90"/><tr><td><s></s></td></tr></table>`);
+		this.templ = {
+			colEl: templ.find("col"),
+			trEl: templ.find("tr"),
+			tdEl: templ.find("td"),
+		};
+
 		// bind event handlers
 		this.els.move.on("mousedown", this.move);
 		this.els.resizes.on("mousedown", this.resize);
@@ -28,14 +35,17 @@
 			el;
 		switch (event.type) {
 			// custom events
-			case "sync-sheet-table":
-				if (event.table.isSame(Self.table)) return;
-				Self.table = event.table;
-
+			case "sync-tools-ui":
 				Self.els.root.css({
 					width: event.table[0].offsetWidth,
 					height: event.table[0].offsetHeight,
 				});
+				break;
+			case "sync-sheet-table":
+				if (event.table.isSame(Self.table)) return;
+				Self.table = event.table;
+
+				Self.dispatch({ ...event, type: "sync-tools-ui" });
 
 				// tools columns
 				cols = event.table.find("tr:nth(0) td");
@@ -49,6 +59,23 @@
 				// tools rows
 				str = event.table.find("tr").map(row => `<tr><td><s></s></td></tr>`).join("");
 				Self.els.rows.html(str);
+				break;
+			case "append-row":
+				Self.els.rows.append(Self.templ.trEl.clone(true));
+				Self.dispatch({ ...event, type: "sync-tools-ui" });
+				break;
+			case "remove-last-row":
+				Self.els.rows.find("tr:last").remove();
+				Self.dispatch({ ...event, type: "sync-tools-ui" });
+				break;
+			case "append-column":
+				Self.els.cols.find("col:last").after(Self.templ.colEl.clone(true));
+				Self.els.cols.find("td:last").after(Self.templ.tdEl.clone(true));
+				Self.dispatch({ ...event, type: "sync-tools-ui" });
+				break;
+			case "remove-last-column":
+				Self.els.cols.find("col:last, td:last").remove();
+				Self.dispatch({ ...event, type: "sync-tools-ui" });
 				break;
 			case "select-coords":
 				cols = event.xNum.length ? event.xNum : [event.xNum];
@@ -158,21 +185,27 @@
 						if (add.y > Drag.add.y) {
 							// add rows
 							Drag.tbody[0].appendChild(Drag.row[0].cloneNode(true));
-						} else {
+							// sync tool rows
+							Self.dispatch({ type: "append-row", table: tbody.parent() });
+						} else if (add.y < Drag.add.y) {
 							// delete rows
 							Drag.tbody[0].removeChild(Drag.tbody[0].lastChild);
+							// sync tool rows
+							Self.dispatch({ type: "remove-last-row", table: tbody.parent() });
 						}
 						Drag.add.y = add.y;
 					},
 					syncCols: (Drag, add) => {
 						if (add.x > Drag.add.x) {
 							// add cells
-							Drag.tbody.find("tr").map(row =>
-								row.appendChild(Drag.cell[0].cloneNode()));
-						} else {
+							Drag.tbody.find("tr").map(row => row.appendChild(Drag.cell[0].cloneNode()));
+							// sync tool columns
+							Self.dispatch({ type: "append-column", table: tbody.parent() });
+						} else if (add.x < Drag.add.x) {
 							// delete cells
-							Drag.tbody.find("tr").map(row =>
-								row.removeChild(row.lastChild));
+							Drag.tbody.find("tr").map(row => row.removeChild(row.lastChild));
+							// sync tool rows
+							Self.dispatch({ type: "remove-last-column", table: tbody.parent() });
 						}
 						Drag.add.x = add.x;
 					},
