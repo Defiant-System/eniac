@@ -31,7 +31,6 @@ const Cursor = {
 	dispatch(event) {
 		let APP = eniac,
 			Self = Cursor,
-			anchor = Self.anchor,
 			top, left, width, height,
 			xNum, yNum,
 			table,
@@ -41,8 +40,10 @@ const Cursor = {
 			// custom events
 			case "move-up":
 			case "move-down":
-				xNum = active.index();
-				yNum = active.parent().index() + (event.type === "move-up" ? -1 : 1);
+				if (!Self.anchor) return;
+
+				xNum = Self.anchor.index();
+				yNum = Self.anchor.parent().index() + (event.type === "move-up" ? -1 : 1);
 				next = Parser.getCellByCoord(xNum, yNum);
 				if (next.length) {
 					Self.dispatch({ type: "focus-cell", anchor: next[0] });
@@ -50,7 +51,9 @@ const Cursor = {
 				break;
 			case "move-right":
 			case "move-left":
-				next = active[ event.type === "move-right" ? "next" : "prev" ]("td");
+				if (!Self.anchor) return;
+				
+				next = Self.anchor[ event.type === "move-right" ? "next" : "prev" ]("td");
 				if (next.length) {
 					Self.dispatch({ type: "focus-cell", anchor: next[0] });
 				}
@@ -63,6 +66,12 @@ const Cursor = {
 				Self.els.tools.removeClass("hidden");
 				break;
 			case "blur-table":
+				// auto blur active cell
+				Self.dispatch({ type: "blur-cell" });
+				// reset parser
+				Parser.reset();
+				// hide tools
+				Self.els.tools.addClass("hidden");
 				break;
 			case "focus-cell":
 				// anchor cell
@@ -79,8 +88,12 @@ const Cursor = {
 				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				// UI select element
 				Self.dispatch({ ...event, el, type: "select-cell" });
+				// reference to cell
+				Self.anchor = el;
 				break;
 			case "blur-cell":
+				// reset reference to cell
+				Self.anchor = false;
 				break;
 			case "select-column":
 				let first = event.cols[0] ,
@@ -114,6 +127,8 @@ const Cursor = {
 				// } else {
 				// 	Self.els.selText.val("");
 				// }
+				break;
+			case "edit-focus-cell":
 				break;
 		}
 	},

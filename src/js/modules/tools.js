@@ -95,7 +95,7 @@
 				break;
 			case "select-columns":
 				// auto blur active cell
-				APP.content.dispatch({ type: "blur-cell" });
+				Cursor.dispatch({ type: "blur-cell" });
 
 				el = $(event.target);
 				// UI change on sheet table
@@ -112,7 +112,7 @@
 				break;
 			case "select-rows":
 				// auto blur active cell
-				APP.content.dispatch({ type: "blur-cell" });
+				Cursor.dispatch({ type: "blur-cell" });
 
 				el = $(event.target);
 				rows = Parser.table.find("tr").get(el.parent().index());
@@ -146,7 +146,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 				// blur cell, if any
-				APP.content.dispatch({ type: "blur-cell" });
+				Cursor.dispatch({ type: "blur-cell" });
 
 				el = Self.els.root;
 				table = Parser.table;

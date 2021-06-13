@@ -57,14 +57,7 @@ const eniac = {
 				});
 				break;
 			case "window.keystroke":
-				if (event.target) {
-					el = $(event.target);
-					pEl = el.parents("[data-area]");
-					name = pEl.data("area");
-					if (pEl.length && Self[name].dispatch) {
-						Self[name].dispatch(event);
-					}
-				}
+				Self.tools.dispatch(event);
 				break;
 			// custom events
 			case "toggle-sidebar":

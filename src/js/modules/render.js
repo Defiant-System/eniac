@@ -23,7 +23,8 @@ const Render = {
 		this.sheet(book.SheetNames[0]);
 
 		// temporary
-		this.els.body.find("td:nth(28)").trigger("click");
+		let anchor = this.els.body.find("td:nth(28)")[0];
+		Cursor.dispatch({ type: "focus-cell", anchor });
 	},
 	sheet(name) {
 		// render sheet table
