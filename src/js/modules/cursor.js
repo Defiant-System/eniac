@@ -49,6 +49,12 @@ const Cursor = {
 					case "return":
 						Self.dispatch({ type: "move-right" });
 						break;
+					case "del":
+					case "backspace":
+						Parser.table.find("td.selected")
+							.html("")
+							.attr({ v: "" });
+						break;
 					case "up":
 					case "down":
 					case "right":
@@ -77,11 +83,6 @@ const Cursor = {
 				if (next.length) {
 					Self.dispatch({ type: "focus-cell", anchor: next[0] });
 				}
-				break;
-			case "collapse-selection":
-				anchor = Parser.table.find("td.anchor");
-				if (!anchor) return;
-				Self.dispatch({ type: "", anchor });
 				break;
 			case "focus-table":
 				if (event.table.isSame(Parser.table)) return;
