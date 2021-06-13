@@ -73,6 +73,7 @@ const eniac = {
 		}
 	},
 	head: @import "modules/head.js",
+	foot: @import "modules/foot.js",
 	tools: @import "modules/tools.js",
 	sidebar: @import "modules/sidebar.js",
 };
