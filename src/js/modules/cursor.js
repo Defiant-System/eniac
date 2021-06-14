@@ -88,6 +88,39 @@ const Cursor = {
 				// anchor cell
 				anchor = $(event.anchor);
 				table = anchor.parents("table.sheet");
+
+				if (event.shift) {
+					let oldAnchor = Self.anchor,
+						oldYindex = oldAnchor.parent().index(),
+						oldXindex = oldAnchor.index(),
+						newYindex = anchor.parent().index(),
+						newXindex = anchor.index(),
+						lowY = Math.min(oldYindex, newYindex),
+						lowX = Math.min(oldXindex, newXindex),
+						hiY = Math.max(oldYindex, newYindex),
+						hiX = Math.max(oldXindex, newXindex);
+					yNum = [...Array(hiY - lowY + 1)].map((e,i) => lowY + i);
+					xNum = [...Array(hiX - lowX + 1)].map((e,i) => lowX + i);
+					APP.tools.dispatch({ type: "select-coords", resize: true, yNum, xNum });
+					// UI indicate anchor cell
+					oldAnchor.addClass("anchor");
+
+					// calculate selection boundries
+					let boxes = Parser.table.find(`td.selected`).map(td => ({
+							top: td.offsetTop,
+							left: td.offsetLeft,
+							right: td.offsetLeft + td.getBoundingClientRect().width,
+							bottom: td.offsetTop + td.offsetHeight,
+						}));
+					top = Math.min(...boxes.map(b => b.top)) - 2;
+					left = Math.min(...boxes.map(b => b.left)) - 2;
+					width = Math.max(...boxes.map(b => b.right)) - left + 3;
+					height = Math.max(...boxes.map(b => b.bottom)) - top + 3;
+					// ui resize selection box
+					Self.els.root.css({ top, left, width, height, });
+					return;
+				}
+
 				// focus clicked table
 				Self.dispatch({ type: "focus-table", table });
 				// sync tools table
@@ -128,7 +161,7 @@ const Cursor = {
 				height = last.offsetTop + last.offsetHeight + 5;
 
 				Self.els.root.addClass("show").css({ top, left, width, height });
-				// UI show anchor cell
+				// UI indicate anchor cell
 				Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				break;
 			case "select-row":
@@ -140,7 +173,6 @@ const Cursor = {
 				width = anchor.getBoundingClientRect().width + 5;
 				
 				Self.els.root
-					.removeClass("no-edit")
 					.addClass("show")
 					.css({ top, left, width, height });
 				
