@@ -68,21 +68,88 @@ const Cursor = {
 			case "move-down":
 				if (!Self.anchor) return;
 
-				xNum = Self.anchor.index();
-				yNum = Self.anchor.parent().index() + (event.type === "move-up" ? -1 : 1);
-				next = Parser.getCellByCoord(xNum, yNum);
-				if (next.length) {
-					Self.dispatch({ type: "focus-cell", anchor: next[0] });
+				if (event.shift) {
+					let anchorStart = Self.anchor,
+						isUp = event.type === "move-up",
+						selector = isUp ? "first" : "last",
+						nextTd = Parser.table.find(`td.selected:${selector}`);
+					// swap nextTd if it is anchor
+					if (nextTd.hasClass("anchor")) {
+						selector = isUp ? "last" : "first";
+						nextTd = Parser.table.find(`td.selected:${selector}`);
+					}
+					xNum = nextTd.index();
+					yNum = nextTd.parent().index() + (isUp ? -1 : 1);
+					let anchorEnd = Parser.getCellByCoord(xNum, yNum);
+					if (anchorEnd.length) {
+						// resize selector box
+						Self.dispatch({ type: "select-rectangle", anchorStart, anchorEnd });
+					}
+				} else {
+					xNum = Self.anchor.index();
+					yNum = Self.anchor.parent().index() + (event.type === "move-up" ? -1 : 1);
+					next = Parser.getCellByCoord(xNum, yNum);
+					if (next.length) {
+						Self.dispatch({ type: "focus-cell", anchor: next[0] });
+					}
 				}
 				break;
 			case "move-right":
 			case "move-left":
 				if (!Self.anchor) return;
 
-				next = Self.anchor[ event.type === "move-right" ? "next" : "prev" ]("td");
-				if (next.length) {
-					Self.dispatch({ type: "focus-cell", anchor: next[0] });
+				if (event.shift) {
+					let anchorStart = Self.anchor,
+						isLeft = event.type === "move-left",
+						selector = isLeft ? "first" : "last",
+						nextTd = Parser.table.find(`td.selected:${selector}`);
+					// swap nextTd if it is anchor
+					if (nextTd.hasClass("anchor")) {
+						selector = isLeft ? "last" : "first";
+						nextTd = Parser.table.find(`td.selected:${selector}`);
+					}
+					xNum = nextTd.index() + (isLeft ? -1 : 1);
+					yNum = nextTd.parent().index();
+					let anchorEnd = Parser.getCellByCoord(xNum, yNum);
+					if (anchorEnd.length) {
+						// resize selector box
+						Self.dispatch({ type: "select-rectangle", anchorStart, anchorEnd });
+					}
+				} else {
+					next = Self.anchor[ event.type === "move-right" ? "next" : "prev" ]("td");
+					if (next.length) {
+						Self.dispatch({ type: "focus-cell", anchor: next[0] });
+					}
 				}
+				break;
+			case "select-rectangle":
+				let startYindex = event.anchorStart.parent().index(),
+					startXindex = event.anchorStart.index(),
+					endYindex = event.anchorEnd.parent().index(),
+					endXindex = event.anchorEnd.index(),
+					lowY = Math.min(startYindex, endYindex),
+					lowX = Math.min(startXindex, endXindex),
+					highY = Math.max(startYindex, endYindex),
+					highX = Math.max(startXindex, endXindex);
+				yNum = [...Array(highY - lowY + 1)].map((e,i) => lowY + i);
+				xNum = [...Array(highX - lowX + 1)].map((e,i) => lowX + i);
+				APP.tools.dispatch({ type: "select-coords", resize: true, yNum, xNum });
+				// UI indicate anchor cell
+				event.anchorStart.addClass("anchor");
+
+				// calculate selection boundries
+				let boxes = Parser.table.find(`td.selected`).map(td => ({
+						top: td.offsetTop,
+						left: td.offsetLeft,
+						right: td.offsetLeft + td.getBoundingClientRect().width,
+						bottom: td.offsetTop + td.offsetHeight,
+					}));
+				top = Math.min(...boxes.map(b => b.top)) - 2;
+				left = Math.min(...boxes.map(b => b.left)) - 2;
+				width = Math.max(...boxes.map(b => b.right)) - left + 3;
+				height = Math.max(...boxes.map(b => b.bottom)) - top + 3;
+				// ui resize selection box
+				Self.els.root.css({ top, left, width, height, });
 				break;
 			case "focus-cell":
 				// anchor cell
@@ -90,37 +157,13 @@ const Cursor = {
 				table = anchor.parents("table.sheet");
 
 				if (event.shift) {
-					let oldAnchor = Self.anchor,
-						oldYindex = oldAnchor.parent().index(),
-						oldXindex = oldAnchor.index(),
-						newYindex = anchor.parent().index(),
-						newXindex = anchor.index(),
-						lowY = Math.min(oldYindex, newYindex),
-						lowX = Math.min(oldXindex, newXindex),
-						hiY = Math.max(oldYindex, newYindex),
-						hiX = Math.max(oldXindex, newXindex);
-					yNum = [...Array(hiY - lowY + 1)].map((e,i) => lowY + i);
-					xNum = [...Array(hiX - lowX + 1)].map((e,i) => lowX + i);
-					APP.tools.dispatch({ type: "select-coords", resize: true, yNum, xNum });
-					// UI indicate anchor cell
-					oldAnchor.addClass("anchor");
-
-					// calculate selection boundries
-					let boxes = Parser.table.find(`td.selected`).map(td => ({
-							top: td.offsetTop,
-							left: td.offsetLeft,
-							right: td.offsetLeft + td.getBoundingClientRect().width,
-							bottom: td.offsetTop + td.offsetHeight,
-						}));
-					top = Math.min(...boxes.map(b => b.top)) - 2;
-					left = Math.min(...boxes.map(b => b.left)) - 2;
-					width = Math.max(...boxes.map(b => b.right)) - left + 3;
-					height = Math.max(...boxes.map(b => b.bottom)) - top + 3;
-					// ui resize selection box
-					Self.els.root.css({ top, left, width, height, });
-					return;
+					// resize selector box
+					return Self.dispatch({
+						type: "select-rectangle",
+						anchorStart: Self.anchor,
+						anchorEnd: anchor,
+					});
 				}
-
 				// focus clicked table
 				Self.dispatch({ type: "focus-table", table });
 				// sync tools table
