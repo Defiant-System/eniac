@@ -70,16 +70,11 @@ const Cursor = {
 
 				if (event.shift) {
 					let anchorStart = Self.anchor,
-						isUp = event.type === "move-up",
-						selector = isUp ? "first" : "last",
-						nextTd = Parser.table.find(`td.selected:${selector}`);
-					// swap nextTd if it is anchor
-					if (nextTd.hasClass("anchor")) {
-						selector = isUp ? "last" : "first";
-						nextTd = Parser.table.find(`td.selected:${selector}`);
-					}
-					xNum = nextTd.index();
-					yNum = nextTd.parent().index() + (isUp ? -1 : 1);
+						firstTd = Parser.table.find(`td.selected:first`),
+						lastTd = Parser.table.find(`td.selected:last`),
+						moveTd = firstTd.parent().index() === anchorStart.parent().index() ? lastTd : firstTd;
+					xNum = (firstTd.index() === anchorStart.index() ? lastTd : firstTd).index();
+					yNum = moveTd.parent().index() + (event.type === "move-up" ? -1 : 1);
 					let anchorEnd = Parser.getCellByCoord(xNum, yNum);
 					if (anchorEnd.length) {
 						// resize selector box
@@ -100,16 +95,11 @@ const Cursor = {
 
 				if (event.shift) {
 					let anchorStart = Self.anchor,
-						isLeft = event.type === "move-left",
-						selector = isLeft ? "first" : "last",
-						nextTd = Parser.table.find(`td.selected:${selector}`);
-					// swap nextTd if it is anchor
-					if (nextTd.hasClass("anchor")) {
-						selector = isLeft ? "last" : "first";
-						nextTd = Parser.table.find(`td.selected:${selector}`);
-					}
-					xNum = nextTd.index() + (isLeft ? -1 : 1);
-					yNum = nextTd.parent().index();
+						firstTd = Parser.table.find(`td.selected:first`),
+						lastTd = Parser.table.find(`td.selected:last`),
+						moveTd = firstTd.index() === anchorStart.index() ? lastTd : firstTd;
+					xNum = moveTd.index() + (event.type === "move-left" ? -1 : 1);
+					yNum = (firstTd.parent().index() === anchorStart.parent().index() ? lastTd : firstTd).parent().index();
 					let anchorEnd = Parser.getCellByCoord(xNum, yNum);
 					if (anchorEnd.length) {
 						// resize selector box

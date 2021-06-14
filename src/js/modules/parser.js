@@ -46,7 +46,7 @@ const Parser = {
 	},
 	getCellByCoord(x, y) {
 		let num = (y * this.colNum) + x,
-			isInGrid = x >= 0 && y >= 0 && x <= this.colNum && y <= this.rowNum;
+			isInGrid = x >= 0 && y >= 0 && x < this.colNum && y < this.rowNum;
 		return isInGrid ? this.cells.get(num) : [];
 	},
 	compute(n) {
