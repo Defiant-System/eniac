@@ -67,7 +67,7 @@ const Cursor = {
 			case "move-up":
 			case "move-down":
 				if (!Self.anchor) return;
-
+				// course of action for event
 				if (event.shift) {
 					let anchorStart = Self.anchor,
 						firstTd = Parser.table.find(`td.selected:first`),
@@ -92,7 +92,7 @@ const Cursor = {
 			case "move-right":
 			case "move-left":
 				if (!Self.anchor) return;
-
+				// course of action for event
 				if (event.shift) {
 					let anchorStart = Self.anchor,
 						firstTd = Parser.table.find(`td.selected:first`),
