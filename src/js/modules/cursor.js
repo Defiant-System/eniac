@@ -195,6 +195,7 @@ const Cursor = {
 
 				Self.els.root.addClass("show").css({ top, left, width, height });
 				// UI indicate anchor cell
+				Parser.table.find(".anchor").removeClass("anchor");
 				Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				break;
 			case "select-row":
@@ -210,6 +211,7 @@ const Cursor = {
 					.css({ top, left, width, height });
 				
 				// UI show anchor cell
+				Parser.table.find(".anchor").removeClass("anchor");
 				Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				break;
 		}

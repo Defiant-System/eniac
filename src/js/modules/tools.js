@@ -103,7 +103,13 @@
 			case "select-columns":
 				el = $(event.target);
 				if (el.prop("nodeName") === "S") {
-					return console.log(defiant);
+					let rect = el[0].getBoundingClientRect();
+					return defiant.menu({
+						el,
+						invoke: "tool-cols",
+						top: rect.top + rect.height + 2,
+						left: rect.left,
+					});
 				}
 				// auto blur active cell
 				Cursor.dispatch({ type: "blur-cell" });
@@ -121,10 +127,19 @@
 				el.addClass("active");
 				break;
 			case "select-rows":
+				el = $(event.target);
+				if (el.prop("nodeName") === "S") {
+					let rect = el[0].getBoundingClientRect();
+					return defiant.menu({
+						el,
+						invoke: "tool-rows",
+						top: rect.top,
+						left: rect.left + rect.width + 2,
+					});
+				}
 				// auto blur active cell
 				Cursor.dispatch({ type: "blur-cell" });
 
-				el = $(event.target);
 				rows = Parser.table.find("tr").get(el.parent().index());
 				// UI change on sheet table
 				rows.parent().find("td.selected").removeClass("selected");

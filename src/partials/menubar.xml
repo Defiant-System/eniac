@@ -72,4 +72,21 @@
 		<Menu type="divider"/>
 		<Menu name="License"/>
 	</Menu>
+
+	<Menu for="tool-cols">
+		<Menu name="Sort Ascending"/>
+		<Menu name="Sort Descending"/>
+		<Menu type="divider"/>
+		<Menu name="Add Column Before"/>
+		<Menu name="Add Column After"/>
+		<Menu type="divider"/>
+		<Menu name="Delete Column"/>
+	</Menu>
+
+	<Menu for="tool-rows">
+		<Menu name="Add Row Above"/>
+		<Menu name="Add Row Below"/>
+		<Menu type="divider"/>
+		<Menu name="Delete Row"/>
+	</Menu>
 </MenuBar>

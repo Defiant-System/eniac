@@ -867,6 +867,7 @@ table.sheet {
 					content: counter(col-counter, upper-alpha);
 				}
 
+				s.tool-active_,
 				&:hover s {
 					background-image: url(~/icons/icon-chevron-down.png);
 				}
@@ -913,6 +914,7 @@ table.sheet {
 					bottom: 2px;
 					right: 5px;
 					width: 11px;
+					z-index: 2;
 
 					&:after {
 						content: "";
@@ -1007,15 +1009,14 @@ table.sheet {
 						content: counter(row-counter);
 					}
 
-					&:hover {
-						s {
-							opacity: 1;
+					s.tool-active_,
+					&:hover s {
+						opacity: 1;
 
-							&:after {
-								left: auto;
-								right: 100%;
-								width: 16px;
-							}
+						&:after {
+							left: auto;
+							right: 100%;
+							width: 16px;
 						}
 					}
 
