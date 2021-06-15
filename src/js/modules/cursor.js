@@ -159,6 +159,11 @@ const Cursor = {
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", table });
 				
+				APP.foot.dispatch({ type: "render-data", data: {
+						type: "text",
+						value: anchor.attr("v"),
+					} });
+
 				// make column + row active
 				xNum = anchor.index();
 				yNum = anchor.parent().index();
@@ -184,6 +189,8 @@ const Cursor = {
 				Parser.reset();
 				// hide tools
 				Self.els.tools.addClass("hidden");
+				// hide footer
+				APP.foot.dispatch({ type: "hide" });
 				break;
 			case "select-column":
 				let first = event.cols[0] ,

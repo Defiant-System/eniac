@@ -66,6 +66,12 @@ layout {
 		}
 	}
 
+	&.show-footer {
+		content .foot {
+			bottom: 0;
+		}
+	}
+
 	&.cover:before {
 		// background: rgba(255,0,0,.1);
 		content: "";
@@ -279,8 +285,10 @@ content {
 	}
 	
 	.foot {
+		position: relative;
 		display: flex;
 		height: 37px;
+		bottom: -37px;
 		border-top: 1px solid lighten(@layout_outline, 7%);
 		//--color-1: #333;
 

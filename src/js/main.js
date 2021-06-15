@@ -61,6 +61,8 @@ const eniac = {
 			// custom events
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
+			case "blur-table":
+				return Cursor.dispatch({ type: "blur-table" });
 			// forwards events
 			default:
 				if (event.el) {

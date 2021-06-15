@@ -6,14 +6,15 @@
 		// fast references
 		this.els = {
 			root: window.find("content > .foot"),
+			layout: window.find("layout"),
 		};
 
 		// temp
-		let data = {
-				type: "text",
-				value: "Some string 123",
-			};
-		this.dispatch({ type: "render-data", data });
+		// let data = {
+		// 		type: "text",
+		// 		value: "Some string 123",
+		// 	};
+		// this.dispatch({ type: "render-data", data });
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -22,8 +23,12 @@
 			str,
 			el;
 		switch (event.type) {
+			case "hide":
+				Self.els.layout.removeClass("show-footer");
+				console.log(Self.els.layout);
+				break;
 			case "transform-data":
-				str = `<i type="${event.data.type}"><![CDATA[${event.data.value}]`+`]></i>`;
+				str = `<i type="${event.data.type}"><![CDATA[${event.data.value}]]></i>`;
 				return $.nodeFromString(str);
 			case "render-data":
 				// transform data to XML
@@ -34,6 +39,8 @@
 					target: Self.els.root,
 					data,
 				});
+				// show footer
+				Self.els.layout.addClass("show-footer");
 				break;
 		}
 	}
