@@ -28,8 +28,8 @@ const Render = {
 
 		Cursor.dispatch({
 			type: "select-rectangle",
-			anchorStart: Parser.getCellByCoord(4, 1),
-			anchorEnd: Parser.getCellByCoord(4, 5),
+			anchorStart: Parser.getCellByCoord(1, 1),
+			anchorEnd: Parser.getCellByCoord(4, 3),
 		});
 	},
 	sheet(name) {
