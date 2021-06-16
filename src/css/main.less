@@ -295,25 +295,32 @@ content {
 
 		.selection-data {
 			flex: auto;
-			padding: 6px 9px 0;
+			display: flex;
+			padding: 6px 9px;
 
 			div.data {
 				background: #cfdbf2;
 				color: #555;
+				display: flex;
 				font-size: 11px;
-				display: inline-block;
 				width: 137px;
 				border-radius: 30px;
-				padding: 5px 9px;
+				padding: 0 9px;
+				margin-right: 5px;
 				border: 1px solid #bac6dd;
 
 				label {
-					font-weight: 500;
+					padding: 6px 0 0;
 					text-transform: uppercase;
-					padding-right: 7px;
 				}
 
 				span {
+					padding: 5px 7px 0;
+					flex: 1;
+					font-weight: 500;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 			}
 		}
