@@ -23,6 +23,7 @@
 		};
 
 		// bind event handlers
+		this.els.cols.on("mousedown", this.resizeColumn);
 		this.els.move.on("mousedown", this.move);
 		this.els.resizes.on("mousedown", this.resize);
 	},
@@ -152,6 +153,23 @@
 				// make row active
 				Self.els.rows.find(".active").removeClass("active");
 				el.parent().addClass("active");
+				break;
+		}
+	},
+	resizeColumn(event) {
+		let APP = eniac,
+			Self = APP.tools,
+			Drag = Self.drag,
+			el;
+		switch (event.type) {
+			case "mousedown":
+				// exit if click is not on ":after" pseudo element
+				if (event.offsetX < event.target.offsetWidth) return;
+				console.log("pseudo");
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
 				break;
 		}
 	},
