@@ -82,17 +82,19 @@
 </xsl:template>
 
 <xsl:template name="max-value">
-	<xsl:for-each select="./*">
+	<xsl:for-each select="./*[@type='n']">
 		<xsl:sort select="." data-type="number" order="descending"/>
 		<xsl:if test="position() = 1"><xsl:value-of select="text()"/></xsl:if>
 	</xsl:for-each>
+	<xsl:if test="count(./*[@type='n']) = 0">0</xsl:if>
 </xsl:template>
 
 <xsl:template name="min-value">
-	<xsl:for-each select="./*">
+	<xsl:for-each select="./*[@type='n']">
 		<xsl:sort select="." data-type="number" order="ascending"/>
 		<xsl:if test="position() = 1"><xsl:value-of select="text()"/></xsl:if>
 	</xsl:for-each>
+	<xsl:if test="count(./*[@type='n']) = 0">0</xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
