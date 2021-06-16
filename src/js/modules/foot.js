@@ -8,13 +8,6 @@
 			root: window.find("content > .foot"),
 			layout: window.find("layout"),
 		};
-
-		// temp
-		// let data = {
-		// 		type: "text",
-		// 		value: "Some string 123",
-		// 	};
-		// this.dispatch({ type: "render-data", data });
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -25,19 +18,25 @@
 		switch (event.type) {
 			case "hide":
 				Self.els.layout.removeClass("show-footer");
-				console.log(Self.els.layout);
 				break;
-			case "transform-data":
-				str = `<i type="${event.data.type}"><![CDATA[${event.data.value}]]></i>`;
-				return $.nodeFromString(str);
-			case "render-data":
+			case "render-cell":
+				data = {
+					id: event.anchor.attr("id"),
+					v: event.anchor.attr("v"),
+					t: event.anchor.attr("t"),
+				};
 				// transform data to XML
-				data = Self.dispatch({ type: "transform-data", data: event.data });
+				str = `<i type="${data.t}"><![CDATA[${data.v}]]></i>`;
+				data = $.nodeFromString(str);
+				
+				Self.dispatch({ type: "render-data", data });
+				break;
+			case "render-data":
 				// render data to HTML
 				window.render({
 					template: "footer",
 					target: Self.els.root,
-					data,
+					data: event.data,
 				});
 				// show footer
 				Self.els.layout.addClass("show-footer");

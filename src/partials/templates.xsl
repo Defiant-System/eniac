@@ -5,9 +5,6 @@
 		<xsl:when test="@type = 'formula'">
 			<xsl:call-template name="type-formula" />
 		</xsl:when>
-		<xsl:when test="@type = 'actual'">
-			<xsl:call-template name="type-actual" />
-		</xsl:when>
 		<xsl:otherwise>
 			<xsl:call-template name="type-text" />
 		</xsl:otherwise>
@@ -15,14 +12,7 @@
 </xsl:template>
 
 <xsl:template name="type-text">
-	<div class="selection-type">Text</div>
-	<div class="selection-value">
-		<xsl:value-of select="text()"/>
-	</div>
-</xsl:template>
-
-<xsl:template name="type-actual">
-	<div class="selection-type">Actual</div>
+	<div class="selection-type"><xsl:call-template name="get-footer-type" /></div>
 	<div class="selection-value">
 		<xsl:value-of select="text()"/>
 	</div>
@@ -37,3 +27,13 @@
 		</div>
 	</div>
 </xsl:template>
+
+<xsl:template name="get-footer-type">
+	<xsl:choose>
+		<xsl:when test="@type = 'f'">Formula</xsl:when>
+		<xsl:when test="@type = 'n'">Actual</xsl:when>
+		<xsl:otherwise>Text</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+</xsl:stylesheet>

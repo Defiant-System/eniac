@@ -158,12 +158,8 @@ const Cursor = {
 				Self.dispatch({ type: "focus-table", table });
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", table });
-				
-				APP.foot.dispatch({ type: "render-data", data: {
-						type: "text",
-						value: anchor.attr("v"),
-					} });
-
+				// cell to footer row
+				APP.foot.dispatch({ type: "render-cell", anchor });
 				// make column + row active
 				xNum = anchor.index();
 				yNum = anchor.parent().index();
