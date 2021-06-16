@@ -160,16 +160,52 @@
 		let APP = eniac,
 			Self = APP.tools,
 			Drag = Self.drag,
+			width,
 			el;
 		switch (event.type) {
 			case "mousedown":
 				// exit if click is not on ":after" pseudo element
 				if (event.offsetX < event.target.offsetWidth) return;
-				console.log("pseudo");
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover");
+
+				el = $(event.target.parentNode);
+				el = Self.els.cols.find(`col:nth(${el.index()})`);
+
+				let cellSheet = Parser.table.find(`td:nth(${el.index()})`),
+					tblTools = Self.els.root,
+					ttWidth = tblTools[0].getBoundingClientRect().width,
+					colWidth = el[0].getBoundingClientRect().width;
+
+				// create drag object
+				Self.drag = {
+					el,
+					colWidth,
+					cellSheet,
+					tblTools,
+					ttWidth,
+					clickX: event.clientX,
+					minX: 30,
+					maxX: 200,
+				};
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.resizeColumn);
 				break;
 			case "mousemove":
+				width = Math.min(Math.max(event.clientX - Drag.clickX + Drag.colWidth, Drag.minX), Drag.maxX);
+				Drag.el.attr({ width });
+				Drag.cellSheet.css({ width });
+
+				width = Drag.ttWidth + width - Drag.colWidth;
+				Drag.tblTools.css({ width });
 				break;
 			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.resizeColumn);
 				break;
 		}
 	},
