@@ -66,7 +66,7 @@
 
 
 <xsl:template name="sum-value">
-	<xsl:variable name="value"><xsl:value-of select="sum(./*[@type='n'])"/></xsl:variable>
+	<xsl:variable name="value" select="sum(./*[@type='n'])" />
 	<xsl:choose>
 		<xsl:when test="number($value) != $value">0</xsl:when>
 		<xsl:otherwise><xsl:value-of select="$value"/></xsl:otherwise>
@@ -74,7 +74,7 @@
 </xsl:template>
 
 <xsl:template name="avg-value">
-	<xsl:variable name="value"><xsl:value-of select="sum(./*[@type='n']) div count(./*[@type='n'])" /></xsl:variable>
+	<xsl:variable name="value" select="sum(./*[@type='n']) div count(./*[@type='n'])" />
 	<xsl:choose>
 		<xsl:when test="number($value) != $value"></xsl:when>
 		<xsl:otherwise><xsl:value-of select="$value"/></xsl:otherwise>
