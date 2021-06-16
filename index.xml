@@ -1,7 +1,4 @@
 <Application>
-	<Build>
-		<task action="skip" source="src/js/external/xlsx.js" destination="public/js/xlsx.js"/>
-	</Build>
 	<Head>
 		<meta name="id" value="eniac"/>
 		<meta name="title" value="Eniac" version="1.0"/>
