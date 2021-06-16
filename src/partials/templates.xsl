@@ -2,6 +2,9 @@
 
 <xsl:template name="footer">
 	<xsl:choose>
+		<xsl:when test="@type = 'selection'">
+			<xsl:call-template name="type-selection" />
+		</xsl:when>
 		<xsl:when test="@type = 'formula'">
 			<xsl:call-template name="type-formula" />
 		</xsl:when>
@@ -15,6 +18,31 @@
 	<div class="selection-type"><xsl:call-template name="get-footer-type" /></div>
 	<div class="selection-value">
 		<xsl:value-of select="text()"/>
+	</div>
+</xsl:template>
+
+<xsl:template name="type-selection">
+	<div class="selection-data">
+		<div class="data">
+			<label>Sum</label>
+			<span>123</span>
+		</div>
+		<div class="data">
+			<label>Average</label>
+			<span>123</span>
+		</div>
+		<div class="data">
+			<label>Min</label>
+			<span>123</span>
+		</div>
+		<div class="data">
+			<label>Max</label>
+			<span>123</span>
+		</div>
+		<div class="data">
+			<label>Counta</label>
+			<span><xsl:value-of select="count(./*)"/></span>
+		</div>
 	</div>
 </xsl:template>
 

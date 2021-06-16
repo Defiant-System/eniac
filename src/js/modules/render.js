@@ -25,6 +25,12 @@ const Render = {
 		// temporary
 		let anchor = this.els.body.find("td:nth(28)")[0];
 		Cursor.dispatch({ type: "focus-cell", anchor });
+
+		Cursor.dispatch({
+			type: "select-rectangle",
+			anchorStart: Parser.getCellByCoord(1, 1),
+			anchorEnd: Parser.getCellByCoord(2, 3),
+		});
 	},
 	sheet(name) {
 		// render sheet table

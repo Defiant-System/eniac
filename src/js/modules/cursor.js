@@ -140,6 +140,8 @@ const Cursor = {
 				height = Math.max(...boxes.map(b => b.bottom)) - top + 3;
 				// ui resize selection box
 				Self.els.root.css({ top, left, width, height, });
+				// cell to footer row
+				APP.foot.dispatch({ type: "render-cells" });
 				break;
 			case "focus-cell":
 				// anchor cell
@@ -256,6 +258,10 @@ const Cursor = {
 							bottom: tr.offsetTop + tr.offsetHeight - top,
 						};
 					});
+
+				// set table for parser
+				Self.dispatch({ type: "focus-cell", anchor: cell });
+
 				// create drag object
 				Self.drag = {
 					el,
@@ -328,6 +334,8 @@ const Cursor = {
 					Drag.selection = selection;
 					// make tool columns + rows active
 					APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+					// cell to footer row
+					APP.foot.dispatch({ type: "render-cells" });
 					// UI indicate anchor cell
 					Self.anchor = Parser.table.find("td.selected").get(0).addClass("anchor");
 				}
