@@ -62,7 +62,7 @@
 				Self.els.rows.html(str);
 				break;
 			case "append-row":
-				Self.els.rows.append(Self.templ.trEl.clone(true));
+				Self.els.rows.find("tbody").append(Self.templ.trEl.clone(true));
 				Self.dispatch({ ...event, type: "sync-tools-ui" });
 				break;
 			case "remove-last-row":
