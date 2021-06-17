@@ -112,6 +112,17 @@ const Cursor = {
 					}
 				}
 				break;
+			case "selection-box": {
+				let cells = Parser.table.find("td.selected"),
+					anchorStart = cells[0],
+					anchorEnd = cells[cells.length-1],
+					top = anchorStart.offsetTop - 2,
+					left = anchorStart.offsetLeft - 2,
+					width = anchorEnd.offsetLeft + anchorEnd.getBoundingClientRect().width - left + 3,
+					height = anchorEnd.offsetTop + anchorEnd.offsetHeight - top + 3;
+					// ui resize selection box
+					Self.els.root.css({ top, left, width, height, });
+				} break;
 			case "select-rectangle":
 				let startYindex = event.anchorStart.parent().index(),
 					startXindex = event.anchorStart.index(),

@@ -200,6 +200,8 @@
 
 				width = Drag.ttWidth + width - Drag.colWidth;
 				Drag.tblTools.css({ width });
+
+				Cursor.dispatch({ type: "selection-box" });
 				break;
 			case "mouseup":
 				// uncover layout
