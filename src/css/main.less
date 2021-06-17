@@ -698,6 +698,7 @@ table.sheet {
 	position: relative;
 	top: 40px;
 	left: 40px;
+	width: 1px;
 	table-layout: fixed;
 	border-left: 1px solid @table_border;
 	border-top: 1px solid @table_border;
@@ -720,8 +721,8 @@ table.sheet {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		min-width: 90px;
-		max-width: 170px;
+		width: 90px;
+		// max-width: 170px;
 
 		&.active {
 			color: transparent;
@@ -737,7 +738,7 @@ table.sheet {
 
 		&[t="z"],
 		&[t="n"] {
-			min-width: 50px;
+			width: 50px;
 			text-align: right;
 			padding-left: 17px;
 			padding-right: 5px;

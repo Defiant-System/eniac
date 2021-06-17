@@ -174,7 +174,7 @@
 				el = $(event.target.parentNode);
 				el = Self.els.cols.find(`col:nth(${el.index()})`);
 
-				let cellSheet = Parser.table.find(`td:nth(${el.index()})`),
+				let sheetCell = Parser.table.find(`td:nth(${el.index()})`),
 					tblTools = Self.els.root,
 					ttWidth = tblTools[0].getBoundingClientRect().width,
 					colWidth = el[0].getBoundingClientRect().width;
@@ -183,20 +183,19 @@
 				Self.drag = {
 					el,
 					colWidth,
-					cellSheet,
+					sheetCell,
 					tblTools,
 					ttWidth,
 					clickX: event.clientX,
 					minX: 30,
-					maxX: 200,
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resizeColumn);
 				break;
 			case "mousemove":
-				width = Math.min(Math.max(event.clientX - Drag.clickX + Drag.colWidth, Drag.minX), Drag.maxX);
+				width = Math.max(event.clientX - Drag.clickX + Drag.colWidth, Drag.minX);
 				Drag.el.attr({ width });
-				Drag.cellSheet.css({ width });
+				Drag.sheetCell.css({ width });
 
 				width = Drag.ttWidth + width - Drag.colWidth;
 				Drag.tblTools.css({ width });
