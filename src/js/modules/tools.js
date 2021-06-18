@@ -23,7 +23,7 @@
 		};
 
 		// bind event handlers
-		this.els.cols.on("mousedown", this.resizeColumn);
+		this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
 		this.els.move.on("mousedown", this.move);
 		this.els.resizes.on("mousedown", this.resize);
 	},
@@ -156,57 +156,62 @@
 				break;
 		}
 	},
-	resizeColumn(event) {
+	resizeColRow(event) {
 		let APP = eniac,
 			Self = APP.tools,
-			Drag = Self.drag,
-			width,
-			el;
+			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
-				// exit if click is not on ":after" pseudo element
-				if (event.offsetX < event.target.offsetWidth) return;
-				// prevent default behaviour
-				event.preventDefault();
-				// cover layout
-				Self.els.layout.addClass("cover");
+				let el = $(event.target.parentNode),
+					tbl = el.parents("table:first");
+				if (tbl.hasClass("table-cols") || tbl.hasClass("table-rows")) {
+					// prevent default behaviour
+					event.preventDefault();
+					// cover layout
+					Self.els.layout.addClass("cover");
+					// create drag object
+					Self.drag = {
+						tblTools: Self.els.root,
+						clickX: event.clientX,
+						minX: 30,
+						minY: 25,
+					};
 
-				el = $(event.target.parentNode);
-				el = Self.els.cols.find(`col:nth(${el.index()})`);
-
-				let sheetCell = Parser.table.find(`td:nth(${el.index()})`),
-					tblTools = Self.els.root,
-					ttWidth = tblTools[0].getBoundingClientRect().width,
-					colWidth = el[0].getBoundingClientRect().width;
-
-				// create drag object
-				Self.drag = {
-					el,
-					colWidth,
-					sheetCell,
-					tblTools,
-					ttWidth,
-					clickX: event.clientX,
-					minX: 30,
-				};
-				// bind event
-				Self.els.doc.on("mousemove mouseup", Self.resizeColumn);
+					// identify if "column" or "row"
+					if (event.offsetX > event.target.offsetWidth) {
+						Self.drag.el = el;
+						Self.drag.sheetCol = Parser.table.find(`td:nth(${Self.drag.el.index()})`);
+						Self.drag.ttWidth = Self.drag.tblTools[0].getBoundingClientRect().width;
+						Self.drag.colWidth = Self.drag.el[0].getBoundingClientRect().width;
+					} else if (event.offsetX < 0) {
+						Self.drag.el = el.parent();
+						Self.drag.sheetRow = Parser.table.find(`tr:nth(${Self.drag.el.index()})`);
+						Self.drag.ttHeight = Self.drag.tblTools[0].offsetHeight;
+						Self.drag.rowHeight = Self.drag.el[0].offsetHeight;
+					}
+					// bind event
+					Self.els.doc.on("mousemove mouseup", Self.resizeColRow);
+				}
 				break;
 			case "mousemove":
-				width = Math.max(event.clientX - Drag.clickX + Drag.colWidth, Drag.minX);
-				Drag.el.attr({ width });
-				Drag.sheetCell.css({ width });
-
-				width = Drag.ttWidth + width - Drag.colWidth;
-				Drag.tblTools.css({ width });
-
+				if (Drag.sheetCol) {
+					let width = Math.max(event.clientX - Drag.clickX + Drag.colWidth, Drag.minX);
+					Drag.el.css({ width });
+					Drag.sheetCol.css({ width });
+					Drag.tblTools.css({ width: Drag.ttWidth + width - Drag.colWidth });
+				} else {
+					let height = Math.max(event.clientY - Drag.clickY + Drag.rowHeight, Drag.minY);
+					Drag.el.css({ height });
+					Drag.sheetRow.css({ height });
+					Drag.tblTools.css({ height: Drag.ttHeight + height - Drag.rowHeight });
+				}
 				Cursor.dispatch({ type: "selection-box" });
 				break;
 			case "mouseup":
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind event
-				Self.els.doc.off("mousemove mouseup", Self.resizeColumn);
+				Self.els.doc.off("mousemove mouseup", Self.resizeColRow);
 				break;
 		}
 	},
