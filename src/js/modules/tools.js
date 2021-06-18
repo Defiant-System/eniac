@@ -165,18 +165,14 @@
 				let el = $(event.target.parentNode),
 					tbl = el.parents("table:first");
 				if (tbl.hasClass("table-cols") || tbl.hasClass("table-rows")) {
-					// prevent default behaviour
-					event.preventDefault();
-					// cover layout
-					Self.els.layout.addClass("cover");
 					// create drag object
 					Self.drag = {
 						tblTools: Self.els.root,
 						clickX: event.clientX,
+						clickY: event.clientY,
 						minX: 30,
 						minY: 25,
 					};
-
 					// identify if "column" or "row"
 					if (event.offsetX > event.target.offsetWidth) {
 						Self.drag.el = el;
@@ -189,8 +185,14 @@
 						Self.drag.ttHeight = Self.drag.tblTools[0].offsetHeight;
 						Self.drag.rowHeight = Self.drag.el[0].offsetHeight;
 					}
-					// bind event
-					Self.els.doc.on("mousemove mouseup", Self.resizeColRow);
+					if (Self.drag.el) {
+						// prevent default behaviour
+						event.preventDefault();
+						// cover layout
+						Self.els.layout.addClass("cover");
+						// bind event
+						Self.els.doc.on("mousemove mouseup", Self.resizeColRow);
+					}
 				}
 				break;
 			case "mousemove":
