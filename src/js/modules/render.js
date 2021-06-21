@@ -33,12 +33,19 @@ const Render = {
 		// });
 	},
 	sheet(name) {
-		// render sheet table
-		let sheet = this.book.Sheets[name],
-			str = XLSX.utils.sheet_to_html(sheet);
+		{
+			// render sheet table
+			let sheet = this.book.Sheets["Sheet1"],
+				str = XLSX.utils.sheet_to_html(sheet);
+			// console.log(str);
+		}
 
-		str = str.match(/<table>.*?<\/table>/gm)[0];
+		// render sheet table
+		let str = XLSX.write(this.book, { sheet: name, type: "string", bookType: "html" });
+
+		str = str.match(/<table>[\s\S]*?<\/table>/gm)[0];
 		str = str.replace(/<table>/, `<table class="sheet">`);
+		str = str.replace(/(\d{1,})pt;/g, `$1px;`);
 
 		// remove existing sheet
 		this.els.body.find("table.sheet").remove();

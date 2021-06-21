@@ -4,7 +4,8 @@
 @import "modules/cursor.js"
 @import "modules/file.js"
 
-const XLSX = await window.fetch("~/js/xlsx.full.min.js")
+const XLSX = await window.fetch("~/js/xdef.js");
+// const XLSX = await window.fetch("~/js/xlsx.full.min.js");
 
 const eniac = {
 	init() {
