@@ -50,12 +50,6 @@ const Render = {
 		Cursor.dispatch({ type: "blur-table" });
 	},
 	sheet_old(name) {
-		// {
-		// 	// render sheet table
-		// 	let sheet = this.book.Sheets["Sheet1"],
-		// 		str = XLSX.utils.sheet_to_html(sheet);
-		// }
-
 		let str = XLSX.write(this.book, { sheet: name, type: "string", bookType: "html" });
 
 		// str = str.match(/<table>[\s\S]*?<\/table>/gm)[0];

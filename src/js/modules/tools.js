@@ -58,7 +58,8 @@
 				Self.els.cols.html(str);
 
 				// tools rows
-				str = event.table.find("tr").map(row => `<tr><td><s></s></td></tr>`).join("");
+				str = event.table.find("tr").map(row =>
+					`<tr style="height: ${row.offsetHeight}px;"><td><s></s></td></tr>`).join("");
 				Self.els.rows.html(str);
 				break;
 			case "append-row":
