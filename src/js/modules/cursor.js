@@ -158,6 +158,7 @@ const Cursor = {
 				// anchor cell
 				anchor = $(event.anchor);
 				table = anchor.parents("table.sheet");
+				if (anchor.prop("nodeName") !== "TD") anchor = anchor.parents("td");
 
 				if (event.shift) {
 					// resize selector box
