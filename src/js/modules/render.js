@@ -9,7 +9,7 @@ const Render = {
 	workbook(book) {
 		// save reference to book
 		this.book = book;
-		// console.log(book);
+		console.log(book);
 
 		// render sheet names
 		let str = [];
@@ -33,17 +33,32 @@ const Render = {
 		// });
 	},
 	sheet(name) {
-		{
-			// render sheet table
-			let sheet = this.book.Sheets["Sheet1"],
-				str = XLSX.utils.sheet_to_html(sheet);
-			// console.log(str);
-		}
-
 		// render sheet table
+		let sheet = this.book.Sheets[name],
+			{ html, css } = XLSX.utils.sheet_to_html_css(sheet);
+		
+		html = html.replace(/<table>/, `<table class="sheet">`);
+		html = html.replace(/(\d{1,})pt;/g, `$1px;`);
+
+		html += `<style>${css}</style>`;
+
+		// remove existing sheet
+		this.els.body.find("table.sheet").remove();
+		// append new sheet
+		this.els.body.append(html);
+		// hide tools
+		Cursor.dispatch({ type: "blur-table" });
+	},
+	sheet_old(name) {
+		// {
+		// 	// render sheet table
+		// 	let sheet = this.book.Sheets["Sheet1"],
+		// 		str = XLSX.utils.sheet_to_html(sheet);
+		// }
+
 		let str = XLSX.write(this.book, { sheet: name, type: "string", bookType: "html" });
 
-		str = str.match(/<table>[\s\S]*?<\/table>/gm)[0];
+		// str = str.match(/<table>[\s\S]*?<\/table>/gm)[0];
 		str = str.replace(/<table>/, `<table class="sheet">`);
 		str = str.replace(/(\d{1,})pt;/g, `$1px;`);
 

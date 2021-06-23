@@ -36,7 +36,8 @@ const eniac = {
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
 						let data = new Uint8Array(file.arrayBuffer),
-							book = XLSX.read(data, { type: "array" });
+							opts = { type: "array", cellStyles: true },
+							book = XLSX.read(data, opts);
 						// render workbook
 						Render.workbook(book);
 						// save reference to file

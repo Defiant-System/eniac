@@ -93,12 +93,10 @@ var HTML_ = (function() {
 		var out/*:Array<string>*/ = [];
 		return out.join("") + '<table' + (o && o.id ? ' id="' + o.id + '"' : "") + '>';
 	}
-	var _BEGIN = '<html><head><meta charset="utf-8"/><title>SheetJS Table Export</title></head><body>';
-	var _END = '</body></html>';
 	function sheet_to_html(ws/*:Worksheet*/, opts/*:?Sheet2HTMLOpts*//*, wb:?Workbook*/)/*:string*/ {
 		var o = opts || {};
-		var header = o.header != null ? o.header : _BEGIN;
-		var footer = o.footer != null ? o.footer : _END;
+		var header = o.header != null ? o.header : '';
+		var footer = o.footer != null ? o.footer : '';
 		var out/*:Array<string>*/ = [header];
 		var r = decode_range(ws['!ref']);
 		o.dense = Array.isArray(ws);
@@ -106,16 +104,59 @@ var HTML_ = (function() {
 		for(var R = r.s.r; R <= r.e.r; ++R) out.push(make_html_row(ws, r, R, o));
 		out.push("</table>" + footer);
 		return out.join("");
-
 	}
+
+	function sheet_to_css(ws, opts) {
+		let out = [],
+			coord = [];
+		// translate keys to two dimensional array
+		Object.keys(ws)
+			.filter(k => !k.startsWith("!"))
+			.map(key => {
+				let [n, c, r] = key.match(/(\D+)(\d+)/);
+				if (!coord[r-1]) coord[r-1] = [];
+				coord[r-1].push(key);
+			});
+		// iterate keys
+		for (let key in ws) {
+			let item = ws[key];
+			switch (key) {
+				case "!ref": break;
+				case "!rows":
+					item.map((row, i) => {
+						if (row.hpx < 35) return;
+						out.push(`#sjs-${coord[i][0]} { height: ${row.hpx + 20}px; }`);
+					});
+					break;
+				case "!cols":
+					item.map((col, i) => {
+						out.push(`#sjs-${coord[0][i]} { width: ${col.wpx-5}px; }`);
+					});
+					break;
+				default:
+					if (item.s && item.s.fgColor) {
+						out.push(`#sjs-${key} { background-color: #${item.s.fgColor.rgb}; }`);
+						// console.log(item);
+					}
+			}
+		}
+		return out.join("");
+	}
+
+	function sheet_to_html_css(ws, opts) {
+		return {
+			html: sheet_to_html(...arguments),
+			css: sheet_to_css(...arguments),
+		}
+	}
+
 	return {
 		to_workbook: html_to_book,
 		to_sheet: html_to_sheet,
 		_row: make_html_row,
-		BEGIN: _BEGIN,
-		END: _END,
 		_preamble: make_html_preamble,
-		from_sheet: sheet_to_html
+		from_sheet: sheet_to_html,
+		with_css_from_sheet: sheet_to_html_css,
 	};
 })();
 
