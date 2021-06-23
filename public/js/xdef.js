@@ -22452,6 +22452,8 @@ return function parse_ws_xml_data(sdata/*:string*/, s, opts, guess/*:Range*/, th
 				if(!s[_r.r]) s[_r.r] = [];
 				s[_r.r][_r.c] = p;
 			} else s[tag.r] = p;
+			// hbi addendum
+			p.s.i = +tag.s;
 		}
 	}
 	if(rows.length > 0) s['!rows'] = rows;
