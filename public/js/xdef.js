@@ -28296,6 +28296,7 @@ function write_biff_buf(wb/*:Workbook*/, opts/*:WriteOpts*/) {
 
 	/* note: browser DOM element cannot see mso- style attrs, must parse */
 var HTML_ = (function() {
+
 	function html_to_sheet(str/*:string*/, _opts)/*:Workbook*/ {
 		var opts = _opts || {};
 		if(DENSE != null && opts.dense == null) opts.dense = DENSE;
@@ -28354,14 +28355,17 @@ var HTML_ = (function() {
 		if(merges.length) ws["!merges"] = merges;
 		return ws;
 	}
+
 	function html_to_book(str/*:string*/, opts)/*:Workbook*/ {
 		return sheet_to_workbook(html_to_sheet(str, opts), opts);
 	}
+
 	function make_html_row(ws/*:Worksheet*/, r/*:Range*/, R/*:number*/, o/*:Sheet2HTMLOpts*/)/*:string*/ {
 		var M/*:Array<Range>*/ = (ws['!merges'] ||[]);
 		var oo/*:Array<string>*/ = [];
 		for(var C = r.s.c; C <= r.e.c; ++C) {
-			var RS = 0, CS = 0;
+			var RS = 0,
+				CS = 0;
 			for(var j = 0; j < M.length; ++j) {
 				if(M[j].s.r > R || M[j].s.c > C) continue;
 				if(M[j].e.r < R || M[j].e.c < C) continue;
@@ -28378,27 +28382,27 @@ var HTML_ = (function() {
 			if(CS > 1) sp.colspan = CS;
 			sp.t = cell && cell.t || 'z';
 			if(o.editable) w = '<span contenteditable="true">' + w + '</span>';
-			sp.id = (o.id || "sjs") + "-" + coord;
+			sp.id = coord;
 			if(sp.t != "z") { sp.v = cell.v; if(cell.z != null) sp.z = cell.z; }
 			oo.push(writextag('td', w, sp));
 		}
 		var preamble = "<tr>";
 		return preamble + oo.join("") + "</tr>";
 	}
+
 	function make_html_preamble(ws/*:Worksheet*/, R/*:Range*/, o/*:Sheet2HTMLOpts*/)/*:string*/ {
 		var out/*:Array<string>*/ = [];
 		return out.join("") + '<table' + (o && o.id ? ' id="' + o.id + '"' : "") + '>';
 	}
+
 	function sheet_to_html(ws/*:Worksheet*/, opts/*:?Sheet2HTMLOpts*//*, wb:?Workbook*/)/*:string*/ {
 		var o = opts || {};
-		var header = o.header != null ? o.header : '';
-		var footer = o.footer != null ? o.footer : '';
-		var out/*:Array<string>*/ = [header];
+		var out/*:Array<string>*/ = [];
 		var r = decode_range(ws['!ref']);
 		o.dense = Array.isArray(ws);
 		out.push(make_html_preamble(ws, r, o));
 		for(var R = r.s.r; R <= r.e.r; ++R) out.push(make_html_row(ws, r, R, o));
-		out.push("</table>" + footer);
+		out.push("</table>");
 		return out.join("");
 	}
 
@@ -28419,15 +28423,12 @@ var HTML_ = (function() {
 			switch (key) {
 				case "!ref": break;
 				case "!rows":
-					item.map((row, i) => {
-						if (row.hpx < 35) return;
-						out.push(`#sjs-${coord[i][0]} { height: ${row.hpx + 20}px; }`);
-					});
+					item.map((row, i) =>
+						row.hpx > 35 ? out.push(`#${coord[i][0]} { height: ${row.hpx + 20}px; }`) : null);
 					break;
 				case "!cols":
-					item.map((col, i) => {
-						out.push(`#sjs-${coord[0][i]} { width: ${col.wpx-5}px; }`);
-					});
+					item.map((col, i) =>
+						out.push(`#${coord[0][i]} { width: ${col.wpx-5}px; }`));
 					break;
 				default:
 					let cellCss = [],
@@ -28436,24 +28437,24 @@ var HTML_ = (function() {
 						fill = wb.Styles.Fills[style.fillId],
 						font = wb.Styles.Fonts[style.fontId],
 						numFmt = wb.Styles.NumberFmt[style.numFmtId];
-
 					if (font.color) cellCss.push(`color: #${font.color.rgb}`);
 					if (fill.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
-					if (font.vertAlign === "superscript") cellCss.push(`font-size: smaller; vertical-align: super`);
-					if (font.vertAlign === "subscript") cellCss.push(`font-size: smaller; vertical-align: sub`);
+					if (font.vertAlign === "superscript") cellCss.push(`font-size: smaller; vertical-align: super;`);
+					if (font.vertAlign === "subscript") cellCss.push(`font-size: smaller; vertical-align: sub;`);
 					if (style.alignment) {
 						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align: ${style.alignment.horizontal}`);
 						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align: ${style.alignment.vertical}`);
+						if (!style.alignment.vertical) cellCss.push(`vertical-align: bottom`);
 					}
 					if (cellCss.length) {
-						out.push(`#sjs-${key} { ${cellCss.join(";")} }`);
+						out.push(`#${key} { ${cellCss.join(";")} }`);
 					}
 			}
 		}
 		return out.join("");
 	}
 
-	function sheet_to_html_css(ws, opts) {
+	function sheet_to_html_css() {
 		return {
 			html: sheet_to_html(...arguments),
 			css: sheet_to_css(...arguments),
@@ -28468,12 +28469,14 @@ var HTML_ = (function() {
 		from_sheet: sheet_to_html,
 		with_css_from_sheet: sheet_to_html_css,
 	};
+
 })();
 
 function sheet_add_dom(ws/*:Worksheet*/, table/*:HTMLElement*/, _opts/*:?any*/)/*:Worksheet*/ {
 	var opts = _opts || {};
 	if(DENSE != null) opts.dense = DENSE;
-	var or_R = 0, or_C = 0;
+	var or_R = 0,
+		or_C = 0;
 	if(opts.origin != null) {
 		if(typeof opts.origin == 'number') or_R = opts.origin;
 		else {
@@ -28482,7 +28485,7 @@ function sheet_add_dom(ws/*:Worksheet*/, table/*:HTMLElement*/, _opts/*:?any*/)/
 		}
 	}
 	var rows/*:HTMLCollection<HTMLTableRowElement>*/ = table.getElementsByTagName('tr');
-	var sheetRows = Math.min(opts.sheetRows||10000000, rows.length);
+	var sheetRows = Math.min(opts.sheetRows || 10000000, rows.length);
 	var range/*:Range*/ = {s:{r:0,c:0},e:{r:or_R,c:or_C}};
 	if(ws["!ref"]) {
 		var _range/*:Range*/ = decode_range(ws["!ref"]);
@@ -28492,9 +28495,15 @@ function sheet_add_dom(ws/*:Worksheet*/, table/*:HTMLElement*/, _opts/*:?any*/)/
 		range.e.c = Math.max(range.e.c, _range.e.c);
 		if(or_R == -1) range.e.r = or_R = _range.e.r + 1;
 	}
-	var merges/*:Array<Range>*/ = [], midx = 0;
+	var merges/*:Array<Range>*/ = [],
+		midx = 0;
 	var rowinfo/*:Array<RowInfo>*/ = ws["!rows"] || (ws["!rows"] = []);
-	var _R = 0, R = 0, _C = 0, C = 0, RS = 0, CS = 0;
+	var _R = 0,
+		R = 0,
+		_C = 0,
+		C = 0,
+		RS = 0,
+		CS = 0;
 	if(!ws["!cols"]) ws['!cols'] = [];
 	for(; _R < rows.length && R < sheetRows; ++_R) {
 		var row/*:HTMLTableRowElement*/ = rows[_R];
