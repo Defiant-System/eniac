@@ -143,8 +143,10 @@ var HTML_ = (function() {
 
 					if (font.color) cellCss.push(`color: #${font.color.rgb}`);
 					if (fill.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
+					if (font.vertAlign === "superscript") cellCss.push(`font-size: smaller; vertical-align: super`);
+					if (font.vertAlign === "subscript") cellCss.push(`font-size: smaller; vertical-align: sub`);
 					if (style.alignment) {
-						if (["right", "center"].includes(style.alignment.vertical)) cellCss.push(`text-align: ${style.alignment.horizontal}`);
+						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align: ${style.alignment.horizontal}`);
 						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align: ${style.alignment.vertical}`);
 					}
 					if (cellCss.length) {
