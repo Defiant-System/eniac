@@ -22445,6 +22445,8 @@ return function parse_ws_xml_data(sdata/*:string*/, s, opts, guess/*:Range*/, th
 					}
 				}
 			}
+			// hbi addendum
+			p.styleIndex = +tag.s;
 			safe_format(p, fmtid, fillid, opts, themes, styles);
 			if(opts.cellDates && do_format && p.t == 'n' && SSF.is_date(SSF._table[fmtid])) { p.t = 'd'; p.v = numdate(p.v); }
 			if(dense) {
@@ -22452,8 +22454,6 @@ return function parse_ws_xml_data(sdata/*:string*/, s, opts, guess/*:Range*/, th
 				if(!s[_r.r]) s[_r.r] = [];
 				s[_r.r][_r.c] = p;
 			} else s[tag.r] = p;
-			// hbi addendum
-			p.s.i = +tag.s;
 		}
 	}
 	if(rows.length > 0) s['!rows'] = rows;
@@ -28402,7 +28402,7 @@ var HTML_ = (function() {
 		return out.join("");
 	}
 
-	function sheet_to_css(ws, opts) {
+	function sheet_to_css(ws, wb) {
 		let out = [],
 			coord = [];
 		// translate keys to two dimensional array
@@ -28430,9 +28430,23 @@ var HTML_ = (function() {
 					});
 					break;
 				default:
-					if (item.s && item.s.fgColor) {
-						out.push(`#sjs-${key} { background-color: #${item.s.fgColor.rgb}; }`);
-						// console.log(item);
+					let cellCss = [];
+					if (item.styleIndex) {
+						let style = wb.Styles.CellXf[item.styleIndex],
+							border = wb.Styles.Fills[style.borderId],
+							fill = wb.Styles.Fills[style.fillId],
+							font = wb.Styles.Fonts[style.fontId],
+							numFmt = wb.Styles.NumberFmt[style.numFmtId];
+
+						if (font.color) cellCss.push(`color: #${font.color.rgb}`);
+						if (fill.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
+
+						if (["D16"].includes(key)) {
+							console.log( item );
+						}
+					}
+					if (cellCss.length) {
+						out.push(`#sjs-${key} { ${cellCss.join(";")} }`);
 					}
 			}
 		}

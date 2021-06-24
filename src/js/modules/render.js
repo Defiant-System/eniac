@@ -35,7 +35,7 @@ const Render = {
 	sheet(name) {
 		// render sheet table
 		let sheet = this.book.Sheets[name],
-			{ html, css } = XLSX.utils.sheet_to_html_css(sheet);
+			{ html, css } = XLSX.utils.sheet_to_html_css(sheet, this.book);
 		
 		html = html.replace(/<table>/, `<table class="sheet">`);
 		html = html.replace(/(\d{1,})pt;/g, `$1px;`);

@@ -449,6 +449,8 @@ return function parse_ws_xml_data(sdata/*:string*/, s, opts, guess/*:Range*/, th
 					}
 				}
 			}
+			// hbi addendum
+			p.styleIndex = +tag.s;
 			safe_format(p, fmtid, fillid, opts, themes, styles);
 			if(opts.cellDates && do_format && p.t == 'n' && SSF.is_date(SSF._table[fmtid])) { p.t = 'd'; p.v = numdate(p.v); }
 			if(dense) {
@@ -456,8 +458,6 @@ return function parse_ws_xml_data(sdata/*:string*/, s, opts, guess/*:Range*/, th
 				if(!s[_r.r]) s[_r.r] = [];
 				s[_r.r][_r.c] = p;
 			} else s[tag.r] = p;
-			// hbi addendum
-			p.s.i = +tag.s;
 		}
 	}
 	if(rows.length > 0) s['!rows'] = rows;

@@ -106,7 +106,7 @@ var HTML_ = (function() {
 		return out.join("");
 	}
 
-	function sheet_to_css(ws, opts) {
+	function sheet_to_css(ws, wb) {
 		let out = [],
 			coord = [];
 		// translate keys to two dimensional array
@@ -134,9 +134,23 @@ var HTML_ = (function() {
 					});
 					break;
 				default:
-					if (item.s && item.s.fgColor) {
-						out.push(`#sjs-${key} { background-color: #${item.s.fgColor.rgb}; }`);
-						// console.log(item);
+					let cellCss = [];
+					if (item.styleIndex) {
+						let style = wb.Styles.CellXf[item.styleIndex],
+							border = wb.Styles.Fills[style.borderId],
+							fill = wb.Styles.Fills[style.fillId],
+							font = wb.Styles.Fonts[style.fontId],
+							numFmt = wb.Styles.NumberFmt[style.numFmtId];
+
+						if (font.color) cellCss.push(`color: #${font.color.rgb}`);
+						if (fill.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
+
+						if (["D16"].includes(key)) {
+							console.log( item );
+						}
+					}
+					if (cellCss.length) {
+						out.push(`#sjs-${key} { ${cellCss.join(";")} }`);
 					}
 			}
 		}
