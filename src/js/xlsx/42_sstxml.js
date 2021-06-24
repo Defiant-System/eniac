@@ -1,6 +1,8 @@
 /* 18.4.7 rPr CT_RPrElt */
 function parse_rpr(rpr) {
-	var font = {}, m = rpr.match(tagregex), i = 0;
+	var font = {},
+		m = rpr.match(tagregex),
+		i = 0;
 	var pass = false;
 	if(m) for(;i!=m.length; ++i) {
 		var y = parsexmltag(m[i]);
@@ -79,7 +81,7 @@ function parse_rpr(rpr) {
 
 			/* 18.3.1.15 color CT_Color TODO: tint, theme, auto, indexed */
 			case '<color':
-				if(y.rgb) font.color = y.rgb.slice(2,8);
+				if(y.rgb) font.color = y.rgb;
 				break;
 
 			/* 18.8.18 family ST_FontFamily */
@@ -103,20 +105,23 @@ function parse_rpr(rpr) {
 }
 
 var parse_rs = (function() {
-	var tregex = matchtag("t"), rpregex = matchtag("rPr");
+	var tregex = matchtag("t"),
+		rpregex = matchtag("rPr");
 	/* 18.4.4 r CT_RElt */
 	function parse_r(r) {
 		/* 18.4.12 t ST_Xstring */
 		var t = r.match(tregex)/*, cp = 65001*/;
 		if(!t) return {t:"s", v:""};
 
-		var o/*:Cell*/ = ({t:'s', v:unescapexml(t[1])}/*:any*/);
+		var o = ({t:'s', v:unescapexml(t[1])});
 		var rpr = r.match(rpregex);
 		if(rpr) o.s = parse_rpr(rpr[1]);
 		return o;
 	}
-	var rregex = /<(?:\w+:)?r>/g, rend = /<\/(?:\w+:)?r>/;
+	var rregex = /<(?:\w+:)?r>/g,
+		rend = /<\/(?:\w+:)?r>/;
 	return function parse_rs(rs) {
+		// console.log(rs.replace(rregex,"").split(rend).map(parse_r));
 		return rs.replace(rregex,"").split(rend).map(parse_r).filter(function(r) { return r.v; });
 	};
 })();
@@ -126,13 +131,14 @@ var parse_rs = (function() {
 var rs_to_html = (function parse_rs_factory() {
 	var nlregex = /(\r\n|\n)/g;
 	function parse_rpr2(font, intro, outro) {
-		var style/*:Array<string>*/ = [];
+		var style = [];
 
 		if(font.u) style.push("text-decoration: underline;");
 		if(font.uval) style.push("text-underline-style:" + font.uval + ";");
 		if(font.sz) style.push("font-size:" + font.sz + "pt;");
-		if(font.outline) style.push("text-effect: outline;");
-		if(font.shadow) style.push("text-shadow: auto;");
+		if(font.outline) style.push("text-effect:outline;");
+		if(font.shadow) style.push("text-shadow:auto;");
+		if(font.color!=="000000") style.push("color:#"+ font.color +";");
 		intro.push('<span style="' + style.join("") + '">');
 
 		if(font.b) { intro.push("<b>"); outro.push("</b>"); }
