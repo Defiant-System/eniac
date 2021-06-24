@@ -134,20 +134,18 @@ var HTML_ = (function() {
 					});
 					break;
 				default:
-					let cellCss = [];
-					if (item.styleIndex) {
-						let style = wb.Styles.CellXf[item.styleIndex],
-							border = wb.Styles.Fills[style.borderId],
-							fill = wb.Styles.Fills[style.fillId],
-							font = wb.Styles.Fonts[style.fontId],
-							numFmt = wb.Styles.NumberFmt[style.numFmtId];
+					let cellCss = [],
+						style = wb.Styles.CellXf[item.styleIndex],
+						border = wb.Styles.Fills[style.borderId],
+						fill = wb.Styles.Fills[style.fillId],
+						font = wb.Styles.Fonts[style.fontId],
+						numFmt = wb.Styles.NumberFmt[style.numFmtId];
 
-						if (font.color) cellCss.push(`color: #${font.color.rgb}`);
-						if (fill.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
-
-						if (["D16"].includes(key)) {
-							console.log( item );
-						}
+					if (font.color) cellCss.push(`color: #${font.color.rgb}`);
+					if (fill.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
+					if (style.alignment) {
+						if (["right", "center"].includes(style.alignment.vertical)) cellCss.push(`text-align: ${style.alignment.horizontal}`);
+						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align: ${style.alignment.vertical}`);
 					}
 					if (cellCss.length) {
 						out.push(`#sjs-${key} { ${cellCss.join(";")} }`);
