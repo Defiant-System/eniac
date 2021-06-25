@@ -28443,15 +28443,21 @@ var HTML_ = (function() {
 						fill = wb.Styles.Fills[style.fillId],
 						font = wb.Styles.Fonts[style.fontId],
 						numFmt = wb.Styles.NumberFmt[style.numFmtId];
+					if (font.name) cellCss.push(`font-family: ${font.name}`);
+					if (font.sz) cellCss.push(`font-size: ${font.sz}pt`);
+					if (font.bold) cellCss.push(`font-weight: bold`);
+					if (font.italic) cellCss.push(`font-style: italic`);
+					if (font.underline) cellCss.push(`text-decoration: underline`);
+					if (font.strike) cellCss.push(`text-decoration: line-through`);
 					if (font.color) cellCss.push(`color: #${font.color.rgb}`);
 					if (fill.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
-					if (font.vertAlign === "superscript") cellCss.push(`font-size: smaller; vertical-align: super;`);
-					if (font.vertAlign === "subscript") cellCss.push(`font-size: smaller; vertical-align: sub;`);
 					if (style.alignment) {
 						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align: ${style.alignment.horizontal}`);
 						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align: ${style.alignment.vertical}`);
 						if (!style.alignment.vertical) cellCss.push(`vertical-align: bottom`);
 					}
+					if (font.vertAlign === "superscript") cellCss.push(`font-size: smaller; vertical-align: super;`);
+					if (font.vertAlign === "subscript") cellCss.push(`font-size: smaller; vertical-align: sub;`);
 					if (cellCss.length) {
 						out.push(`#${key} { ${cellCss.join(";")} }`);
 					}
