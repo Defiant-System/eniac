@@ -1,29 +1,38 @@
+
 RELS.THEME = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme";
 
 /* Even though theme layout is dk1 lt1 dk2 lt2, true order is lt1 dk1 lt2 dk2 */
 var XLSXThemeClrScheme = [
-	'</a:lt1>', '</a:dk1>', '</a:lt2>', '</a:dk2>',
-	'</a:accent1>', '</a:accent2>', '</a:accent3>',
-	'</a:accent4>', '</a:accent5>', '</a:accent6>',
-	'</a:hlink>', '</a:folHlink>'
-];
+		"</a:lt1>",
+		"</a:dk1>",
+		"</a:lt2>",
+		"</a:dk2>",
+		"</a:accent1>",
+		"</a:accent2>",
+		"</a:accent3>",
+		"</a:accent4>",
+		"</a:accent5>",
+		"</a:accent6>",
+		"</a:hlink>",
+		"</a:folHlink>"
+	];
+
 /* 20.1.6.2 clrScheme CT_ColorScheme */
 function parse_clrScheme(t, themes, opts) {
 	themes.themeElements.clrScheme = [];
 	var color = {};
-	(t[0].match(tagregex)||[]).forEach(function(x) {
+	(t[0].match(tagregex) || []).forEach(function(x) {
 		var y = parsexmltag(x);
-		switch(y[0]) {
+		switch (y[0]) {
 			/* 20.1.6.2 clrScheme (Color Scheme) CT_ColorScheme */
-			case '<a:clrScheme': case '</a:clrScheme>': break;
+			case "<a:clrScheme":
+			case "</a:clrScheme>": break;
 
 			/* 20.1.2.3.32 srgbClr CT_SRgbColor */
-			case '<a:srgbClr':
-				color.rgb = y.val; break;
+			case "<a:srgbClr": color.rgb = y.val; break;
 
 			/* 20.1.2.3.33 sysClr CT_SystemColor */
-			case '<a:sysClr':
-				color.rgb = y.lastClr; break;
+			case "<a:sysClr": color.rgb = y.lastClr; break;
 
 			/* 20.1.4.1.1 accent1 (Accent 1) */
 			/* 20.1.4.1.2 accent2 (Accent 2) */
@@ -37,27 +46,41 @@ function parse_clrScheme(t, themes, opts) {
 			/* 20.1.4.1.19 hlink (Hyperlink) */
 			/* 20.1.4.1.22 lt1 (Light 1) */
 			/* 20.1.4.1.23 lt2 (Light 2) */
-			case '<a:dk1>': case '</a:dk1>':
-			case '<a:lt1>': case '</a:lt1>':
-			case '<a:dk2>': case '</a:dk2>':
-			case '<a:lt2>': case '</a:lt2>':
-			case '<a:accent1>': case '</a:accent1>':
-			case '<a:accent2>': case '</a:accent2>':
-			case '<a:accent3>': case '</a:accent3>':
-			case '<a:accent4>': case '</a:accent4>':
-			case '<a:accent5>': case '</a:accent5>':
-			case '<a:accent6>': case '</a:accent6>':
-			case '<a:hlink>': case '</a:hlink>':
-			case '<a:folHlink>': case '</a:folHlink>':
-				if (y[0].charAt(1) === '/') {
+			case "<a:dk1>":
+			case "</a:dk1>":
+			case "<a:lt1>":
+			case "</a:lt1>":
+			case "<a:dk2>":
+			case "</a:dk2>":
+			case "<a:lt2>":
+			case "</a:lt2>":
+			case "<a:accent1>":
+			case "</a:accent1>":
+			case "<a:accent2>":
+			case "</a:accent2>":
+			case "<a:accent3>":
+			case "</a:accent3>":
+			case "<a:accent4>":
+			case "</a:accent4>":
+			case "<a:accent5>":
+			case "</a:accent5>":
+			case "<a:accent6>":
+			case "</a:accent6>":
+			case "<a:hlink>":
+			case "</a:hlink>":
+			case "<a:folHlink>":
+			case "</a:folHlink>":
+				if (y[0].charAt(1) === "/") {
 					themes.themeElements.clrScheme[XLSXThemeClrScheme.indexOf(y[0])] = color;
 					color = {};
 				} else {
 					color.name = y[0].slice(3, y[0].length - 1);
 				}
 				break;
-
-			default: if(opts && opts.WTF) throw new Error('Unrecognized ' + y[0] + ' in clrScheme');
+			default:
+				if (opts && opts.WTF) {
+					throw new Error(`Unrecognized ${y[0]} in clrScheme`);
+				}
 		}
 	});
 }
@@ -68,49 +91,50 @@ function parse_fontScheme(/*::t, themes, opts*/) { }
 /* 20.1.4.1.15 fmtScheme CT_StyleMatrix */
 function parse_fmtScheme(/*::t, themes, opts*/) { }
 
-var clrsregex = /<a:clrScheme([^>]*)>[\s\S]*<\/a:clrScheme>/;
-var fntsregex = /<a:fontScheme([^>]*)>[\s\S]*<\/a:fontScheme>/;
-var fmtsregex = /<a:fmtScheme([^>]*)>[\s\S]*<\/a:fmtScheme>/;
+var clrsregex = /<a:clrScheme([^>]*)>[\s\S]*<\/a:clrScheme>/,
+	fntsregex = /<a:fontScheme([^>]*)>[\s\S]*<\/a:fontScheme>/,
+	fmtsregex = /<a:fmtScheme([^>]*)>[\s\S]*<\/a:fmtScheme>/,
+	themeltregex = /<a:themeElements([^>]*)>[\s\S]*<\/a:themeElements>/;
 
 /* 20.1.6.10 themeElements CT_BaseStyles */
 function parse_themeElements(data, themes, opts) {
 	themes.themeElements = {};
-
 	var t;
-
 	[
 		/* clrScheme CT_ColorScheme */
-		['clrScheme', clrsregex, parse_clrScheme],
+		["clrScheme", clrsregex, parse_clrScheme],
 		/* fontScheme CT_FontScheme */
-		['fontScheme', fntsregex, parse_fontScheme],
+		["fontScheme", fntsregex, parse_fontScheme],
 		/* fmtScheme CT_StyleMatrix */
-		['fmtScheme', fmtsregex, parse_fmtScheme]
-	].forEach(function(m) {
-		if(!(t=data.match(m[1]))) throw new Error(m[0] + ' not found in themeElements');
+		["fmtScheme", fmtsregex, parse_fmtScheme]
+	].forEach(m => {
+		if (!(t=data.match(m[1]))) {
+			throw new Error(`${m[0]} not found in themeElements`);
+		}
 		m[2](t, themes, opts);
 	});
 }
 
-var themeltregex = /<a:themeElements([^>]*)>[\s\S]*<\/a:themeElements>/;
-
 /* 14.2.7 Theme Part */
-function parse_theme_xml(data/*:string*/, opts) {
+function parse_theme_xml(data, opts) {
 	/* 20.1.6.9 theme CT_OfficeStyleSheet */
-	if(!data || data.length === 0) return parse_theme_xml(write_theme());
-
-	var t;
-	var themes = {};
-
+	if (!data || data.length === 0) {
+		return parse_theme_xml(write_theme());
+	}
+	var t,
+		themes = {};
 	/* themeElements CT_BaseStyles */
-	if(!(t=data.match(themeltregex))) throw new Error('themeElements not found in theme');
+	if (!(t=data.match(themeltregex))) {
+		throw new Error('themeElements not found in theme');
+	}
 	parse_themeElements(t[0], themes, opts);
 	themes.raw = data;
 	return themes;
 }
 
-function write_theme(Themes, opts)/*:string*/ {
-	if(opts && opts.themeXLSX) return opts.themeXLSX;
-	if(Themes && typeof Themes.raw == "string") return Themes.raw;
+function write_theme(Themes, opts) {
+	if (opts && opts.themeXLSX) return opts.themeXLSX;
+	if (Themes && typeof Themes.raw == "string") return Themes.raw;
 	var o = [XML_HEADER];
 	o[o.length] = '<a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Office Theme">';
 	o[o.length] =  '<a:themeElements>';
