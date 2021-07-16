@@ -12,7 +12,8 @@ var RELS = {
 		XLINK: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLink",
 		CXML:  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXml",
 		CXMLP: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXmlProps",
-		VBA:   "http://schemas.microsoft.com/office/2006/relationships/vbaProject"
+		VBA:   "http://schemas.microsoft.com/office/2006/relationships/vbaProject",
+		CMNT:  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
 	},
 	RELS_EXTERN = [RELS.HLINK, RELS.XPATH, RELS.XMISS],
 	RELS_ROOT = writextag("Relationships", null, { "xmlns": XMLNS.RELS });

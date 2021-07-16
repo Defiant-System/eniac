@@ -27,7 +27,7 @@ function read_zip(data, opts) {
 	if (!o.type) o.type = "base64";
 	zip = zip_read(d, o);
 
-	return parseZip(zip, o);
+	return parse_zip(zip, o);
 }
 
 function read_plaintext(data, o) {
@@ -117,9 +117,14 @@ function readSync(data, opts) {
 		case 0xEF: return n[3] === 0x3C ? parse_xlml(d, o) : read_prn(data, d, o, str);
 		case 0xFF: if(n[1] === 0xFE) { return read_utf16(d, o); } break;
 		case 0x00: if(n[1] === 0x00 && n[2] >= 0x02 && n[3] === 0x00) throw new Error("Not supported Workbook"); break;
-		case 0x03: case 0x83: case 0x8B: case 0x8C: return DBF.to_workbook(d, o);
+		case 0x03:
+		case 0x83:
+		case 0x8B:
+		case 0x8C: return DBF.to_workbook(d, o);
 		case 0x7B: if(n[1] === 0x5C && n[2] === 0x72 && n[3] === 0x74) return RTF.to_workbook(d, o); break;
-		case 0x0A: case 0x0D: case 0x20: return read_plaintext_raw(d, o);
+		case 0x0A:
+		case 0x0D:
+		case 0x20: return read_plaintext_raw(d, o);
 	}
 	if (DBF.versions.indexOf(n[0]) > -1 && n[2] <= 12 && n[3] <= 31) {
 		return DBF.to_workbook(d, o);
@@ -127,8 +132,8 @@ function readSync(data, opts) {
 	return read_prn(data, d, o, str);
 }
 
-function readFileSync(filename, opts) {
-	var o = opts || {};
-	o.type = "file";
-	return readSync(filename, o);
-}
+// function readFileSync(filename, opts) {
+// 	var o = opts || {};
+// 	o.type = "file";
+// 	return readSync(filename, o);
+// }

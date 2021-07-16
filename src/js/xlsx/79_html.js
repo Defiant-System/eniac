@@ -134,12 +134,16 @@ var HTML_ = (function() {
 			if (RS > 1) sp.rowspan = RS;
 			if (CS > 1) sp.colspan = CS;
 			sp.t = cell && cell.t || "z";
+			if (cell && cell.f) sp.f = cell.f;
 			if (o.editable) w = `<span contenteditable="true">${w}</span>`;
 			sp.id = coord;
 			if (sp.t != "z") {
 				sp.v = cell.v;
 				if (cell.z != null) sp.z = cell.z;
 			}
+			// temp fix
+			w = w.replace(/#FF(.{6});/g, "#$1;");
+
 			oo.push(writextag("td", w, sp));
 		}
 		return `<tr>${oo.join("")}</tr>`;
@@ -186,40 +190,44 @@ var HTML_ = (function() {
 				case "!cols":
 					// console.log( JSON.stringify(item) );
 					item.map((col, i) =>
-						out.push(`#${coord[0][i]} { width: ${col.wpx-5}px; }`));
+						out.push(`#${coord[0][i]} { width: ${width2px(col.width)}px; }`));
 					break;
 				default:
 					if (!item.styleIndex) continue;
 
 					let cellCss = [],
 						style = wb.Styles.CellXf[item.styleIndex],
-						border = wb.Styles.Fills[style.borderId],
 						fill = wb.Styles.Fills[style.fillId],
 						font = wb.Styles.Fonts[style.fontId],
-						numFmt = wb.Styles.NumberFmt[style.numFmtId];
+						numFmt = wb.Styles.NumberFmt ? wb.Styles.NumberFmt[style.numFmtId] : 0,
+						border = wb.Styles.Borders[style.borderId],
+						noBorder = border.width.join("") + border.style.join("") + border.color.join(""),
+						hasBorders = noBorder !== "0000solidsolidsolidsolid000000000000";
 
-					if (font.name) cellCss.push(`font-family: ${font.name}`);
-					if (font.sz) cellCss.push(`font-size: ${font.sz}pt`);
-					if (font.bold) cellCss.push(`font-weight: bold`);
-					if (font.italic) cellCss.push(`font-style: italic`);
-					if (font.underline) cellCss.push(`text-decoration: underline`);
-					if (font.strike) cellCss.push(`text-decoration: line-through`);
-					if (font.color) cellCss.push(`color: #${font.color.rgb}`);
-					if (fill?.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
+					if (font.name) cellCss.push(`font-family:${font.name}`);
+					if (font.sz) cellCss.push(`font-size:${font.sz}pt`);
+					if (font.bold) cellCss.push(`font-weight:bold`);
+					if (font.italic) cellCss.push(`font-style:italic`);
+					if (font.underline) cellCss.push(`text-decoration:underline`);
+					if (font.strike) cellCss.push(`text-decoration:line-through`);
+					if (font.color) cellCss.push(`color:#${font.color.rgb}`);
+					if (fill?.bgColor) cellCss.push(`background:#${fill.fgColor.rgb}`);
 					if (style.alignment) {
-						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align: ${style.alignment.horizontal}`);
-						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align: ${style.alignment.vertical}`);
-						if (!style.alignment.vertical) cellCss.push(`vertical-align: bottom`);
+						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align:${style.alignment.horizontal}`);
+						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align:${style.alignment.vertical}`);
+						if (!style.alignment.vertical) cellCss.push(`vertical-align:bottom`);
 					}
-					if (font.vertAlign === "superscript") cellCss.push(`font-size: smaller; vertical-align: super;`);
-					if (font.vertAlign === "subscript") cellCss.push(`font-size: smaller; vertical-align: sub;`);
+					if (font.vertAlign === "superscript") cellCss.push(`font-size:smaller;vertical-align:super;`);
+					if (font.vertAlign === "subscript") cellCss.push(`font-size:smaller;vertical-align:sub;`);
+					if (hasBorders) cellCss.push(`position:relative;`);
+					if (cellCss.length) out.push(`#${key} { ${cellCss.join(";")} }`);
 
-					if (["A13"].includes(key)) {
-						// console.log( item );
-					}
-
-					if (cellCss.length) {
-						out.push(`#${key} { ${cellCss.join(";")} }`);
+					if (hasBorders) {
+						cellCss = [`content:"";position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;`];
+						cellCss.push(`border-width:${border.width.map(i => i +"px").join(" ")};`);
+						cellCss.push(`border-style:${border.style.map(i => i).join(" ")};`);
+						cellCss.push(`border-color:${border.color.map(i => "#"+ i).join(" ")};`);
+						out.push(`#${key}:before { ${cellCss.join(";")} }`);
 					}
 			}
 		}

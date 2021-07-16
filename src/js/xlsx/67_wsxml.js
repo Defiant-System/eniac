@@ -254,7 +254,7 @@ function parse_ws_xml_cols(columns, cols) {
 			coll.hidden = parsexmlbool(coll.hidden);
 		}
 		var colm = parseInt(coll.min, 10) - 1,
-			colM = parseInt(coll.max,10) - 1;
+			colM = parseInt(coll.max, 10) - 1;
 		delete coll.min;
 		delete coll.max;
 		coll.width = +coll.width;
@@ -263,7 +263,7 @@ function parse_ws_xml_cols(columns, cols) {
 			find_mdw_colw(coll.width);
 		}
 		process_col(coll);
-		while(colm <= colM) {
+		while (colm <= colM) {
 			columns[colm++] = dup(coll);
 		}
 	}
@@ -289,8 +289,8 @@ function write_ws_xml_autofilter(data, ws, wb, idx) {
 	if (!wb.Workbook) wb.Workbook = { Sheets: [] };
 	if (!wb.Workbook.Names) wb.Workbook.Names = [];
 	
-	var names = wb.Workbook.Names;
-	var range = decode_range(ref);
+	var names = wb.Workbook.Names,
+		range = decode_range(ref);
 	
 	if (range.s.r == range.e.r) {
 		range.e.r = decode_range(ws["!ref"]).e.r;
@@ -359,6 +359,7 @@ function write_ws_xml_cell(cell, ref, ws, opts, idx, wb) {
 	var vv = "",
 		oldt = cell.t,
 		oldv = cell.v;
+	
 	if (cell.t !== "z") {
 		switch (cell.t) {
 			case "b":
@@ -400,14 +401,14 @@ function write_ws_xml_cell(cell, ref, ws, opts, idx, wb) {
 		case "d": o.t = "d"; break;
 		case "b": o.t = "b"; break;
 		case "e": o.t = "e"; break;
-		case "is": o.t = "inlineStr"; break;
+		// case "is": o.t = "inlineStr"; break;
 		case "z": break;
 		default:
 			if (cell.v == null) {
 				delete cell.t;
 				break;
 			}
-			if (opts && opts.bookSST) {				
+			if (opts && opts.bookSST) {
 				v = writetag("v", ""+ get_sst_id(opts.Strings, cell.v, opts.revStrings));
 				o.t = "s";
 				break;
@@ -466,11 +467,11 @@ var parse_ws_xml_data = (function() {
 			rows = [],
 			rowobj = {},
 			rowrite = false,
-			sheetStubs = !!opts.sheetStubs;
-
-		var marr = sdata.split(rowregex),
+			sheetStubs = !!opts.sheetStubs,
+			marr = sdata.split(rowregex),
 			mt = 0,
 			marrlen = marr.length;
+		
 		for (; mt != marrlen; ++mt) {
 			x = marr[mt].trim();
 			var xlen = x.length;
@@ -704,6 +705,7 @@ function write_ws_xml_data(ws, opts, idx, wb) {
 
 	wb.fonts = [];
 	wb.fills = [];
+	wb.borders = [];
 
 	for (C = range.s.c; C <= range.e.c; ++C) {
 		cols[C] = encode_col(C);
@@ -719,6 +721,7 @@ function write_ws_xml_data(ws, opts, idx, wb) {
 			get_cell_styles(wb, ref);
 
 			if ((cell = write_ws_xml_cell(_cell, ref, ws, opts, idx, wb)) != null) {
+				_cell.is = cell;
 				r.push(cell);
 			}
 		}

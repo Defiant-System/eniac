@@ -1,5 +1,15 @@
 
 function write_zip(wb, opts) {
+	// let tmpFiles = [],
+	// 	tmp = new jszip();
+	// tmpFiles.unshift({ "file": "b", body: "" });
+	// Object.keys(hbi_zip.files).map(file => {
+	// 	var body = getzipdata(hbi_zip, file);
+	// 	tmpFiles.push({ file, body });
+	// });
+	// tmpFiles.map(item => tmp.file(item.file, item.body));
+	// return tmp;
+
 	// _shapeid = 1024;
 	if (wb && !wb.SSF) {
 		wb.SSF = SSF.get_table();
@@ -20,7 +30,7 @@ function write_zip(wb, opts) {
 	opts.revStrings = new Map();
 	
 	fix_write_opts(opts = opts || {});
-	
+
 	var files = [],
 		ct = new_ct(),
 		rId = 0;
@@ -51,12 +61,14 @@ function write_zip(wb, opts) {
 	for (rId=1; rId<=wb.SheetNames.length; ++rId) {
 		var wsrels = { "!id": {} },
 			ws = wb.Sheets[wb.SheetNames[rId - 1]],
-			_type = (ws || {})["!type"] || "sheet";
+			_type = (ws || {})["!type"] || "sheet",
+			filename = `xl/worksheets/sheet${rId}.xml`;
+		
 		switch(_type) {
 			case "chart":
 				/* falls through */
 			default:
-				files.unshift({ file: `xl/worksheets/sheet${rId}.xml`, body: write_ws_xml(rId - 1, opts, wb, wsrels) });
+				files.unshift({ file: filename, body: write_ws_xml(rId - 1, opts, wb, wsrels) });
 				// console.log( files[0].body );
 				ct.sheets.push(files[0].file);
 				add_rels(opts.wbrels, -1, files[0].file.slice(3), RELS.WS[0]);
@@ -78,12 +90,13 @@ function write_zip(wb, opts) {
 			delete ws["!legacy"];
 		}
 
-		// if (wsrels["!id"].rId1) {
-		// 	zip.file(get_rels_path(filename), write_rels(wsrels));
-		// }
+		if (wsrels["!id"].rId1) {
+			files.unshift({ file: get_rels_path(filename), body: write_rels(wsrels) });
+		}
 	}
 
 	if (opts.Strings != null && opts.Strings.length > 0) {
+		// console.log( write_sst_xml(opts.Strings, opts) );
 		files.unshift({ file: `xl/sharedStrings.xml`, body: write_sst_xml(opts.Strings, opts) });
 		ct.strs.push(files[0].file);
 		add_rels(opts.wbrels, -1, files[0].file.slice(3), RELS.SST);
@@ -112,21 +125,10 @@ function write_zip(wb, opts) {
 
 	let zip = new jszip();
 	// temp fix
-	files.unshift({ "file": "b", body: "" });
+	if (opts.zip) files.unshift({ "file": "b", body: "" });
 
 	files.map(item => zip.file(item.file, item.body));
 
-
-	// let xStr, xDoc;
-	// xStr = zip.files["xl/styles.xml"]._data;
-	// xStr = xStr.replace(/<sheetView workbookViewId="0"\/>/, `<sheetView workbookViewId="0"><pane state="frozen" xSplit="0" ySplit="1" topLeftCell="A2" activePane="bottomLeft"/></sheetView>`);
-	// xDoc = $.xmlFromString(xStr);
-	// console.log(xStr);
-	// zip.files["xl/worksheets/sheet1.xml"]._data = xStr;
-
-	// xStr = zip.files["xl/styles.xml"]._data,
-	// xDoc = $.xmlFromString(xStr);
-	// console.log( xDoc.xml );
 
 
 	delete opts.revssf;

@@ -143,7 +143,7 @@ function process_col(coll) {
 		coll.wch = px2char(coll.wpx);
 		coll.width = char2width(coll.wch);
 		coll.MDW = MDW;
-	} else if (typeof coll.wch == 'number') {
+	} else if (typeof coll.wch == "number") {
 		coll.width = char2width(coll.wch);
 		coll.wpx = width2px(coll.width);
 		coll.MDW = MDW;

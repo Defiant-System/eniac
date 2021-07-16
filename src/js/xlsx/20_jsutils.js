@@ -45,10 +45,10 @@ function evert_arr(obj) {
 	return o;
 }
 
-var basedate = new Date(1899, 11, 30, 0, 0, 0); // 2209161600000
-var refdate = new Date();
-var dnthresh = basedate.getTime() + (refdate.getTimezoneOffset() - basedate.getTimezoneOffset()) * 60000;
-var refoffset = refdate.getTimezoneOffset();
+var basedate = new Date(1899, 11, 30, 0, 0, 0), // 2209161600000
+	refdate = new Date(),
+	dnthresh = basedate.getTime() + (refdate.getTimezoneOffset() - basedate.getTimezoneOffset()) * 60000,
+	refoffset = refdate.getTimezoneOffset();
 
 function datenum(v, date1904) {
 	var epoch = v.getTime(),
@@ -146,7 +146,7 @@ function dup(o) {
 
 function fill(c, l) {
 	var o = "";
-	while (o.length < l) o+=c;
+	while (o.length < l) o += c;
 	return o;
 }
 
@@ -155,8 +155,10 @@ function fuzzynum(s) {
 	var v = Number(s);
 	if (!isNaN(v)) return v;
 	if (!/\d/.test(s)) return v;
-	var wt = 1;
-	var ss = s.replace(/([\d]),([\d])/g, "$1$2").replace(/[$]/g, "").replace(/[%]/g, function() { wt *= 100; return ""; });
+	var wt = 1,
+		ss = s.replace(/([\d]),([\d])/g, "$1$2")
+				.replace(/[$]/g, "")
+				.replace(/[%]/g, () => { wt *= 100; return ""; });
 	if (!isNaN(v = Number(ss))) return v / wt;
 	ss = ss.replace(/[(](.*)[)]/, function($$, $1) { wt = -wt; return $1;});
 	if (!isNaN(v = Number(ss))) return v / wt;

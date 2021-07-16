@@ -243,12 +243,13 @@ function write_sst_xml(sst, opts) {
 		if (sst[i] == null) continue;
 		var s = sst[i],
 			sitag = "<si>";
-		if (s.r) sitag += s.r;
+		if (s.t.startsWith("<r>")) sitag += s.t;
 		else {
 			sitag += "<t";
 			if (!s.t) s.t = "";
 			if (s.t.match(straywsregex)) sitag += ' xml:space="preserve"';
-			sitag += ">" + escapexml(s.t) + "</t>";
+			sitag += ">"+ s.t +"</t>";
+			// sitag += ">"+ escapexml(s.t) +"</t>";
 		}
 		sitag += "</si>";
 		o[o.length] = (sitag);
@@ -257,5 +258,6 @@ function write_sst_xml(sst, opts) {
 		o[o.length] = "</sst>";
 		o[1] = o[1].replace("/>", ">");
 	}
+
 	return o.join("");
 }

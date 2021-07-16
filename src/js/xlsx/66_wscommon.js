@@ -40,11 +40,11 @@ function get_sst_id(sst, str, rev) {
 
 function col_obj_w(C, col) {
 	var p = {
-		min: C + 1,
-		max: C + 1
-	};
-	/* wch (chars), wpx (pixels) */
-	var wch = -1;
+			min: C + 1,
+			max: C + 1
+		},
+		/* wch (chars), wpx (pixels) */
+		wch = -1;
 	if (col.MDW) MDW = col.MDW;
 	
 	if (col.width != null) p.customWidth = 1;
@@ -78,6 +78,7 @@ function default_margins(margins, mode) {
 function get_cell_styles(wb, ref) {
 	var fills = wb.fills,
 		fonts = wb.fonts,
+		borders = wb.borders,
 		td = document.getElementById(ref),
 		cellStyle = getComputedStyle(td);
 	
@@ -89,8 +90,21 @@ function get_cell_styles(wb, ref) {
 		if (fill) fill.refs.push(ref);
 		else fills.push({ color, refs: [ref] });
 	}
-
-	// cell font
+	// cell border style
+	if (cellStyle["position"] === "relative") {
+		let beforeStyle = getComputedStyle(td, ":before"),
+			keys = ["top", "right", "bottom", "left"],
+			bRecord = {
+				width: keys.map(k => parseInt(beforeStyle[`border-${k}-width`], 10)),
+				style: keys.map(k => beforeStyle[`border-${k}-style`]),
+				color: keys.map(k => beforeStyle[`border-${k}-color`].match(/\d+/g).map(i => +i)).map(c => rgb2Hex(c).toLowerCase()),
+			},
+			border = borders.find(f => JSON.stringify(f.fRecord) === JSON.stringify(bRecord));
+		
+		if (border) border.refs.push(ref);
+		else borders.push({ bRecord, refs: [ref] });
+	}
+	// cell font style
 	let fClr = cellStyle["color"].match(/\d+/g).map(i => +i),
 		sup = cellStyle["vertical-align"] === "super" ? 1 : 0,
 		sub = cellStyle["vertical-align"] === "sub" ? 1 : 0,
@@ -99,7 +113,7 @@ function get_cell_styles(wb, ref) {
 		underline = cellStyle["text-decoration"].startsWith("underline") ? 1 : 0,
 		strike = cellStyle["text-decoration"].startsWith("line-through") ? 1 : 0,
 		fRecord = {
-			family: cellStyle["font-family"],
+			family: cellStyle["font-family"].replace(/"/g, "'"),
 			size: (sup || sub) ? 12 : (parseInt(cellStyle["font-size"], 10)) * (72/96),
 			color: rgb2Hex(fClr).toLowerCase(),
 			bold,
@@ -109,7 +123,7 @@ function get_cell_styles(wb, ref) {
 			sup,
 			sub,
 		},
-		font =  fonts.find(f => JSON.stringify(f.fRecord) === JSON.stringify(fRecord));
+		font = fonts.find(f => JSON.stringify(f.fRecord) === JSON.stringify(fRecord));
 
 	if (font) font.refs.push(ref);
 	else fonts.push({ fRecord, refs: [ref] });
@@ -122,6 +136,7 @@ function get_cell_style(styles, cell, opts, ref, wb) {
 		i = 0x3c,
 		len = styles.length,
 		alignment = {},
+		borderId = 0,
 		fillId = 0,
 		fontId = 0;
 	
@@ -148,12 +163,14 @@ function get_cell_style(styles, cell, opts, ref, wb) {
 				};
 			alignment.vertical = translate[cellStyle["vertical-align"]];
 		}
+		wb.borders.map((b, i) => (b.refs.includes(ref)) ? borderId = i + 2 : null);
 		wb.fills.map((f, i) => (f.refs.includes(ref)) ? fillId = i + 2 : null);
 		wb.fonts.map((f, i) => (f.refs.includes(ref)) ? fontId = i + 1 : null);
 	}
 	
 	let st = styles.find(s =>
 				s.numFmtId === numFmtId &&
+				s.borderId === borderId &&
 				s.fillId === fillId &&
 				s.fontId === fontId &&
 				JSON.stringify(s.alignment) === JSON.stringify(alignment));
@@ -165,7 +182,7 @@ function get_cell_style(styles, cell, opts, ref, wb) {
 		fillId,
 		fontId,
 		numFmtId,
-		borderId: 0,
+		borderId,
 		xfId: 0,
 		applyNumberFormat: 1,
 	};

@@ -287,7 +287,7 @@ var vtregex = (function() {
 	})();
 
 function html2xml(td) {
-	if (td.childNodes.length > 1 || td.childNodes[0].nodeType === 2) {
+	if (td.childNodes.length > 1 || (td.childNodes.length && td.childNodes[0].nodeType === 2)) {
 		let xml = [],
 			getTextNodes = el => {
 				el.childNodes.map(el => {
@@ -322,7 +322,8 @@ function html2xml(td) {
 
 		getTextNodes(td);
 
-		return `<is>${xml.join("")}</is>`.replace(/\t/g, "");
+		return xml.join("").replace(/\t/g, "");
+		// return `<is>${xml.join("")}</is>`.replace(/\t/g, "");
 	} else {
 		return htmldecode(td.innerHTML);
 	}

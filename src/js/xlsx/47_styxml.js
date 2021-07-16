@@ -12,9 +12,12 @@ RELS.STY = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/
 function parse_borders(t, styles, themes, opts) {
 	styles.Borders = [];
 	var border = {},
-		pass = false;
+		pass = false,
+		index;
+	// console.log(t[0]);
 	(t[0].match(tagregex) || []).forEach(function(x) {
-		var y = parsexmltag(x);
+		var y = parsexmltag(x),
+			thickness;
 		switch (strip_ns(y[0])) {
 			case "<borders":
 			case "<borders>":
@@ -25,7 +28,11 @@ function parse_borders(t, styles, themes, opts) {
 			case "<border":
 			case "<border>":
 			case "<border/>":
-				border = {};
+				border = {
+					style: [...Array(4)].map(i => "solid"),
+					width: [...Array(4)].map(i => 0),
+					color: [...Array(4)].map(i => "000"),
+				};
 				if (y.diagonalUp) border.diagonalUp = parsexmlbool(y.diagonalUp);
 				if (y.diagonalDown) border.diagonalDown = parsexmlbool(y.diagonalDown);
 				styles.Borders.push(border);
@@ -38,6 +45,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<left":
 			case "<left>":
+				index = 3;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</left>":
 				break;
@@ -47,6 +62,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<right":
 			case "<right>":
+				index = 1;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</right>":
 				break;
@@ -56,6 +79,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<top":
 			case "<top>":
+				index = 0;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</top>":
 				break;
@@ -65,6 +96,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<bottom":
 			case "<bottom>":
+				index = 2;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</bottom>":
 				break;
@@ -112,6 +151,7 @@ function parse_borders(t, styles, themes, opts) {
 			/* 18.8.? color CT_Color */
 			case "<color":
 			case "<color>":
+				border.color[index] = y.rgb.slice(-6);
 				break;
 			case "<color/>":
 			case "</color>":
@@ -153,7 +193,8 @@ function parse_fills(t, styles, themes, opts) {
 			case "<fill>":
 			case "<fill":
 			case "<fill/>":
-				fill = {}; styles.Fills.push(fill);
+				fill = {};
+				styles.Fills.push(fill);
 				break;
 			case "</fill>":
 				break;
@@ -613,6 +654,46 @@ function write_fills(wb, opts) {
 	return o.join("");
 }
 
+function write_borders(wb, opts) {
+	var o = [],
+		dir = ["top", "right", "bottom", "left"],
+		width = ["", "thin", "medium", "thick"];
+	o.push(`<borders count="${wb.borders.length + 2}">`);
+	o.push(`<border/>`);
+	o.push(`<border><left/><right/><top/><bottom/></border>`);
+	
+	wb.borders.map(b => {
+		let str = ["<border>"];
+		dir.map((d, i) => {
+			let style = b.bRecord.style[i];
+			switch (style) {
+				case "dashed":
+					style = "dotted";
+					break;
+				case "dotted":
+					style = "hair";
+					break;
+				case "double":
+					break;
+				case "solid":
+					let w = b.bRecord.width[i] - 1;
+					if (w <= 0) return;
+					style = width[w];
+					break;
+			}
+			str.push(`<${d}${(style ? ` style="${style}"` : "")}>
+						<color rgb="FF${b.bRecord.color[i]}"/>
+					</${d}>`);
+		});
+		str.push("</border>");
+		// add to main array
+		o.push(str.join(""));
+	});
+	
+	o.push(`</borders>`);
+	return o.join("");
+}
+
 function write_cellXfs(wb, opts) {
 	var o = [];
 	o.push(`<cellXfs count="${opts.cellXfs.length}">`);
@@ -642,30 +723,39 @@ var parse_sty_xml = (function() {
 		fontsRegex = /<(?:\w+:)?fonts([^>]*)>[\S\s]*?<\/(?:\w+:)?fonts>/,
 		bordersRegex = /<(?:\w+:)?borders([^>]*)>[\S\s]*?<\/(?:\w+:)?borders>/;
 
-	return function parse_sty_xml(data, themes, opts) {
+	return function(data, themes, opts) {
 		var styles = {};
 		if (!data) return styles;
 		data = data.replace(/<!--([\s\S]*?)-->/mg, "").replace(/<!DOCTYPE[^\[]*\[[^\]]*\]>/gm, "");
 		/* 18.8.39 styleSheet CT_Stylesheet */
 		var t;
-
 		/* 18.8.31 numFmts CT_NumFmts ? */
-		if ((t=data.match(numFmtRegex))) parse_numFmts(t, styles, opts);
+		if ((t = data.match(numFmtRegex))) {
+			parse_numFmts(t, styles, opts);
+		}
 
 		/* 18.8.23 fonts CT_Fonts ? */
-		if ((t=data.match(fontsRegex))) parse_fonts(t, styles, themes, opts);
+		if ((t = data.match(fontsRegex))) {
+			parse_fonts(t, styles, themes, opts);
+		}
 
 		/* 18.8.21 fills CT_Fills ? */
-		if ((t=data.match(fillsRegex))) parse_fills(t, styles, themes, opts);
+		if ((t = data.match(fillsRegex))) {
+			parse_fills(t, styles, themes, opts);
+		}
 
 		/* 18.8.5  borders CT_Borders ? */
-		if ((t=data.match(bordersRegex))) parse_borders(t, styles, themes, opts);
+		if ((t = data.match(bordersRegex))) {
+			parse_borders(t, styles, themes, opts);
+		}
 
 		/* 18.8.9  cellStyleXfs CT_CellStyleXfs ? */
 		/* 18.8.8  cellStyles CT_CellStyles ? */
 
 		/* 18.8.10 cellXfs CT_CellXfs ? */
-		if ((t = data.match(cellXfRegex))) parse_cellXfs(t, styles, opts);
+		if ((t = data.match(cellXfRegex))) {
+			parse_cellXfs(t, styles, opts);
+		}
 
 		/* 18.8.15 dxfs CT_Dxfs ? */
 		/* 18.8.42 tableStyles CT_TableStyles ? */
@@ -682,13 +772,13 @@ function write_sty_xml(wb, opts) {
 
 	if (wb.SSF && (w = write_numFmts(wb.SSF)) != null) o.push(w);
 	
-	if ((w = write_fonts(wb, opts))) o.push(w);
-	if ((w = write_fills(wb, opts))) o.push(w);
-	
-	o[o.length] = (`<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>`);
+	if (w = write_fonts(wb, opts)) o.push(w);
+	if (w = write_fills(wb, opts)) o.push(w);
+	if (w = write_borders(wb, opts)) o.push(w);
+
 	o[o.length] = (`<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>`);
 	
-	if ((w = write_cellXfs(wb, opts))) o.push(w);
+	if (w = write_cellXfs(wb, opts)) o.push(w);
 
 	o[o.length] = (`<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>`);
 	o[o.length] = (`<dxfs count="0"/>`);

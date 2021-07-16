@@ -350,6 +350,7 @@ var utils = {
 	sheet_to_json,
 	sheet_to_formulae,
 	get_formulae: sheet_to_formulae,
+	parse_formula: parseFormula,
 	make_csv: sheet_to_csv,
 	make_json: sheet_to_json,
 	make_formulae: sheet_to_formulae,

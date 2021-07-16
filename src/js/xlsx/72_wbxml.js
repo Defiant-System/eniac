@@ -217,7 +217,7 @@ function write_wb_xml(wb) {
 	/* fileVersion */
 	/* fileSharing */
 
-	var workbookPr = { codeName: "ThisWorkbook" };
+	var workbookPr = {};
 	if (wb.Workbook && wb.Workbook.WBProps) {
 		WBPropsDef.forEach(function(x) {
 			if ((wb.Workbook.WBProps[x[0]]) == null) return;
@@ -229,7 +229,7 @@ function write_wb_xml(wb) {
 			delete workbookPr.CodeName;
 		}
 	}
-	o[o.length] = (writextag("workbookPr", null, workbookPr));
+	o[o.length] = writextag("workbookPr", null, workbookPr);
 
 	/* workbookProtection */
 

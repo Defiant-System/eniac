@@ -285,5 +285,6 @@ function write_ct(ct, opts) {
 		o[o.length] = ("</Types>");
 		o[1] = o[1].replace("/>", ">");
 	}
+	
 	return o.join("");
 }

@@ -18,17 +18,17 @@ var fix_read_opts = function(opts) {
 			["bookVBA", false],    /* include vba raw data (vbaraw) */
 
 			["password", ""],       /* password */
-			["WTF", false]         /* WTF mode (throws errors) */
+			["WTF", false]          /* WTF mode (throws errors) */
 		])(opts);
 	};
 
 var fix_write_opts = fix_opts_func([
-	["cellDates", false],   /* write date cells with type `d` */
-	["bookSST", false],     /* Generate Shared String Table */
-	["bookType", "xlsx"],   /* Type of workbook (xlsx/m/b) */
-	["compression", false], /* Use file compression */
-	["WTF", false]          /* WTF mode (throws errors) */
-]);
+		["cellDates", false],   /* write date cells with type `d` */
+		["bookSST", true],      /* Generate Shared String Table */
+		["bookType", "xlsx"],   /* Type of workbook (xlsx/m/b) */
+		["compression", false], /* Use file compression */
+		["WTF", false]          /* WTF mode (throws errors) */
+	]);
 
 function fix_opts_func(defaults) {
 	return function(opts) {
