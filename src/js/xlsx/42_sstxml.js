@@ -132,14 +132,14 @@ var rs_to_html = (function() {
 		function parse_rpr2(font, intro, outro) {
 			var style = [];
 			
-			if (font.u) style.push("text-decoration: underline;");
-			if (font.uval) style.push("text-underline-style: "+ font.uval +";");
-			if (font.sz) style.push("font-size: "+ font.sz +"pt;");
-			if (font.outline) style.push("text-effect: outline;");
-			if (font.shadow) style.push("text-shadow: auto;");
-			if (font.color !== "000000") style.push("color: #"+ font.color +";");
+			if (font.u) style.push(`text-decoration:underline;`);
+			if (font.uval) style.push(`text-underline-style:${font.uval};`);
+			if (font.sz) style.push(`font-size:${font.sz * (96/72)}px;`);
+			if (font.outline) style.push(`text-effect:outline;`);
+			if (font.shadow) style.push(`text-shadow:auto;`);
+			if (font.color !== "000000") style.push(`color:#${font.color};`);
 			
-			intro.push('<span style="'+ style.join("") +'">');
+			intro.push(`<span style="${style.join("")}">`);
 
 			if (font.b) {
 				intro.push("<b>");

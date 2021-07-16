@@ -12,17 +12,10 @@ https://github.com/nodeca/pako/blob/master/LICENSE
 Note: since JSZip 3 removed critical functionality, this version assigns to the
 `JSZipSync` variable.  Another JSZip version can be loaded in parallel.
 */
+let JSZipSync;
+
 (function(e){
-	if("object"==typeof exports&&"undefined"!=typeof module&&"undefined"==typeof DO_NOT_EXPORT_JSZIP)module.exports=e();
-	else if("function"==typeof define&&define.amd&&"undefined"==typeof DO_NOT_EXPORT_JSZIP){JSZipSync=e();define([],e);}
-	else{
-		var f;
-		"undefined"!=typeof globalThis?f=globalThis:
-		"undefined"!=typeof window?f=window:
-		"undefined"!=typeof global?f=global:
-		"undefined"!=typeof $ && $.global?f=$.global:
-		"undefined"!=typeof self&&(f=self),f.JSZipSync=e()
-	}
+    JSZipSync=e();
 }(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 'use strict';
 // private property
@@ -510,7 +503,7 @@ Usage:
  * @param {Object=} options the options for creating this objects (optional).
  */
 function JSZipSync(data, options) {
-    // if this constructor is used without `new`, it adds `new` before itself:
+    // if this constructor is used without `new`, it adds `new` before itself:
     if(!(this instanceof JSZipSync)) return new JSZipSync(data, options);
 
     // object containing the files :
@@ -599,10 +592,16 @@ module.exports = function(data, options) {
 };
 
 },{"./base64":1,"./zipEntries":22}],11:[function(_dereq_,module,exports){
-(function (Buffer) {
+(function (Buffer){
 'use strict';
-var Buffer_from = function() {};
-
+var Buffer_from = /*::(*/function(){}/*:: :any)*/;
+if(typeof Buffer !== 'undefined') {
+    var nbfs = !Buffer.from;
+    if(!nbfs) try { Buffer.from("foo", "utf8"); } catch(e) { nbfs = true; }
+    Buffer_from = nbfs ? function(buf, enc) { return (enc) ? new Buffer(buf, enc) : new Buffer(buf); } : Buffer.from.bind(Buffer);
+    // $FlowIgnore
+    if(!Buffer.alloc) Buffer.alloc = function(n) { return new Buffer(n); };
+}
 module.exports = function(data, encoding){
     return typeof data == 'number' ? Buffer.alloc(data) : Buffer_from(data, encoding);
 };

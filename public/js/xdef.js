@@ -23,7 +23,7 @@ Note: since JSZip 3 removed critical functionality, this version assigns to the
 let JSZipSync;
 
 (function(e){
-	JSZipSync=e();
+    JSZipSync=e();
 }(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r);}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 'use strict';
 // private property
@@ -511,7 +511,7 @@ Usage:
  * @param {Object=} options the options for creating this objects (optional).
  */
 function JSZipSync(data, options) {
-    // if this constructor is used without `new`, it adds `new` before itself:
+    // if this constructor is used without `new`, it adds `new` before itself:
     if(!(this instanceof JSZipSync)) return new JSZipSync(data, options);
 
     // object containing the files :
@@ -604,11 +604,11 @@ module.exports = function(data, options) {
 'use strict';
 var Buffer_from = /*::(*/function(){}/*:: :any)*/;
 if(typeof Buffer !== 'undefined') {
-	var nbfs = !Buffer.from;
-	if(!nbfs) try { Buffer.from("foo", "utf8"); } catch(e) { nbfs = true; }
-	Buffer_from = nbfs ? function(buf, enc) { return (enc) ? new Buffer(buf, enc) : new Buffer(buf); } : Buffer.from.bind(Buffer);
-	// $FlowIgnore
-	if(!Buffer.alloc) Buffer.alloc = function(n) { return new Buffer(n); };
+    var nbfs = !Buffer.from;
+    if(!nbfs) try { Buffer.from("foo", "utf8"); } catch(e) { nbfs = true; }
+    Buffer_from = nbfs ? function(buf, enc) { return (enc) ? new Buffer(buf, enc) : new Buffer(buf); } : Buffer.from.bind(Buffer);
+    // $FlowIgnore
+    if(!Buffer.alloc) Buffer.alloc = function(n) { return new Buffer(n); };
 }
 module.exports = function(data, encoding){
     return typeof data == 'number' ? Buffer.alloc(data) : Buffer_from(data, encoding);
@@ -8999,7 +8999,6 @@ module.exports = ZStream;
 },{}]},{},[9])
 (9)
 }));
-
 	
 var current_codepage = 1200,
 	current_ansi = 1252,
@@ -10630,10 +10629,10 @@ function evert_arr(obj) {
 	return o;
 }
 
-var basedate = new Date(1899, 11, 30, 0, 0, 0); // 2209161600000
-var refdate = new Date();
-var dnthresh = basedate.getTime() + (refdate.getTimezoneOffset() - basedate.getTimezoneOffset()) * 60000;
-var refoffset = refdate.getTimezoneOffset();
+var basedate = new Date(1899, 11, 30, 0, 0, 0), // 2209161600000
+	refdate = new Date(),
+	dnthresh = basedate.getTime() + (refdate.getTimezoneOffset() - basedate.getTimezoneOffset()) * 60000,
+	refoffset = refdate.getTimezoneOffset();
 
 function datenum(v, date1904) {
 	var epoch = v.getTime(),
@@ -10731,7 +10730,7 @@ function dup(o) {
 
 function fill(c, l) {
 	var o = "";
-	while (o.length < l) o+=c;
+	while (o.length < l) o += c;
 	return o;
 }
 
@@ -10740,8 +10739,10 @@ function fuzzynum(s) {
 	var v = Number(s);
 	if (!isNaN(v)) return v;
 	if (!/\d/.test(s)) return v;
-	var wt = 1;
-	var ss = s.replace(/([\d]),([\d])/g, "$1$2").replace(/[$]/g, "").replace(/[%]/g, function() { wt *= 100; return ""; });
+	var wt = 1,
+		ss = s.replace(/([\d]),([\d])/g, "$1$2")
+				.replace(/[$]/g, "")
+				.replace(/[%]/g, () => { wt *= 100; return ""; });
 	if (!isNaN(v = Number(ss))) return v / wt;
 	ss = ss.replace(/[(](.*)[)]/, function($$, $1) { wt = -wt; return $1;});
 	if (!isNaN(v = Number(ss))) return v / wt;
@@ -11182,7 +11183,7 @@ var vtregex = (function() {
 	})();
 
 function html2xml(td) {
-	if (td.childNodes.length > 1 || td.childNodes[0].nodeType === 2) {
+	if (td.childNodes.length > 1 || (td.childNodes.length && td.childNodes[0].nodeType === 2)) {
 		let xml = [],
 			getTextNodes = el => {
 				el.childNodes.map(el => {
@@ -11217,7 +11218,8 @@ function html2xml(td) {
 
 		getTextNodes(td);
 
-		return `<is>${xml.join("")}</is>`.replace(/\t/g, "");
+		return xml.join("").replace(/\t/g, "");
+		// return `<is>${xml.join("")}</is>`.replace(/\t/g, "");
 	} else {
 		return htmldecode(td.innerHTML);
 	}
@@ -11832,6 +11834,7 @@ function write_ct(ct, opts) {
 		o[o.length] = ("</Types>");
 		o[1] = o[1].replace("/>", ">");
 	}
+	
 	return o.join("");
 }
 
@@ -11849,7 +11852,8 @@ var RELS = {
 		XLINK: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLink",
 		CXML:  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXml",
 		CXMLP: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/customXmlProps",
-		VBA:   "http://schemas.microsoft.com/office/2006/relationships/vbaProject"
+		VBA:   "http://schemas.microsoft.com/office/2006/relationships/vbaProject",
+		CMNT:  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
 	},
 	RELS_EXTERN = [RELS.HLINK, RELS.XPATH, RELS.XMISS],
 	RELS_ROOT = writextag("Relationships", null, { "xmlns": XMLNS.RELS });
@@ -13088,14 +13092,14 @@ var rs_to_html = (function() {
 		function parse_rpr2(font, intro, outro) {
 			var style = [];
 			
-			if (font.u) style.push("text-decoration: underline;");
-			if (font.uval) style.push("text-underline-style: "+ font.uval +";");
-			if (font.sz) style.push("font-size: "+ font.sz +"pt;");
-			if (font.outline) style.push("text-effect: outline;");
-			if (font.shadow) style.push("text-shadow: auto;");
-			if (font.color !== "000000") style.push("color: #"+ font.color +";");
+			if (font.u) style.push(`text-decoration:underline;`);
+			if (font.uval) style.push(`text-underline-style:${font.uval};`);
+			if (font.sz) style.push(`font-size:${font.sz * (96/72)}px;`);
+			if (font.outline) style.push(`text-effect:outline;`);
+			if (font.shadow) style.push(`text-shadow:auto;`);
+			if (font.color !== "000000") style.push(`color:#${font.color};`);
 			
-			intro.push('<span style="'+ style.join("") +'">');
+			intro.push(`<span style="${style.join("")}">`);
 
 			if (font.b) {
 				intro.push("<b>");
@@ -13199,12 +13203,13 @@ function write_sst_xml(sst, opts) {
 		if (sst[i] == null) continue;
 		var s = sst[i],
 			sitag = "<si>";
-		if (s.r) sitag += s.r;
+		if (s.t.startsWith("<r>")) sitag += s.t;
 		else {
 			sitag += "<t";
 			if (!s.t) s.t = "";
 			if (s.t.match(straywsregex)) sitag += ' xml:space="preserve"';
-			sitag += ">" + escapexml(s.t) + "</t>";
+			sitag += ">"+ s.t +"</t>";
+			// sitag += ">"+ escapexml(s.t) +"</t>";
 		}
 		sitag += "</si>";
 		o[o.length] = (sitag);
@@ -13213,6 +13218,7 @@ function write_sst_xml(sst, opts) {
 		o[o.length] = "</sst>";
 		o[1] = o[1].replace("/>", ">");
 	}
+
 	return o.join("");
 }
 
@@ -13361,7 +13367,7 @@ function process_col(coll) {
 		coll.wch = px2char(coll.wpx);
 		coll.width = char2width(coll.wch);
 		coll.MDW = MDW;
-	} else if (typeof coll.wch == 'number') {
+	} else if (typeof coll.wch == "number") {
 		coll.width = char2width(coll.wch);
 		coll.wpx = width2px(coll.width);
 		coll.MDW = MDW;
@@ -13383,9 +13389,12 @@ RELS.STY = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/
 function parse_borders(t, styles, themes, opts) {
 	styles.Borders = [];
 	var border = {},
-		pass = false;
+		pass = false,
+		index;
+	// console.log(t[0]);
 	(t[0].match(tagregex) || []).forEach(function(x) {
-		var y = parsexmltag(x);
+		var y = parsexmltag(x),
+			thickness;
 		switch (strip_ns(y[0])) {
 			case "<borders":
 			case "<borders>":
@@ -13396,7 +13405,11 @@ function parse_borders(t, styles, themes, opts) {
 			case "<border":
 			case "<border>":
 			case "<border/>":
-				border = {};
+				border = {
+					style: [...Array(4)].map(i => "solid"),
+					width: [...Array(4)].map(i => 0),
+					color: [...Array(4)].map(i => "000"),
+				};
 				if (y.diagonalUp) border.diagonalUp = parsexmlbool(y.diagonalUp);
 				if (y.diagonalDown) border.diagonalDown = parsexmlbool(y.diagonalDown);
 				styles.Borders.push(border);
@@ -13409,6 +13422,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<left":
 			case "<left>":
+				index = 3;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</left>":
 				break;
@@ -13418,6 +13439,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<right":
 			case "<right>":
+				index = 1;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</right>":
 				break;
@@ -13427,6 +13456,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<top":
 			case "<top>":
+				index = 0;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</top>":
 				break;
@@ -13436,6 +13473,14 @@ function parse_borders(t, styles, themes, opts) {
 				break;
 			case "<bottom":
 			case "<bottom>":
+				index = 2;
+				thickness = ["thin", "medium", "thick"].indexOf(y.style) + 2;
+				if (["hair", "dotted", "double"].includes(y.style)) {
+					border.style[index] = y.style === "hair" ? "dotted" : (y.style === "dotted" ? "dashed" : y.style);
+					border.width[index] = y.style === "double" ? 3 : 1;
+				} else {
+					border.width[index] = thickness;
+				}
 				break;
 			case "</bottom>":
 				break;
@@ -13483,6 +13528,7 @@ function parse_borders(t, styles, themes, opts) {
 			/* 18.8.? color CT_Color */
 			case "<color":
 			case "<color>":
+				border.color[index] = y.rgb.slice(-6);
 				break;
 			case "<color/>":
 			case "</color>":
@@ -13524,7 +13570,8 @@ function parse_fills(t, styles, themes, opts) {
 			case "<fill>":
 			case "<fill":
 			case "<fill/>":
-				fill = {}; styles.Fills.push(fill);
+				fill = {};
+				styles.Fills.push(fill);
 				break;
 			case "</fill>":
 				break;
@@ -13984,6 +14031,46 @@ function write_fills(wb, opts) {
 	return o.join("");
 }
 
+function write_borders(wb, opts) {
+	var o = [],
+		dir = ["top", "right", "bottom", "left"],
+		width = ["", "thin", "medium", "thick"];
+	o.push(`<borders count="${wb.borders.length + 2}">`);
+	o.push(`<border/>`);
+	o.push(`<border><left/><right/><top/><bottom/></border>`);
+	
+	wb.borders.map(b => {
+		let str = ["<border>"];
+		dir.map((d, i) => {
+			let style = b.bRecord.style[i];
+			switch (style) {
+				case "dashed":
+					style = "dotted";
+					break;
+				case "dotted":
+					style = "hair";
+					break;
+				case "double":
+					break;
+				case "solid":
+					let w = b.bRecord.width[i] - 1;
+					if (w <= 0) return;
+					style = width[w];
+					break;
+			}
+			str.push(`<${d}${(style ? ` style="${style}"` : "")}>
+						<color rgb="FF${b.bRecord.color[i]}"/>
+					</${d}>`);
+		});
+		str.push("</border>");
+		// add to main array
+		o.push(str.join(""));
+	});
+	
+	o.push(`</borders>`);
+	return o.join("");
+}
+
 function write_cellXfs(wb, opts) {
 	var o = [];
 	o.push(`<cellXfs count="${opts.cellXfs.length}">`);
@@ -14013,30 +14100,39 @@ var parse_sty_xml = (function() {
 		fontsRegex = /<(?:\w+:)?fonts([^>]*)>[\S\s]*?<\/(?:\w+:)?fonts>/,
 		bordersRegex = /<(?:\w+:)?borders([^>]*)>[\S\s]*?<\/(?:\w+:)?borders>/;
 
-	return function parse_sty_xml(data, themes, opts) {
+	return function(data, themes, opts) {
 		var styles = {};
 		if (!data) return styles;
 		data = data.replace(/<!--([\s\S]*?)-->/mg, "").replace(/<!DOCTYPE[^\[]*\[[^\]]*\]>/gm, "");
 		/* 18.8.39 styleSheet CT_Stylesheet */
 		var t;
-
 		/* 18.8.31 numFmts CT_NumFmts ? */
-		if ((t=data.match(numFmtRegex))) parse_numFmts(t, styles, opts);
+		if ((t = data.match(numFmtRegex))) {
+			parse_numFmts(t, styles, opts);
+		}
 
 		/* 18.8.23 fonts CT_Fonts ? */
-		if ((t=data.match(fontsRegex))) parse_fonts(t, styles, themes, opts);
+		if ((t = data.match(fontsRegex))) {
+			parse_fonts(t, styles, themes, opts);
+		}
 
 		/* 18.8.21 fills CT_Fills ? */
-		if ((t=data.match(fillsRegex))) parse_fills(t, styles, themes, opts);
+		if ((t = data.match(fillsRegex))) {
+			parse_fills(t, styles, themes, opts);
+		}
 
 		/* 18.8.5  borders CT_Borders ? */
-		if ((t=data.match(bordersRegex))) parse_borders(t, styles, themes, opts);
+		if ((t = data.match(bordersRegex))) {
+			parse_borders(t, styles, themes, opts);
+		}
 
 		/* 18.8.9  cellStyleXfs CT_CellStyleXfs ? */
 		/* 18.8.8  cellStyles CT_CellStyles ? */
 
 		/* 18.8.10 cellXfs CT_CellXfs ? */
-		if ((t = data.match(cellXfRegex))) parse_cellXfs(t, styles, opts);
+		if ((t = data.match(cellXfRegex))) {
+			parse_cellXfs(t, styles, opts);
+		}
 
 		/* 18.8.15 dxfs CT_Dxfs ? */
 		/* 18.8.42 tableStyles CT_TableStyles ? */
@@ -14053,13 +14149,13 @@ function write_sty_xml(wb, opts) {
 
 	if (wb.SSF && (w = write_numFmts(wb.SSF)) != null) o.push(w);
 	
-	if ((w = write_fonts(wb, opts))) o.push(w);
-	if ((w = write_fills(wb, opts))) o.push(w);
-	
-	o[o.length] = (`<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>`);
+	if (w = write_fonts(wb, opts)) o.push(w);
+	if (w = write_fills(wb, opts)) o.push(w);
+	if (w = write_borders(wb, opts)) o.push(w);
+
 	o[o.length] = (`<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>`);
 	
-	if ((w = write_cellXfs(wb, opts))) o.push(w);
+	if (w = write_cellXfs(wb, opts)) o.push(w);
 
 	o[o.length] = (`<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>`);
 	o[o.length] = (`<dxfs count="0"/>`);
@@ -14402,6 +14498,1354 @@ function fill_vba_xls(cfb, vba) {
 }
 
 	
+function _xlfn(f) {
+	return f.replace(/_xlfn\./g, "");
+}
+
+	
+let buildTree = (function() {
+
+	const {
+		create: createShuntingYard,
+		operator: createOperator,
+		SENTINEL
+	} = (function () {
+		
+		/*
+		 * CLASS: Operator
+		 */
+		class Operator {
+			constructor(symbol, precendence, operandCount = 2, leftAssociative = true) {
+				if (operandCount < 1 || operandCount > 2) {
+					throw new Error(`operandCount cannot be ${operandCount}, must be 1 or 2`);
+				}
+
+				this.symbol = symbol;
+				this.precendence = precendence;
+				this.operandCount = operandCount;
+				this.leftAssociative = leftAssociative;
+			}
+
+			isUnary() {
+				return this.operandCount === 1;
+			}
+
+			isBinary() {
+				return this.operandCount === 2;
+			}
+
+			evaluatesBefore(other) {
+				if (this === Operator.SENTINEL) return false;
+				if (other === Operator.SENTINEL) return true;
+				if (other.isUnary()) return false;
+
+				if (this.isUnary()) {
+					return this.precendence >= other.precendence;
+				} else if (this.isBinary()) {
+					if (this.precendence === other.precendence) {
+						return this.leftAssociative;
+					} else {
+						return this.precendence > other.precendence;
+					}
+				}
+			}
+		}
+		// fake operator with lowest precendence
+		Operator.SENTINEL = new Operator('S', 0);
+
+
+		/*
+		 * CLASS: Stack
+		 */
+		class Stack {
+			constructor() {
+				this.items = [];
+			}
+
+			push(value) {
+				this.items.push(value);
+			}
+
+			pop() {
+				return this.items.pop();
+			}
+
+			top() {
+				return this.items[this.items.length - 1];
+			}
+		}
+
+
+		function create() {
+			const operands = new Stack();
+			const operators = new Stack();
+
+			operators.push(Operator.SENTINEL);
+
+			return { operands, operators };
+		}
+
+		function operator(symbol, precendence, operandCount, leftAssociative) {
+			return new Operator(symbol, precendence, operandCount, leftAssociative);
+		}
+
+		return { create, operator, SENTINEL: Operator.SENTINEL }
+
+	})();
+	
+
+	let tokenStream = (function() {
+
+		/**
+		* @param Object[] tokens - Tokens from excel-formula-tokenizer
+		*/
+		function create(tokens) {
+			const end = {};
+			const arr = [...tokens, end];
+			let index = 0;
+
+			return {
+				consume() {
+					index += 1;
+					if (index >= arr.length) {
+						throw new Error('Invalid Syntax');
+					}
+				},
+				getNext() {
+					return arr[index];
+				},
+				nextIs(type, subtype) {
+					if (this.getNext().type !== type) return false;
+					if (subtype && this.getNext().subtype !== subtype) return false;
+					return true;
+				},
+				nextIsOpenParen() {
+					return this.nextIs('subexpression', 'start');
+				},
+				nextIsTerminal() {
+					if (this.nextIsNumber()) return true;
+					if (this.nextIsText()) return true;
+					if (this.nextIsLogical()) return true;
+					if (this.nextIsRange()) return true;
+					return false;
+				},
+				nextIsFunctionCall() {
+					return this.nextIs('function', 'start');
+				},
+				nextIsFunctionArgumentSeparator() {
+					return this.nextIs('argument');
+				},
+				nextIsEndOfFunctionCall() {
+					return this.nextIs('function', 'stop');
+				},
+				nextIsBinaryOperator() {
+					return this.nextIs('operator-infix');
+				},
+				nextIsPrefixOperator() {
+					return this.nextIs('operator-prefix');
+				},
+				nextIsPostfixOperator() {
+					return this.nextIs('operator-postfix');
+				},
+				nextIsRange() {
+					return this.nextIs('operand', 'range');
+				},
+				nextIsNumber() {
+					return this.nextIs('operand', 'number');
+				},
+				nextIsText() {
+					return this.nextIs('operand', 'text');
+				},
+				nextIsLogical() {
+					return this.nextIs('operand', 'logical');
+				},
+				pos() {
+					return index;
+				}
+			};
+		}
+
+		return create;
+
+	})();
+	
+	let builder = (function() {
+
+		function cell(key, refType) {
+			return {
+				type: 'cell',
+				refType,
+				key
+			};
+		}
+
+		function cellRange(leftCell, rightCell) {
+			if (!leftCell) {
+				throw new Error('Invalid Syntax');
+			}
+			if (!rightCell) {
+				throw new Error('Invalid Syntax');
+			}
+			return {
+				type: 'cell-range',
+				left: leftCell,
+				right: rightCell
+			};
+		}
+
+		function functionCall(name, ...args) {
+			const argArray = Array.isArray(args[0]) ? args[0] : args;
+
+			return {
+				type: 'function',
+				name,
+				arguments: argArray
+			};
+		}
+
+		function number(value) {
+			return {
+				type: 'number',
+				value
+			};
+		}
+
+		function text(value) {
+			return {
+				type: 'text',
+				value
+			};
+		}
+
+		function logical(value) {
+			return {
+				type: 'logical',
+				value
+			};
+		}
+
+		function binaryExpression(operator, left, right) {
+			if (!left) {
+				throw new Error('Invalid Syntax');
+			}
+			if (!right) {
+				throw new Error('Invalid Syntax');
+			}
+			return {
+				type: 'binary-expression',
+				operator,
+				left,
+				right
+			};
+		}
+
+		function unaryExpression(operator, expression) {
+			if (!expression) {
+				throw new Error('Invalid Syntax');
+			}
+			return {
+				type: 'unary-expression',
+				operator,
+				operand: expression
+			};
+		}
+
+		return {
+			functionCall,
+			number,
+			text,
+			logical,
+			cell,
+			cellRange,
+			binaryExpression,
+			unaryExpression
+		};
+		
+	})();
+
+
+	// https://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
+
+	function parseFormula(tokens) {
+		const stream = tokenStream(tokens);
+		const shuntingYard = createShuntingYard();
+
+		parseExpression(stream, shuntingYard);
+
+		const retVal = shuntingYard.operands.top();
+		if (!retVal) {
+			throw new Error('Syntax error');
+		}
+		return retVal;
+	}
+
+	function parseExpression(stream, shuntingYard) {
+		parseOperandExpression(stream, shuntingYard);
+
+		let pos;
+		while (true) {
+			if (!stream.nextIsBinaryOperator()) {
+				break;
+			}
+			if (pos === stream.pos()) {
+				throw new Error('Invalid syntax!');
+			}
+			pos = stream.pos();
+			pushOperator(createBinaryOperator(stream.getNext().value), shuntingYard);
+			stream.consume();
+			parseOperandExpression(stream, shuntingYard);
+		}
+
+		while (shuntingYard.operators.top() !== SENTINEL) {
+			popOperator(shuntingYard);
+		}
+	}
+
+	function parseOperandExpression(stream, shuntingYard) {
+		if (stream.nextIsTerminal()) {
+			shuntingYard.operands.push(parseTerminal(stream));
+			// parseTerminal already consumes once so don't need to consume on line below
+			// stream.consume()
+		} else if (stream.nextIsOpenParen()) {
+			stream.consume(); // open paren
+			withinSentinel(shuntingYard, function () {
+				parseExpression(stream, shuntingYard);
+			});
+			stream.consume(); // close paren
+		} else if (stream.nextIsPrefixOperator()) {
+			let unaryOperator = createUnaryOperator(stream.getNext().value);
+			pushOperator(unaryOperator, shuntingYard);
+			stream.consume();
+			parseOperandExpression(stream, shuntingYard);
+		} else if (stream.nextIsFunctionCall()) {
+			parseFunctionCall(stream, shuntingYard);
+		}
+	}
+
+	function parseFunctionCall(stream, shuntingYard) {
+		const name = stream.getNext().value;
+		stream.consume(); // consume start of function call
+
+		const args = parseFunctionArgList(stream, shuntingYard);
+		shuntingYard.operands.push(builder.functionCall(name, args));
+
+		stream.consume(); // consume end of function call
+	}
+
+	function parseFunctionArgList(stream, shuntingYard) {
+		const reverseArgs = [];
+
+		withinSentinel(shuntingYard, function () {
+			let arity = 0;
+			let pos;
+			while (true) {
+				if (stream.nextIsEndOfFunctionCall())
+					break;
+				if (pos === stream.pos()) {
+					throw new Error('Invalid syntax');
+				}
+				pos = stream.pos();
+				parseExpression(stream, shuntingYard);
+				arity += 1;
+
+				if (stream.nextIsFunctionArgumentSeparator()) {
+					stream.consume();
+				}
+			}
+
+			for (let i = 0; i < arity; i++) {
+				reverseArgs.push(shuntingYard.operands.pop());
+			}
+		});
+
+		return reverseArgs.reverse();
+	}
+
+	function withinSentinel(shuntingYard, fn) {
+		shuntingYard.operators.push(SENTINEL);
+		fn();
+		shuntingYard.operators.pop();
+	}
+
+	function pushOperator(operator, shuntingYard) {
+		while (shuntingYard.operators.top().evaluatesBefore(operator)) {
+			popOperator(shuntingYard);
+		}
+		shuntingYard.operators.push(operator);
+	}
+
+	function popOperator({operators, operands}) {
+		if (operators.top().isBinary()) {
+			const right = operands.pop();
+			const left = operands.pop();
+			const operator = operators.pop();
+			operands.push(builder.binaryExpression(operator.symbol, left, right));
+		} else if (operators.top().isUnary()) {
+			const operand = operands.pop();
+			const operator = operators.pop();
+			operands.push(builder.unaryExpression(operator.symbol, operand));
+		}
+	}
+
+	function parseTerminal(stream) {
+		if (stream.nextIsNumber()) {
+			return parseNumber(stream);
+		}
+
+		if (stream.nextIsText()) {
+			return parseText(stream);
+		}
+
+		if (stream.nextIsLogical()) {
+			return parseLogical(stream);
+		}
+
+		if (stream.nextIsRange()) {
+			return parseRange(stream);
+		}
+	}
+
+	function parseRange(stream) {
+		const next = stream.getNext();
+		stream.consume();
+		return createCellRange(next.value);
+	}
+
+	function createCellRange(value) {
+		const parts = value.split(':');
+
+		if (parts.length == 2) {
+			return builder.cellRange(
+				builder.cell(parts[0], cellRefType(parts[0])),
+				builder.cell(parts[1], cellRefType(parts[1]))
+			);
+		} else {
+			return builder.cell(value, cellRefType(value));
+		}
+	}
+
+	function cellRefType(key) {
+		if (/^\$[A-Z]+\$\d+$/.test(key)) return 'absolute';
+		if (/^\$[A-Z]+$/     .test(key)) return 'absolute';
+		if (/^\$\d+$/        .test(key)) return 'absolute';
+		if (/^\$[A-Z]+\d+$/  .test(key)) return 'mixed';
+		if (/^[A-Z]+\$\d+$/  .test(key)) return 'mixed';
+		if (/^[A-Z]+\d+$/    .test(key)) return 'relative';
+		if (/^\d+$/          .test(key)) return 'relative';
+		if (/^[A-Z]+$/       .test(key)) return 'relative';
+	}
+
+	function parseText(stream) {
+		const next = stream.getNext();
+		stream.consume();
+		return builder.text(next.value);
+	}
+
+	function parseLogical(stream) {
+		const next = stream.getNext();
+		stream.consume();
+		return builder.logical(next.value === 'TRUE');
+	}
+
+	function parseNumber(stream) {
+		let value = Number(stream.getNext().value);
+		stream.consume();
+
+		if (stream.nextIsPostfixOperator()) {
+			value *= 0.01;
+			stream.consume();
+		}
+
+		return builder.number(value);
+	}
+
+	function createUnaryOperator(symbol) {
+		const precendence = {
+			// negation
+			'-': 7
+		}[symbol];
+
+		return createOperator(symbol, precendence, 1, true);
+	}
+
+	function createBinaryOperator(symbol) {
+		const precendence = {
+			// cell range union and intersect
+			' ': 8,
+			',': 8,
+			// raise to power
+			'^': 5,
+			// multiply, divide
+			'*': 4,
+			'/': 4,
+			// add, subtract
+			'+': 3,
+			'-': 3,
+			// string concat
+			'&': 2,
+			// comparison
+			'=': 1,
+			'<>': 1,
+			'<=': 1,
+			'>=': 1,
+			'>': 1,
+			'<': 1
+		}[symbol];
+
+		return createOperator(symbol, precendence, 2, true);
+	}
+
+	return parseFormula;
+
+})();
+
+let visit = (function() {
+
+	function visit(node, visitor) {
+		visitNode(node, visitor);
+	}
+
+	function visitNode(node, visitor) {
+		switch (node.type) {
+			case 'cell':
+				visitCell(node, visitor);
+				break;
+			case 'cell-range':
+				visitCellRange(node, visitor);
+				break;
+			case 'function':
+				visitFunction(node, visitor);
+				break;
+			case 'number':
+				visitNumber(node, visitor);
+				break;
+			case 'text':
+				visitText(node, visitor);
+				break;
+			case 'logical':
+				visitLogical(node, visitor);
+				break;
+			case 'binary-expression':
+				visitBinaryExpression(node, visitor);
+				break;
+			case 'unary-expression':
+				visitUnaryExpression(node, visitor);
+				break;
+		}
+	}
+
+	function visitCell(node, visitor) {
+		if (visitor.enterCell) visitor.enterCell(node);
+		if (visitor.exitCell) visitor.exitCell(node);
+	}
+
+	function visitCellRange(node, visitor) {
+		if (visitor.enterCellRange) visitor.enterCellRange(node);
+
+		visitNode(node.left, visitor);
+		visitNode(node.right, visitor);
+
+		if (visitor.exitCellRange) visitor.exitCellRange(node);
+	}
+
+	function visitFunction(node, visitor) {
+		if (visitor.enterFunction) visitor.enterFunction(node);
+
+		node.arguments.forEach(arg => visitNode(arg, visitor));
+
+		if (visitor.exitFunction) visitor.exitFunction(node);
+	}
+
+	function visitNumber(node, visitor) {
+		if (visitor.enterNumber) visitor.enterNumber(node);
+		if (visitor.exitNumber) visitor.exitNumber(node);
+	}
+
+	function visitText(node, visitor) {
+		if (visitor.enterText) visitor.enterText(node);
+		if (visitor.exitText) visitor.exitText(node);
+	}
+
+	function visitLogical(node, visitor) {
+		if (visitor.enterLogical) visitor.enterLogical(node);
+		if (visitor.exitLogical) visitor.exitLogical(node);
+	}
+
+	function visitBinaryExpression(node, visitor) {
+		if (visitor.enterBinaryExpression) visitor.enterBinaryExpression(node);
+
+		visitNode(node.left, visitor);
+		visitNode(node.right, visitor);
+
+		if (visitor.exitBinaryExpression) visitor.exitBinaryExpression(node);
+	}
+
+	function visitUnaryExpression(node, visitor) {
+		if (visitor.enterUnaryExpression) visitor.enterUnaryExpression(node);
+
+		visitNode(node.operand, visitor);
+
+		if (visitor.exitUnaryExpression) visitor.exitUnaryExpression(node);
+	}
+
+	return visit;
+
+})();
+
+	
+let tokenize = (function() {
+
+	var languages = {
+			"en-US": {
+				// value for true
+				true: "TRUE",
+				// value for false
+				false: "FALSE",
+				// separates function arguments
+				argumentSeparator: ",",
+				// decimal point in numbers
+				decimalSeparator: ".",
+				// returns number string that can be parsed by Number()
+				reformatNumberForJsParsing: n => n,
+				isScientificNotation: token => /^[1-9]{1}(\.[0-9]+)?E{1}$/.test(token),
+			},
+			"de-DE": {
+				true: "WAHR",
+				false: "FALSCH",
+				argumentSeparator: ";",
+				decimalSeparator: ",",
+				reformatNumberForJsParsing: n => n.replace(",", "."),
+				isScientificNotation: token => /^[1-9]{1}(,[0-9]+)?E{1}$/.test(token),
+			}
+		};
+
+	var TOK_TYPE_NOOP      = "noop",
+		TOK_TYPE_OPERAND   = "operand",
+		TOK_TYPE_FUNCTION  = "function",
+		TOK_TYPE_SUBEXPR   = "subexpression",
+		TOK_TYPE_ARGUMENT  = "argument",
+		TOK_TYPE_OP_PRE    = "operator-prefix",
+		TOK_TYPE_OP_IN     = "operator-infix",
+		TOK_TYPE_OP_POST   = "operator-postfix",
+		TOK_TYPE_WSPACE    = "white-space",
+		TOK_TYPE_UNKNOWN   = "unknown",
+		TOK_SUBTYPE_START       = "start",
+		TOK_SUBTYPE_STOP        = "stop",
+		TOK_SUBTYPE_TEXT        = "text",
+		TOK_SUBTYPE_NUMBER      = "number",
+		TOK_SUBTYPE_LOGICAL     = "logical",
+		TOK_SUBTYPE_ERROR       = "error",
+		TOK_SUBTYPE_RANGE       = "range",
+		TOK_SUBTYPE_MATH        = "math",
+		TOK_SUBTYPE_CONCAT      = "concatenate",
+		TOK_SUBTYPE_INTERSECT   = "intersect",
+		TOK_SUBTYPE_UNION       = "union";
+
+	function createToken(value, type, subtype = "") {
+		return {value, type, subtype};
+	}
+
+	class Tokens {
+		constructor() {
+			this.items = [];
+			this.index = -1;
+		}
+
+		add(value, type, subtype) {
+			const token = createToken(value, type, subtype);
+			this.addRef(token);
+			return token;
+		}
+
+		addRef(token) {
+			this.items.push(token);
+		}
+
+		reset() {
+			this.index = -1;
+		}
+
+		BOF() {
+			return this.index <= 0;
+		}
+
+		EOF() {
+			return this.index >= this.items.length - 1;
+		}
+
+		moveNext() {
+			if (this.EOF()) return false;
+			this.index++;
+			return true;
+		}
+
+		current() {
+			if (this.index == -1) return null;
+			return this.items[this.index];
+		}
+
+		next() {
+			if (this.EOF()) return null;
+			return this.items[this.index + 1];
+		}
+
+		previous() {
+			if (this.index < 1) return null;
+			return (this.items[this.index - 1]);
+		}
+
+		toArray() {
+			return this.items;
+		}
+	}
+
+	class TokenStack {
+		constructor() {
+			this.items = [];
+		}
+
+		push(token) {
+			this.items.push(token);
+		}
+
+		pop() {
+			const token = this.items.pop();
+			return createToken("", token.type, TOK_SUBTYPE_STOP);
+		}
+
+		token() {
+			if (this.items.length > 0) {
+				return this.items[this.items.length - 1];
+			} else {
+				return null;
+			}
+		}
+
+		value() {
+			return this.token() ? this.token().value : "";
+		}
+
+		type() {
+			return this.token() ? this.token().type : "";
+		}
+
+		subtype() {
+			return this.token() ? this.token().subtype : "";
+		}
+	}
+
+	function tokenize(formula, options) {
+		options = options || {};
+		options.language = options.language || "en-US";
+
+		var language = languages[options.language];
+		if (!language) {
+			var msg = "Unsupported language " + options.language + ". Expected one of: "
+				+ Object.keys(languages).sort().join(", ");
+			throw new Error(msg);
+		}
+
+		var tokens = new Tokens();
+		var tokenStack = new TokenStack();
+		var offset = 0;
+		var currentChar = function() { return formula.substr(offset, 1); };
+		var doubleChar  = function() { return formula.substr(offset, 2); };
+		var nextChar    = function() { return formula.substr(offset + 1, 1); };
+		var EOF         = function() { return (offset >= formula.length); };
+		var isPreviousNonDigitBlank = function() {
+			var offsetCopy = offset;
+			if (offsetCopy == 0) return true;
+			while (offsetCopy > 0) {
+				if (!/\d/.test(formula[offsetCopy])) {
+					return /\s/.test(formula[offsetCopy]);
+				}
+
+				offsetCopy -= 1;
+			}
+			return false;
+		};
+
+		var isNextNonDigitTheRangeOperator = function() {
+			var offsetCopy = offset;
+			while (offsetCopy < formula.length) {
+				if (!/\d/.test(formula[offsetCopy])) {
+					return /:/.test(formula[offsetCopy]);
+				}
+				offsetCopy += 1;
+			}
+			return false;
+		};
+
+		var token = "";
+		var inString = false;
+		var inPath = false;
+		var inRange = false;
+		var inError = false;
+		var inNumeric = false;
+
+		while (formula.length > 0) {
+			if (formula.substr(0, 1) == " ") {
+				formula = formula.substr(1);
+			} else {
+				if (formula.substr(0, 1) == "=") {
+					formula = formula.substr(1);
+				}
+				break;
+			}
+		}
+
+		while (!EOF()) {
+			// state-dependent character evaluation (order is important)
+			// double-quoted strings
+			// embeds are doubled
+			// end marks token
+			if (inString) {
+				if (currentChar() == "\"") {
+					if (nextChar() == "\"") {
+						token += "\"";
+						offset += 1;
+					} else {
+						inString = false;
+						tokens.add(token, TOK_TYPE_OPERAND, TOK_SUBTYPE_TEXT);
+						token = "";
+					}
+				} else {
+					token += currentChar();
+				}
+				offset += 1;
+				continue;
+			}
+
+			// single-quoted strings (links)
+			// embeds are double
+			// end does not mark a token
+			if (inPath) {
+				if (currentChar() == "'") {
+					if (nextChar() == "'") {
+						token += "'";
+						offset += 1;
+					} else {
+						inPath = false;
+					}
+				} else {
+					token += currentChar();
+				}
+				offset += 1;
+				continue;
+			}
+
+			// bracked strings (range offset or linked workbook name)
+			// no embeds (changed to "()" by Excel)
+			// end does not mark a token
+			if (inRange) {
+				if (currentChar() == "]") {
+					inRange = false;
+				}
+				token += currentChar();
+				offset += 1;
+				continue;
+			}
+
+			// error values
+			// end marks a token, determined from absolute list of values
+			if (inError) {
+				token += currentChar();
+				offset += 1;
+				if ((",#NULL!,#DIV/0!,#VALUE!,#REF!,#NAME?,#NUM!,#N/A,").indexOf("," + token + ",") != -1) {
+					inError = false;
+					tokens.add(token, TOK_TYPE_OPERAND, TOK_SUBTYPE_ERROR);
+					token = "";
+				}
+				continue;
+			}
+
+			if (inNumeric) {
+				if ([language.decimalSeparator, "E"].indexOf(currentChar()) != -1 || /\d/.test(currentChar())) {
+					token += currentChar();
+					offset += 1;
+					continue;
+				} else if (("+-").indexOf(currentChar()) != -1 && language.isScientificNotation(token)) {
+					token += currentChar();
+					offset += 1;
+					continue;
+				} else {
+					inNumeric = false;
+					var jsValue = language.reformatNumberForJsParsing(token);
+					tokens.add(jsValue, TOK_TYPE_OPERAND, TOK_SUBTYPE_NUMBER);
+					token = "";
+				}
+			}
+
+			// scientific notation check
+			if (("+-").indexOf(currentChar()) != -1) {
+				if (token.length > 1) {
+					if (language.isScientificNotation(token)) {
+						token += currentChar();
+						offset += 1;
+						continue;
+					}
+				}
+			}
+
+			// independent character evaulation (order not important)
+			// function, subexpression, array parameters
+			if (currentChar() == language.argumentSeparator) {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				if (tokenStack.type() == TOK_TYPE_FUNCTION) {
+					tokens.add(",", TOK_TYPE_ARGUMENT);
+
+					offset += 1;
+					continue;
+				}
+			}
+
+			if (currentChar() == ",") {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.add(currentChar(), TOK_TYPE_OP_IN, TOK_SUBTYPE_UNION);
+				offset += 1;
+				continue;
+			}
+
+			// establish state-dependent character evaluations
+			if (/\d/.test(currentChar()) && (!token || isPreviousNonDigitBlank()) && !isNextNonDigitTheRangeOperator()) {
+				inNumeric = true;
+				token += currentChar();
+				offset += 1;
+				continue;
+			}
+
+			if (currentChar() == "\"") {
+				if (token.length > 0) {
+					// not expected
+					tokens.add(token, TOK_TYPE_UNKNOWN);
+					token = "";
+				}
+				inString = true;
+				offset += 1;
+				continue;
+			}
+
+			if (currentChar() == "'") {
+				if (token.length > 0) {
+					// not expected
+					tokens.add(token, TOK_TYPE_UNKNOWN);
+					token = "";
+				}
+				inPath = true;
+				offset += 1;
+				continue;
+			}
+
+			if (currentChar() == "[") {
+				inRange = true;
+				token += currentChar();
+				offset += 1;
+				continue;
+			}
+
+			if (currentChar() == "#") {
+				if (token.length > 0) {
+					// not expected
+					tokens.add(token, TOK_TYPE_UNKNOWN);
+					token = "";
+				}
+				inError = true;
+				token += currentChar();
+				offset += 1;
+				continue;
+			}
+
+			// mark start and end of arrays and array rows
+			if (currentChar() == "{") {
+				if (token.length > 0) {
+					// not expected
+					tokens.add(token, TOK_TYPE_UNKNOWN);
+					token = "";
+				}
+				tokenStack.push(tokens.add("ARRAY", TOK_TYPE_FUNCTION, TOK_SUBTYPE_START));
+				tokenStack.push(tokens.add("ARRAYROW", TOK_TYPE_FUNCTION, TOK_SUBTYPE_START));
+				offset += 1;
+				continue;
+			}
+
+			if (currentChar() == ";") {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.addRef(tokenStack.pop());
+				tokens.add(",", TOK_TYPE_ARGUMENT);
+				tokenStack.push(tokens.add("ARRAYROW", TOK_TYPE_FUNCTION, TOK_SUBTYPE_START));
+				offset += 1;
+				continue;
+			}
+
+			if (currentChar() == "}") {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.addRef(tokenStack.pop());
+				tokens.addRef(tokenStack.pop());
+				offset += 1;
+				continue;
+			}
+
+			// trim white-space
+			if (currentChar() == " ") {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.add(currentChar(), TOK_TYPE_WSPACE);
+				offset += 1;
+				while ((currentChar() == " ") && (!EOF())) {
+					offset += 1;
+				}
+				continue;
+			}
+
+			// multi-character comparators
+			if ((",>=,<=,<>,").indexOf("," + doubleChar() + ",") != -1) {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.add(doubleChar(), TOK_TYPE_OP_IN, TOK_SUBTYPE_LOGICAL);
+				offset += 2;
+				continue;
+			}
+
+			// standard infix operators
+			if (("+-*/^&=><").indexOf(currentChar()) != -1) {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.add(currentChar(), TOK_TYPE_OP_IN);
+				offset += 1;
+				continue;
+			}
+
+			// standard postfix operators
+			if (("%").indexOf(currentChar()) != -1) {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.add(currentChar(), TOK_TYPE_OP_POST);
+				offset += 1;
+				continue;
+			}
+
+			// start subexpression or function
+			if (currentChar() == "(") {
+				if (token.length > 0) {
+					tokenStack.push(tokens.add(token, TOK_TYPE_FUNCTION, TOK_SUBTYPE_START));
+					token = "";
+				} else {
+					tokenStack.push(tokens.add("", TOK_TYPE_SUBEXPR, TOK_SUBTYPE_START));
+				}
+				offset += 1;
+				continue;
+			}
+
+			// stop subexpression
+			if (currentChar() == ")") {
+				if (token.length > 0) {
+					tokens.add(token, TOK_TYPE_OPERAND);
+					token = "";
+				}
+				tokens.addRef(tokenStack.pop());
+				offset += 1;
+				continue;
+			}
+
+			// token accumulation
+			token += currentChar();
+			offset += 1;
+
+		}
+
+		// dump remaining accumulation
+		if (token.length > 0) tokens.add(token, TOK_TYPE_OPERAND);
+		// move all tokens to a new collection, excluding all unnecessary white-space tokens
+		var tokens2 = new Tokens();
+
+		while (tokens.moveNext()) {
+			token = tokens.current();
+
+			if (token.type == TOK_TYPE_WSPACE) {
+				if ((tokens.BOF()) || (tokens.EOF())) {
+					// no-op
+				} else if (!(
+						 ((tokens.previous().type == TOK_TYPE_FUNCTION) && (tokens.previous().subtype == TOK_SUBTYPE_STOP)) ||
+						 ((tokens.previous().type == TOK_TYPE_SUBEXPR) && (tokens.previous().subtype == TOK_SUBTYPE_STOP)) ||
+						 (tokens.previous().type == TOK_TYPE_OPERAND)
+						)
+					) {
+						// no-op
+					}
+				else if (!(
+						 ((tokens.next().type == TOK_TYPE_FUNCTION) && (tokens.next().subtype == TOK_SUBTYPE_START)) ||
+						 ((tokens.next().type == TOK_TYPE_SUBEXPR) && (tokens.next().subtype == TOK_SUBTYPE_START)) ||
+						 (tokens.next().type == TOK_TYPE_OPERAND)
+						 )
+					 ) {
+						 // no-op
+					 }
+				else {
+					tokens2.add(token.value, TOK_TYPE_OP_IN, TOK_SUBTYPE_INTERSECT);
+				}
+				continue;
+			}
+			tokens2.addRef(token);
+		}
+
+		// switch infix "-" operator to prefix when appropriate, switch infix "+" operator to noop when appropriate, identify operand
+		// and infix-operator subtypes, pull "@" from in front of function names
+		while (tokens2.moveNext()) {
+			token = tokens2.current();
+			if ((token.type == TOK_TYPE_OP_IN) && (token.value == "-")) {
+				if (tokens2.BOF()) {
+					token.type = TOK_TYPE_OP_PRE;
+				} else if (
+					 ((tokens2.previous().type == TOK_TYPE_FUNCTION) && (tokens2.previous().subtype == TOK_SUBTYPE_STOP)) ||
+					 ((tokens2.previous().type == TOK_TYPE_SUBEXPR) && (tokens2.previous().subtype == TOK_SUBTYPE_STOP)) ||
+					 (tokens2.previous().type == TOK_TYPE_OP_POST) ||
+					 (tokens2.previous().type == TOK_TYPE_OPERAND)
+				 ) {
+					token.subtype = TOK_SUBTYPE_MATH;
+				} else {
+					token.type = TOK_TYPE_OP_PRE;
+				}
+				continue;
+			}
+
+			if ((token.type == TOK_TYPE_OP_IN) && (token.value == "+")) {
+				if (tokens2.BOF()) {
+					token.type = TOK_TYPE_NOOP;
+				} else if (
+					 ((tokens2.previous().type == TOK_TYPE_FUNCTION) && (tokens2.previous().subtype == TOK_SUBTYPE_STOP)) ||
+					 ((tokens2.previous().type == TOK_TYPE_SUBEXPR) && (tokens2.previous().subtype == TOK_SUBTYPE_STOP)) ||
+					 (tokens2.previous().type == TOK_TYPE_OP_POST) ||
+					 (tokens2.previous().type == TOK_TYPE_OPERAND)
+				 ) {
+					token.subtype = TOK_SUBTYPE_MATH;
+				} else {
+					token.type = TOK_TYPE_NOOP;
+				}
+				continue;
+			}
+
+			if ((token.type == TOK_TYPE_OP_IN) && (token.subtype.length == 0)) {
+				if (("<>=").indexOf(token.value.substr(0, 1)) != -1) {
+					token.subtype = TOK_SUBTYPE_LOGICAL;
+				} else if (token.value == "&") {
+					token.subtype = TOK_SUBTYPE_CONCAT;
+				} else {
+					token.subtype = TOK_SUBTYPE_MATH;
+				}
+				continue;
+			}
+
+			if ((token.type == TOK_TYPE_OPERAND) && (token.subtype.length == 0)) {
+				if (isNaN(Number(language.reformatNumberForJsParsing(token.value)))) {
+					if (token.value == language.true) {
+						token.subtype = TOK_SUBTYPE_LOGICAL;
+						token.value = "TRUE";
+					} else if (token.value == language.false) {
+						token.subtype = TOK_SUBTYPE_LOGICAL;
+						token.value = "FALSE";
+					} else {
+						token.subtype = TOK_SUBTYPE_RANGE;
+					}
+				} else {
+					token.subtype = TOK_SUBTYPE_NUMBER;
+					token.value = language.reformatNumberForJsParsing(token.value);
+				}
+				continue;
+			}
+
+			if (token.type == TOK_TYPE_FUNCTION) {
+				if (token.value.substr(0, 1) == "@") {
+					token.value = token.value.substr(1);
+				}
+				continue;
+			}
+		}
+		tokens2.reset();
+
+		// move all tokens to a new collection, excluding all noops
+		tokens = new Tokens();
+		while (tokens2.moveNext()) {
+			if (tokens2.current().type != TOK_TYPE_NOOP) {
+				tokens.addRef(tokens2.current());
+			}
+		}
+		tokens.reset();
+
+		return tokens.toArray();
+	}
+
+	return tokenize;
+
+})();
+
+function parseFormula(fString, data) {
+	let formula = fString,
+		tokens,
+		tree,
+		result;
+
+	try {
+		tokens = tokenize(formula);
+		tree = buildTree(tokens);
+	} catch (error) {
+		return { error: error.message };
+	}
+
+	let OPERANDS = {
+			">":  (i, v) => i > v,
+			">=": (i, v) => i >= v,
+			"<":  (i, v) => i < v,
+			"<=": (i, v) => i <= v,
+			"==": (i, v) => i == v,
+			"!=": (i, v) => i != v,
+		},
+		FUNCS = {
+			"+": (x, y) => x + y,
+			"-": (x, y) => x - y,
+			"*": (x, y) => x * y,
+			"/": (x, y) => x / y,
+			"%": (x, y) => x % y,
+			_FILTER: (...args) => {
+				let [a, o, v] = args.shift().match(/(\W+)(\d+)/);
+				return args.filter(i => OPERANDS[o](i, v));
+			},
+			CHAR: (...args) => String.fromCharCode(args[0]),
+			LOWER: (...args) => args[0].toLowerCase(),
+			UPPER: (...args) => args[0].toUpperCase(),
+			PROPER: (...args) => args[0].split(" ").map(w => w[0].toUpperCase() + w.slice(1)).join(" "),
+			TRIM: (...args) => args[0].trim().replace(/\s{2,}/g, " "),
+			IF: (...args) => args[[args.shift()].filter(i => !OPERANDS[args.shift()](i, args.shift())).length],
+			SPLIT: (...args) => args[0].split(args[1]),
+			SEARCH: (...args) => args[1].slice(args[2] || 0).indexOf(args[0]) + (args[2] || 0) + 1,
+			LEN: (...args) => args.length === 1 ? args[0].toString().length : args.length,
+			MID: (...args) => args[0].substr(args[1]-1, args[2]),
+			LEFT: (...args) => args[0].slice(0, args[1] || 1),
+			RIGHT: (...args) => args[0].slice(-args[1] || 1),
+			MOD: (...args) => args[0] % args[1],
+			MAX: (...args) => Math.max(...args),
+			MIN: (...args) => Math.min(...args),
+			SUM: (...args) => args.reduce((a, b) => a + b, 0),
+			SUMIF: (...args) => FUNCS.SUM(...FUNCS._FILTER(...args)),
+			CONCAT: (...args) => args.reduce((a, b) => a + b, ""),
+			CONCATENATE: (...args) => FUNCS.CONCAT(...args),
+			AVERAGE: (...args) => FUNCS.SUM(...args) / args.length,
+			COUNT: (...args) => args.filter(i => i == +i).length,
+			COUNTA: (...args) => args.length,
+			COUNTIF: (...args) => FUNCS.COUNT(...FUNCS._FILTER(...args)),
+		};
+
+	// create visitor for parts of tree:
+	// https://github.com/psalaets/excel-formula-ast
+	let VISITOR = {
+		enterFunction(fNode) {
+			let name = fNode.name,
+				args = [];
+			
+			fNode.arguments.map(item => {
+				if (item._value) return;
+				switch (item.type) {
+					case "function":
+						args.push(VISITOR.enterFunction(item));
+						break;
+					case "binary-expression":
+						args.push(data[item.left.key].v);
+						args.push(item.operator);
+						args.push(item.right.value);
+						break;
+					case "text":
+					case "number":
+						if (name !== "IF" && name.endsWith("IF")) args.unshift(item.value);
+						else args.push(item.value);
+						break;
+					case "cell":
+						args.push(data[item.key].v);
+						break;
+					case "cell-range":
+						let left = decode_cell(item.left.key),
+							right = decode_cell(item.right.key),
+							cell;
+						for (let c=left.c, cl=right.c+1; c<cl; c++) {
+							for (let r=left.r, rl=right.r+1; r<rl; r++) {
+								cell = encode_cell({ c: Math.max(c, 0), r: Math.max(r, 0) });
+								args.push(data[cell].v);
+							}
+						}
+						break;
+					default:
+						args = fNode.arguments.map(i => i.type === "number" ? i.value : null).filter(i => i);
+				}
+				// mark entry as "done"
+				item._value = true;
+			});
+			// execute function
+			if (args.length) {
+				fNode._value =
+				result = FUNCS[name](...args);
+			}
+
+			return result;
+		},
+		enterBinaryExpression(fNode) {
+			// exits on non-valid expression
+			if (!FUNCS[fNode.operator]) return;
+
+			let args = [],
+				evalFn = item => {
+					let a, r;
+					switch (item.type) {
+						case "binary-expression":
+							a = [evalFn(item.left), evalFn(item.right)];
+							r = FUNCS[item.operator](...a);
+							item._value = r;
+							return r;
+						case "function":
+							r = VISITOR.enterFunction(item);
+							item._value = r;
+							return r;
+						case "text":
+						case "number":
+							return item.value;
+					}
+				};
+			args.push(evalFn(fNode.left));
+			args.push(evalFn(fNode.right));
+			if (args.length && !fNode._value) {
+				fNode._value =
+				result = FUNCS[fNode.operator](...args);
+			}
+
+			return result;
+		},
+	};
+
+	// send visitor through tree
+	visit(tree, VISITOR);
+
+	return result;
+}
+
+
+	
 var strs = {}, // shared strings
 	_ssfopts = {}; // spreadsheet formatting options
 
@@ -14443,11 +15887,11 @@ function get_sst_id(sst, str, rev) {
 
 function col_obj_w(C, col) {
 	var p = {
-		min: C + 1,
-		max: C + 1
-	};
-	/* wch (chars), wpx (pixels) */
-	var wch = -1;
+			min: C + 1,
+			max: C + 1
+		},
+		/* wch (chars), wpx (pixels) */
+		wch = -1;
 	if (col.MDW) MDW = col.MDW;
 	
 	if (col.width != null) p.customWidth = 1;
@@ -14481,6 +15925,7 @@ function default_margins(margins, mode) {
 function get_cell_styles(wb, ref) {
 	var fills = wb.fills,
 		fonts = wb.fonts,
+		borders = wb.borders,
 		td = document.getElementById(ref),
 		cellStyle = getComputedStyle(td);
 	
@@ -14492,8 +15937,21 @@ function get_cell_styles(wb, ref) {
 		if (fill) fill.refs.push(ref);
 		else fills.push({ color, refs: [ref] });
 	}
-
-	// cell font
+	// cell border style
+	if (cellStyle["position"] === "relative") {
+		let beforeStyle = getComputedStyle(td, ":before"),
+			keys = ["top", "right", "bottom", "left"],
+			bRecord = {
+				width: keys.map(k => parseInt(beforeStyle[`border-${k}-width`], 10)),
+				style: keys.map(k => beforeStyle[`border-${k}-style`]),
+				color: keys.map(k => beforeStyle[`border-${k}-color`].match(/\d+/g).map(i => +i)).map(c => rgb2Hex(c).toLowerCase()),
+			},
+			border = borders.find(f => JSON.stringify(f.fRecord) === JSON.stringify(bRecord));
+		
+		if (border) border.refs.push(ref);
+		else borders.push({ bRecord, refs: [ref] });
+	}
+	// cell font style
 	let fClr = cellStyle["color"].match(/\d+/g).map(i => +i),
 		sup = cellStyle["vertical-align"] === "super" ? 1 : 0,
 		sub = cellStyle["vertical-align"] === "sub" ? 1 : 0,
@@ -14502,7 +15960,7 @@ function get_cell_styles(wb, ref) {
 		underline = cellStyle["text-decoration"].startsWith("underline") ? 1 : 0,
 		strike = cellStyle["text-decoration"].startsWith("line-through") ? 1 : 0,
 		fRecord = {
-			family: cellStyle["font-family"],
+			family: cellStyle["font-family"].replace(/"/g, "'"),
 			size: (sup || sub) ? 12 : (parseInt(cellStyle["font-size"], 10)) * (72/96),
 			color: rgb2Hex(fClr).toLowerCase(),
 			bold,
@@ -14512,7 +15970,7 @@ function get_cell_styles(wb, ref) {
 			sup,
 			sub,
 		},
-		font =  fonts.find(f => JSON.stringify(f.fRecord) === JSON.stringify(fRecord));
+		font = fonts.find(f => JSON.stringify(f.fRecord) === JSON.stringify(fRecord));
 
 	if (font) font.refs.push(ref);
 	else fonts.push({ fRecord, refs: [ref] });
@@ -14525,6 +15983,7 @@ function get_cell_style(styles, cell, opts, ref, wb) {
 		i = 0x3c,
 		len = styles.length,
 		alignment = {},
+		borderId = 0,
 		fillId = 0,
 		fontId = 0;
 	
@@ -14551,12 +16010,14 @@ function get_cell_style(styles, cell, opts, ref, wb) {
 				};
 			alignment.vertical = translate[cellStyle["vertical-align"]];
 		}
+		wb.borders.map((b, i) => (b.refs.includes(ref)) ? borderId = i + 2 : null);
 		wb.fills.map((f, i) => (f.refs.includes(ref)) ? fillId = i + 2 : null);
 		wb.fonts.map((f, i) => (f.refs.includes(ref)) ? fontId = i + 1 : null);
 	}
 	
 	let st = styles.find(s =>
 				s.numFmtId === numFmtId &&
+				s.borderId === borderId &&
 				s.fillId === fillId &&
 				s.fontId === fontId &&
 				JSON.stringify(s.alignment) === JSON.stringify(alignment));
@@ -14568,7 +16029,7 @@ function get_cell_style(styles, cell, opts, ref, wb) {
 		fillId,
 		fontId,
 		numFmtId,
-		borderId: 0,
+		borderId,
 		xfId: 0,
 		applyNumberFormat: 1,
 	};
@@ -14896,7 +16357,7 @@ function parse_ws_xml_cols(columns, cols) {
 			coll.hidden = parsexmlbool(coll.hidden);
 		}
 		var colm = parseInt(coll.min, 10) - 1,
-			colM = parseInt(coll.max,10) - 1;
+			colM = parseInt(coll.max, 10) - 1;
 		delete coll.min;
 		delete coll.max;
 		coll.width = +coll.width;
@@ -14905,7 +16366,7 @@ function parse_ws_xml_cols(columns, cols) {
 			find_mdw_colw(coll.width);
 		}
 		process_col(coll);
-		while(colm <= colM) {
+		while (colm <= colM) {
 			columns[colm++] = dup(coll);
 		}
 	}
@@ -14931,8 +16392,8 @@ function write_ws_xml_autofilter(data, ws, wb, idx) {
 	if (!wb.Workbook) wb.Workbook = { Sheets: [] };
 	if (!wb.Workbook.Names) wb.Workbook.Names = [];
 	
-	var names = wb.Workbook.Names;
-	var range = decode_range(ref);
+	var names = wb.Workbook.Names,
+		range = decode_range(ref);
 	
 	if (range.s.r == range.e.r) {
 		range.e.r = decode_range(ws["!ref"]).e.r;
@@ -15001,6 +16462,7 @@ function write_ws_xml_cell(cell, ref, ws, opts, idx, wb) {
 	var vv = "",
 		oldt = cell.t,
 		oldv = cell.v;
+	
 	if (cell.t !== "z") {
 		switch (cell.t) {
 			case "b":
@@ -15042,14 +16504,14 @@ function write_ws_xml_cell(cell, ref, ws, opts, idx, wb) {
 		case "d": o.t = "d"; break;
 		case "b": o.t = "b"; break;
 		case "e": o.t = "e"; break;
-		case "is": o.t = "inlineStr"; break;
+		// case "is": o.t = "inlineStr"; break;
 		case "z": break;
 		default:
 			if (cell.v == null) {
 				delete cell.t;
 				break;
 			}
-			if (opts && opts.bookSST) {				
+			if (opts && opts.bookSST) {
 				v = writetag("v", ""+ get_sst_id(opts.Strings, cell.v, opts.revStrings));
 				o.t = "s";
 				break;
@@ -15108,11 +16570,11 @@ var parse_ws_xml_data = (function() {
 			rows = [],
 			rowobj = {},
 			rowrite = false,
-			sheetStubs = !!opts.sheetStubs;
-
-		var marr = sdata.split(rowregex),
+			sheetStubs = !!opts.sheetStubs,
+			marr = sdata.split(rowregex),
 			mt = 0,
 			marrlen = marr.length;
+		
 		for (; mt != marrlen; ++mt) {
 			x = marr[mt].trim();
 			var xlen = x.length;
@@ -15346,6 +16808,7 @@ function write_ws_xml_data(ws, opts, idx, wb) {
 
 	wb.fonts = [];
 	wb.fills = [];
+	wb.borders = [];
 
 	for (C = range.s.c; C <= range.e.c; ++C) {
 		cols[C] = encode_col(C);
@@ -15361,6 +16824,7 @@ function write_ws_xml_data(ws, opts, idx, wb) {
 			get_cell_styles(wb, ref);
 
 			if ((cell = write_ws_xml_cell(_cell, ref, ws, opts, idx, wb)) != null) {
+				_cell.is = cell;
 				r.push(cell);
 			}
 		}
@@ -15954,7 +17418,7 @@ function write_wb_xml(wb) {
 	/* fileVersion */
 	/* fileSharing */
 
-	var workbookPr = { codeName: "ThisWorkbook" };
+	var workbookPr = {};
 	if (wb.Workbook && wb.Workbook.WBProps) {
 		WBPropsDef.forEach(function(x) {
 			if ((wb.Workbook.WBProps[x[0]]) == null) return;
@@ -15966,7 +17430,7 @@ function write_wb_xml(wb) {
 			delete workbookPr.CodeName;
 		}
 	}
-	o[o.length] = (writextag("workbookPr", null, workbookPr));
+	o[o.length] = writextag("workbookPr", null, workbookPr);
 
 	/* workbookProtection */
 
@@ -16174,12 +17638,16 @@ var HTML_ = (function() {
 			if (RS > 1) sp.rowspan = RS;
 			if (CS > 1) sp.colspan = CS;
 			sp.t = cell && cell.t || "z";
+			if (cell && cell.f) sp.f = cell.f;
 			if (o.editable) w = `<span contenteditable="true">${w}</span>`;
 			sp.id = coord;
 			if (sp.t != "z") {
 				sp.v = cell.v;
 				if (cell.z != null) sp.z = cell.z;
 			}
+			// temp fix
+			w = w.replace(/#FF(.{6});/g, "#$1;");
+
 			oo.push(writextag("td", w, sp));
 		}
 		return `<tr>${oo.join("")}</tr>`;
@@ -16226,40 +17694,44 @@ var HTML_ = (function() {
 				case "!cols":
 					// console.log( JSON.stringify(item) );
 					item.map((col, i) =>
-						out.push(`#${coord[0][i]} { width: ${col.wpx-5}px; }`));
+						out.push(`#${coord[0][i]} { width: ${width2px(col.width)}px; }`));
 					break;
 				default:
 					if (!item.styleIndex) continue;
 
 					let cellCss = [],
 						style = wb.Styles.CellXf[item.styleIndex],
-						border = wb.Styles.Fills[style.borderId],
 						fill = wb.Styles.Fills[style.fillId],
 						font = wb.Styles.Fonts[style.fontId],
-						numFmt = wb.Styles.NumberFmt[style.numFmtId];
+						numFmt = wb.Styles.NumberFmt ? wb.Styles.NumberFmt[style.numFmtId] : 0,
+						border = wb.Styles.Borders[style.borderId],
+						noBorder = border.width.join("") + border.style.join("") + border.color.join(""),
+						hasBorders = noBorder !== "0000solidsolidsolidsolid000000000000";
 
-					if (font.name) cellCss.push(`font-family: ${font.name}`);
-					if (font.sz) cellCss.push(`font-size: ${font.sz}pt`);
-					if (font.bold) cellCss.push(`font-weight: bold`);
-					if (font.italic) cellCss.push(`font-style: italic`);
-					if (font.underline) cellCss.push(`text-decoration: underline`);
-					if (font.strike) cellCss.push(`text-decoration: line-through`);
-					if (font.color) cellCss.push(`color: #${font.color.rgb}`);
-					if (fill?.bgColor) cellCss.push(`background: #${fill.fgColor.rgb}`);
+					if (font.name) cellCss.push(`font-family:${font.name}`);
+					if (font.sz) cellCss.push(`font-size:${font.sz * (96/72)}px`);
+					if (font.bold) cellCss.push(`font-weight:bold`);
+					if (font.italic) cellCss.push(`font-style:italic`);
+					if (font.underline) cellCss.push(`text-decoration:underline`);
+					if (font.strike) cellCss.push(`text-decoration:line-through`);
+					if (font.color) cellCss.push(`color:#${font.color.rgb}`);
+					if (fill?.bgColor) cellCss.push(`background:#${fill.fgColor.rgb}`);
 					if (style.alignment) {
-						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align: ${style.alignment.horizontal}`);
-						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align: ${style.alignment.vertical}`);
-						if (!style.alignment.vertical) cellCss.push(`vertical-align: bottom`);
+						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align:${style.alignment.horizontal}`);
+						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align:${style.alignment.vertical}`);
+						if (!style.alignment.vertical) cellCss.push(`vertical-align:bottom`);
 					}
-					if (font.vertAlign === "superscript") cellCss.push(`font-size: smaller; vertical-align: super;`);
-					if (font.vertAlign === "subscript") cellCss.push(`font-size: smaller; vertical-align: sub;`);
+					if (font.vertAlign === "superscript") cellCss.push(`font-size:smaller;vertical-align:super;`);
+					if (font.vertAlign === "subscript") cellCss.push(`font-size:smaller;vertical-align:sub;`);
+					if (hasBorders) cellCss.push(`position:relative;`);
+					if (cellCss.length) out.push(`#${key} { ${cellCss.join(";")} }`);
 
-					if (["A13"].includes(key)) {
-						// console.log( item );
-					}
-
-					if (cellCss.length) {
-						out.push(`#${key} { ${cellCss.join(";")} }`);
+					if (hasBorders) {
+						cellCss = [`content:"";position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;`];
+						cellCss.push(`border-width:${border.width.map(i => i +"px").join(" ")};`);
+						cellCss.push(`border-style:${border.style.map(i => i).join(" ")};`);
+						cellCss.push(`border-color:${border.color.map(i => "#"+ i).join(" ")};`);
+						out.push(`#${key}:before { ${cellCss.join(";")} }`);
 					}
 			}
 		}
@@ -16466,17 +17938,17 @@ var fix_read_opts = function(opts) {
 			["bookVBA", false],    /* include vba raw data (vbaraw) */
 
 			["password", ""],       /* password */
-			["WTF", false]         /* WTF mode (throws errors) */
+			["WTF", false]          /* WTF mode (throws errors) */
 		])(opts);
 	};
 
 var fix_write_opts = fix_opts_func([
-	["cellDates", false],   /* write date cells with type `d` */
-	["bookSST", false],     /* Generate Shared String Table */
-	["bookType", "xlsx"],   /* Type of workbook (xlsx/m/b) */
-	["compression", false], /* Use file compression */
-	["WTF", false]          /* WTF mode (throws errors) */
-]);
+		["cellDates", false],   /* write date cells with type `d` */
+		["bookSST", true],      /* Generate Shared String Table */
+		["bookType", "xlsx"],   /* Type of workbook (xlsx/m/b) */
+		["compression", false], /* Use file compression */
+		["WTF", false]          /* WTF mode (throws errors) */
+	]);
 
 function fix_opts_func(defaults) {
 	return function(opts) {
@@ -16509,7 +17981,10 @@ function safe_parse_wbrels(wbrels, sheets) {
 	return !wbrels || wbrels.length === 0 ? null : wbrels;
 }
 
+// let hbi_zip;
+
 function safe_parse_sheet(zip, path, relsPath, sheet, idx, sheetRels, sheets, stype, opts, wb, themes, styles) {
+	// hbi_zip = zip;
 	try {
 		sheetRels[sheet] = parse_rels(getzipstr(zip, relsPath, true), path);
 		var data = getzipdata(zip, path),
@@ -16541,14 +18016,16 @@ function safe_parse_sheet(zip, path, relsPath, sheet, idx, sheetRels, sheets, st
 
 		/* scan rels for comments */
 		var comments = [];
-		if (sheetRels && sheetRels[sheet]) keys(sheetRels[sheet]).forEach(function(n) {
-			if (sheetRels[sheet][n].Type == RELS.CMNT) {
-				var dfile = resolve_path(sheetRels[sheet][n].Target, path);
-				comments = parse_comments_xml(getzipdata(zip, dfile, true), opts);
-				if (!comments || !comments.length) return;
-				sheet_insert_comments(_ws, comments);
-			}
-		});
+		if (sheetRels && sheetRels[sheet]) {
+			keys(sheetRels[sheet]).forEach(n => {
+				if (sheetRels[sheet][n].Type == RELS.CMNT) {
+					var dfile = resolve_path(sheetRels[sheet][n].Target, path);
+					comments = parse_comments_xml(getzipdata(zip, dfile, true), opts);
+					if (!comments || !comments.length) return;
+					sheet_insert_comments(_ws, comments);
+				}
+			});
+		}
 	} catch(e) {
 		if (opts.WTF) throw e;
 	}
@@ -16558,7 +18035,7 @@ function strip_front_slash(x) {
 	return x.charAt(0) == "/" ? x.slice(1) : x;
 }
 
-function parseZip(zip, opts) {
+function parse_zip(zip, opts) {
 	make_ssf(SSF);
 	opts = opts || {};
 	fix_read_opts(opts);
@@ -16573,16 +18050,16 @@ function parseZip(zip, opts) {
 	var entries = zipentries(zip),
 		dir = parse_ct((getzipstr(zip, "[Content_Types].xml"))),
 		xlsb = false,
-		sheets, binname;
+		sheets,
+		binname;
+	
 	if (dir.workbooks.length === 0) {
 		binname = "xl/workbook.xml";
 		if (getzipdata(zip,binname, true)) dir.workbooks.push(binname);
 	}
 	if (dir.workbooks.length === 0) {
 		binname = "xl/workbook.bin";
-		if (!getzipdata(zip,binname,true)) {
-			throw new Error("Could not find workbook");
-		}
+		if (!getzipdata(zip,binname,true)) throw new Error("Could not find workbook");
 		dir.workbooks.push(binname);
 		xlsb = true;
 	}
@@ -16590,7 +18067,6 @@ function parseZip(zip, opts) {
 
 	var themes = {},
 		styles = {};
-
 	if (!opts.bookSheets && !opts.bookProps) {
 		strs = [];
 		if (dir.sst) {
@@ -16600,9 +18076,12 @@ function parseZip(zip, opts) {
 				if (opts.WTF) throw e;
 			}
 		}
+
 		if (opts.cellStyles && dir.themes.length) {
 			themes = parse_theme_xml(getzipstr(zip, dir.themes[0].replace(/^\//, ""), true) || "", opts);
+			// themes = parse_theme(getzipstr(zip, dir.themes[0].replace(/^\//, ''), true)||"", dir.themes[0], opts);
 		}
+
 		if (dir.style) {
 			styles = parse_sty_xml(getzipdata(zip, strip_front_slash(dir.style)), themes, opts);
 		}
@@ -16611,16 +18090,14 @@ function parseZip(zip, opts) {
 	dir.links.map(function(link) {
 		try {
 			var rels = parse_rels(getzipstr(zip, get_rels_path(strip_front_slash(link))), link);
-			return parse_xlink_xml(getzipdata(zip, strip_front_slash(link)), rels, link, opts);
+			return parse_xlink(getzipdata(zip, strip_front_slash(link)), rels, link, opts);
 		} catch(e) {}
 	});
 
 	var wb = parse_wb_xml(getzipdata(zip, strip_front_slash(dir.workbooks[0])), opts),
 		props = {},
-		propdata = "",
-		custprops = {},
-		out = {};
-	
+		propdata = "";
+
 	if (dir.coreprops.length) {
 		propdata = getzipdata(zip, strip_front_slash(dir.coreprops[0]), true);
 		if (propdata) props = parse_core_props(propdata);
@@ -16630,6 +18107,7 @@ function parseZip(zip, opts) {
 		}
 	}
 
+	var custprops = {};
 	if (!opts.bookSheets || opts.bookProps) {
 		if (dir.custprops.length !== 0) {
 			propdata = getzipstr(zip, strip_front_slash(dir.custprops[0]), true);
@@ -16637,78 +18115,62 @@ function parseZip(zip, opts) {
 		}
 	}
 
+	var out = {};
 	if (opts.bookSheets || opts.bookProps) {
 		if (wb.Sheets) sheets = wb.Sheets.map(x => x.name);
-		else if (props.Worksheets && props.SheetNames.length > 0) sheets = props.SheetNames;
-		if (opts.bookProps) {
-			out.Props = props;
-			out.Custprops = custprops;
-		}
+		else if (props.Worksheets && props.SheetNames.length > 0) sheets=props.SheetNames;
+		if (opts.bookProps) { out.Props = props; out.Custprops = custprops; }
 		if (opts.bookSheets && typeof sheets !== "undefined") out.SheetNames = sheets;
 		if (opts.bookSheets ? out.SheetNames : opts.bookProps) return out;
 	}
 	sheets = {};
 
-	var deps = {},
-		i = 0,
-		sheetRels = {},
-		path,
-		relsPath,
-		wbsheets = wb.Sheets;
-
+	var deps = {};
 	if (opts.bookDeps && dir.calcchain) {
-		deps = parse_cc_xml(getzipdata(zip, strip_front_slash(dir.calcchain)), dir.calcchain, opts);
+		deps = parse_cc(getzipdata(zip, strip_front_slash(dir.calcchain)), dir.calcchain, opts);
 	}
+
+	var i = 0,
+		sheetRels = {},
+		path, relsPath,
+		wbsheets = wb.Sheets;
 
 	props.Worksheets = wbsheets.length;
 	props.SheetNames = [];
-	for (var j=0, jl=wbsheets.length; j!=jl; ++j) {
+	for(var j=0; j!=wbsheets.length; ++j) {
 		props.SheetNames[j] = wbsheets[j].name;
 	}
 
-	var wbext = xlsb ? "bin" : "xml",
-		wbrelsi = dir.workbooks[0].lastIndexOf("/"),
-		wbrelsfile = (dir.workbooks[0].slice(0, wbrelsi + 1) +"_rels/"+ dir.workbooks[0].slice(wbrelsi+1) +".rels").replace(/^\//, "");
-	if (!safegetzipfile(zip, wbrelsfile)) {
-		wbrelsfile = `xl/_rels/workbook.${wbext}.rels`;
-	}
-
+	var wbrelsi = dir.workbooks[0].lastIndexOf("/"),
+		wbrelsfile = (dir.workbooks[0].slice(0, wbrelsi+1) +"_rels/"+ dir.workbooks[0].slice(wbrelsi + 1) +".rels").replace(/^\//, "");
+	if (!safegetzipfile(zip, wbrelsfile)) wbrelsfile = "xl/_rels/workbook.xml.rels";
 	var wbrels = parse_rels(getzipstr(zip, wbrelsfile, true), wbrelsfile);
-	if (wbrels) {
-		wbrels = safe_parse_wbrels(wbrels, wb.Sheets);
-	}
+	if (wbrels) wbrels = safe_parse_wbrels(wbrels, wb.Sheets);
 
 	/* Numbers iOS hack */
 	var nmode = (getzipdata(zip,"xl/worksheets/sheet.xml", true)) ? 1 : 0;
-	wsloop: for(i=0; i!=props.Worksheets; ++i) {
+	wsloop: for(i = 0; i != props.Worksheets; ++i) {
 		var stype = "sheet";
 		if (wbrels && wbrels[i]) {
-			path = "xl/"+ wbrels[i][1].replace(/[\/]?xl\//, "");
+			path = 'xl/' + (wbrels[i][1]).replace(/[\/]?xl\//, "");
 			if (!safegetzipfile(zip, path)) path = wbrels[i][1];
 			if (!safegetzipfile(zip, path)) path = wbrelsfile.replace(/_rels\/.*$/,"") + wbrels[i][1];
 			stype = wbrels[i][2];
 		} else {
-			path = "xl/worksheets/sheet"+ (i + 1 - nmode) +"." + wbext;
-			path = path.replace(/sheet0\./, "sheet.");
+			path = "xl/worksheets/sheet"+ (i + 1 - nmode) +".xml";
+			path = path.replace(/sheet0\./,"sheet.");
 		}
 		relsPath = path.replace(/^(.*)(\/)([^\/]*)$/, "$1/_rels/$3.rels");
-		if (opts && opts.sheets != null) {
-			switch (typeof opts.sheets) {
-				case "number":
-					if (i != opts.sheets) continue wsloop;
-					break;
-				case "string":
-					if (props.SheetNames[i].toLowerCase() != opts.sheets.toLowerCase()) continue wsloop;
-					break;
-				default:
-					if (Array.isArray && Array.isArray(opts.sheets)) {
-						var snjseen = false;
-						for (var snj=0; snj!=opts.sheets.length; ++snj) {
-							if (typeof opts.sheets[snj] == "number" && opts.sheets[snj] == i) snjseen=1;
-							if (typeof opts.sheets[snj] == "string" && opts.sheets[snj].toLowerCase() == props.SheetNames[i].toLowerCase()) snjseen = 1;
-						}
-						if (!snjseen) continue wsloop;
-					}
+		if (opts && opts.sheets != null) switch(typeof opts.sheets) {
+			case "number": if (i != opts.sheets) continue wsloop; break;
+			case "string": if (props.SheetNames[i].toLowerCase() != opts.sheets.toLowerCase()) continue wsloop; break;
+			default: if (Array.isArray && Array.isArray(opts.sheets)) {
+				var snjseen = false;
+				for(var snj = 0; snj != opts.sheets.length; ++snj) {
+					if (typeof opts.sheets[snj] == "number" && opts.sheets[snj] == i) snjseen=1;
+					if (typeof opts.sheets[snj] == "string" && opts.sheets[snj].toLowerCase() == props.SheetNames[i].toLowerCase()) snjseen = 1;
+				}
+				if (!snjseen) continue wsloop;
 			}
 		}
 		safe_parse_sheet(zip, path, relsPath, props.SheetNames[i], i, sheetRels, sheets, stype, opts, wb, themes, styles);
@@ -16727,20 +18189,14 @@ function parseZip(zip, opts) {
 		Themes: themes,
 		SSF: SSF.get_table()
 	};
-
 	if (opts && opts.bookFiles) {
 		out.keys = entries;
 		out.files = zip.files;
 	}
-
 	if (opts && opts.bookVBA) {
-		if (dir.vba.length > 0) {
-			out.vbaraw = getzipdata(zip, strip_front_slash(dir.vba[0]), true);
-		} else if (dir.defaults && dir.defaults.bin === CT_VBA) {
-			out.vbaraw = getzipdata(zip, "xl/vbaProject.bin", true);
-		}
+		if (dir.vba.length > 0) out.vbaraw = getzipdata(zip,strip_front_slash(dir.vba[0]),true);
+		else if (dir.defaults && dir.defaults.bin === CT_VBA) out.vbaraw = getzipdata(zip, 'xl/vbaProject.bin',true);
 	}
-
 	return out;
 }
 
@@ -16819,6 +18275,16 @@ function parse_xlsxcfb(cfb, _opts) {
 
 	
 function write_zip(wb, opts) {
+	// let tmpFiles = [],
+	// 	tmp = new jszip();
+	// tmpFiles.unshift({ "file": "b", body: "" });
+	// Object.keys(hbi_zip.files).map(file => {
+	// 	var body = getzipdata(hbi_zip, file);
+	// 	tmpFiles.push({ file, body });
+	// });
+	// tmpFiles.map(item => tmp.file(item.file, item.body));
+	// return tmp;
+
 	// _shapeid = 1024;
 	if (wb && !wb.SSF) {
 		wb.SSF = SSF.get_table();
@@ -16839,7 +18305,7 @@ function write_zip(wb, opts) {
 	opts.revStrings = new Map();
 	
 	fix_write_opts(opts = opts || {});
-	
+
 	var files = [],
 		ct = new_ct(),
 		rId = 0;
@@ -16870,12 +18336,14 @@ function write_zip(wb, opts) {
 	for (rId=1; rId<=wb.SheetNames.length; ++rId) {
 		var wsrels = { "!id": {} },
 			ws = wb.Sheets[wb.SheetNames[rId - 1]],
-			_type = (ws || {})["!type"] || "sheet";
+			_type = (ws || {})["!type"] || "sheet",
+			filename = `xl/worksheets/sheet${rId}.xml`;
+		
 		switch(_type) {
 			case "chart":
 				/* falls through */
 			default:
-				files.unshift({ file: `xl/worksheets/sheet${rId}.xml`, body: write_ws_xml(rId - 1, opts, wb, wsrels) });
+				files.unshift({ file: filename, body: write_ws_xml(rId - 1, opts, wb, wsrels) });
 				// console.log( files[0].body );
 				ct.sheets.push(files[0].file);
 				add_rels(opts.wbrels, -1, files[0].file.slice(3), RELS.WS[0]);
@@ -16897,12 +18365,13 @@ function write_zip(wb, opts) {
 			delete ws["!legacy"];
 		}
 
-		// if (wsrels["!id"].rId1) {
-		// 	zip.file(get_rels_path(filename), write_rels(wsrels));
-		// }
+		if (wsrels["!id"].rId1) {
+			files.unshift({ file: get_rels_path(filename), body: write_rels(wsrels) });
+		}
 	}
 
 	if (opts.Strings != null && opts.Strings.length > 0) {
+		// console.log( write_sst_xml(opts.Strings, opts) );
 		files.unshift({ file: `xl/sharedStrings.xml`, body: write_sst_xml(opts.Strings, opts) });
 		ct.strs.push(files[0].file);
 		add_rels(opts.wbrels, -1, files[0].file.slice(3), RELS.SST);
@@ -16931,21 +18400,10 @@ function write_zip(wb, opts) {
 
 	let zip = new jszip();
 	// temp fix
-	files.unshift({ "file": "b", body: "" });
+	if (opts.zip) files.unshift({ "file": "b", body: "" });
 
 	files.map(item => zip.file(item.file, item.body));
 
-
-	// let xStr, xDoc;
-	// xStr = zip.files["xl/styles.xml"]._data;
-	// xStr = xStr.replace(/<sheetView workbookViewId="0"\/>/, `<sheetView workbookViewId="0"><pane state="frozen" xSplit="0" ySplit="1" topLeftCell="A2" activePane="bottomLeft"/></sheetView>`);
-	// xDoc = $.xmlFromString(xStr);
-	// console.log(xStr);
-	// zip.files["xl/worksheets/sheet1.xml"]._data = xStr;
-
-	// xStr = zip.files["xl/styles.xml"]._data,
-	// xDoc = $.xmlFromString(xStr);
-	// console.log( xDoc.xml );
 
 
 	delete opts.revssf;
@@ -16983,7 +18441,7 @@ function read_zip(data, opts) {
 	if (!o.type) o.type = "base64";
 	zip = zip_read(d, o);
 
-	return parseZip(zip, o);
+	return parse_zip(zip, o);
 }
 
 function read_plaintext(data, o) {
@@ -17073,9 +18531,14 @@ function readSync(data, opts) {
 		case 0xEF: return n[3] === 0x3C ? parse_xlml(d, o) : read_prn(data, d, o, str);
 		case 0xFF: if(n[1] === 0xFE) { return read_utf16(d, o); } break;
 		case 0x00: if(n[1] === 0x00 && n[2] >= 0x02 && n[3] === 0x00) throw new Error("Not supported Workbook"); break;
-		case 0x03: case 0x83: case 0x8B: case 0x8C: return DBF.to_workbook(d, o);
+		case 0x03:
+		case 0x83:
+		case 0x8B:
+		case 0x8C: return DBF.to_workbook(d, o);
 		case 0x7B: if(n[1] === 0x5C && n[2] === 0x72 && n[3] === 0x74) return RTF.to_workbook(d, o); break;
-		case 0x0A: case 0x0D: case 0x20: return read_plaintext_raw(d, o);
+		case 0x0A:
+		case 0x0D:
+		case 0x20: return read_plaintext_raw(d, o);
 	}
 	if (DBF.versions.indexOf(n[0]) > -1 && n[2] <= 12 && n[3] <= 31) {
 		return DBF.to_workbook(d, o);
@@ -17083,11 +18546,11 @@ function readSync(data, opts) {
 	return read_prn(data, d, o, str);
 }
 
-function readFileSync(filename, opts) {
-	var o = opts || {};
-	o.type = "file";
-	return readSync(filename, o);
-}
+// function readFileSync(filename, opts) {
+// 	var o = opts || {};
+// 	o.type = "file";
+// 	return readSync(filename, o);
+// }
 
 	
 /*:: declare var encrypt_agile:any; */
@@ -17476,6 +18939,7 @@ var utils = {
 	sheet_to_json,
 	sheet_to_formulae,
 	get_formulae: sheet_to_formulae,
+	parse_formula: parseFormula,
 	make_csv: sheet_to_csv,
 	make_json: sheet_to_json,
 	make_formulae: sheet_to_formulae,
@@ -17629,7 +19093,7 @@ var utils = {
 })(utils);
 
 
-	XLSX.parseZip = parseZip;
+	XLSX.parseZip = parse_zip;
 	XLSX.read = readSync;
 	XLSX.write = writeFileSync;
 	XLSX.utils = utils;

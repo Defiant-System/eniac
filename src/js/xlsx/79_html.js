@@ -205,7 +205,7 @@ var HTML_ = (function() {
 						hasBorders = noBorder !== "0000solidsolidsolidsolid000000000000";
 
 					if (font.name) cellCss.push(`font-family:${font.name}`);
-					if (font.sz) cellCss.push(`font-size:${font.sz}pt`);
+					if (font.sz) cellCss.push(`font-size:${font.sz * (96/72)}px`);
 					if (font.bold) cellCss.push(`font-weight:bold`);
 					if (font.italic) cellCss.push(`font-style:italic`);
 					if (font.underline) cellCss.push(`text-decoration:underline`);
