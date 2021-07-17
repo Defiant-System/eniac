@@ -214,34 +214,12 @@ content {
 			user-select: none;
 			cursor: pointer;
 
-			u.tool-active_,
-			&:hover u {
-				display: block;
-			}
-
 			&.icon-add {
 				opacity: .5;
 				padding: 5.5px 17px 0;
 
 				&:hover { opacity: 1; }
 				&:active { opacity: .75; }
-			}
-
-			i {
-				font-style: normal;
-				pointer-events: none;
-			}
-
-			u {
-				display: none;
-				background: url(~/icons/icon-chevron-down.png) 50% 50% no-repeat;
-				background-size: cover;
-				position: absolute;
-				top: 9px;
-				right: 4px;
-				width: 9px;
-				height: 9px;
-				cursor: pointer;
 			}
 		}
 
@@ -259,6 +237,10 @@ content {
 					white-space: nowrap;
 					min-width: 114px;
 
+					&:not(.icon-add) {
+						max-width: 114px;
+					}
+
 					&.active {
 						background: #d6e6fb;
 						color: #4591e8;
@@ -266,6 +248,10 @@ content {
 
 						+ span:before {
 							display: none;
+						}
+
+						u {
+							filter: none;
 						}
 					}
 
@@ -286,6 +272,29 @@ content {
 					&:not(.active):last-child:after {
 						left: auto;
 						right: 0;
+					}
+
+					u.tool-active_,
+					&:hover u {
+						display: block;
+					}
+
+					i {
+						font-style: normal;
+						pointer-events: none;
+					}
+
+					u {
+						display: none;
+						background: url(~/icons/icon-chevron-down.png) 50% 50% no-repeat;
+						background-size: cover;
+						position: absolute;
+						top: 9px;
+						right: 4px;
+						width: 9px;
+						height: 9px;
+						cursor: pointer;
+						filter: grayscale(100%) brightness(.5);
 					}
 				}
 			}

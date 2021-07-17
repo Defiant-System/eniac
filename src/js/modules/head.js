@@ -13,6 +13,9 @@
 		this.els.root.on("wheel", this.dispatch);
 
 		// temp
+		setTimeout(() => {
+			this.dispatch({ type: "add-sheet", name: "Sheet 1", active: true });
+		}, 1000);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -32,7 +35,8 @@
 			case "add-sheet":
 				name = event.name || "Sheet 1";
 				cn = event.active ? ` class="active"` : "";
-				Self.els.reel.append(`<span${cn}><i>${name}</i><u data-menu="sheet-tab"></u></span>`);
+				Self.els.reel.find(".active").removeClass("active");
+				Self.els.reel.prepend(`<span${cn}><i>${name}</i><u data-menu="sheet-tab"></u></span>`);
 				break;
 			case "remove-sheet":
 				break;
