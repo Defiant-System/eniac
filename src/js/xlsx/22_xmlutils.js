@@ -311,7 +311,7 @@ function html2xml(td) {
 										<rPr>${stricken + bold + italic + underline}
 											<color rgb="${rgb2Hex(color).toLowerCase()}"/>
 											<sz val="${(parseInt(style["font-size"], 10)) * (72/96)}"/>
-											<rFont val="${style["font-family"]}"/>
+											<rFont val="${style["font-family"].split(",")[0]}"/>
 										</rPr>
 										<t${ g.match(wtregex) ? ` xml:space="preserve"` : "" }>${g}</t>
 									</r>`);

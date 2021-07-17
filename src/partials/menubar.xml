@@ -89,4 +89,15 @@
 		<Menu type="divider"/>
 		<Menu name="Delete Row"/>
 	</Menu>
+
+	<Menu for="sheet-tab">
+		<Menu name="Rename"/>
+		<Menu name="Duplicate"/>
+		<Menu type="divider"/>
+		<Menu name="Cut Sheet"/>
+		<Menu name="Copy Sheet"/>
+		<Menu type="divider"/>
+		<Menu name="Delete"/>
+	</Menu>
+
 </MenuBar>

@@ -11,11 +11,14 @@
 
 		// bind event handlers
 		this.els.root.on("wheel", this.dispatch);
+
+		// temp
 	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.head,
 			max, delta, left,
+			name, cn,
 			el;
 		switch (event.type) {
 			// native events
@@ -26,12 +29,20 @@
 				Self.els.reel.css({ left });
 				break;
 			// custom events
+			case "add-sheet":
+				name = event.name || "Sheet 1";
+				cn = event.active ? ` class="active"` : "";
+				Self.els.reel.append(`<span${cn}><i>${name}</i><u data-menu="sheet-tab"></u></span>`);
+				break;
+			case "remove-sheet":
+				break;
 			case "select-sheet":
 				el = $(event.target);
+				if (el.prop("nodeName") !== "SPAN" || el.hasClass("active")) return;
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
 				// render clicked sheet
-				Render.sheet(el.html());
+				Render.sheet(el.find("i").html());
 				break;
 		}
 	}

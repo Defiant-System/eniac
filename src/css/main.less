@@ -177,15 +177,15 @@ layout {
 	.icon-arrange-backward     { background-image: url(~/icons/icon-arrange-backward.png); }
 	.icon-arrange-forward      { background-image: url(~/icons/icon-arrange-forward.png); }
 
-	.icon-border-1 { background-image: url(~/icons/icon-border-1.png) }
-	.icon-border-2 { background-image: url(~/icons/icon-border-2.png) }
-	.icon-border-3 { background-image: url(~/icons/icon-border-3.png) }
-	.icon-border-4 { background-image: url(~/icons/icon-border-4.png) }
-	.icon-border-5 { background-image: url(~/icons/icon-border-5.png) }
-	.icon-border-6 { background-image: url(~/icons/icon-border-6.png) }
-	.icon-border-7 { background-image: url(~/icons/icon-border-7.png) }
-	.icon-border-8 { background-image: url(~/icons/icon-border-8.png) }
-	.icon-border-9 { background-image: url(~/icons/icon-border-9.png) }
+	.icon-border-1 { background-image: url(~/icons/icon-border-1.png); }
+	.icon-border-2 { background-image: url(~/icons/icon-border-2.png); }
+	.icon-border-3 { background-image: url(~/icons/icon-border-3.png); }
+	.icon-border-4 { background-image: url(~/icons/icon-border-4.png); }
+	.icon-border-5 { background-image: url(~/icons/icon-border-5.png); }
+	.icon-border-6 { background-image: url(~/icons/icon-border-6.png); }
+	.icon-border-7 { background-image: url(~/icons/icon-border-7.png); }
+	.icon-border-8 { background-image: url(~/icons/icon-border-8.png); }
+	.icon-border-9 { background-image: url(~/icons/icon-border-9.png); }
 }
 
 content {
@@ -208,11 +208,16 @@ content {
 
 		span {
 			position: relative;
-			padding: 8px 17px 0;
+			padding: 8px 13px 0;
 			height: 100%;
 			text-align: center;
 			user-select: none;
 			cursor: pointer;
+
+			u.tool-active_,
+			&:hover u {
+				display: block;
+			}
 
 			&.icon-add {
 				opacity: .5;
@@ -220,6 +225,23 @@ content {
 
 				&:hover { opacity: 1; }
 				&:active { opacity: .75; }
+			}
+
+			i {
+				font-style: normal;
+				pointer-events: none;
+			}
+
+			u {
+				display: none;
+				background: url(~/icons/icon-chevron-down.png) 50% 50% no-repeat;
+				background-size: cover;
+				position: absolute;
+				top: 9px;
+				right: 4px;
+				width: 9px;
+				height: 9px;
+				cursor: pointer;
 			}
 		}
 

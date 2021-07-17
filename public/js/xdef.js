@@ -11207,7 +11207,7 @@ function html2xml(td) {
 										<rPr>${stricken + bold + italic + underline}
 											<color rgb="${rgb2Hex(color).toLowerCase()}"/>
 											<sz val="${(parseInt(style["font-size"], 10)) * (72/96)}"/>
-											<rFont val="${style["font-family"]}"/>
+											<rFont val="${style["font-family"].split(",")[0]}"/>
 										</rPr>
 										<t${ g.match(wtregex) ? ` xml:space="preserve"` : "" }>${g}</t>
 									</r>`);
@@ -17708,7 +17708,7 @@ var HTML_ = (function() {
 						noBorder = border.width.join("") + border.style.join("") + border.color.join(""),
 						hasBorders = noBorder !== "0000solidsolidsolidsolid000000000000";
 
-					if (font.name) cellCss.push(`font-family:${font.name}`);
+					if (font.name) cellCss.push(`font-family:${font.name},sans-serif`);
 					if (font.sz) cellCss.push(`font-size:${font.sz * (96/72)}px`);
 					if (font.bold) cellCss.push(`font-weight:bold`);
 					if (font.italic) cellCss.push(`font-style:italic`);

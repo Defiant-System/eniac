@@ -7,17 +7,19 @@ const Render = {
 		};
 	},
 	workbook(book) {
+		let APP = eniac;
 		// save reference to book
 		this.book = book;
-		console.log(book);
+		// console.log(book);
 
 		// render sheet names
-		let str = [];
 		book.SheetNames.map((name, i) => {
-			let cn = i === 0 ? 'class="active"' : "";
-			str.push(`<span ${cn}>${name}</span>`);
+			eniac.head.dispatch({
+				type: "add-sheet",
+				active: i === 0,
+				name,
+			});
 		});
-		this.els.head.html(str.join(""));
 
 		// render sheet table
 		this.sheet(book.SheetNames[0]);

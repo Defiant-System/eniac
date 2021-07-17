@@ -7,6 +7,8 @@
 		this.els = {
 			layout: window.find("layout"),
 		};
+		// temp
+		// window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`).trigger("click");
 	},
 	dispatch(event) {
 		let APP = eniac,
