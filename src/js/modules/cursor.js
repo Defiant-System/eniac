@@ -191,6 +191,8 @@ const Cursor = {
 				Parser.setTable(event.table);
 				// show tools for table
 				Self.els.tools.removeClass("hidden");
+				// update sidebar
+				APP.sidebar.dispatch({ type: "show-table" });
 				break;
 			case "blur-table":
 				// auto blur active cell
@@ -199,6 +201,8 @@ const Cursor = {
 				Parser.reset();
 				// hide tools
 				Self.els.tools.addClass("hidden");
+				// update sidebar
+				APP.sidebar.dispatch({ type: "show-sheet" });
 				// hide footer
 				APP.foot.dispatch({ type: "hide" });
 				break;

@@ -6,6 +6,7 @@
 		// fast references
 		this.els = {
 			layout: window.find("layout"),
+			el: window.find("sidebar"),
 		};
 		// temp
 		// window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`).trigger("click");
@@ -21,6 +22,13 @@
 				isOn = Self.els.layout.hasClass("show-sidebar");
 				Self.els.layout.toggleClass("show-sidebar", isOn);
 				return !isOn;
+			case "show-sheet":
+			case "show-table":
+			case "show-chart":
+			case "show-empty":
+				Self.els.el.removeClass("show-sheet show-table show-chart show-empty");
+				Self.els.el.addClass(event.type);
+				break;
 			case "select-tab":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
