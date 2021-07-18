@@ -210,7 +210,7 @@ content {
 
 		span {
 			position: relative;
-			padding: 8px 13px 0;
+			padding: 8px 0 0;
 			height: 100%;
 			text-align: center;
 			user-select: none;
@@ -237,10 +237,10 @@ content {
 
 				span {
 					white-space: nowrap;
-					min-width: 114px;
 
 					&:not(.icon-add) {
-						max-width: 114px;
+						width: 114px;
+						animation: sheet-name-appear 120ms linear forwards;
 					}
 
 					&.active {
@@ -257,10 +257,13 @@ content {
 						}
 					}
 
+					&.remove-sheet {
+						animation: sheet-name-disappear 120ms linear forwards;
+					}
+
 					&:hover:not(.active) { color: #333; }
 					&:active:not(.active) { color: #111; }
 
-					// &:not(.active):last-child:after,
 					&:not(.active):before {
 						content: "";
 						position: absolute;
@@ -1150,6 +1153,38 @@ table.sheet {
 				}
 			}
 		}
+	}
+}
+
+@keyframes sheet-name-appear {
+	0%   {
+		opacity: 0;
+		max-width: 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
+	100% {
+		opacity: 1;
+		max-width: 120px;
+		min-width: 114px;
+		padding-left: 13px;
+		padding-right: 13px;
+	}
+}
+
+@keyframes sheet-name-disappear {
+	0%   {
+		opacity: 1;
+		max-width: 120px;
+		min-width: 114px;
+		padding-left: 13px;
+		padding-right: 13px;
+	}
+	100% {
+		opacity: 0;
+		max-width: 0;
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 

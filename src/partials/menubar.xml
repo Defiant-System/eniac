@@ -97,7 +97,7 @@
 		<Menu name="Cut Sheet"/>
 		<Menu name="Copy Sheet"/>
 		<Menu type="divider"/>
-		<Menu name="Delete"/>
+		<Menu name="Delete" click="remove-sheet"/>
 	</Menu>
 
 </MenuBar>

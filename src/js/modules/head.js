@@ -14,7 +14,7 @@
 
 		// temp
 		setTimeout(() => {
-			this.dispatch({ type: "add-sheet", name: "Sheet1", active: true });
+			this.dispatch({ type: "add-sheet", name: "Sheet1" });
 		}, 1000);
 	},
 	dispatch(event) {
@@ -34,17 +34,26 @@
 			// custom events
 			case "add-sheet":
 				name = event.name || "Sheet 1";
-				cn = event.active ? ` class="active"` : "";
 				Self.els.reel.find(".active").removeClass("active");
-				Self.els.reel.prepend(`<span${cn}><i>${name}</i><u data-menu="sheet-tab"></u></span>`);
+				Self.els.reel.prepend(`<span class="active"><i>${name}</i><u data-click1="remove-sheet" data-menu="sheet-tab"></u></span>`);
 				break;
 			case "remove-sheet":
+				el = event.el.parents("span");
+				el.cssSequence("remove-sheet", "animationend", el => {
+					let nextEl = el.next("span");
+					if (!nextEl.length) nextEl = el.prev("span");					
+					nextEl.trigger("click");
+					// remove sheet element
+					el.remove();
+					// TODO: remove sheet from file
+				});
 				break;
 			case "select-sheet":
 				el = $(event.target);
 				if (el.prop("nodeName") !== "SPAN" || el.hasClass("active")) return;
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
+				return;
 				// render clicked sheet
 				Render.sheet(el.find("i").html());
 				break;

@@ -16,7 +16,6 @@ const Render = {
 		book.SheetNames.map((name, i) => {
 			eniac.head.dispatch({
 				type: "add-sheet",
-				active: i === 0,
 				name,
 			});
 		});

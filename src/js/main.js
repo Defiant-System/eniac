@@ -26,6 +26,7 @@ const eniac = {
 			pEl,
 			el,
 			str;
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.open":
@@ -60,6 +61,11 @@ const eniac = {
 			case "window.keystroke":
 				Cursor.dispatch(event);
 				break;
+			// system menu events
+			case "before-menu:sheet-tab":
+				console.log( "make adjustments to menu" );
+				console.log( event.xMenu );
+				break;
 			// custom events
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
@@ -67,6 +73,9 @@ const eniac = {
 				return Cursor.dispatch({ type: "blur-table" });
 			// forwards events
 			default:
+				if (event.origin) {
+					event.el = event.origin.el;
+				}
 				if (event.el) {
 					pEl = event.el.parents("[data-area]");
 					name = pEl.data("area");
