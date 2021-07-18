@@ -2,6 +2,9 @@
 // for dark theme
 @import "theme-dark";
 
+// auto applies to ".win-body_"
+overflow: initial;
+
 
 @sidebar_bg: #ececec;
 @layout_outline: #bbb;
@@ -52,8 +55,10 @@ layout {
 	left: 0;
 	right: 0;
 	bottom: 0;
+	overflow: hidden;
 	display: flex;
 	flex-flow: wrap;
+	border-radius: inherit;
 	font-family: Helvetica Neue;
 
 	&.show-sidebar {
@@ -409,6 +414,11 @@ sidebar {
 	width: 270px;
 	transition: right @sidebar_speed * 0.75;
 
+	&.show-sheet .container .sidebar-sheet { display: flex; }
+	&.show-table .container .sidebar-table { display: flex; }
+	&.show-chart .container .sidebar-chart { display: flex; }
+	&.show-empty .container .sidebar-empty { display: flex; }
+
 	&:after {
 		border-color: @layout_outline;
 	}
@@ -421,7 +431,7 @@ sidebar {
 
 		> div {
 			background: @sidebar_bg;
-			display: flex;
+			display: none;
 			flex-direction: column;
 		}
 	}
