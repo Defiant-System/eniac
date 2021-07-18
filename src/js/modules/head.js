@@ -14,7 +14,7 @@
 
 		// temp
 		setTimeout(() => {
-			this.dispatch({ type: "add-sheet", name: "Sheet 1", active: true });
+			this.dispatch({ type: "add-sheet", name: "Sheet1", active: true });
 		}, 1000);
 	},
 	dispatch(event) {
