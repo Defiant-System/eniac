@@ -13,9 +13,7 @@
 		this.els.root.on("wheel", this.dispatch);
 
 		// temp
-		setTimeout(() => {
-			this.dispatch({ type: "add-sheet", name: "Sheet1" });
-		}, 1000);
+		// setTimeout(() => this.dispatch({ type: "add-sheet", name: "Sheet1" }), 1000);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -31,14 +29,19 @@
 				left = Math.min(Math.max(Self.els.reel.prop("offsetLeft") - delta, max), 0);
 				Self.els.reel.css({ left });
 				break;
+			// system menu events
+			case "before-menu:sheet-tab":
+				console.log( "make adjustments to menu", event.xMenu );
+				break;
 			// custom events
 			case "add-sheet":
-				name = event.name || "Sheet 1";
+				name = event.name || "Sheet1";
 				Self.els.reel.find(".active").removeClass("active");
 				Self.els.reel.prepend(`<span class="active"><i>${name}</i><u data-click1="remove-sheet" data-menu="sheet-tab"></u></span>`);
+				// TODO: add sheet to file & UI
 				break;
 			case "remove-sheet":
-				el = event.el.parents("span");
+				el = event.origin.el.parents("span");
 				el.cssSequence("remove-sheet", "animationend", el => {
 					let nextEl = el.next("span");
 					if (!nextEl.length) nextEl = el.prev("span");					
