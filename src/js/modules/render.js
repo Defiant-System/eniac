@@ -6,26 +6,35 @@ const Render = {
 			body: window.find("content > .body > .wrapper"),
 		};
 	},
-	workbook(book) {
+	workbook(book, html) {
 		let APP = eniac;
 		// save reference to book
 		this.book = book;
 		// console.log(book);
 
-		// render sheet names
-		book.SheetNames.map((name, i) => {
-			eniac.head.dispatch({
-				type: "add-sheet",
-				name,
-			});
-		});
+		if (html) {
+			// append new sheet
+			html = html.replace(/<table>/, `<table class="sheet">`);
+			// add sheet name
+			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
+			// append new sheet
+			this.els.body.append(html);
 
-		// render sheet table
-		this.sheet(book.SheetNames[0]);
+			// auto focus on first cell
+			let anchor = this.els.body.find("td").get(0);
+			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
+		} else {
+			// render sheet names
+			book.SheetNames.map(name =>
+				APP.head.dispatch({ type: "add-sheet", name }));
+
+			// render sheet table
+			this.sheet(book.SheetNames[0]);
+		}
 
 		// temporary
-		let anchor = this.els.body.find("td:nth(28)")[0];
-		Cursor.dispatch({ type: "focus-cell", anchor });
+		// let anchor = this.els.body.find("td:nth(28)")[0];
+		// Cursor.dispatch({ type: "focus-cell", anchor });
 
 		// Cursor.dispatch({
 		// 	type: "select-rectangle",
@@ -47,20 +56,6 @@ const Render = {
 		this.els.body.find("table.sheet").remove();
 		// append new sheet
 		this.els.body.append(html);
-		// hide tools
-		Cursor.dispatch({ type: "blur-table" });
-	},
-	sheet_old(name) {
-		let str = XLSX.write(this.book, { sheet: name, type: "string", bookType: "html" });
-
-		// str = str.match(/<table>[\s\S]*?<\/table>/gm)[0];
-		str = str.replace(/<table>/, `<table class="sheet">`);
-		str = str.replace(/(\d{1,})pt;/g, `$1px;`);
-
-		// remove existing sheet
-		this.els.body.find("table.sheet").remove();
-		// append new sheet
-		this.els.body.append(str);
 		// hide tools
 		Cursor.dispatch({ type: "blur-table" });
 	}

@@ -42,7 +42,7 @@
 			case "render-cell":
 				// transform data to XML
 				sel = event.anchor;
-				str = `<i type="${sel.attr("t")}"><![CDATA[${sel.attr("v")}]]></i>`;
+				str = `<i type="${sel.attr("t")}"><![CDATA[${sel.attr("v") || ""}]]></i>`;
 				data = $.nodeFromString(str);
 				Self.dispatch({ type: "render-data", data });
 				break;

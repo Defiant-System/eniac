@@ -33,16 +33,18 @@ const eniac = {
 				break;
 			case "window.close":
 				break;
+			case "new-file":
+				// save reference to file
+				Self.file = new File();
+				break;
 			case "open.file":
+				return Self.dispatch({ type: "new-file" });
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
-						let data = new Uint8Array(file.arrayBuffer),
-							opts = { type: "array", cellStyles: true },
-							book = XLSX.read(data, opts);
-						// render workbook
-						Render.workbook(book);
+						let data = new Uint8Array(file.arrayBuffer);
+						
 						// save reference to file
-						Self.file = new File(file);
+						Self.file = new File(file, data);
 
 						// setTimeout(() => Self.dispatch({ type: "save-file-as" }), 500);
 					});

@@ -1,16 +1,26 @@
 
 class File {
 
-	constructor(fsFile) {
+	constructor(fsFile, data) {
 		// save reference to original FS file
 		this._file = fsFile || new defiant.File();
+
+		let html;
+		if (data) {
+			// attach reference to book
+			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
+		} else {
+			html = window.render({ template: "empty-table-1" });
+		}
+		// render workbook
+		Render.workbook(this._file.book, html);
 	}
 
 	toBlob(kind) {
-		let table = Parser.table[0];
-		let data = XLSX.utils.table_to_book(table);
-		let file = XLSX.write(data, { bookType: kind, type: "binary" });
-		let type, buffer, view;
+		let table = Parser.table[0],
+			data = XLSX.utils.table_to_book(table),
+			file = XLSX.write(data, { bookType: kind, type: "binary" }),
+			type, buffer, view;
 
 		switch (kind) {
 			case "xlsx":
