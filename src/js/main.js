@@ -39,6 +39,7 @@ const eniac = {
 				break;
 			case "open.file":
 				return Self.dispatch({ type: "new-file" });
+				
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
 						let data = new Uint8Array(file.arrayBuffer);

@@ -195,6 +195,100 @@ layout {
 	.icon-border-9 { background-image: url(~/icons/icon-border-9.png); }
 }
 
+.popups {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 99;
+
+	> div {
+		background: rgba(240,240,240,.85);
+		backdrop-filter: blur(21px);
+		position: absolute;
+		top: 149px;
+		left: 905px;
+		width: 258px;
+		// height: 240px;
+		padding: 12px 13px 9px;
+		border-radius: 13px;
+		box-shadow: 0 0 0 1px rgba(0,0,0,.1),
+					0 19px 31px 3px rgba(0,0,0,.14),
+					0 7px 37px 8px rgba(0,0,0,.12),
+					0 9px 13px -5px rgba(0,0,0,.2);
+
+		&:before {
+			content: "";
+			position: absolute;
+			top: -16px;
+			left: 50%;
+			width: 0;
+			height: 0;
+			margin-left: -7px;
+			border-left: 12px solid transparent;
+			border-right: 12px solid transparent;
+			border-bottom: 15px solid rgba(0,0,0,.15);
+			filter: drop-shadow(-3px 0 5px rgba(0,0,0,.5));
+		}
+
+		&:after {
+			content: "";
+			position: absolute;
+			top: -14px;
+			left: 50%;
+			width: 0;
+			height: 0;
+			margin-left: -7px;
+			border-left: 12px solid transparent;
+			border-right: 12px solid transparent;
+			border-bottom: 14px solid rgba(250,250,250,.825);
+		}
+
+		&.popup-palette {
+			font-size: 0;
+
+			span {
+				position: relative;
+				display: inline-block;
+				width: 37px;
+				height: 20px;
+				margin: 0 2px 2px 0;
+				cursor: pointer;
+
+				&:nth-child(6n) {
+					margin-right: 0;
+				}
+
+				&:before {
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					border: 1px solid rgba(0,0,0,.2);
+				}
+
+				&.active {
+					cursor: default;
+
+					&:after {
+	 					content: "";
+						position: absolute;
+						top: -3px;
+						left: -3px;
+						right: -3px;
+						bottom: -3px;
+						border: 3px solid #fff;
+						border-radius: 2px;
+						box-shadow: 0 0 2px rgba(0,0,0,.65);
+						z-index: 2;
+					}
+				}
+			}
+		}
+	}
+}
+
 content {
 	background: transparent;
 	position: relative;
