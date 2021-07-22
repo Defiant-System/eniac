@@ -38,7 +38,7 @@
 				pEl.find(".sidebar-body").get(el.index()).addClass("active");
 				break;
 			case "set-sheet-bgcolor":
-				console.log(event);
+				Self.els.layout.find(".body").css({ "background-color": event.value });
 				break;
 			case "popup-color-palette":
 				// forward event
