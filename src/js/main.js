@@ -69,7 +69,7 @@ const eniac = {
 				return Self.head.dispatch(event);
 			// custom events
 			case "hide-popups":
-				Self.sidebar.dispatch({ type: "hide-popups" });
+				Self.popups.dispatch({ type: "close-popup" });
 				break;
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
