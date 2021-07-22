@@ -39,7 +39,7 @@ const eniac = {
 				break;
 			case "open.file":
 				return Self.dispatch({ type: "new-file" });
-				
+
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
 						let data = new Uint8Array(file.arrayBuffer);
@@ -68,6 +68,9 @@ const eniac = {
 			case "before-menu:sheet-tab":
 				return Self.head.dispatch(event);
 			// custom events
+			case "hide-popups":
+				Self.sidebar.dispatch({ type: "hide-popups" });
+				break;
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
 			case "blur-table":
@@ -76,7 +79,7 @@ const eniac = {
 			default:
 				el = event.el || (event.origin && event.origin.el);
 				if (el) {
-					pEl = el.parents("[data-area]");
+					pEl = el.data("area") ? el : el.parents("[data-area]");
 					name = pEl.data("area");
 					if (pEl.length && Self[name].dispatch) {
 						Self[name].dispatch(event);
@@ -88,6 +91,7 @@ const eniac = {
 	foot: @import "modules/foot.js",
 	tools: @import "modules/tools.js",
 	sidebar: @import "modules/sidebar.js",
+	popups: @import "modules/popups.js",
 };
 
 window.exports = eniac;

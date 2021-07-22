@@ -75,6 +75,7 @@ layout {
 		content {
 			.foot {
 				max-height: 37px;
+				border-top-color: lighten(@layout_outline, 7%);
 			}
 		}
 	}
@@ -87,7 +88,7 @@ layout {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		z-index: 999;
+		z-index: 102;
 	}
 
 	.nowrap {
@@ -199,22 +200,31 @@ layout {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 99;
+	z-index: 110;
 
 	> div {
+		visibility: hidden;
+		opacity: 0;
 		background: rgba(240,240,240,.85);
 		backdrop-filter: blur(21px);
 		position: absolute;
-		top: 149px;
-		left: 905px;
 		width: 258px;
-		// height: 240px;
-		padding: 12px 13px 9px;
+		padding: 12px 13px 10px;
 		border-radius: 13px;
+		transform-origin: 50% 0;
 		box-shadow: 0 0 0 1px rgba(0,0,0,.1),
 					0 19px 31px 3px rgba(0,0,0,.14),
 					0 7px 37px 8px rgba(0,0,0,.12),
 					0 9px 13px -5px rgba(0,0,0,.2);
+
+		&.pop {
+			visibility: visible;
+			animation: popup-bubble 120ms linear forwards;
+		}
+
+		&.pop-hide {
+			animation: popup-hide 120ms linear forwards;
+		}
 
 		&:before {
 			content: "";
@@ -424,7 +434,7 @@ content {
 		display: flex;
 		height: 36px;
 		// bottom: -37px;
-		border-top: 1px solid lighten(@layout_outline, 7%);
+		border-top: 1px solid transparent;
 		transition: max-height 150ms ease-in-out;
 		max-height: 0;
 		//--color-1: #333;
@@ -1309,5 +1319,16 @@ table.sheet {
 		padding-left: 0;
 		padding-right: 0;
 	}
+}
+
+@keyframes popup-bubble {
+	0%   { transform: scale(.25); opacity: 0; }
+	91%  { transform: scale(1.1); opacity: 1; }
+	100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes popup-hide {
+	0%   { transform: scale(1); opacity: 1; }
+	100% { transform: scale(.25); opacity: 0; }
 }
 
