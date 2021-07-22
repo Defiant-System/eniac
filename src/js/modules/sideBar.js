@@ -37,6 +37,13 @@
 				pEl.find(".sidebar-body.active").removeClass("active");
 				pEl.find(".sidebar-body").get(el.index()).addClass("active");
 				break;
+			case "set-table-outline-color":
+			case "set-alternating-row-color":
+			case "cell-fill-color":
+			case "cell-border-color":
+			case "set-text-color":
+				console.log(event);
+				break;
 			case "set-sheet-bgcolor":
 				Self.els.layout.find(".body").css({ "background-color": event.value });
 				break;
