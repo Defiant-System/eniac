@@ -14,7 +14,10 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar,
+			record,
 			table,
+			value,
+			name,
 			isOn,
 			pEl,
 			el;
@@ -45,6 +48,22 @@
 				table = event.table || Parser.table;
 				Self.els.el.find(`input[name="table-rows-num"]`).val(event.table.find("tr").length);
 				Self.els.el.find(`input[name="table-cols-num"]`).val(event.table.find("tr:first td").length);
+				break;
+			case "set-gridlines":
+				el = $(event.target);
+				value = el.hasClass("active_");
+				table = Parser.table;
+				record = {
+					"h-gridlines": "hide-hg-lines",
+					"v-gridlines": "hide-vg-lines",
+					"hg-header":   "hide-hgh-lines",
+					"vg-body":     "hide-vgb-lines",
+					"vg-footer":   "hide-vgf-lines",
+				};
+
+				// toggle button and table UI
+				el[ value ? "removeClass" : "addClass" ]("active_");
+				table[ value ? "addClass" : "removeClass" ]( record[el.data("name")] );
 				break;
 			case "set-table-outline-color":
 			case "set-alternating-row-color":
