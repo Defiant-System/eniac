@@ -703,6 +703,10 @@ sidebar {
 						width: 47%;
 						margin-top: 3px;
 					}
+
+					label[for="alternate-row-color"] {
+						top: 1px;
+					}
 				}
 			}
 
@@ -928,6 +932,10 @@ table.sheet {
 	sub {
 		font-size: smaller;
 		vertical-align: sub;
+	}
+
+	&.alternate-row-bg tr:nth-child(even) {
+		background: var(--alt-row-bg);
 	}
 
 	&.hide-hg-lines {

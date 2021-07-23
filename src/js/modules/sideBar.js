@@ -50,15 +50,26 @@
 			case "populate-values":
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
+				Self.dispatch({ ...event, type: "update-alt-row-bg" });
 				break;
 			case "update-table-row-col":
 				table = event.table || Parser.table;
 				Self.els.el.find(`input[name="table-rows-num"]`).val(event.table.find("tr").length);
 				Self.els.el.find(`input[name="table-cols-num"]`).val(event.table.find("tr:first td").length);
 				break;
+			case "update-alt-row-bg":
+				table = event.table || Parser.table;
+				// checkbox
+				value = table.hasClass("alternate-row-bg");
+				Self.els.el.find(`input#alternate-row-color`).prop({ checked: value });
+				// color preset
+				Self.els.el
+					.find(`.color-preset_[data-change="set-alternating-row-color"]`)
+					.css({ "--preset-color": table.css("--alt-row-bg") || "transparent" });
+				break;
 			case "update-gridlines":
 				table = event.table || Parser.table;
-
+				// iterate hash record
 				for (let key in Self.glHash) {
 					let hash = Self.glHash[key],
 						method = table.hasClass(hash) ? "removeClass" : "addClass";
@@ -72,6 +83,10 @@
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
 				table[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
+				break;
+			case "set-alt-row-bg":
+				value = event.el.is(":checked");
+				Parser.table[ value ? "addClass" : "removeClass" ]("alternate-row-bg");
 				break;
 			case "set-table-outline-color":
 			case "set-alternating-row-color":

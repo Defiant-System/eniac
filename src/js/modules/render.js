@@ -21,6 +21,10 @@ const Render = {
 			let table = this.els.body.append(html);
 			// temp
 			// table.addClass("hide-hg-lines hide-vg-lines");
+			
+			// table.addClass("alternate-row-bg");
+			// table.css({ "--alt-row-bg": "#ff9900" });
+			
 
 			// auto focus on first cell
 			let anchor = this.els.body.find("td").get(0);
