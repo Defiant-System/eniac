@@ -14,6 +14,7 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar,
+			table,
 			isOn,
 			pEl,
 			el;
@@ -36,6 +37,14 @@
 				pEl = event.el.parent();
 				pEl.find(".sidebar-body.active").removeClass("active");
 				pEl.find(".sidebar-body").get(el.index()).addClass("active");
+				break;
+			case "populate-values":
+				Self.dispatch({ ...event, type: "populate-table-row-col" });
+				break;
+			case "populate-table-row-col":
+				table = event.table || Parser.table;
+				Self.els.el.find(`input[name="table-rows-num"]`).val(event.table.find("tr").length);
+				Self.els.el.find(`input[name="table-cols-num"]`).val(event.table.find("tr:first td").length);
 				break;
 			case "set-table-outline-color":
 			case "set-alternating-row-color":

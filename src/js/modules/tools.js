@@ -275,6 +275,8 @@
 							Self.dispatch({ type: "remove-last-row", table: tbody.parent() });
 						}
 						Drag.add.y = add.y;
+						// updates sidebar values
+						APP.sidebar.dispatch({ type: "populate-table-row-col", table: Drag.table });
 					},
 					syncCols: (Drag, add) => {
 						if (add.x > Drag.add.x) {
@@ -289,6 +291,8 @@
 							Self.dispatch({ type: "remove-last-column", table: tbody.parent() });
 						}
 						Drag.add.x = add.x;
+						// updates sidebar values
+						APP.sidebar.dispatch({ type: "populate-table-row-col", table: Drag.table });
 					},
 				};
 				// bind event
