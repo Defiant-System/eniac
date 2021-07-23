@@ -11,10 +11,16 @@
 		// temp
 		// window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`).trigger("click");
 	},
+	glHash: {
+		"h-gridlines": "hide-hg-lines",
+		"v-gridlines": "hide-vg-lines",
+		"hg-header":   "hide-hgh-lines",
+		"vg-body":     "hide-vgb-lines",
+		"vg-footer":   "hide-vgf-lines",
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar,
-			record,
 			table,
 			value,
 			name,
@@ -42,28 +48,30 @@
 				pEl.find(".sidebar-body").get(el.index()).addClass("active");
 				break;
 			case "populate-values":
-				Self.dispatch({ ...event, type: "populate-table-row-col" });
+				Self.dispatch({ ...event, type: "update-table-row-col" });
+				Self.dispatch({ ...event, type: "update-gridlines" });
 				break;
-			case "populate-table-row-col":
+			case "update-table-row-col":
 				table = event.table || Parser.table;
 				Self.els.el.find(`input[name="table-rows-num"]`).val(event.table.find("tr").length);
 				Self.els.el.find(`input[name="table-cols-num"]`).val(event.table.find("tr:first td").length);
+				break;
+			case "update-gridlines":
+				table = event.table || Parser.table;
+
+				for (let key in Self.glHash) {
+					let hash = Self.glHash[key],
+						method = table.hasClass(hash) ? "removeClass" : "addClass";
+					Self.els.el.find(`span[data-name="${key}"]`)[method]("active_");
+				}
 				break;
 			case "set-gridlines":
 				el = $(event.target);
 				value = el.hasClass("active_");
 				table = Parser.table;
-				record = {
-					"h-gridlines": "hide-hg-lines",
-					"v-gridlines": "hide-vg-lines",
-					"hg-header":   "hide-hgh-lines",
-					"vg-body":     "hide-vgb-lines",
-					"vg-footer":   "hide-vgf-lines",
-				};
-
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
-				table[ value ? "addClass" : "removeClass" ]( record[el.data("name")] );
+				table[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
 				break;
 			case "set-table-outline-color":
 			case "set-alternating-row-color":

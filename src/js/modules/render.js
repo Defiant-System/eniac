@@ -18,7 +18,9 @@ const Render = {
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
-			this.els.body.append(html);
+			let table = this.els.body.append(html);
+			// temp
+			// table.addClass("hide-hg-lines hide-vg-lines");
 
 			// auto focus on first cell
 			let anchor = this.els.body.find("td").get(0);

@@ -276,7 +276,7 @@
 						}
 						Drag.add.y = add.y;
 						// updates sidebar values
-						APP.sidebar.dispatch({ type: "populate-table-row-col", table: Drag.table });
+						APP.sidebar.dispatch({ type: "update-table-row-col", table: Drag.table });
 					},
 					syncCols: (Drag, add) => {
 						if (add.x > Drag.add.x) {
@@ -292,7 +292,7 @@
 						}
 						Drag.add.x = add.x;
 						// updates sidebar values
-						APP.sidebar.dispatch({ type: "populate-table-row-col", table: Drag.table });
+						APP.sidebar.dispatch({ type: "update-table-row-col", table: Drag.table });
 					},
 				};
 				// bind event
