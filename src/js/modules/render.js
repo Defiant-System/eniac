@@ -16,15 +16,21 @@ const Render = {
 			// append new sheet
 			html = html.replace(/<table>/, `<table class="sheet">`);
 
-			html = html.replace(/<table class="sheet">/, `<table class="sheet">
-															<caption class="title">Table title</caption>
-															<caption>Table Caption</caption>`);
+			// html = html.replace(/<table class="sheet">/, `<table class="sheet">
+			// 												<caption class="title">Table title</caption>
+			// 												<caption>Table Caption</caption>`);
 
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
 			let table = this.els.body.append(html);
 			// temp
+			table.find("td").get(22).html("123");
+			table.find("td").get(3).html("123");
+
+			// let dim = Parser.tableAbsDim(table);
+			// console.log( dim );
+
 			// table.addClass("hide-hg-lines hide-vg-lines");
 			
 			// table.addClass("alternate-row-bg");

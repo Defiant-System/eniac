@@ -11,6 +11,7 @@ class File {
 			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
 		} else {
 			html = window.render({ template: "empty-table-1" });
+			html = html.replace(/\t|\n/g, "");
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);

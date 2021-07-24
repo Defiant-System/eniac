@@ -10,7 +10,7 @@
 			doc: $(document),
 			layout: window.find("layout"),
 			move: root.find(".tool.move"),
-			resizes: root.find(".tool.resize, .tool.v-resize, .tool.h-resize"),
+			resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
 			cols: root.find(".table-cols"),
 			rows: root.find(".table-rows"),
 		};
@@ -241,8 +241,10 @@
 				width = table.prop("offsetWidth");
 				height = table.prop("offsetHeight");
 
-				let tbody = table.find("tbody"),
-					row = tbody.find("tr:last").clone(true);
+				let rType = event.target.className.split(" ")[1].split("-")[0],
+					tbody = table.find("tbody"),
+					row = tbody.find("tr:last").clone(true),
+					dim = Parser.tableAbsDim(table);
 				// empty cells of cloned row
 				row.find("td").html("");
 				// clone and reset cell node
@@ -256,12 +258,17 @@
 					tbody,
 					row,
 					cell,
+					vResize: rType.includes("v"),
+					hResize: rType.includes("h"),
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: { width, height },
-					min: { y: height, x: width },
 					add: { y: 0, x: 0 },
 					snap: { x: 90, y: 25 },
+					min: {
+						height: dim.rows.height,
+						width: dim.cols.width,
+					},
 					syncRows: (Drag, add) => {
 						if (add.y > Drag.add.y) {
 							// add rows
@@ -299,18 +306,18 @@
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
-				height = Math.max(event.clientY - Drag.clickY + Drag.offset.height, Drag.min.y);
-				width = Math.max(event.clientX - Drag.clickX + Drag.offset.width, Drag.min.x);
+				height = Math.max(event.clientY - Drag.clickY + Drag.offset.height, Drag.min.height);
+				width = Math.max(event.clientX - Drag.clickX + Drag.offset.width, Drag.min.width);
 
 				// calculate how much to add to table
 				add = {
-					y: Math.floor((height - Drag.min.y) / Drag.snap.y),
-					x: Math.floor((width - Drag.min.x) / Drag.snap.x),
+					y: Math.floor((height - Drag.min.height) / Drag.snap.y),
+					x: Math.floor((width - Drag.min.width) / Drag.snap.x),
 				}
 				// this prevents unnecessary DOM manipulation
-				if (add.y !== Drag.add.y) Drag.syncRows(Drag, add);
+				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
 				// this prevents unnecessary DOM manipulation
-				if (add.x !== Drag.add.x) Drag.syncCols(Drag, add);
+				if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(Drag, add);
 				break;
 			case "mouseup":
 				// uncover layout
