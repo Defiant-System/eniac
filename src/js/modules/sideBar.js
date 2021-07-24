@@ -88,8 +88,10 @@
 				value = event.el.is(":checked");
 				Parser.table[ value ? "addClass" : "removeClass" ]("alternate-row-bg");
 				break;
+			case "set-alt-row-color":
+				Parser.table.css({ "--alt-row-bg": event.value });
+				break;
 			case "set-table-outline-color":
-			case "set-alternating-row-color":
 			case "cell-fill-color":
 			case "cell-border-color":
 			case "set-text-color":

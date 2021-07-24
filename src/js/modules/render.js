@@ -15,6 +15,11 @@ const Render = {
 		if (html) {
 			// append new sheet
 			html = html.replace(/<table>/, `<table class="sheet">`);
+
+			html = html.replace(/<table class="sheet">/, `<table class="sheet">
+															<caption class="title">Table title</caption>
+															<caption>Table Caption</caption>`);
+
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
@@ -24,7 +29,7 @@ const Render = {
 			
 			// table.addClass("alternate-row-bg");
 			// table.css({ "--alt-row-bg": "#ff9900" });
-			
+
 
 			// auto focus on first cell
 			let anchor = this.els.body.find("td").get(0);

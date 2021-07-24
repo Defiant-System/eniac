@@ -887,6 +887,24 @@ table.sheet {
 		width: 40px;
 	}
 
+	caption {
+		// background: #eee;
+		padding: 3px 0;
+		border: 1px solid #39f;
+
+		&:not(.title) {
+			caption-side: bottom;
+			margin: 5px 0 0;
+			font-size: 15px;
+		}
+
+		&.title {
+			margin: 0 0 3px;
+			font-size: 18px;
+			font-weight: 500;
+		}
+	}
+
 	tr:last-child td { border-bottom: 0; }
 
 	th,
