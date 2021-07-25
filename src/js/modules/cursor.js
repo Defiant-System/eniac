@@ -261,7 +261,7 @@ const Cursor = {
 				// pre-mousemove info
 				let table = cell.parents("table:first"),
 					tblTop = table.prop("offsetTop"),
-					top = cell.prop("offsetTop") + tblTop,
+					top = cell.prop("offsetTop"),
 					left = cell.prop("offsetLeft"),
 					width = cell[0].getBoundingClientRect().width,
 					height = cell.prop("offsetHeight"),
@@ -345,7 +345,7 @@ const Cursor = {
 
 				// resize selection box
 				Drag.el.css({
-					top: top - 2,
+					top: top + Drag.tblTop - 2,
 					left: left - 2,
 					height: height + 5,
 					width: width + 5
