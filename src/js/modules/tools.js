@@ -244,7 +244,9 @@
 				let rType = event.target.className.split(" ")[1].split("-")[0],
 					tbody = table.find("tbody"),
 					row = tbody.find("tr:last").clone(true),
-					dim = Parser.tableAbsDim(table);
+					dim = Parser.tableAbsDim(table),
+					minRow = tbody.find("tr").get(dim.row),
+					minCol = minRow.find("td").get(dim.col);
 				// empty cells of cloned row
 				row.find("td").html("");
 				// clone and reset cell node
@@ -266,8 +268,8 @@
 					add: { y: 0, x: 0 },
 					snap: { x: 90, y: 25 },
 					min: {
-						height: dim.rows.height,
-						width: dim.cols.width,
+						height: minRow.prop("offsetTop"),
+						width: minCol.prop("offsetLeft"),
 					},
 					syncRows: (Drag, add) => {
 						if (add.y > Drag.add.y) {

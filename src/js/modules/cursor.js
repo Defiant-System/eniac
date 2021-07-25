@@ -157,7 +157,7 @@ const Cursor = {
 			case "focus-cell":
 				// anchor cell
 				anchor = $(event.anchor);
-				table = anchor.parents("table.sheet");
+				table = anchor.parents(".sheet table");
 				if (anchor.prop("nodeName") !== "TD") anchor = anchor.parents("td");
 
 				if (event.shift) {

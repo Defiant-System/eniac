@@ -19,21 +19,19 @@ const Parser = {
 		delete this.colNum;
 	},
 	tableAbsDim(table) {
-		let rows = { n: 0, height: 0},
-			cols = { n: 0, width: 0};
+		let row = 0,
+			col = 0;
 		table.find("tr").map((tr, y) => {
 			let s = false;
 			tr.childNodes.map((td, x) => {
 				s = !!td.innerHTML;
 				if (s) {
-					rows.n = Math.max(rows.n, y);
-					rows.height = Math.max(rows.height, tr.offsetTop);
-					cols.n = Math.max(cols.n, x);
-					cols.width = Math.max(cols.width, td.offsetLeft);
+					row = Math.max(row, y);
+					col = Math.max(col, x);
 				}
 			});
 		});
-		return { rows, cols };
+		return { row, col };
 	},
 	parse(num) {
 		let expression = this.cells.get(num).data("formula"),

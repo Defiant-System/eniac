@@ -76,6 +76,28 @@
 					Self.els.el.find(`span[data-name="${key}"]`)[method]("active_");
 				}
 				break;
+			case "toggle-table-title":
+				if (event.el.is(":checked")) {
+					Parser.table.addClass("show-table-title");
+					// add title element
+					Parser.table.parent().prepend(`<div class="table-title">Title</div>`);
+				} else {
+					Parser.table.removeClass("show-table-title");
+					// remove title element
+					Parser.table.parent().find(".table-title").remove();
+				}
+				break;
+			case "toggle-table-caption":
+				if (event.el.is(":checked")) {
+					Parser.table.addClass("show-table-caption");
+					// add caption element
+					Parser.table.parent().append(`<div class="table-caption">Caption</div>`);
+				} else {
+					Parser.table.removeClass("show-table-caption");
+					// remove caption element
+					Parser.table.parent().find(".table-caption").remove();
+				}
+				break;
 			case "set-gridlines":
 				el = $(event.target);
 				value = el.hasClass("active_");

@@ -14,7 +14,8 @@ const Render = {
 
 		if (html) {
 			// append new sheet
-			html = html.replace(/<table>/, `<table class="sheet">`);
+			html = `<div class="sheet">${html}</div>`;
+			// html = html.replace(/<table>/, `<table class="sheet">`);
 
 			// html = html.replace(/<table class="sheet">/, `<table class="sheet">
 			// 												<caption class="title">Table title</caption>
@@ -23,10 +24,10 @@ const Render = {
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
-			let table = this.els.body.append(html);
+			let table = this.els.body.append(html).find("table:first");
 			// temp
-			table.find("td").get(22).html("123");
-			table.find("td").get(3).html("123");
+			// table.find("td").get(22).html("123");
+			// table.find("td").get(3).html("123");
 
 			// let dim = Parser.tableAbsDim(table);
 			// console.log( dim );
@@ -64,13 +65,13 @@ const Render = {
 		let sheet = this.book.Sheets[name],
 			{ html, css } = XLSX.utils.sheet_to_html_css(sheet, this.book);
 		
-		html = html.replace(/<table>/, `<table class="sheet">`);
-		html = html.replace(/(\d{1,})pt;/g, `$1px;`);
+		// html = html.replace(/<table>/, `<table class="sheet">`);
+		// html = html.replace(/(\d{1,})pt;/g, `$1px;`);
 
 		html += `<style>${css}</style>`;
 
 		// remove existing sheet
-		this.els.body.find("table.sheet").remove();
+		this.els.body.find(".sheet").remove();
 		// append new sheet
 		this.els.body.append(html);
 		// hide tools
