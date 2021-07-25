@@ -6,6 +6,7 @@ const Parser = {
 		this.cells = table.find("td");
 		this.rowNum = table.find("tr").length;
 		this.colNum = this.cells.length / this.rowNum;
+		this.tblWrapper = table.parent();
 
 		eniac.sidebar.dispatch({ type: "populate-values", table });
 	},

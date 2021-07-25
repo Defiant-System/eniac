@@ -54,13 +54,14 @@
 				break;
 			case "update-table-row-col":
 				table = event.table || Parser.table;
-				Self.els.el.find(`input[name="table-rows-num"]`).val(event.table.find("tr").length);
-				Self.els.el.find(`input[name="table-cols-num"]`).val(event.table.find("tr:first td").length);
+				Self.els.el.find(`input[name="table-rows-num"]`).val(table.find("tr").length);
+				Self.els.el.find(`input[name="table-cols-num"]`).val(table.find("tr:first td").length);
 				break;
 			case "update-alt-row-bg":
 				table = event.table || Parser.table;
+				pEl = table.parent();
 				// checkbox
-				value = table.hasClass("alternate-row-bg");
+				value = pEl.hasClass("alternate-row-bg");
 				Self.els.el.find(`input#alternate-row-color`).prop({ checked: value });
 				// color preset
 				Self.els.el
@@ -69,49 +70,46 @@
 				break;
 			case "update-gridlines":
 				table = event.table || Parser.table;
+				pEl = table.parent();
 				// iterate hash record
 				for (let key in Self.glHash) {
 					let hash = Self.glHash[key],
-						method = table.hasClass(hash) ? "removeClass" : "addClass";
+						method = pEl.hasClass(hash) ? "removeClass" : "addClass";
 					Self.els.el.find(`span[data-name="${key}"]`)[method]("active_");
 				}
 				break;
 			case "toggle-table-title":
 				if (event.el.is(":checked")) {
-					Parser.table.addClass("show-table-title");
 					// add title element
-					Parser.table.parent().prepend(`<div class="table-title">Title</div>`);
+					Parser.tblWrapper.prepend(`<div class="table-title">Title</div>`);
 				} else {
-					Parser.table.removeClass("show-table-title");
 					// remove title element
-					Parser.table.parent().find(".table-title").remove();
+					Parser.tblWrapper.find(".table-title").remove();
 				}
 				break;
 			case "toggle-table-caption":
 				if (event.el.is(":checked")) {
-					Parser.table.addClass("show-table-caption");
 					// add caption element
-					Parser.table.parent().append(`<div class="table-caption">Caption</div>`);
+					Parser.tblWrapper.append(`<div class="table-caption">Caption</div>`);
 				} else {
-					Parser.table.removeClass("show-table-caption");
 					// remove caption element
-					Parser.table.parent().find(".table-caption").remove();
+					Parser.tblWrapper.find(".table-caption").remove();
 				}
 				break;
 			case "set-gridlines":
 				el = $(event.target);
 				value = el.hasClass("active_");
-				table = Parser.table;
+				pEl = Parser.tblWrapper;
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
-				table[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
+				pEl[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
 				break;
 			case "set-alt-row-bg":
 				value = event.el.is(":checked");
-				Parser.table[ value ? "addClass" : "removeClass" ]("alternate-row-bg");
+				Parser.tblWrapper[ value ? "addClass" : "removeClass" ]("alternate-row-bg");
 				break;
 			case "set-alt-row-color":
-				Parser.table.css({ "--alt-row-bg": event.value });
+				Parser.tblWrapper.css({ "--alt-row-bg": event.value });
 				break;
 			case "set-table-outline-color":
 			case "cell-fill-color":
