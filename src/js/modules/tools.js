@@ -96,7 +96,7 @@
 				Self.els.cols.find(".active").removeClass("active");
 				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));
 				Self.els.rows.find(".active").removeClass("active");
-				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
+				rows.map(i => Self.els.rows.find("tr").get(i + (event.tblTitle ? 1 : 0)).addClass("active"));
 
 				// UI change on sheet table
 				Parser.table.find(".selected, .anchor").removeClass("selected anchor");

@@ -288,6 +288,7 @@ const Cursor = {
 				Self.drag = {
 					el,
 					tblTop,
+					tblTitle: table.prevAll(".table-title").length ? 1 : 0,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					target: cell,
@@ -356,7 +357,7 @@ const Cursor = {
 					// prevents unnecessary DOM manipulation
 					Drag.selection = selection;
 					// make tool columns + rows active
-					APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+					APP.tools.dispatch({ type: "select-coords", yNum, xNum, tblTitle: Drag.tblTitle });
 					// cell to footer row
 					APP.foot.dispatch({ type: "render-cells" });
 					// UI indicate anchor cell
