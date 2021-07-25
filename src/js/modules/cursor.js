@@ -120,7 +120,7 @@ const Cursor = {
 					top = tblTop + anchorStart.offsetTop - 2,
 					left = anchorStart.offsetLeft - 2,
 					width = anchorEnd.offsetLeft + anchorEnd.getBoundingClientRect().width - left + 3,
-					height = tblTop + anchorEnd.offsetTop + anchorEnd.offsetHeight - top + 3;
+					height = anchorEnd.offsetTop + anchorEnd.offsetHeight + tblTop - top + 3;
 					// ui resize selection box
 					Self.els.root.css({ top, left, width, height, });
 				} break;

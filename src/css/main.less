@@ -1223,7 +1223,13 @@ table {
 						0 1px 3px rgba(0,0,0,0.15);
 
 			tr {
-				counter-increment: row-counter;
+				&.tblTtl td:before {
+					content: "";
+				}
+
+				&:not(.tblTtl) {
+					counter-increment: row-counter;
+				}
 
 				&:first-child td {
 					border-radius: 4px 4px 0 0;

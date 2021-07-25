@@ -86,7 +86,10 @@
 					// remove title element
 					Parser.tblWrapper.find(".table-title").remove();
 				}
+				// sync cursor
 				Cursor.dispatch({ type: "selection-box" });
+				// sync tools table
+				APP.tools.dispatch({ type: "sync-sheet-table" });
 				break;
 			case "toggle-table-caption":
 				if (event.el.is(":checked")) {

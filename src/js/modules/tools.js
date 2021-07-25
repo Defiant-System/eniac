@@ -30,26 +30,29 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
+			table,
 			rows,
 			cols,
+			width,
+			height,
 			str,
 			el;
 		switch (event.type) {
 			// custom events
 			case "sync-tools-ui":
-				Self.els.root.css({
-					width: event.table[0].offsetWidth,
-					height: event.table[0].offsetHeight,
-				});
+				table = event.table || Parser.table;
+				width = table.prop("offsetWidth");
+				height = table.prop("offsetTop") + table.prop("offsetHeight");
+				Self.els.root.css({ width, height });
 				break;
 			case "sync-sheet-table":
-				if (event.table.isSame(Self.table)) return;
-				Self.table = event.table;
+				if (event.table && event.table.isSame(Self.table)) return;
+				Self.table = event.table || Parser.table;
 
 				Self.dispatch({ ...event, type: "sync-tools-ui" });
 
 				// tools columns
-				cols = event.table.find("tr:nth(0) td");
+				cols = Self.table.find("tr:nth(0) td");
 				str = cols.map(col => {
 						let rect = col.getBoundingClientRect();
 						return `<col width="${Math.round(rect.width)}"/>`;
@@ -58,9 +61,16 @@
 				Self.els.cols.html(str);
 
 				// tools rows
-				str = event.table.find("tr").map(row =>
-					`<tr style="height: ${row.offsetHeight}px;"><td><s></s></td></tr>`).join("");
-				Self.els.rows.html(str);
+				str = Self.table.find("tr").map(row =>
+					`<tr style="height: ${row.offsetHeight}px;"><td><s></s></td></tr>`);
+				
+				let tblTitle = Self.table.parent().find(".table-title:first");
+				if (tblTitle.length) {
+					let ttlHeight = tblTitle.prop("offsetHeight") + 3;
+					str.unshift(`<tr class="tblTtl" style="height: ${ttlHeight}px;"><td></td></tr>`);
+				}
+				
+				Self.els.rows.html(str.join(""));
 				break;
 			case "append-row":
 				Self.els.rows.find("tbody").append(Self.templ.trEl.clone(true));
