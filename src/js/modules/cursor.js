@@ -259,12 +259,13 @@ const Cursor = {
 					cell = Cursor.active.cell;
 				}
 				// pre-mousemove info
-				let top = cell.prop("offsetTop"),
+				let table = cell.parents("table:first"),
+					tblTop = table.prop("offsetTop"),
+					top = cell.prop("offsetTop") + tblTop,
 					left = cell.prop("offsetLeft"),
 					width = cell[0].getBoundingClientRect().width,
 					height = cell.prop("offsetHeight"),
 					row = cell.parent(),
-					table = row.parents("table:first"),
 					cells = table.find("tr:nth(2) td").map((td, index) => {
 						return {
 							index,
@@ -286,6 +287,7 @@ const Cursor = {
 				// create drag object
 				Self.drag = {
 					el,
+					tblTop,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					target: cell,
