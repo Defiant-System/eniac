@@ -74,6 +74,13 @@ const eniac = {
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
 			case "blur-table":
+				el = $(event.target);
+				if (el.hasClass("table-title")) {
+					return Cursor.dispatch({ type: "focus-table-title", el });
+				}
+				if (el.hasClass("table-caption")) {
+					return Cursor.dispatch({ type: "focus-table-caption", el });
+				}
 				return Cursor.dispatch({ type: "blur-table" });
 			// forwards events
 			default:

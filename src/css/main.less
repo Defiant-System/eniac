@@ -520,6 +520,7 @@ sidebar {
 	transition: right @sidebar_speed * 0.75;
 
 	&.show-sheet .container .sidebar-sheet { display: flex; }
+	&.show-title .container .sidebar-title { display: flex; }
 	&.show-table .container .sidebar-table { display: flex; }
 	&.show-chart .container .sidebar-chart { display: flex; }
 	&.show-empty .container .sidebar-empty { display: flex; }
@@ -891,9 +892,10 @@ table {
 		margin: 0 0 3px;
 		font-size: 18px;
 		font-weight: 500;
+		border: 1px solid transparent;
 
 		&.active {
-			border: 1px solid #39f;
+			border-color: #39f;
 		}
 	}
 
@@ -904,9 +906,10 @@ table {
 		caption-side: bottom;
 		margin: 5px 0 0;
 		font-size: 15px;
+		border: 1px solid transparent;
 
 		&.active {
-			border: 1px solid #39f;
+			border-color: #39f;
 		}
 	}
 

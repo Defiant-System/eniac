@@ -186,18 +186,31 @@ const Cursor = {
 				// reset reference to cell
 				Self.anchor = false;
 				break;
+			case "blur-title":
+				// reset table title element
+				Self.els.layout.find(".table-title.active").removeClass("active");
+				break;
+			case "blur-caption":
+				// reset table caption element
+				Self.els.layout.find(".table-caption.active").removeClass("active");
+				break;
 			case "focus-table":
 				if (event.table.isSame(Parser.table)) return;
 				// set table for parser
 				Parser.setTable(event.table);
+				// reset title & caption elements
+				Self.dispatch({ type: "blur-title" });
+				Self.dispatch({ type: "blur-caption" });
 				// show tools for table
 				Self.els.tools.removeClass("hidden");
 				// update sidebar
 				APP.sidebar.dispatch({ type: "show-table" });
 				break;
 			case "blur-table":
-				// auto blur active cell
+				// auto blur elements
 				Self.dispatch({ type: "blur-cell" });
+				Self.dispatch({ type: "blur-title" });
+				Self.dispatch({ type: "blur-caption" });
 				// reset parser
 				Parser.reset();
 				// hide tools
@@ -206,6 +219,26 @@ const Cursor = {
 				APP.sidebar.dispatch({ type: "show-sheet" });
 				// hide footer
 				APP.foot.dispatch({ type: "hide" });
+				break;
+			case "focus-table-title":
+				// focus title element
+				event.el.addClass("active");
+				// reset parser
+				Parser.reset();
+				// hide tools
+				Self.els.tools.addClass("hidden");
+				// update sidebar
+				APP.sidebar.dispatch({ type: "show-title" });
+				break;
+			case "focus-table-caption":
+				// focus caption element
+				event.el.addClass("active");
+				// reset parser
+				Parser.reset();
+				// hide tools
+				Self.els.tools.addClass("hidden");
+				// update sidebar
+				APP.sidebar.dispatch({ type: "show-caption" });
 				break;
 			case "select-column":
 				let first = event.cols[0] ,
