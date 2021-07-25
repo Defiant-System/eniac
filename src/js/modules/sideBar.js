@@ -86,6 +86,7 @@
 					// remove title element
 					Parser.tblWrapper.find(".table-title").remove();
 				}
+				Cursor.dispatch({ type: "selection-box" });
 				break;
 			case "toggle-table-caption":
 				if (event.el.is(":checked")) {

@@ -114,12 +114,13 @@ const Cursor = {
 				break;
 			case "selection-box": {
 				let cells = Parser.table.find("td.selected"),
+					tblTop = Parser.table.prop("offsetTop"),
 					anchorStart = cells[0],
 					anchorEnd = cells[cells.length-1],
-					top = anchorStart.offsetTop - 2,
+					top = tblTop + anchorStart.offsetTop - 2,
 					left = anchorStart.offsetLeft - 2,
 					width = anchorEnd.offsetLeft + anchorEnd.getBoundingClientRect().width - left + 3,
-					height = anchorEnd.offsetTop + anchorEnd.offsetHeight - top + 3;
+					height = tblTop + anchorEnd.offsetTop + anchorEnd.offsetHeight - top + 3;
 					// ui resize selection box
 					Self.els.root.css({ top, left, width, height, });
 				} break;
@@ -221,8 +222,12 @@ const Cursor = {
 				break;
 			case "select-row":
 			case "select-cell":
-				anchor = event.anchor.length ? event.anchor[0] : event.anchor;
-				top = anchor.offsetTop - 2;
+				anchor = event.anchor;
+				if (event.anchor.length) {
+					table = event.anchor.parents("table:first")[0];
+					anchor = event.anchor[0];
+				}
+				top = table.offsetTop + anchor.offsetTop - 2;
 				left = anchor.offsetLeft - 2;
 				height = anchor.offsetHeight + 5;
 				width = anchor.getBoundingClientRect().width + 5;
