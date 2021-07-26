@@ -69,8 +69,16 @@
 					let ttlHeight = tblTitle.prop("offsetHeight") + 3;
 					str.unshift(`<tr class="tblTtl" style="height: ${ttlHeight}px;"><td></td></tr>`);
 				}
-				
 				Self.els.rows.html(str.join(""));
+
+				// active rows/columns
+				if (event.updateCoords) {
+					Self.dispatch({
+						type: "select-coords",
+						tblTitle: !!Self.table.parent().find(".table-title:first").length,
+						...Self.selected,
+					});
+				}
 				break;
 			case "append-row":
 				Self.els.rows.find("tbody").append(Self.templ.trEl.clone(true));
@@ -92,6 +100,9 @@
 			case "select-coords":
 				cols = event.xNum.length ? event.xNum : [event.xNum];
 				rows = event.yNum.length ? event.yNum : [event.yNum];
+
+				// remember selected coords
+				Self.selected = { xNum: event.xNum, yNum: event.yNum };
 
 				Self.els.cols.find(".active").removeClass("active");
 				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));

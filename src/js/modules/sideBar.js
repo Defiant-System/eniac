@@ -114,7 +114,7 @@
 				// sync cursor
 				Cursor.dispatch({ type: "selection-box" });
 				// sync tools table
-				APP.tools.dispatch({ type: "sync-sheet-table" });
+				APP.tools.dispatch({ type: "sync-sheet-table", updateCoords: true });
 				break;
 			case "toggle-table-caption":
 				if (event.el.is(":checked")) {
