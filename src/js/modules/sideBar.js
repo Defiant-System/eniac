@@ -50,6 +50,7 @@
 				pEl.find(".sidebar-body").get(el.index()).addClass("active");
 				break;
 			case "populate-values":
+				Self.dispatch({ ...event, type: "update-table-style" });
 				Self.dispatch({ ...event, type: "update-table-title-caption" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
@@ -89,6 +90,18 @@
 				Self.els.el.find(`input#table-title`).prop({ checked: value });
 				value = pEl.find(".table-caption").length;
 				Self.els.el.find(`input#table-caption`).prop({ checked: value });
+				break;
+			case "update-table-style":
+				table = event.table || Parser.table;
+				pEl = table.parent();
+				// reset (if any) previous active
+				el = Self.els.el.find(".styles");
+				el.find(".active").removeClass("active")
+				// table style preset
+				pEl.prop("className").split(" ").map(name => {
+					let item = el.find(`span[data-arg="${name}"]`);
+					if (item.length) item.addClass("active");
+				});
 				break;
 			case "toggle-table-title":
 				if (event.el.is(":checked")) {
