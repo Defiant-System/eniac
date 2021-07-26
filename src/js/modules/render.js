@@ -34,8 +34,8 @@ const Render = {
 
 
 			// auto focus on first cell
-			// let anchor = this.els.body.find("td").get(0);
-			// setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
+			let anchor = this.els.body.find("td").get(0);
+			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 			// setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
 		} else {
 			// render sheet names

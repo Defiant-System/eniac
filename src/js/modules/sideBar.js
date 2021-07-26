@@ -50,6 +50,7 @@
 				pEl.find(".sidebar-body").get(el.index()).addClass("active");
 				break;
 			case "populate-values":
+				Self.dispatch({ ...event, type: "update-table-title-caption" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
@@ -79,6 +80,9 @@
 						method = pEl.hasClass(hash) ? "removeClass" : "addClass";
 					Self.els.el.find(`span[data-name="${key}"]`)[method]("active_");
 				}
+				break;
+			case "update-table-title-caption":
+				console.log(event);
 				break;
 			case "toggle-table-title":
 				if (event.el.is(":checked")) {
