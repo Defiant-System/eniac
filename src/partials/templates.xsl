@@ -1,6 +1,55 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template name="empty-table-1">
+<xsl:template name="barebone-table">
+	<div class="sheet">
+		<xsl:call-template name="empty-table" />
+	</div>
+</xsl:template>
+
+<xsl:template name="gray-table-1">
+	<div class="sheet gray-table-1">
+		<div class="table-title">Title</div>
+		<xsl:call-template name="empty-table" />
+	</div>
+</xsl:template>
+
+<xsl:template name="blue-table-1">
+	<div class="sheet blue-table-1">
+		<div class="table-title">Title</div>
+		<xsl:call-template name="empty-table" />
+	</div>
+</xsl:template>
+
+<xsl:template name="green-table-1">
+	<div class="sheet green-table-1">
+		<div class="table-title">Title</div>
+		<xsl:call-template name="empty-table" />
+	</div>
+</xsl:template>
+
+<xsl:template name="blue-table-2">
+	<div class="sheet blue-table-2">
+		<div class="table-title">Title</div>
+		<xsl:call-template name="empty-table" />
+	</div>
+</xsl:template>
+
+<xsl:template name="orange-table-1">
+	<div class="sheet orange-table-1">
+		<div class="table-title">Title</div>
+		<xsl:call-template name="empty-table" />
+	</div>
+</xsl:template>
+
+<xsl:template name="white-table-1">
+	<div class="sheet white-table-1">
+		<div class="table-title">Title</div>
+		<xsl:call-template name="empty-table" />
+	</div>
+</xsl:template>
+
+
+<xsl:template name="empty-table">
 	<table>
 		<tr><td></td><td></td><td></td><td></td><td></td></tr>
 		<tr><td></td><td></td><td></td><td></td><td></td></tr>

@@ -14,12 +14,7 @@ const Render = {
 
 		if (html) {
 			// append new sheet
-			html = `<div class="sheet">${html}</div>`;
 			// html = html.replace(/<table>/, `<table class="sheet">`);
-
-			// html = html.replace(/<table class="sheet">/, `<table class="sheet">
-			// 												<caption class="title">Table title</caption>
-			// 												<caption>Table Caption</caption>`);
 
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
@@ -39,9 +34,9 @@ const Render = {
 
 
 			// auto focus on first cell
-			let anchor = this.els.body.find("td").get(0);
-			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
-			setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
+			// let anchor = this.els.body.find("td").get(0);
+			// setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
+			// setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
 		} else {
 			// render sheet names
 			book.SheetNames.map(name =>
