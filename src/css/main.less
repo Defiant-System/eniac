@@ -919,8 +919,17 @@ table {
 		position: relative;
 		width: 1px;
 		table-layout: fixed;
-		border: 1px solid transparent;
-		box-shadow: 0 0 0 1px @table_border;
+
+		&:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: -1px;
+			bottom: -1px;
+			border: 1px solid @table_border;
+			pointer-events: none;
+		}
 	}
 
 	tr:last-child td { border-bottom: 0; }
