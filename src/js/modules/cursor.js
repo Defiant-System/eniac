@@ -178,7 +178,8 @@ const Cursor = {
 				// make column + row active
 				xNum = anchor.index();
 				yNum = anchor.parent().index();
-				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
+				let tblTitle = table.prevAll(".table-title").length ? 1 : 0;
+				APP.tools.dispatch({ type: "select-coords", yNum, xNum, tblTitle });
 				// UI select element
 				Self.dispatch({ ...event, anchor, type: "select-cell" });
 				break;
