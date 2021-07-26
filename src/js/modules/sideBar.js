@@ -82,7 +82,13 @@
 				}
 				break;
 			case "update-table-title-caption":
-				console.log(event);
+				table = event.table || Parser.table;
+				pEl = table.parent();
+				// checkboxes
+				value = pEl.find(".table-title").length;
+				Self.els.el.find(`input#table-title`).prop({ checked: value });
+				value = pEl.find(".table-caption").length;
+				Self.els.el.find(`input#table-caption`).prop({ checked: value });
 				break;
 			case "toggle-table-title":
 				if (event.el.is(":checked")) {
@@ -105,6 +111,14 @@
 					// remove caption element
 					Parser.tblWrapper.find(".table-caption").remove();
 				}
+				break;
+			case "set-table-style":
+				el = $(event.target);
+				event.el.find(".active").removeClass("active");
+				el.addClass("active");
+				
+				table = event.table || Parser.table;
+				table.parent().prop({ className: `sheet ${el.data("arg")}` });
 				break;
 			case "set-gridlines":
 				el = $(event.target);
