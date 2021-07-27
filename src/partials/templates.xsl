@@ -28,21 +28,21 @@
 </xsl:template>
 
 <xsl:template name="blue-table-2">
-	<div class="sheet blue-table-2">
+	<div class="sheet blue-table-2" data-col-head="1" data-row-head="1" data-col-foot="1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="orange-table-1">
-	<div class="sheet orange-table-1">
+	<div class="sheet orange-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="white-table-1">
-	<div class="sheet white-table-1">
+	<div class="sheet white-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
