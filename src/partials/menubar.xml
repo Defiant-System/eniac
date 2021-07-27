@@ -29,7 +29,6 @@
 			<Menu name="2"/>
 			<Menu name="3"/>
 			<Menu name="4"/>
-			<Menu name="5"/>
 			<Menu type="divider"/>
 			<Menu name="Freeze Header Rows" is-checked="1"/>
 		</Menu>
@@ -39,7 +38,6 @@
 			<Menu name="2"/>
 			<Menu name="3"/>
 			<Menu name="4"/>
-			<Menu name="5"/>
 			<Menu type="divider"/>
 			<Menu name="Freeze Header Columns" is-checked="1"/>
 		</Menu>
@@ -49,7 +47,6 @@
 			<Menu name="2"/>
 			<Menu name="3"/>
 			<Menu name="4"/>
-			<Menu name="5"/>
 			<Menu type="divider"/>
 			<Menu name="Freeze Footer Rows" is-checked="1"/>
 		</Menu>

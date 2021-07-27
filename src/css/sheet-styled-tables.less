@@ -1,24 +1,122 @@
 
 .sheet {
-	&.gray-table-1 table {
-		&:after { border-color: #404040; }
-		
-		tr:first-child td {
-			background-color: #bec0bf;
-			border-bottom-color: #404040;
+
+	&.gray-table-1 {
+		&[data-col-head="1"] {
+			table tr:nth-child(1) td,
+			table tr:nth-child(1) td:nth-child(1) {
+				background-color: #bec0bf;
+				border-bottom-color: #404040;
+				border-right-color: @table_border;
+			}
 		}
 
-		tr:not(:first-child):not(:last-child) td:first-child {
+		&[data-col-head="2"] {
+			table tr:nth-child(1) td,
+			table tr:nth-child(2) td {
+				background-color: #bec0bf;
+				border-right-color: @table_border;
+			}
+
+			table tr:nth-child(2) td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-head="3"] {
+			table tr:nth-child(1) td,
+			table tr:nth-child(2) td,
+			table tr:nth-child(3) td {
+				background-color: #bec0bf;
+				border-right-color: @table_border;
+			}
+
+			table tr:nth-child(3) td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-head="4"] {
+			table tr:nth-child(1) td,
+			table tr:nth-child(2) td,
+			table tr:nth-child(3) td,
+			table tr:nth-child(4) td {
+				background-color: #bec0bf;
+				border-right-color: @table_border;
+			}
+
+			table tr:nth-child(4) td {
+				border-bottom-color: #404040;
+			}
+		}
+
+
+		&[data-col-foot="1"] {
+			table tr:nth-last-child(1) td,
+			table tr:nth-last-child(1) td:nth-child(1) {
+				background-color: #eee;
+				border-right-color: @table_border;
+			}
+
+			table tr:nth-last-child(2) td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-foot="2"] {
+			table tr:nth-last-child(1) td,
+			table tr:nth-last-child(2) td,
+			table tr:nth-last-child(1) td:nth-child(1),
+			table tr:nth-last-child(2) td:nth-child(1) {
+				background-color: #eee;
+				border-right-color: @table_border;
+			}
+
+			table tr:nth-last-child(3) td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-foot="3"] {
+			table tr:nth-last-child(1) td,
+			table tr:nth-last-child(2) td,
+			table tr:nth-last-child(3) td,
+			table tr:nth-last-child(1) td:nth-child(1),
+			table tr:nth-last-child(2) td:nth-child(1),
+			table tr:nth-last-child(3) td:nth-child(1) {
+				background-color: #eee;
+				border-right-color: @table_border;
+			}
+
+			table tr:nth-last-child(4) td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-foot="4"] {
+			table tr:nth-last-child(1) td,
+			table tr:nth-last-child(2) td,
+			table tr:nth-last-child(3) td,
+			table tr:nth-last-child(4) td,
+			table tr:nth-last-child(1) td:nth-child(1),
+			table tr:nth-last-child(2) td:nth-child(1),
+			table tr:nth-last-child(3) td:nth-child(1),
+			table tr:nth-last-child(4) td:nth-child(1) {
+				background-color: #eee;
+				border-right-color: @table_border;
+			}
+
+			table tr:nth-last-child(5) td {
+				border-bottom-color: #404040;
+			}
+		}
+
+
+		table:after { border-color: #404040; }
+
+		table tr td:nth-child(1) {
 			background-color: #dcdcdc;
 			border-right-color: #404040;
-		}
-
-		tr:nth-last-child(2) td {
-			border-bottom-color: #404040;
-		}
-
-		tr:last-child td {
-			background-color: #eee;
 		}
 	}
 

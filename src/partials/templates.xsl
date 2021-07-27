@@ -7,7 +7,7 @@
 </xsl:template>
 
 <xsl:template name="gray-table-1">
-	<div class="sheet gray-table-1">
+	<div class="sheet gray-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
@@ -51,6 +51,8 @@
 
 <xsl:template name="empty-table">
 	<table>
+		<tr><td></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td></td><td></td><td></td><td></td><td></td></tr>
 		<tr><td></td><td></td><td></td><td></td><td></td></tr>
 		<tr><td></td><td></td><td></td><td></td><td></td></tr>
 		<tr><td></td><td></td><td></td><td></td><td></td></tr>
