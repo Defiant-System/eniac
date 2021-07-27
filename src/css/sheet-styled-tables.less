@@ -8,9 +8,17 @@
 			border-bottom-color: #404040;
 		}
 
-		tr:not(:first-child) td:first-child {
+		tr:not(:first-child):not(:last-child) td:first-child {
 			background-color: #dcdcdc;
 			border-right-color: #404040;
+		}
+
+		tr:nth-last-child(2) td {
+			border-bottom-color: #404040;
+		}
+
+		tr:last-child td {
+			background-color: #eee;
 		}
 	}
 
