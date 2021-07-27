@@ -133,6 +133,17 @@
 				table = event.table || Parser.table;
 				table.parent().prop({ className: `sheet ${el.data("arg")}` });
 				break;
+			case "before-menu:table-header-rows":
+			case "before-menu:table-header-columns":
+			case "before-menu:table-footer-rows":
+				// console.log("TODO:", event);
+				break;
+			case "set-table-col-head":
+			case "set-table-row-head":
+			case "set-table-col-foot":
+				table = event.table || Parser.table;
+				table.parent().attr(`data-${event.type.slice(10)}`, event.arg);
+				break;
 			case "set-gridlines":
 				el = $(event.target);
 				value = el.hasClass("active_");
