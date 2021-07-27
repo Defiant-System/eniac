@@ -1,10 +1,10 @@
 
 .sheet {
-
 	&.gray-table-1 {
+		/* table header */
 		&[data-col-head="1"] {
 			table tr:nth-child(1) td,
-			table tr:nth-child(1) td:nth-child(1) {
+			table tr:nth-child(1) td:nth-child(n) {
 				background-color: #bec0bf;
 				border-bottom-color: #404040;
 				border-right-color: @table_border;
@@ -12,8 +12,8 @@
 		}
 
 		&[data-col-head="2"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(2) td {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n) {
 				background-color: #bec0bf;
 				border-right-color: @table_border;
 			}
@@ -24,9 +24,9 @@
 		}
 
 		&[data-col-head="3"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(2) td,
-			table tr:nth-child(3) td {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n),
+			table tr:nth-child(3) td:nth-child(n) {
 				background-color: #bec0bf;
 				border-right-color: @table_border;
 			}
@@ -37,10 +37,10 @@
 		}
 
 		&[data-col-head="4"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(2) td,
-			table tr:nth-child(3) td,
-			table tr:nth-child(4) td {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n),
+			table tr:nth-child(3) td:nth-child(n),
+			table tr:nth-child(4) td:nth-child(n) {
 				background-color: #bec0bf;
 				border-right-color: @table_border;
 			}
@@ -50,10 +50,9 @@
 			}
 		}
 
-
+		/* table footer */
 		&[data-col-foot="1"] {
-			table tr:nth-last-child(1) td,
-			table tr:nth-last-child(1) td:nth-child(1) {
+			table tr:nth-last-child(1) td:nth-child(n) {
 				background-color: #eee;
 				border-right-color: @table_border;
 			}
@@ -64,10 +63,8 @@
 		}
 
 		&[data-col-foot="2"] {
-			table tr:nth-last-child(1) td,
-			table tr:nth-last-child(2) td,
-			table tr:nth-last-child(1) td:nth-child(1),
-			table tr:nth-last-child(2) td:nth-child(1) {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n) {
 				background-color: #eee;
 				border-right-color: @table_border;
 			}
@@ -78,12 +75,9 @@
 		}
 
 		&[data-col-foot="3"] {
-			table tr:nth-last-child(1) td,
-			table tr:nth-last-child(2) td,
-			table tr:nth-last-child(3) td,
-			table tr:nth-last-child(1) td:nth-child(1),
-			table tr:nth-last-child(2) td:nth-child(1),
-			table tr:nth-last-child(3) td:nth-child(1) {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n),
+			table tr:nth-last-child(3) td:nth-child(n) {
 				background-color: #eee;
 				border-right-color: @table_border;
 			}
@@ -94,14 +88,10 @@
 		}
 
 		&[data-col-foot="4"] {
-			table tr:nth-last-child(1) td,
-			table tr:nth-last-child(2) td,
-			table tr:nth-last-child(3) td,
-			table tr:nth-last-child(4) td,
-			table tr:nth-last-child(1) td:nth-child(1),
-			table tr:nth-last-child(2) td:nth-child(1),
-			table tr:nth-last-child(3) td:nth-child(1),
-			table tr:nth-last-child(4) td:nth-child(1) {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n),
+			table tr:nth-last-child(3) td:nth-child(n),
+			table tr:nth-last-child(4) td:nth-child(n) {
 				background-color: #eee;
 				border-right-color: @table_border;
 			}
@@ -111,151 +101,374 @@
 			}
 		}
 
+		&[data-row-head="1"] {
+			table tr td:nth-child(1) {
+				background-color: #dcdcdc;
+				border-right-color: #404040;
+			}
+		}
+
+		&[data-row-head="2"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2) {
+				background-color: #dcdcdc;
+			}
+
+			table tr td:nth-child(2) {
+				border-right-color: #404040;
+			}
+		}
+
+		&[data-row-head="3"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2),
+			table tr td:nth-child(3) {
+				background-color: #dcdcdc;
+			}
+
+			table tr td:nth-child(3) {
+				border-right-color: #404040;
+			}
+		}
+
+		&[data-row-head="4"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2),
+			table tr td:nth-child(3),
+			table tr td:nth-child(4) {
+				background-color: #dcdcdc;
+			}
+
+			table tr td:nth-child(4) {
+				border-right-color: #404040;
+			}
+		}
 
 		table:after { border-color: #404040; }
+	}
 
-		table tr td:nth-child(1) {
-			background-color: #dcdcdc;
-			border-right-color: #404040;
+	&.blue-table-1 {
+		/* table header */
+		&[data-col-head="1"] {
+			table tr:nth-child(1) td,
+			table tr:nth-child(1) td:nth-child(n) {
+				background-color: #fff;
+				border-bottom-color: #404040;
+				border-right-color: transparent;
+			}
+		}
+
+		&[data-col-head="2"] {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n) {
+				background-color: #fff;
+				border-right-color: transparent;
+				border-bottom-color: transparent;
+			}
+
+			table tr:nth-child(2) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-head="3"] {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n),
+			table tr:nth-child(3) td:nth-child(n) {
+				background-color: #fff;
+				border-right-color: transparent;
+				border-bottom-color: transparent;
+			}
+
+			table tr:nth-child(3) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-head="4"] {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n),
+			table tr:nth-child(3) td:nth-child(n),
+			table tr:nth-child(4) td:nth-child(n) {
+				background-color: #fff;
+				border-right-color: transparent;
+				border-bottom-color: transparent;
+			}
+
+			table tr:nth-child(4) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
+		}
+
+		/* table footer */
+		&[data-col-foot="1"] {
+			table tr:nth-last-child(1) td:nth-child(n) {
+				background-color: #fff;
+				border-right-color: transparent;
+			}
+
+			table tr:nth-last-child(2) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-foot="2"] {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n) {
+				background-color: #fff;
+				border-right-color: transparent;
+				border-bottom-color: transparent;
+			}
+
+			table tr:nth-last-child(3) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-foot="3"] {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n),
+			table tr:nth-last-child(3) td:nth-child(n) {
+				background-color: #fff;
+				border-right-color: transparent;
+				border-bottom-color: transparent;
+			}
+
+			table tr:nth-last-child(4) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-col-foot="4"] {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n),
+			table tr:nth-last-child(3) td:nth-child(n),
+			table tr:nth-last-child(4) td:nth-child(n) {
+				background-color: #fff;
+				border-right-color: transparent;
+				border-bottom-color: transparent;
+			}
+
+			table tr:nth-last-child(5) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
+		}
+
+		&[data-row-head="1"] {
+			table tr td:nth-child(1) {
+				background-color: #3FA9F570;
+				border-right-color: #404040;
+				border-bottom-color: #3FA9F5;
+			}
+		}
+
+		&[data-row-head="2"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2) {
+				background-color: #3FA9F570;
+				border-right-color: #3FA9F5;
+				border-bottom-color: #3FA9F5;
+			}
+
+			table tr td:nth-child(2) {
+				border-right-color: #404040;
+			}
+		}
+
+		&[data-row-head="3"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2),
+			table tr td:nth-child(3) {
+				background-color: #3FA9F570;
+				border-right-color: #3FA9F5;
+				border-bottom-color: #3FA9F5;
+			}
+
+			table tr td:nth-child(3) {
+				border-right-color: #404040;
+			}
+		}
+
+		&[data-row-head="4"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2),
+			table tr td:nth-child(3),
+			table tr td:nth-child(4) {
+				background-color: #3FA9F570;
+				border-right-color: #3FA9F5;
+				border-bottom-color: #3FA9F5;
+			}
+
+			table tr td:nth-child(4) {
+				border-right-color: #404040;
+			}
+		}
+
+		table {
+			&:after { border-color: #404040; }
+			td { border-right-color: transparent; }
 		}
 	}
 
-	&.blue-table-1 table {
-		&:after { border-color: #404040; }
-
-		td {
-			border-right-color: transparent;
+	&.green-table-1 {
+		/* table header */
+		&[data-col-head="1"] {
+			table tr:nth-child(1) td,
+			table tr:nth-child(1) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-bottom-color: #404040;
+				border-right-color: #009245;
+			}
 		}
 
-		tr:last-child td,
-		tr:first-child td {
-			background-color: #fff;
-			border-bottom-color: #404040;
+		&[data-col-head="2"] {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
+
+			table tr:nth-child(2) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
 		}
 
-		tr:nth-last-child(2) td {
-			border-bottom-color: #404040;
+		&[data-col-head="3"] {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n),
+			table tr:nth-child(3) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
+
+			table tr:nth-child(3) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
 		}
 
-		tr:not(:first-child):not(:last-child) td:first-child {
-			background-color: #3FA9F570;
-			border-right-color: #404040;
-		}
-	}
+		&[data-col-head="4"] {
+			table tr:nth-child(1) td:nth-child(n),
+			table tr:nth-child(2) td:nth-child(n),
+			table tr:nth-child(3) td:nth-child(n),
+			table tr:nth-child(4) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
 
-	&.green-table-1 table {
-		&:after { border-color: #404040; }
-
-		tr:last-child td,
-		tr:first-child td {
-			background-color: #00924570;
-			border-right-color: #009245;
-			border-bottom-color: #404040;
-		}
-
-		tr:nth-last-child(2) td {
-			border-bottom-color: #404040;
+			table tr:nth-child(4) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
 		}
 
-		tr:not(:first-child):not(:last-child) td:first-child {
-			background-color: #dcdcdc;
-			border-right-color: #404040;
+		/* table footer */
+		&[data-col-foot="1"] {
+			table tr:nth-last-child(1) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+			}
+
+			table tr:nth-last-child(2) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
 		}
 
-		tr:nth-child(odd) {
-			background-color: #f2f2f2;
-		}
-	}
+		&[data-col-foot="2"] {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
 
-	&.blue-table-2 table {
-		&:after { border-color: #404040; }
-
-		tr:first-child td {
-			background-color: #0071BC70;
-			border-bottom-color: #404040;
-		}
-
-		tr:last-child td {
-			background-color: #29ABE270;
-			border-bottom-color: #404040;
+			table tr:nth-last-child(3) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
 		}
 
-		tr:nth-last-child(2) td {
-			border-bottom-color: #404040;
+		&[data-col-foot="3"] {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n),
+			table tr:nth-last-child(3) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
+
+			table tr:nth-last-child(4) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
 		}
 
-		tr:not(:first-child):not(:last-child) td:first-child {
-			background-color: #dcdcdc;
-			border-right-color: #404040;
+		&[data-col-foot="4"] {
+			table tr:nth-last-child(1) td:nth-child(n),
+			table tr:nth-last-child(2) td:nth-child(n),
+			table tr:nth-last-child(3) td:nth-child(n),
+			table tr:nth-last-child(4) td:nth-child(n) {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
+
+			table tr:nth-last-child(5) td:nth-child(n) {
+				border-bottom-color: #404040;
+			}
 		}
 
-		tr:nth-child(odd) {
-			background-color: #f2f2f2;
-		}
-	}
-
-	&.orange-table-1 table {
-		&:after { border-color: #404040; }
-
-		tr:not(:first-child):not(:last-child) td:not(:first-child) {
-			border-right-style: dashed;
-		}
-		tr:not(:first-child):not(:last-child):not(:nth-last-child(2)) td:not(:first-child) {
-			border-bottom-style: dashed;
+		&[data-row-head="1"] {
+			table tr td:nth-child(1) {
+				background-color: #dcdcdc;
+				border-right-color: #404040;
+			}
 		}
 
-		tr:last-child td,
-		tr:first-child td {
-			background-color: #F7931E70;
-			border-bottom-color: #404040;
+		&[data-row-head="2"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2) {
+				background-color: #dcdcdc;
+				border-right-color: #3FA9F5;
+			}
+
+			table tr td:nth-child(2) {
+				border-right-color: #404040;
+			}
 		}
 
-		tr:nth-last-child(2) td {
-			border-bottom-color: #404040;
+		&[data-row-head="3"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2),
+			table tr td:nth-child(3) {
+				background-color: #dcdcdc;
+				border-right-color: #3FA9F5;
+			}
+
+			table tr td:nth-child(3) {
+				border-right-color: #404040;
+			}
 		}
 
-		tr:not(:first-child):not(:last-child) td:first-child {
-			background-color: #dcdcdc;
-			border-right-color: #404040;
+		&[data-row-head="4"] {
+			table tr td:nth-child(1),
+			table tr td:nth-child(2),
+			table tr td:nth-child(3),
+			table tr td:nth-child(4) {
+				background-color: #dcdcdc;
+				border-right-color: #3FA9F5;
+			}
+
+			table tr td:nth-child(4) {
+				border-right-color: #404040;
+			}
 		}
 
-		tr:nth-child(odd) {
-			background-color: #f2f2f2;
-		}
-	}
+		table {
+			&:after { border-color: #404040; }
 
-	&.white-table-1 table {
-		&:after { border-color: #404040; }
-
-		tr:not(:first-child):not(:last-child) td:not(:first-child) {
-			border-right-style: dashed;
-		}
-		tr:not(:first-child):not(:last-child):not(:nth-last-child(2)) td:not(:first-child) {
-			border-bottom-style: dashed;
-		}
-
-		tr:last-child td,
-		tr:first-child td {
-			background-color: #f8f8f8;
-			border-bottom-color: #404040;
-			border-right-color: #ccc;
-		}
-
-		tr:nth-last-child(2) td {
-			border-bottom-color: #404040;
-		}
-
-		tr:not(:first-child):not(:last-child):not(:nth-last-child(2)) td:first-child {
-			border-bottom-color: #ccc;
-		}
-
-		tr:not(:first-child):not(:last-child) td:first-child {
-			background-color: #f8f8f8;
-			border-right-color: #404040;
-		}
-
-		tr:nth-child(odd) {
-			background-color: #f2f2f2;
+			tr:nth-child(odd) {
+				background-color: #f2f2f2;
+			}
 		}
 	}
 }

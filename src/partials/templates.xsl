@@ -14,14 +14,14 @@
 </xsl:template>
 
 <xsl:template name="blue-table-1">
-	<div class="sheet blue-table-1">
+	<div class="sheet blue-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="green-table-1">
-	<div class="sheet green-table-1">
+	<div class="sheet green-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
