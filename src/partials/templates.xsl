@@ -2,7 +2,33 @@
 
 <xsl:template name="barebone-table">
 	<div class="sheet">
-		<xsl:call-template name="empty-table" />
+		<div class="table-wrapper">
+			<div class="tbl-col-head">
+				<table></table>
+			</div>
+			<div class="tbl-body">
+				<div class="tbl-row-head">
+					<table></table>
+				</div>
+				<div class="tbl-row-body">
+					<table>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr><td></td><td></td><td></td><td></td><td></td></tr>
+					</table>
+				</div>
+			</div>
+			<div class="tbl-col-foot">
+				<table></table>
+			</div>
+		</div>
 	</div>
 </xsl:template>
 
@@ -50,17 +76,42 @@
 
 
 <xsl:template name="empty-table">
-	<table>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-	</table>
+	<div class="table-wrapper">
+		<div class="tbl-col-head">
+			<table>
+				<tr><td></td><td></td><td></td><td></td><td></td></tr>
+			</table>
+		</div>
+		<div class="tbl-body">
+			<div class="tbl-row-head">
+				<table>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+				</table>
+			</div>
+			<div class="tbl-row-body">
+				<table>
+					<tr><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td></tr>
+				</table>
+			</div>
+		</div>
+		<div class="tbl-col-foot">
+			<table>
+				<tr><td></td><td></td><td></td><td></td><td></td></tr>
+			</table>
+		</div>
+	</div>
 </xsl:template>
 
 <xsl:template name="footer">

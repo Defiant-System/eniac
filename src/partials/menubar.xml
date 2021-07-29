@@ -47,8 +47,6 @@
 			<Menu name="2" click="set-table-col-foot" arg="2"/>
 			<Menu name="3" click="set-table-col-foot" arg="3"/>
 			<Menu name="4" click="set-table-col-foot" arg="4"/>
-			<Menu type="divider"/>
-			<Menu name="Freeze Footer Rows" is-checked="1"/>
 		</Menu>
 	</Menu>
 	<Menu name="View">

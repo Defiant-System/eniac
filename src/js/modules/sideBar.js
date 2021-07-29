@@ -51,10 +51,26 @@
 				break;
 			case "populate-values":
 				Self.dispatch({ ...event, type: "update-table-style" });
+				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-title-caption" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
+				break;
+			case "update-table-style":
+				table = event.table || Parser.table;
+				pEl = table.parent();
+				// reset (if any) previous active
+				el = Self.els.el.find(".styles");
+				el.find(".active").removeClass("active")
+				// table style preset
+				pEl.prop("className").split(" ").map(name => {
+					let item = el.find(`span[data-arg="${name}"]`);
+					if (item.length) item.addClass("active");
+				});
+				break;
+			case "update-table-head-footer-rows":
+				table = event.table || Parser.table;
 				break;
 			case "update-table-row-col":
 				table = event.table || Parser.table;
@@ -91,18 +107,6 @@
 				value = pEl.find(".table-caption").length;
 				Self.els.el.find(`input#table-caption`).prop({ checked: value });
 				break;
-			case "update-table-style":
-				table = event.table || Parser.table;
-				pEl = table.parent();
-				// reset (if any) previous active
-				el = Self.els.el.find(".styles");
-				el.find(".active").removeClass("active")
-				// table style preset
-				pEl.prop("className").split(" ").map(name => {
-					let item = el.find(`span[data-arg="${name}"]`);
-					if (item.length) item.addClass("active");
-				});
-				break;
 			case "toggle-table-title":
 				if (event.el.is(":checked")) {
 					// add title element
@@ -132,11 +136,6 @@
 				
 				table = event.table || Parser.table;
 				table.parent().prop({ className: `sheet ${el.data("arg")}` });
-				break;
-			case "before-menu:table-header-rows":
-			case "before-menu:table-header-columns":
-			case "before-menu:table-footer-rows":
-				// console.log("TODO:", event);
 				break;
 			case "set-table-col-head":
 			case "set-table-row-head":

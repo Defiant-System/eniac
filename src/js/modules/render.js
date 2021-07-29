@@ -32,9 +32,9 @@ const Render = {
 			// table.addClass("alternate-row-bg");
 			// table.css({ "--alt-row-bg": "#ff9900" });
 
-
+			// return;
 			// auto focus on first cell
-			let anchor = this.els.body.find("td").get(13);
+			let anchor = this.els.body.find("td").get(1);
 			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 			// setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
 		} else {

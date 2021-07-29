@@ -1,1001 +1,275 @@
 
 .sheet {
-	&.gray-table-1 {
-		/* table header */
-		&[data-col-head="1"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(1) td:nth-child(n) {
-				background-color: #bec0bf;
-				border-bottom-color: #404040;
-				border-right-color: @table_border;
-			}
+	&.gray-table-1 .table-wrapper {
+		&:before {
+			border-color: #404040;
 		}
 
-		&[data-col-head="2"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n) {
-				background-color: #bec0bf;
-				border-right-color: @table_border;
-			}
-
-			table tr:nth-child(2) td {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="3"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n) {
-				background-color: #bec0bf;
-				border-right-color: @table_border;
-			}
-
-			table tr:nth-child(3) td {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="4"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n),
-			table tr:nth-child(4) td:nth-child(n) {
-				background-color: #bec0bf;
-				border-right-color: @table_border;
-			}
-
-			table tr:nth-child(4) td {
-				border-bottom-color: #404040;
-			}
-		}
-
-		/* table footer */
-		&[data-col-foot="1"] {
-			table tr:nth-last-child(1) td:nth-child(n) {
-				background-color: #eee;
-				border-right-color: @table_border;
-			}
-
-			table tr:nth-last-child(2) td {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="2"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n) {
-				background-color: #eee;
-				border-right-color: @table_border;
-			}
-
-			table tr:nth-last-child(3) td {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="3"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n) {
-				background-color: #eee;
-				border-right-color: @table_border;
-			}
-
-			table tr:nth-last-child(4) td {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="4"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n),
-			table tr:nth-last-child(4) td:nth-child(n) {
-				background-color: #eee;
-				border-right-color: @table_border;
-			}
-
-			table tr:nth-last-child(5) td {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-row-head="1"] {
-			table tr td:nth-child(1) {
-				background-color: #dcdcdc;
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="2"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2) {
-				background-color: #dcdcdc;
-			}
-
-			table tr td:nth-child(2) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="3"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3) {
-				background-color: #dcdcdc;
-			}
-
-			table tr td:nth-child(3) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="4"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3),
-			table tr td:nth-child(4) {
-				background-color: #dcdcdc;
-			}
-
-			table tr td:nth-child(4) {
-				border-right-color: #404040;
-			}
-		}
-
-		table:after { border-color: #404040; }
-	}
-
-	&.blue-table-1 {
-		/* table header */
-		&[data-col-head="1"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(1) td:nth-child(n) {
-				background-color: #fff;
-				border-bottom-color: #404040;
-				border-right-color: transparent;
-			}
-		}
-
-		&[data-col-head="2"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: transparent;
-				border-bottom-color: transparent;
-			}
-
-			table tr:nth-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="3"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: transparent;
-				border-bottom-color: transparent;
-			}
-
-			table tr:nth-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="4"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n),
-			table tr:nth-child(4) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: transparent;
-				border-bottom-color: transparent;
-			}
-
-			table tr:nth-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		/* table footer */
-		&[data-col-foot="1"] {
-			table tr:nth-last-child(1) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: transparent;
-			}
-
-			table tr:nth-last-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="2"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: transparent;
-				border-bottom-color: transparent;
-			}
-
-			table tr:nth-last-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="3"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: transparent;
-				border-bottom-color: transparent;
-			}
-
-			table tr:nth-last-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="4"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n),
-			table tr:nth-last-child(4) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: transparent;
-				border-bottom-color: transparent;
-			}
-
-			table tr:nth-last-child(5) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-row-head="1"] {
-			table tr td:nth-child(1) {
-				background-color: #3FA9F570;
-				border-right-color: #404040;
-				border-bottom-color: #3FA9F5;
-			}
-		}
-
-		&[data-row-head="2"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2) {
-				background-color: #3FA9F570;
-				border-right-color: #3FA9F5;
-				border-bottom-color: #3FA9F5;
-			}
-
-			table tr td:nth-child(2) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="3"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3) {
-				background-color: #3FA9F570;
-				border-right-color: #3FA9F5;
-				border-bottom-color: #3FA9F5;
-			}
-
-			table tr td:nth-child(3) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="4"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3),
-			table tr td:nth-child(4) {
-				background-color: #3FA9F570;
-				border-right-color: #3FA9F5;
-				border-bottom-color: #3FA9F5;
-			}
-
-			table tr td:nth-child(4) {
-				border-right-color: #404040;
-			}
-		}
-
-		table {
-			&:after { border-color: #404040; }
-			td { border-right-color: transparent; }
-		}
-	}
-
-	&.green-table-1 {
-		/* table header */
-		&[data-col-head="1"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(1) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-bottom-color: #404040;
-				border-right-color: #009245;
-			}
-		}
-
-		&[data-col-head="2"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-right-color: #009245;
-				border-bottom-color: #009245;
-			}
-
-			table tr:nth-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="3"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-right-color: #009245;
-				border-bottom-color: #009245;
-			}
-
-			table tr:nth-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="4"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n),
-			table tr:nth-child(4) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-right-color: #009245;
-				border-bottom-color: #009245;
-			}
-
-			table tr:nth-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		/* table footer */
-		&[data-col-foot="1"] {
-			table tr:nth-last-child(1) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-right-color: #009245;
-			}
-
-			table tr:nth-last-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="2"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-right-color: #009245;
-				border-bottom-color: #009245;
-			}
-
-			table tr:nth-last-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="3"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-right-color: #009245;
-				border-bottom-color: #009245;
-			}
-
-			table tr:nth-last-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="4"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n),
-			table tr:nth-last-child(4) td:nth-child(n) {
-				background-color: #95d0ae;
-				border-right-color: #009245;
-				border-bottom-color: #009245;
-			}
-
-			table tr:nth-last-child(5) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-row-head="1"] {
-			table tr td:nth-child(1) {
-				background-color: #dcdcdc;
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="2"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-			}
-
-			table tr td:nth-child(2) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="3"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-			}
-
-			table tr td:nth-child(3) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="4"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3),
-			table tr td:nth-child(4) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-			}
-
-			table tr td:nth-child(4) {
-				border-right-color: #404040;
-			}
-		}
-
-		table {
-			&:after { border-color: #404040; }
-
-			tr:nth-child(odd) {
-				background-color: #f2f2f2;
-			}
-		}
-	}
-
-	&.blue-table-2 {
-		/* table header */
-		&[data-col-head="1"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(1) td:nth-child(n) {
-				background-color: #94c1e2;
-				border-bottom-color: #404040;
-				border-right-color: #6595b6;
-			}
-		}
-
-		&[data-col-head="2"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n) {
-				background-color: #94c1e2;
-				border-right-color: #6595b6;
-				border-bottom-color: #6595b6;
-			}
-
-			table tr:nth-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="3"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n) {
-				background-color: #94c1e2;
-				border-right-color: #6595b6;
-				border-bottom-color: #6595b6;
-			}
-
-			table tr:nth-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="4"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n),
-			table tr:nth-child(4) td:nth-child(n) {
-				background-color: #94c1e2;
-				border-right-color: #6595b6;
-				border-bottom-color: #6595b6;
-			}
-
-			table tr:nth-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		/* table footer */
-		&[data-col-foot="1"] {
-			table tr:nth-last-child(1) td:nth-child(n) {
-				background-color: #a4daf2;
-				border-right-color: #76aec6;
-			}
-
-			table tr:nth-last-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="2"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n) {
-				background-color: #a4daf2;
-				border-right-color: #76aec6;
-				border-bottom-color: #76aec6;
-			}
-
-			table tr:nth-last-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="3"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n) {
-				background-color: #a4daf2;
-				border-right-color: #76aec6;
-				border-bottom-color: #76aec6;
-			}
-
-			table tr:nth-last-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-foot="4"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n),
-			table tr:nth-last-child(4) td:nth-child(n) {
-				background-color: #a4daf2;
-				border-right-color: #76aec6;
-				border-bottom-color: #76aec6;
-			}
-
-			table tr:nth-last-child(5) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-row-head="1"] {
-			table tr td:nth-child(1) {
-				background-color: #dcdcdc;
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="2"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-			}
-
-			table tr td:nth-child(2) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="3"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-			}
-
-			table tr td:nth-child(3) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="4"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3),
-			table tr td:nth-child(4) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-			}
-
-			table tr td:nth-child(4) {
-				border-right-color: #404040;
-			}
-		}
-
-		table {
-			&:after { border-color: #404040; }
-
-			tr:nth-child(odd) {
-				background-color: #f2f2f2;
-			}
-		}
-	}
-
-	&.orange-table-1 {
-		/* table header */
-		&[data-col-head="1"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(1) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-bottom-color: #404040;
-				border-right-color: #cfa472;
-				border-style: solid;
-			}
-		}
-
-		&[data-col-head="2"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-right-color: #cfa472;
-				border-bottom-color: #cfa472;
-				border-style: solid;
-			}
-
-			table tr:nth-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="3"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-right-color: #cfa472;
-				border-bottom-color: #cfa472;
-				border-style: solid;
-			}
-
-			table tr:nth-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="4"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n),
-			table tr:nth-child(4) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-right-color: #cfa472;
-				border-bottom-color: #cfa472;
-				border-style: solid;
-			}
-
-			table tr:nth-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		/* table footer */
-		&[data-col-foot="1"] {
-			table tr:nth-last-child(1) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-right-color: #cfa472;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-col-foot="2"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-right-color: #cfa472;
-				border-bottom-color: #cfa472;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-col-foot="3"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-right-color: #cfa472;
-				border-bottom-color: #cfa472;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-col-foot="4"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n),
-			table tr:nth-last-child(4) td:nth-child(n) {
-				background-color: #fbd0a2;
-				border-right-color: #cfa472;
-				border-bottom-color: #cfa472;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(5) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-row-head="1"] {
-			table tr td:nth-child(1) {
-				background-color: #dcdcdc;
-				border-right-color: #404040;
-				border-style: solid;
-			}
-		}
-
-		&[data-row-head="2"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-				border-style: solid;
-			}
-
-			table tr td:nth-child(2) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="3"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-				border-style: solid;
-			}
-
-			table tr td:nth-child(3) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="4"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3),
-			table tr td:nth-child(4) {
-				background-color: #dcdcdc;
-				border-right-color: #999;
-				border-style: solid;
-			}
-
-			table tr td:nth-child(4) {
-				border-right-color: #404040;
-			}
-		}
-
-		table {
-			&:after { border-color: #404040; }
-
-			tr:nth-child(odd) {
-				background-color: #f2f2f2;
-			}
-
+		.tbl-col-head {
 			td {
-				border-style: dashed;
+				background-color: #bec0bf;
+			}
+			
+			tr:last-child td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		.tbl-body {
+			border-bottom-color: #404040;
+
+			.tbl-row-head {
+				td {
+					background-color: #dcdcdc;
+				}
+			}
+
+			.tbl-row-body {
+				&:before {
+					border-left-color: #404040;
+				}
+			}
+		}
+
+		.tbl-col-foot {
+			td {
+				background-color: #eee;
 			}
 		}
 	}
 
-	&.white-table-1 {
-		/* table header */
-		&[data-col-head="1"] {
-			table tr:nth-child(1) td,
-			table tr:nth-child(1) td:nth-child(n) {
-				background-color: #fff;
-				border-bottom-color: #404040;
-				border-right-color: #d3d3d3;
-				border-style: solid;
-			}
+	&.blue-table-1 .table-wrapper {
+		&:before {
+			border-color: #404040;
 		}
 
-		&[data-col-head="2"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-bottom-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr:nth-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="3"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-bottom-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr:nth-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		&[data-col-head="4"] {
-			table tr:nth-child(1) td:nth-child(n),
-			table tr:nth-child(2) td:nth-child(n),
-			table tr:nth-child(3) td:nth-child(n),
-			table tr:nth-child(4) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-bottom-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr:nth-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-			}
-		}
-
-		/* table footer */
-		&[data-col-foot="1"] {
-			table tr:nth-last-child(1) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(2) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-col-foot="2"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-bottom-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(3) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-col-foot="3"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-bottom-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(4) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-col-foot="4"] {
-			table tr:nth-last-child(1) td:nth-child(n),
-			table tr:nth-last-child(2) td:nth-child(n),
-			table tr:nth-last-child(3) td:nth-child(n),
-			table tr:nth-last-child(4) td:nth-child(n) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-bottom-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr:nth-last-child(5) td:nth-child(n) {
-				border-bottom-color: #404040;
-				border-bottom-style: solid;
-			}
-		}
-
-		&[data-row-head="1"] {
-			table tr td:nth-child(1) {
-				background-color: #fff;
-				border-bottom-color: #d3d3d3;
-				border-right-color: #404040;
-				border-style: solid;
-			}
-		}
-
-		&[data-row-head="2"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2) {
-				background-color: #fff;
-				border-right-color: #999;
-				border-style: solid;
-			}
-
-			table tr td:nth-child(2) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="3"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3) {
-				background-color: #fff;
-				border-right-color: #d3d3d3;
-				border-bottom-color: #d3d3d3;
-				border-style: solid;
-			}
-
-			table tr td:nth-child(3) {
-				border-right-color: #404040;
-			}
-		}
-
-		&[data-row-head="4"] {
-			table tr td:nth-child(1),
-			table tr td:nth-child(2),
-			table tr td:nth-child(3),
-			table tr td:nth-child(4) {
-				background-color: #fff;
-				border-right-color: #999;
-				border-style: solid;
-			}
-
-			table tr td:nth-child(4) {
-				border-right-color: #404040;
-			}
-		}
-
-		table {
-			&:after { border-color: #404040; }
-
-			tr:nth-child(odd) {
-				background-color: #f2f2f2;
-			}
-
+		.tbl-col-head {
 			td {
-				border-style: dashed;
+				background-color: #fff;
+				border-right-color: transparent;
+			}
+			
+			tr:last-child td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		.tbl-body {
+			border-bottom-color: #404040;
+
+			.tbl-row-head {
+				td {
+					background-color: #3FA9F570;
+					border-bottom-color: #3FA9F5;
+					border-right-color: #3FA9F5;
+				}
+			}
+
+			.tbl-row-body {
+				&:before {
+					border-left-color: #404040;
+				}
+			}
+		}
+
+		.tbl-col-foot {
+			td {
+				background-color: #fff;
+				border-right-color: transparent;
+			}
+		}
+	}
+
+	&.green-table-1 .table-wrapper {
+		&:before {
+			border-color: #404040;
+		}
+
+		.tbl-col-head {
+			td {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
+			
+			tr:last-child td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		.tbl-body {
+			border-bottom-color: #404040;
+
+			.tbl-row-head {
+				td {
+					background-color: #dcdcdc;
+				}
+			}
+
+			.tbl-row-body {
+				&:before {
+					border-left-color: #404040;
+				}
+
+				tr:nth-child(even) {
+					background-color: #f2f2f2;
+				}
+			}
+		}
+
+		.tbl-col-foot {
+			td {
+				background-color: #95d0ae;
+				border-right-color: #009245;
+				border-bottom-color: #009245;
+			}
+		}
+	}
+
+	&.blue-table-2 .table-wrapper {
+		&:before {
+			border-color: #404040;
+		}
+
+		.tbl-col-head {
+			td {
+				background-color: #94c1e2;
+				border-right-color: #6595b6;
+				border-bottom-color: #6595b6;
+			}
+			
+			tr:last-child td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		.tbl-body {
+			border-bottom-color: #404040;
+
+			.tbl-row-head {
+				td {
+					background-color: #dcdcdc;
+				}
+			}
+
+			.tbl-row-body {
+				&:before {
+					border-left-color: #404040;
+				}
+
+				tr:nth-child(even) {
+					background-color: #f2f2f2;
+				}
+			}
+		}
+
+		.tbl-col-foot {
+			td {
+				background-color: #94c1e2;
+				border-right-color: #6595b6;
+				border-bottom-color: #6595b6;
+			}
+		}
+	}
+
+	&.orange-table-1 .table-wrapper {
+		&:before {
+			border-color: #404040;
+		}
+
+		.tbl-col-head {
+			td {
+				background-color: #fbd0a2;
+				border-right-color: #cfa472;
+				border-bottom-color: #cfa472;
+			}
+			
+			tr:last-child td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		.tbl-body {
+			border-bottom-color: #404040;
+
+			.tbl-row-head {
+				td {
+					background-color: #dcdcdc;
+				}
+			}
+
+			.tbl-row-body {
+				&:before {
+					border-left-color: #404040;
+				}
+
+				td {
+					border-style: dashed;
+				}
+
+				tr:nth-child(even) {
+					background-color: #f2f2f2;
+				}
+			}
+		}
+
+		.tbl-col-foot {
+			td {
+				background-color: #fbd0a2;
+				border-right-color: #cfa472;
+				border-bottom-color: #cfa472;
+			}
+		}
+	}
+
+	&.white-table-1 .table-wrapper {
+		&:before {
+			border-color: #404040;
+		}
+
+		.tbl-col-head {
+			td {
+				background-color: #fff;
+				border-right-color: #d3d3d3;
+				border-bottom-color: #d3d3d3;
+			}
+			
+			tr:last-child td {
+				border-bottom-color: #404040;
+			}
+		}
+
+		.tbl-body {
+			border-bottom-color: #404040;
+
+			.tbl-row-head {
+				td {
+					background-color: #fff;
+					border-right-color: #d3d3d3;
+					border-bottom-color: #d3d3d3;
+				}
+			}
+
+			.tbl-row-body {
+				&:before {
+					border-left-color: #404040;
+				}
+
+				td {
+					border-style: dashed;
+				}
+
+				tr:nth-child(even) {
+					background-color: #f2f2f2;
+				}
+			}
+		}
+
+		.tbl-col-foot {
+			td {
+				background-color: #fff;
+				border-right-color: #d3d3d3;
+				border-bottom-color: #d3d3d3;
 			}
 		}
 	}
