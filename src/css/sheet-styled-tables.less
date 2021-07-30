@@ -46,13 +46,19 @@
 		}
 
 		.tbl-col-head {
-			td {
-				background-color: #fff;
-				border-right-color: transparent;
-			}
-			
-			tr:last-child td {
-				border-bottom-color: #404040;
+			> div:nth-child(n) {
+				table {
+					border-right-color: transparent;
+
+					td {
+						background-color: #fff;
+						border-right-color: transparent;
+					}
+					
+					tr:last-child td {
+						border-bottom-color: #404040;
+					}
+				}
 			}
 		}
 
@@ -77,9 +83,15 @@
 		}
 
 		.tbl-col-foot {
-			td {
-				background-color: #fff;
-				border-right-color: transparent;
+			> div:nth-child(n) {
+				table {
+					border-right-color: transparent;
+
+					td {
+						background-color: #fff;
+						border-right-color: transparent;
+					}
+				}
 			}
 		}
 	}
@@ -265,7 +277,7 @@
 					tr:nth-child(even) {
 						background-color: #f2f2f2;
 					}
-					
+
 					td {
 						border-style: dashed;
 					}
