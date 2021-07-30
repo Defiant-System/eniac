@@ -913,14 +913,14 @@ table {
 		}
 	}
 
-	.table-wrapper {
+	.tbl-root {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
 		// constrain dimensions
 		width: 440px;
-		height: 292px;
+		height: 276px; //352px;
 
 		&:before {
 			content: "";
@@ -940,6 +940,9 @@ table {
 
 			> div {
 				&:nth-child(1) {
+					position: relative;
+					z-index: 1;
+
 					table {
 						border-right: 1px solid @table_border;
 					}
@@ -987,6 +990,9 @@ table {
 
 			> div {
 				&:nth-child(1) {
+					position: relative;
+					z-index: 1;
+
 					table {
 						border-right: 1px solid @table_border;
 					}
@@ -1000,7 +1006,7 @@ table {
 	}
 
 	table {
-		// position: relative;
+		position: relative;
 		width: 0;
 		table-layout: fixed;
 	}

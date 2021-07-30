@@ -76,7 +76,7 @@
 
 
 <xsl:template name="empty-table">
-	<div class="table-wrapper">
+	<div class="tbl-root">
 		<div class="tbl-col-head">
 			<div>
 				<table>
