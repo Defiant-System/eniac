@@ -10,6 +10,13 @@ class File {
 			// attach reference to book
 			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
 		} else {
+			// barebone-table
+			// gray-table-1
+			// blue-table-1
+			// green-table-1
+			// blue-table-2
+			// orange-table-1
+			// white-table-1
 			html = window.render({ template: "gray-table-1" });
 			html = html.replace(/\t|\n/g, "");
 		}

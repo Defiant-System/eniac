@@ -2,7 +2,7 @@
 
 <xsl:template name="barebone-table">
 	<div class="sheet">
-		<div class="table-wrapper">
+		<div class="tbl-root">
 			<div class="tbl-col-head">
 				<table></table>
 			</div>
