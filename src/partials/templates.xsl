@@ -33,42 +33,42 @@
 </xsl:template>
 
 <xsl:template name="gray-table-1">
-	<div class="sheet gray-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
+	<div class="sheet gray-table-1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="blue-table-1">
-	<div class="sheet blue-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
+	<div class="sheet blue-table-1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="green-table-1">
-	<div class="sheet green-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
+	<div class="sheet green-table-1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="blue-table-2">
-	<div class="sheet blue-table-2" data-col-head="1" data-row-head="1" data-col-foot="1">
+	<div class="sheet blue-table-2">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="orange-table-1">
-	<div class="sheet orange-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
+	<div class="sheet orange-table-1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
 </xsl:template>
 
 <xsl:template name="white-table-1">
-	<div class="sheet white-table-1" data-col-head="1" data-row-head="1" data-col-foot="1">
+	<div class="sheet white-table-1">
 		<div class="table-title">Title</div>
 		<xsl:call-template name="empty-table" />
 	</div>
@@ -78,13 +78,25 @@
 <xsl:template name="empty-table">
 	<div class="table-wrapper">
 		<div class="tbl-col-head">
-			<table>
-				<tr><td></td><td></td><td></td><td></td><td></td></tr>
-			</table>
+			<div>
+				<table>
+					<tr><td></td></tr>
+				</table>
+			</div>
+			<div>
+				<table>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				</table>
+			</div>
 		</div>
 		<div class="tbl-body">
-			<div class="tbl-row-head">
+			<div>
 				<table>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
 					<tr><td></td></tr>
 					<tr><td></td></tr>
 					<tr><td></td></tr>
@@ -94,22 +106,34 @@
 					<tr><td></td></tr>
 				</table>
 			</div>
-			<div class="tbl-row-body">
+			<div>
 				<table>
-					<tr><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 				</table>
 			</div>
 		</div>
 		<div class="tbl-col-foot">
-			<table>
-				<tr><td></td><td></td><td></td><td></td><td></td></tr>
-			</table>
+			<div>
+				<table>
+					<tr><td></td></tr>
+				</table>
+			</div>
+			<div>
+				<table>
+					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </xsl:template>
