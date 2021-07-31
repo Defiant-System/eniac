@@ -20,8 +20,7 @@
 		let APP = eniac,
 			Self = APP.tools,
 			top, left, width, height,
-			sheet, rows, cols,
-			selector,
+			sheet,
 			el;
 		switch (event.type) {
 			// native events
@@ -32,13 +31,12 @@
 				top = -event.target.scrollTop;
 				left = -event.target.scrollLeft;
 
-				selector = [".tbl-col-head > div:nth(1) table",
-							".tbl-col-foot > div:nth(1) table"];
-				sheet.find(selector.join(",")).css({ left });
-				Self.els.cols.find(".tool-cols-row-body table").css({ left });
+				sheet.find(`.tbl-col-head > div:nth(1) table,
+							.tbl-col-foot > div:nth(1) table`).css({ left });
+				Self.els.cols.find("> div:nth-child(2) table").css({ left });
 
 				sheet.find(".tbl-body div:nth-child(1) table").css({ top });
-				Self.els.rows.find(".tool-rows-col-body table").css({ top });
+				Self.els.rows.find("> div:nth-child(2) table").css({ top });
 				break;
 			// custom events
 			case "sync-tools-dim":
@@ -52,14 +50,22 @@
 				el = sheet.find(".table-title");
 				top = (el.prop("offsetHeight") + parseInt(el.css("margin-bottom"), 10));
 				top = isNaN(top) ? 0 : top;
-				Self.els.rows.css({ "--rows-top": top +"px" });
-
-				Self.els.cols.find(".tool-cols-row-body table").css({ width: "540px" });
+				Self.els.rows.css({ "--rows-top": `${top}px` });
 				break;
 			case "sync-sheet-table":
 				Self.sheet = event.sheet || Parser.sheet;
 
 				Self.dispatch({ ...event, type: "sync-tools-dim" });
+
+				// tools columns
+				Self.sheet.find(".tbl-col-head > div").map((el, i) => {
+					let str = $("tr:nth(0) td", el).map(col => {
+							let rect = col.getBoundingClientRect();
+							return `<td style="width: ${Math.round(rect.width)}px;"><s></s></td>`;
+						});
+					str = `<table style="width: ${el.offsetWidth}px;"><tr>${str.join("")}</tr></table>`;
+					Self.els.cols.find("> div").get(i).html(str);
+				});
 				break;
 		}
 	}
