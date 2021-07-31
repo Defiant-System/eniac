@@ -1211,12 +1211,13 @@ table {
 		height: 100%;
 		display: flex;
 		flex-direction: row;
-		color: #555;
+		color: #666;
 
 		td {
 			text-align: center;
 			vertical-align: middle;
-		width: 90px;
+			// temp
+			width: 90px;
 
 			&:before {
 				font-size: 11px;
@@ -1230,6 +1231,15 @@ table {
 			border-radius: 4px;
 			box-shadow: 0 0 0 1px #d0d0d0,
 						0 1px 3px rgba(0,0,0,0.15);
+
+			.tool-cols-row-head {
+				border-right: 1px solid lighten(@table_border, 13%);
+			}
+
+			.tool-cols-row-body {
+				flex: 1;
+				overflow: hidden;
+			}
 
 			tr {
 				height: 16px;
@@ -1263,7 +1273,7 @@ table {
 				}
 
 				&:not(:last-child) {
-					border-right: 1px solid @table_border;
+					border-right: 1px solid lighten(@table_border, 13%);
 				}
 
 				&.active {
@@ -1329,9 +1339,37 @@ table {
 			left: -27px;
 			width: 16px;
 			height: calc( 100% - var(--rows-top) );
+			flex-direction: column;
 			border-radius: 4px;
 			box-shadow: 0 0 0 1px #d0d0d0,
 						0 1px 3px rgba(0,0,0,0.15);
+
+			.tool-rows-col-head {
+				position: relative;
+
+				&:before {
+					content: "";
+					position: absolute;
+					bottom: -1px;
+					left: 0;
+					right: 0;
+					height: 1px;
+					z-index: 2;
+					border-bottom: 1px solid lighten(@table_border, 13%);
+				}
+
+				tr:last-child td { border-bottom: 0; }
+			}
+
+			.tool-rows-col-body {
+				position: relative;
+				flex: 1;
+			}
+
+			.tool-rows-col-foot {
+				position: relative;
+				border-top: 1px solid lighten(@table_border, 13%);
+			}
 
 			tr {
 				counter-increment: row-counter;
@@ -1357,7 +1395,7 @@ table {
 						bottom: 3px;
 
 						&:before {
-							top: 7px;
+							top: 9px;
 						}
 					}
 				}
