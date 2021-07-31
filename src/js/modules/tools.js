@@ -35,6 +35,7 @@
 				selector = [".tbl-col-head > div:nth(1) table",
 							".tbl-col-foot > div:nth(1) table"];
 				sheet.find(selector.join(",")).css({ left });
+				Self.els.cols.find(".tool-cols-row-body table").css({ left });
 
 				sheet.find(".tbl-body div:nth-child(1) table").css({ top });
 				Self.els.rows.find(".tool-rows-col-body table").css({ top });
@@ -52,6 +53,8 @@
 				top = (el.prop("offsetHeight") + parseInt(el.css("margin-bottom"), 10));
 				top = isNaN(top) ? 0 : top;
 				Self.els.rows.css({ "--rows-top": top +"px" });
+
+				Self.els.cols.find(".tool-cols-row-body table").css({ width: "540px" });
 				break;
 			case "sync-sheet-table":
 				Self.sheet = event.sheet || Parser.sheet;
