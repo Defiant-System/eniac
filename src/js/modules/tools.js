@@ -21,7 +21,7 @@
 			Self = APP.tools,
 			top, left, width, height,
 			sheet, rows, cols,
-			str,
+			selector,
 			el;
 		switch (event.type) {
 			// native events
@@ -32,9 +32,12 @@
 				top = -event.target.scrollTop;
 				left = -event.target.scrollLeft;
 
-				sheet.find(".tbl-col-head > div:nth(1) table").css({ left });
-				sheet.find(".tbl-col-foot > div:nth(1) table").css({ left });
+				selector = [".tbl-col-head > div:nth(1) table",
+							".tbl-col-foot > div:nth(1) table"];
+				sheet.find(selector.join(",")).css({ left });
+
 				sheet.find(".tbl-body div:nth-child(1) table").css({ top });
+				Self.els.rows.find(".tool-rows-col-body table").css({ top });
 				break;
 			// custom events
 			case "sync-tools-dim":
@@ -54,7 +57,6 @@
 				Self.sheet = event.sheet || Parser.sheet;
 
 				Self.dispatch({ ...event, type: "sync-tools-dim" });
-
 				break;
 		}
 	}

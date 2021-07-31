@@ -28,6 +28,14 @@
 				Self.els.el.removeClass("show-sheet show-title show-caption show-table show-chart show-empty");
 				Self.els.el.addClass(event.type);
 				break;
+			case "select-tab":
+				event.el.find(".active").removeClass("active");
+				el = $(event.target).addClass("active");
+				
+				pEl = event.el.parent();
+				pEl.find(".sidebar-body.active").removeClass("active");
+				pEl.find(".sidebar-body").get(el.index()).addClass("active");
+				break;
 		}
 	}
 }
