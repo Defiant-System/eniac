@@ -17,7 +17,8 @@ class File {
 			// blue-table-2
 			// orange-table-1
 			// white-table-1
-			html = window.render({ template: "gray-table-1" });
+			html = window.render({ template: "barebone-table" });
+			html += window.render({ template: "gray-table-1" });
 			html = html.replace(/\t|\n/g, "");
 		}
 		// render workbook

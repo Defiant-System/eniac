@@ -16,6 +16,17 @@
 			el;
 		switch (event.type) {
 			case "toggle-sidebar":
+				isOn = Self.els.layout.hasClass("show-sidebar");
+				Self.els.layout.toggleClass("show-sidebar", isOn);
+				return !isOn;
+			case "show-sheet":
+			case "show-title":
+			case "show-caption":
+			case "show-table":
+			case "show-chart":
+			case "show-empty":
+				Self.els.el.removeClass("show-sheet show-title show-caption show-table show-chart show-empty");
+				Self.els.el.addClass(event.type);
 				break;
 		}
 	}

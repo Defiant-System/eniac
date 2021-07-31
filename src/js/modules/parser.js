@@ -1,17 +1,19 @@
 
 const Parser = {
 	alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-	setTable(table) {
-		this.table = table;
-		this.cells = table.find("td");
-		this.rowNum = table.find("tr").length;
-		this.colNum = this.cells.length / this.rowNum;
-		this.tblWrapper = table.parent();
+	setTable(sheet) {
+		this.sheet = sheet;
+		// this.table = table;
+		// this.cells = table.find("td");
+		// this.rowNum = table.find("tr").length;
+		// this.colNum = this.cells.length / this.rowNum;
+		// this.tblWrapper = table.parent();
 	},
 	reset() {
 		if (this.table && this.table.length) {
 			this.table.find(".selected, .anchor").removeClass("selected anchor");
 		}
+		delete this.sheet;
 		delete this.table;
 		delete this.cells;
 		delete this.rowNum;

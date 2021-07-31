@@ -19,22 +19,20 @@ const Render = {
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
-			let table = this.els.body.append(html).find("table:first");
+			let table = this.els.body.append(html).find("table").get(2);
 			// temp
 			// table.find("td").get(22).html("123");
 			// table.find("td").get(3).html("123");
 
 			// let dim = Parser.tableAbsDim(table);
-			// console.log( dim );
 
 			// table.addClass("hide-hg-lines hide-vg-lines");
 			
 			// table.addClass("alternate-row-bg");
 			// table.css({ "--alt-row-bg": "#ff9900" });
 
-			return;
 			// auto focus on first cell
-			let anchor = this.els.body.find("td").get(1);
+			let anchor = table.find("td").get(1);
 			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 			// setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
 		} else {
