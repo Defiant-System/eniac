@@ -36,9 +36,7 @@ const Cursor = {
 				Self.dispatch({ type: "focus-table", sheet });
 				break;
 			case "focus-table":
-				// if (event.sheet.isSame(APP.tools.sheet)) return;
-				// set table for tools
-				// APP.tools.setTable(event.sheet);
+				if (event.sheet.isSame(APP.tools.sheet)) return;
 				// show tools for table
 				Self.els.tools.removeClass("hidden");
 				// update sidebar
