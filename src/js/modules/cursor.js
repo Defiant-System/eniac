@@ -18,6 +18,7 @@ const Cursor = {
 			Self = Cursor,
 			sheet,
 			anchor,
+			xNum, yNum,
 			el;
 		switch (event.type) {
 			// system events
@@ -30,17 +31,22 @@ const Cursor = {
 				sheet = anchor.parents(".sheet");
 				if (anchor.prop("nodeName") !== "TD") anchor = anchor.parents("td");
 
-				// sync tools sheet
-				APP.tools.dispatch({ type: "sync-sheet-table", sheet });
 				// focus clicked table
 				Self.dispatch({ type: "focus-table", sheet });
+				// sync tools sheet
+				APP.tools.dispatch({ type: "sync-sheet-table", sheet });
+				// make column + row active
+				xNum = anchor.index();
+				yNum = anchor.parent().index();
+				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				break;
 			case "focus-table":
-				if (event.sheet.isSame(APP.tools.sheet)) return;
+				if (APP.tools.sheet && event.sheet.isSame(APP.tools.sheet.el)) return;
+
 				// show tools for table
 				Self.els.tools.removeClass("hidden");
 				// update sidebar
-				APP.sidebar.dispatch({ type: "show-table" });
+				APP.sidebar.dispatch({ ...event, type: "show-table" });
 				break;
 			case "blur-table":
 				// update sidebar

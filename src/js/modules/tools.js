@@ -68,8 +68,7 @@
 				Self.els.rows.css({ "--rows-top": `${top}px` });
 				break;
 			case "sync-sheet-table":
-				if (event.sheet && Self.sheet && event.sheet.isSame(Self.sheet.el)) return;
-
+				// if (event.sheet && Self.sheet && event.sheet.isSame(Self.sheet.el)) return;
 				Self.dispatch({ ...event, type: "set-sheet" });
 				Self.dispatch({ ...event, type: "sync-tools-dim" });
 
@@ -77,7 +76,6 @@
 					toolRows = Self.els.rows.find("> div").html(""),
 					cNames = [],
 					rNames = [];
-
 				/*
 				 * tools columns
 				 */
@@ -99,7 +97,6 @@
 				Self.els.cols
 					.removeClass("has-col-head")
 					.addClass(cNames.join(" "));
-
 				/*
 				 * tools rows
 				 */
@@ -119,6 +116,20 @@
 				Self.els.rows
 					.removeClass("has-row-head has-row-foot")
 					.addClass(rNames.join(" "));
+				break;
+			case "select-coords":
+				cols = event.xNum.length ? event.xNum : [event.xNum];
+				rows = event.yNum.length ? event.yNum : [event.yNum];
+
+				// remember selected coords
+				Self.selected = { xNum: event.xNum, yNum: event.yNum };
+
+				Self.els.cols.find(".active").removeClass("active");
+				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));
+
+				Self.els.rows.find(".active").removeClass("active");
+				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
+
 				break;
 		}
 	}
