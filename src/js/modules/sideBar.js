@@ -66,7 +66,7 @@
 				break;
 			case "update-table-row-col":
 				Sheet = event.sheet || APP.tools.sheet.el;
-
+				// input values
 				value = Sheet.find(".tbl-root > div > div:nth-child(2) tr").length;
 				Self.els.el.find(`input[name="table-rows-num"]`).val(value);
 				value = Sheet.find(".tbl-body tr:nth-child(1) td").length;
