@@ -1,6 +1,5 @@
 
 @import "modules/render.js"
-@import "modules/parser.js"
 @import "modules/cursor.js"
 @import "modules/file.js"
 

@@ -36,9 +36,9 @@ const Cursor = {
 				Self.dispatch({ type: "focus-table", sheet });
 				break;
 			case "focus-table":
-				if (event.sheet.isSame(Parser.sheet)) return;
-				// set table for parser
-				Parser.setTable(event.sheet);
+				// if (event.sheet.isSame(APP.tools.sheet)) return;
+				// set table for tools
+				// APP.tools.setTable(event.sheet);
 				// show tools for table
 				Self.els.tools.removeClass("hidden");
 				// update sidebar
@@ -62,7 +62,7 @@ const Cursor = {
 
 				let cell = $(event.target);
 
-				// set table for parser
+				// set table for tools
 				Self.dispatch({ type: "focus-cell", anchor: cell });
 				break;
 		}
