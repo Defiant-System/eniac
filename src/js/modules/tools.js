@@ -27,15 +27,20 @@
 			// native events
 			case "scroll":
 				el = $(event.target);
-				Sheet = el.parents(".tbl-root:first");
+				Sheet = el.parents(".sheet:first");
 				top = -event.target.scrollTop;
 				left = -event.target.scrollLeft;
+				
 				// vertical sync
 				Sheet.find(`.tbl-col-head > div:nth(1) table,
 							.tbl-col-foot > div:nth(1) table`).css({ left });
-				Self.els.cols.find("> div:nth-child(2) table").css({ left });
 				// horizontal sync
 				Sheet.find(".tbl-body div:nth-child(1) table").css({ top });
+
+				if (!Sheet.isSame(Self.sheet.el)) return;
+
+				// tool cols + rows
+				Self.els.cols.find("> div:nth-child(2) table").css({ left });
 				Self.els.rows.find("> div:nth-child(2) table").css({ top });
 				break;
 			// custom events
@@ -63,30 +68,57 @@
 				Self.els.rows.css({ "--rows-top": `${top}px` });
 				break;
 			case "sync-sheet-table":
+				if (event.sheet && Self.sheet && event.sheet.isSame(Self.sheet.el)) return;
+
 				Self.dispatch({ ...event, type: "set-sheet" });
 				Self.dispatch({ ...event, type: "sync-tools-dim" });
 
 				let toolCols = Self.els.cols.find("> div").html(""),
-					toolRows = Self.els.rows.find("> div");
+					toolRows = Self.els.rows.find("> div").html(""),
+					cNames = [],
+					rNames = [];
 
-				// reset tool columns UI
-				Self.els.cols.removeClass("plain");
-
-				// tools columns
+				/*
+				 * tools columns
+				 */
 				cols = Self.sheet.el.find(".tbl-col-head > div");
-				cols = cols.length ? cols : Self.sheet.el.find(".tbl-body > div");
+				if (!cols.length || !cols.find("tr:nth(0) td").length) {
+					cols = Self.sheet.el.find(".tbl-body > div");
+				}
 				// populate tool columns
 				cols.map((el, i) => {
 					let str = $("tr:nth(0) td", el).map(col => {
 							let rect = col.getBoundingClientRect();
 							return `<td style="width: ${Math.round(rect.width)}px;"><s></s></td>`;
 						});
-					
-					if (i === 0 && !str.length) Self.els.cols.addClass("plain");
-					
+					if (i === 0 && str.length) cNames.push("has-col-head");
 					str = `<table style="width: ${el.offsetWidth}px;"><tr>${str.join("")}</tr></table>`;
 					toolCols.get(i).html(str);
 				});
+				// reset tool columns UI
+				Self.els.cols
+					.removeClass("has-col-head")
+					.addClass(cNames.join(" "));
+
+				/*
+				 * tools rows
+				 */
+				rows = Self.sheet.el.find(".tbl-root > div > div:nth-child(1)");
+				if (!rows.find("tr").length) {
+					rows = Self.sheet.el.find(".tbl-root > div > div:nth-child(2)");
+				}
+				// populate tool rows
+				rows.map((el, i) => {
+					let str = $("tr", el).map(row =>
+								`<tr style="height: ${row.offsetHeight}px;"><td><s></s></td></tr>`);
+					if (i === 0 && str.length) rNames.push("has-row-head");
+					if (i === 2 && str.length) rNames.push("has-row-foot");
+					toolRows.get(i).html(`<table>${str.join("")}</table>`);
+				});
+				// reset tool columns UI
+				Self.els.rows
+					.removeClass("has-row-head has-row-foot")
+					.addClass(rNames.join(" "));
 				break;
 		}
 	}

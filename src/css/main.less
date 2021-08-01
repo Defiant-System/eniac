@@ -1232,17 +1232,17 @@ table {
 			box-shadow: 0 0 0 1px #d0d0d0,
 						0 1px 3px rgba(0,0,0,0.15);
 
-			&.plain {
+			&.has-col-head {
 				> div {
 					&:nth-child(1) {
 						&:after {
-							display: none;
+							display: block;
 						}
 					}
 
 					&:nth-child(2) {
 						table {
-							margin-left: 0;
+							margin-left: -1px;
 						}
 					}
 				}
@@ -1257,6 +1257,7 @@ table {
 
 					&:after {
 						content: "";
+						display: none;
 						position: absolute;
 						top: 0;
 						bottom: 0;
@@ -1271,10 +1272,6 @@ table {
 					overflow: hidden;
 					border-top-right-radius: inherit;
 					border-bottom-right-radius: inherit;
-
-					table {
-						margin-left: -1px;
-					}
 				}
 			}
 
@@ -1385,12 +1382,33 @@ table {
 			box-shadow: 0 0 0 1px #d0d0d0,
 						0 1px 3px rgba(0,0,0,0.15);
 
+			&.has-row-head {
+				> div {
+					&:nth-child(1) {
+						&:before {
+							display: block;
+						}
+					}
+				}
+			}
+
+			&.has-row-foot {
+				> div {
+					&:nth-child(3) {
+						&:before {
+							display: block;
+						}
+					}
+				}
+			}
+
 			> div {
 				&:nth-child(1) {
 					position: relative;
 
 					&:before {
 						content: "";
+						display: none;
 						position: absolute;
 						bottom: -1px;
 						left: 0;
@@ -1421,6 +1439,7 @@ table {
 
 					&:before {
 						content: "";
+						display: none;
 						position: absolute;
 						top: -1px;
 						left: 0;
