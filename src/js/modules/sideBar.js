@@ -88,6 +88,26 @@
 				value = Sheet.find(".tbl-body tr:nth-child(1) td").length;
 				Self.els.el.find(`input[name="table-cols-num"]`).val(value);
 				break;
+			// set values based on UI interaction
+			case "set-table-style":
+				el = $(event.target);
+				event.el.find(".active").removeClass("active");
+				el.addClass("active");
+				
+				Sheet = event.sheet || APP.tools.sheet.el;
+				Sheet.prop({ className: `sheet ${el.data("arg")}` });
+				break;
+			case "toggle-table-title":
+				Sheet = event.sheet || APP.tools.sheet.el;
+
+				if (event.el.is(":checked")) {
+					Sheet.prepend(`<div class="table-title">Title</div>`);
+				} else {
+					Sheet.find(".table-title").remove();
+				}
+				// sync tools table
+				APP.tools.dispatch({ type: "sync-sheet-table", sheet: Sheet });
+				break;
 			// forward popup events
 			case "popup-color-palette":
 				APP.popups.dispatch(event);

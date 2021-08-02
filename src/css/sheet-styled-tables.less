@@ -1,345 +1,381 @@
 
 .sheet {
-	&.gray-table-1 .tbl-root {
-		&:before {
+	&.gray-table-1 {
+		.table-title.title-border {
 			border-color: #404040;
 		}
 
-		.tbl-col-head {
-			td {
-				background-color: #bec0bf;
+		.tbl-root {
+			&:before {
+				border-color: #404040;
 			}
-			
-			tr:last-child td {
-				border-bottom-color: #404040;
-			}
-		}
 
-		.tbl-body {
-			> div {
-				&:nth-child(1) {
-					table {
-						border-right-color: #404040;
-					}
-
-					td {
-						background-color: #dcdcdc;
-					}
+			.tbl-col-head {
+				td {
+					background-color: #bec0bf;
 				}
-
-				&:nth-child(2) { }
+				
+				tr:last-child td {
+					border-bottom-color: #404040;
+				}
 			}
-		}
 
-		.tbl-col-foot {
-			border-top-color: #404040;
-			
-			td {
-				background-color: #eee;
+			.tbl-body {
+				> div {
+					&:nth-child(1) {
+						table {
+							border-right-color: #404040;
+						}
+
+						td {
+							background-color: #dcdcdc;
+						}
+					}
+
+					&:nth-child(2) { }
+				}
+			}
+
+			.tbl-col-foot {
+				border-top-color: #404040;
+				
+				td {
+					background-color: #eee;
+				}
 			}
 		}
 	}
 
-	&.blue-table-1 .tbl-root {
-		&:before {
+	&.blue-table-1 {
+		.table-title.title-border {
 			border-color: #404040;
 		}
 
-		.tbl-col-head {
-			> div:nth-child(n) {
-				table {
-					border-right-color: transparent;
+		.tbl-root {
+			&:before {
+				border-color: #404040;
+			}
 
-					td {
-						background-color: #fff;
+			.tbl-col-head {
+				> div:nth-child(n) {
+					table {
 						border-right-color: transparent;
-					}
-					
-					tr:last-child td {
-						border-bottom-color: #404040;
+
+						td {
+							background-color: #fff;
+							border-right-color: transparent;
+						}
+						
+						tr:last-child td {
+							border-bottom-color: #404040;
+						}
 					}
 				}
 			}
-		}
 
-		.tbl-body {			
-			> div {
-				&:nth-child(1) {
+			.tbl-body {			
+				> div {
+					&:nth-child(1) {
+						table {
+							border-right-color: #404040;
+						}
+
+						td {
+							background-color: #3FA9F570;
+							border-bottom-color: #3FA9F5;
+							border-right-color: #3FA9F5;
+						}
+					}
+
+					&:nth-child(2) { }
+				}
+			}
+
+			.tbl-col-foot {
+				border-top-color: #404040;
+
+				> div:nth-child(n) {
 					table {
-						border-right-color: #404040;
-					}
-
-					td {
-						background-color: #3FA9F570;
-						border-bottom-color: #3FA9F5;
-						border-right-color: #3FA9F5;
-					}
-				}
-
-				&:nth-child(2) { }
-			}
-		}
-
-		.tbl-col-foot {
-			border-top-color: #404040;
-
-			> div:nth-child(n) {
-				table {
-					border-right-color: transparent;
-
-					td {
-						background-color: #fff;
 						border-right-color: transparent;
+
+						td {
+							background-color: #fff;
+							border-right-color: transparent;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	&.green-table-1 .tbl-root {
-		&:before {
+	&.green-table-1 {
+		.table-title.title-border {
 			border-color: #404040;
 		}
 
-		.tbl-col-head {
-			> div:nth-child(n) {
-				table {
-					border-right-color: #65a481;
+		.tbl-root {
+			&:before {
+				border-color: #404040;
+			}
 
-					td {
-						background-color: #95d0ae;
+			.tbl-col-head {
+				> div:nth-child(n) {
+					table {
 						border-right-color: #65a481;
-						border-bottom-color: #65a481;
-					}
-			
-					tr:last-child td {
-						border-bottom-color: #404040;
+
+						td {
+							background-color: #95d0ae;
+							border-right-color: #65a481;
+							border-bottom-color: #65a481;
+						}
+				
+						tr:last-child td {
+							border-bottom-color: #404040;
+						}
 					}
 				}
 			}
-		}
 
-		.tbl-body {
-			> div {
-				&:nth-child(1) {
+			.tbl-body {
+				> div {
+					&:nth-child(1) {
+						table {
+							border-right-color: #404040;
+						}
+
+						td {
+							background-color: #dcdcdc;
+						}
+					}
+
+					&:nth-child(2) {
+						tr:nth-child(even) {
+							background-color: #f2f2f2;
+						}
+					}
+				}
+			}
+
+			.tbl-col-foot {
+				border-top-color: #404040;
+
+				> div:nth-child(n) {
 					table {
-						border-right-color: #404040;
-					}
-
-					td {
-						background-color: #dcdcdc;
-					}
-				}
-
-				&:nth-child(2) {
-					tr:nth-child(even) {
-						background-color: #f2f2f2;
-					}
-				}
-			}
-		}
-
-		.tbl-col-foot {
-			border-top-color: #404040;
-
-			> div:nth-child(n) {
-				table {
-					border-right-color: #65a481;
-
-					td {
-						background-color: #95d0ae;
 						border-right-color: #65a481;
-						border-bottom-color: #65a481;
+
+						td {
+							background-color: #95d0ae;
+							border-right-color: #65a481;
+							border-bottom-color: #65a481;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	&.blue-table-2 .tbl-root {
-		&:before {
+	&.blue-table-2 {
+		.table-title.title-border {
 			border-color: #404040;
 		}
 
-		.tbl-col-head {
-			> div:nth-child(n) {
-				table {
-					border-right-color: #6595b6;
+		.tbl-root {
+			&:before {
+				border-color: #404040;
+			}
 
-					td {
-						background-color: #94c1e2;
+			.tbl-col-head {
+				> div:nth-child(n) {
+					table {
 						border-right-color: #6595b6;
-						border-bottom-color: #6595b6;
-					}
-			
-					tr:last-child td {
-						border-bottom-color: #404040;
+
+						td {
+							background-color: #94c1e2;
+							border-right-color: #6595b6;
+							border-bottom-color: #6595b6;
+						}
+				
+						tr:last-child td {
+							border-bottom-color: #404040;
+						}
 					}
 				}
 			}
-		}
 
-		.tbl-body {
-			> div {
-				&:nth-child(1) {
+			.tbl-body {
+				> div {
+					&:nth-child(1) {
+						table {
+							border-right-color: #404040;
+						}
+
+						td {
+							background-color: #dcdcdc;
+						}
+					}
+
+					&:nth-child(2) {
+						tr:nth-child(even) {
+							background-color: #f2f2f2;
+						}
+					}
+				}
+			}
+
+			.tbl-col-foot {
+				border-top-color: #404040;
+
+				> div:nth-child(n) {
 					table {
-						border-right-color: #404040;
-					}
-
-					td {
-						background-color: #dcdcdc;
-					}
-				}
-
-				&:nth-child(2) {
-					tr:nth-child(even) {
-						background-color: #f2f2f2;
-					}
-				}
-			}
-		}
-
-		.tbl-col-foot {
-			border-top-color: #404040;
-
-			> div:nth-child(n) {
-				table {
-					border-right-color: #6595b6;
-
-					td {
-						background-color: #94c1e2;
 						border-right-color: #6595b6;
-						border-bottom-color: #6595b6;
+
+						td {
+							background-color: #94c1e2;
+							border-right-color: #6595b6;
+							border-bottom-color: #6595b6;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	&.orange-table-1 .tbl-root {
-		&:before {
+	&.orange-table-1 {
+		.table-title.title-border {
 			border-color: #404040;
 		}
 
-		.tbl-col-head {
-			> div:nth-child(n) {
-				table {
-					border-right-color: #cfa472;
-
-					td {
-						background-color: #fbd0a2;
-						border-right-color: #cfa472;
-						border-bottom-color: #cfa472;
-					}
-			
-					tr:last-child td {
-						border-bottom-color: #404040;
-					}
-				}
+		.tbl-root {
+			&:before {
+				border-color: #404040;
 			}
-		}
 
-		.tbl-body {
-			> div {
-				&:nth-child(1) {
+			.tbl-col-head {
+				> div:nth-child(n) {
 					table {
-						border-right-color: #404040;
-					}
+						border-right-color: #cfa472;
 
-					td {
-						background-color: #dcdcdc;
-					}
-				}
-
-				&:nth-child(2) {
-					tr:nth-child(even) {
-						background-color: #f2f2f2;
-					}
-
-					td {
-						border-style: dashed;
+						td {
+							background-color: #fbd0a2;
+							border-right-color: #cfa472;
+							border-bottom-color: #cfa472;
+						}
+				
+						tr:last-child td {
+							border-bottom-color: #404040;
+						}
 					}
 				}
 			}
-		}
 
-		.tbl-col-foot {
-			border-top-color: #404040;
+			.tbl-body {
+				> div {
+					&:nth-child(1) {
+						table {
+							border-right-color: #404040;
+						}
 
-			> div:nth-child(n) {
-				table {
-					border-right-color: #cfa472;
+						td {
+							background-color: #dcdcdc;
+						}
+					}
 
-					td {
-						background-color: #fbd0a2;
+					&:nth-child(2) {
+						tr:nth-child(even) {
+							background-color: #f2f2f2;
+						}
+
+						td {
+							border-style: dashed;
+						}
+					}
+				}
+			}
+
+			.tbl-col-foot {
+				border-top-color: #404040;
+
+				> div:nth-child(n) {
+					table {
 						border-right-color: #cfa472;
-						border-bottom-color: #cfa472;
+
+						td {
+							background-color: #fbd0a2;
+							border-right-color: #cfa472;
+							border-bottom-color: #cfa472;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	&.white-table-1 .tbl-root {
-		&:before {
+	&.white-table-1 {
+		.table-title.title-border {
 			border-color: #404040;
 		}
 
-		.tbl-col-head {
-			> div:nth-child(n) {
-				table {
-					border-right-color: #d3d3d3;
-
-					td {
-						background-color: #fff;
-						border-right-color: #d3d3d3;
-						border-bottom-color: #d3d3d3;
-					}
-			
-					tr:last-child td {
-						border-bottom-color: #404040;
-					}
-				}
+		.tbl-root {
+			&:before {
+				border-color: #404040;
 			}
-		}
 
-		.tbl-body {
-			> div {
-				&:nth-child(1) {
+			.tbl-col-head {
+				> div:nth-child(n) {
 					table {
-						border-right-color: #404040;
-					}
-
-					td {
-						background-color: #fff;
 						border-right-color: #d3d3d3;
-						border-bottom-color: #d3d3d3;
-					}
-				}
 
-				&:nth-child(2) {
-					tr:nth-child(even) {
-						background-color: #f2f2f2;
-					}
-
-					td {
-						border-style: dashed;
+						td {
+							background-color: #fff;
+							border-right-color: #d3d3d3;
+							border-bottom-color: #d3d3d3;
+						}
+				
+						tr:last-child td {
+							border-bottom-color: #404040;
+						}
 					}
 				}
 			}
-		}
 
-		.tbl-col-foot {
-			border-top-color: #404040;
+			.tbl-body {
+				> div {
+					&:nth-child(1) {
+						table {
+							border-right-color: #404040;
+						}
 
-			> div:nth-child(n) {
-				table {
-					border-right-color: #d3d3d3;
+						td {
+							background-color: #fff;
+							border-right-color: #d3d3d3;
+							border-bottom-color: #d3d3d3;
+						}
+					}
 
-					td {
-						background-color: #fff;
+					&:nth-child(2) {
+						tr:nth-child(even) {
+							background-color: #f2f2f2;
+						}
+
+						td {
+							border-style: dashed;
+						}
+					}
+				}
+			}
+
+			.tbl-col-foot {
+				border-top-color: #404040;
+
+				> div:nth-child(n) {
+					table {
 						border-right-color: #d3d3d3;
-						border-bottom-color: #d3d3d3;
+
+						td {
+							background-color: #fff;
+							border-right-color: #d3d3d3;
+							border-bottom-color: #d3d3d3;
+						}
 					}
 				}
 			}
