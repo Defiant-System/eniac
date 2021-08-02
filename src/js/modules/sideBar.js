@@ -106,12 +106,17 @@
 				break;
 			case "toggle-table-title":
 				Sheet = event.sheet || APP.tools.sheet.el;
-
+				// toggle table title
 				if (event.el.is(":checked")) Sheet.prepend(`<div class="table-title">Title</div>`);
 				else Sheet.find(".table-title").remove();
-				
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", sheet: Sheet });
+				break;
+			case "toggle-table-caption":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// toggle table caption
+				if (event.el.is(":checked")) Sheet.append(`<div class="table-caption">Caption</div>`);
+				else Sheet.find(".table-caption").remove();
 				break;
 			case "toggle-table-title-outline":
 				Sheet = event.sheet || APP.tools.sheet.el;
