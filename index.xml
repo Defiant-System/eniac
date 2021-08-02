@@ -21,6 +21,7 @@
 		<meta name="content" value="src/partials/content.htm"/>
 		<meta name="xsl" value="src/partials/templates.xsl"/>
 		
+		@import "src/partials/data.xml"
 		@import "src/partials/toolbar.xml"
 		@import "src/partials/menubar.xml"
 	</Head>

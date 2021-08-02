@@ -10,23 +10,28 @@ class File {
 			// attach reference to book
 			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
 		} else {
-			// barebone-table
-			// gray-table-1
-			// blue-table-1
-			// green-table-1
-			// blue-table-2
-			// orange-table-1
-			// white-table-1
-			html = window.render({ template: "barebone-table" });
-			html += window.render({ template: "gray-table-1" });
-			html += window.render({ template: "white-table-1" });
+			/* barebone-table   */
+			/* gray-table-1     */
+			/* blue-table-1     */
+			/* green-table-1    */
+			/* blue-table-2     */
+			/* orange-table-1   */
+			/* white-table-1    */
+			// html = window.render({ template: "barebone-table" });
+			// html += window.render({ template: "gray-table-1" });
+			// html += window.render({ template: "white-table-1" });
+
+			html = window.render({ template: "sheet", match: `//Sheet[@id="barebone"]` });
+			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
+			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
+
 			html = html.replace(/\t|\n/g, "");
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
 
 		// temp
-		window.find(".white-table-1 .tbl-col-head > div table").html("");
+		// window.find(".white-table-1 .tbl-col-head > div table").html("");
 		// window.find(".white-table-1 .tbl-col-foot > div table").html("");
 	}
 

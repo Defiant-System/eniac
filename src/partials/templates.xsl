@@ -1,141 +1,85 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template name="barebone-table">
+<xsl:template name="sheet">
 	<div class="sheet">
-		<div class="tbl-root">
-			<div class="tbl-col-head">
-				<div><table></table></div>
-				<div><table></table></div>
-			</div>
-			<div class="tbl-body">
-				<div><table></table></div>
-				<div>
-					<table>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					</table>
-				</div>
-			</div>
-			<div class="tbl-col-foot">
-				<div><table></table></div>
-				<div><table></table></div>
-			</div>
-		</div>
-	</div>
-</xsl:template>
-
-<xsl:template name="gray-table-1">
-	<div class="sheet gray-table-1">
-		<div class="table-title">Title</div>
+		<xsl:if test="@class">
+			<xsl:attribute name="class">sheet <xsl:value-of select="@class"/></xsl:attribute>
+		</xsl:if>
+		<xsl:if test="@title">
+			<div class="table-title"><xsl:value-of select="@title"/></div>
+		</xsl:if>
 		<xsl:call-template name="scaffold-table" />
+		<xsl:if test="@caption">
+			<div class="table-caption"><xsl:value-of select="@caption"/></div>
+		</xsl:if>
 	</div>
 </xsl:template>
-
-<xsl:template name="blue-table-1">
-	<div class="sheet blue-table-1">
-		<div class="table-title">Title</div>
-		<xsl:call-template name="scaffold-table" />
-	</div>
-</xsl:template>
-
-<xsl:template name="green-table-1">
-	<div class="sheet green-table-1">
-		<div class="table-title">Title</div>
-		<xsl:call-template name="scaffold-table" />
-	</div>
-</xsl:template>
-
-<xsl:template name="blue-table-2">
-	<div class="sheet blue-table-2">
-		<div class="table-title">Title</div>
-		<xsl:call-template name="scaffold-table" />
-	</div>
-</xsl:template>
-
-<xsl:template name="orange-table-1">
-	<div class="sheet orange-table-1">
-		<div class="table-title">Title</div>
-		<xsl:call-template name="scaffold-table" />
-	</div>
-</xsl:template>
-
-<xsl:template name="white-table-1">
-	<div class="sheet white-table-1">
-		<!-- <div class="table-title">Title</div> -->
-		<xsl:call-template name="scaffold-table" />
-		<div class="table-caption">Caption</div>
-	</div>
-</xsl:template>
-
 
 <xsl:template name="scaffold-table">
 	<div class="tbl-root">
 		<div class="tbl-col-head">
 			<div>
 				<table>
-					<tr><td></td></tr>
+					<xsl:for-each select="Head/Table[1]/Row">
+						<xsl:call-template name="table-row" />
+					</xsl:for-each>
 				</table>
 			</div>
 			<div>
 				<table>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<xsl:for-each select="Head/Table[2]/Row">
+						<xsl:call-template name="table-row" />
+					</xsl:for-each>
 				</table>
 			</div>
 		</div>
 		<div class="tbl-body">
 			<div>
 				<table>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
-					<tr><td></td></tr>
+					<xsl:for-each select="Body/Table[1]/Row">
+						<xsl:call-template name="table-row" />
+					</xsl:for-each>
 				</table>
 			</div>
 			<div>
 				<table>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<xsl:for-each select="Body/Table[2]/Row">
+						<xsl:call-template name="table-row" />
+					</xsl:for-each>
 				</table>
 			</div>
 		</div>
 		<div class="tbl-col-foot">
 			<div>
 				<table>
-					<tr><td></td></tr>
+					<xsl:for-each select="Foot/Table[1]/Row">
+						<xsl:call-template name="table-row" />
+					</xsl:for-each>
 				</table>
 			</div>
 			<div>
 				<table>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+					<xsl:for-each select="Foot/Table[2]/Row">
+						<xsl:call-template name="table-row" />
+					</xsl:for-each>
 				</table>
 			</div>
 		</div>
 	</div>
 </xsl:template>
+
+<xsl:template name="table-row">
+	<tr>
+		<xsl:for-each select="Cell">
+			<xsl:call-template name="table-cell" />
+		</xsl:for-each>
+	</tr>
+</xsl:template>
+
+<xsl:template name="table-cell">
+	<td><xsl:value-of select="@value"/></td>
+</xsl:template>
+
 
 <xsl:template name="footer">
 	<xsl:choose>

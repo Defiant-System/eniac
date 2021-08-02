@@ -12,6 +12,8 @@
 			cols: root.find(".table-cols"),
 			rows: root.find(".table-rows"),
 		};
+		// placeholder
+		this.sheet = {};
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
