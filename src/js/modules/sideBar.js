@@ -43,6 +43,7 @@
 			case "populate-table-values":
 				Self.dispatch({ ...event, type: "update-table-style" });
 				Self.dispatch({ ...event, type: "update-table-title-caption" });
+				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				break;
 			case "update-table-style":
@@ -63,6 +64,14 @@
 				Self.els.el.find(`input#table-title`).prop({ checked: value });
 				value = Sheet.find(".table-caption").length;
 				Self.els.el.find(`input#table-caption`).prop({ checked: value });
+				break;
+			case "update-table-head-footer-rows":
+				value = ["1", "table-header-rows-freeze"];
+				Self.els.el.find(`selectbox.table-header-rows`).val(value);
+				value = ["1", "table-header-columns-freeze"];
+				Self.els.el.find(`selectbox.table-header-columns`).val(value);
+				value = ["1", "table-footer-rows-freeze"];
+				Self.els.el.find(`selectbox.table-footer-rows`).val(value);
 				break;
 			case "update-table-row-col":
 				Sheet = event.sheet || APP.tools.sheet.el;
