@@ -19,11 +19,15 @@ class File {
 			// white-table-1
 			html = window.render({ template: "barebone-table" });
 			html += window.render({ template: "gray-table-1" });
-			html += window.render({ template: "blue-table-2" });
+			html += window.render({ template: "white-table-1" });
 			html = html.replace(/\t|\n/g, "");
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
+
+		// temp
+		window.find(".white-table-1 .tbl-col-head > div table").html("");
+		// window.find(".white-table-1 .tbl-col-foot > div table").html("");
 	}
 
 	toBlob(kind) {

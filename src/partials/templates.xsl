@@ -53,9 +53,8 @@
 
 <xsl:template name="blue-table-2">
 	<div class="sheet blue-table-2">
-		<!-- <div class="table-title">Title</div> -->
+		<div class="table-title">Title</div>
 		<xsl:call-template name="scaffold-table" />
-		<div class="table-caption">Caption</div>
 	</div>
 </xsl:template>
 
@@ -68,8 +67,9 @@
 
 <xsl:template name="white-table-1">
 	<div class="sheet white-table-1">
-		<div class="table-title">Title</div>
+		<!-- <div class="table-title">Title</div> -->
 		<xsl:call-template name="scaffold-table" />
+		<div class="table-caption">Caption</div>
 	</div>
 </xsl:template>
 
