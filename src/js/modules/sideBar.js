@@ -66,11 +66,18 @@
 				Self.els.el.find(`input#table-caption`).prop({ checked: value });
 				break;
 			case "update-table-head-footer-rows":
-				value = ["1", "table-header-rows-freeze"];
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// selectbox: table-header-rows
+				value = [Sheet.find(".tbl-body > div:nth-child(1) tr:nth-child(1) td").length];
+				if (value[0] > 0) value.push("table-header-rows-freeze");
 				Self.els.el.find(`selectbox.table-header-rows`).val(value);
-				value = ["1", "table-header-columns-freeze"];
+				// selectbox: table-header-columns
+				value = [Sheet.find(".tbl-col-head > div:nth-child(2) tr").length];
+				if (value[0] > 0) value.push("table-header-columns-freeze");
 				Self.els.el.find(`selectbox.table-header-columns`).val(value);
-				value = ["1", "table-footer-rows-freeze"];
+				// selectbox: table-footer-rows
+				value = [Sheet.find(".tbl-col-foot > div:nth-child(2) tr").length];
+				if (value[0] > 0) value.push("table-footer-rows-freeze");
 				Self.els.el.find(`selectbox.table-footer-rows`).val(value);
 				break;
 			case "update-table-row-col":
@@ -80,6 +87,10 @@
 				Self.els.el.find(`input[name="table-rows-num"]`).val(value);
 				value = Sheet.find(".tbl-body tr:nth-child(1) td").length;
 				Self.els.el.find(`input[name="table-cols-num"]`).val(value);
+				break;
+			// forward popup events
+			case "popup-color-palette":
+				APP.popups.dispatch(event);
 				break;
 		}
 	}
