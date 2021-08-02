@@ -49,8 +49,12 @@ const Cursor = {
 				APP.sidebar.dispatch({ ...event, type: "show-table" });
 				break;
 			case "blur-table":
-				// update sidebar
-				// APP.sidebar.dispatch({ type: "show-sheet" });
+				if (event.el.hasClass("body")) {
+					// update sidebar
+					APP.sidebar.dispatch({ type: "show-sheet" });
+					// hide table tools
+					APP.tools.dispatch({ type: "reset-tools" });
+				}
 				break;
 		}
 	},

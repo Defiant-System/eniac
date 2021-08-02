@@ -55,6 +55,10 @@
 					rowNum: rows.length,
 				};
 				break;
+			case "reset-tools":
+				Self.sheet = {};
+				Self.els.root.addClass("hidden");
+				break;
 			case "sync-tools-dim":
 				top = Sheet.el.prop("offsetTop");
 				left = Sheet.el.prop("offsetLeft");

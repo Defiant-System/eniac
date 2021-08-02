@@ -80,7 +80,7 @@ const eniac = {
 				if (el.hasClass("table-caption")) {
 					return Cursor.dispatch({ type: "focus-table-caption", el });
 				}
-				return Cursor.dispatch({ type: "blur-table" });
+				return Cursor.dispatch({ type: "blur-table", el });
 			// forwards events
 			default:
 				el = event.el || (event.origin && event.origin.el);
