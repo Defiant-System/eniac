@@ -45,6 +45,7 @@
 				Self.dispatch({ ...event, type: "update-table-title-caption" });
 				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
+				Self.dispatch({ ...event, type: "update-table-title-outline" });
 				break;
 			case "update-table-style":
 				Sheet = event.sheet || APP.tools.sheet.el;
@@ -88,6 +89,12 @@
 				value = Sheet.find(".tbl-body tr:nth-child(1) td").length;
 				Self.els.el.find(`input[name="table-cols-num"]`).val(value);
 				break;
+			case "update-table-title-outline":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// checkbox values
+				value = Sheet.find(".table-title").hasClass("title-outline");
+				Self.els.el.find(`input#outline-table-title`).prop({ checked: value });
+				break;
 			// set values based on UI interaction
 			case "set-table-style":
 				el = $(event.target);
@@ -100,13 +107,17 @@
 			case "toggle-table-title":
 				Sheet = event.sheet || APP.tools.sheet.el;
 
-				if (event.el.is(":checked")) {
-					Sheet.prepend(`<div class="table-title">Title</div>`);
-				} else {
-					Sheet.find(".table-title").remove();
-				}
+				if (event.el.is(":checked")) Sheet.prepend(`<div class="table-title">Title</div>`);
+				else Sheet.find(".table-title").remove();
+				
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", sheet: Sheet });
+				break;
+			case "toggle-table-title-outline":
+				Sheet = event.sheet || APP.tools.sheet.el;
+
+				if (event.el.is(":checked")) Sheet.find(".table-title").addClass("title-outline");
+				else Sheet.find(".table-title").removeClass("title-outline");
 				break;
 			// forward popup events
 			case "popup-color-palette":

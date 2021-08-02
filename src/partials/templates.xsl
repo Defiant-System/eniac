@@ -32,7 +32,7 @@
 
 <xsl:template name="gray-table-1">
 	<div class="sheet gray-table-1">
-		<div class="table-title title-border">Title</div>
+		<div class="table-title">Title</div>
 		<xsl:call-template name="scaffold-table" />
 	</div>
 </xsl:template>
