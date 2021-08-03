@@ -18,41 +18,12 @@
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
 	},
-	zipSheet(sheet) {
-		let out = {
-				rows: [],
-				cells: [],
-				getRowCells(vI) {
-					let cells = [];
-					return this.rows[vI];
-				},
-				getCell(vI, hI) {},
-				rowIndex(tr) {},
-				cellIndex(td) {},
-			};
-
-		sheet.find(".tbl-col-head > div:nth-child(1) tr").map((row, i) => {
-			let rowCells = [];
-			rowCells.push( ...$("td", row) );
-			rowCells.push( ...sheet.find(`.tbl-col-head > div:nth-child(2) tr:nth-child(${i+1}) td`) );
-			out.rows.push(rowCells);
-		});
-
-		out.cells.push(...sheet.find(".tbl-col-head td"));
-		sheet.find(".tbl-body > div:nth-child(1) tr").map((row, i) => {
-			out.cells.push( ...$("td", row) );
-			out.cells.push( ...sheet.find(`.tbl-body > div:nth-child(2) tr:nth-child(${i+1}) td`) );
-		});
-		out.cells.push(...sheet.find(".tbl-col-foot td"));
-		
-		return out;
-	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
 			Sheet = Self.sheet,
 			top, left, width, height,
-			zip, cols, rows,
+			grid, cols, rows,
 			el;
 		switch (event.type) {
 			// native events
@@ -78,18 +49,13 @@
 			case "set-sheet":
 				el = event.sheet;
 				// zip sheet cells ordered
-				zip = Self.zipSheet(el);
+				grid = Self.grid.sheet(el);
 
-				console.log( zip.getRowCells(1) );
-
-				// rows = zip.rows;
-				rows = el.find("tr");
 				Self.sheet = {
 					el,
-					zip,
-					rows,
-					colNum: rows.get(0).find("td").length,
-					rowNum: rows.length,
+					grid,
+					colNum: grid.getRowCells(0).length,
+					rowNum: grid.rows.length,
 				};
 				break;
 			case "reset-tools":
@@ -157,6 +123,10 @@
 				Self.els.rows
 					.removeClass("has-row-head has-row-foot")
 					.addClass(rNames.join(" "));
+
+				Self.sheet.toolGrid = Self.grid.tools();
+				// console.log( Self.sheet.tools.getCol(2) );
+				// console.log( Self.sheet.tools.getRow(2) );
 				break;
 			case "select-coords":
 				cols = event.xNum.length ? event.xNum : [event.xNum];
@@ -172,6 +142,77 @@
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
 
 				break;
+		}
+	},
+	grid: {
+		tools() {
+			let Els = eniac.tools.els,
+				grid = {
+					rows: [...Els.rows.find("td")],
+					cols: [],
+					getRow(y) {
+						return $(this.rows[y]);
+					},
+					getCol(x) {
+						return $(this.cols[x]);
+					},
+				};
+			
+			let r1 = Els.cols.find("> div:nth-child(1) tr"),
+				r2 = Els.cols.find("> div:nth-child(2) tr");
+			if (r1.length) r1.map((row, i) => grid.cols.push(...$("td", row), ...r2.get(i).find("td")));
+			else r2.map((row, i) => grid.cols.push(...$("td", row)));
+
+			return grid;
+		},
+		sheet(sheet) {
+			let r1, r2,
+				grid = {
+					rows: [],
+					cells: [],
+					getRowCells(y) {
+						return $(this.rows[y]);
+					},
+					getCoordCell(y, x) {
+						return $(this.getRowCells(y)[x]);
+					},
+					getCoord(td) {
+						for (let y=0, yl=this.rows.length; y<yl; y++) {
+							let row = this.rows[y];
+							for (let x=0, xl=row.length; x<xl; x++) {
+								if (row[x] === td) return [y, x];
+							}
+						}
+					}
+				};
+
+			// col head rows
+			r1 = sheet.find(".tbl-col-head > div:nth-child(1) tr");
+			r2 = sheet.find(".tbl-col-head > div:nth-child(2) tr");
+			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
+			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
+
+			// col body rows
+			r1 = sheet.find(".tbl-body > div:nth-child(1) tr");
+			r2 = sheet.find(".tbl-body > div:nth-child(2) tr");
+			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
+			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
+
+			// all cells
+			grid.cells.push(...sheet.find(".tbl-col-head td"));
+			r1.map((row, i) => {
+				grid.cells.push( ...$("td", row) );
+				grid.cells.push( ...r2.get(i).find("td") );
+			});
+			grid.cells.push(...sheet.find(".tbl-col-foot td"));
+			
+			// col foot rows
+			r1 = sheet.find(".tbl-col-foot > div:nth-child(1) tr");
+			r2 = sheet.find(".tbl-col-foot > div:nth-child(2) tr");
+			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
+			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
+
+			return grid;
 		}
 	}
 }

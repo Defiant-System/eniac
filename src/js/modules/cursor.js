@@ -36,8 +36,7 @@ const Cursor = {
 				// sync tools sheet
 				APP.tools.dispatch({ type: "sync-sheet-table", sheet });
 				// make column + row active
-				xNum = anchor.index();
-				yNum = anchor.parent().index();
+				[yNum, xNum] = APP.tools.sheet.grid.getCoord(anchor[0]);
 				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				break;
 			case "focus-table":
