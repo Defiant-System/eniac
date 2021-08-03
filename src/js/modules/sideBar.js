@@ -105,16 +105,13 @@
 				break;
 			case "update-gridlines":
 				Sheet = event.sheet || APP.tools.sheet.el;
-
+				// enable/disable gridline options
 				value = APP.tools.els.cols.hasClass("has-col-head") ? "removeClass" : "addClass";
 				Self.els.el.find(`span[data-name="hg-header"]`)[value]("disabled_");
-
 				value = APP.tools.els.rows.hasClass("has-row-head") ? "removeClass" : "addClass";
 				Self.els.el.find(`span[data-name="vg-body"]`)[value]("disabled_");
-
 				value = APP.tools.els.rows.hasClass("has-row-foot") ? "removeClass" : "addClass";
 				Self.els.el.find(`span[data-name="vg-footer"]`)[value]("disabled_");
-
 				// iterate hash record
 				for (let key in Self.glHash) {
 					let hash = Self.glHash[key],
