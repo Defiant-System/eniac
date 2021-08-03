@@ -155,6 +155,12 @@
 					getCol(x) {
 						return $(this.cols[x]);
 					},
+					getRowIndex(td) {
+						return this.rows.indexOf(td);
+					},
+					getColIndex(td) {
+						return this.cols.indexOf(td);
+					}
 				};
 			// col head rows
 			let r1 = Els.cols.find("> div:nth-child(1) tr"),
@@ -167,6 +173,15 @@
 		sheet(sheet) {
 			let r1, r2,
 				grid = {
+					rows: {
+						head: 1,
+						body: 15,
+						foot: 1
+					},
+					cols: {
+						head: 1,
+						body: 6
+					},
 					rows: [],
 					cells: [],
 					getRow(y) {
@@ -177,6 +192,19 @@
 					},
 					getCoordCell(y, x) {
 						return $(this.getRowCells(y)[x]);
+					},
+					getCoordRow(y) {
+						let found = [];
+						if (this.cols.head > 0) found.push(this.getRowCells(y)[0]);
+						if (this.cols.body > 0) found.push(this.getRowCells(y)[this.cols.head]);
+						return $(found);
+					},
+					getCoordCol(x) {
+						let found = [];
+						if (this.rows.head > 0) found.push(this.getRowCells(0)[x]);
+						if (this.rows.body > 0) found.push(this.getRowCells(this.rows.head)[x]);
+						if (this.rows.foot > 0) found.push(this.getRowCells(this.rows.head + this.rows.body)[x]);
+						return $(found);
 					},
 					getCoord(td) {
 						for (let y=0, yl=this.rows.length; y<yl; y++) {
@@ -221,7 +249,8 @@
 			case "mousedown":
 				let el = $(event.target.parentNode),
 					tbl = el.parents("table:first"),
-					tool = tbl.parents(".table-tool:first");
+					tool = tbl.parents(".table-tool:first"),
+					index;
 				if (tool.hasClass("table-cols") || tool.hasClass("table-rows")) {
 					// create drag object
 					Self.drag = {
@@ -234,14 +263,18 @@
 					};
 					// identify if "column" or "row"
 					if (event.offsetX > event.target.offsetWidth) {
+						index = Self.sheet.toolGrid.getColIndex(el[0]);
+
 						Self.drag.el = el;
 						Self.drag.tblWidth = tbl.prop("offsetWidth");
-						Self.drag.sheetCol = Self.sheet.grid.getCoordCell(0, Self.drag.el.index());
+						Self.drag.sheetCol = Self.sheet.grid.getCoordCol(index);
 						Self.drag.ttWidth = Self.drag.root[0].getBoundingClientRect().width;
 						Self.drag.colWidth = Self.drag.el[0].getBoundingClientRect().width;
 					} else if (event.offsetX < 0) {
+						index = Self.sheet.toolGrid.getRowIndex(el[0]);
+
 						Self.drag.el = el.parent();
-						Self.drag.sheetRow = Self.sheet.grid.getRow(Self.drag.el.index());
+						Self.drag.sheetRow = Self.sheet.grid.getCoordRow(index).parent();
 						Self.drag.ttHeight = Self.drag.root[0].offsetHeight;
 						Self.drag.rowHeight = Self.drag.el[0].offsetHeight;
 					}
