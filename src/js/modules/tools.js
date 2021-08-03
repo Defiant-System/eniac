@@ -123,15 +123,12 @@
 				Self.els.rows
 					.removeClass("has-row-head has-row-foot")
 					.addClass(rNames.join(" "));
-
+				// zip tool cells
 				Self.sheet.toolGrid = Self.grid.tools();
-				// console.log( Self.sheet.tools.getCol(2) );
-				// console.log( Self.sheet.tools.getRow(2) );
 				break;
 			case "select-coords":
 				cols = event.xNum.length ? event.xNum : [event.xNum];
 				rows = event.yNum.length ? event.yNum : [event.yNum];
-
 				// remember selected coords
 				Self.selected = { xNum: event.xNum, yNum: event.yNum };
 
@@ -140,7 +137,6 @@
 
 				Self.els.rows.find(".active").removeClass("active");
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
-
 				break;
 		}
 	},
@@ -157,7 +153,7 @@
 						return $(this.cols[x]);
 					},
 				};
-			
+			// col head rows
 			let r1 = Els.cols.find("> div:nth-child(1) tr"),
 				r2 = Els.cols.find("> div:nth-child(2) tr");
 			if (r1.length) r1.map((row, i) => grid.cols.push(...$("td", row), ...r2.get(i).find("td")));
@@ -185,19 +181,16 @@
 						}
 					}
 				};
-
 			// col head rows
 			r1 = sheet.find(".tbl-col-head > div:nth-child(1) tr");
 			r2 = sheet.find(".tbl-col-head > div:nth-child(2) tr");
 			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
 			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
-
 			// col body rows
 			r1 = sheet.find(".tbl-body > div:nth-child(1) tr");
 			r2 = sheet.find(".tbl-body > div:nth-child(2) tr");
 			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
 			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
-
 			// all cells
 			grid.cells.push(...sheet.find(".tbl-col-head td"));
 			r1.map((row, i) => {
@@ -205,7 +198,6 @@
 				grid.cells.push( ...r2.get(i).find("td") );
 			});
 			grid.cells.push(...sheet.find(".tbl-col-foot td"));
-			
 			// col foot rows
 			r1 = sheet.find(".tbl-col-foot > div:nth-child(1) tr");
 			r2 = sheet.find(".tbl-col-foot > div:nth-child(2) tr");

@@ -74,7 +74,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-1" title="Title" class="gray-table-1">
+	<Sheet id="temp-1" title="Complex Table" class="gray-table-1">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
