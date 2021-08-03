@@ -11,12 +11,14 @@
 			layout: window.find("layout"),
 			cols: root.find(".table-cols"),
 			rows: root.find(".table-rows"),
+			move: root.find(".tool.move"),
 		};
 		// placeholder
 		this.sheet = {};
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
+		this.els.move.on("mousedown", this.move);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -205,6 +207,44 @@
 			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
 
 			return grid;
+		}
+	},
+	move(event) {
+		let APP = eniac,
+			Self = APP.tools,
+			Drag = Self.drag,
+			top, left,
+			sheet,
+			el;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				
+				sheet = Self.sheet.el;
+				el = $([sheet[0], Self.els.root[0]]);
+				// create drag object
+				Self.drag = {
+					el,
+					clickX: event.clientX,
+					clickY: event.clientY,
+					offset: {
+						x: sheet.prop("offsetLeft"),
+						y: sheet.prop("offsetTop"),
+					}
+				};
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.move);
+				break;
+			case "mousemove":
+				top = event.clientY - Drag.clickY + Drag.offset.y;
+				left = event.clientX - Drag.clickX + Drag.offset.x;
+				Drag.el.css({ top, left });
+				break;
+			case "mouseup":
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.move);
+				break;
 		}
 	}
 }
