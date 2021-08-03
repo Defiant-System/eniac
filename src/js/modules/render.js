@@ -32,7 +32,7 @@ const Render = {
 			// table.css({ "--alt-row-bg": "#ff9900" });
 
 			// auto focus on first cell
-			let anchor = table.find("td").get(3);
+			let anchor = table.find("td").get(13);
 			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 			// setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
 		} else {

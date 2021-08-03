@@ -33,15 +33,16 @@ const Cursor = {
 
 				// focus clicked table
 				Self.dispatch({ type: "focus-table", sheet });
-				// sync tools sheet
-				APP.tools.dispatch({ type: "sync-sheet-table", sheet });
 				// make column + row active
 				[yNum, xNum] = APP.tools.sheet.grid.getCoord(anchor[0]);
 				APP.tools.dispatch({ type: "select-coords", yNum, xNum });
 				break;
 			case "focus-table":
-				if (APP.tools.sheet && event.sheet.isSame(APP.tools.sheet.el)) return;
+				sheet = event.sheet;
+				if (APP.tools.sheet && sheet.isSame(APP.tools.sheet.el)) return;
 
+				// sync tools sheet
+				APP.tools.dispatch({ type: "sync-sheet-table", sheet });
 				// show tools for table
 				Self.els.tools.removeClass("hidden");
 				// update sidebar
