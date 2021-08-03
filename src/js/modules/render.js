@@ -19,7 +19,7 @@ const Render = {
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
-			let table = this.els.body.append(html).find("table").get(9);
+			let table = this.els.body.append(html).find("table").get(3);
 			// temp
 			// table.find("td").get(22).html("123");
 			// table.find("td").get(3).html("123");

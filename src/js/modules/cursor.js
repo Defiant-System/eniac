@@ -51,6 +51,10 @@ const Cursor = {
 				// update sidebar
 				APP.sidebar.dispatch({ ...event, type: "show-table" });
 				break;
+			case "blur-cell":
+				// reset reference to cell
+				Self.anchor = false;
+				break;
 			case "blur-table":
 				if (event.el.hasClass("body")) {
 					// update sidebar

@@ -18,6 +18,7 @@
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
+		this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
 		this.els.move.on("mousedown", this.move);
 	},
 	dispatch(event) {
@@ -168,6 +169,9 @@
 				grid = {
 					rows: [],
 					cells: [],
+					getRow(y) {
+						return $(this.rows[y][0]);
+					},
 					getRowCells(y) {
 						return $(this.rows[y]);
 					},
@@ -207,6 +211,71 @@
 			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
 
 			return grid;
+		}
+	},
+	resizeColRow(event) {
+		let APP = eniac,
+			Self = APP.tools,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				let el = $(event.target.parentNode),
+					tbl = el.parents("table:first"),
+					tool = tbl.parents(".table-tool:first");
+				if (tool.hasClass("table-cols") || tool.hasClass("table-rows")) {
+					// create drag object
+					Self.drag = {
+						tbl,
+						root: Self.els.root,
+						clickX: event.clientX,
+						clickY: event.clientY,
+						minX: 30,
+						minY: 25,
+					};
+					// identify if "column" or "row"
+					if (event.offsetX > event.target.offsetWidth) {
+						Self.drag.el = el;
+						Self.drag.tblWidth = tbl.prop("offsetWidth");
+						Self.drag.sheetCol = Self.sheet.grid.getCoordCell(0, Self.drag.el.index());
+						Self.drag.ttWidth = Self.drag.root[0].getBoundingClientRect().width;
+						Self.drag.colWidth = Self.drag.el[0].getBoundingClientRect().width;
+					} else if (event.offsetX < 0) {
+						Self.drag.el = el.parent();
+						Self.drag.sheetRow = Self.sheet.grid.getRow(Self.drag.el.index());
+						Self.drag.ttHeight = Self.drag.root[0].offsetHeight;
+						Self.drag.rowHeight = Self.drag.el[0].offsetHeight;
+					}
+					if (Self.drag.el) {
+						// prevent default behaviour
+						event.preventDefault();
+						// cover layout
+						Self.els.layout.addClass("cover");
+						// bind event
+						Self.els.doc.on("mousemove mouseup", Self.resizeColRow);
+					}
+				}
+				break;
+			case "mousemove":
+				if (Drag.sheetCol) {
+					let width = Math.max(event.clientX - Drag.clickX + Drag.colWidth, Drag.minX);
+					Drag.el.css({ width });
+					Drag.sheetCol.css({ width });
+					Drag.tbl.css({ width: Drag.tblWidth + width - Drag.colWidth });
+					Drag.root.css({ width: Drag.ttWidth + width - Drag.colWidth });
+				} else {
+					let height = Math.max(event.clientY - Drag.clickY + Drag.rowHeight, Drag.minY);
+					Drag.el.css({ height });
+					Drag.sheetRow.css({ height });
+					Drag.root.css({ height: Drag.ttHeight + height - Drag.rowHeight });
+				}
+				Cursor.dispatch({ type: "re-sync-selection" });
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.resizeColRow);
+				break;
 		}
 	},
 	move(event) {
