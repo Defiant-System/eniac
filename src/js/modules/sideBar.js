@@ -135,6 +135,10 @@
 				else Sheet.find(".table-title").remove();
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", sheet: Sheet });
+				// sync tools selection indicators
+				APP.tools.dispatch({ type: "select-coords", ...APP.tools.selected });
+				// re-sync selection box
+				Cursor.dispatch({ type: "re-sync-selection" });
 				break;
 			case "toggle-table-caption":
 				Sheet = event.sheet || APP.tools.sheet.el;

@@ -36,7 +36,7 @@ const Cursor = {
 				Self.dispatch({ type: "focus-table", sheet });
 				// make column + row active
 				[yNum, xNum] = Tools.sheet.grid.getCoord(anchor[0]);
-				Tools.dispatch({ type: "select-coords", yNum, xNum });
+				Tools.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum] });
 				// UI select element
 				Self.dispatch({ ...event, anchor, type: "select-cell" });
 				break;
@@ -59,12 +59,16 @@ const Cursor = {
 					Tools.dispatch({ type: "reset-tools" });
 				}
 				break;
+			case "re-sync-selection":
 			case "select-cell":
-				anchor = event.anchor;
+				anchor = event.anchor || Self.anchor;
 				table = anchor.parents(".tbl-root:first");
 
 				offset = Self.getOffset(anchor[0], table[0]);
 				Self.els.root.addClass("show").css(offset);
+
+				// save anchor reference
+				Self.anchor = anchor;
 				break;
 		}
 	},
