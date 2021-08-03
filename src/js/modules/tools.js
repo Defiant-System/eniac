@@ -18,12 +18,41 @@
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
 	},
+	zipSheet(sheet) {
+		let out = {
+				rows: [],
+				cells: [],
+				getRowCells(vI) {
+					let cells = [];
+					return this.rows[vI];
+				},
+				getCell(vI, hI) {},
+				rowIndex(tr) {},
+				cellIndex(td) {},
+			};
+
+		sheet.find(".tbl-col-head > div:nth-child(1) tr").map((row, i) => {
+			let rowCells = [];
+			rowCells.push( ...$("td", row) );
+			rowCells.push( ...sheet.find(`.tbl-col-head > div:nth-child(2) tr:nth-child(${i+1}) td`) );
+			out.rows.push(rowCells);
+		});
+
+		out.cells.push(...sheet.find(".tbl-col-head td"));
+		sheet.find(".tbl-body > div:nth-child(1) tr").map((row, i) => {
+			out.cells.push( ...$("td", row) );
+			out.cells.push( ...sheet.find(`.tbl-body > div:nth-child(2) tr:nth-child(${i+1}) td`) );
+		});
+		out.cells.push(...sheet.find(".tbl-col-foot td"));
+		
+		return out;
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
 			Sheet = Self.sheet,
 			top, left, width, height,
-			cols, rows,
+			zip, cols, rows,
 			el;
 		switch (event.type) {
 			// native events
@@ -48,11 +77,17 @@
 			// custom events
 			case "set-sheet":
 				el = event.sheet;
+				// zip sheet cells ordered
+				zip = Self.zipSheet(el);
+
+				console.log( zip.getRowCells(1) );
+
+				// rows = zip.rows;
 				rows = el.find("tr");
 				Self.sheet = {
 					el,
+					zip,
 					rows,
-					cells: event.sheet.find("td"),
 					colNum: rows.get(0).find("td").length,
 					rowNum: rows.length,
 				};

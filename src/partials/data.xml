@@ -8,14 +8,14 @@
 		<Body>
 			<Table/>
 			<Table>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Body>
 		<Foot>
@@ -96,8 +96,14 @@
 				<Row><Cell/></Row>
 				<Row><Cell/></Row>
 				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
 			</Table>
 			<Table>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
@@ -122,7 +128,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-2" caption="Caption" class="white-table-1">
+	<Sheet id="temp-2" caption="No Column Head" class="white-table-1">
 		<Head>
 			<Table/>
 			<Table/>
@@ -163,6 +169,33 @@
 			</Table>
 			<Table>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+			</Table>
+		</Foot>
+	</Sheet>
+
+	<Sheet id="temp-3" caption="No Row Head" class="green-table-1">
+		<Head>
+			<Table/>
+			<Table>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+			</Table>
+		</Head>
+		<Body>
+			<Table/>
+			<Table>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+			</Table>
+		</Body>
+		<Foot>
+			<Table/>
+			<Table>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Foot>
 	</Sheet>
