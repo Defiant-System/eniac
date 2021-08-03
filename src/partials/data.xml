@@ -8,15 +8,14 @@
 		<Body>
 			<Table/>
 			<Table>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Body>
 		<Foot>
@@ -74,7 +73,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-1" title="Complex Table" class="gray-table-1">
+	<Sheet id="temp-1" title="Clipped Table" class="gray-table-1">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -129,7 +128,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-2" caption="No Column Head" class="white-table-1">
+	<Sheet id="temp-2" caption="Clipped (No Column)" class="white-table-1">
 		<Head>
 			<Table/>
 			<Table/>
@@ -145,14 +144,8 @@
 				<Row><Cell/></Row>
 				<Row><Cell/></Row>
 				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
 			</Table>
 			<Table>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
