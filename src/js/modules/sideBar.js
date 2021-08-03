@@ -9,6 +9,13 @@
 			el: window.find("sidebar"),
 		};
 	},
+	glHash: {
+		"h-gridlines": "hide-hg-lines",
+		"v-gridlines": "hide-vg-lines",
+		"hg-header":   "hide-hgh-lines",
+		"vg-body":     "hide-vgb-lines",
+		"vg-footer":   "hide-vgf-lines",
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar,
@@ -46,6 +53,7 @@
 				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-table-title-outline" });
+				Self.dispatch({ ...event, type: "update-gridlines" });
 				break;
 			case "update-table-style":
 				Sheet = event.sheet || APP.tools.sheet.el;
@@ -95,6 +103,15 @@
 				value = Sheet.find(".table-title").hasClass("title-outline");
 				Self.els.el.find(`input#outline-table-title`).prop({ checked: value });
 				break;
+			case "update-gridlines":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// iterate hash record
+				for (let key in Self.glHash) {
+					let hash = Self.glHash[key],
+						method = Sheet.hasClass(hash) ? "removeClass" : "addClass";
+					Self.els.el.find(`span[data-name="${key}"]`)[method]("active_");
+				}
+				break;
 			// set values based on UI interaction
 			case "set-table-style":
 				el = $(event.target);
@@ -123,6 +140,14 @@
 
 				if (event.el.is(":checked")) Sheet.find(".table-title").addClass("title-outline");
 				else Sheet.find(".table-title").removeClass("title-outline");
+				break;
+			case "set-gridlines":
+				el = $(event.target);
+				value = el.hasClass("active_");
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// toggle button and table UI
+				el[ value ? "removeClass" : "addClass" ]("active_");
+				Sheet[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
 				break;
 			// forward popup events
 			case "popup-color-palette":
