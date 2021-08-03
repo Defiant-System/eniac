@@ -128,7 +128,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-2" caption="Clipped (No Column)" class="white-table-1">
+	<Sheet id="temp-2" title="Clipped (No Column)" class="white-table-1">
 		<Head>
 			<Table/>
 			<Table/>
