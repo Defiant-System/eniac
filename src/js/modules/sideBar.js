@@ -144,7 +144,7 @@
 				break;
 			case "toggle-table-title-outline":
 				Sheet = event.sheet || APP.tools.sheet.el;
-
+				// toggle title outline
 				if (event.el.is(":checked")) Sheet.find(".table-title").addClass("title-outline");
 				else Sheet.find(".table-title").removeClass("title-outline");
 				break;
