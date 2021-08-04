@@ -180,6 +180,7 @@
 		sheet(sheet) {
 			let r1, r2,
 				grid = {
+					sheet,
 					rows: {
 						head: 1,
 						body: 15,
@@ -220,6 +221,12 @@
 								if (row[x] === td) return [y, x];
 							}
 						}
+					},
+					get width() {
+						return this.sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0);
+					},
+					get height() {
+						return this.sheet.find(".tbl-root div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0);
 					}
 				};
 			// col head rows
@@ -325,16 +332,18 @@
 			el;
 		switch (event.type) {
 			case "mousedown":
+				el = Self.els.root;
+				if (!el.hasClass("clip")) {
+					return Self.resizeTable(event);
+				}
+
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				el = Self.els.root;
 				let Sidebar = APP.sidebar.els.el,
 					sheet = Self.sheet.el.find(".tbl-root"),
-					maxWidth = sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0),
-					maxHeight = sheet.find("div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0),
 					type = event.target.className.split(" ")[1].split("-")[0];
 
 				// create drag object
@@ -364,8 +373,8 @@
 						height: 176,
 					},
 					max: {
-						width: maxWidth,
-						height: maxHeight,
+						width: Self.sheet.grid.width,
+						height: Self.sheet.grid.height,
 					}
 				};
 

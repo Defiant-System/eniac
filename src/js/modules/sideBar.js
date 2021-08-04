@@ -21,7 +21,6 @@
 			Self = APP.sidebar,
 			Sheet,
 			value,
-			max,
 			pEl,
 			el;
 		switch (event.type) {
@@ -82,13 +81,11 @@
 				// input fields: fit width
 				value = Sheet.find(".tbl-root").prop("offsetWidth");
 				pEl.find("input#table-clip-width").val(value);
-				max = Sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0);
-				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < max);
+				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < APP.tools.sheet.grid.width);
 				// input fields: fit height
 				value = Sheet.find(".tbl-root").prop("offsetHeight");
 				pEl.find("input#table-clip-height").val(value);
-				max = Sheet.find(".tbl-root div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0);
-				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < max);
+				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < APP.tools.sheet.grid.height);
 				break;
 			case "update-table-head-footer-rows":
 				Sheet = event.sheet || APP.tools.sheet.el;
