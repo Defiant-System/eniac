@@ -334,7 +334,7 @@
 			case "mousedown":
 				el = Self.els.root;
 				if (!el.hasClass("clip")) {
-					return Self.resizeTable(event);
+					return Self.resizeGrid(event);
 				}
 
 				// prevent default behaviour
@@ -407,10 +407,10 @@
 				break;
 		}
 	},
-	resizeTable(event) {
+	resizeGrid(event) {
 		let APP = eniac,
 			Self = APP.tools,
-			Drag = Self.tDrag,
+			Drag = Self.gDrag,
 			width, height,
 			el;
 		switch (event.type) {
@@ -421,12 +421,12 @@
 				Self.els.layout.addClass("cover");
 
 				// create drag object
-				Self.tDrag = {
+				Self.gDrag = {
 					
 				};
 
 				// bind events
-				Self.els.doc.on("mousemove mouseup", Self.resizeTable);
+				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
 				break;
 			case "mousemove":
 				break;
@@ -434,7 +434,7 @@
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events
-				Self.els.doc.off("mousemove mouseup", Self.resizeTable);
+				Self.els.doc.off("mousemove mouseup", Self.resizeGrid);
 				break;
 		}
 	},
