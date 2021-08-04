@@ -19,7 +19,7 @@ const Render = {
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
-			let table = this.els.body.append(html).find(".tbl-body").get(2).find("> div:nth-child(2)");
+			let table = this.els.body.append(html).find(".tbl-body").get(1).find("> div:nth-child(2)");
 			// temp
 			// let dim = Parser.tableAbsDim(table);
 

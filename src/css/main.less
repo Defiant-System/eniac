@@ -138,9 +138,8 @@ layout {
 	.tool.move:before     { background-image: url(~/icons/tool-move.png); }
 	.tool.h-resize:before { background-image: url(~/icons/tool-h_resize.png); }
 	.tool.v-resize:before { background-image: url(~/icons/tool-v_resize.png); }
-	.tool.hv-resize:before   { background-image: url(~/icons/tool-resize.png); }
+	.tool.hv-resize:before { background-image: url(~/icons/tool-resize.png); }
 	
-
 	[class*="icon-"],
 	[class^="icon-"] {
 		width: 13px;
@@ -1126,6 +1125,12 @@ table {
 
 	&.hidden {
 		display: none;
+	}
+
+	&.clip {
+		.tool.h-resize:before  { background-image: url(~/icons/tool-clip-h_resize.png); }
+		.tool.v-resize:before  { background-image: url(~/icons/tool-clip-v_resize.png); }
+		.tool.hv-resize:before { background-image: url(~/icons/tool-clip-resize.png); }
 	}
 
 	.tool {
