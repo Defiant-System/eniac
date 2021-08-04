@@ -82,6 +82,10 @@
 				Self.dispatch({ ...event, type: "set-sheet" });
 				Self.dispatch({ ...event, type: "sync-tools-dim" });
 
+				// toggle between "clip" resizers
+				if (Self.sheet.el.hasClass("clipped")) Self.els.root.addClass("clip");
+				else Self.els.root.removeClass("clip");
+
 				let toolCols = Self.els.cols.find("> div").html(""),
 					toolRows = Self.els.rows.find("> div").html(""),
 					cNames = [],

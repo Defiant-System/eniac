@@ -73,7 +73,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-1" title="Clipped Table" class="gray-table-1">
+	<Sheet id="temp-1" title="Clipped Table" class="gray-table-1 clipped">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -128,7 +128,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-2" title="Clipped (No Column)" class="blue-table-1">
+	<Sheet id="temp-2" title="Clipped (No Column)" class="blue-table-1 clipped">
 		<Head>
 			<Table/>
 			<Table/>
