@@ -169,8 +169,12 @@
 				// toggle table clipping
 				if (event.el.is(":checked")) {
 					Self.els.el.find(".table-clipping").addClass("expand");
+					Sheet.addClass("clipped");
+					APP.tools.els.root.addClass("clip");
 				} else {
 					Self.els.el.find(".table-clipping").removeClass("expand");
+					Sheet.removeClass("clipped");
+					APP.tools.els.root.removeClass("clip");
 				}
 				break;
 			case "toggle-table-title-outline":
