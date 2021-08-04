@@ -920,7 +920,7 @@ table {
 
 		.tbl-root {
 			// constrain dimensions
-			width: 361px;
+			width: 360px;
 			height: 251px;
 		}
 	}
@@ -1269,6 +1269,7 @@ table {
 		left: 0;
 		width: 100%;
 		height: 100%;
+		z-index: 11;
 		display: flex;
 		flex-direction: row;
 		color: #666;
@@ -1293,14 +1294,22 @@ table {
 			&.has-col-head {
 				> div {
 					&:nth-child(1) {
-						&:after {
-							display: block;
+						td:last-child {
+							border-top-right-radius: 0;
+							border-bottom-right-radius: 0;
 						}
 					}
 
 					&:nth-child(2) {
+						border-left: 1px solid lighten(@table_border, 13%);
+
 						table {
 							margin-left: -1px;
+						}
+
+						td:first-child {
+							border-top-left-radius: 0;
+							border-bottom-left-radius: 0;
 						}
 					}
 				}
@@ -1313,15 +1322,9 @@ table {
 					border-top-left-radius: inherit;
 					border-bottom-left-radius: inherit;
 
-					&:after {
-						content: "";
-						display: none;
-						position: absolute;
-						top: 0;
-						bottom: 0;
-						right: 0;
-						width: 0;
-						border-right: 1px solid lighten(@table_border, 13%);
+					td:last-child {
+						border-top-right-radius: 0;
+						border-bottom-right-radius: 0;
 					}
 				}
 
@@ -1355,8 +1358,8 @@ table {
 				}
 
 				&:last-child {
-					border-top-right-radius: 4px;
-					border-bottom-right-radius: 4px;
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
 				}
 
 				&:before {
@@ -1385,16 +1388,7 @@ table {
 						right: -1px;
 						bottom: -1px;
 						border: 1px solid darken(#d6e6fb, 11%);
-					}
-
-					&:first-child:after {
-						border-top-left-radius: 4px;
-						border-bottom-left-radius: 4px;
-					}
-
-					&:last-child:after {
-						border-top-right-radius: 4px;
-						border-bottom-right-radius: 4px;
+						border-radius: inherit;
 					}
 
 					s {

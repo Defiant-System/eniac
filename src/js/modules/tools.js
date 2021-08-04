@@ -104,7 +104,8 @@
 							return `<td style="width: ${Math.round(rect.width)}px;"><s></s></td>`;
 						});
 					if (i === 0 && str.length) cNames.push("has-col-head");
-					str = `<table style="width: ${el.firstChild.offsetWidth}px;"><tr>${str.join("")}</tr></table>`;
+					let width = Math.floor(el.firstChild.getBoundingClientRect().width);
+					str = `<table style="width: ${width}px;"><tr>${str.join("")}</tr></table>`;
 					toolCols.get(i).html(str);
 				});
 				// reset tool columns UI

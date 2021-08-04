@@ -81,15 +81,15 @@
 				pEl.toggleClass("expand", !value);
 				// input fields: fit width
 				value = Sheet.find(".tbl-root").prop("offsetWidth");
-				max = Sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0);
 				pEl.find("input#table-clip-width").val(value);
+				max = Sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0);
 				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < max);
 				// input fields: fit height
 				value = Sheet.find(".tbl-root").prop("offsetHeight");
+				pEl.find("input#table-clip-height").val(value);
 				max = Sheet.find(".tbl-col-head > div:nth-child(2) > table").prop("offsetHeight")
 					+ Sheet.find(".tbl-body > div:nth-child(2) > table").prop("offsetHeight")
 					+ Sheet.find(".tbl-col-foot > div:nth-child(2) > table").prop("offsetHeight");
-				pEl.find("input#table-clip-height").val(value);
 				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < max);
 				break;
 			case "update-table-head-footer-rows":
