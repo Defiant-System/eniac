@@ -19,7 +19,9 @@ const Render = {
 			// add sheet name
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
-			let table = this.els.body.append(html).find(".tbl-body").get(1).find("> div:nth-child(2)");
+			this.els.body.append(html);
+
+			let table = this.els.body.find(".temp-2 .tbl-body > div:nth-child(2)");
 			// temp
 			// let dim = Parser.tableAbsDim(table);
 
@@ -27,7 +29,7 @@ const Render = {
 			// table.css({ "--alt-row-bg": "#ff9900" });
 
 			// auto focus on first cell
-			let anchor = table.find("td").get(7);
+			let anchor = table.find("td").get(6);
 			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 			// setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
 		} else {

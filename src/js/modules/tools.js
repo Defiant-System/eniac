@@ -322,8 +322,6 @@
 		let APP = eniac,
 			Self = APP.tools,
 			Drag = Self.cDrag,
-			type,
-			sheet,
 			el;
 		switch (event.type) {
 			case "mousedown":
@@ -333,8 +331,10 @@
 				Self.els.layout.addClass("cover");
 
 				el = Self.els.root;
-				sheet = Self.sheet.el.find(".tbl-root");
-				type = event.target.className.split(" ")[1].split("-")[0];
+				let sheet = Self.sheet.el.find(".tbl-root"),
+					maxWidth = sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0),
+					maxHeight = sheet.find("div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0),
+					type = event.target.className.split(" ")[1].split("-")[0];
 
 				// create drag object
 				Self.cDrag = {
@@ -348,9 +348,17 @@
 						width: sheet.prop("offsetWidth"),
 						height: sheet.prop("offsetHeight"),
 					},
+					diff: {
+						width: sheet.prop("offsetWidth") - el.prop("offsetWidth"),
+						height: sheet.prop("offsetHeight") - el.prop("offsetHeight"),
+					},
+					min: {
+						width: 320,
+						height: 176,
+					},
 					max: {
-						width: 1000,
-						height: 1000,
+						width: maxWidth,
+						height: maxHeight,
 					}
 				};
 
@@ -358,15 +366,18 @@
 				Self.els.doc.on("mousemove mouseup", Self.resizeClip);
 				break;
 			case "mousemove":
-				let css = {};
+				let sheetCss = {},
+					toolsCss = {};
 				if (Drag.vResize) {
-					css.height = Math.min(event.clientY - Drag.clickY + Drag.offset.height, Drag.max.height);
+					sheetCss.height = Math.max(Math.min(event.clientY - Drag.clickY + Drag.offset.height, Drag.max.height), Drag.min.height);
+					toolsCss.height = sheetCss.height - Drag.diff.height;
 				}
 				if (Drag.hResize) {
-					css.width = Math.min(event.clientX - Drag.clickX + Drag.offset.width, Drag.max.width);
+					sheetCss.width = Math.max(Math.min(event.clientX - Drag.clickX + Drag.offset.width, Drag.max.width), Drag.min.width);
+					toolsCss.width = sheetCss.width - Drag.diff.width;
 				}
-				Drag.el.css(css);
-				Drag.sheet.css(css);
+				Drag.sheet.css(sheetCss);
+				Drag.el.css(toolsCss);
 				break;
 			case "mouseup":
 				// uncover layout
