@@ -172,6 +172,19 @@
 					APP.tools.els.root.removeClass("clip");
 				}
 				break;
+			case "fit-table-clip":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// disable button
+				el = $(event.target);
+				el.attr({ disabled: true });
+
+				value = {};
+				value[el.attr("arg")] = APP.tools.sheet.grid[el.attr("arg")];
+				Sheet.find(".tbl-root").css(value);
+				
+				value[el.attr("arg")] = Sheet.prop(el.attr("arg") === "width" ? "offsetWidth" : "offsetHeight");
+				APP.tools.els.root.css(value);
+				break;
 			case "toggle-table-title-outline":
 				Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle title outline
