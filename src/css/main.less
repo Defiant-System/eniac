@@ -630,7 +630,7 @@ sidebar {
 				margin-bottom: 0;
 				max-height: 0;
 				overflow: hidden;
-				transition: all 150ms ease-in-out;
+				transition: all 120ms ease-in-out;
 
 				&:after {
 					height: 0;
@@ -1307,6 +1307,8 @@ table {
 
 			&.has-col-head {
 				> div {
+					overflow: hidden;
+
 					&:nth-child(1) {
 						td:last-child {
 							border-top-right-radius: 0;
@@ -1344,7 +1346,6 @@ table {
 
 				&:nth-child(2) {
 					flex: 1;
-					overflow: hidden;
 					border-top-right-radius: inherit;
 					border-bottom-right-radius: inherit;
 				}
@@ -1450,6 +1451,8 @@ table {
 
 			&.has-row-head {
 				> div {
+					overflow: hidden;
+
 					&:nth-child(1) {
 						&:before {
 							display: block;
@@ -1460,6 +1463,8 @@ table {
 
 			&.has-row-foot {
 				> div {
+					overflow: hidden;
+
 					&:nth-child(3) {
 						&:before {
 							display: block;
@@ -1497,7 +1502,6 @@ table {
 					flex: 1;
 					width: 25px;
 					padding-right: 9px;
-					overflow: hidden;
 
 					tr:last-child td {
 						border-bottom: 0;
@@ -1566,8 +1570,12 @@ table {
 							border: 1px solid darken(#d6e6fb, 7%);
 						}
 
-						&:hover s:before {
-							filter: none;
+						&:hover s {
+							border-color: darken(#d6e6fb, 7%);
+
+							&:before {
+								filter: none;
+							}
 						}
 					}
 
