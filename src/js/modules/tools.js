@@ -331,7 +331,8 @@
 				Self.els.layout.addClass("cover");
 
 				el = Self.els.root;
-				let sheet = Self.sheet.el.find(".tbl-root"),
+				let Sidebar = APP.sidebar.els.el,
+					sheet = Self.sheet.el.find(".tbl-root"),
 					maxWidth = sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0),
 					maxHeight = sheet.find("div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0),
 					type = event.target.className.split(" ")[1].split("-")[0];
@@ -344,6 +345,12 @@
 					hResize: type.includes("h"),
 					clickX: event.clientX,
 					clickY: event.clientY,
+					input: {
+						width: Sidebar.find("input#table-clip-width"),
+						height: Sidebar.find("input#table-clip-height"),
+						btnWidth: Sidebar.find(`.table-clipping button[arg="width"]`),
+						btnHeight: Sidebar.find(`.table-clipping button[arg="height"]`),
+					},
 					offset: {
 						width: sheet.prop("offsetWidth"),
 						height: sheet.prop("offsetHeight"),
@@ -368,13 +375,17 @@
 			case "mousemove":
 				let sheetCss = {},
 					toolsCss = {};
-				if (Drag.vResize) {
-					sheetCss.height = Math.max(Math.min(event.clientY - Drag.clickY + Drag.offset.height, Drag.max.height), Drag.min.height);
-					toolsCss.height = sheetCss.height - Drag.diff.height;
-				}
 				if (Drag.hResize) {
 					sheetCss.width = Math.max(Math.min(event.clientX - Drag.clickX + Drag.offset.width, Drag.max.width), Drag.min.width);
 					toolsCss.width = sheetCss.width - Drag.diff.width;
+					Drag.input.width.val(sheetCss.width);
+					Drag.input.btnWidth.toggleAttr("disabled", sheetCss.width < Drag.max.width);
+				}
+				if (Drag.vResize) {
+					sheetCss.height = Math.max(Math.min(event.clientY - Drag.clickY + Drag.offset.height, Drag.max.height), Drag.min.height);
+					toolsCss.height = sheetCss.height - Drag.diff.height;
+					Drag.input.height.val(sheetCss.height);
+					Drag.input.btnHeight.toggleAttr("disabled", sheetCss.height < Drag.max.height);
 				}
 				Drag.sheet.css(sheetCss);
 				Drag.el.css(toolsCss);

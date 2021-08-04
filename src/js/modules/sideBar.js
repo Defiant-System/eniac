@@ -87,9 +87,7 @@
 				// input fields: fit height
 				value = Sheet.find(".tbl-root").prop("offsetHeight");
 				pEl.find("input#table-clip-height").val(value);
-				max = Sheet.find(".tbl-col-head > div:nth-child(2) > table").prop("offsetHeight")
-					+ Sheet.find(".tbl-body > div:nth-child(2) > table").prop("offsetHeight")
-					+ Sheet.find(".tbl-col-foot > div:nth-child(2) > table").prop("offsetHeight");
+				max = Sheet.find(".tbl-root div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0);
 				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < max);
 				break;
 			case "update-table-head-footer-rows":
