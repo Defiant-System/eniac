@@ -623,6 +623,32 @@ sidebar {
 			padding: 13px 16px 7px;
 			margin-bottom: 1px;
 
+			&.collapsed {
+				opacity: 0;
+				padding-top: 0;
+				padding-bottom: 0;
+				margin-bottom: 0;
+				max-height: 0;
+				overflow: hidden;
+				transition: all 150ms ease-in-out;
+
+				&:after {
+					height: 0;
+				}
+
+				&.expand {
+					opacity: 1;
+					padding-top: 13px;
+					padding-bottom: 7px;
+					margin-bottom: 1px;
+					max-height: 120px;
+
+					&:after {
+						height: 1px;
+					}
+				}
+			}
+
 			&:not(:last-child):after {
 				content: "";
 				position: absolute;

@@ -146,6 +146,15 @@
 				if (event.el.is(":checked")) Sheet.append(`<div class="table-caption">Caption</div>`);
 				else Sheet.find(".table-caption").remove();
 				break;
+			case "toggle-table-clip":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// toggle table clipping
+				if (event.el.is(":checked")) {
+					Self.els.el.find(".table-clipping").addClass("expand");
+				} else {
+					Self.els.el.find(".table-clipping").removeClass("expand");
+				}
+				break;
 			case "toggle-table-title-outline":
 				Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle title outline

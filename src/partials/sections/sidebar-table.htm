@@ -27,6 +27,40 @@
 				<span class="form-checkbox_"><input type="checkbox" id="table-caption" data-click="toggle-table-caption"/><i></i></span>
 				<label for="table-caption">Caption</label>
 			</div>
+			<div>
+				<span class="form-checkbox_"><input type="checkbox" id="table-clip" data-click="toggle-table-clip"/><i></i></span>
+				<label for="table-clip">Clip</label>
+			</div>
+		</div>
+
+		<div class="group-row table-clipping collapsed">
+			<legend>Table Clip</legend>
+			<div class="flex-row">
+				<legend>Width</legend>
+				<div>
+					<input type="number" value="400"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div>
+					<button disabled>Fit</button>
+				</div>
+			</div>
+			<div class="flex-row">
+				<legend>Height</legend>
+				<div>
+					<input type="number" value="300"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div>
+					<button>Fit</button>
+				</div>
+			</div>
 		</div>
 
 		<div class="group-row">
@@ -156,19 +190,6 @@
 		<div class="group-row">
 			<legend>Row &amp; Column Size</legend>
 			<div class="flex-row">
-				<legend>Height</legend>
-				<div>
-					<input type="number" value="20"/>
-					<div>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-				<div>
-					<button>Fit</button>
-				</div>
-			</div>
-			<div class="flex-row">
 				<legend>Width</legend>
 				<div>
 					<input type="number" value="98"/>
@@ -179,6 +200,19 @@
 				</div>
 				<div>
 					<button disabled>Fit</button>
+				</div>
+			</div>
+			<div class="flex-row">
+				<legend>Height</legend>
+				<div>
+					<input type="number" value="20"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div>
+					<button>Fit</button>
 				</div>
 			</div>
 		</div>
