@@ -12,6 +12,7 @@
 			cols: root.find(".table-cols"),
 			rows: root.find(".table-rows"),
 			move: root.find(".tool.move"),
+			resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
 		};
 		// placeholder
 		this.sheet = {};
@@ -19,6 +20,7 @@
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
 		this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
+		this.els.resizes.on("mousedown", this.resizeClip);
 		this.els.move.on("mousedown", this.move);
 	},
 	dispatch(event) {
@@ -313,6 +315,95 @@
 				Self.els.layout.removeClass("cover");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resizeColRow);
+				break;
+		}
+	},
+	resizeClip(event) {
+		let APP = eniac,
+			Self = APP.tools,
+			Drag = Self.cDrag,
+			type,
+			sheet,
+			el;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover");
+
+				el = Self.els.root;
+				sheet = Self.sheet.el.find(".tbl-root");
+				type = event.target.className.split(" ")[1].split("-")[0];
+
+				// create drag object
+				Self.cDrag = {
+					el,
+					sheet,
+					vResize: type.includes("v"),
+					hResize: type.includes("h"),
+					clickX: event.clientX,
+					clickY: event.clientY,
+					offset: {
+						width: sheet.prop("offsetWidth"),
+						height: sheet.prop("offsetHeight"),
+					},
+					max: {
+						width: 1000,
+						height: 1000,
+					}
+				};
+
+				// bind events
+				Self.els.doc.on("mousemove mouseup", Self.resizeClip);
+				break;
+			case "mousemove":
+				let css = {};
+				if (Drag.vResize) {
+					css.height = Math.min(event.clientY - Drag.clickY + Drag.offset.height, Drag.max.height);
+				}
+				if (Drag.hResize) {
+					css.width = Math.min(event.clientX - Drag.clickX + Drag.offset.width, Drag.max.width);
+				}
+				Drag.el.css(css);
+				Drag.sheet.css(css);
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover");
+				// unbind events
+				Self.els.doc.off("mousemove mouseup", Self.resizeClip);
+				break;
+		}
+	},
+	resizeTable(event) {
+		let APP = eniac,
+			Self = APP.tools,
+			Drag = Self.tDrag,
+			width, height,
+			el;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover");
+
+				// create drag object
+				Self.tDrag = {
+					
+				};
+
+				// bind events
+				Self.els.doc.on("mousemove mouseup", Self.resizeTable);
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover");
+				// unbind events
+				Self.els.doc.off("mousemove mouseup", Self.resizeTable);
 				break;
 		}
 	},
