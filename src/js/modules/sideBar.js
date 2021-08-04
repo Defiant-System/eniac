@@ -21,6 +21,7 @@
 			Self = APP.sidebar,
 			Sheet,
 			value,
+			max,
 			pEl,
 			el;
 		switch (event.type) {
@@ -49,7 +50,7 @@
 				break;
 			case "populate-table-values":
 				Self.dispatch({ ...event, type: "update-table-style" });
-				Self.dispatch({ ...event, type: "update-table-title-caption" });
+				Self.dispatch({ ...event, type: "update-table-title-caption-clip" });
 				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-table-title-outline" });
@@ -66,13 +67,30 @@
 					if (item.length) item.addClass("active");
 				});
 				break;
-			case "update-table-title-caption":
+			case "update-table-title-caption-clip":
 				Sheet = event.sheet || APP.tools.sheet.el;
 				// checkbox values
 				value = Sheet.find(".table-title").length;
 				Self.els.el.find(`input#table-title`).prop({ checked: value });
 				value = Sheet.find(".table-caption").length;
 				Self.els.el.find(`input#table-caption`).prop({ checked: value });
+				value = Sheet.hasClass("clipped");
+				Self.els.el.find(`input#table-clip`).prop({ checked: value });
+				
+				pEl = Self.els.el.find(".table-clipping");
+				pEl.toggleClass("expand", !value);
+				// input fields: fit width
+				value = Sheet.find(".tbl-root").prop("offsetWidth");
+				max = Sheet.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0);
+				pEl.find("input#table-clip-width").val(value);
+				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < max);
+				// input fields: fit height
+				value = Sheet.find(".tbl-root").prop("offsetHeight");
+				max = Sheet.find(".tbl-col-head > div:nth-child(2) > table").prop("offsetHeight")
+					+ Sheet.find(".tbl-body > div:nth-child(2) > table").prop("offsetHeight")
+					+ Sheet.find(".tbl-col-foot > div:nth-child(2) > table").prop("offsetHeight");
+				pEl.find("input#table-clip-height").val(value);
+				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < max);
 				break;
 			case "update-table-head-footer-rows":
 				Sheet = event.sheet || APP.tools.sheet.el;
