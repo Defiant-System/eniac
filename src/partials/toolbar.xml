@@ -5,7 +5,7 @@
 	</Group>
 	<Group width="40%" align="center">
 		<Tool symbol="icon-formula"/>
-		<Tool symbol="icon-table"/>
+		<Tool symbol="icon-table" click="insert-grid-options"/>
 		<Tool symbol="icon-chart"/>
 		<Tool symbol="icon-text"/>
 		<Tool symbol="icon-image"/>
