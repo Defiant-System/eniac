@@ -181,19 +181,14 @@
 			let r1, r2,
 				grid = {
 					sheet,
-					rows: {
-						head: 1,
-						body: 15,
-						foot: 1
-					},
-					cols: {
-						head: 1,
-						body: 6
+					layout: {
+						rows: {},
+						cols: {},
 					},
 					rows: [],
 					cells: [],
 					getRow(y) {
-						return $(this.rows[y][0]);
+						return $(this.rows[y]);
 					},
 					getRowCells(y) {
 						return $(this.rows[y]);
@@ -203,15 +198,15 @@
 					},
 					getCoordRow(y) {
 						let found = [];
-						if (this.cols.head > 0) found.push(this.getRowCells(y)[0]);
-						if (this.cols.body > 0) found.push(this.getRowCells(y)[this.cols.head]);
+						if (this.layout.cols.head > 0) found.push(this.getRowCells(y)[0]);
+						if (this.layout.cols.body > 0) found.push(this.getRowCells(y)[this.layout.cols.head]);
 						return $(found);
 					},
 					getCoordCol(x) {
 						let found = [];
-						if (this.rows.head > 0) found.push(this.getRowCells(0)[x]);
-						if (this.rows.body > 0) found.push(this.getRowCells(this.rows.head)[x]);
-						if (this.rows.foot > 0) found.push(this.getRowCells(this.rows.head + this.rows.body)[x]);
+						if (this.layout.rows.head > 0) found.push(this.getRowCells(0)[x]);
+						if (this.layout.rows.body > 0) found.push(this.getRowCells(this.layout.rows.head)[x]);
+						if (this.layout.rows.foot > 0) found.push(this.getRowCells(this.layout.rows.head + this.layout.rows.body)[x]);
 						return $(found);
 					},
 					getCoord(td) {
@@ -227,6 +222,20 @@
 					},
 					get height() {
 						return this.sheet.find(".tbl-root div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0);
+					},
+					get absDim() {
+						let dim = { rows: 0, cols: 0 };
+						this.rows.map((tr, y) => {
+							let s = false;
+							tr.map((td, x) => {
+								s = !!td.innerHTML;
+								if (s) {
+									dim.rows = Math.max(dim.rows, y+1);
+									dim.cols = Math.max(dim.cols, x+1);
+								}
+							});
+						});
+						return dim;
 					}
 				};
 			// col head rows
@@ -234,11 +243,19 @@
 			r2 = sheet.find(".tbl-col-head > div:nth-child(2) tr");
 			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
 			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
+			// column layout info
+			grid.layout.rows.head = r1.length || r2.length;
+
 			// col body rows
 			r1 = sheet.find(".tbl-body > div:nth-child(1) tr");
 			r2 = sheet.find(".tbl-body > div:nth-child(2) tr");
 			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
 			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
+			// column layout info
+			grid.layout.rows.body = r1.length || r2.length;
+			grid.layout.cols.head = r1.length ? r1.get(0).find("td").length : 0;
+			grid.layout.cols.body = r2.get(0).find("td").length;
+
 			// all cells
 			grid.cells.push(...sheet.find(".tbl-col-head td"));
 			r1.map((row, i) => {
@@ -251,6 +268,8 @@
 			r2 = sheet.find(".tbl-col-foot > div:nth-child(2) tr");
 			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
 			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
+			// column layout info
+			grid.layout.rows.foot = r1.length || r2.length;
 
 			return grid;
 		}
@@ -420,9 +439,45 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
+				let sheet = Self.sheet.el.find(".tbl-root"),
+					type = event.target.className.split(" ")[1].split("-")[0],
+					grid = Self.sheet.grid,
+					row = grid.getRow(grid.rows.length-1),
+					cell;
+
 				// create drag object
 				Self.gDrag = {
-					
+					el,
+					sheet,
+					dim: grid.absDim,
+					clickX: event.clientX,
+					clickY: event.clientY,
+					vResize: type.includes("v"),
+					hResize: type.includes("h"),
+					offset: {
+						width: sheet.prop("offsetWidth"),
+						height: sheet.prop("offsetHeight"),
+					},
+					syncRows: (Drag, add) => {
+						if (add.y > Drag.add.y) {
+							// add rows
+							Drag.tbody[0].appendChild(Drag.row[0].cloneNode(true));
+						} else if (add.y < Drag.add.y) {
+							// delete rows
+							Drag.tbody[0].removeChild(Drag.tbody[0].lastChild);
+						}
+						Drag.add.y = add.y;
+					},
+					syncCols: (Drag, add) => {
+						if (add.x > Drag.add.x) {
+							// add cells
+							Drag.tbody.find("tr").map(row => row.appendChild(Drag.cell[0].cloneNode()));
+						} else if (add.x < Drag.add.x) {
+							// delete cells
+							Drag.tbody.find("tr").map(row => row.removeChild(row.lastChild));
+						}
+						Drag.add.x = add.x;
+					},
 				};
 
 				// bind events

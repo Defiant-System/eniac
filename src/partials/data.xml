@@ -12,7 +12,7 @@
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell value="2"/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>

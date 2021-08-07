@@ -19,10 +19,10 @@ const Parser = {
 		delete this.rowNum;
 		delete this.colNum;
 	},
-	tableAbsDim(table) {
+	tableAbsDim(sheet) {
 		let row = 0,
 			col = 0;
-		table.find("tr").map((tr, y) => {
+		sheet.find("tr").map((tr, y) => {
 			let s = false;
 			tr.childNodes.map((td, x) => {
 				s = !!td.innerHTML;
