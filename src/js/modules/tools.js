@@ -445,8 +445,8 @@
 
 				let sheet = Self.sheet.el.find(".tbl-root"),
 					type = event.target.className.split(" ")[1].split("-")[0],
-					snap = { x: 90, y: 25 },
 					min = Self.sheet.grid.dimension.min,
+					snap = { x: 90, y: 25 },
 					tbody = [
 						sheet.find(".tbl-col-head > div:nth-child(1) tbody"),
 						sheet.find(".tbl-col-head > div:nth-child(2) tbody"),
@@ -468,8 +468,8 @@
 					hResize: type.includes("h"),
 					add: { y: 0, x: 0 },
 					min: {
-						width: Math.max(min.width - snap.x, snap.x),
-						height: Math.max(min.height - snap.y, snap.y),
+						width: Math.max(min.width, snap.x * 5),
+						height: Math.max(min.height, snap.y * 6),
 					},
 					offset: {
 						width: sheet.prop("offsetWidth"),
