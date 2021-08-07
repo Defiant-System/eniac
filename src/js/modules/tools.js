@@ -223,19 +223,21 @@
 					get height() {
 						return this.sheet.find(".tbl-root div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0);
 					},
-					get absDim() {
-						let dim = { rows: 0, cols: 0 };
+					get dimension() {
+						let rows = this.layout.rows.head + this.layout.rows.body + this.layout.rows.foot,
+							cols = this.layout.cols.head + this.layout.cols.body,
+							min = { rows: 0, cols: 0 };
 						this.rows.map((tr, y) => {
 							let s = false;
 							tr.map((td, x) => {
 								s = !!td.innerHTML;
 								if (s) {
-									dim.rows = Math.max(dim.rows, y+1);
-									dim.cols = Math.max(dim.cols, x+1);
+									min.rows = Math.max(min.rows, y+1);
+									min.cols = Math.max(min.cols, x+1);
 								}
 							});
 						});
-						return dim;
+						return { rows, cols, min };
 					}
 				};
 			// col head rows
@@ -430,7 +432,7 @@
 		let APP = eniac,
 			Self = APP.tools,
 			Drag = Self.gDrag,
-			width, height,
+			add, width, height,
 			el;
 		switch (event.type) {
 			case "mousedown":
@@ -440,41 +442,54 @@
 				Self.els.layout.addClass("cover");
 
 				let sheet = Self.sheet.el.find(".tbl-root"),
+					dim = Self.sheet.grid.dimension,
 					type = event.target.className.split(" ")[1].split("-")[0],
-					grid = Self.sheet.grid,
-					row = grid.getRow(grid.rows.length-1),
-					cell;
+					row = document.createElement("tr"),
+					cell = document.createElement("td"),
+					tbody = [
+						sheet.find(".tbl-col-head > div:nth-child(1) tbody"),
+						sheet.find(".tbl-col-head > div:nth-child(2) tbody"),
+						sheet.find(".tbl-body > div:nth-child(1) tbody"),
+						sheet.find(".tbl-body > div:nth-child(2) tbody"),
+						sheet.find(".tbl-col-foot > div:nth-child(1) tbody"),
+						sheet.find(".tbl-col-foot > div:nth-child(2) tbody"),
+					].map(e => e.length ? e : null);
 
 				// create drag object
 				Self.gDrag = {
 					el,
+					dim,
+					row,
+					cell,
 					sheet,
-					dim: grid.absDim,
+					tbody,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
+					add: { y: 0, x: 0 },
+					snap: { x: 90, y: 25 },
 					offset: {
 						width: sheet.prop("offsetWidth"),
 						height: sheet.prop("offsetHeight"),
 					},
+					min: {
+						width: 200,
+						height: 200,
+					},
 					syncRows: (Drag, add) => {
 						if (add.y > Drag.add.y) {
-							// add rows
-							Drag.tbody[0].appendChild(Drag.row[0].cloneNode(true));
+							console.log("syncRows: add row");
 						} else if (add.y < Drag.add.y) {
-							// delete rows
-							Drag.tbody[0].removeChild(Drag.tbody[0].lastChild);
+							console.log("syncRows: remove last row");
 						}
 						Drag.add.y = add.y;
 					},
 					syncCols: (Drag, add) => {
 						if (add.x > Drag.add.x) {
-							// add cells
-							Drag.tbody.find("tr").map(row => row.appendChild(Drag.cell[0].cloneNode()));
+							console.log("syncCols: add column");
 						} else if (add.x < Drag.add.x) {
-							// delete cells
-							Drag.tbody.find("tr").map(row => row.removeChild(row.lastChild));
+							console.log("syncCols: remove last column");
 						}
 						Drag.add.x = add.x;
 					},
@@ -484,6 +499,18 @@
 				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
 				break;
 			case "mousemove":
+				height = Math.max(event.clientY - Drag.clickY + Drag.offset.height, Drag.min.height);
+				width = Math.max(event.clientX - Drag.clickX + Drag.offset.width, Drag.min.width);
+
+				// calculate how much to add to table
+				add = {
+					y: Math.floor((height - Drag.min.height) / Drag.snap.y),
+					x: Math.floor((width - Drag.min.width) / Drag.snap.x),
+				}
+				// this prevents unnecessary DOM manipulation
+				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
+				// this prevents unnecessary DOM manipulation
+				if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(Drag, add);
 				break;
 			case "mouseup":
 				// uncover layout
