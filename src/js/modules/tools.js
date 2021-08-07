@@ -477,11 +477,24 @@
 						width: 200,
 						height: 200,
 					},
+					addRow: body => {
+						let clone = body.lastChild.cloneNode(true);
+						clone.childNodes.map(cell => {
+							cell.innerHTML = "";
+							[...cell.attributes].map(a => cell.removeAttr(a.name));
+						});
+						body.appendChild(clone);
+					},
+					addColumn: body => {
+						
+					},
 					syncRows: (Drag, add) => {
 						if (add.y > Drag.add.y) {
-							console.log("syncRows: add row");
+							if (Drag.tbody[2]) Drag.addRow(Drag.tbody[2][0]);
+							Drag.addRow(Drag.tbody[3][0]);
 						} else if (add.y < Drag.add.y) {
-							console.log("syncRows: remove last row");
+							if (Drag.tbody[2]) Drag.tbody[2][0].removeChild(Drag.tbody[2][0].lastChild);
+							Drag.tbody[3][0].removeChild(Drag.tbody[3][0].lastChild);
 						}
 						Drag.add.y = add.y;
 					},
