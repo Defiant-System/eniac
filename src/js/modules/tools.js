@@ -448,17 +448,17 @@
 					min = Self.sheet.grid.dimension.min,
 					snap = { x: 90, y: 25 },
 					tbody = [
-						sheet.find(".tbl-col-head > div:nth-child(1) tbody"),
 						sheet.find(".tbl-col-head > div:nth-child(2) tbody"),
 						sheet.find(".tbl-body > div:nth-child(1) tbody"),
 						sheet.find(".tbl-body > div:nth-child(2) tbody"),
-						sheet.find(".tbl-col-foot > div:nth-child(1) tbody"),
 						sheet.find(".tbl-col-foot > div:nth-child(2) tbody"),
+						Self.els.cols.find("> div:nth-child(2) tbody"),
+						Self.els.rows.find("> div:nth-child(2) tbody"),
 					].map(e => e.length ? e[0] : null);
 
 				// create drag object
 				Self.gDrag = {
-					el,
+					el: Self.els.root,
 					sheet,
 					tbody,
 					snap,
@@ -491,23 +491,35 @@
 					},
 					syncRows: (Drag, add) => {
 						if (add.y > Drag.add.y) {
-							if (Drag.tbody[2]) Drag.addRow(Drag.tbody[2]);
-							Drag.addRow(Drag.tbody[3]);
+							if (Drag.tbody[1]) Drag.addRow(Drag.tbody[1]);
+							Drag.addRow(Drag.tbody[2]);
+							Drag.addRow(Drag.tbody[5]);
+							Drag.el.css({ height: Drag.sheet.prop("offsetHeight") });
 						} else if (add.y < Drag.add.y) {
-							if (Drag.tbody[2]) Drag.tbody[2].removeChild(Drag.tbody[2].lastChild);
-							Drag.tbody[3].removeChild(Drag.tbody[3].lastChild);
+							if (Drag.tbody[1]) Drag.tbody[1].removeChild(Drag.tbody[1].lastChild);
+							Drag.tbody[2].removeChild(Drag.tbody[2].lastChild);
+							Drag.tbody[5].removeChild(Drag.tbody[5].lastChild);
+							Drag.el.css({ height: Drag.sheet.prop("offsetHeight") });
 						}
 						Drag.add.y = add.y;
 					},
 					syncCols: (Drag, add) => {
 						if (add.x > Drag.add.x) {
-							if (Drag.tbody[1]) Drag.addColumn(Drag.tbody[1]);
-							if (Drag.tbody[5]) Drag.addColumn(Drag.tbody[5]);
-							Drag.addColumn(Drag.tbody[3]);
+							if (Drag.tbody[0]) Drag.addColumn(Drag.tbody[0]);
+							if (Drag.tbody[3]) Drag.addColumn(Drag.tbody[3]);
+							Drag.addColumn(Drag.tbody[2]);
+							Drag.addColumn(Drag.tbody[4]);
+
+							Drag.tbody[4].parentNode.style.width = `${Drag.tbody[4].parentNode.offsetWidth + 90}px`;
+							Drag.el.css({ width: Drag.sheet.prop("offsetWidth") });
 						} else if (add.x < Drag.add.x) {
-							if (Drag.tbody[1]) Drag.tbody[1].childNodes.map(row => row.removeChild(row.lastChild))
-							if (Drag.tbody[5]) Drag.tbody[5].childNodes.map(row => row.removeChild(row.lastChild))
-							Drag.tbody[3].childNodes.map(row => row.removeChild(row.lastChild))
+							if (Drag.tbody[0]) Drag.tbody[0].childNodes.map(row => row.removeChild(row.lastChild))
+							if (Drag.tbody[3]) Drag.tbody[3].childNodes.map(row => row.removeChild(row.lastChild))
+							Drag.tbody[2].childNodes.map(row => row.removeChild(row.lastChild))
+							Drag.tbody[4].childNodes.map(row => row.removeChild(row.lastChild))
+							
+							Drag.tbody[4].parentNode.style.width = `${Drag.tbody[4].parentNode.offsetWidth - 90}px`;
+							Drag.el.css({ width: Drag.sheet.prop("offsetWidth") });
 						}
 						Drag.add.x = add.x;
 					},
