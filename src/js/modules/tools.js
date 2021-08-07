@@ -466,6 +466,7 @@
 					clickY: event.clientY,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
+					toolWidth: tbody[4].parentNode.offsetWidth,
 					add: { y: 0, x: 0 },
 					min: {
 						width: Math.max(min.width, snap.x * 5),
@@ -510,7 +511,8 @@
 							Drag.addColumn(Drag.tbody[2]);
 							Drag.addColumn(Drag.tbody[4]);
 
-							Drag.tbody[4].parentNode.style.width = `${Drag.tbody[4].parentNode.offsetWidth + 90}px`;
+							Drag.toolWidth += Drag.snap.x;
+							Drag.tbody[4].parentNode.style.width = `${Drag.toolWidth}px`;
 							Drag.el.css({ width: Drag.sheet.prop("offsetWidth") });
 						} else if (add.x < Drag.add.x) {
 							if (Drag.tbody[0]) Drag.tbody[0].childNodes.map(row => row.removeChild(row.lastChild))
@@ -518,7 +520,8 @@
 							Drag.tbody[2].childNodes.map(row => row.removeChild(row.lastChild))
 							Drag.tbody[4].childNodes.map(row => row.removeChild(row.lastChild))
 							
-							Drag.tbody[4].parentNode.style.width = `${Drag.tbody[4].parentNode.offsetWidth - 90}px`;
+							Drag.toolWidth -= Drag.snap.x;
+							Drag.tbody[4].parentNode.style.width = `${Drag.toolWidth}px`;
 							Drag.el.css({ width: Drag.sheet.prop("offsetWidth") });
 						}
 						Drag.add.x = add.x;
