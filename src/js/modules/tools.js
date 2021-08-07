@@ -226,12 +226,14 @@
 					get dimension() {
 						let rows = this.layout.rows.head + this.layout.rows.body + this.layout.rows.foot,
 							cols = this.layout.cols.head + this.layout.cols.body,
-							min = { rows: 0, cols: 0 };
+							min = { rows: 0, cols: 0, height: 0, width: 0 };
 						this.rows.map((tr, y) => {
 							let s = false;
 							tr.map((td, x) => {
 								s = !!td.innerHTML;
 								if (s) {
+									min.width = Math.max(min.width, td.offsetLeft + td.offsetWidth);
+									min.height = Math.max(min.height, td.offsetTop + td.offsetHeight);
 									min.rows = Math.max(min.rows, y+1);
 									min.cols = Math.max(min.cols, x+1);
 								}
@@ -442,10 +444,9 @@
 				Self.els.layout.addClass("cover");
 
 				let sheet = Self.sheet.el.find(".tbl-root"),
-					dim = Self.sheet.grid.dimension,
 					type = event.target.className.split(" ")[1].split("-")[0],
-					row = document.createElement("tr"),
-					cell = document.createElement("td"),
+					snap = { x: 90, y: 25 },
+					min = Self.sheet.grid.dimension.min,
 					tbody = [
 						sheet.find(".tbl-col-head > div:nth-child(1) tbody"),
 						sheet.find(".tbl-col-head > div:nth-child(2) tbody"),
@@ -453,29 +454,26 @@
 						sheet.find(".tbl-body > div:nth-child(2) tbody"),
 						sheet.find(".tbl-col-foot > div:nth-child(1) tbody"),
 						sheet.find(".tbl-col-foot > div:nth-child(2) tbody"),
-					].map(e => e.length ? e : null);
+					].map(e => e.length ? e[0] : null);
 
 				// create drag object
 				Self.gDrag = {
 					el,
-					dim,
-					row,
-					cell,
 					sheet,
 					tbody,
+					snap,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
 					add: { y: 0, x: 0 },
-					snap: { x: 90, y: 25 },
+					min: {
+						width: Math.max(min.width - snap.x, snap.x),
+						height: Math.max(min.height - snap.y, snap.y),
+					},
 					offset: {
 						width: sheet.prop("offsetWidth"),
 						height: sheet.prop("offsetHeight"),
-					},
-					min: {
-						width: 200,
-						height: 200,
 					},
 					addRow: body => {
 						let clone = body.lastChild.cloneNode(true);
@@ -486,23 +484,30 @@
 						body.appendChild(clone);
 					},
 					addColumn: body => {
-						
+						let cell = body.firstChild.lastChild.cloneNode();
+						cell.innerHTML = "";
+						[...cell.attributes].map(a => cell.removeAttr(a.name));
+						body.childNodes.map(row => row.appendChild(cell.cloneNode()));
 					},
 					syncRows: (Drag, add) => {
 						if (add.y > Drag.add.y) {
-							if (Drag.tbody[2]) Drag.addRow(Drag.tbody[2][0]);
-							Drag.addRow(Drag.tbody[3][0]);
+							if (Drag.tbody[2]) Drag.addRow(Drag.tbody[2]);
+							Drag.addRow(Drag.tbody[3]);
 						} else if (add.y < Drag.add.y) {
-							if (Drag.tbody[2]) Drag.tbody[2][0].removeChild(Drag.tbody[2][0].lastChild);
-							Drag.tbody[3][0].removeChild(Drag.tbody[3][0].lastChild);
+							if (Drag.tbody[2]) Drag.tbody[2].removeChild(Drag.tbody[2].lastChild);
+							Drag.tbody[3].removeChild(Drag.tbody[3].lastChild);
 						}
 						Drag.add.y = add.y;
 					},
 					syncCols: (Drag, add) => {
 						if (add.x > Drag.add.x) {
-							console.log("syncCols: add column");
+							if (Drag.tbody[1]) Drag.addColumn(Drag.tbody[1]);
+							if (Drag.tbody[5]) Drag.addColumn(Drag.tbody[5]);
+							Drag.addColumn(Drag.tbody[3]);
 						} else if (add.x < Drag.add.x) {
-							console.log("syncCols: remove last column");
+							if (Drag.tbody[1]) Drag.tbody[1].childNodes.map(row => row.removeChild(row.lastChild))
+							if (Drag.tbody[5]) Drag.tbody[5].childNodes.map(row => row.removeChild(row.lastChild))
+							Drag.tbody[3].childNodes.map(row => row.removeChild(row.lastChild))
 						}
 						Drag.add.x = add.x;
 					},

@@ -21,7 +21,7 @@ const Render = {
 			// append new sheet
 			this.els.body.append(html);
 
-			let table = this.els.body.find(".temp-0 .tbl-body > div:nth-child(2)");
+			let table = this.els.body.find(".temp-3 .tbl-body > div:nth-child(2)");
 			// temp
 			// let dim = Parser.tableAbsDim(table);
 
