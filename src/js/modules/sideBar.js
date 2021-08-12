@@ -168,7 +168,7 @@
 					rowsFrom = tblFrom.find("tr"),
 					tblTo = event.to.find("tbody"),
 					rowsTo = tblTo.length ? tblTo.find("tr") : [],
-					colCurr = rowsTo.length ? rowsTo.get(0).find("td") : 0,
+					colCurr = rowsTo.length ? rowsTo.get(0).find("td") : [],
 					colNum = +event.arg;
 				// course of action
 				if (rowsTo.length && colCurr.length > colNum) {
