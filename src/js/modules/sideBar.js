@@ -21,6 +21,7 @@
 			Self = APP.sidebar,
 			Sheet,
 			value,
+			arg,
 			pEl,
 			el;
 		switch (event.type) {
@@ -170,6 +171,13 @@
 					Self.els.el.find(".table-clipping").removeClass("expand");
 					Sheet.removeClass("clipped");
 					APP.tools.els.root.removeClass("clip");
+					// update sidebar
+					el = Self.els.el.find(`.table-clipping button[arg="width"]`);
+					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
+					el = Self.els.el.find(`.table-clipping button[arg="height"]`);
+					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
+					
+					Sheet.find(".tbl-root").css({ width: "", height: "" });
 				}
 				break;
 			case "fit-table-clip":
@@ -177,12 +185,13 @@
 				// disable button
 				el = $(event.target);
 				el.attr({ disabled: true });
+				arg = el.attr("arg");
 
 				value = {};
-				value[el.attr("arg")] = APP.tools.sheet.grid[el.attr("arg")];
+				value[arg] = APP.tools.sheet.grid[arg];
 				Sheet.find(".tbl-root").css(value);
 				
-				value[el.attr("arg")] = Sheet.prop(el.attr("arg") === "width" ? "offsetWidth" : "offsetHeight");
+				value[arg] = Sheet.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
 				APP.tools.els.root.css(value);
 				break;
 			case "toggle-table-title-outline":

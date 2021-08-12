@@ -22,9 +22,9 @@ class File {
 			// html += window.render({ template: "white-table-1" });
 
 			html = window.render({ template: "sheet", match: `//Sheet[@id="barebone"]` });
-			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
-			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
-			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
+			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
+			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
+			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 
 			html = html.replace(/\t|\n/g, "");
 		}
