@@ -20,6 +20,8 @@
 		let APP = eniac,
 			Self = APP.sidebar,
 			Sheet,
+			from,
+			to,
 			value,
 			arg,
 			pEl,
@@ -141,6 +143,58 @@
 				
 				Sheet = event.sheet || APP.tools.sheet.el;
 				Sheet.prop({ className: `sheet ${el.data("arg")}` });
+				break;
+			// case "set-table-col-head":
+			// case "set-table-col-foot":
+			case "set-table-row-head":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// head row(s)
+				from = Sheet.find(".tbl-col-head > div:nth-child(2) table");
+				to = Sheet.find(".tbl-col-head > div:nth-child(1) table");
+				Self.dispatch({ ...event, type: "move-column-to", from, to });
+				// body row(s)
+				from = Sheet.find(".tbl-body > div:nth-child(2) table");
+				to = Sheet.find(".tbl-body > div:nth-child(1) table");
+				Self.dispatch({ ...event, type: "move-column-to", from, to });
+				// foot row(s)
+				from = Sheet.find(".tbl-col-foot > div:nth-child(2) table");
+				to = Sheet.find(".tbl-col-foot > div:nth-child(1) table");
+				Self.dispatch({ ...event, type: "move-column-to", from, to });
+				// sync tools table
+				APP.tools.dispatch({ type: "sync-sheet-table", sheet: Sheet });
+				break;
+			case "move-column-to":
+				let tblFrom = event.from.find("tbody"),
+					rowsFrom = tblFrom.find("tr"),
+					tblTo = event.to.find("tbody"),
+					rowsTo = tblTo.length ? tblTo.find("tr") : [],
+					colCurr = rowsTo.length ? rowsTo.get(0).find("td") : 0,
+					colNum = +event.arg;
+				// course of action
+				if (rowsTo.length && colCurr.length > colNum) {
+					tblFrom = tblTo;
+					rowsFrom = rowsTo;
+					tblTo = event.from.find("tbody");
+					rowsTo = tblTo.find("tr");
+					// manipulate DOM
+					rowsFrom.map((tr, y) =>
+						[...Array(colCurr.length - colNum)].map(i =>
+							rowsTo.get(y).prepend(tr.lastChild)));
+				} else {
+					// in case to-table doesn't have TBODY
+					if (!tblTo.length) {
+						event.to.append(tblFrom[0].cloneNode(false));
+						tblTo = event.to.find("tbody");
+						// first make sure both tables have equal rows
+						rowsFrom.map(tr => tblTo.append(tr.cloneNode(false)));
+						// refresh reference
+						rowsTo = tblTo.find("tr");
+					}
+					// manipulate DOM
+					rowsFrom.map((tr, y) =>
+						[...Array(colNum - colCurr.length)].map(i =>
+							rowsTo.get(y).append(tr.firstChild)));
+				}
 				break;
 			case "toggle-table-title":
 				Sheet = event.sheet || APP.tools.sheet.el;

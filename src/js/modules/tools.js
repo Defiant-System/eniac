@@ -480,6 +480,7 @@
 						let clone = body.lastChild.cloneNode(true);
 						clone.childNodes.map(cell => {
 							cell.innerHTML = "";
+							cell.className = "";
 							[...cell.attributes].map(a => cell.removeAttr(a.name));
 						});
 						body.appendChild(clone);
@@ -539,7 +540,8 @@
 				add = {
 					y: Math.floor((height - Drag.min.height) / Drag.snap.y),
 					x: Math.floor((width - Drag.min.width) / Drag.snap.x),
-				}
+				};
+
 				// this prevents unnecessary DOM manipulation
 				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
 				// this prevents unnecessary DOM manipulation
