@@ -144,8 +144,12 @@
 				Sheet = event.sheet || APP.tools.sheet.el;
 				Sheet.prop({ className: `sheet ${el.data("arg")}` });
 				break;
-			// case "set-table-col-head":
 			// case "set-table-col-foot":
+			case "set-table-col-head":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				break;
+			case "move-rows-to":
+				break;
 			case "set-table-row-head":
 				Sheet = event.sheet || APP.tools.sheet.el;
 				// head row(s)
@@ -165,8 +169,11 @@
 				break;
 			case "move-column-to":
 				let tblFrom = event.from.find("tbody"),
-					rowsFrom = tblFrom.find("tr"),
-					tblTo = event.to.find("tbody"),
+					tblTo = event.to.find("tbody");
+				// exit if both tables are empty
+				if (!tblFrom.length && !tblTo.length) return;
+
+				let rowsFrom = tblFrom.find("tr"),
 					rowsTo = tblTo.length ? tblTo.find("tr") : [],
 					colCurr = rowsTo.length ? rowsTo.get(0).find("td") : [],
 					colNum = +event.arg;
