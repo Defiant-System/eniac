@@ -1,15 +1,11 @@
 
 .sheet {
 	&.gray-table-1 {
-		.table-title.title-outline {
-			border-color: #404040;
-		}
+		--border-color: #404040;
+		--border-style: dotted;
+		--border-width: 2px;
 
 		.tbl-root {
-			&:before {
-				border-color: #404040;
-			}
-
 			.tbl-col-head {
 				td {
 					background-color: #bec0bf;
@@ -57,15 +53,11 @@
 	}
 
 	&.blue-table-1 {
-		.table-title.title-outline {
-			border-color: #404040;
-		}
+		--border-color: #404040;
+		--border-style: solid;
+		--border-width: 1px;
 
 		.tbl-root {
-			&:before {
-				border-color: #404040;
-			}
-
 			.tbl-col-head {
 				> div:nth-child(n) {
 					table {
@@ -122,12 +114,8 @@
 
 	&.green-table-1 {
 		--border-color: #404040;
-		--border-style: solid;
-		--border-width: 1px;
-
-		.table-title.title-outline {
-			border-color: var(--border-color);
-		}
+		--border-style: dashed;
+		--border-width: 2px;
 
 		.tbl-root {
 			.tbl-col-head {
@@ -192,15 +180,11 @@
 	}
 
 	&.blue-table-2 {
-		.table-title.title-outline {
-			border-color: #404040;
-		}
+		--border-color: #404040;
+		--border-style: solid;
+		--border-width: 1px;
 
 		.tbl-root {
-			&:before {
-				border-color: #404040;
-			}
-
 			.tbl-col-head {
 				> div:nth-child(n) {
 					table {
@@ -260,15 +244,11 @@
 	}
 
 	&.orange-table-1 {
-		.table-title.title-outline {
-			border-color: #404040;
-		}
+		--border-color: #404040;
+		--border-style: solid;
+		--border-width: 1px;
 
 		.tbl-root {
-			&:before {
-				border-color: #404040;
-			}
-
 			.tbl-col-head {
 				> div:nth-child(n) {
 					table {
@@ -332,15 +312,11 @@
 	}
 
 	&.white-table-1 {
-		.table-title.title-outline {
-			border-color: #404040;
-		}
-		
-		.tbl-root {
-			&:before {
-				border-color: #404040;
-			}
+		--border-color: #404040;
+		--border-style: solid;
+		--border-width: 1px;
 
+		.tbl-root {
 			.tbl-col-head {
 				> div:nth-child(n) {
 					table {
