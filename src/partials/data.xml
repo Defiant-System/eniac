@@ -157,7 +157,7 @@
 			<Table>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell value="2"/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 			</Table>
