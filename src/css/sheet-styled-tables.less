@@ -2,8 +2,8 @@
 .sheet {
 	&.gray-table-1 {
 		--border-color: #404040;
-		--border-style: dotted;
-		--border-width: 2px;
+		--border-style: solid;
+		--border-width: 1px;
 
 		.tbl-root {
 			.tbl-col-head {
@@ -23,7 +23,7 @@
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						&:before {
+						table:after {
 							border-right-color: #404040;
 						}
 
@@ -78,7 +78,7 @@
 			.tbl-body {			
 				> div {
 					&:nth-child(1) {
-						&:before {
+						table:after {
 							border-right-color: #404040;
 						}
 
@@ -114,8 +114,8 @@
 
 	&.green-table-1 {
 		--border-color: #404040;
-		--border-style: dashed;
-		--border-width: 2px;
+		--border-style: solid;
+		--border-width: 1px;
 
 		.tbl-root {
 			.tbl-col-head {
@@ -142,7 +142,7 @@
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						&:before {
+						table:after {
 							border-right-color: #404040;
 						}
 
@@ -206,7 +206,7 @@
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						&:before {
+						table:after {
 							border-right-color: #404040;
 						}
 
@@ -270,7 +270,7 @@
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						&:before {
+						table:after {
 							border-right-color: #404040;
 						}
 
@@ -315,7 +315,7 @@
 		--border-color: #404040;
 		--border-style: solid;
 		--border-width: 1px;
-
+		
 		.tbl-root {
 			.tbl-col-head {
 				> div:nth-child(n) {
@@ -338,7 +338,7 @@
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						&:before {
+						table:after {
 							border-right-color: #404040;
 						}
 

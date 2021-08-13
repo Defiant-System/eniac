@@ -98,13 +98,13 @@
 	</Menu>
 
 	<Menu for="table-outline">
-		<Menu type="icon" name="~/icons/table-outline-solid.png" arg="solid" click="set-table-outline" check-group="table-outline" is-checked="1"/>
-		<Menu type="icon" name="~/icons/table-outline-dashed.png" arg="dashed" click="set-table-outline" check-group="table-outline"/>
-		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-table-outline" check-group="table-outline"/>
+		<Menu type="icon" name="~/icons/table-outline-solid.png" arg="solid" click="set-table-outline-style" check-group="table-outline" is-checked="1"/>
+		<Menu type="icon" name="~/icons/table-outline-dashed.png" arg="dashed" click="set-table-outline-style" check-group="table-outline"/>
+		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-table-outline-style" check-group="table-outline"/>
 		<Menu type="divider"/>
-		<Menu name="Default Table Style"/>
+		<Menu name="Default Table Style" click="set-table-outline-style" arg="default"/>
 		<Menu type="divider"/>
-		<Menu name="None"/>
+		<Menu name="None" click="set-table-outline-style" arg="none"/>
 	</Menu>
 
 </MenuBar>

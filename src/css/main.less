@@ -917,8 +917,8 @@ table {
 	position: absolute;
 	top: 40px;
 	left: 40px;
-	--border-color: @table_border;
-	--border-style: solid;
+	--border-color: #f90; //@table_border;
+	--border-style: dashed;
 	--border-width: 1px;
 
 	// temp
@@ -1066,7 +1066,7 @@ table {
 					position: relative;
 					z-index: 2;
 
-					&:before {
+					table:after {
 						content: "";
 						position: absolute;
 						top: 0;
