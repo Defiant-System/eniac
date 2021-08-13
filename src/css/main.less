@@ -963,16 +963,30 @@ table {
 	}
 
 	.table-title {
-		padding: 5px 0 7px;
+		position: relative;
+		padding: 6px 0 7px;
 		text-align: center;
-		// margin: 0 0 3px;
 		font-size: 18px;
 		font-weight: 500;
-		border: 1px solid transparent;
-		border-bottom: 0;
 
-		&.title-outline {
+		&.title-outline:before {
+			display: block;
+		}
+
+		&:before {
+			display: none;
+			content: "";
+			position: absolute;
+			top: calc( var(--border-width) / -2 );
+			left: calc( var(--border-width) / -2 );
+			right: calc( var(--border-width) / -2 );
+			bottom: calc( var(--border-width) / -2 );
 			border-color: var(--border-color);
+			border-style: var(--border-style);
+			border-width: var(--border-width);
+			border-bottom: 0;
+			z-index: 2;
+			pointer-events: none;
 		}
 	}
 
