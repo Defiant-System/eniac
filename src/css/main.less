@@ -608,7 +608,6 @@ sidebar {
 
 		.select-option-border-solid {
 			display: block;
-			background: red;
 			width: 100%;
 			height: 1px;
 			margin: 3px 0 0 1px;
@@ -683,7 +682,9 @@ sidebar {
 				> div {
 					width: 30%;
 
+					&.w23 { width: 23%; }
 					&.w30 { width: 33%; }
+					&.w37 { width: 37%; }
 					&.w30 + .w63 { padding-top: 0; }
 					&.w48 { width: 48%; }
 					&.w60 { width: 60%; }
@@ -747,6 +748,18 @@ sidebar {
 
 		selectbox {
 			margin-bottom: 11px;
+
+			&.table-outline {
+				option {
+					&[value="solid"]  { --icon-prefix: url(~/icons/table-outline-solid.png); }
+					&[value="dotted"] { --icon-prefix: url(~/icons/table-outline-dotted.png); }
+					&[value="dashed"] { --icon-prefix: url(~/icons/table-outline-dashed.png); }
+
+					&.prefix-icon:before {
+						width: 62px;
+					}
+				}
+			}
 		}
 
 		.option-buttons_ {
