@@ -56,7 +56,6 @@
 				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-table-outlines" });
-				Self.dispatch({ ...event, type: "update-table-title-outline" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				break;
 			case "update-table-style":
@@ -116,10 +115,15 @@
 				break;
 			case "update-table-outlines":
 				Sheet = event.sheet || APP.tools.sheet.el;
-				console.log( Sheet );
-				break;
-			case "update-table-title-outline":
-				Sheet = event.sheet || APP.tools.sheet.el;
+				// border style
+				value = Sheet.cssProp("--border-style");
+				Self.els.el.find(".table-outline option").prop({ value });
+				// border style
+				value = Sheet.cssProp("--border-color");
+				Self.els.el.find(".table-outline-details .color-preset_").css({ "--preset-color": value });
+				// border style
+				value = parseInt(Sheet.cssProp("--border-width"), 10);
+				Self.els.el.find(".table-outline-details input").prop({ value });
 				// checkbox values
 				value = Sheet.find(".table-title").hasClass("title-outline");
 				Self.els.el.find(`input#outline-table-title`).prop({ checked: value });
