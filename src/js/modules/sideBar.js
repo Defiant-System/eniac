@@ -144,11 +144,16 @@
 				Sheet = event.sheet || APP.tools.sheet.el;
 				Sheet.prop({ className: `sheet ${el.data("arg")}` });
 				break;
-			// case "set-table-col-foot":
 			case "set-table-col-head":
 				Sheet = event.sheet || APP.tools.sheet.el;
-				break;
-			case "move-rows-to":
+				// head row columns
+				from = Sheet.find(".tbl-body > div:nth-child(1) table");
+				to = Sheet.find(".tbl-col-head > div:nth-child(1) table");
+				Self.dispatch({ ...event, type: "move-rows-to", from, to });
+				// body row columns
+				from = Sheet.find(".tbl-body > div:nth-child(2) table");
+				to = Sheet.find(".tbl-col-head > div:nth-child(2) table");
+				Self.dispatch({ ...event, type: "move-rows-to", from, to });
 				break;
 			case "set-table-row-head":
 				Sheet = event.sheet || APP.tools.sheet.el;
@@ -167,7 +172,45 @@
 				// sync tools table
 				APP.tools.dispatch({ type: "sync-sheet-table", sheet: Sheet });
 				break;
-			case "move-column-to":
+			case "set-table-col-foot":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				// foot row columns
+				from = Sheet.find(".tbl-body > div:nth-child(1) table");
+				to = Sheet.find(".tbl-col-foot > div:nth-child(1) table");
+				Self.dispatch({ ...event, type: "move-rows-to", from, to });
+				// body row columns
+				from = Sheet.find(".tbl-body > div:nth-child(2) table");
+				to = Sheet.find(".tbl-col-foot > div:nth-child(2) table");
+				Self.dispatch({ ...event, type: "move-rows-to", from, to });
+				break;
+			case "move-rows-to": {
+				let tblFrom = event.from.find("tbody"),
+					tblTo = event.to.find("tbody");
+				// exit if both tables are empty
+				if (!tblFrom.length && !tblTo.length) return;
+
+				let rowsFrom = tblFrom.find("tr"),
+					rowsTo = tblTo.length ? tblTo.find("tr") : [],
+					rowsCurr = tblTo.length ? tblTo.find("tr") : [],
+					rowNum = +event.arg;
+				// course of action
+				if (rowsTo.length && rowsCurr.length > rowNum) {
+					tblTo = tblFrom;
+					tblFrom = event.to.find("tbody");
+					// manipulate DOM
+					[...Array(rowsCurr.length - rowNum)].map(tr =>
+						tblTo.prepend(tblFrom[0].lastChild));
+				} else {
+					if (!tblTo.length) {
+						event.to.append(tblFrom[0].cloneNode(false));
+						tblTo = event.to.find("tbody");
+					}
+					// manipulate DOM
+					[...Array(rowNum - rowsCurr.length)].map(tr =>
+						tblTo.append(tblFrom[0].firstChild));
+				}
+				break; }
+			case "move-column-to": {
 				let tblFrom = event.from.find("tbody"),
 					tblTo = event.to.find("tbody");
 				// exit if both tables are empty
@@ -202,7 +245,7 @@
 						[...Array(colNum - colCurr.length)].map(i =>
 							rowsTo.get(y).append(tr.firstChild)));
 				}
-				break;
+				break; }
 			case "toggle-table-title":
 				Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle table title
