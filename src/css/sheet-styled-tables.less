@@ -13,6 +13,10 @@
 			.tbl-col-head {
 				td {
 					background-color: #bec0bf;
+
+					&:last-child {
+						border-right-color: #bec0bf;
+					}
 				}
 				
 				tr:last-child td {
@@ -37,10 +41,16 @@
 			}
 
 			.tbl-col-foot {
-				border-top-color: #404040;
-				
-				td {
-					background-color: #eee;
+				> div:nth-child(n) {
+					table {
+						&:after {
+							border-top-color: #404040;
+						}
+					}
+
+					td {
+						background-color: #eee;
+					}
 				}
 			}
 		}
@@ -92,11 +102,13 @@
 			}
 
 			.tbl-col-foot {
-				border-top-color: #404040;
-
 				> div:nth-child(n) {
 					table {
 						border-right-color: transparent;
+
+						&:after {
+							border-top-color: #404040;
+						}
 					}
 
 					td {
@@ -109,15 +121,15 @@
 	}
 
 	&.green-table-1 {
+		--border-color: #404040;
+		--border-style: solid;
+		--border-width: 1px;
+
 		.table-title.title-outline {
-			border-color: #404040;
+			border-color: var(--border-color);
 		}
 
 		.tbl-root {
-			&:before {
-				border-color: #404040;
-			}
-
 			.tbl-col-head {
 				> div:nth-child(n) {
 					table {
@@ -125,8 +137,11 @@
 
 						td {
 							background-color: #95d0ae;
-							border-right-color: #65a481;
 							border-bottom-color: #65a481;
+
+							&:last-child {
+								border-right-color: #95d0ae;
+							}
 						}
 				
 						tr:last-child td {
@@ -157,11 +172,13 @@
 			}
 
 			.tbl-col-foot {
-				border-top-color: #404040;
-
 				> div:nth-child(n) {
 					table {
 						border-right-color: #65a481;
+
+						&:after {
+							border-top-color: #404040;
+						}
 					}
 
 					td {
@@ -223,11 +240,13 @@
 			}
 
 			.tbl-col-foot {
-				border-top-color: #404040;
-
 				> div:nth-child(n) {
 					table {
 						border-right-color: #6595b6;
+
+						&:after {
+							border-top-color: #404040;
+						}
 					}
 
 					td {
@@ -293,11 +312,13 @@
 			}
 
 			.tbl-col-foot {
-				border-top-color: #404040;
-
 				> div:nth-child(n) {
 					table {
 						border-right-color: #cfa472;
+
+						&:after {
+							border-top-color: #404040;
+						}
 					}
 
 					td {
@@ -365,11 +386,13 @@
 			}
 
 			.tbl-col-foot {
-				border-top-color: #404040;
-
 				> div:nth-child(n) {
 					table {
 						border-right-color: #d3d3d3;
+
+						&:after {
+							border-top-color: #404040;
+						}
 					}
 
 					td {

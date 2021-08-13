@@ -55,6 +55,7 @@
 				Self.dispatch({ ...event, type: "update-table-title-caption-clip" });
 				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
+				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-table-title-outline" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				break;
@@ -112,6 +113,10 @@
 				Self.els.el.find(`input[name="table-rows-num"]`).val(value);
 				value = APP.tools.sheet.colNum;
 				Self.els.el.find(`input[name="table-cols-num"]`).val(value);
+				break;
+			case "update-table-outlines":
+				Sheet = event.sheet || APP.tools.sheet.el;
+				console.log( Sheet );
 				break;
 			case "update-table-title-outline":
 				Sheet = event.sheet || APP.tools.sheet.el;
@@ -297,6 +302,9 @@
 				
 				value[arg] = Sheet.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
 				APP.tools.els.root.css(value);
+				break;
+			case "set-table-outline":
+				console.log(event);
 				break;
 			case "toggle-table-title-outline":
 				Sheet = event.sheet || APP.tools.sheet.el;
