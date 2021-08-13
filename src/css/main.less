@@ -962,6 +962,18 @@ table {
 		width: 40px;
 	}
 
+	&.alt-row-bg .tbl-root {
+		.tbl-body {
+			> div {
+				&:nth-child(2) {
+					tr:nth-child(even) {
+						background-color: var(--alt-row-color);
+					}
+				}
+			}
+		}
+	}
+
 	.table-title {
 		position: relative;
 		padding: 6px 0 7px;

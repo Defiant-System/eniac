@@ -57,6 +57,7 @@
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
+				Self.dispatch({ ...event, type: "update-alt-row-bg" });
 				break;
 			case "update-table-style":
 				// Sheet = event.sheet || APP.tools.sheet.el;
@@ -144,6 +145,16 @@
 					Self.els.el.find(`span[data-name="${key}"]`)[method]("active_");
 				}
 				break;
+			case "update-alt-row-bg":
+				// checkbox
+				value = Sheet.hasClass("alt-row-bg");
+				Self.els.el.find(`input#alternate-row-color`).prop({ checked: value });
+				// color preset
+				value = Sheet.cssProp("--alt-row-color");
+				Self.els.el
+					.find(".table-alt-bg-details .color-preset_")
+					.css({ "--preset-color": value || "transparent" });
+				break;
 			// set values based on UI interaction
 			case "set-table-style":
 				el = $(event.target);
@@ -191,6 +202,13 @@
 				from = Sheet.find(".tbl-body > div:nth-child(2) table");
 				to = Sheet.find(".tbl-col-foot > div:nth-child(2) table");
 				Self.dispatch({ ...event, type: "move-rows-to", from, to });
+				break;
+			case "set-alt-row-bg":
+				value = event.el.is(":checked");
+				Sheet[ value ? "addClass" : "removeClass" ]("alt-row-bg");
+				break;
+			case "set-alt-row-color":
+				Sheet.css({ "--alt-row-color": event.value });
 				break;
 			case "move-rows-to": {
 				let tblFrom = event.from.find("tbody"),
