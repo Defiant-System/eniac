@@ -97,4 +97,14 @@
 		<Menu name="Delete" click="remove-sheet"/>
 	</Menu>
 
+	<Menu for="table-outline">
+		<Menu type="icon" name="table-outline-solid" value="solid"/>
+		<Menu type="icon" name="table-outline-dashed" value="dashed"/>
+		<Menu type="icon" name="table-outline-dotted" value="dotted"/>
+		<Menu type="divider"/>
+		<Menu name="Default Table Style"/>
+		<Menu type="divider"/>
+		<Menu name="None"/>
+	</Menu>
+
 </MenuBar>
