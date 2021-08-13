@@ -98,9 +98,9 @@
 	</Menu>
 
 	<Menu for="table-outline">
-		<Menu type="icon" name="table-outline-solid" value="solid"/>
-		<Menu type="icon" name="table-outline-dashed" value="dashed"/>
-		<Menu type="icon" name="table-outline-dotted" value="dotted"/>
+		<Menu type="icon" name="~/icons/table-outline-solid.png" arg="solid" check-group="table-header-rows" is-checked="1"/>
+		<Menu type="icon" name="~/icons/table-outline-dashed.png" arg="dashed" check-group="table-header-rows"/>
+		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" check-group="table-header-rows"/>
 		<Menu type="divider"/>
 		<Menu name="Default Table Style"/>
 		<Menu type="divider"/>
