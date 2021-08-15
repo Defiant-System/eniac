@@ -60,7 +60,6 @@
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
 				break;
 			case "update-table-style":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// reset (if any) previous active
 				el = Self.els.el.find(".styles");
 				el.find(".active").removeClass("active");
@@ -71,7 +70,6 @@
 				});
 				break;
 			case "update-table-title-caption-clip":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// checkbox values
 				value = Sheet.find(".table-title").length;
 				Self.els.el.find(`input#table-title`).prop({ checked: value });
@@ -92,7 +90,6 @@
 				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < APP.tools.sheet.grid.height);
 				break;
 			case "update-table-head-footer-rows":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// selectbox: table-header-rows
 				value = [Sheet.find(".tbl-body > div:nth-child(1) tr:nth-child(1) td").length];
 				if (value[0] > 0) value.push("table-header-rows-freeze");
@@ -107,7 +104,6 @@
 				Self.els.el.find(`selectbox.table-footer-rows`).val(value);
 				break;
 			case "update-table-row-col":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// input values
 				value = APP.tools.sheet.rowNum;
 				Self.els.el.find(`input[name="table-rows-num"]`).val(value);
@@ -115,7 +111,6 @@
 				Self.els.el.find(`input[name="table-cols-num"]`).val(value);
 				break;
 			case "update-table-outlines":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// border style
 				value = Sheet.cssProp("--border-style");
 				Self.els.el.find(".table-outline option").prop({ value });
@@ -130,7 +125,6 @@
 				Self.els.el.find(`input#outline-table-title`).prop({ checked: value });
 				break;
 			case "update-gridlines":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// enable/disable gridline options
 				value = APP.tools.els.cols.hasClass("has-col-head") ? "removeClass" : "addClass";
 				Self.els.el.find(`span[data-name="hg-header"]`)[value]("disabled_");
@@ -161,11 +155,9 @@
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
 				
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				Sheet.prop({ className: `sheet ${el.data("arg")}` });
 				break;
 			case "set-table-col-head":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// head row columns
 				from = Sheet.find(".tbl-body > div:nth-child(1) table");
 				to = Sheet.find(".tbl-col-head > div:nth-child(1) table");
@@ -176,7 +168,6 @@
 				Self.dispatch({ ...event, type: "move-rows-to", from, to });
 				break;
 			case "set-table-row-head":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// head row(s)
 				from = Sheet.find(".tbl-col-head > div:nth-child(2) table");
 				to = Sheet.find(".tbl-col-head > div:nth-child(1) table");
@@ -193,7 +184,6 @@
 				APP.tools.dispatch({ type: "sync-sheet-table", sheet: Sheet });
 				break;
 			case "set-table-col-foot":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// foot row columns
 				from = Sheet.find(".tbl-body > div:nth-child(1) table");
 				to = Sheet.find(".tbl-col-foot > div:nth-child(1) table");
@@ -274,7 +264,6 @@
 				}
 				break; }
 			case "toggle-table-title":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle table title
 				if (event.el.is(":checked")) Sheet.prepend(`<div class="table-title">Title</div>`);
 				else Sheet.find(".table-title").remove();
@@ -286,13 +275,11 @@
 				Cursor.dispatch({ type: "re-sync-selection" });
 				break;
 			case "toggle-table-caption":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle table caption
 				if (event.el.is(":checked")) Sheet.append(`<div class="table-caption">Caption</div>`);
 				else Sheet.find(".table-caption").remove();
 				break;
 			case "toggle-table-clip":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle table clipping
 				if (event.el.is(":checked")) {
 					Self.els.el.find(".table-clipping").addClass("expand");
@@ -312,7 +299,6 @@
 				}
 				break;
 			case "fit-table-clip":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// disable button
 				el = $(event.target);
 				el.attr({ disabled: true });
@@ -338,7 +324,6 @@
 				Sheet.css({ "--border-width": value });
 				break;
 			case "toggle-table-title-outline":
-				// Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle title outline
 				if (event.el.is(":checked")) Sheet.find(".table-title").addClass("title-outline");
 				else Sheet.find(".table-title").removeClass("title-outline");
