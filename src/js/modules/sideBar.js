@@ -333,6 +333,10 @@
 				value = event.value;
 				Sheet.css({ "--border-color": value });
 				break;
+			case "set-table-outline-width":
+				value = event.value +"px";
+				Sheet.css({ "--border-width": value });
+				break;
 			case "toggle-table-title-outline":
 				// Sheet = event.sheet || APP.tools.sheet.el;
 				// toggle title outline
