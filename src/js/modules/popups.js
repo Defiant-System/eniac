@@ -20,6 +20,7 @@
 			value,
 			pEl,
 			el;
+		// console.log(event);
 		switch (event.type) {
 			case "select-color":
 				el = $(event.target);
@@ -83,6 +84,15 @@
 
 				Self.els.toolbarCharts.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
+				break;
+			case "do-grid-navigation":
+				el = $(event.target);
+				if (el.hasClass("active")) return;
+				// navigation dots UI change
+				el.parent().find(".active").removeClass("active");
+				el.addClass("active");
+				// trigger change in reel
+				event.el.prevAll(".options-reel").data({ step: el.index() + 1 });
 				break;
 		}
 	},

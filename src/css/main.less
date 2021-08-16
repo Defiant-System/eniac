@@ -298,12 +298,23 @@ layout {
 
 		&.popup-insert-chart-options,
 		&.popup-insert-grid-options {
-			width: 209px;
+			width: 213px;
 			padding: 17px 17px 11px;
 
 			.options-reel {
-				display: flex;
+				position: relative;
 				overflow: hidden;
+
+				&[data-step="1"] .reel { left: 0px; }
+				&[data-step="2"] .reel { left: -188px; }
+				&[data-step="3"] .reel { left: -376px; }
+
+				.reel {
+					position: relative;
+					display: flex;
+					left: 0;
+					transition: left 150ms ease-in-out;
+				}
 
 				.grid-column {
 					// background: rgba(0,0,0,0.1);
@@ -319,35 +330,35 @@ layout {
 				span {
 					display: inline-block;
 					position: relative;
-					width: 81px;
-					height: 61px;
+					width: 85px;
+					height: 65px;
 					margin: 1px 0 7px;
-					//padding: 4px 0 0 4px;
+					padding: 2px;
 					vertical-align: middle;
-					border-radius: 2px;
+					border-radius: 3px;
+					cursor: pointer;
 
 					&:nth-child(2n) {
 						margin-right: 0;
 					}
 
-					&:hover:not(.active) {
-						background: #d6e7fb;
-					}
-					&.active {
-						box-shadow: 0 0 0 2px #acc2dc;
+					&:hover {
+						background: rgba(0,0,0,.065);
+						box-shadow: inset 0 1px 1px rgba(0,0,0,.15),
+									0 1px 0 rgba(255,255,255,.35);
 					}
 
 					&:before {
 						content: "";
 						position: absolute;
-						top: 2px;
-						left: 2px;
+						top: 4px;
+						left: 4px;
 						width: 77px;
 						height: 56px;
 						background-position: 50% 50%;
 						background-repeat: no-repeat;
 						background-size: 100%;
-						//filter: grayscale(1);
+						border-radius: 5px;
 					}
 				}
 			}
@@ -365,21 +376,27 @@ layout {
 					margin: 0 3px;
 					border-radius: 50%;
 					background: rgba(0,0,0,.125);
-					box-shadow: inset 0 1px 1px rgba(0,0,0,.15);
+					box-shadow: inset 0 1px 1px rgba(0,0,0,.15),
+								0 1px 0 rgba(255,255,255,.35);
 					cursor: pointer;
+
+					&:before {
+						content: "";
+						opacity: 0;
+						position: absolute;
+						top: 4px;
+						left: 4px;
+						width: 4px;
+						height: 4px;
+						border-radius: inherit;
+						background: rgba(0,0,0,.35);
+					}
 
 					&.active {
 						cursor: default;
 
 						&:before {
-							content: "";
-							position: absolute;
-							top: 4px;
-							left: 4px;
-							right: 4px;
-							bottom: 4px;
-							border-radius: inherit;
-							background: rgba(0,0,0,.35);
+							opacity: 1;
 						}
 					}
 				}
