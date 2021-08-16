@@ -94,6 +94,10 @@
 				// trigger change in reel
 				event.el.prevAll(".options-reel").data({ step: el.index() + 1 });
 				break;
+			case "select-grid":
+			case "select-chart":
+				console.log(event);
+				break;
 		}
 	},
 	getPosition(el, rEl) {
