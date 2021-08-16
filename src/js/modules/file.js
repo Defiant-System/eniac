@@ -33,12 +33,13 @@ class File {
 
 		
 		// temp
+		window.find(`.toolbar-tool_[data-click="popup-insert-chart-options"]`).trigger("click");
 		// window.find(".white-table-1 .tbl-col-head > div table").html("");
 		// window.find(".white-table-1 .tbl-col-foot > div table").html("");
 
 		// auto focus on first cell
-		let anchor = window.find(".sheet:nth-child(3) table").get(3).find("td").get(6);
-		setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
+		// let anchor = window.find(".sheet:nth-child(5) table").get(3).find("td").get(6);
+		// setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 
 	}
 

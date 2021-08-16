@@ -7,6 +7,8 @@
 		this.els = {
 			layout: window.find("layout"),
 			root: window.find(".popups"),
+			toolbarGrids: window.find(".popups .popup-insert-grid-options"),
+			toolbarCharts: window.find(".popups .popup-insert-chart-options"),
 			palette: window.find(".popups .popup-palette"),
 		};
 	},
@@ -62,6 +64,24 @@
 				if (el.length) el.addClass("active");
 
 				Self.els.palette.css({ top, left }).addClass("pop");
+				Self.els.layout.addClass("cover");
+				break;
+			case "popup-insert-grid-options":
+				dim = Self.els.toolbarGrids[0].getBoundingClientRect();
+				pos = Cursor.getOffset(event.target, Self.els.layout[0]);
+				top = pos.top + event.target.offsetHeight + 16;
+				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 3;
+
+				Self.els.toolbarGrids.css({ top, left }).addClass("pop");
+				Self.els.layout.addClass("cover");
+				break;
+			case "popup-insert-chart-options":
+				dim = Self.els.toolbarCharts[0].getBoundingClientRect();
+				pos = Cursor.getOffset(event.target, Self.els.layout[0]);
+				top = pos.top + event.target.offsetHeight + 16;
+				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 3;
+
+				Self.els.toolbarCharts.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
 				break;
 		}

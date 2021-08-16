@@ -67,10 +67,9 @@ const eniac = {
 			case "before-menu:sheet-tab":
 				return Self.head.dispatch(event);
 			// custom events
-			case "insert-grid-options":
-				console.log(event);
-				// return true;
-				break;
+			case "popup-insert-grid-options":
+			case "popup-insert-chart-options":
+				return Self.popups.dispatch(event);
 			case "hide-popups":
 				Self.popups.dispatch({ type: "close-popup" });
 				break;

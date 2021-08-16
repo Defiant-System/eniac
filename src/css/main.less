@@ -48,6 +48,31 @@ overflow: initial;
 	}
 }
 
+.icon-table-style-1:before   { background-image: url(~/icons/icon-table-style-1.png); }
+.icon-table-style-2:before   { background-image: url(~/icons/icon-table-style-2.png); }
+.icon-table-style-3:before   { background-image: url(~/icons/icon-table-style-3.png); }
+.icon-table-style-4:before   { background-image: url(~/icons/icon-table-style-4.png); }
+.icon-table-style-5:before   { background-image: url(~/icons/icon-table-style-5.png); }
+.icon-table-style-6:before   { background-image: url(~/icons/icon-table-style-6.png); }
+.icon-bars-style-1:before    { background-image: url(~/icons/icon-bars-style-1.png) }
+.icon-bars-style-2:before    { background-image: url(~/icons/icon-bars-style-2.png) }
+.icon-bars-style-3:before    { background-image: url(~/icons/icon-bars-style-3.png) }
+.icon-bars-style-4:before    { background-image: url(~/icons/icon-bars-style-4.png) }
+.icon-bars-style-5:before    { background-image: url(~/icons/icon-bars-style-5.png) }
+.icon-bars-style-6:before    { background-image: url(~/icons/icon-bars-style-6.png) }
+.icon-pie-style-1:before     { background-image: url(~/icons/icon-pie-style-1.png) }
+.icon-pie-style-2:before     { background-image: url(~/icons/icon-pie-style-2.png) }
+.icon-pie-style-3:before     { background-image: url(~/icons/icon-pie-style-3.png) }
+.icon-pie-style-4:before     { background-image: url(~/icons/icon-pie-style-4.png) }
+.icon-pie-style-5:before     { background-image: url(~/icons/icon-pie-style-5.png) }
+.icon-pie-style-6:before     { background-image: url(~/icons/icon-pie-style-6.png) }
+.icon-chart-columns-1:before { background-image: url(~/icons/icon-chart-columns-1.png) }
+.icon-chart-columns-2:before { background-image: url(~/icons/icon-chart-columns-2.png) }
+.icon-chart-columns-3:before { background-image: url(~/icons/icon-chart-columns-3.png) }
+.icon-chart-columns-4:before { background-image: url(~/icons/icon-chart-columns-4.png) }
+.icon-chart-columns-5:before { background-image: url(~/icons/icon-chart-columns-5.png) }
+.icon-chart-columns-6:before { background-image: url(~/icons/icon-chart-columns-6.png) }
+
 layout {
 	background: #fff;
 	color: #333;
@@ -103,31 +128,6 @@ layout {
 	.icon {
 		//background-image: url(~/icons/var(--icon).png);
 	}
-
-	.icon-table-style-1:before   { background-image: url(~/icons/icon-table-style-1.png); }
-	.icon-table-style-2:before   { background-image: url(~/icons/icon-table-style-2.png); }
-	.icon-table-style-3:before   { background-image: url(~/icons/icon-table-style-3.png); }
-	.icon-table-style-4:before   { background-image: url(~/icons/icon-table-style-4.png); }
-	.icon-table-style-5:before   { background-image: url(~/icons/icon-table-style-5.png); }
-	.icon-table-style-6:before   { background-image: url(~/icons/icon-table-style-6.png); }
-	.icon-bars-style-1:before    { background-image: url(~/icons/icon-bars-style-1.png) }
-	.icon-bars-style-2:before    { background-image: url(~/icons/icon-bars-style-2.png) }
-	.icon-bars-style-3:before    { background-image: url(~/icons/icon-bars-style-3.png) }
-	.icon-bars-style-4:before    { background-image: url(~/icons/icon-bars-style-4.png) }
-	.icon-bars-style-5:before    { background-image: url(~/icons/icon-bars-style-5.png) }
-	.icon-bars-style-6:before    { background-image: url(~/icons/icon-bars-style-6.png) }
-	.icon-pie-style-1:before     { background-image: url(~/icons/icon-pie-style-1.png) }
-	.icon-pie-style-2:before     { background-image: url(~/icons/icon-pie-style-2.png) }
-	.icon-pie-style-3:before     { background-image: url(~/icons/icon-pie-style-3.png) }
-	.icon-pie-style-4:before     { background-image: url(~/icons/icon-pie-style-4.png) }
-	.icon-pie-style-5:before     { background-image: url(~/icons/icon-pie-style-5.png) }
-	.icon-pie-style-6:before     { background-image: url(~/icons/icon-pie-style-6.png) }
-	.icon-chart-columns-1:before { background-image: url(~/icons/icon-chart-columns-1.png) }
-	.icon-chart-columns-2:before { background-image: url(~/icons/icon-chart-columns-2.png) }
-	.icon-chart-columns-3:before { background-image: url(~/icons/icon-chart-columns-3.png) }
-	.icon-chart-columns-4:before { background-image: url(~/icons/icon-chart-columns-4.png) }
-	.icon-chart-columns-5:before { background-image: url(~/icons/icon-chart-columns-5.png) }
-	.icon-chart-columns-6:before { background-image: url(~/icons/icon-chart-columns-6.png) }
 
 	// selectbox prefix icons
 	.table-header-rows    { --icon-prefix: url(~/icons/icon-column-cells.png); }
@@ -205,6 +205,7 @@ layout {
 	> div {
 		visibility: hidden;
 		opacity: 0;
+		font-size: 0;
 		background: rgba(240,240,240,.85);
 		backdrop-filter: blur(21px);
 		position: absolute;
@@ -254,8 +255,6 @@ layout {
 		}
 
 		&.popup-palette {
-			font-size: 0;
-
 			span {
 				position: relative;
 				display: inline-block;
@@ -292,6 +291,96 @@ layout {
 						border-radius: 2px;
 						box-shadow: 0 0 2px rgba(0,0,0,.65);
 						z-index: 2;
+					}
+				}
+			}
+		}
+
+		&.popup-insert-chart-options,
+		&.popup-insert-grid-options {
+			width: 209px;
+			padding: 17px 17px 11px;
+
+			.options-reel {
+				display: flex;
+				overflow: hidden;
+
+				.grid-column {
+					// background: rgba(0,0,0,0.1);
+					display: inline-block;
+					width: 81px;
+					margin-right: 13px;
+
+					&:last-child {
+						margin-right: 0;
+					}
+				}
+
+				span {
+					display: inline-block;
+					position: relative;
+					width: 81px;
+					height: 61px;
+					margin: 1px 0 7px;
+					//padding: 4px 0 0 4px;
+					vertical-align: middle;
+					border-radius: 2px;
+
+					&:nth-child(2n) {
+						margin-right: 0;
+					}
+
+					&:hover:not(.active) {
+						background: #d6e7fb;
+					}
+					&.active {
+						box-shadow: 0 0 0 2px #acc2dc;
+					}
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: 2px;
+						left: 2px;
+						width: 77px;
+						height: 56px;
+						background-position: 50% 50%;
+						background-repeat: no-repeat;
+						background-size: 100%;
+						//filter: grayscale(1);
+					}
+				}
+			}
+
+			.grid-nav {
+				display: block;
+				text-align: center;
+				margin: 4px 0;
+
+				li {
+					position: relative;
+					display: inline-block;
+					width: 12px;
+					height: 12px;
+					margin: 0 3px;
+					border-radius: 50%;
+					background: rgba(0,0,0,.125);
+					box-shadow: inset 0 1px 1px rgba(0,0,0,.15);
+					cursor: pointer;
+
+					&.active {
+						cursor: default;
+
+						&:before {
+							content: "";
+							position: absolute;
+							top: 4px;
+							left: 4px;
+							right: 4px;
+							bottom: 4px;
+							border-radius: inherit;
+							background: rgba(0,0,0,.35);
+						}
 					}
 				}
 			}
