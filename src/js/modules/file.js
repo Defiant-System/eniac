@@ -33,7 +33,7 @@ class File {
 
 		
 		// temp
-		window.find(`.toolbar-tool_[data-click="popup-insert-chart-options"]`).trigger("click");
+		window.find(`.toolbar-tool_[data-click="popup-insert-grid-options"]`).trigger("click");
 		// window.find(".white-table-1 .tbl-col-head > div table").html("");
 		// window.find(".white-table-1 .tbl-col-foot > div table").html("");
 

@@ -100,6 +100,8 @@
 			case "select-grid":
 			case "select-chart":
 				console.log(event);
+
+				Self.dispatch({ type: "close-popup" });
 				break;
 		}
 	},
