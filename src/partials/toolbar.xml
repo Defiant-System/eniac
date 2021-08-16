@@ -5,11 +5,11 @@
 	</Group>
 	<Group width="40%" align="center">
 		<Tool symbol="icon-formula"/>
-		<Tool symbol="icon-table" click="popup-insert-grid-options"/>
-		<Tool symbol="icon-chart" click="popup-insert-chart-options"/>
-		<Tool symbol="icon-text"/>
-		<Tool symbol="icon-shape"/>
-		<Tool symbol="icon-image"/>
+		<Tool symbol="icon-table" click="popup-view-options" arg="grid"/>
+		<Tool symbol="icon-chart" click="popup-view-options" arg="chart"/>
+		<Tool symbol="icon-text" click="insert-text-box"/>
+		<Tool symbol="icon-shape" click="popup-view-options" arg="shape"/>
+		<Tool symbol="icon-image" click="popup-view-options" arg="image"/>
 	</Group>
 	<Group width="30%">
 		<Tool symbol="icon-format" state="active1" click="toggle-sidebar"/>

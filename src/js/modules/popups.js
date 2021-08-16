@@ -5,10 +5,13 @@
 	init() {
 		// fast references
 		this.els = {
+			doc: $(document),
 			layout: window.find("layout"),
 			root: window.find(".popups"),
-			toolbarGrids: window.find(".popups .popup-insert-grid-options"),
-			toolbarCharts: window.find(".popups .popup-insert-chart-options"),
+			gridOptions: window.find(".popups .popup-insert-grid-options"),
+			chartOptions: window.find(".popups .popup-insert-chart-options"),
+			shapeOptions: window.find(".popups .popup-insert-shape-options"),
+			imageOptions: window.find(".popups .popup-insert-image-options"),
 			palette: window.find(".popups .popup-palette"),
 		};
 	},
@@ -18,6 +21,7 @@
 			dim, pos, top, left,
 			name,
 			value,
+			func,
 			pEl,
 			el;
 		// console.log(event);
@@ -49,6 +53,15 @@
 
 				Self.origin = null;
 				break;
+			case "do-grid-navigation":
+				el = $(event.target);
+				if (el.hasClass("active")) return;
+				// navigation dots UI change
+				el.parent().find(".active").removeClass("active");
+				el.addClass("active");
+				// trigger change in reel
+				event.el.prevAll(".options-reel").data({ step: el.index() + 1 });
+				break;
 			case "popup-color-palette":
 				dim = Self.els.palette[0].getBoundingClientRect();
 				pos = Self.getPosition(event.target, Self.els.layout[0]);
@@ -67,41 +80,33 @@
 				Self.els.palette.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
 				break;
-			case "popup-insert-grid-options":
-				dim = Self.els.toolbarGrids[0].getBoundingClientRect();
+			case "popup-view-options":
+				// reference to target popup
+				el = Self.els[event.arg +"Options"];
+				dim = el[0].getBoundingClientRect();
 				pos = Cursor.getOffset(event.target, Self.els.layout[0]);
 				top = pos.top + event.target.offsetHeight + 16;
 				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 3;
-
-				Self.els.toolbarGrids.css({ top, left }).addClass("pop");
+				// show popup
+				el.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
+				// handler listens for next click event - to close popup
+				func = event => {
+					Self.dispatch({ type: "close-popup" });
+					// unbind event handler
+					Self.els.doc.unbind("mouseup", func);
+				};
+				// bind event handler
+				Self.els.doc.bind("mouseup", func);
 				break;
-			case "popup-insert-chart-options":
-				dim = Self.els.toolbarCharts[0].getBoundingClientRect();
-				pos = Cursor.getOffset(event.target, Self.els.layout[0]);
-				top = pos.top + event.target.offsetHeight + 16;
-				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 3;
-
-				Self.els.toolbarCharts.css({ top, left }).addClass("pop");
-				Self.els.layout.addClass("cover");
-				break;
-			case "popup-insert-shape-options":
+			case "insert-text-box":
 				console.log(event);
-				break;
-			case "do-grid-navigation":
-				el = $(event.target);
-				if (el.hasClass("active")) return;
-				// navigation dots UI change
-				el.parent().find(".active").removeClass("active");
-				el.addClass("active");
-				// trigger change in reel
-				event.el.prevAll(".options-reel").data({ step: el.index() + 1 });
 				break;
 			case "select-grid":
 			case "select-chart":
+			case "select-shape":
+			case "select-image":
 				console.log(event);
-
-				Self.dispatch({ type: "close-popup" });
 				break;
 		}
 	},
