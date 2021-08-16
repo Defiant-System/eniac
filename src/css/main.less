@@ -1051,14 +1051,14 @@ table {
 					table {
 						border-right: 1px solid @table_border;
 					}
-
-					td:last-child {
-						border-right: 0;
-					}
 				}
 
 				&:nth-child(2) {
 					flex: 1;
+				}
+
+				td:last-child {
+					border-right: 0;
 				}
 			}
 		}
@@ -1087,10 +1087,6 @@ table {
 						width: 1px;
 						border-right: 1px solid @table_border;
 					}
-
-					td:last-child {
-						border-right: 0;
-					}
 				}
 
 				&:nth-child(2) {
@@ -1098,6 +1094,10 @@ table {
 					flex: 1;
 					z-index: 1;
 					overflow: auto;
+				}
+
+				td:last-child {
+					border-right: 0;
 				}
 
 				tr:last-child td {
@@ -1120,10 +1120,6 @@ table {
 					table {
 						border-right: 1px solid @table_border;
 					}
-
-					td:last-child {
-						border-right: 0;
-					}
 				}
 
 				&:nth-child(2) {
@@ -1140,7 +1136,7 @@ table {
 					position: absolute;
 					top: -1px;
 					left: 0;
-					right: -1px;
+					right: 0;
 					height: 0;
 					z-index: 2;
 					border-top: 1px solid @table_border;
@@ -1148,6 +1144,10 @@ table {
 
 				tr:last-child td {
 					border-bottom: 0;
+				}
+
+				td:last-child {
+					border-right: 0;
 				}
 			}
 		}

@@ -344,18 +344,26 @@
 		.tbl-root {
 			.tbl-col-head {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #fbd0a2;
+
 					table {
 						border-right-color: #cfa472;
-
-						td {
-							background-color: #fbd0a2;
-							border-right-color: #cfa472;
-							border-bottom-color: #cfa472;
-						}
 				
-						tr:last-child td {
-							border-bottom-color: #404040;
+						tr {
+							// fallback border color
+							border-color: #fbd0a2;
+
+							&:last-child td {
+								border-bottom-color: #404040;
+							}
 						}
+					}
+
+					td {
+						background-color: #fbd0a2;
+						border-right-color: #cfa472;
+						border-bottom-color: #cfa472;
 					}
 				}
 			}
@@ -367,12 +375,26 @@
 							border-right-color: #404040;
 						}
 
+						tr {
+							// fallback border color
+							border-color: #dcdcdc;
+						}
+
 						td {
 							background-color: #dcdcdc;
 						}
 					}
 
 					&:nth-child(2) {
+						tr {
+							border-right-color: #fff;
+							border-bottom-color: #f2f2f2;
+
+							&:nth-child(even) {
+								border-right-color: #f2f2f2;
+							}
+						}
+
 						tr:nth-child(even) {
 							background-color: #f2f2f2;
 						}
@@ -386,11 +408,19 @@
 
 			.tbl-col-foot {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #fbd0a2;
+					
 					table {
 						border-right-color: #cfa472;
 
 						&:after {
 							border-top-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #fbd0a2;
 						}
 					}
 
@@ -412,18 +442,26 @@
 		.tbl-root {
 			.tbl-col-head {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #fff;
+
 					table {
 						border-right-color: #d3d3d3;
-
-						td {
-							background-color: #fff;
-							border-right-color: #d3d3d3;
-							border-bottom-color: #d3d3d3;
-						}
 				
-						tr:last-child td {
-							border-bottom-color: #404040;
+						tr {
+							// fallback border color
+							border-color: #fff;
+
+							&:last-child td {
+								border-bottom-color: #404040;
+							}
 						}
+					}
+
+					td {
+						background-color: #fff;
+						border-right-color: #d3d3d3;
+						border-bottom-color: #d3d3d3;
 					}
 				}
 			}
@@ -435,6 +473,11 @@
 							border-right-color: #404040;
 						}
 
+						tr {
+							// fallback border color
+							border-color: #fff;
+						}
+
 						td {
 							background-color: #fff;
 							border-right-color: #d3d3d3;
@@ -443,8 +486,13 @@
 					}
 
 					&:nth-child(2) {
-						tr:nth-child(even) {
-							background-color: #f2f2f2;
+						tr {
+							border-right-color: #fff;
+							border-bottom-color: #fff;
+
+							&:nth-child(even) {
+								border-right-color: #fff;
+							}
 						}
 
 						td {
@@ -456,11 +504,19 @@
 
 			.tbl-col-foot {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #fff;
+
 					table {
 						border-right-color: #d3d3d3;
 
 						&:after {
 							border-top-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #fff;
 						}
 					}
 

@@ -77,7 +77,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-1" title="Clipped Table" class="blue-table-2 clipped1 temp-1">
+	<Sheet id="temp-1" title="Clipped Table" class="white-table-1 clipped1 temp-1">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
