@@ -8,6 +8,7 @@
 		<Tool symbol="icon-table" click="popup-insert-grid-options"/>
 		<Tool symbol="icon-chart" click="popup-insert-chart-options"/>
 		<Tool symbol="icon-text"/>
+		<Tool symbol="icon-shape"/>
 		<Tool symbol="icon-image"/>
 	</Group>
 	<Group width="30%">

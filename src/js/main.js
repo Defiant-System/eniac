@@ -69,6 +69,7 @@ const eniac = {
 			// custom events
 			case "popup-insert-grid-options":
 			case "popup-insert-chart-options":
+			case "popup-insert-shape-options":
 				return Self.popups.dispatch(event);
 			case "hide-popups":
 				Self.popups.dispatch({ type: "close-popup" });

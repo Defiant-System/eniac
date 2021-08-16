@@ -85,6 +85,9 @@
 				Self.els.toolbarCharts.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
 				break;
+			case "popup-insert-shape-options":
+				console.log(event);
+				break;
 			case "do-grid-navigation":
 				el = $(event.target);
 				if (el.hasClass("active")) return;

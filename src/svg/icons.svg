@@ -45,6 +45,14 @@
 		<rect x="1" y="1" class="st0" width="11" height="2"/>
 	</svg>
 
+	<svg id="icon-shape" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect class="st0" x="5" y="5" width="7" height="7"/>
+		<path class="st0" d="M4,4h4.9C8.4,2.3,6.9,1,5,1C2.8,1,1,2.8,1,5c0,1.9,1.3,3.4,3,3.9V4z"/>
+	</svg>
+
 	<svg id="icon-image" viewBox="0 0 13 13">
 		<style type="text/css">
 			.st0{fill:#333;}
