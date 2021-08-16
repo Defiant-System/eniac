@@ -21,17 +21,12 @@ const Render = {
 			// append new sheet
 			this.els.body.append(html);
 
-			let table = this.els.body.find(".temp-3 .tbl-body > div:nth-child(2)");
+			// let table = this.els.body.find(".temp-3 .tbl-body > div:nth-child(2)");
 			// temp
 			// let dim = Parser.tableAbsDim(table);
 
 			// table.addClass("alternate-row-bg");
 			// table.css({ "--alt-row-bg": "#ff9900" });
-
-			// auto focus on first cell
-			let anchor = table.find("td").get(6);
-			setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
-			// setTimeout(() => APP.sidebar.els.el.find("input#table-title").trigger("click"), 400);
 		} else {
 			// render sheet names
 			book.SheetNames.map(name =>

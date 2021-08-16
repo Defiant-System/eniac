@@ -1140,7 +1140,7 @@ table {
 					position: absolute;
 					top: -1px;
 					left: 0;
-					right: 0;
+					right: -1px;
 					height: 0;
 					z-index: 2;
 					border-top: 1px solid @table_border;
@@ -1219,15 +1219,17 @@ table {
 	}
 
 	&.hide-hgh-lines .tbl-root .tbl-body div:nth-child(1) {
-		th, td { border-bottom-color: transparent; }
+		th, td { border-bottom-color: inherit; }
 	}
 
 	&.hide-vgb-lines .tbl-root .tbl-col-head > div:nth-child(n) {
-		table, th, td { border-right-color: transparent; }
+		table { border-right-color: transparent; }
+		th, td { border-right-color: inherit; }
 	}
 
 	&.hide-vgf-lines .tbl-root .tbl-col-foot > div:nth-child(n) {
-		table, th, td { border-right-color: transparent; }
+		table { border-right-color: transparent; }
+		th, td { border-right-color: inherit; }
 	}
 }
 

@@ -124,6 +124,15 @@
 				> div:nth-child(n) {
 					table {
 						border-right-color: #65a481;
+				
+						tr {
+							// fallback border color
+							border-color: #95d0ae;
+
+							&:last-child td {
+								border-bottom-color: #404040;
+							}
+						}
 
 						td {
 							background-color: #95d0ae;
@@ -132,10 +141,6 @@
 							&:last-child {
 								border-right-color: #95d0ae;
 							}
-						}
-				
-						tr:last-child td {
-							border-bottom-color: #404040;
 						}
 					}
 				}
@@ -146,6 +151,11 @@
 					&:nth-child(1) {
 						table:after {
 							border-right-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #dcdcdc;
 						}
 
 						td {
@@ -162,6 +172,11 @@
 
 						&:after {
 							border-top-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #95d0ae;
 						}
 					}
 
