@@ -7,16 +7,28 @@
 
 		.tbl-root {
 			.tbl-col-head {
+				> div {
+					&:nth-child(n) {
+						// fallback border color
+						border-color: #bec0bf;
+
+						tr {
+							// fallback border color
+							border-color: #bec0bf;
+						}
+					}
+				}
+				
+				tr:last-child td {
+					border-bottom-color: #404040;
+				}
+				
 				td {
 					background-color: #bec0bf;
 
 					&:last-child {
 						border-right-color: #bec0bf;
 					}
-				}
-				
-				tr:last-child td {
-					border-bottom-color: #404040;
 				}
 			}
 
@@ -25,6 +37,11 @@
 					&:nth-child(1) {
 						table:after {
 							border-right-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #dcdcdc;
 						}
 
 						td {
@@ -38,10 +55,18 @@
 
 			.tbl-col-foot {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #eee;
+					
 					table {
 						&:after {
 							border-top-color: #404040;
 						}
+					}
+
+					tr {
+						// fallback border color
+						border-color: #eee;
 					}
 
 					td {
@@ -122,6 +147,9 @@
 		.tbl-root {
 			.tbl-col-head {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #95d0ae;
+
 					table {
 						border-right-color: #65a481;
 				
@@ -167,6 +195,9 @@
 
 			.tbl-col-foot {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #95d0ae;
+					
 					table {
 						border-right-color: #65a481;
 
