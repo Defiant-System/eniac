@@ -57,7 +57,7 @@
 				> div:nth-child(n) {
 					// fallback border color
 					border-color: #eee;
-					
+
 					table {
 						&:after {
 							border-top-color: #404040;
@@ -85,16 +85,24 @@
 		.tbl-root {
 			.tbl-col-head {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #fff;
+
 					table {
 						border-right-color: transparent;
+						
+						tr {
+							// fallback border color
+							border-color: #fff;
+
+							&:last-child td {
+								border-bottom-color: #404040;
+							}
+						}
 
 						td {
 							background-color: #fff;
 							border-right-color: transparent;
-						}
-						
-						tr:last-child td {
-							border-bottom-color: #404040;
 						}
 					}
 				}
@@ -105,6 +113,11 @@
 					&:nth-child(1) {
 						table:after {
 							border-right-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #3FA9F570;
 						}
 
 						td {
@@ -120,11 +133,19 @@
 
 			.tbl-col-foot {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #fff;
+
 					table {
 						border-right-color: transparent;
 
 						&:after {
 							border-top-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #fff;
 						}
 					}
 
@@ -229,18 +250,26 @@
 		.tbl-root {
 			.tbl-col-head {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #94c1e2;
+
 					table {
 						border-right-color: #6595b6;
-
-						td {
-							background-color: #94c1e2;
-							border-right-color: #6595b6;
-							border-bottom-color: #6595b6;
-						}
 				
-						tr:last-child td {
-							border-bottom-color: #404040;
+						tr {
+							// fallback border color
+							border-color: #94c1e2;
+
+							&:last-child td {
+								border-bottom-color: #404040;
+							}
 						}
+					}
+
+					td {
+						background-color: #94c1e2;
+						border-right-color: #6595b6;
+						border-bottom-color: #6595b6;
 					}
 				}
 			}
@@ -252,12 +281,26 @@
 							border-right-color: #404040;
 						}
 
+						tr {
+							// fallback border color
+							border-color: #dcdcdc;
+						}
+
 						td {
 							background-color: #dcdcdc;
 						}
 					}
 
 					&:nth-child(2) {
+						tr {
+							border-right-color: #fff;
+							border-bottom-color: #f2f2f2;
+
+							&:nth-child(even) {
+								border-right-color: #f2f2f2;
+							}
+						}
+
 						tr:nth-child(even) {
 							background-color: #f2f2f2;
 						}
@@ -267,11 +310,19 @@
 
 			.tbl-col-foot {
 				> div:nth-child(n) {
+					// fallback border color
+					border-color: #94c1e2;
+
 					table {
 						border-right-color: #6595b6;
 
 						&:after {
 							border-top-color: #404040;
+						}
+
+						tr {
+							// fallback border color
+							border-color: #94c1e2;
 						}
 					}
 
