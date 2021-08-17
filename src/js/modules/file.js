@@ -22,9 +22,11 @@ class File {
 			// html += window.render({ template: "white-table-1" });
 
 			html = window.render({ template: "sheet", match: `//Sheet[@id="barebone"]` });
-			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
-			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
-			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
+			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
+			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
+			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
+
+			html += `<div class="shape shape-star"></div>`;
 
 			html = html.replace(/\t|\n/g, "");
 		}
@@ -38,7 +40,7 @@ class File {
 		// window.find(".white-table-1 .tbl-col-foot > div table").html("");
 
 		// auto focus on first cell
-		let anchor = window.find(".sheet:nth-child(5) table").get(3).find("td").get(6);
+		let anchor = window.find(".sheet:nth(0) table").get(3).find("td").get(6);
 		setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 
 	}
