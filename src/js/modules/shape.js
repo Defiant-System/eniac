@@ -11,11 +11,11 @@
 		};
 
 		// bind event handlers
+		this.els.root.on("mousedown", this.move);
 		window.find("content > div.body").on("mousedown", ".shape", event => {
 			this.dispatch({ type: "focus-shape", el: $(event.target) });
 			this.move(event);
 		});
-		this.els.root.on("mousedown", this.move);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -45,17 +45,55 @@
 				break;
 		}
 	},
+	resize(event) {
+		let APP = eniac,
+			Self = APP.shape,
+			Drag = Self.drag,
+			shape,
+			el;
+		switch (event.type) {
+			case "mousedown":
+				shape = Self.shape;
+				el = $([shape[0], Self.els.root[0]]);
+				// create drag object
+				Self.drag = {
+					el,
+					clickX: event.clientX,
+					clickY: event.clientY,
+					offset: {
+						w: shape.prop("offsetWidth"),
+						h: shape.prop("offsetHeight"),
+					}
+				};
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.resize);
+				break;
+			case "mousemove":
+				let height = event.clientY - Drag.clickY + Drag.offset.h,
+					width = event.clientX - Drag.clickX + Drag.offset.w;
+				Drag.el.css({ width, height });
+				break;
+			case "mouseup":
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.resize);
+				break;
+		}
+	},
 	move(event) {
 		let APP = eniac,
 			Self = APP.shape,
 			Drag = Self.drag,
-			top, left,
 			shape,
 			el;
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
+
+				// if mousedown on handle
+				if ($(event.target).hasClass("handle")) {
+					return Self.resize(event);
+				}
 				
 				shape = Self.shape;
 				el = $([shape[0], Self.els.root[0]]);
@@ -73,8 +111,8 @@
 				Self.els.doc.on("mousemove mouseup", Self.move);
 				break;
 			case "mousemove":
-				top = event.clientY - Drag.clickY + Drag.offset.y;
-				left = event.clientX - Drag.clickX + Drag.offset.x;
+				let top = event.clientY - Drag.clickY + Drag.offset.y,
+					left = event.clientX - Drag.clickX + Drag.offset.x;
 				Drag.el.css({ top, left });
 				break;
 			case "mouseup":
