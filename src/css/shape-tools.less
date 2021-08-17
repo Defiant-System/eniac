@@ -18,3 +18,38 @@
 		background-position: 50% 50%;
 	}
 }
+
+.shape-tools {
+	position: absolute;
+	top: 80px;
+	left: 600px;
+	width: 100px;
+	height: 100px;
+	border: 1px solid #3583d0;
+	z-index: 99;
+	cursor: move;
+	// pointer-events: none;
+
+	&.hidden {
+		display: none;
+	}
+
+	.handle {
+		position: absolute;
+		width: 9px;
+		height: 9px;
+		z-index: 2;
+		background: #fff;
+		border: 1px solid rgba(0,0,0,.85);
+		// pointer-events: all;
+
+		&.n    { cursor: n-resize; top: -5px; left: 50%; transform: translateX(-50%); }
+		&.nw   { cursor: ne-resize; top: -5px; right: -5px; }
+		&.w    { cursor: e-resize; top: 50%; right: -5px; transform: translateY(-50%); }
+		&.sw   { cursor: se-resize; bottom: -5px; right: -5px;  }
+		&.s    { cursor: s-resize; bottom: -5px; left: 50%; transform: translateX(-50%); }
+		&.se   { cursor: sw-resize; bottom: -5px; left: -5px; }
+		&.e    { cursor: w-resize; top: 50%; left: -5px; transform: translateY(-50%); }
+		&.ne   { cursor: nw-resize; top: -5px; left: -5px; }
+	}
+}

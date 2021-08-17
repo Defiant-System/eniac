@@ -77,12 +77,15 @@ const eniac = {
 				return Self.sidebar.dispatch(event);
 			case "blur-table":
 				el = $(event.target);
-				if (el.hasClass("table-title")) {
-					return Cursor.dispatch({ type: "focus-table-title", el });
+				switch (true) {
+					// case el.hasClass("shape"):
+					// 	return Self.shape.dispatch({ type: "focus-shape", el });
+					case el.hasClass("table-title"):
+						return Cursor.dispatch({ type: "focus-table-title", el });
+					case el.hasClass("table-caption"):
+						return Cursor.dispatch({ type: "focus-table-caption", el });
 				}
-				if (el.hasClass("table-caption")) {
-					return Cursor.dispatch({ type: "focus-table-caption", el });
-				}
+				Self.shape.dispatch({ type: "blur-shape", el });
 				return Cursor.dispatch({ type: "blur-table", el });
 			// forwards events
 			default:
@@ -99,6 +102,7 @@ const eniac = {
 	head: @import "modules/head.js",
 	foot: @import "modules/foot.js",
 	tools: @import "modules/tools.js",
+	shape: @import "modules/shape.js",
 	sidebar: @import "modules/sidebar.js",
 	popups: @import "modules/popups.js",
 };
