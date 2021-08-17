@@ -78,8 +78,6 @@ const eniac = {
 			case "blur-table":
 				el = $(event.target);
 				switch (true) {
-					// case el.hasClass("shape"):
-					// 	return Self.shape.dispatch({ type: "focus-shape", el });
 					case el.hasClass("table-title"):
 						return Cursor.dispatch({ type: "focus-table-title", el });
 					case el.hasClass("table-caption"):
