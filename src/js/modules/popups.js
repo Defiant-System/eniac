@@ -92,6 +92,8 @@
 				Self.els.layout.addClass("cover");
 				// handler listens for next click event - to close popup
 				func = event => {
+					// if click inside popup element
+					if ($(event.target).parents(".popups").length) return;
 					Self.dispatch({ type: "close-popup" });
 					// unbind event handler
 					Self.els.doc.unbind("mouseup", func);
