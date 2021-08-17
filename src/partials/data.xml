@@ -151,7 +151,7 @@
 		</Foot>
 	</Sheet>
 
-	<Sheet id="temp-3" caption="No Row Head" class="green-table-1 temp-3">
+	<Sheet id="temp-3" caption="No Row Head" class="green-table-1 alt-row-bg temp-3">
 		<Head>
 			<Table/>
 			<Table>
