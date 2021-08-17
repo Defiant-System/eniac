@@ -54,24 +54,32 @@ overflow: initial;
 .icon-table-style-4:before   { background-image: url(~/icons/icon-table-style-4.png); }
 .icon-table-style-5:before   { background-image: url(~/icons/icon-table-style-5.png); }
 .icon-table-style-6:before   { background-image: url(~/icons/icon-table-style-6.png); }
-.icon-bars-style-1:before    { background-image: url(~/icons/icon-bars-style-1.png) }
-.icon-bars-style-2:before    { background-image: url(~/icons/icon-bars-style-2.png) }
-.icon-bars-style-3:before    { background-image: url(~/icons/icon-bars-style-3.png) }
-.icon-bars-style-4:before    { background-image: url(~/icons/icon-bars-style-4.png) }
-.icon-bars-style-5:before    { background-image: url(~/icons/icon-bars-style-5.png) }
-.icon-bars-style-6:before    { background-image: url(~/icons/icon-bars-style-6.png) }
-.icon-pie-style-1:before     { background-image: url(~/icons/icon-pie-style-1.png) }
-.icon-pie-style-2:before     { background-image: url(~/icons/icon-pie-style-2.png) }
-.icon-pie-style-3:before     { background-image: url(~/icons/icon-pie-style-3.png) }
-.icon-pie-style-4:before     { background-image: url(~/icons/icon-pie-style-4.png) }
-.icon-pie-style-5:before     { background-image: url(~/icons/icon-pie-style-5.png) }
-.icon-pie-style-6:before     { background-image: url(~/icons/icon-pie-style-6.png) }
-.icon-chart-columns-1:before { background-image: url(~/icons/icon-chart-columns-1.png) }
-.icon-chart-columns-2:before { background-image: url(~/icons/icon-chart-columns-2.png) }
-.icon-chart-columns-3:before { background-image: url(~/icons/icon-chart-columns-3.png) }
-.icon-chart-columns-4:before { background-image: url(~/icons/icon-chart-columns-4.png) }
-.icon-chart-columns-5:before { background-image: url(~/icons/icon-chart-columns-5.png) }
-.icon-chart-columns-6:before { background-image: url(~/icons/icon-chart-columns-6.png) }
+.icon-bars-style-1:before    { background-image: url(~/icons/icon-bars-style-1.png); }
+.icon-bars-style-2:before    { background-image: url(~/icons/icon-bars-style-2.png); }
+.icon-bars-style-3:before    { background-image: url(~/icons/icon-bars-style-3.png); }
+.icon-bars-style-4:before    { background-image: url(~/icons/icon-bars-style-4.png); }
+.icon-bars-style-5:before    { background-image: url(~/icons/icon-bars-style-5.png); }
+.icon-bars-style-6:before    { background-image: url(~/icons/icon-bars-style-6.png); }
+.icon-pie-style-1:before     { background-image: url(~/icons/icon-pie-style-1.png); }
+.icon-pie-style-2:before     { background-image: url(~/icons/icon-pie-style-2.png); }
+.icon-pie-style-3:before     { background-image: url(~/icons/icon-pie-style-3.png); }
+.icon-pie-style-4:before     { background-image: url(~/icons/icon-pie-style-4.png); }
+.icon-pie-style-5:before     { background-image: url(~/icons/icon-pie-style-5.png); }
+.icon-pie-style-6:before     { background-image: url(~/icons/icon-pie-style-6.png); }
+.icon-chart-columns-1:before { background-image: url(~/icons/icon-chart-columns-1.png); }
+.icon-chart-columns-2:before { background-image: url(~/icons/icon-chart-columns-2.png); }
+.icon-chart-columns-3:before { background-image: url(~/icons/icon-chart-columns-3.png); }
+.icon-chart-columns-4:before { background-image: url(~/icons/icon-chart-columns-4.png); }
+.icon-chart-columns-5:before { background-image: url(~/icons/icon-chart-columns-5.png); }
+.icon-chart-columns-6:before { background-image: url(~/icons/icon-chart-columns-6.png); }
+
+.shape-rectangle:before      { background-image: url(~/icons/shape-rectangle.png); }
+.shape-disc:before           { background-image: url(~/icons/shape-disc.png); }
+.shape-triangle:before       { background-image: url(~/icons/shape-triangle.png); }
+.shape-star:before           { background-image: url(~/icons/shape-star.png); }
+.shape-pentagon:before       { background-image: url(~/icons/shape-pentagon.png); }
+.shape-hexagon:before        { background-image: url(~/icons/shape-hexagon.png); }
+
 
 layout {
 	background: #fff;
@@ -297,9 +305,33 @@ layout {
 		}
 
 		&.popup-insert-chart-options,
+		&.popup-insert-shape-options,
+		&.popup-insert-image-options,
 		&.popup-insert-grid-options {
 			width: 213px;
 			padding: 17px 17px 11px;
+
+			&.popup-insert-shape-options {
+				width: 179px;
+
+				.options-reel {
+					.grid-column {
+						width: 66px;
+					}
+
+					span {
+						width: 66px;
+						height: 66px;
+
+						&:before {
+							top: 8px;
+							left: 8px;
+							width: 50px;
+							height: 50px;
+						}
+					}
+				}
+			}
 
 			&.popup-insert-grid-options {
 				width: 223px;

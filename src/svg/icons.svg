@@ -1028,4 +1028,6 @@
 		<rect x="49" y="8" width="9" height="3"/>
 	</svg>
 
+	@import "shapes.svg"
+
 </svg>
