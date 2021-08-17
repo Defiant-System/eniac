@@ -35,9 +35,10 @@
 			case "show-title":
 			case "show-caption":
 			case "show-table":
+			case "show-shape":
 			case "show-chart":
 			case "show-empty":
-				Self.els.el.removeClass("show-sheet show-title show-caption show-table show-chart show-empty");
+				Self.els.el.removeClass("show-sheet show-title show-caption show-table show-shape show-chart show-empty");
 				Self.els.el.addClass(event.type);
 				// trigger populate event
 				Self.dispatch({ ...event, type: `populate-${event.type.split("-")[1]}-values` });

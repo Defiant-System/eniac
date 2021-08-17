@@ -42,25 +42,29 @@
 					.removeClass("hidden");
 				// remember shape
 				Self.shape = event.el;
+				// update sidebar
+				APP.sidebar.dispatch({ ...event, type: "show-shape" });
 				break;
 		}
 	},
 	resize(event) {
 		let APP = eniac,
 			Self = APP.shape,
-			Drag = Self.drag,
-			shape,
-			el;
+			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
-				shape = Self.shape;
-				el = $([shape[0], Self.els.root[0]]);
+				let shape = Self.shape,
+					el = $([shape[0], Self.els.root[0]]),
+					type = event.target.className.split(" ")[1];
 				// create drag object
 				Self.drag = {
 					el,
+					type,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: {
+						x: shape.prop("offsetLeft"),
+						y: shape.prop("offsetTop"),
 						w: shape.prop("offsetWidth"),
 						h: shape.prop("offsetHeight"),
 					}
@@ -69,9 +73,22 @@
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
-				let height = event.clientY - Drag.clickY + Drag.offset.h,
-					width = event.clientX - Drag.clickX + Drag.offset.w;
-				Drag.el.css({ width, height });
+				let data = {};
+				if (Drag.type.includes("n")) {
+					data.top = event.clientY - Drag.clickY + Drag.offset.y;
+					data.height = Drag.offset.h + Drag.clickY - event.clientY;
+				}
+				if (Drag.type.includes("e")) {
+					data.left = event.clientX - Drag.clickX + Drag.offset.x;
+					data.width = Drag.offset.w + Drag.clickX - event.clientX;
+				}
+				if (Drag.type.includes("s")) {
+					data.height = event.clientY - Drag.clickY + Drag.offset.h;
+				}
+				if (Drag.type.includes("w")) {
+					data.width = event.clientX - Drag.clickX + Drag.offset.w;
+				}
+				Drag.el.css(data);
 				break;
 			case "mouseup":
 				// unbind event

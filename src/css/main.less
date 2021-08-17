@@ -682,6 +682,7 @@ sidebar {
 	&.show-title .container .sidebar-title { display: flex; }
 	&.show-caption .container .sidebar-caption { display: flex; }
 	&.show-table .container .sidebar-table { display: flex; }
+	&.show-shape .container .sidebar-shape { display: flex; }
 	&.show-chart .container .sidebar-chart { display: flex; }
 	&.show-empty .container .sidebar-empty { display: flex; }
 
@@ -754,6 +755,11 @@ sidebar {
 		position: relative;
 		overflow: auto;
 		font-size: 12px;
+		display: none;
+
+		&.active {
+			display: block;
+		}
 
 		.form-radio_,
 		.form-checkbox_ {
