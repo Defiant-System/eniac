@@ -22,17 +22,25 @@ class File {
 			// html += window.render({ template: "white-table-1" });
 
 			html = window.render({ template: "sheet", match: `//Sheet[@id="barebone"]` });
-			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
+			html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 
-			html += `<div class="shape shape-star"></div>`;
+// 			html += `<div class="shape"><svg id="shape-star" viewBox="0 0 100 100">
+// 	<style type="text/css">
+// 		.st0{fill:#333;}
+// 	</style>
+// 	<path class="st0" d="M50,4.6L35.1,34L3,39.3l22.9,23.5L21,95.4l29-14.8l29,14.8l-4.9-32.6L97,39.3L64.9,34L50,4.6z"/>
+// </svg></div>`;
 
 			html = html.replace(/\t|\n/g, "");
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
-
+		
+		setTimeout(() => {
+			window.find(`.shape`).trigger("mousedown").trigger("mouseup")
+		}, 150);
 		
 		// temp
 		// window.find(`.toolbar-tool_[data-arg="shape"]`).trigger("click");
@@ -40,9 +48,8 @@ class File {
 		// window.find(".white-table-1 .tbl-col-foot > div table").html("");
 
 		// auto focus on first cell
-		let anchor = window.find(".sheet:nth(0) table").get(3).find("td").get(6);
+		let anchor = window.find(".sheet:nth(1) table").get(3).find("td").get(6);
 		setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
-
 	}
 
 	toBlob(kind) {

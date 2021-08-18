@@ -41,8 +41,9 @@
 					pEl = Self.origin.el.parents("[data-area]");
 					name = pEl.data("area");
 					if (pEl.length && APP[name].dispatch) {
-						let type = Self.origin.el.data("change");
-						APP[name].dispatch({ type, value, });
+						let type = Self.origin.el.data("change"),
+							origin = Self.origin;
+						APP[name].dispatch({ type, value, origin });
 					}
 				}
 				/* falls through */
