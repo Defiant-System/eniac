@@ -16,6 +16,9 @@ const eniac = {
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init());
+		Object.keys(this.tools)
+			.filter(i => typeof this.tools[i].init === "function")
+			.map(i => this.tools[i].init());
 	},
 	async dispatch(event) {
 		let Self = eniac,
@@ -84,7 +87,7 @@ const eniac = {
 					case el.hasClass("table-caption"):
 						return Cursor.dispatch({ type: "focus-table-caption", el });
 				}
-				Self.shape.dispatch({ type: "blur-shape", el });
+				Self.tools.shape.dispatch({ type: "blur-shape", el });
 				return Cursor.dispatch({ type: "blur-table", el });
 			// forwards events
 			default:
@@ -92,18 +95,25 @@ const eniac = {
 				if (el) {
 					pEl = el.data("area") ? el : el.parents("[data-area]");
 					name = pEl.data("area");
-					if (pEl.length && Self[name].dispatch) {
-						Self[name].dispatch(event);
+					if (pEl.length) {
+						if (Self[name].dispatch) {
+							return Self[name].dispatch(event);
+						}
+						if (Self.tools[name].dispatch) {
+							return Self.tools[name].dispatch(event);
+						}
 					}
 				}
 		}
 	},
 	head: @import "modules/head.js",
 	foot: @import "modules/foot.js",
-	tools: @import "modules/tools.js",
-	shape: @import "modules/shape.js",
 	sidebar: @import "modules/sidebar.js",
 	popups: @import "modules/popups.js",
+	tools: {
+		table: @import "modules/tools.table.js",
+		shape: @import "modules/tools.shape.js",
+	}
 };
 
 window.exports = eniac;

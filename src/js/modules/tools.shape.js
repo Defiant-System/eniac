@@ -1,5 +1,5 @@
 
-// eniac.shape
+// eniac.tools.shape
 
 {
 	init() {
@@ -19,7 +19,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.shape,
+			Self = APP.tools.shape,
 			Shape = Self.shape,
 			top, left, width, height,
 			el;
@@ -98,7 +98,7 @@
 	},
 	move(event) {
 		let APP = eniac,
-			Self = APP.shape,
+			Self = APP.tools.shape,
 			Drag = Self.drag,
 			shape,
 			el;

@@ -15,7 +15,7 @@ const Cursor = {
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Tools = APP.tools,
+			Tools = APP.tools.table,
 			Self = Cursor,
 			sheet, table,
 			anchor, offset,

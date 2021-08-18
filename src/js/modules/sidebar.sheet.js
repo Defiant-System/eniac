@@ -6,7 +6,7 @@
 		let APP = eniac,
 			Self = APP.sidebar.sheet,
 			Els = APP.sidebar.els,
-			Shape = event.sheet || APP.tools.sheet.el,
+			Shape = event.sheet || APP.tools.table.sheet.el,
 			name,
 			value,
 			el;

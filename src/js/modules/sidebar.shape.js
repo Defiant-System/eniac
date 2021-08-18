@@ -6,7 +6,7 @@
 		let APP = eniac,
 			Self = APP.sidebar.shape,
 			Els = APP.sidebar.els,
-			Shape = event.shape || APP.shape.shape,
+			Shape = event.shape || APP.tools.shape.shape,
 			name,
 			value,
 			el;

@@ -1,5 +1,5 @@
 
-// eniac.tools
+// eniac.tools.table
 
 {
 	init() {
@@ -25,7 +25,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools,
+			Self = APP.tools.table,
 			Sheet = Self.sheet,
 			top, left, width, height,
 			grid, cols, rows,
@@ -152,7 +152,7 @@
 	},
 	grid: {
 		tools() {
-			let Els = eniac.tools.els,
+			let Els = eniac.tools.table.els,
 				grid = {
 					rows: [...Els.rows.find("td")],
 					cols: [],
@@ -280,7 +280,7 @@
 	},
 	resizeColRow(event) {
 		let APP = eniac,
-			Self = APP.tools,
+			Self = APP.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -350,7 +350,7 @@
 	},
 	resizeClip(event) {
 		let APP = eniac,
-			Self = APP.tools,
+			Self = APP.tools.table,
 			Drag = Self.cDrag,
 			el;
 		switch (event.type) {
@@ -432,7 +432,7 @@
 	},
 	resizeGrid(event) {
 		let APP = eniac,
-			Self = APP.tools,
+			Self = APP.tools.table,
 			Drag = Self.gDrag,
 			add, width, height,
 			el;
@@ -557,7 +557,7 @@
 	},
 	move(event) {
 		let APP = eniac,
-			Self = APP.tools,
+			Self = APP.tools.table,
 			Drag = Self.drag,
 			top, left,
 			sheet,
