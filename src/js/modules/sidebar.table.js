@@ -32,7 +32,7 @@
 				break;
 			case "update-table-style":
 				// reset (if any) previous active
-				el = Els.el.find(".styles");
+				el = Els.el.find(".table-styles");
 				el.find(".active").removeClass("active");
 				// table style preset
 				Sheet.prop("className").split(" ").map(name => {

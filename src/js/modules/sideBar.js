@@ -9,6 +9,7 @@
 			el: window.find("sidebar"),
 		};
 	},
+	sheet: @import "sidebar.sheet.js",
 	shape: @import "sidebar.shape.js",
 	table: @import "sidebar.table.js",
 	dispatch(event) {
