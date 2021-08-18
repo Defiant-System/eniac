@@ -107,4 +107,12 @@
 		<Menu name="None" click="set-table-outline-style" arg="none"/>
 	</Menu>
 
+	<Menu for="shape-outline">
+		<Menu name="None" click="set-table-outline-style" arg="none" is-checked="1"/>
+		<Menu type="divider"/>
+		<Menu type="icon" name="~/icons/table-outline-solid.png" arg="solid" click="set-table-outline-style" check-group="table-outline"/>
+		<Menu type="icon" name="~/icons/table-outline-dashed.png" arg="dashed" click="set-table-outline-style" check-group="table-outline"/>
+		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-table-outline-style" check-group="table-outline"/>
+	</Menu>
+
 </MenuBar>
