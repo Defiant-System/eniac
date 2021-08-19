@@ -87,14 +87,89 @@
 
 		<div class="group-row">
 			<legend>Shadow</legend>
+			<div class="flex-row">
+				<div class="w63">
+					<span class="range-title">Blur</span>
+					<input type="range" value="50" min="0" max="100">
+				</div>
+				<div>
+					<input type="number" name="shape-shadow-blur" suffix="%"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div class="w63">
+					<span class="range-title">Offset</span>
+					<input type="range" value="50" min="0" max="100">
+				</div>
+				<div>
+					<input type="number" name="shape-shadow-offset" suffix="%"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div class="w63">
+					<span class="range-title">Opacity</span>
+					<input type="range" value="50" min="0" max="100">
+				</div>
+				<div>
+					<input type="number" name="shape-shadow-opacity" suffix="%"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex-row">
+				<legend class="bold">Angle</legend>
+				<div>
+					<input type="number" value="1" min="0" max="10" data-change="set-shape-outline-width"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-outline-color" style="--preset-color: #000000;"></div>
+			</div>
 		</div>
 
 		<div class="group-row">
 			<legend>Reflection</legend>
+			<div class="flex-row">
+				<div class="w63">
+					<input type="range" value="50" min="0" max="100">
+				</div>
+				<div>
+					<input type="number" name="shape-reflection" suffix="%"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div class="group-row">
 			<legend>Opacity</legend>
+			<div class="flex-row">
+				<div class="w63">
+					<input type="range" value="50" min="0" max="100">
+				</div>
+				<div>
+					<input type="number" name="shape-opacity" suffix="%"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
