@@ -271,6 +271,51 @@ layout {
 			border-bottom: 14px solid rgba(250,250,250,.825);
 		}
 
+		&.popup-colour-ring {
+			top: 363px;
+			left: 798px;
+			visibility: visible;
+			opacity: 1;
+
+			.ring-wrapper {
+				position: relative;
+				width: 176px;
+				height: 176px;
+			}
+
+			.color-ring {
+				background: url(~/img/sprite.png) 0 0 no-repeat;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 176px;
+				height: 176px;
+				z-index: 1;
+				border-radius: 50%;
+			}
+
+			.color-box {
+				background: #f00;
+				position: absolute;
+				top: 38px;
+				left: 38px;
+				width: 90px;
+				height: 90px;
+				z-index: 2;
+
+				&:after {
+					content: "";
+					background: url(~/img/sprite.png) 0 0 no-repeat;
+					background-position: -204px -38px;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 90px;
+					height: 90px;
+				}
+			}
+		}
+
 		&.popup-palette {
 			span {
 				position: relative;
