@@ -12,9 +12,18 @@
 
 		// bind event handlers
 		this.els.root.on("mousedown", this.move);
-		window.find("content > div.body").on("mousedown", ".shape", event => {
-			this.dispatch({ type: "focus-shape", el: $(event.target) });
-			this.move(event);
+		window.find("content > div.body").on("mousedown", event => {
+			let el = $(event.target),
+				body = el.parents("div.body");
+			if (el.hasClass("shape")) {
+				// blur table, if any
+				Cursor.dispatch({ type: "blur-table", el: body });
+				// focus shape
+				this.dispatch({ type: "focus-shape", el });
+				this.move(event);
+			} else {
+				this.dispatch({ type: "blur-shape", el: body });
+			}
 		});
 	},
 	dispatch(event) {
