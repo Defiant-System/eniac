@@ -283,6 +283,9 @@ layout {
 				position: relative;
 				width: 166px;
 				height: 166px;
+				--rotation: 0deg;
+				--top: 0;
+				--left: 89px;
 			}
 
 			.color-ring {
@@ -316,7 +319,7 @@ layout {
 					width: 83px;
 					height: 83px;
 					transform-origin: 0 100%;
-					transform: rotate(0deg);
+					transform: rotate(var(--rotation));
 
 					&:after {
 						content: "";
@@ -357,10 +360,11 @@ layout {
 
 				.box-point {
 					position: absolute;
-					top: -3px;
-					right: -3px;
-					width: 7px;
-					height: 7px;
+					top: var(--top);
+					left: var(--left);
+					width: 9px;
+					height: 9px;
+					margin: -4px 0 0 -4px;
 					z-index: 2;
 					border-radius: 50%;
 					box-shadow: 0 0 0 1px #000,
