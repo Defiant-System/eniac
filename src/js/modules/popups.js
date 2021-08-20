@@ -136,11 +136,12 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				// Self.els.layout.addClass("cover hideMouse");
 
 				let rEl = Self.els.colorRing,
 					target = event.target,
 					pEl = target.getAttribute("data-el") ? $(target) : $(target).parents("div[data-el]"),
+					type = pEl.data("el"),
 					el = pEl.find("span"),
 					rect = pEl[0].getBoundingClientRect();
 
@@ -148,21 +149,40 @@
 				Self.drag = {
 					el,
 					rEl,
-					clickX: event.clientX - (event.clientX - rect.x),
-					clickY: event.clientY - (event.clientY - rect.y),
-					max: {
+					type,
+					clickX: event.clientX,
+					clickY: event.clientY,
+				};
+
+				if (type === "ring") {
+					let theta = Math.atan2(event.offsetY - 83, event.offsetX - 83);
+					theta *= 180 / Math.PI;
+					if (theta < 0) theta += 360;
+
+					Self.drag.rEl.css({ "--rotation": `${theta}deg` });
+					// console.log(theta);
+					return;
+				} else {
+					Self.drag.clickX -= event.clientX - rect.x,
+					Self.drag.clickY -= event.clientY - rect.y,
+					Self.drag.max = {
 						w: +pEl.prop("offsetWidth") - 1,
 						h: +pEl.prop("offsetHeight") - 1,
-					}
-				};
+					};
+				}
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.doColorRing);
 				break;
 			case "mousemove":
-				let top = Math.max(Math.min(event.clientY - Drag.clickY, Drag.max.h), 0),
-					left = Math.max(Math.min(event.clientX - Drag.clickX, Drag.max.w), 0);
-				Drag.el.css({ top, left });
+				if (Drag.type === "ring") {
+					let rotation = 32;
+					Drag.rEl.css({ "--rotation": `${rotation}deg` });
+				} else {
+					let top = Math.max(Math.min(event.clientY - Drag.clickY, Drag.max.h), 0),
+						left = Math.max(Math.min(event.clientX - Drag.clickX, Drag.max.w), 0);
+					Drag.rEl.css({ "--top": `${top}px`, "--left": `${left}px` });
+				}
 				break;
 			case "mouseup":
 				// uncover layout
