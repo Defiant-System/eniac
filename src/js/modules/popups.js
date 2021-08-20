@@ -173,11 +173,7 @@
 				break;
 			case "mousemove":
 				if (Drag.type === "ring") {
-					let x1 = Drag.center.x,
-						y1 = Drag.center.y,
-						x2 = event.clientX,
-						y2 = event.clientY,
-						hue = Drag._atan2(y2-y1, x2-x1) * (180/Drag._PI);
+					let hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);
 					if (hue < 0) hue += 360;
 					Drag.rEl.css({ "--rotation": `${hue}deg` });
 					// update color of SL-box
