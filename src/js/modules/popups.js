@@ -18,6 +18,9 @@
 
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
+
+		let hsl = Color.hslToRgb(hue, 1, .5);
+		console.log(hsl);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -179,8 +182,8 @@
 					if (hue < 0) hue += 360;
 					Drag.root.css({ "--rotation": `${hue}deg` });
 					// update color of SL-box
-					let hsl = Color.hslToRgb(hue, 1, .5);
-					Drag.box.css({ background: `rgb(${hsl.join(",")})` });
+					let rgb = Color.hslToRgb(hue, 1, .5);
+					Drag.box.css({ background: `rgb(${rgb.join(",")})` });
 				} else {
 					let top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.max.h), 0),
 						left = Drag._max(Drag._min(event.clientX - Drag.clickX, Drag.max.w), 0);
