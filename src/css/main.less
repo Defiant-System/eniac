@@ -1083,6 +1083,7 @@ sidebar {
 
 						&:after {
 							content: "";
+							background: var(--color);
 							position: absolute;
 							top: 3px;
 							left: 3px;
@@ -1094,18 +1095,15 @@ sidebar {
 
 						&:nth-child(1) {
 							left: -7px;
-
-							&:after { background: #f00; }
+							--color: #f00;
 						}
 						&:nth-child(2) {
 							left: 49%;
-
-							&:after { background: #8c8d17; }
+							--color: #8c8d17;
 						}
 						&:nth-child(3) {
 							right: -7px;
-
-							&:after { background: #0f0; }
+							--color: #0f0;
 						}
 					}
 				}

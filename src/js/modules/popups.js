@@ -138,17 +138,19 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let rEl = Self.els.colorRing,
-					box = rEl.find(".color-box"),
+				let origin = APP.sidebar.els.el.find(".gradient-colors .point:nth(0)"),
+					root = Self.els.colorRing,
+					box = root.find(".color-box"),
 					target = event.target,
 					pEl = target.getAttribute("data-el") ? $(target) : $(target).parents("div[data-el]"),
 					type = pEl.data("el"),
 					rect = pEl[0].getBoundingClientRect();
 				// create drag object
 				Self.drag = {
+					root,
 					box,
-					rEl,
 					type,
+					origin,
 					_PI: Math.PI,
 					_min: Math.min,
 					_max: Math.max,
@@ -175,15 +177,16 @@
 				if (Drag.type === "ring") {
 					let hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);
 					if (hue < 0) hue += 360;
-					Drag.rEl.css({ "--rotation": `${hue}deg` });
+					Drag.root.css({ "--rotation": `${hue}deg` });
 					// update color of SL-box
 					let hsl = Color.hslToRgb(hue, 1, .5);
 					Drag.box.css({ background: `rgb(${hsl.join(",")})` });
 				} else {
 					let top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.max.h), 0),
 						left = Drag._max(Drag._min(event.clientX - Drag.clickX, Drag.max.w), 0);
-					Drag.rEl.css({ "--top": `${top}px`, "--left": `${left}px` });
+					Drag.root.css({ "--top": `${top}px`, "--left": `${left}px` });
 				}
+				Drag.origin.css({ "--color": Drag.box.css("background") });
 				break;
 			case "mouseup":
 				// uncover layout
