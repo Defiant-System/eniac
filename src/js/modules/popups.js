@@ -12,8 +12,12 @@
 			chartOptions: window.find(".popups .popup-insert-chart-options"),
 			shapeOptions: window.find(".popups .popup-insert-shape-options"),
 			imageOptions: window.find(".popups .popup-insert-image-options"),
+			colorRing: window.find(".popups .popup-colour-ring .ring-wrapper"),
 			palette: window.find(".popups .popup-palette"),
 		};
+
+		// bind event handlers
+		this.els.colorRing.on("mousedown", this.doColorRing);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -122,5 +126,50 @@
 			pEl = pEl.offsetParent;
 		}
 		return pos;
+	},
+	doColorRing(event) {
+		let APP = eniac,
+			Self = APP.popups,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				let rEl = Self.els.colorRing,
+					target = event.target,
+					pEl = target.getAttribute("data-el") ? $(target) : $(target).parents("div[data-el]"),
+					el = pEl.find("span"),
+					rect = pEl[0].getBoundingClientRect();
+
+				// create drag object
+				Self.drag = {
+					el,
+					rEl,
+					clickX: event.clientX - (event.clientX - rect.x),
+					clickY: event.clientY - (event.clientY - rect.y),
+					max: {
+						w: +pEl.prop("offsetWidth") - 1,
+						h: +pEl.prop("offsetHeight") - 1,
+					}
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.doColorRing);
+				break;
+			case "mousemove":
+				let top = Math.max(Math.min(event.clientY - Drag.clickY, Drag.max.h), 0),
+					left = Math.max(Math.min(event.clientX - Drag.clickX, Drag.max.w), 0);
+				Drag.el.css({ top, left });
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.doColorRing);
+				break;
+		}
 	}
 }
