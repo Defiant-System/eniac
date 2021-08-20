@@ -19,7 +19,7 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		let hsl = Color.hslToRgb(hue, 1, .5);
+		let hsl = Color.hslToRgb(0, 1, .5);
 		console.log(hsl);
 	},
 	dispatch(event) {
