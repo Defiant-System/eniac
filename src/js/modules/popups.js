@@ -142,16 +142,19 @@
 				Self.els.layout.addClass("cover hideMouse");
 
 				let origin = APP.sidebar.els.el.find(".gradient-colors .point:nth(0)"),
+					oColor = origin.cssProp("--color"),
+					[hue, sat, lgh, alpha] = Color.hexToHsl(oColor),
 					root = Self.els.colorRing,
 					box = root.find(".color-box"),
 					target = event.target,
 					pEl = target.getAttribute("data-el") ? $(target) : $(target).parents("div[data-el]"),
 					type = pEl.data("el"),
 					el = pEl.find("span"),
-					rect = pEl[0].getBoundingClientRect(),
-					matrix = root.find(".color-ring span").css("transform").split("(")[1].split(")")[0].split(","),
-					angle = Math.round(Math.atan2(matrix[1], matrix[0]) * (180 / Math.PI));
-				if (angle < 0) angle += 360;
+					rect = pEl[0].getBoundingClientRect();
+				// 	matrix = root.find(".color-ring span").css("transform").split("(")[1].split(")")[0].split(","),
+				// 	hue = Math.round(Math.atan2(matrix[1], matrix[0]) * (180 / Math.PI));
+				// if (hue < 0) hue += 360;
+				
 				// create drag object
 				Self.drag = {
 					el,
@@ -159,17 +162,15 @@
 					box,
 					type,
 					origin,
+					hue,
+					sat,
+					lgh,
+					alpha,
 					_PI: Math.PI,
 					_min: Math.min,
 					_max: Math.max,
 					_atan2: Math.atan2,
-					hue: 0,
-					sat: 1,
-					lgh: .5,
-					alpha: 1,
 				};
-
-				console.log( angle );
 
 				// depending on clicked item
 				switch (type) {
