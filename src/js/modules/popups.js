@@ -147,9 +147,14 @@
 					target = event.target,
 					pEl = target.getAttribute("data-el") ? $(target) : $(target).parents("div[data-el]"),
 					type = pEl.data("el"),
-					rect = pEl[0].getBoundingClientRect();
+					el = pEl.find("span"),
+					rect = pEl[0].getBoundingClientRect(),
+					matrix = root.find(".color-ring span").css("transform").split("(")[1].split(")")[0].split(","),
+					angle = Math.round(Math.atan2(matrix[1], matrix[0]) * (180 / Math.PI));
+				if (angle < 0) angle += 360;
 				// create drag object
 				Self.drag = {
+					el,
 					root,
 					box,
 					type,
@@ -161,50 +166,73 @@
 					hue: 0,
 					sat: 1,
 					lgh: .5,
+					alpha: 1,
 				};
+
+				console.log( angle );
+
 				// depending on clicked item
-				if (type === "ring") {
-					Self.drag.center = {
-						x: rect.x + 83,
-						y: rect.y + 83,
-					};
-				} else {
-					Self.drag.clickX = rect.x,
-					Self.drag.clickY = rect.y,
-					Self.drag.satScale = Math.sqrt((Math.pow(89, 2)) + (Math.pow(89, 2)));
-					Self.drag.satOrigo = {
-						x: rect.x,
-						y: rect.y + 89,
-					};
-					Self.drag.max = {
-						w: +pEl.prop("offsetWidth") - 1,
-						h: +pEl.prop("offsetHeight") - 1,
-					};
+				switch (type) {
+					case "ring":
+						Self.drag.center = {
+							x: rect.x + 83,
+							y: rect.y + 83,
+						};
+						break;
+					case "box":
+						Self.drag.clickX = rect.x;
+						Self.drag.clickY = rect.y;
+						Self.drag.satScale = Math.sqrt((Math.pow(89, 2)) + (Math.pow(89, 2)));
+						Self.drag.satOrigo = {
+							x: rect.x,
+							y: rect.y + 89,
+						};
+						Self.drag.max = {
+							w: +pEl.prop("offsetWidth") - 1,
+							h: +pEl.prop("offsetHeight") - 1,
+						};
+						break;
+					case "range":
+						Self.drag.clickY = event.clientY - event.offsetY;
+						Self.drag.maxY = +pEl.prop("offsetHeight") - +el.prop("offsetHeight");
+						el.css({ top: event.offsetY });
+						break;
 				}
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.doColorRing);
 				break;
 			case "mousemove":
-				if (Drag.type === "ring") {
-					Drag.hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);
-					if (Drag.hue < 0) Drag.hue += 360;
-					Drag.root.css({ "--rotation": `${Drag.hue}deg` });
-					// update color of SL-box
-					let rgb = Color.hslToRgb(Drag.hue, 1, .5);
-					Drag.box.css({ background: `rgb(${rgb.join(",")})` });
-				} else {
-					let top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.max.h), 0),
+				let top, left, rgb, rgba, alpha;
+				switch (Drag.type) {
+					case "ring":
+						Drag.hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);
+						if (Drag.hue < 0) Drag.hue += 360;
+						Drag.el.css({ transform: `rotate(${Drag.hue}deg)` });
+						// update color of SL-box
+						rgb = Color.hslToRgb(Drag.hue, 1, .5);
+						Drag.box.css({ "background-color": `rgb(${rgb.join(",")})` });
+						break;
+					case "box":
+						top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.max.h), 0);
 						left = Drag._max(Drag._min(event.clientX - Drag.clickX, Drag.max.w), 0);
-					Drag.root.css({ "--top": `${top}px`, "--left": `${left}px` });
-					// calculates lightness
-					top = 89 - top;
-					if (left === 0) left = 1;
-					Drag.lgh = (1 - (left / (top + left))) || 0.1;
-					// calculates saturation
-					Drag.sat = (Math.sqrt((left * left) + (top * top)) / Drag.satScale);
+						Drag.el.css({ top, left });
+						// calculates lightness
+						top = 89 - top;
+						if (left === 0) left = 1;
+						Drag.lgh = (1 - (left / (top + left))) || 0.1;
+						// calculates saturation
+						Drag.sat = (Math.sqrt((left * left) + (top * top)) / Drag.satScale);
+						break;
+					case "range":
+						top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.maxY), 0);
+						Drag.alpha = top / Drag.maxY;
+						Drag.el.css({ top });
+						break;
 				}
-				let rgb = Color.hslToRgb(Drag.hue, Drag.sat, Drag.lgh);
-				Drag.origin.css({ "--color": `rgb(${rgb.join(",")})` });
+				rgb = Color.hslToRgb(Drag.hue, Drag.sat, Drag.lgh);
+				Drag.root.css({ "--color": `rgb(${rgb.join(",")})` });
+				rgba = [...rgb, Drag.alpha];
+				Drag.origin.css({ "--color": `rgba(${rgba.join(",")})` });
 				break;
 			case "mouseup":
 				// uncover layout
