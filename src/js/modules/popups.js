@@ -19,8 +19,8 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		let hsl = Color.hslToRgb(0, 1, .5);
-		console.log(hsl);
+		// let hsl = Color.hslToRgb(0, 1, .5);
+		// console.log(hsl);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -158,6 +158,9 @@
 					_min: Math.min,
 					_max: Math.max,
 					_atan2: Math.atan2,
+					hue: 0,
+					sat: 1,
+					lgh: .5,
 				};
 				// depending on clicked item
 				if (type === "ring") {
@@ -168,6 +171,11 @@
 				} else {
 					Self.drag.clickX = rect.x,
 					Self.drag.clickY = rect.y,
+					Self.drag.satScale = Math.sqrt((Math.pow(89, 2)) + (Math.pow(89, 2)));
+					Self.drag.satOrigo = {
+						x: rect.x,
+						y: rect.y + 89,
+					};
 					Self.drag.max = {
 						w: +pEl.prop("offsetWidth") - 1,
 						h: +pEl.prop("offsetHeight") - 1,
@@ -178,18 +186,25 @@
 				break;
 			case "mousemove":
 				if (Drag.type === "ring") {
-					let hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);
-					if (hue < 0) hue += 360;
-					Drag.root.css({ "--rotation": `${hue}deg` });
+					Drag.hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);
+					if (Drag.hue < 0) Drag.hue += 360;
+					Drag.root.css({ "--rotation": `${Drag.hue}deg` });
 					// update color of SL-box
-					let rgb = Color.hslToRgb(hue, 1, .5);
+					let rgb = Color.hslToRgb(Drag.hue, 1, .5);
 					Drag.box.css({ background: `rgb(${rgb.join(",")})` });
 				} else {
 					let top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.max.h), 0),
 						left = Drag._max(Drag._min(event.clientX - Drag.clickX, Drag.max.w), 0);
 					Drag.root.css({ "--top": `${top}px`, "--left": `${left}px` });
+					// calculates lightness
+					top = 89 - top;
+					if (left === 0) left = 1;
+					Drag.lgh = (1 - (left / (top + left))) || 0.1;
+					// calculates saturation
+					Drag.sat = (Math.sqrt((left * left) + (top * top)) / Drag.satScale);
 				}
-				Drag.origin.css({ "--color": Drag.box.css("background") });
+				let rgb = Color.hslToRgb(Drag.hue, Drag.sat, Drag.lgh);
+				Drag.origin.css({ "--color": `rgb(${rgb.join(",")})` });
 				break;
 			case "mouseup":
 				// uncover layout
