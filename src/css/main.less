@@ -277,8 +277,8 @@ layout {
 
 		&.popup-colour-ring {
 			top: 363px;
-			left: 831px;
-			width: 192px;
+			left: 814px;
+			width: 226px;
 			padding-bottom: 12px;
 			visibility: visible;
 			opacity: 1;
@@ -290,6 +290,45 @@ layout {
 				--rotation: 0deg;
 				--top: 0;
 				--left: 89px;
+				--color: #ff0000;
+			}
+
+			.alpha-range {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: -33px;
+				width: 18px;
+				background: linear-gradient(45deg, #ccc 25%, transparent 25%),
+							linear-gradient(-45deg, #ccc 25%, transparent 25%),
+							linear-gradient(45deg, transparent 75%, #ccc 75%),
+							linear-gradient(-45deg, transparent 75%, #ccc 75%);
+				background-color: #fff;
+				background-size: 18px 18px;
+				background-position: 0 0, 0 9px, 9px -9px, -9px 0px;
+				box-shadow: inset 1px 1px 1px rgba(0,0,0,.125),
+							1px 1px 0 rgba(255,255,255,.5);
+
+				&:before {
+					content: "";
+					background: linear-gradient(to bottom, transparent 0%, var(--color) 100%);
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+				}
+
+				.range-point {
+					position: absolute;
+					top: 160px;
+					left: -1px;
+					width: 20px;
+					height: 7px;
+					border-radius: 10px;
+					box-shadow: 0 0 0 1px #000,
+								inset 0 0 0 1px #fff;
+				}
 			}
 
 			.color-ring {
