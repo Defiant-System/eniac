@@ -71,7 +71,8 @@
 				event.el.prevAll(".options-reel").data({ step: el.index() + 1 });
 				break;
 			case "popup-color-palette":
-				dim = Self.els.palette[0].getBoundingClientRect();
+				pEl = Self.els.palette;
+				dim = pEl[0].getBoundingClientRect();
 				pos = Self.getPosition(event.target, Self.els.layout[0]);
 				top = pos.top + event.target.offsetHeight + 16;
 				left = pos.left - (dim.width / 2) + ((event.target.offsetWidth - 22) / 2) - 2;
@@ -81,11 +82,12 @@
 				value = el.css("--preset-color");
 				Self.origin = { el, value };
 
-				Self.els.palette.find(".active").removeClass("active");
-				el = Self.els.palette.find(`span[style="background: ${value};"]`);
+				// prepare popup contents
+				pEl.find(".active").removeClass("active");
+				el = pEl.find(`span[style="background: ${value};"]`);
 				if (el.length) el.addClass("active");
 
-				Self.els.palette.css({ top, left }).addClass("pop");
+				pEl.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
 				break;
 			case "popup-color-ring":
@@ -95,6 +97,22 @@
 				top = pos.top + event.target.offsetHeight + 13;
 				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 5;
 				
+				// prepare popup contents
+				el = $(event.target);
+				value = el.cssProp("--color");
+				Self.origin = { el, value };
+				let [hue, sat, lgh, alpha] = Color.hexToHsl(value);
+
+				// ring rotation
+				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
+				// alpha
+				pEl.find(".color-alpha span").css({ top: `${alpha * 159}px` });
+				// color
+				Self.els.colorRing.css({
+					"--hue-color": Color.hslToHex(hue, 1, .5),
+					"--color": Color.hslToHex(hue, sat, lgh),
+				});
+
 				pEl.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
 				break;
@@ -213,15 +231,15 @@
 				Self.els.doc.on("mousemove mouseup", Self.doColorRing);
 				break;
 			case "mousemove":
-				let top, left, rgb, rgba;
+				let top, left, hex;
 				switch (Drag.type) {
 					case "ring":
 						Drag.hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);
 						if (Drag.hue < 0) Drag.hue += 360;
 						Drag.el.css({ transform: `rotate(${Drag.hue}deg)` });
 						// update color of SL-box
-						rgb = Color.hslToRgb(Drag.hue, 1, .5);
-						Drag.box.css({ "background-color": `rgb(${rgb.join(",")})` });
+						hex = Color.hslToHex(Drag.hue, 1, .5);
+						Drag.root.css({ "--hue-color": hex });
 						break;
 					case "box":
 						top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.max.h), 0);
@@ -240,10 +258,10 @@
 						Drag.el.css({ top });
 						break;
 				}
-				rgb = Color.hslToRgb(Drag.hue, Drag.sat, Drag.lgh);
-				Drag.root.css({ "--color": `rgb(${rgb.join(",")})` });
-				rgba = [...rgb, Drag.alpha];
-				Drag.origin.css({ "--color": `rgba(${rgba.join(",")})` });
+				hex = Color.hslToHex(Drag.hue, Drag.sat, Drag.lgh);
+				Drag.root.css({ "--color": hex });
+				// rgba = [...rgb, Drag.alpha];
+				// Drag.origin.css({ "--color": `rgba(${rgba.join(",")})` });
 				break;
 			case "mouseup":
 				// uncover layout

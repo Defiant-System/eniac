@@ -131,7 +131,7 @@ layout {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		z-index: 112;
+		z-index: 109;
 	}
 
 	&.hideMouse:before {
@@ -290,7 +290,7 @@ layout {
 				--color: #ff0000;
 			}
 
-			.alpha-range {
+			.color-alpha {
 				position: absolute;
 				top: 0;
 				bottom: 0;
@@ -318,7 +318,7 @@ layout {
 					pointer-events: none;
 				}
 
-				.range-point {
+				.alpha-point {
 					position: absolute;
 					top: 160px;
 					left: -1px;
@@ -379,7 +379,7 @@ layout {
 			}
 
 			.color-box {
-				background: #ff0000;
+				background: var(--hue-color);
 				position: absolute;
 				top: 38px;
 				left: 38px;
@@ -1101,7 +1101,7 @@ sidebar {
 					border-radius: 4px;
 					margin: 0 5px 23px;
 					height: 20px;
-					--gradient: linear-gradient(to right, #0000ff50 0%, #8c8d17aa 50%, #ff0000 100%);
+					--gradient: linear-gradient(to right, #0000ff 0%, #8c8d17aa 50%, #ff0000 100%);
 
 					&:before {
 						content: "";
@@ -1152,7 +1152,7 @@ sidebar {
 
 						&:nth-child(1) {
 							left: -7px;
-							--color: #0000ff50;
+							--color: #0000ff;
 						}
 						&:nth-child(2) {
 							left: 49%;

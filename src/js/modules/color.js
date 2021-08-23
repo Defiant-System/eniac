@@ -9,20 +9,14 @@ const Color = {
 		return [_round(f(0) * 255), _round(f(8) * 255), _round(f(4) * 255)];
 	},
 	hslToHex(h, s, l) {
-		l /= 100;
-		let a = s * Math.min(l, 1 - l) / 100,
-			f = n => {
-				let k = (n + h / 30) % 12,
-					color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-				return Math.round(255 * color).toString(16).padStart(2, "0");
-			};
-		return `#${f(0)}${f(8)}${f(4)}`;
+		let rgb = this.hslToRgb(h, s, l);
+		return this.rgbToHex(`rgb(${rgb.join(",")})`);
 	},
 	hexToHsl(hex) {
 		var r = parseInt(hex.substr(1,2), 16),
 			g = parseInt(hex.substr(3,2), 16),
 			b = parseInt(hex.substr(5,2), 16),
-			a = parseInt(hex.substr(7,2), 16) || 255;
+			a = parseInt(hex.substr(7,2) || "ff", 16);
 		return this.rgbToHsl(r, g, b, a);
 	},
 	hexToRgbl(hex) {
@@ -49,14 +43,12 @@ const Color = {
 			}
 			h /= 6;
 		}
-		return [h, s, l, a];
+		return [Math.round(h*360), s, l, a];
 	},
 	rgbToHex(rgb) {
 		let d = "0123456789abcdef".split(""),
 			hex = x => isNaN(x) ? "00" : d[(x-x%16)/16] + d[x%16];
-
 		rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-		
 		return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 	}
 };
