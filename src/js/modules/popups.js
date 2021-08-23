@@ -88,6 +88,16 @@
 				Self.els.palette.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
 				break;
+			case "popup-color-ring":
+				pEl = Self.els.colorRing.parent();
+				dim = pEl[0].getBoundingClientRect();
+				pos = Self.getPosition(event.target, Self.els.layout[0]);
+				top = pos.top + event.target.offsetHeight + 13;
+				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 5;
+				
+				pEl.css({ top, left }).addClass("pop");
+				Self.els.layout.addClass("cover");
+				break;
 			case "popup-view-options":
 				// reference to target popup
 				el = Self.els[event.arg +"Options"];
@@ -154,7 +164,7 @@
 				// 	matrix = root.find(".color-ring span").css("transform").split("(")[1].split(")")[0].split(","),
 				// 	hue = Math.round(Math.atan2(matrix[1], matrix[0]) * (180 / Math.PI));
 				// if (hue < 0) hue += 360;
-				
+
 				// create drag object
 				Self.drag = {
 					el,
@@ -203,7 +213,7 @@
 				Self.els.doc.on("mousemove mouseup", Self.doColorRing);
 				break;
 			case "mousemove":
-				let top, left, rgb, rgba, alpha;
+				let top, left, rgb, rgba;
 				switch (Drag.type) {
 					case "ring":
 						Drag.hue = Drag._atan2(event.clientY - Drag.center.y, event.clientX - Drag.center.x) * (180 / Drag._PI);

@@ -8,6 +8,11 @@
 			layout: window.find("layout"),
 			el: window.find("sidebar"),
 		};
+
+		// temp
+		setTimeout(() => 
+			this.els.el.find(".gradient-colors .point:nth(0)").trigger("click")
+		, 500);
 	},
 	sheet: @import "sidebar.sheet.js",
 	shape: @import "sidebar.shape.js",
@@ -45,6 +50,7 @@
 				pEl.find(".sidebar-body").get(el.index()).addClass("active");
 				break;
 			// forward popup events
+			case "popup-color-ring":
 			case "popup-color-palette":
 				APP.popups.dispatch(event);
 				break;
