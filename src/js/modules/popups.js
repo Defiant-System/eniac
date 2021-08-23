@@ -19,8 +19,8 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		let tmp = Color.rgbToHue(0, 0, 255);
-		console.log(tmp);
+		// let tmp = Color.rgbToHue(0, 0, 255);
+		// console.log(tmp);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -101,14 +101,18 @@
 				el = $(event.target);
 				value = el.cssProp("--color");
 				Self.origin = { el, value };
-				let [hue, sat, lgh, alpha] = Color.hexToHsl(value);
+				let [hue, sat, lgh, alpha] = Color.hexToHsl(value),
+					a = +pEl.find(".color-box").prop("offsetWidth") - 1,
+					c = a * sat * Math.sqrt(2),
+					t = (c / Math.sqrt(2)) * 2,
+					l = t * lgh;
 
 				// ring rotation
 				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
 				// box
 				pEl.find(".color-box span").css({
-					top: 50,
-					left: 50
+					left: Math.min(Math.max(l, 0), a),
+					top: Math.min(Math.max(t - l - a, 0), a),
 				});
 				// alpha
 				pEl.find(".color-alpha span").css({ top: `${alpha * 159}px` });
