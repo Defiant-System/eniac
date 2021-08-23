@@ -19,8 +19,8 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		// let hsl = Color.hslToRgb(0, 1, .5);
-		// console.log(hsl);
+		let tmp = Color.rgbToHue(0, 0, 255);
+		console.log(tmp);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -105,9 +105,14 @@
 
 				// ring rotation
 				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
+				// box
+				pEl.find(".color-box span").css({
+					top: 50,
+					left: 50
+				});
 				// alpha
 				pEl.find(".color-alpha span").css({ top: `${alpha * 159}px` });
-				// color
+				// root element css variables
 				Self.els.colorRing.css({
 					"--hue-color": Color.hslToHex(hue, 1, .5),
 					"--color": Color.hslToHex(hue, sat, lgh),
@@ -179,9 +184,6 @@
 					type = pEl.data("el"),
 					el = pEl.find("span"),
 					rect = pEl[0].getBoundingClientRect();
-				// 	matrix = root.find(".color-ring span").css("transform").split("(")[1].split(")")[0].split(","),
-				// 	hue = Math.round(Math.atan2(matrix[1], matrix[0]) * (180 / Math.PI));
-				// if (hue < 0) hue += 360;
 
 				// create drag object
 				Self.drag = {

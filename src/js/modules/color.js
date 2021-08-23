@@ -1,5 +1,20 @@
 
 const Color = {
+	rgbToLightness(r, g, b) {
+		return (1/2 * (Math.max(r, g, b) + Math.min(r, g, b))) / 255;
+	},
+	rgbToSaturation(r, g, b) {
+		let L = this.rgbToLightness(r, g, b),
+			max = Math.max(r, g, b),
+			min = Math.min(r, g, b);
+		return (L === 0 || L === 1)
+			? 0
+			: ((max - min) / (1 - Math.abs(2 * L - 1))) / 255;
+	},
+	rgbToHue(r, g, b) {
+		let hue = Math.round(Math.atan2(Math.sqrt(3) * (g - b), 2 * r - g - b) * 180 / Math.PI );
+		return hue < 0 ? hue + 360 : hue;
+	},
 	hslToRgb(h, s, l) {
 		let _round = Math.round,
 			_min = Math.min,
