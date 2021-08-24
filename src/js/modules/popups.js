@@ -103,10 +103,14 @@
 				Self.origin = { el, value };
 				let [hue, sat, lgh, alpha] = Color.hexToHsl(value),
 					a = +pEl.find(".color-box").prop("offsetWidth") - 1,
-					c = a * sat * Math.sqrt(2),
+					c = (a * sat || a) * Math.sqrt(2),
 					t = (c / Math.sqrt(2)) * 2,
 					l = t * lgh;
 
+				if (!hue && !sat) {
+					l = a - l;
+				}
+// console.log(sat, c, t, l);
 				// ring rotation
 				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
 				// box

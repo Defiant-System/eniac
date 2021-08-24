@@ -321,8 +321,8 @@ layout {
 				.alpha-point {
 					position: absolute;
 					top: 160px;
-					left: -1px;
-					width: 18px;
+					left: 0;
+					width: 16px;
 					height: 7px;
 					border-radius: 10px;
 					box-shadow: 0 0 0 1px #000,
@@ -337,7 +337,6 @@ layout {
 				left: 0;
 				width: 166px;
 				height: 166px;
-				z-index: 1;
 				border-radius: 50%;
 				box-shadow: inset 0 1px 1px rgba(0,0,0,.25),
 							0 1px 0 #fff;
@@ -360,17 +359,18 @@ layout {
 					left: 83px;
 					width: 83px;
 					height: 83px;
+					z-index: 3;
 					transform-origin: 0 100%;
 					transform: rotate(0deg);
+					pointer-events: none;
 
 					&:after {
 						content: "";
 						position: absolute;
 						bottom: -3px;
-						right: -1px;
-						width: 20px;
+						right: 0;
+						width: 18px;
 						height: 7px;
-						z-index: 2;
 						border-radius: 10px;
 						box-shadow: 0 0 0 1px #000,
 									inset 0 0 0 1px #fff;
@@ -385,7 +385,6 @@ layout {
 				left: 38px;
 				width: 90px;
 				height: 90px;
-				z-index: 2;
 
 				&:after {
 					content: "";
@@ -404,9 +403,9 @@ layout {
 					position: absolute;
 					top: 0;
 					left: 89px;
-					width: 9px;
-					height: 9px;
-					margin: -4px 0 0 -4px;
+					width: 7px;
+					height: 7px;
+					margin: -3px 0 0 -3px;
 					z-index: 2;
 					border-radius: 50%;
 					box-shadow: 0 0 0 1px #000,
@@ -1101,7 +1100,7 @@ sidebar {
 					border-radius: 4px;
 					margin: 0 5px 23px;
 					height: 20px;
-					--gradient: linear-gradient(to right, #0000ff 0%, #8c8d17aa 50%, #ff0000 100%);
+					--gradient: linear-gradient(to right, #0000aa 0%, #8c8d17aa 50%, #ff0000 100%);
 
 					&:before {
 						content: "";
@@ -1152,7 +1151,7 @@ sidebar {
 
 						&:nth-child(1) {
 							left: -7px;
-							--color: #002299;
+							--color: #0000aa;
 						}
 						&:nth-child(2) {
 							left: 49%;
