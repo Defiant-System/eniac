@@ -107,10 +107,9 @@
 					t = (c / Math.sqrt(2)) * 2,
 					l = t * lgh;
 
-				if (!hue && !sat) {
-					l = a - l;
-				}
-// console.log(sat, c, t, l);
+				// gray shades
+				if (!hue && !sat) l = a - l;
+
 				// ring rotation
 				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
 				// box
@@ -182,16 +181,21 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let origin = APP.sidebar.els.el.find(".gradient-colors .point:nth(0)"),
-					oColor = origin.cssProp("--color"),
-					[hue, sat, lgh, alpha] = Color.hexToHsl(oColor),
+				let origin = Self.origin.el,
+					oParent = origin.parent(),
+					section = oParent.parents("[data-section]").data("section"),
+					[hue, sat, lgh, alpha] = Color.hexToHsl(Self.origin.value),
 					root = Self.els.colorRing,
 					box = root.find(".color-box"),
 					target = event.target,
 					pEl = target.getAttribute("data-el") ? $(target) : $(target).parents("div[data-el]"),
 					type = pEl.data("el"),
 					el = pEl.find("span"),
-					rect = pEl[0].getBoundingClientRect();
+					rect = pEl[0].getBoundingClientRect(),
+					dragEvent = {
+						handler: APP.sidebar[section].dispatch,
+						name: oParent.data("change"),
+					};
 
 				// create drag object
 				Self.drag = {
@@ -204,6 +208,7 @@
 					sat,
 					lgh,
 					alpha,
+					event: dragEvent,
 					_PI: Math.PI,
 					_min: Math.min,
 					_max: Math.max,
@@ -270,8 +275,17 @@
 				}
 				hex = Color.hslToHex(Drag.hue, Drag.sat, Drag.lgh);
 				Drag.root.css({ "--color": hex });
+
 				// rgba = [...rgb, Drag.alpha];
-				// Drag.origin.css({ "--color": `rgba(${rgba.join(",")})` });
+				Drag.origin.css({ "--color": hex });
+
+				// route event
+				Drag.event.handler({
+					type: Drag.event.name,
+					el: Drag.oParent,
+					point: Drag.origin,
+					hex
+				});
 				break;
 			case "mouseup":
 				// uncover layout

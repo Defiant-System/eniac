@@ -27,6 +27,9 @@
 				// update shape element
 				Shape.find("path").css({ fill: el.data("arg") });
 				break;
+			case "set-fill-gradient-color":
+				console.log(event);
+				break;
 		}
 	}
 }
