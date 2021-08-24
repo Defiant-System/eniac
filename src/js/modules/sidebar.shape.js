@@ -18,8 +18,8 @@
 				// reset (if any) previous active
 				Els.el.find(".shape-styles .active").removeClass("active");
 				// update sidebar value
-				value = Color.rgbToHex(Shape.find("path").cssProp("fill"));
-				Els.el.find(`.shape-styles span[data-arg="${value}"]`).addClass("active");
+				// value = Color.rgbToHex(Shape.find("path").cssProp("fill"));
+				// Els.el.find(`.shape-styles span[data-arg="${value}"]`).addClass("active");
 				break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");

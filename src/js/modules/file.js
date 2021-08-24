@@ -28,9 +28,24 @@ class File {
 
 			html += `<div class="shape"><svg id="shape-star" viewBox="0 0 100 100">
 	<style type="text/css">
-		.st0{fill:#222;}
+		.st0{fill:url(#SVG-GR-1);stroke:#f00;stroke-width:2px;}
 	</style>
+	<linearGradient id="SVG-GR-1" x2="1" y2="1">
+		<stop offset="0%" stop-color="#669966" />
+		<stop offset="100%" stop-color="#ff9900" />
+	</linearGradient>
 	<path class="st0" d="M50,4.6L35.1,34L3,39.3l22.9,23.5L21,95.4l29-14.8l29,14.8l-4.9-32.6L97,39.3L64.9,34L50,4.6z"/>
+</svg></div>
+
+<div class="shape"><svg id="shape-disc" viewBox="0 0 100 100">
+	<style type="text/css">
+		.st1{fill:url(#SVG-GR-2);stroke:#333;stroke-width:3px;}
+	</style>
+	<radialGradient id="SVG-GR-2" cx="0.25" cy="0.25" r="0.75">
+        <stop offset="0%" stop-color="#aaddff"/>
+        <stop offset="100%" stop-color="#336699"/>
+      </radialGradient>
+	<circle class="st1" cx="50" cy="50" r="47"/>
 </svg></div>`;
 
 			html = html.replace(/\t|\n/g, "");
