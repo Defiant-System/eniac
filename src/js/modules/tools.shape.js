@@ -8,6 +8,7 @@
 		this.els = {
 			root,
 			doc: $(document),
+			layout: window.find("layout"),
 		};
 
 		// bind event handlers
@@ -16,7 +17,7 @@
 			let el = $(event.target),
 				body = el.parents("div.body");
 			if (el.hasClass("handle")) {
-				this.gradientMove(event);
+				
 			} else if (el.hasClass("shape")) {
 				// blur table, if any
 				Cursor.dispatch({ type: "blur-table", el: body });
@@ -44,10 +45,10 @@
 				}
 				break;
 			case "focus-shape":
-				top = event.el.prop("offsetTop");
-				left = event.el.prop("offsetLeft");
-				width = event.el.prop("offsetWidth");
-				height = event.el.prop("offsetHeight");
+				top = +event.el.prop("offsetTop");
+				left = +event.el.prop("offsetLeft");
+				width = +event.el.prop("offsetWidth");
+				height = +event.el.prop("offsetHeight");
 				Self.els.root
 					.css({ top, left, width, height })
 					.removeClass("hidden");
@@ -74,10 +75,10 @@
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: {
-						x: shape.prop("offsetLeft"),
-						y: shape.prop("offsetTop"),
-						w: shape.prop("offsetWidth"),
-						h: shape.prop("offsetHeight"),
+						x: +shape.prop("offsetLeft"),
+						y: +shape.prop("offsetTop"),
+						w: +shape.prop("offsetWidth"),
+						h: +shape.prop("offsetHeight"),
 					}
 				};
 				// bind event
@@ -119,7 +120,11 @@
 				event.preventDefault();
 
 				// if mousedown on handle
-				if ($(event.target).hasClass("handle")) {
+				el = $(event.target);
+				if (el.hasClass("handle")) {
+					if (el.parent().hasClass("gradient-tool")) {
+						return Self.gradientMove(event);
+					}
 					return Self.resize(event);
 				}
 				
@@ -131,8 +136,8 @@
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: {
-						x: shape.prop("offsetLeft"),
-						y: shape.prop("offsetTop"),
+						x: +shape.prop("offsetLeft"),
+						y: +shape.prop("offsetTop"),
 					}
 				};
 				// bind event
@@ -152,19 +157,44 @@
 	gradientMove(event) {
 		let APP = eniac,
 			Self = APP.tools.shape,
-			Drag = Self.drag,
-			shape,
-			el;
+			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
 
-				console.log(event);
+				let el = $(event.target.parentNode),
+					type = event.target.className.split(" ")[1];
+				// create drag object
+				Self.drag = {
+					el,
+					type,
+					clickX: event.clientX,
+					clickY: event.clientY,
+					offset: {
+						x: +el.prop("offsetLeft"),
+						y: +el.prop("offsetTop"),
+					}
+				};
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
 				break;
 			case "mousemove":
+				if (Drag.type === "p1") {
+					let top = event.clientY - Drag.clickY + Drag.offset.y,
+						left = event.clientX - Drag.clickX + Drag.offset.x
+					Drag.el.css({ top, left });
+				} else {
+					// p2
+				}
 				break;
 			case "mouseup":
+				// cover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.gradientMove);
 				break;
 		}
 	}
