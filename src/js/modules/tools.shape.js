@@ -15,7 +15,9 @@
 		window.find("content > div.body").on("mousedown", event => {
 			let el = $(event.target),
 				body = el.parents("div.body");
-			if (el.hasClass("shape")) {
+			if (el.hasClass("handle")) {
+				this.gradientMove(event);
+			} else if (el.hasClass("shape")) {
 				// blur table, if any
 				Cursor.dispatch({ type: "blur-table", el: body });
 				// focus shape
@@ -144,6 +146,25 @@
 			case "mouseup":
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.move);
+				break;
+		}
+	},
+	gradientMove(event) {
+		let APP = eniac,
+			Self = APP.tools.shape,
+			Drag = Self.drag,
+			shape,
+			el;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+
+				console.log(event);
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
 				break;
 		}
 	}
