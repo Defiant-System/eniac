@@ -10,9 +10,9 @@
 		};
 
 		// temp
-		setTimeout(() => 
-			this.els.el.find(".gradient-colors .point:nth(0)").trigger("click")
-		, 500);
+		// setTimeout(() => 
+		// 	this.els.el.find(".gradient-colors .point:nth(0)").trigger("click")
+		// , 500);
 	},
 	sheet: @import "sidebar.sheet.js",
 	shape: @import "sidebar.shape.js",

@@ -58,7 +58,7 @@
 	},
 	resize(event) {
 		let APP = eniac,
-			Self = APP.shape,
+			Self = APP.tools.shape,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":

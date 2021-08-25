@@ -34,7 +34,7 @@
 	position: absolute;
 	border: 1px solid #3583d0;
 	z-index: 99;
-	cursor: move;
+	// cursor: move;
 	// pointer-events: none;
 
 	&.hidden {
@@ -58,5 +58,35 @@
 		&.se   { cursor: sw-resize; bottom: -5px; left: -5px; }
 		&.e    { cursor: w-resize; top: 50%; left: -5px; transform: translateY(-50%); }
 		&.ne   { cursor: nw-resize; top: -5px; left: -5px; }
+	}
+
+	.gradient-tool {
+		position: absolute;
+		top: 29px;
+		left: 29px;
+		width: 60px;
+		height: 0;
+		border-top: 1px solid rgba(255,255,255,.65);
+		filter: drop-shadow(0 0 1px rgba(0,0,0,.25));
+		transform-origin: 0 0;
+		transform: rotate(45deg);
+
+		.handle {
+			width: 7px;
+			height: 7px;
+			cursor: move;
+			border: 1px solid rgba(0,150,0,.85);
+
+			&.p1 {
+				top: -4px;
+				left: -4px;
+				border-radius: 50%;
+			}
+
+			&.p2 {
+				top: -4px;
+				right: -4px;
+			}
+		}
 	}
 }

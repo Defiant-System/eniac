@@ -26,15 +26,15 @@ class File {
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 
-			html += `<div class="shape"><svg id="shape-star" viewBox="0 0 100 100">
+			html += `<div class="shape"><svg id="shape-rectangle" viewBox="0 0 100 100">
 	<style type="text/css">
 		.st0{fill:url(#SVG-GR-1);stroke:#f00;stroke-width:2px;}
 	</style>
-	<linearGradient id="SVG-GR-1" x2="1" y2="1">
+	<linearGradient id="SVG-GR-1" x1=".25" y1=".25" x2=".5" y2=".5">
 		<stop offset="0%" stop-color="#669966" />
 		<stop offset="100%" stop-color="#ff9900" />
 	</linearGradient>
-	<path class="st0" d="M50,4.6L35.1,34L3,39.3l22.9,23.5L21,95.4l29-14.8l29,14.8l-4.9-32.6L97,39.3L64.9,34L50,4.6z"/>
+	<rect class="st0" x="3" y="3" width="94" height="94"/>
 </svg></div>
 
 <div class="shape"><svg id="shape-disc" viewBox="0 0 100 100">
