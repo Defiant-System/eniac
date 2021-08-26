@@ -176,7 +176,9 @@
 					offset: {
 						x: +el.prop("offsetLeft"),
 						y: +el.prop("offsetTop"),
-					}
+					},
+					_atan2: Math.atan2,
+					_PI: Math.PI,
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
@@ -187,7 +189,12 @@
 						left = event.clientX - Drag.clickX + Drag.offset.x
 					Drag.el.css({ top, left });
 				} else {
-					// p2
+					// rotate
+					let top = Drag.offset.y + event.clientY - Drag.clickY,
+						left = Drag.offset.x + event.clientX - Drag.clickX,
+						deg = Drag._atan2(top, left) * (180 / Drag._PI);
+					if (deg < 0) deg += 360;
+					Drag.el.css({ transform: `rotate(${deg}deg)` });
 				}
 				break;
 			case "mouseup":
