@@ -163,19 +163,25 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				Self.els.layout.addClass("cover hideMouse1");
 
 				let el = $(event.target.parentNode),
-					type = event.target.className.split(" ")[1];
+					type = event.target.className.split(" ")[1],
+					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
+					deg = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+				if (deg < 0) deg += 360;
+				
 				// create drag object
 				Self.drag = {
 					el,
+					deg,
 					type,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: {
-						x: +el.prop("offsetLeft"),
-						y: +el.prop("offsetTop"),
+						x: +el.prop("offsetLeft") + 25,
+						y: +el.prop("offsetTop") + 25,
+						w: +el.prop("offsetWidth"),
 					},
 					_atan2: Math.atan2,
 					_PI: Math.PI,
@@ -190,16 +196,17 @@
 					Drag.el.css({ top, left });
 				} else {
 					// rotate
-					let top = Drag.offset.y + event.clientY - Drag.clickY,
-						left = Drag.offset.x + event.clientX - Drag.clickX,
+					let top = event.clientY - Drag.clickY + Drag.offset.y,
+						left = event.clientX - Drag.clickX + Drag.offset.x,
 						deg = Drag._atan2(top, left) * (180 / Drag._PI);
 					if (deg < 0) deg += 360;
+					// console.log(top, left);
 					Drag.el.css({ transform: `rotate(${deg}deg)` });
 				}
 				break;
 			case "mouseup":
 				// cover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("cover hideMouse1");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.gradientMove);
 				break;
