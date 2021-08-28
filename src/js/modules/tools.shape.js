@@ -168,7 +168,7 @@
 				let el = $(event.target.parentNode),
 					type = event.target.className.split(" ")[1],
 					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
-					rad = Math.atan2(b, a),
+					rad = Math.atan2(a, b),
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth");
@@ -186,14 +186,8 @@
 					},
 					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
-					_PI: Math.PI,
+					_PI: 180 / Math.PI,
 				};
-
-				// Self.gradientMove({
-				// 	type: "mousemove",
-				// 	clientX: event.clientX,
-				// 	clientY: event.clientY,
-				// });
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
@@ -207,7 +201,7 @@
 					// rotate
 					let y = event.clientY - Drag.clickY - Drag.origo.y + Drag.offset.y,
 						x = event.clientX - Drag.clickX - Drag.origo.x + Drag.offset.x,
-						deg = Drag._atan2(y, x) * (180 / Drag._PI),
+						deg = Drag._atan2(y, x) * Drag._PI,
 						width = Drag._sqrt(y*y + x*x);
 					if (deg < 0) deg += 360;
 					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
