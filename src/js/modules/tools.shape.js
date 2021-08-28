@@ -9,6 +9,7 @@
 			root,
 			doc: $(document),
 			layout: window.find("layout"),
+			gradientTool: root.find(".gradient-tool"),
 		};
 
 		// bind event handlers
@@ -16,9 +17,10 @@
 		window.find("content > div.body").on("mousedown", event => {
 			let el = $(event.target),
 				body = el.parents("div.body");
-			if (el.hasClass("handle")) {
+			// let other handlers handle it
+			if (el.hasClass("handle")) return;
 				
-			} else if (el.hasClass("shape")) {
+			if (el.hasClass("shape")) {
 				// blur table, if any
 				Cursor.dispatch({ type: "blur-table", el: body });
 				// focus shape
@@ -33,7 +35,6 @@
 		let APP = eniac,
 			Self = APP.tools.shape,
 			Shape = Self.shape,
-			top, left, width, height,
 			el;
 		switch (event.type) {
 			// native events
@@ -45,13 +46,51 @@
 				}
 				break;
 			case "focus-shape":
-				top = +event.el.prop("offsetTop");
-				left = +event.el.prop("offsetLeft");
-				width = +event.el.prop("offsetWidth");
-				height = +event.el.prop("offsetHeight");
+				// resize tools
+				let top = +event.el.prop("offsetTop"),
+					left = +event.el.prop("offsetLeft"),
+					width = +event.el.prop("offsetWidth"),
+					height = +event.el.prop("offsetHeight"),
+					deg, dx, dy;
 				Self.els.root
 					.css({ top, left, width, height })
 					.removeClass("hidden");
+
+				// gradient tools
+				let fill = event.el.find("circle, rect").css("fill");
+				if (fill.startsWith("url(")) {
+					let xNode = event.el.find(fill.slice(5,-2)),
+						gradient = {
+							xNode,
+							type: xNode.prop("nodeName"),
+							stops: xNode.find("stop").map(x => ({
+								offset: parseInt(x.getAttribute("offset"), 10),
+								color: x.getAttribute("stop-color"),
+							})),
+						};
+					switch (gradient.type) {
+						case "radialGradient":
+							top = +xNode.attr("cy") * height;
+							left = +xNode.attr("cx") * width;
+							width = +xNode.attr("r") * width;
+							deg = 45;
+							break;
+						case "linearGradient":
+							top = (+xNode.attr("y1") || 0) * height;
+							left = (+xNode.attr("x1") || 0) * width;
+							dy = (+xNode.attr("y2") * height) - top;
+							dx = (+xNode.attr("x2") * width) - left;
+							width = Math.round(Math.sqrt(dx*dx + dy*dy));
+							deg = Math.atan2(dy, dx) * (180 / Math.PI);
+							break;
+					}
+					Self.els.gradientTool
+						.css({ top, left, width, transform: `rotate(${deg}deg)` })
+						.removeClass("hidden");
+				} else {
+					Self.els.gradientTool.addClass("hidden");
+				}
+
 				// remember shape
 				Self.shape = event.el;
 				// update sidebar
@@ -163,7 +202,7 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse1");
+				Self.els.layout.addClass("cover hideMouse");
 
 				let el = $(event.target.parentNode),
 					type = event.target.className.split(" ")[1],
@@ -209,7 +248,7 @@
 				break;
 			case "mouseup":
 				// cover layout
-				Self.els.layout.removeClass("cover hideMouse1");
+				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.gradientMove);
 				break;

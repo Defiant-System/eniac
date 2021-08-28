@@ -30,7 +30,7 @@ class File {
 	<style type="text/css">
 		.st0{fill:url(#SVG-GR-1);stroke:#f00;stroke-width:2px;}
 	</style>
-	<linearGradient id="SVG-GR-1" x1=".25" y1=".25" x2=".5" y2=".5">
+	<linearGradient id="SVG-GR-1" x1=".25" y1=".25" x2=".5" y2=".75">
 		<stop offset="0%" stop-color="#669966" />
 		<stop offset="100%" stop-color="#ff9900" />
 	</linearGradient>
@@ -46,6 +46,13 @@ class File {
         <stop offset="100%" stop-color="#336699"/>
       </radialGradient>
 	<circle class="st1" cx="50" cy="50" r="47"/>
+</svg></div>
+
+<div class="shape"><svg id="shape-triangle" viewBox="0 0 100 100">
+	<style type="text/css">
+		.st2{fill:#f00;stroke:#333;stroke-width:3px;}
+	</style>
+	<polygon class="st2" points="97,97 50,3.6 3,97 "/>
 </svg></div>`;
 
 			html = html.replace(/\t|\n/g, "");
@@ -54,7 +61,7 @@ class File {
 		Render.workbook(this._file.book, html);
 		
 		setTimeout(() => {
-			window.find(`.shape`).trigger("mousedown").trigger("mouseup")
+			window.find(`.shape:nth(0)`).trigger("mousedown").trigger("mouseup")
 		}, 150);
 		
 		// temp

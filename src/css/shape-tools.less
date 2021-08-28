@@ -7,10 +7,8 @@
 	height: 100px;
 	-webkit-box-reflect: below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.3) 0%, transparent 50%, transparent 100%);
 	
-	&:nth-child(5) {
-		top: 300px;
-		left: 540px;
-	}
+	&:nth-child(5) { top: 300px; left: 540px; }
+	&:nth-child(6) { top: 440px; left: 240px; }
 
 	&:before {
 		content: "";
@@ -35,7 +33,7 @@
 	border: 1px solid #3583d0;
 	z-index: 99;
 	// cursor: move;
-	// pointer-events: none;
+	pointer-events: none;
 
 	&.hidden {
 		display: none;
@@ -48,7 +46,7 @@
 		z-index: 2;
 		background: #fff;
 		border: 1px solid rgba(0,0,0,.85);
-		// pointer-events: all;
+		pointer-events: all;
 
 		&.n    { cursor: n-resize; top: -5px; left: 50%; transform: translateX(-50%); }
 		&.nw   { cursor: ne-resize; top: -5px; right: -5px; }
@@ -62,14 +60,15 @@
 
 	.gradient-tool {
 		position: absolute;
-		top: 29px;
-		left: 29px;
-		width: 60px;
 		height: 0;
 		border-top: 1px solid rgba(255,255,255,.65);
 		filter: drop-shadow(0 0 1px rgba(0,0,0,.25));
 		transform-origin: 0 0;
 		transform: rotate(45deg);
+
+		&.hidden {
+			display: none;
+		}
 
 		.handle {
 			width: 7px;
