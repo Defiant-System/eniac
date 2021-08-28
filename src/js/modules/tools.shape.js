@@ -168,40 +168,49 @@
 				let el = $(event.target.parentNode),
 					type = event.target.className.split(" ")[1],
 					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
-					deg = Math.round(Math.atan2(b, a) * (180 / Math.PI));
-				if (deg < 0) deg += 360;
+					rad = Math.atan2(b, a),
+					x = +el.prop("offsetLeft"),
+					y = +el.prop("offsetTop"),
+					r = +el.prop("offsetWidth");
 				
 				// create drag object
 				Self.drag = {
 					el,
-					deg,
 					type,
 					clickX: event.clientX,
 					clickY: event.clientY,
+					origo: { x, y, r },
 					offset: {
-						x: +el.prop("offsetLeft") + 25,
-						y: +el.prop("offsetTop") + 25,
-						w: +el.prop("offsetWidth"),
+						y: x + r * Math.cos(rad),
+						x: y + r * Math.sin(rad),
 					},
+					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
 					_PI: Math.PI,
 				};
+
+				// Self.gradientMove({
+				// 	type: "mousemove",
+				// 	clientX: event.clientX,
+				// 	clientY: event.clientY,
+				// });
+
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
 				break;
 			case "mousemove":
 				if (Drag.type === "p1") {
-					let top = event.clientY - Drag.clickY + Drag.offset.y,
-						left = event.clientX - Drag.clickX + Drag.offset.x
+					let top = event.clientY - Drag.clickY + Drag.origo.y,
+						left = event.clientX - Drag.clickX + Drag.origo.x
 					Drag.el.css({ top, left });
 				} else {
 					// rotate
-					let top = event.clientY - Drag.clickY + Drag.offset.y,
-						left = event.clientX - Drag.clickX + Drag.offset.x,
-						deg = Drag._atan2(top, left) * (180 / Drag._PI);
+					let y = event.clientY - Drag.clickY - Drag.origo.y + Drag.offset.y,
+						x = event.clientX - Drag.clickX - Drag.origo.x + Drag.offset.x,
+						deg = Drag._atan2(y, x) * (180 / Drag._PI),
+						width = Drag._sqrt(y*y + x*x);
 					if (deg < 0) deg += 360;
-					// console.log(top, left);
-					Drag.el.css({ transform: `rotate(${deg}deg)` });
+					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
 				}
 				break;
 			case "mouseup":
