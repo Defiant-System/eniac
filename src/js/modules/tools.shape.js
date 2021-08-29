@@ -234,7 +234,8 @@
 					offset: {
 						y: x + r * Math.cos(rad),
 						x: y + r * Math.sin(rad),
-						width: 100,
+						width: +Self.shape.prop("offsetWidth"),
+						height: +Self.shape.prop("offsetHeight"),
 					},
 					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
@@ -248,21 +249,23 @@
 				if (Drag.type === "p1") {
 					let top = event.clientY - Drag.clickY + Drag.origo.y,
 						left = event.clientX - Drag.clickX + Drag.origo.x,
-						oW = Drag.offset.width;
+						oW = Drag.offset.width,
+						oH = Drag.offset.height;
 					Drag.el.css({ top, left });
 					// UI change gradient
-					Gradient.moveP1(left/oW, top/oW);
+					Gradient.moveP1(left/oW, top/oH);
 				} else {
 					// rotate
 					let y = event.clientY - Drag.clickY - Drag.origo.y + Drag.offset.y,
 						x = event.clientX - Drag.clickX - Drag.origo.x + Drag.offset.x,
 						deg = Drag._atan2(y, x) * Drag._PI,
 						width = Drag._sqrt(y*y + x*x),
-						oW = Drag.offset.width;
+						oW = Drag.offset.width,
+						oH = Drag.offset.height;
 					if (deg < 0) deg += 360;
 					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
 					// UI change gradient
-					Gradient.moveP2(x/oW, y/oW, width/oW);
+					Gradient.moveP2(x/oW, y/oH, width/oW);
 				}
 				break;
 			case "mouseup":
