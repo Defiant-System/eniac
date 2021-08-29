@@ -57,7 +57,7 @@
 					.removeClass("hidden");
 
 				// gradient tools
-				let fill = event.el.find("circle, rect").css("fill");
+				let fill = event.el.find("circle, rect, polygon, path").css("fill");
 				if (fill.startsWith("url(")) {
 					let xNode = event.el.find(fill.slice(5,-2)),
 						gradient = {
@@ -87,8 +87,10 @@
 					Self.els.gradientTool
 						.css({ top, left, width, transform: `rotate(${deg}deg)` })
 						.removeClass("hidden");
+					Self.gradient = gradient;
 				} else {
 					Self.els.gradientTool.addClass("hidden");
+					Self.gradient = {};
 				}
 
 				// remember shape
@@ -196,7 +198,8 @@
 	gradientMove(event) {
 		let APP = eniac,
 			Self = APP.tools.shape,
-			Drag = Self.drag;
+			Drag = Self.drag,
+			Gradient = Self.gradient;
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
@@ -212,16 +215,26 @@
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth");
 				
+				if (Gradient.type === "radialGradient") {
+					Gradient.moveP1 = (x, y) => Gradient.xNode.attr({ cx: x, cy: y });
+					Gradient.moveP2 = (x, y, r) => Gradient.xNode.attr({ r });
+				} else {
+					Gradient.moveP1 = (x, y) => Gradient.xNode.attr({ x1: x, y1: y });
+					Gradient.moveP2 = (x, y, r) => Gradient.xNode.attr({ x2: x, y2: y });
+				}
+
 				// create drag object
 				Self.drag = {
 					el,
 					type,
+					gradient: Self.gradient,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					origo: { x, y, r },
 					offset: {
 						y: x + r * Math.cos(rad),
 						x: y + r * Math.sin(rad),
+						width: 100,
 					},
 					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
@@ -234,16 +247,22 @@
 			case "mousemove":
 				if (Drag.type === "p1") {
 					let top = event.clientY - Drag.clickY + Drag.origo.y,
-						left = event.clientX - Drag.clickX + Drag.origo.x
+						left = event.clientX - Drag.clickX + Drag.origo.x,
+						oW = Drag.offset.width;
 					Drag.el.css({ top, left });
+					// UI change gradient
+					Gradient.moveP1(left/oW, top/oW);
 				} else {
 					// rotate
 					let y = event.clientY - Drag.clickY - Drag.origo.y + Drag.offset.y,
 						x = event.clientX - Drag.clickX - Drag.origo.x + Drag.offset.x,
 						deg = Drag._atan2(y, x) * Drag._PI,
-						width = Drag._sqrt(y*y + x*x);
+						width = Drag._sqrt(y*y + x*x),
+						oW = Drag.offset.width;
 					if (deg < 0) deg += 360;
 					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
+					// UI change gradient
+					Gradient.moveP2(x/oW, y/oW, width/oW);
 				}
 				break;
 			case "mouseup":
