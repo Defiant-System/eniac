@@ -265,7 +265,7 @@
 					if (deg < 0) deg += 360;
 					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
 					// UI change gradient
-					Gradient.moveP2(x/oW, y/oH, width/oW);
+					Gradient.moveP2((Drag.origo.x+x)/oW, (Drag.origo.y+y)/oH, width/oW);
 				}
 				break;
 			case "mouseup":
