@@ -1049,6 +1049,34 @@ sidebar {
 							font-size: 11px;
 						}
 					}
+
+					&[data-suffix] {
+						position: relative;
+
+						&.has-caption:after { top: 17px; }
+
+						&:after {
+							content: "";
+							position: absolute;
+							top: 6px;
+							right: 19px;
+						}
+
+						&[data-suffix="°"] {
+							&:after { content: "°"; }
+							input { padding-right: 9px; }
+						}
+
+						&[data-suffix="%"] {
+							&:after { content: "%"; }
+							input { padding-right: 16px; }
+						}
+
+						&[data-suffix="px"] {
+							&:after { content: "px"; }
+							input { padding-right: 18px; }
+						}
+					}
 				}
 
 				.flex-row {
