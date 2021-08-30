@@ -216,11 +216,11 @@
 					r = +el.prop("offsetWidth");
 				
 				if (Gradient.type === "radialGradient") {
-					Gradient.moveP1 = (x, y) => Gradient.xNode.attr({ cx: x, cy: y });
+					Gradient.moveP1 = (cx, cy) => Gradient.xNode.attr({ cx, cy });
 					Gradient.moveP2 = (x, y, r) => Gradient.xNode.attr({ r });
 				} else {
-					Gradient.moveP1 = (x, y) => Gradient.xNode.attr({ x1: x, y1: y });
-					Gradient.moveP2 = (x, y, r) => Gradient.xNode.attr({ x2: x, y2: y });
+					Gradient.moveP1 = (x1, y1, x2, y2) => Gradient.xNode.attr({ x1, y1, x2, y2 });
+					Gradient.moveP2 = (x2, y2) => Gradient.xNode.attr({ x2, y2 });
 				}
 
 				// create drag object
@@ -249,11 +249,13 @@
 				if (Drag.type === "p1") {
 					let top = event.clientY - Drag.clickY + Drag.origo.y,
 						left = event.clientX - Drag.clickX + Drag.origo.x,
+						y2 = event.clientY - Drag.clickY + Drag.offset.y,
+						x2 = event.clientX - Drag.clickX + Drag.offset.x,
 						oW = Drag.offset.width,
 						oH = Drag.offset.height;
 					Drag.el.css({ top, left });
 					// UI change gradient
-					Gradient.moveP1(left/oW, top/oH);
+					Gradient.moveP1(left/oW, top/oH, x2/oW, y2/oH);
 				} else {
 					// rotate
 					let y = event.clientY - Drag.clickY - Drag.origo.y + Drag.offset.y,
