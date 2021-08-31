@@ -236,12 +236,8 @@
 					offset: {
 						width,
 						height,
-						y: x + r * Math.cos(rad),
-						x: y + r * Math.sin(rad),
-					},
-					p2: {
-						y: +Self.gradient.xNode.attr("y2") * height,
-						x: +Self.gradient.xNode.attr("x2") * width,
+						y: y + r * Math.cos(rad),
+						x: x + r * Math.sin(rad),
 					},
 					_round: Math.round,
 					_sqrt: Math.sqrt,
@@ -258,8 +254,8 @@
 						dX = event.clientX - Drag.clickX,
 						top = dY + Drag.origo.y,
 						left = dX + Drag.origo.x,
-						y2 = dY + Drag.p2.y,
-						x2 = dX + Drag.p2.x,
+						y2 = dY + Drag.offset.y,
+						x2 = dX + Drag.offset.x,
 						oW = Drag.offset.width,
 						oH = Drag.offset.height;
 					Drag.el.css({ top, left });
@@ -267,14 +263,13 @@
 					Gradient.moveP1(left/oW, top/oH, x2/oW, y2/oH);
 				} else {
 					// rotate
-					let y = event.clientY - Drag.clickY - Drag.origo.y + Drag.offset.y,
-						x = event.clientX - Drag.clickX - Drag.origo.x + Drag.offset.x,
+					let y = event.clientY - Drag.clickY + Drag.offset.y - Drag.origo.y,
+						x = event.clientX - Drag.clickX + Drag.offset.x - Drag.origo.x,
 						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
 						width = Drag._sqrt(y*y + x*x),
 						oW = Drag.offset.width,
 						oH = Drag.offset.height;
 					if (deg < 0) deg += 360;
-				console.log( deg );
 					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
 					// UI change gradient
 					Gradient.moveP2((Drag.origo.x+x)/oW, (Drag.origo.y+y)/oH, width/oW);
