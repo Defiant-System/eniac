@@ -30,8 +30,8 @@ class File {
 	<style type="text/css">
 		.st0{fill:url(#SVG-GR-1);stroke:#f00;stroke-width:2px;}
 	</style>
-	<linearGradient id="SVG-GR-1" x1=".25" y1=".25" x2=".5" y2=".75">
-		<stop offset="0%" stop-color="#669966" />
+	<linearGradient id="SVG-GR-1" x1=".12" y1=".25" x2=".35" y2=".75">
+		<stop offset="0%" stop-color="#161" />
 		<stop offset="100%" stop-color="#ff9900" />
 	</linearGradient>
 	<rect class="st0" x="3" y="3" width="94" height="94"/>

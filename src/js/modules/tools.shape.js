@@ -213,7 +213,9 @@
 					rad = Math.atan2(a, b),
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
-					r = +el.prop("offsetWidth");
+					r = +el.prop("offsetWidth"),
+					width = +Self.shape.prop("offsetWidth"),
+					height = +Self.shape.prop("offsetHeight");
 				
 				if (Gradient.type === "radialGradient") {
 					Gradient.moveP1 = (cx, cy) => Gradient.xNode.attr({ cx, cy });
@@ -232,11 +234,16 @@
 					clickY: event.clientY,
 					origo: { x, y, r },
 					offset: {
+						width,
+						height,
 						y: x + r * Math.cos(rad),
 						x: y + r * Math.sin(rad),
-						width: +Self.shape.prop("offsetWidth"),
-						height: +Self.shape.prop("offsetHeight"),
 					},
+					p2: {
+						y: +Self.gradient.xNode.attr("y2") * height,
+						x: +Self.gradient.xNode.attr("x2") * width,
+					},
+					_round: Math.round,
 					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
 					_PI: 180 / Math.PI,
@@ -247,10 +254,12 @@
 				break;
 			case "mousemove":
 				if (Drag.type === "p1") {
-					let top = event.clientY - Drag.clickY + Drag.origo.y,
-						left = event.clientX - Drag.clickX + Drag.origo.x,
-						y2 = event.clientY - Drag.clickY + Drag.offset.y,
-						x2 = event.clientX - Drag.clickX + Drag.offset.x,
+					let dY = event.clientY - Drag.clickY,
+						dX = event.clientX - Drag.clickX,
+						top = dY + Drag.origo.y,
+						left = dX + Drag.origo.x,
+						y2 = dY + Drag.p2.y,
+						x2 = dX + Drag.p2.x,
 						oW = Drag.offset.width,
 						oH = Drag.offset.height;
 					Drag.el.css({ top, left });
@@ -260,11 +269,12 @@
 					// rotate
 					let y = event.clientY - Drag.clickY - Drag.origo.y + Drag.offset.y,
 						x = event.clientX - Drag.clickX - Drag.origo.x + Drag.offset.x,
-						deg = Drag._atan2(y, x) * Drag._PI,
+						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
 						width = Drag._sqrt(y*y + x*x),
 						oW = Drag.offset.width,
 						oH = Drag.offset.height;
 					if (deg < 0) deg += 360;
+				console.log( deg );
 					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
 					// UI change gradient
 					Gradient.moveP2((Drag.origo.x+x)/oW, (Drag.origo.y+y)/oH, width/oW);
