@@ -216,14 +216,6 @@
 					r = +el.prop("offsetWidth"),
 					width = +Self.shape.prop("offsetWidth"),
 					height = +Self.shape.prop("offsetHeight");
-				
-				if (Gradient.type === "radialGradient") {
-					Gradient.moveP1 = (cx, cy) => Gradient.xNode.attr({ cx, cy });
-					Gradient.moveP2 = (x, y, r) => Gradient.xNode.attr({ r });
-				} else {
-					Gradient.moveP1 = (x1, y1, x2, y2) => Gradient.xNode.attr({ x1, y1, x2, y2 });
-					Gradient.moveP2 = (x2, y2) => Gradient.xNode.attr({ x2, y2 });
-				}
 
 				// create drag object
 				Self.drag = {
@@ -244,6 +236,14 @@
 					_atan2: Math.atan2,
 					_PI: 180 / Math.PI,
 				};
+				// drag functions
+				if (Gradient.type === "radialGradient") {
+					Gradient.moveP1 = (cx, cy) => Gradient.xNode.attr({ cx, cy });
+					Gradient.moveP2 = (x, y, r) => Gradient.xNode.attr({ r });
+				} else {
+					Gradient.moveP1 = (x1, y1, x2, y2) => Gradient.xNode.attr({ x1, y1, x2, y2 });
+					Gradient.moveP2 = (x2, y2) => Gradient.xNode.attr({ x2, y2 });
+				}
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
