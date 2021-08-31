@@ -14,6 +14,7 @@
 		switch (event.type) {
 			case "populate-shape-values":
 				Self.dispatch({ ...event, type: "update-shape-style" });
+				Self.dispatch({ ...event, type: "update-shape-fill" });
 				Self.dispatch({ ...event, type: "update-shape-outline-width" });
 				break;
 			case "update-shape-style":
@@ -22,6 +23,9 @@
 				// update sidebar value
 				// value = Color.rgbToHex(Shape.find("path").cssProp("fill"));
 				// Els.el.find(`.shape-styles span[data-arg="${value}"]`).addClass("active");
+				break;
+			case "update-shape-fill":
+				console.log(APP.tools.shape.gradient);
 				break;
 			case "update-shape-outline-width":
 				value = parseInt(ShapeItem.css("stroke-width"), 10);
