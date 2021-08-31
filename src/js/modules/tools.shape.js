@@ -56,8 +56,12 @@
 					.css({ top, left, width, height })
 					.removeClass("hidden");
 
+				// remember shape
+				Self.shape = event.el;
+				Self.shapeItem = event.el.find("circle, rect, polygon, path");
+
 				// gradient tools
-				let fill = event.el.find("circle, rect, polygon, path").css("fill");
+				let fill = Self.shapeItem.css("fill");
 				if (fill.startsWith("url(")) {
 					let xNode = event.el.find(fill.slice(5,-2)),
 						gradient = {
@@ -93,8 +97,6 @@
 					Self.gradient = {};
 				}
 
-				// remember shape
-				Self.shape = event.el;
 				// update sidebar
 				APP.sidebar.dispatch({ ...event, type: "show-shape" });
 				break;

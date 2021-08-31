@@ -51,7 +51,7 @@
 				<div class="flex-row">
 					<legend class="bold">Angle</legend>
 					<div data-suffix="°">
-						<input type="number" name="shape-gradient-angle" value="315"/>
+						<input type="number" name="shape-gradient-angle" min="0" max="360" step="1" value="315"/>
 						<div>
 							<span></span>
 							<span></span>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="color-preset_" data-click="popup-color-ring" data-change="set-shape-outline-color" style="--preset-color: #000000;"></div>
 				<div class="w23">
-					<input type="number" value="1" min="0" max="10" data-change="set-shape-outline-width"/>
+					<input type="number" value="1" min="0" max="10" id="shape-outline" data-change="set-shape-outline-width"/>
 					<div>
 						<span></span>
 						<span></span>
