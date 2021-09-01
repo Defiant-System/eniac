@@ -68,6 +68,7 @@
 							xNode,
 							type: xNode.prop("nodeName"),
 							stops: xNode.find("stop").map(x => ({
+								xNode: $(x),
 								offset: parseInt(x.getAttribute("offset"), 10),
 								color: x.getAttribute("stop-color"),
 							})),

@@ -38,7 +38,7 @@
 				let points = [], strip = [];
 				Shape.gradient.stops.map(stop => {
 					strip.push(`${stop.color} ${stop.offset}%`);
-					points.push(`<span class="point" style="left: ${stop.offset * width / 100}px; --color: ${stop.color};"></span>`);
+					points.push(`<span class="point" style="left: ${stop.offset * width / 100}px; --color: ${stop.color}; --offset: ${stop.offset};"></span>`);
 				});
 				el.html(points.join(""));
 				el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
@@ -77,13 +77,45 @@
 				// prevent default behaviour
 				event.preventDefault();
 
+				// dragged element
+				let el = $(event.target).addClass("dragging"),
+					pEl = el.parent(),
+					index = el.index(),
+					stops = [...APP.tools.shape.gradient.stops];
+
+				// create drag object
+				Self.drag = {
+					el,
+					pEl,
+					stops,
+					index,
+					clickX: event.clientX - event.offsetX,
+					offsetX: +el.prop("offsetLeft"),
+					maxX: +el.parent().prop("offsetWidth") - 2,
+				};
+
+				// Popup.dispatch({ type: "popup-color-ring" })
+
 				// bind event
 				Parent.els.doc.on("mousemove mouseup", Self.gradientPoints);
 				break;
 			case "mousemove":
-				console.log(event);
+				let left = Math.max(Math.min(event.clientX - Drag.clickX + Drag.offsetX, Drag.maxX), 0),
+					offset = Math.round((left / Drag.maxX) * 1000) / 10,
+					strip;
+				Drag.el.css({ left });
+				
+				// add dragged point data
+				Drag.stops[Drag.index].offset = offset;
+				strip = Drag.stops.map(stop => `${stop.color} ${stop.offset}%`);
+				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+
+				// svg gradient stop update
+				Drag.stops[Drag.index].xNode.attr({ offset: offset +"%" });
 				break;
 			case "mouseup":
+				// reset dragged element
+				Drag.el.removeClass("dragging");
 				// unbind event
 				Parent.els.doc.off("mousemove mouseup", Self.gradientPoints);
 				break;
