@@ -52,7 +52,7 @@ class File {
 
 <div class="shape"><svg id="shape-triangle" viewBox="0 0 100 100">
 	<style type="text/css">
-		.st2{fill:#ff0000;stroke:#333333;stroke-width:3px;}
+		.st2{fill:#ea261f;stroke:#333333;stroke-width:3px;}
 	</style>
 	<polygon class="st2" points="97,97 50,3.6 3,97 "/>
 </svg></div>`;
