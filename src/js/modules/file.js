@@ -28,20 +28,20 @@ class File {
 
 			html += `<div class="shape"><svg id="shape-rectangle" viewBox="0 0 100 100">
 	<style type="text/css">
-		.st0{fill:url(#SVG-GR-1);stroke:#111;stroke-width:2px;}
+		.st0{fill:url(#SVG-GR-1);stroke:#111111;stroke-width:2px;}
 	</style>
 	<linearGradient id="SVG-GR-1" x1=".5" y1=".1" x2=".5" y2=".9">
-		<stop offset="0%" stop-color="#55b" />
-		<stop offset="49%" stop-color="#eef" />
-		<stop offset="50%" stop-color="#555" />
-		<stop offset="100%" stop-color="#ddd" />
+		<stop offset="0%" stop-color="#5555bb" />
+		<stop offset="49%" stop-color="#eeeeff" />
+		<stop offset="50%" stop-color="#555555" />
+		<stop offset="100%" stop-color="#dddddd" />
 	</linearGradient>
 	<rect class="st0" x="3" y="3" width="94" height="94"/>
 </svg></div>
 
 <div class="shape"><svg id="shape-disc" viewBox="0 0 100 100">
 	<style type="text/css">
-		.st1{fill:url(#SVG-GR-2);stroke:#333;stroke-width:3px;}
+		.st1{fill:url(#SVG-GR-2);stroke:#333333;stroke-width:3px;}
 	</style>
 	<radialGradient id="SVG-GR-2" cx="0.25" cy="0.25" r="0.75">
         <stop offset="0%" stop-color="#aaddff"/>
@@ -52,7 +52,7 @@ class File {
 
 <div class="shape"><svg id="shape-triangle" viewBox="0 0 100 100">
 	<style type="text/css">
-		.st2{fill:#f00;stroke:#333;stroke-width:3px;}
+		.st2{fill:#ff0000;stroke:#333333;stroke-width:3px;}
 	</style>
 	<polygon class="st2" points="97,97 50,3.6 3,97 "/>
 </svg></div>`;

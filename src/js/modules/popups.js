@@ -101,7 +101,7 @@
 				el = $(event.target);
 				value = el.cssProp("--color");
 				Self.origin = { el, value };
-				let [hue, sat, lgh, alpha] = Color.hexToHsl(value),
+				let [hue, sat, lgh, alpha] = Color.hexToHsl(value.trim()),
 					a = +pEl.find(".color-box").prop("offsetWidth") - 1,
 					c = (a * sat || a) * Math.sqrt(2),
 					t = (c / Math.sqrt(2)) * 2,

@@ -14,6 +14,7 @@
 			Els = APP.sidebar.els,
 			Shape = event.shape || APP.tools.shape,
 			name,
+			fill,
 			value,
 			width,
 			el;
@@ -27,8 +28,11 @@
 				// reset (if any) previous active
 				Els.el.find(".shape-styles .active").removeClass("active");
 				// update sidebar value
-				// value = Color.rgbToHex(Shape.find("path").cssProp("fill"));
-				// Els.el.find(`.shape-styles span[data-arg="${value}"]`).addClass("active");
+				fill = Shape.shapeItem.cssProp("fill");
+				if (!fill.startsWith("url(")) {
+					value = Color.rgbToHex(fill);
+					Els.el.find(`.shape-styles span[data-arg="${value}"]`).addClass("active");
+				}
 				break;
 			case "update-shape-fill":
 				el = Els.el.find(".gradient-colors");
@@ -57,7 +61,7 @@
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
 				// update shape element
-				Shape.shape.find("path").css({ fill: el.data("arg") });
+				Shape.shapeItem.css({ fill: el.data("arg") });
 				break;
 			case "set-fill-gradient-color":
 				console.log(event);
@@ -89,12 +93,11 @@
 					pEl,
 					stops,
 					index,
+					clickTime: Date.now(),
 					clickX: event.clientX - event.offsetX,
 					offsetX: +el.prop("offsetLeft"),
 					maxX: +el.parent().prop("offsetWidth") - 2,
 				};
-
-				// Popup.dispatch({ type: "popup-color-ring" })
 
 				// bind event
 				Parent.els.doc.on("mousemove mouseup", Self.gradientPoints);
@@ -114,6 +117,11 @@
 				Drag.stops[Drag.index].xNode.attr({ offset: offset +"%" });
 				break;
 			case "mouseup":
+				if (Date.now() - Drag.clickTime < 250) {
+					// time check for "click"
+					setTimeout(() =>
+						APP.popups.dispatch({ type: "popup-color-ring", target: event.target }));
+				}
 				// reset dragged element
 				Drag.el.removeClass("dragging");
 				// unbind event
