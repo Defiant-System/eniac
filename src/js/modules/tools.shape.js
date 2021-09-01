@@ -209,7 +209,8 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let el = $(event.target.parentNode),
+				let input = APP.sidebar.els.el.find("input#shape-gradient-angle"),
+					el = $(event.target.parentNode),
 					type = event.target.className.split(" ")[1],
 					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
 					rad = Math.atan2(a, b),
@@ -223,6 +224,7 @@
 				Self.drag = {
 					el,
 					type,
+					input,
 					gradient: Self.gradient,
 					clickX: event.clientX,
 					clickY: event.clientY,
@@ -273,6 +275,8 @@
 						oH = Drag.offset.height;
 					if (deg < 0) deg += 360;
 					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
+					// updates sidebar angle input value
+					Drag.input.val(deg);
 					// UI change gradient
 					Gradient.moveP2((Drag.origo.x+x)/oW, (Drag.origo.y+y)/oH, width/oW);
 				}

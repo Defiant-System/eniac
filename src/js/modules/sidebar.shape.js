@@ -28,14 +28,20 @@
 				el = Els.el.find(".gradient-colors");
 				width = +el.prop("offsetWidth") - 2;
 				
+				// gradient
 				let points = [], strip = [];
 				Shape.gradient.stops.map(stop => {
 					strip.push(`${stop.color} ${stop.offset}%`);
 					points.push(`<span class="point" style="left: ${stop.offset * width / 100}px; --color: ${stop.color};"></span>`);
 				});
-
 				el.html(points.join(""));
 				el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+
+				// gradient angle value
+				el = APP.tools.shape.els.gradientTool;
+				let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(",");
+				value = Math.atan2(b, a) * 180 / Math.PI;
+				Els.el.find("input#shape-gradient-angle").val(value);
 				break;
 			case "update-shape-outline-width":
 				value = parseInt(Shape.shapeItem.css("stroke-width"), 10);
