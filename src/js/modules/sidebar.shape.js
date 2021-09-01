@@ -2,6 +2,12 @@
 // eniac.sidebar.shape
 
 {
+	init(parent) {
+		// fast reference
+		this.parent = parent;
+		// bind event handlers
+		parent.els.el.on("mousedown", ".gradient-colors .point", this.gradientPoints);
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.shape,
@@ -58,6 +64,28 @@
 				break;
 			case "set-shape-outline-width":
 				Shape.shapeItem.css({ "stroke-width": +event.value +"px" });
+				break;
+		}
+	},
+	gradientPoints(event) {
+		let APP = eniac,
+			Self = APP.sidebar.shape,
+			Parent = Self.parent,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+
+				// bind event
+				Parent.els.doc.on("mousemove mouseup", Self.gradientPoints);
+				break;
+			case "mousemove":
+				console.log(event);
+				break;
+			case "mouseup":
+				// unbind event
+				Parent.els.doc.off("mousemove mouseup", Self.gradientPoints);
 				break;
 		}
 	}

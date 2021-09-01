@@ -5,9 +5,15 @@
 	init() {
 		// fast references
 		this.els = {
+			doc: $(document),
 			layout: window.find("layout"),
 			el: window.find("sidebar"),
 		};
+		
+		// init all sub-objects
+		Object.keys(this)
+			.filter(i => typeof this[i].init === "function")
+			.map(i => this[i].init(this));
 
 		// temp
 		// setTimeout(() => 
