@@ -973,6 +973,17 @@ sidebar {
 				background: fadeout(@outline_color, 47%);
 			}
 
+			&.solid-options {
+				> .flex-row { display: flex; }
+				> .gradient-options { display: none; }
+			}
+
+			&.linearGradient-options,
+			&.radialGradient-options {
+				> .flex-row { display: none; }
+				> .gradient-options { display: block; }
+			}
+
 			legend.bold,
 			> legend {
 				font-weight: 500;
@@ -1109,10 +1120,6 @@ sidebar {
 				selectbox {
 					margin-bottom: 7px;
 				}
-			}
-
-			.solid-options {
-				display: none;
 			}
 
 			.gradient-options {

@@ -95,6 +95,7 @@
 					Self.gradient = gradient;
 				} else {
 					Self.els.gradientTool.addClass("hidden");
+					Self.fill = Color.rgbToHex(fill);
 					Self.gradient = {};
 				}
 

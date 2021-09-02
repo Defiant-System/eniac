@@ -27,18 +27,19 @@
 			</div>
 		</div>
 
-		<div class="group-row">
+		<div class="group-row solid-options">
 			<legend>Fill</legend>
-			<div>
+			<div data-click="select-fill-type">
 				<div class="option-buttons_ has-text">
-					<span>Solid</span>
-					<span>Linear</span>
-					<span class="active_">Radial</span>
+					<span data-arg="solid">Solid</span>
+					<span data-arg="linearGradient">Linear</span>
+					<span data-arg="radialGradient">Radial</span>
 				</div>
 			</div>
-			<div class="flex-row solid-options">
+			<div class="flex-row">
+				<legend class="bold">Color</legend>
 				<div>
-					<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-outline-color" style="--preset-color: #000000;"></div>
+					<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-fill-color" style="--preset-color: #000000;"></div>
 				</div>
 			</div>
 			<div class="gradient-options">
