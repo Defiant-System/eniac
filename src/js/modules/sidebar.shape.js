@@ -161,13 +161,17 @@
 				let top = event.clientY - Drag.click.y,
 					left = Drag._max(Drag._min(event.clientX - Drag.click.x, Drag.max.x), 0),
 					offsetX = Drag._round((left / Drag.max.x) * 1000) / 10,
+					discard = top > Drag.max.y || top < -11,
 					strip;
 				Drag.el.css({ left });
-				Drag.el[top > Drag.max.y || top < -11 ? "addClass" : "removeClass"]("hidden");
+				Drag.el[discard ? "addClass" : "removeClass"]("hidden");
 				
 				// add dragged point data
 				Drag.stops[Drag.index].offset = offsetX;
-				strip = Drag.stops.map(stop => `${stop.color} ${stop.offset}%`);
+				Drag.stops[Drag.index].discard = discard;
+				strip = Drag.stops
+							.filter(s => !s.discard)
+							.map(stop => `${stop.color} ${stop.offset}%`);
 				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 
 				// // svg gradient stop update
