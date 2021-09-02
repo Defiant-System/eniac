@@ -119,27 +119,37 @@
 					stops,
 					index,
 					clickTime: Date.now(),
-					clickX: event.clientX - event.offsetX,
-					offsetX: +el.prop("offsetLeft"),
-					maxX: +el.parent().prop("offsetWidth") - 2,
+					click: {
+						y: event.clientY - +el.prop("offsetTop"),
+						x: event.clientX - +el.prop("offsetLeft"),
+					},
+					max: {
+						x: +pEl.prop("offsetWidth") - 2,
+						y: +pEl.prop("offsetHeight") + parseInt(pEl.css("marginBottom"), 10) - 11,
+					},
+					_max: Math.max,
+					_min: Math.min,
+					_round: Math.round,
 				};
 
 				// bind event
 				Parent.els.doc.on("mousemove mouseup", Self.gradientPoints);
 				break;
 			case "mousemove":
-				let left = Math.max(Math.min(event.clientX - Drag.clickX + Drag.offsetX, Drag.maxX), 0),
-					offset = Math.round((left / Drag.maxX) * 1000) / 10,
+				let top = event.clientY - Drag.click.y,
+					left = Drag._max(Drag._min(event.clientX - Drag.click.x, Drag.max.x), 0),
+					offsetX = Drag._round((left / Drag.max.x) * 1000) / 10,
 					strip;
 				Drag.el.css({ left });
+				Drag.el[top > Drag.max.y || top < -11 ? "addClass" : "removeClass"]("hidden");
 				
 				// add dragged point data
-				Drag.stops[Drag.index].offset = offset;
+				Drag.stops[Drag.index].offset = offsetX;
 				strip = Drag.stops.map(stop => `${stop.color} ${stop.offset}%`);
 				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 
 				// svg gradient stop update
-				Drag.stops[Drag.index].xNode.attr({ offset: offset +"%" });
+				Drag.stops[Drag.index].xNode.attr({ offset: offsetX +"%" });
 				break;
 			case "mouseup":
 				if (Date.now() - Drag.clickTime < 250) {

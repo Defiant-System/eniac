@@ -1158,7 +1158,7 @@ sidebar {
 						top: 17px;
 						width: 16px;
 						height: 16px;
-						margin-left: -7px;
+						transform: translateX(-7px);
 						border-radius: 50%;
 						filter: drop-shadow(0 0 2px rgba(0,0,0,.35));
 
@@ -1189,6 +1189,10 @@ sidebar {
 
 						&.dragging {
 							z-index: 2;
+						}
+
+						&.hidden {
+							display: none;
 						}
 
 						// &:nth-child(1) {
