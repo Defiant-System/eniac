@@ -6,7 +6,7 @@
 		// fast reference
 		this.parent = parent;
 		// bind event handlers
-		parent.els.el.on("mousedown", ".gradient-colors .point", this.gradientPoints);
+		parent.els.el.on("mousedown", ".gradient-colors", this.gradientPoints);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -107,10 +107,11 @@
 				event.preventDefault();
 
 				// dragged element
-				let el = $(event.target).addClass("dragging"),
+				let el = $(event.target),
 					pEl = el.parent(),
 					index = el.index(),
-					stops = [...APP.tools.shape.gradient.stops];
+					Gradient = APP.tools.shape.gradient,
+					stops = [...Gradient.stops];
 
 				// create drag object
 				Self.drag = {
@@ -118,6 +119,7 @@
 					pEl,
 					stops,
 					index,
+					Gradient,
 					clickTime: Date.now(),
 					click: {
 						y: event.clientY - +el.prop("offsetTop"),
@@ -131,6 +133,26 @@
 					_min: Math.min,
 					_round: Math.round,
 				};
+
+				if (el.hasClass("gradient-colors")) {
+					// add new gradient point
+					let offset = Math.round(event.offsetX / Self.drag.max.x * 1000) / 10,
+						color = "#ff0000";
+					stops.map((stop, i) => { if (stop.offset < offset) index = i; });
+
+					let str = `<span class="point" style="left: ${event.offsetX}px; --color: ${color}; --offset: ${offset};"></span>`,
+						target = el.insertAt(str, index)[0],
+						clientX = event.clientX,
+						clientY = event.clientY,
+						preventDefault = () => {};
+					// add new stop to array
+					Gradient.add(index + 1, { offset, color });
+					// trigger "fake" mousedown event on new point
+					Self.gradientPoints({ type: "mousedown", target, clientX, clientY, preventDefault });
+					return;
+				}
+				// point is being dragged
+				el.addClass("dragging");
 
 				// bind event
 				Parent.els.doc.on("mousemove mouseup", Self.gradientPoints);
@@ -148,8 +170,8 @@
 				strip = Drag.stops.map(stop => `${stop.color} ${stop.offset}%`);
 				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 
-				// svg gradient stop update
-				Drag.stops[Drag.index].xNode.attr({ offset: offsetX +"%" });
+				// // svg gradient stop update
+				// Drag.stops[Drag.index].xNode.attr({ offset: offsetX +"%" });
 				break;
 			case "mouseup":
 				if (Date.now() - Drag.clickTime < 250) {
@@ -159,6 +181,13 @@
 				}
 				// reset dragged element
 				Drag.el.removeClass("dragging");
+				// check if point is to be removed
+				if (Drag.el.hasClass("hidden")) {
+					// delete element
+					Drag.el.remove();
+					// remove point from gradient strip
+					Drag.Gradient.remove(Drag.index);
+				}
 				// unbind event
 				Parent.els.doc.off("mousemove mouseup", Self.gradientPoints);
 				break;

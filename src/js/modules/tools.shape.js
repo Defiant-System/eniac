@@ -72,6 +72,12 @@
 								offset: parseInt(x.getAttribute("offset"), 10),
 								color: x.getAttribute("stop-color"),
 							})),
+							add(index, stop) {
+								console.log("add", index, stop);
+							},
+							remove(index) {
+								console.log("remove", index);
+							}
 						};
 					switch (gradient.type) {
 						case "radialGradient":

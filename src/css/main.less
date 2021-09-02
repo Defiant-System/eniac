@@ -1152,12 +1152,24 @@ sidebar {
 						pointer-events: none;
 					}
 
+					&:after {
+						content: "";
+						// background: rgba(0,0,0,.1);
+						position: absolute;
+						top: 100%;
+						left: 0;
+						right: 0;
+						height: 17px;
+						z-index: 1;
+					}
+
 					.point {
 						background: #fff;
 						position: absolute;
 						top: 17px;
 						width: 16px;
 						height: 16px;
+						z-index: 2;
 						transform: translateX(-7px);
 						border-radius: 50%;
 						filter: drop-shadow(0 0 2px rgba(0,0,0,.35));
@@ -1188,7 +1200,7 @@ sidebar {
 						}
 
 						&.dragging {
-							z-index: 2;
+							z-index: 3;
 						}
 
 						&.hidden {
