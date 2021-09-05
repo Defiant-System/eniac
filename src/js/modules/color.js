@@ -34,8 +34,24 @@ const Color = {
 			a = parseInt(hex.substr(7,2) || "ff", 16);
 		return this.rgbToHsl(r, g, b, a);
 	},
-	hexToRgbl(hex) {
-
+	mixColors(hex1, hex2, p) {
+		let rgb1 = this.hexToRgb(hex1),
+			rgb2 = this.hexToRgb(hex2),
+			w = p * 2 - 1,
+			w1 = (w + 1) / 2.0,
+			w2 = 1 - w1,
+			rgb = [
+				parseInt(rgb1[0] * w1 + rgb2[0] * w2, 10),
+				parseInt(rgb1[1] * w1 + rgb2[1] * w2, 10),
+				parseInt(rgb1[2] * w1 + rgb2[2] * w2, 10)
+			];
+		return this.rgbToHex(`rgb(${rgb.join(",")})`);
+	},
+	hexToRgb(hex) {
+		let r = parseInt(hex.substr(1,2), 16),
+			g = parseInt(hex.substr(3,2), 16),
+			b = parseInt(hex.substr(5,2), 16);
+		return [r, g, b];
 	},
 	rgbToHsl(r, g, b, a=255) {
 		r /= 255;
