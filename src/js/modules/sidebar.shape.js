@@ -102,7 +102,7 @@
 			Parent = Self.parent,
 			Drag = Self.drag;
 		switch (event.type) {
-			case "mousedown":
+			case "mousedown": {
 				// prevent default behaviour
 				event.preventDefault();
 
@@ -110,8 +110,9 @@
 				let el = $(event.target),
 					pEl = el.parent(),
 					index = el.index(),
-					Gradient = APP.tools.shape.gradient,
-					stops = [...Gradient.stops];
+					siblings = pEl.find("span"),
+					gradient = APP.tools.shape.gradient,
+					stops = [...gradient.stops];
 
 				// create drag object
 				Self.drag = {
@@ -119,7 +120,7 @@
 					pEl,
 					stops,
 					index,
-					Gradient,
+					siblings,
 					clickTime: Date.now(),
 					click: {
 						y: event.clientY - +el.prop("offsetTop"),
@@ -136,17 +137,20 @@
 
 				if (el.hasClass("gradient-colors")) {
 					// add new gradient point
-					let offset = Math.round(event.offsetX / Self.drag.max.x * 1000) / 10,
-						color = "#ff0000";
+					let offset = Math.round(event.offsetX / Self.drag.max.x * 1000) / 10;
 					stops.map((stop, i) => { if (stop.offset < offset) index = i; });
 
-					let str = `<span class="point" style="left: ${event.offsetX}px; --color: ${color}; --offset: ${offset};"></span>`,
+					let stop1 = stops[index],
+						stop2 = stops[index+1],
+						perc = ((offset - stop1.offset) / (stop2.offset - stop1.offset)),
+						color = Color.mixColors(stop2.color, stop1.color, perc),
+						str = `<span class="point" style="left: ${event.offsetX}px; --color: ${color}; --offset: ${offset};"></span>`,
 						target = el.insertAt(str, index)[0],
 						clientX = event.clientX,
 						clientY = event.clientY,
 						preventDefault = () => {};
 					// add new stop to array
-					Gradient.add(index + 1, { offset, color });
+					Drag.stops = gradient.add({ offset, color, index: index+1 });
 					// trigger "fake" mousedown event on new point
 					Self.gradientPoints({ type: "mousedown", target, clientX, clientY, preventDefault });
 					return;
@@ -156,26 +160,24 @@
 
 				// bind event
 				Parent.els.doc.on("mousemove mouseup", Self.gradientPoints);
-				break;
+				} break;
 			case "mousemove":
 				let top = event.clientY - Drag.click.y,
 					left = Drag._max(Drag._min(event.clientX - Drag.click.x, Drag.max.x), 0),
 					offsetX = Drag._round((left / Drag.max.x) * 1000) / 10,
-					discard = top > Drag.max.y || top < -11,
-					strip;
+					discard = top > Drag.max.y || top < -11;
 				Drag.el.css({ left });
 				Drag.el[discard ? "addClass" : "removeClass"]("hidden");
-				
-				// add dragged point data
-				Drag.stops[Drag.index].offset = offsetX;
-				Drag.stops[Drag.index].discard = discard;
-				strip = Drag.stops
-							.filter(s => !s.discard)
-							.map(stop => `${stop.color} ${stop.offset}%`);
-				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 
-				// // svg gradient stop update
-				// Drag.stops[Drag.index].xNode.attr({ offset: offsetX +"%" });
+				let stops = Drag.siblings.map(el => ({
+							offset: parseInt(el.offsetLeft / Drag.max.x * 100, 10),
+							color: getComputedStyle(el).getPropertyValue("--color"),
+						}))
+						.sort((a, b) => a.offset - b.offset);
+
+				let strip = stops.filter(s => !s.discard)
+								.map(stop => `${stop.color} ${stop.offset}%`);
+				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 				break;
 			case "mouseup":
 				if (Date.now() - Drag.clickTime < 250) {

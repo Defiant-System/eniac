@@ -67,16 +67,22 @@
 						gradient = {
 							xNode,
 							type: xNode.prop("nodeName"),
-							stops: xNode.find("stop").map(x => ({
+							stops: xNode.find("stop").map((x, index) => ({
+								index,
 								xNode: $(x),
 								offset: parseInt(x.getAttribute("offset"), 10),
 								color: x.getAttribute("stop-color"),
 							})),
-							add(index, stop) {
-								console.log("add", index, stop);
+							add(stop) {
+								console.log( this.stops );
+								this.stops.splice(stop.index, 0, stop);
+								return this.stops;
 							},
-							remove(index) {
-								console.log("remove", index);
+							update(stop, offset) {
+								
+							},
+							remove(stop) {
+								console.log("remove", stop);
 							}
 						};
 					switch (gradient.type) {
@@ -98,10 +104,12 @@
 					Self.els.gradientTool
 						.css({ top, left, width, transform: `rotate(${deg}deg)` })
 						.removeClass("hidden");
+					// save reference to gradient
 					Self.gradient = gradient;
 				} else {
 					Self.els.gradientTool.addClass("hidden");
 					Self.fill = Color.rgbToHex(fill);
+					// reset reference
 					Self.gradient = {};
 				}
 
