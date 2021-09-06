@@ -111,16 +111,14 @@
 					pEl = el.parent(),
 					index = el.index(),
 					siblings = pEl.find("span"),
-					gradient = APP.tools.shape.gradient,
-					stops = [...gradient.stops];
+					gradient = APP.tools.shape.gradient;
 
 				// create drag object
 				Self.drag = {
 					el,
 					pEl,
-					stops,
-					index,
 					siblings,
+					gradient,
 					clickTime: Date.now(),
 					click: {
 						y: event.clientY - +el.prop("offsetTop"),
@@ -137,7 +135,8 @@
 
 				if (el.hasClass("gradient-colors")) {
 					// add new gradient point
-					let offset = Math.round(event.offsetX / Self.drag.max.x * 1000) / 10;
+					let stops = [...gradient.stops],
+						offset = Math.round(event.offsetX / Self.drag.max.x * 1000) / 10;
 					stops.map((stop, i) => { if (stop.offset < offset) index = i; });
 
 					let stop1 = stops[index],
@@ -164,19 +163,24 @@
 			case "mousemove":
 				let top = event.clientY - Drag.click.y,
 					left = Drag._max(Drag._min(event.clientX - Drag.click.x, Drag.max.x), 0),
-					offsetX = Drag._round((left / Drag.max.x) * 1000) / 10,
-					discard = top > Drag.max.y || top < -11;
+					offsetX = Drag._round(left / Drag.max.x * 1000) / 10,
+					discard = top > Drag.max.y || top < -11,
+					stops,
+					strip;
 				Drag.el.css({ left });
 				Drag.el[discard ? "addClass" : "removeClass"]("hidden");
 
-				let stops = Drag.siblings.map(el => ({
-							offset: parseInt(el.offsetLeft / Drag.max.x * 100, 10),
-							color: getComputedStyle(el).getPropertyValue("--color"),
+				// compose stops array and update SVG
+				stops = Drag.siblings.map(el => ({
+							offset: Math.round(el.offsetLeft / Drag.max.x * 1000) / 10,
+							color: getComputedStyle(el).getPropertyValue("--color").trim(),
 						}))
 						.sort((a, b) => a.offset - b.offset);
+				Drag.gradient.update(stops);
 
-				let strip = stops.filter(s => !s.discard)
-								.map(stop => `${stop.color} ${stop.offset}%`);
+				// create sidebar gradient strip
+				strip = stops.filter(s => !s.discard)
+							.map(stop => `${stop.color} ${stop.offset}%`);
 				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 				break;
 			case "mouseup":
@@ -185,6 +189,10 @@
 					setTimeout(() =>
 						APP.popups.dispatch({ type: "popup-color-ring", target: event.target }));
 				}
+
+				// update DOM structore of gradient strip
+				// Self.dispatch({ type: "update-shape-fill" });
+
 				// reset dragged element
 				Drag.el.removeClass("dragging");
 				// check if point is to be removed

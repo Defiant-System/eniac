@@ -78,8 +78,20 @@
 								this.stops.splice(stop.index, 0, stop);
 								return this.stops;
 							},
-							update(stop, offset) {
-								
+							update(stops) {
+								let reorder = stops.reduce((a, e, i) => a + (e.color !== this.stops[i].color ? 1 : 0), 0);
+								if (reorder) {
+									let htm = stops.map(stop => `<stop offset="${stop.offset}%" stop-color="${stop.color}" />`),
+										newStops = this.xNode.html(htm.join(""))
+													.find("stop").map((x, index) => ({
+														index,
+														xNode: $(x),
+														offset: parseInt(x.getAttribute("offset"), 10),
+														color: x.getAttribute("stop-color"),
+													}));
+									Self.gradient.stops = newStops;
+								}
+								stops.map((s, i) => this.stops[i].xNode.attr({ offset: s.offset +"%" }));
 							},
 							remove(stop) {
 								console.log("remove", stop);
