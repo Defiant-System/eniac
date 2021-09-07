@@ -64,27 +64,33 @@
 				let fill = Self.shapeItem.css("fill"),
 					switchType = function(type) {
 						let el = Self.shape,
-							stops = this.stops || [{ offset: 0, color: "#ffffff" }, { offset: 100, color: "#000000" }],
+							defStops = [{ offset: 0, color: "#ffffff" }, { offset: 100, color: "#336699" }],
+							stops = this.stops || defStops,
 							htm = [],
 							xGradient,
+							fill,
 							id;
 						switch (type) {
 							case "linearGradient":
 								// gradient id
-								id = Self.shapeItem.css("fill").slice(6,-2);
+								id = Self.shapeItem.css("fill");
+								id = id.startsWith("url(") ? id.slice(6,-2) : "s"+ Date.now();
+								fill = `url(#${id})`;
 								// prepare gradient html
-								htm.push(`<linearGradient id="${id}" x1=".5" y1="0" x2=".5" y2="1">`);
+								htm.push(`<linearGradient id="${id}" x1=".5" y1=".1" x2=".5" y2=".9">`);
 								stops.map(s => htm.push(`<stop offset="${s.offset}%" stop-color="${s.color}"></stop>`));
 								htm.push(`</linearGradient>`);
 								// create gradient node and replace existing
 								xGradient = $(`<svg>${htm.join("")}</svg>`)[0].firstChild;
 								
 								if (this.xNode) this.xNode.replace(xGradient);
-								else Self.shape.append(xGradient);
+								else Self.shapeItem.before(xGradient);
 								break;
 							case "radialGradient":
 								// gradient id
-								id = Self.shapeItem.css("fill").slice(6,-2);
+								id = Self.shapeItem.css("fill");
+								id = id.startsWith("url(") ? id.slice(6,-2) : "s"+ Date.now();
+								fill = `url(#${id})`;
 								// prepare gradient html
 								htm.push(`<radialGradient id="${id}" cx="0.5" cy="0.5" r="0.5">`);
 								stops.map(s => htm.push(`<stop offset="${s.offset}%" stop-color="${s.color}"></stop>`));
@@ -93,12 +99,15 @@
 								xGradient = $(`<svg>${htm.join("")}</svg>`)[0].firstChild;
 								
 								if (this.xNode) this.xNode.replace(xGradient);
-								else Self.shape.append(xGradient);
+								else Self.shapeItem.before(xGradient);
 								break;
 							case "solid":
-								Self.shapeItem.css({ fill: "#336699" });
+								if (this.xNode) this.xNode.remove();
+								fill = "#336699";
 								break;
 						}
+						console.log(fill);
+						Self.shapeItem.css({ fill });
 						// re-focus on shape
 						Self.dispatch({ type: "focus-shape", el });
 					};
