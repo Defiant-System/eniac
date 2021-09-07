@@ -100,7 +100,8 @@
 		let APP = eniac,
 			Self = APP.sidebar.shape,
 			Parent = Self.parent,
-			Drag = Self.drag;
+			Drag = Self.drag,
+			stops;
 		switch (event.type) {
 			case "mousedown": {
 				// prevent default behaviour
@@ -131,6 +132,16 @@
 					_max: Math.max,
 					_min: Math.min,
 					_round: Math.round,
+					getStops() {
+						return this.siblings
+								.filter(el => !el.classList.contains("hidden"))
+								.map(el => {
+									let offset = Math.round(el.offsetLeft / this.max.x * 1000) / 10,
+										color = getComputedStyle(el).getPropertyValue("--color").trim();
+									return { offset, color };
+								})
+								.sort((a, b) => a.offset - b.offset);
+					}
 				};
 
 				if (el.hasClass("gradient-colors")) {
@@ -149,7 +160,7 @@
 						clientY = event.clientY,
 						preventDefault = () => {};
 					// add new stop to array
-					Drag.stops = gradient.add({ offset, color, index: index+1 });
+					gradient.add({ offset, color }, index + 1);
 					// trigger "fake" mousedown event on new point
 					Self.gradientPoints({ type: "mousedown", target, clientX, clientY, preventDefault });
 					return;
@@ -165,17 +176,12 @@
 					left = Drag._max(Drag._min(event.clientX - Drag.click.x, Drag.max.x), 0),
 					offsetX = Drag._round(left / Drag.max.x * 1000) / 10,
 					discard = top > Drag.max.y || top < -11,
-					stops,
 					strip;
 				Drag.el.css({ left });
 				Drag.el[discard ? "addClass" : "removeClass"]("hidden");
 
 				// compose stops array and update SVG
-				stops = Drag.siblings.map(el => ({
-							offset: Math.round(el.offsetLeft / Drag.max.x * 1000) / 10,
-							color: getComputedStyle(el).getPropertyValue("--color").trim(),
-						}))
-						.sort((a, b) => a.offset - b.offset);
+				stops = Drag.getStops();
 				Drag.gradient.update(stops);
 
 				// create sidebar gradient strip
@@ -190,17 +196,15 @@
 						APP.popups.dispatch({ type: "popup-color-ring", target: event.target }));
 				}
 
-				// update DOM structore of gradient strip
-				// Self.dispatch({ type: "update-shape-fill" });
-
 				// reset dragged element
 				Drag.el.removeClass("dragging");
 				// check if point is to be removed
 				if (Drag.el.hasClass("hidden")) {
 					// delete element
 					Drag.el.remove();
-					// remove point from gradient strip
-					Drag.Gradient.remove(Drag.index);
+					// compose stops array and update SVG
+					stops = Drag.getStops();
+					Drag.gradient.update(stops);
 				}
 				// unbind event
 				Parent.els.doc.off("mousemove mouseup", Self.gradientPoints);

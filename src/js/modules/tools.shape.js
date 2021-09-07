@@ -73,13 +73,13 @@
 								offset: parseInt(x.getAttribute("offset"), 10),
 								color: x.getAttribute("stop-color"),
 							})),
-							add(stop) {
-								console.log( this.stops );
-								this.stops.splice(stop.index, 0, stop);
-								return this.stops;
+							add(stop, index) {
+								let stops = this.stops.map(s => ({ offset: s.offset, color: s.color }));
+								stops.splice(index, 0, stop);
+								this.update(stops);
 							},
 							update(stops) {
-								let reorder = stops.reduce((a, e, i) => a + (e.color !== this.stops[i].color ? 1 : 0), 0);
+								let reorder = stops.length !== this.stops.length || stops.reduce((a, e, i) => a + (e.color !== this.stops[i].color ? 1 : 0), 0);
 								if (reorder) {
 									let htm = stops.map(stop => `<stop offset="${stop.offset}%" stop-color="${stop.color}" />`),
 										newStops = this.xNode.html(htm.join(""))
@@ -92,9 +92,6 @@
 									Self.gradient.stops = newStops;
 								}
 								stops.map((s, i) => this.stops[i].xNode.attr({ offset: s.offset +"%" }));
-							},
-							remove(stop) {
-								console.log("remove", stop);
 							}
 						};
 					switch (gradient.type) {
