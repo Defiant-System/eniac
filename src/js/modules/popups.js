@@ -95,7 +95,7 @@
 				dim = pEl[0].getBoundingClientRect();
 				pos = Self.getPosition(event.target, Self.els.layout[0]);
 				top = pos.top + event.target.offsetHeight + 13;
-				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 5;
+				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 12;
 				
 				// prepare popup contents
 				el = $(event.target);
@@ -184,7 +184,7 @@
 				let origin = Self.origin.el,
 					oParent = origin.parent(),
 					section = oParent.parents("[data-section]").data("section"),
-					[hue, sat, lgh, alpha] = Color.hexToHsl(Self.origin.value),
+					[hue, sat, lgh, alpha] = Color.hexToHsl(Self.origin.value.trim()),
 					root = Self.els.colorRing,
 					box = root.find(".color-box"),
 					target = event.target,
@@ -200,6 +200,7 @@
 				// create drag object
 				Self.drag = {
 					el,
+					oParent,
 					root,
 					box,
 					type,
@@ -212,6 +213,7 @@
 					_PI: Math.PI,
 					_min: Math.min,
 					_max: Math.max,
+					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
 				};
 
@@ -265,7 +267,7 @@
 						if (left === 0) left = 1;
 						Drag.lgh = (1 - (left / (top + left))) || 0.1;
 						// calculates saturation
-						Drag.sat = (Math.sqrt((left * left) + (top * top)) / Drag.satScale);
+						Drag.sat = (Drag._sqrt((left * left) + (top * top)) / Drag.satScale);
 						break;
 					case "range":
 						top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.maxY), 0);
