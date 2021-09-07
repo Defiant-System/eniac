@@ -74,7 +74,7 @@
 								color: x.getAttribute("stop-color"),
 							})),
 							add(stop, index) {
-								let stops = this.stops.map(s => ({ offset: s.offset, color: s.color }));
+								let stops = this.stops.map(({ offset, color }) => ({ offset, color }));
 								stops.splice(index, 0, stop);
 								this.update(stops);
 							},

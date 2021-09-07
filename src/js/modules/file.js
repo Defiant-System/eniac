@@ -30,7 +30,7 @@ class File {
 	<style type="text/css">
 		.st0{fill:url(#SVG-GR-1);stroke:#111111;stroke-width:2px;}
 	</style>
-	<linearGradient id="SVG-GR-1" x1=".5" y1="0" x2=".5" y2="1">
+	<linearGradient id="SVG-GR-1" x1=".5" y1=".1" x2=".5" y2=".9">
 		<stop offset="0%" stop-color="#5555bb" />
 		<stop offset="45%" stop-color="#eeeeff" />
 		<stop offset="54%" stop-color="#555555" />
