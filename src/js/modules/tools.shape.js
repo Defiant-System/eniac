@@ -119,7 +119,7 @@
 					Self.els.gradientTool.addClass("hidden");
 					Self.fill = Color.rgbToHex(fill);
 					// reset reference
-					Self.gradient = {};
+					Self.gradient = { type: "solid" };
 				}
 
 				// update sidebar

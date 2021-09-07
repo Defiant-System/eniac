@@ -20,13 +20,25 @@
 			el;
 		switch (event.type) {
 			case "select-fill-type":
+				// update tabs
 				el = $(event.target);
 				el.parent().find(".active_").removeClass("active_");
 				el.addClass("active_");
-
+				// update tab body
 				el.parents(".group-row")
 					.removeClass("solid-options linearGradient-options radialGradient-options")
 					.addClass(`${el.data("arg")}-options`);
+				// update selected shape
+				if (Shape.gradient.type !== el.data("arg")) {
+					switch (el.data("arg")) {
+						case "linearGradient": break;
+						case "radialGradient": break;
+						case "solid":
+							Shape.shapeItem.css({ fill: "#000000" });
+							APP.tools.shape.dispatch({ type: "focus-shape", el: Shape.shape });
+							break;
+					}
+				}
 				break;
 			case "populate-shape-values":
 				Self.dispatch({ ...event, type: "update-shape-style" });
