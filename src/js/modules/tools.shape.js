@@ -61,11 +61,52 @@
 				Self.shapeItem = event.el.find("circle, rect, polygon, path");
 
 				// gradient tools
-				let fill = Self.shapeItem.css("fill");
+				let fill = Self.shapeItem.css("fill"),
+					switchType = function(type) {
+						let el = Self.shape,
+							stops = this.stops || [{ offset: 0, color: "#ffffff" }, { offset: 100, color: "#000000" }],
+							htm = [],
+							xGradient,
+							id;
+						switch (type) {
+							case "linearGradient":
+								// gradient id
+								id = Self.shapeItem.css("fill").slice(6,-2);
+								// prepare gradient html
+								htm.push(`<linearGradient id="${id}" x1=".5" y1="0" x2=".5" y2="1">`);
+								stops.map(s => htm.push(`<stop offset="${s.offset}%" stop-color="${s.color}"></stop>`));
+								htm.push(`</linearGradient>`);
+								// create gradient node and replace existing
+								xGradient = $(`<svg>${htm.join("")}</svg>`)[0].firstChild;
+								
+								if (this.xNode) this.xNode.replace(xGradient);
+								else Self.shape.append(xGradient);
+								break;
+							case "radialGradient":
+								// gradient id
+								id = Self.shapeItem.css("fill").slice(6,-2);
+								// prepare gradient html
+								htm.push(`<radialGradient id="${id}" cx="0.5" cy="0.5" r="0.5">`);
+								stops.map(s => htm.push(`<stop offset="${s.offset}%" stop-color="${s.color}"></stop>`));
+								htm.push(`</radialGradient>`);
+								// create gradient node and replace existing
+								xGradient = $(`<svg>${htm.join("")}</svg>`)[0].firstChild;
+								
+								if (this.xNode) this.xNode.replace(xGradient);
+								else Self.shape.append(xGradient);
+								break;
+							case "solid":
+								Self.shapeItem.css({ fill: "#336699" });
+								break;
+						}
+						// re-focus on shape
+						Self.dispatch({ type: "focus-shape", el });
+					};
 				if (fill.startsWith("url(")) {
 					let xNode = event.el.find(fill.slice(5,-2)),
 						gradient = {
 							xNode,
+							switchType,
 							type: xNode.prop("nodeName"),
 							stops: xNode.find("stop").map((x, index) => ({
 								index,
@@ -119,7 +160,7 @@
 					Self.els.gradientTool.addClass("hidden");
 					Self.fill = Color.rgbToHex(fill);
 					// reset reference
-					Self.gradient = { type: "solid" };
+					Self.gradient = { type: "solid", switchType };
 				}
 
 				// update sidebar

@@ -28,16 +28,10 @@
 				el.parents(".group-row")
 					.removeClass("solid-options linearGradient-options radialGradient-options")
 					.addClass(`${el.data("arg")}-options`);
+				
 				// update selected shape
 				if (Shape.gradient.type !== el.data("arg")) {
-					switch (el.data("arg")) {
-						case "linearGradient": break;
-						case "radialGradient": break;
-						case "solid":
-							Shape.shapeItem.css({ fill: "#000000" });
-							APP.tools.shape.dispatch({ type: "focus-shape", el: Shape.shape });
-							break;
-					}
+					Shape.gradient.switchType(el.data("arg"));
 				}
 				break;
 			case "populate-shape-values":
