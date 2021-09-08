@@ -44,7 +44,7 @@ class File {
 		.st1{fill:url(#SVG-GR-2);stroke:#333333;stroke-width:3px;}
 	</style>
 	<radialGradient id="SVG-GR-2" cx="0.25" cy="0.25" r="0.75">
-        <stop offset="0%" stop-color="#aaddff70"/>
+        <stop offset="0%" stop-color="#aaddff"/>
         <stop offset="100%" stop-color="#336699"/>
       </radialGradient>
 	<circle class="st1" cx="50" cy="50" r="47"/>

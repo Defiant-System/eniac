@@ -98,8 +98,16 @@
 				Shape.shapeItem.css({ fill: el.data("arg") });
 				break;
 			case "set-fill-gradient-color":
-				// console.log(event.hex);
+				// update gradient point
 				event.point.css({ "--color": event.hex });
+				// update gradient strip
+				let maxWidth = +event.el.prop("offsetWidth") - 2,
+					strip = event.el.find(".point").map(el => {
+						let offset = Math.round(el.offsetLeft / maxWidth * 1000) / 10,
+							color = getComputedStyle(el).getPropertyValue("--color").trim();
+						return `${color} ${offset}%`;
+					});
+				event.el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 				break;
 			case "set-shape-fill-color":
 				APP.tools.shape.shapeItem.css({ fill: event.value });
