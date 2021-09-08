@@ -106,7 +106,6 @@
 								fill = "#336699";
 								break;
 						}
-						console.log(fill);
 						Self.shapeItem.css({ fill });
 						// re-focus on shape
 						Self.dispatch({ type: "focus-shape", el });

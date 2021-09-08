@@ -103,7 +103,7 @@
 				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
 				// box
 				let hsv = Color.hexToHsv(value.trim()),
-					w = +Self.els.colorRing.find(".color-box").prop("offsetWidth");
+					w = +Self.els.colorRing.find(".color-box").prop("offsetWidth") - 1;
 				pEl.find(".color-box span").css({
 					left: w * hsv[2],
 					top: w * (1-hsv[2]),

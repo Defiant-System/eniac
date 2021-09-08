@@ -102,12 +102,21 @@
 				event.point.css({ "--color": event.hex });
 				// update gradient strip
 				let maxWidth = +event.el.prop("offsetWidth") - 2,
-					strip = event.el.find(".point").map(el => {
-						let offset = Math.round(el.offsetLeft / maxWidth * 1000) / 10,
-							color = getComputedStyle(el).getPropertyValue("--color").trim();
-						return `${color} ${offset}%`;
-					});
+					stops = [],
+					strip = [];
+				// loop points
+				event.el.find(".point").map(el => {
+					let offset = Math.round(el.offsetLeft / maxWidth * 1000) / 10,
+						color = getComputedStyle(el).getPropertyValue("--color").trim();
+					// prepare strip gradient
+					strip.push(`${color} ${offset}%`);
+					// prepare svg gradient
+					stops.push({ offset, color });
+				});
+				// UI update sidebar gradient strip
 				event.el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+
+				APP.tools.shape.gradient.update(stops);
 				break;
 			case "set-shape-fill-color":
 				APP.tools.shape.shapeItem.css({ fill: event.value });

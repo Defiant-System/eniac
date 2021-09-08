@@ -60,7 +60,7 @@ const Color = {
 			case g: h = (b - r) + d * 2; h /= 6 * d; break;
 			case b: h = (r - g) + d * 4; h /= 6 * d; break;
 		}
-		return [h, s, v, a];
+		return [Math.round(h*360), s, v, a];
 	},
 	hexToRgb(hex) {
 		let r = parseInt(hex.substr(1,2), 16),
