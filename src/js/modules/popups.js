@@ -117,7 +117,6 @@
 					"--color": hex,
 					"--color-opaque": hex.slice(0, -2),
 				});
-				console.log(hue, sat, lgh, alpha);
 
 				pEl.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
@@ -190,7 +189,6 @@
 						handler: APP.sidebar[section].dispatch,
 						name: oParent.data("change"),
 					};
-				console.log(hue, sat, lgh, alpha);
 
 				// create drag object
 				Self.drag = {
@@ -263,7 +261,6 @@
 						break;
 				}
 				hex = Color.hslToHex(Drag.hue, Drag.sat, Drag.lgh, Drag.alpha);
-				console.log(Drag.hue, Drag.sat, Drag.lgh, Drag.alpha);
 				Drag.root.css({ "--color": hex, "--color-opaque": hex.slice(0,-2) });
 
 				// rgba = [...rgb, Drag.alpha];
