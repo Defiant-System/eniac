@@ -15,12 +15,8 @@
 			colorRing: window.find(".popups .popup-colour-ring .ring-wrapper"),
 			palette: window.find(".popups .popup-palette"),
 		};
-
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
-
-		// let tmp = Color.rgbToHue(0, 0, 255);
-		// console.log(tmp);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -101,21 +97,16 @@
 				el = $(event.target);
 				value = el.cssProp("--color");
 				Self.origin = { el, value };
-				let [hue, sat, lgh, alpha] = Color.hexToHsl(value.trim()),
-					a = +pEl.find(".color-box").prop("offsetWidth") - 1,
-					c = (a * sat || a) * Math.sqrt(2),
-					t = (c / Math.sqrt(2)) * 2,
-					l = t * lgh;
-
-				// gray shades
-				if (!hue && !sat) l = a - l;
+				let [hue, sat, lgh, alpha] = Color.hexToHsl(value.trim());
 
 				// ring rotation
 				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
 				// box
+				let hsv = Color.hexToHsv(value.trim()),
+					w = +Self.els.colorRing.find(".color-box").prop("offsetWidth");
 				pEl.find(".color-box span").css({
-					left: Math.min(Math.max(l, 0), a),
-					top: Math.min(Math.max(t - l - a, 0), a),
+					left: w * hsv[2],
+					top: w * (1-hsv[2]),
 				});
 				// alpha
 				pEl.find(".color-alpha span").css({ top: `${alpha * 159}px` });
@@ -211,6 +202,7 @@
 					alpha,
 					event: dragEvent,
 					_PI: Math.PI,
+					_abs: Math.abs,
 					_min: Math.min,
 					_max: Math.max,
 					_sqrt: Math.sqrt,
@@ -228,20 +220,15 @@
 					case "box":
 						Self.drag.clickX = rect.x;
 						Self.drag.clickY = rect.y;
-						Self.drag.satScale = Math.sqrt((Math.pow(89, 2)) + (Math.pow(89, 2)));
-						Self.drag.satOrigo = {
-							x: rect.x,
-							y: rect.y + 89,
-						};
 						Self.drag.max = {
 							w: +pEl.prop("offsetWidth") - 1,
 							h: +pEl.prop("offsetHeight") - 1,
 						};
 						break;
 					case "range":
-						Self.drag.clickY = event.clientY - event.offsetY;
+						Self.drag.clickY = event.clientY - event.offsetY + 3;
 						Self.drag.maxY = +pEl.prop("offsetHeight") - +el.prop("offsetHeight");
-						el.css({ top: event.offsetY });
+						el.css({ top: event.offsetY - 3 });
 						break;
 				}
 				// bind event
@@ -262,12 +249,11 @@
 						top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.max.h), 0);
 						left = Drag._max(Drag._min(event.clientX - Drag.clickX, Drag.max.w), 0);
 						Drag.el.css({ top, left });
-						// calculates lightness
-						top = 89 - top;
-						if (left === 0) left = 1;
-						Drag.lgh = (1 - (left / (top + left))) || 0.1;
-						// calculates saturation
-						Drag.sat = (Drag._sqrt((left * left) + (top * top)) / Drag.satScale);
+						// calculate color from pos
+						let hsvValue = 1 - (((top + .01) / Drag.max.h * 100) / 100),
+							hsvSaturation = (left / Drag.max.w * 100) / 100;
+						Drag.lgh = (hsvValue / 2) * (2 - hsvSaturation);
+						Drag.sat = (hsvValue * hsvSaturation) / (1 - Drag._abs(2 * Drag.lgh - 1));
 						break;
 					case "range":
 						top = Drag._max(Drag._min(event.clientY - Drag.clickY, Drag.maxY), 0);
@@ -280,6 +266,7 @@
 
 				// rgba = [...rgb, Drag.alpha];
 				Drag.origin.css({ "--color": hex });
+				Self.origin.value = hex;
 
 				// route event
 				Drag.event.handler({

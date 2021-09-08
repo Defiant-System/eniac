@@ -28,11 +28,8 @@ const Color = {
 		return this.rgbToHex(`rgb(${rgb.join(",")})`);
 	},
 	hexToHsl(hex) {
-		var r = parseInt(hex.substr(1,2), 16),
-			g = parseInt(hex.substr(3,2), 16),
-			b = parseInt(hex.substr(5,2), 16),
-			a = parseInt(hex.substr(7,2) || "ff", 16);
-		return this.rgbToHsl(r, g, b, a);
+		let rgb = this.hexToRgb(hex);
+		return this.rgbToHsl(...rgb);
 	},
 	mixColors(hex1, hex2, p) {
 		let rgb1 = this.hexToRgb(hex1),
@@ -47,10 +44,29 @@ const Color = {
 			];
 		return this.rgbToHex(`rgb(${rgb.join(",")})`);
 	},
+	hexToHsv(hex) {
+		let rgb = this.hexToRgb(hex);
+		return this.rgbToHsv(...rgb);
+	},
+	rgbToHsv(r, g, b, a=255) {
+		var max = Math.max(r, g, b), min = Math.min(r, g, b),
+			d = max - min,
+			h,
+			s = (max === 0 ? 0 : d / max),
+			v = max / 255;
+		switch (max) {
+			case min: h = 0; break;
+			case r: h = (g - b) + d * (g < b ? 6: 0); h /= 6 * d; break;
+			case g: h = (b - r) + d * 2; h /= 6 * d; break;
+			case b: h = (r - g) + d * 4; h /= 6 * d; break;
+		}
+		return [h, s, v, a];
+	},
 	hexToRgb(hex) {
 		let r = parseInt(hex.substr(1,2), 16),
 			g = parseInt(hex.substr(3,2), 16),
-			b = parseInt(hex.substr(5,2), 16);
+			b = parseInt(hex.substr(5,2), 16),
+			a = parseInt(hex.substr(7,2) || "ff", 16);
 		return [r, g, b];
 	},
 	rgbToHsl(r, g, b, a=255) {

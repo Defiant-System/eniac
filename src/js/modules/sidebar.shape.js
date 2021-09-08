@@ -7,6 +7,12 @@
 		this.parent = parent;
 		// bind event handlers
 		parent.els.el.on("mousedown", ".gradient-colors", this.gradientPoints);
+
+		// temp
+		setTimeout(() => {
+			let target = this.parent.els.el.find(".gradient-colors .point:nth(0)")[0];
+			eniac.popups.dispatch({ type: "popup-color-ring", target });
+		}, 500);
 	},
 	dispatch(event) {
 		let APP = eniac,

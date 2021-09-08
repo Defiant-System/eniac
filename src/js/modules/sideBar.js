@@ -14,11 +14,6 @@
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
-
-		// temp
-		// setTimeout(() => 
-		// 	this.els.el.find(".gradient-colors .point:nth(0)").trigger("click")
-		// , 500);
 	},
 	sheet: @import "sidebar.sheet.js",
 	shape: @import "sidebar.shape.js",

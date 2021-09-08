@@ -63,7 +63,7 @@ class File {
 		Render.workbook(this._file.book, html);
 		
 		setTimeout(() => {
-			window.find(`.shape:nth(0)`).trigger("mousedown").trigger("mouseup")
+			window.find(`.shape:nth(1)`).trigger("mousedown").trigger("mouseup")
 		}, 150);
 		
 		// temp
