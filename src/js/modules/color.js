@@ -74,7 +74,6 @@ const Color = {
 		r /= 255;
 		g /= 255;
 		b /= 255;
-		a /= 255;
 		var max = Math.max(r, g, b),
 			min = Math.min(r, g, b),
 			l = (max + min) / 2,
