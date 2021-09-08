@@ -117,7 +117,7 @@
 					"--color": hex,
 					"--color-opaque": hex.slice(0, -2),
 				});
-
+				// position popup
 				pEl.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
 				break;

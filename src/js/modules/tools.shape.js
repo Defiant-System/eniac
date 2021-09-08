@@ -170,7 +170,6 @@
 					// reset reference
 					Self.gradient = { type: "solid", switchType };
 				}
-
 				// update sidebar
 				APP.sidebar.dispatch({ ...event, type: "show-shape" });
 				break;

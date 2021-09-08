@@ -34,7 +34,6 @@
 				el.parents(".group-row")
 					.removeClass("solid-options linearGradient-options radialGradient-options")
 					.addClass(`${el.data("arg")}-options`);
-				
 				// update selected shape
 				if (Shape.gradient.type !== el.data("arg")) {
 					Shape.gradient.switchType(el.data("arg"));
