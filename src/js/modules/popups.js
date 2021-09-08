@@ -105,7 +105,7 @@
 				let hsv = Color.hexToHsv(value.trim()),
 					w = +Self.els.colorRing.find(".color-box").prop("offsetWidth") - 1;
 				pEl.find(".color-box span").css({
-					left: w * hsv[2],
+					left: w * hsv[1],
 					top: w * (1-hsv[2]),
 				});
 				// alpha
