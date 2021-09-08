@@ -41,7 +41,7 @@ const Color = {
 				parseInt(rgb1[0] * w1 + rgb2[0] * w2, 10),
 				parseInt(rgb1[1] * w1 + rgb2[1] * w2, 10),
 				parseInt(rgb1[2] * w1 + rgb2[2] * w2, 10),
-				parseInt(rgb1[3] * w1 + rgb2[3] * w2, 10)
+				rgb1[3] * w1 + rgb2[3] * w2
 			];
 		return this.rgbToHex(`rgba(${rgb.join(",")})`);
 	},
@@ -67,7 +67,7 @@ const Color = {
 		let r = parseInt(hex.substr(1,2), 16),
 			g = parseInt(hex.substr(3,2), 16),
 			b = parseInt(hex.substr(5,2), 16),
-			a = parseInt(hex.substr(7,2) || "ff", 16);
+			a = parseInt(hex.substr(7,2) || "ff", 16) / 255;
 		return [r, g, b, a];
 	},
 	rgbToHsl(r, g, b, a=1) {
