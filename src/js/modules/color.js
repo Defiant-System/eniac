@@ -40,7 +40,8 @@ const Color = {
 			rgb = [
 				parseInt(rgb1[0] * w1 + rgb2[0] * w2, 10),
 				parseInt(rgb1[1] * w1 + rgb2[1] * w2, 10),
-				parseInt(rgb1[2] * w1 + rgb2[2] * w2, 10)
+				parseInt(rgb1[2] * w1 + rgb2[2] * w2, 10),
+				parseInt(rgb1[3] * w1 + rgb2[3] * w2, 10)
 			];
 		return this.rgbToHex(`rgba(${rgb.join(",")})`);
 	},
@@ -48,7 +49,7 @@ const Color = {
 		let rgb = this.hexToRgb(hex);
 		return this.rgbToHsv(...rgb);
 	},
-	rgbToHsv(r, g, b, a=255) {
+	rgbToHsv(r, g, b, a=1) {
 		var max = Math.max(r, g, b), min = Math.min(r, g, b),
 			d = max - min,
 			h,
@@ -69,7 +70,7 @@ const Color = {
 			a = parseInt(hex.substr(7,2) || "ff", 16);
 		return [r, g, b, a];
 	},
-	rgbToHsl(r, g, b, a=255) {
+	rgbToHsl(r, g, b, a=1) {
 		r /= 255;
 		g /= 255;
 		b /= 255;
@@ -95,8 +96,9 @@ const Color = {
 	rgbToHex(rgb) {
 		let d = "0123456789abcdef".split(""),
 			hex = x => isNaN(x) ? "00" : d[(x-x%16)/16] + d[x%16];
-		rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+),\s*([\.\d]+)\)$/);
-		let a = Math.round(rgb[4] * 255);
-		return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]) + hex(a);
+		rgb = rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\.\d]+)\)$/);
+		if (!rgb) rgb = arguments[0].match(/^rgb?\((\d+),\s*(\d+),\s*(\d+)\)$/);
+		let a = Math.round((rgb[4] || 1) * 255);
+		return "#"+ hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]) + hex(a);
 	}
 };
