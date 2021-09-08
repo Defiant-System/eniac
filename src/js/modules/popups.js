@@ -111,9 +111,11 @@
 				// alpha
 				pEl.find(".color-alpha span").css({ top: `${alpha * 159}px` });
 				// root element css variables
+				let hex = Color.hslToHex(hue, sat, lgh, alpha);
 				Self.els.colorRing.css({
 					"--hue-color": Color.hslToHex(hue, 1, .5),
-					"--color": Color.hslToHex(hue, sat, lgh),
+					"--color": hex,
+					"--color-opaque": hex.slice(0, -2),
 				});
 
 				pEl.css({ top, left }).addClass("pop");
@@ -261,8 +263,8 @@
 						Drag.el.css({ top });
 						break;
 				}
-				hex = Color.hslToHex(Drag.hue, Drag.sat, Drag.lgh);
-				Drag.root.css({ "--color": hex });
+				hex = Color.hslToHex(Drag.hue, Drag.sat, Drag.lgh, Drag.alpha);
+				Drag.root.css({ "--color": hex, "--color-opaque": hex.slice(0,-2) });
 
 				// rgba = [...rgb, Drag.alpha];
 				Drag.origin.css({ "--color": hex });

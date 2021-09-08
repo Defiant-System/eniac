@@ -98,6 +98,7 @@
 				Shape.shapeItem.css({ fill: el.data("arg") });
 				break;
 			case "set-fill-gradient-color":
+				// console.log(event.hex);
 				event.point.css({ "--color": event.hex });
 				break;
 			case "set-shape-fill-color":

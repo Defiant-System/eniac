@@ -288,48 +288,7 @@ layout {
 				width: 166px;
 				height: 166px;
 				--color: #ff0000;
-			}
-
-			.color-alpha {
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				right: -33px;
-				width: 16px;
-				border-radius: 2px;
-				box-shadow: inset 1px 1px 1px rgba(0,0,0,.125),
-							1px 1px 0 rgba(255,255,255,.5);
-				background: linear-gradient(45deg, #ccc 25%, transparent 25%),
-							linear-gradient(-45deg, #ccc 25%, transparent 25%),
-							linear-gradient(45deg, transparent 75%, #ccc 75%),
-							linear-gradient(-45deg, transparent 75%, #ccc 75%);
-				background-color: #fff;
-				background-size: 16px 16px;
-				background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-
-				&:before {
-					content: "";
-					background: linear-gradient(to bottom, transparent 0%, var(--color) 100%);
-					position: absolute;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					pointer-events: none;
-				}
-
-				.alpha-cursor {
-					position: absolute;
-					top: 160px;
-					left: -1px;
-					width: 18px;
-					height: 7px;
-					z-index: 2;
-					border-radius: 10px;
-					pointer-events: none;
-					box-shadow: 0 0 0 1px #000,
-								inset 0 0 0 1px #fff;
-				}
+				--color-opaque: #ff0000;
 			}
 
 			.color-ring {
@@ -411,6 +370,48 @@ layout {
 					margin: -4px 0 0 -4px;
 					z-index: 2;
 					border-radius: 50%;
+					box-shadow: 0 0 0 1px #000,
+								inset 0 0 0 1px #fff;
+				}
+			}
+
+			.color-alpha {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: -33px;
+				width: 16px;
+				border-radius: 2px;
+				box-shadow: inset 1px 1px 1px rgba(0,0,0,.125),
+							1px 1px 0 rgba(255,255,255,.5);
+				background: linear-gradient(45deg, #ccc 25%, transparent 25%),
+							linear-gradient(-45deg, #ccc 25%, transparent 25%),
+							linear-gradient(45deg, transparent 75%, #ccc 75%),
+							linear-gradient(-45deg, transparent 75%, #ccc 75%);
+				background-color: #fff;
+				background-size: 16px 16px;
+				background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+
+				&:before {
+					content: "";
+					background: linear-gradient(to bottom, transparent 0%, var(--color-opaque) 100%);
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					pointer-events: none;
+				}
+
+				.alpha-cursor {
+					position: absolute;
+					top: 160px;
+					left: -1px;
+					width: 18px;
+					height: 7px;
+					z-index: 2;
+					border-radius: 10px;
+					pointer-events: none;
 					box-shadow: 0 0 0 1px #000,
 								inset 0 0 0 1px #fff;
 				}
