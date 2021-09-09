@@ -58,7 +58,7 @@
 
 				// remember shape
 				Self.shape = event.el;
-				Self.shapeItem = event.el.find("circle, rect, polygon, path");
+				Self.shapeItem = event.el.find("circle, rect, polygon, polyline, path");
 
 				// gradient tools
 				let fill = Self.shapeItem.css("fill"),
