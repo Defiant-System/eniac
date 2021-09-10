@@ -43,6 +43,7 @@
 				Self.dispatch({ ...event, type: "update-shape-style" });
 				Self.dispatch({ ...event, type: "update-shape-fill" });
 				Self.dispatch({ ...event, type: "update-shape-outline" });
+				Self.dispatch({ ...event, type: "update-shape-shadow" });
 				break;
 			case "update-shape-style":
 				// reset (if any) previous active
@@ -87,20 +88,31 @@
 				}
 				break;
 			case "update-shape-outline":
+				let stroke = Shape.shapeItem.css("stroke");
 				// outline style
 				value = Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
-				if (value[0] === value[1]) value = "dotted";
-				else if (value[0] === value[1] * 2) value = "dashed";
-				else value = "solid";
+				switch (true) {
+					case value[0] === value[1]: value = "dotted"; break;
+					case value[0] === value[1] * 2: value = "dashed"; break;
+					case stroke === "none": value = "none"; break;
+					default: value = "solid";
+				}
 				Self.parent.els.el.find(".shape-outline").val(value);
 
 				// outline color
-				value = Color.rgbToHex(Shape.shapeItem.css("stroke")).slice(0, -2);
+				value = Shape.shapeItem.css("stroke");
+				value = (stroke === "none" || value === "none")
+						? "transparent"
+						: Color.rgbToHex(value).slice(0, -2);
 				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-outline-color"]`)
 							.css({ "--preset-color": value });
+				
 				// outline width
 				value = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				if (stroke === "none") value = 0;
 				Els.el.find("input#shape-outline").val(value);
+				break;
+			case "update-shape-shadow":
 				break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
@@ -133,10 +145,10 @@
 				APP.tools.shape.shapeItem.css({ fill: event.value });
 				break;
 			case "set-shape-outline-style":
-				let sw = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				width = parseInt(Shape.shapeItem.css("stroke-width"), 10);
 				switch (event.arg) {
-					case "dashed": value = [sw*2, sw]; break;
-					case "dotted": value = [sw, sw]; break;
+					case "dashed": value = [width*2, width]; break;
+					case "dotted": value = [width, width]; break;
 					case "solid": value = [0]; break;
 				}
 				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
