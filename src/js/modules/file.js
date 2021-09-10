@@ -28,7 +28,7 @@ class File {
 
 			html += `<div class="shape"><svg id="shape-rounded" viewBox="0 0 100 100">
 	<style type="text/css">
-		.st3{fill:#ff9900;stroke:#333333;stroke-width:2px;}
+		.st3{fill:#ff9900;stroke:#333333;stroke-width:3px;stroke:#f00;stroke-dasharray:3,3;}
 	</style>
 	<path class="st3" d="M19.1,3h61.8C89.8,3,97,10.2,97,19.1v61.8C97,89.8,89.8,97,80.9,97H19.1C10.2,97,3,89.8,3,80.9V19.1C3,10.2,10.2,3,19.1,3z"/>
 </svg></div>
@@ -59,7 +59,7 @@ class File {
 
 <div class="shape"><svg id="shape-triangle" viewBox="0 0 100 100">
 	<style type="text/css">
-		.st2{fill:#ea261f;stroke:#333333;stroke-width:3px;}
+		.st2{fill:#ea261f;stroke:#333333;stroke-width:2px;stroke:#000000;stroke-dasharray:4,2;}
 	</style>
 	<polygon class="st2" points="97,97 50,3.6 3,97 "/>
 </svg></div>`;
@@ -70,7 +70,7 @@ class File {
 		Render.workbook(this._file.book, html);
 		
 		setTimeout(() => {
-			window.find(`.shape:nth(0)`).trigger("mousedown").trigger("mouseup")
+			window.find(`.shape:nth(3)`).trigger("mousedown").trigger("mouseup")
 		}, 150);
 		
 		// temp

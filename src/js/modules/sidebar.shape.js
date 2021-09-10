@@ -42,7 +42,7 @@
 			case "populate-shape-values":
 				Self.dispatch({ ...event, type: "update-shape-style" });
 				Self.dispatch({ ...event, type: "update-shape-fill" });
-				Self.dispatch({ ...event, type: "update-shape-outline-width" });
+				Self.dispatch({ ...event, type: "update-shape-outline" });
 				break;
 			case "update-shape-style":
 				// reset (if any) previous active
@@ -86,7 +86,19 @@
 							.css({ "--preset-color": APP.tools.shape.fill });
 				}
 				break;
-			case "update-shape-outline-width":
+			case "update-shape-outline":
+				// outline style
+				value = Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
+				if (value[0] === value[1]) value = "dotted";
+				else if (value[0] === value[1] * 2) value = "dashed";
+				else value = "solid";
+				Self.parent.els.el.find(".shape-outline").val(value);
+
+				// outline color
+				value = Color.rgbToHex(Shape.shapeItem.css("stroke")).slice(0, -2);
+				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-outline-color"]`)
+							.css({ "--preset-color": value });
+				// outline width
 				value = parseInt(Shape.shapeItem.css("stroke-width"), 10);
 				Els.el.find("input#shape-outline").val(value);
 				break;
@@ -119,6 +131,18 @@
 				break;
 			case "set-shape-fill-color":
 				APP.tools.shape.shapeItem.css({ fill: event.value });
+				break;
+			case "set-shape-outline-style":
+				let sw = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				switch (event.arg) {
+					case "dashed": value = [sw*2, sw]; break;
+					case "dotted": value = [sw, sw]; break;
+					case "solid": value = [0]; break;
+				}
+				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
+				break;
+			case "set-shape-outline-color":
+				Shape.shapeItem.css({ "stroke": event.value });
 				break;
 			case "set-shape-outline-width":
 				Shape.shapeItem.css({ "stroke-width": +event.value +"px" });
