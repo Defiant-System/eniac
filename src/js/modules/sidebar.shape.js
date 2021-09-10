@@ -13,6 +13,9 @@
 		// 	let target = this.parent.els.el.find(".gradient-colors .point:nth(0)")[0];
 		// 	eniac.popups.dispatch({ type: "popup-color-ring", target });
 		// }, 500);
+		setTimeout(() => {
+			eniac.sidebar.shape.dispatch({ type: "set-shape-shadow" });
+		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -121,7 +124,8 @@
 				if (stroke === "none") value = 0;
 				Els.el.find("input#shape-outline").val(value);
 				break;
-			case "update-shape-shadow":
+			case "update-shape-shadow": {
+				// console.log(Shape.shapeItem.css("filter"));
 				let filter = Shape.shapeItem.css("filter"),
 					rgbColor = filter.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
 					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : "transparent",
@@ -130,18 +134,17 @@
 					bX = shadow ? +shadow[1] : 0,
 					bY = shadow ? +shadow[2] : 0,
 					blur = shadow ? +shadow[3] : 0,
-					offset = 3,
-					angle = Math.round(Math.atan2(bY, bX) * (180 / Math.PI));
-
+					angle = Math.round(Math.atan2(bY, bX) * (180 / Math.PI)),
+					offset = Math.round(Math.sqrt(bY*bY + bX*bX));
+				// drop-shadow values
 				Self.parent.els.el.find(".shape-shadow-blur input").val(blur);
 				Self.parent.els.el.find(".shape-shadow-offset input").val(offset);
 				Self.parent.els.el.find(".shape-shadow-opacity input").val(opacity);
 				Self.parent.els.el.find(`input[name="shape-shadow-angle"]`).val(angle);
-
 				// drop-shadow color
 				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-shadow"]`)
 							.css({ "--preset-color": hexColor });
-				break;
+				} break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
@@ -193,9 +196,17 @@
 			case "set-shape-outline-width":
 				Shape.shapeItem.css({ "stroke-width": +event.value +"px" });
 				break;
-			case "set-shape-shadow":
-				// console.log(event);
-				break;
+			case "set-shape-shadow": {
+				let sEl = Self.parent.els.el,
+					blur = +sEl.find(".shape-shadow-blur input:nth(0)").val(),
+					offset = +sEl.find(".shape-shadow-offset input:nth(0)").val(),
+					rad = (+sEl.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
+					bX = offset * Math.sin(rad),
+					bY = offset * Math.cos(rad),
+					color = sEl.find(`.shadow-angle-color .color-preset_`).css("--preset-color"),
+					filter = `drop-shadow(${color} ${bY}px ${bX}px ${blur}px)`;
+				Shape.shapeItem.css({ filter });
+				} break;
 		}
 	},
 	gradientPoints(event) {
