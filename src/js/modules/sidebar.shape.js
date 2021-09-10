@@ -121,7 +121,31 @@
 				if (stroke === "none") value = 0;
 				Els.el.find("input#shape-outline").val(value);
 				break;
-			case "update-shape-shadow": break;
+			case "update-shape-shadow":
+				let filter = Shape.shapeItem.css("filter"),
+					rgbColor = filter.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
+					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : "transparent",
+					opacity = Math.round(parseInt(hexColor.slice(-2), 16) / 255 * 100),
+					shadow = filter.match(/(\d+)px\s*(\d+)px\s*(\d+)px/),
+					bX = shadow ? +shadow[1] : 0,
+					bY = shadow ? +shadow[2] : 0,
+					bS = shadow ? +shadow[3] : 0,
+					offset = 3,
+					angle = 35;
+
+				Self.parent.els.el.find(`input[name="shape-shadow-blur-range"]`)
+					.parents(".flex-row").find("input").val(bS);
+				Self.parent.els.el.find(`input[name="shape-shadow-offset-range"]`)
+					.parents(".flex-row").find("input").val(offset);
+				Self.parent.els.el.find(`input[name="shape-shadow-opacity-range"]`)
+					.parents(".flex-row").find("input").val(opacity);
+
+				Self.parent.els.el.find(`input[name="shape-shadow-angle"]`).val(angle);
+
+				// drop-shadow color
+				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-shadow"]`)
+							.css({ "--preset-color": hexColor });
+				break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
@@ -172,6 +196,9 @@
 				break;
 			case "set-shape-outline-width":
 				Shape.shapeItem.css({ "stroke-width": +event.value +"px" });
+				break;
+			case "set-shape-shadow":
+				// console.log(event);
 				break;
 		}
 	},
