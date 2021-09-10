@@ -91,13 +91,22 @@
 				let stroke = Shape.shapeItem.css("stroke");
 				// outline style
 				value = Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
+				el = Self.parent.els.el.find(".shape-outline").addClass("has-prefix-icon");
 				switch (true) {
-					case value[0] === value[1]: value = "dotted"; break;
-					case value[0] === value[1] * 2: value = "dashed"; break;
-					case stroke === "none": value = "none"; break;
-					default: value = "solid";
+					case value[0] === value[1]:
+						value = "dotted";
+						break;
+					case value[0] === value[1] * 2:
+						value = "dashed";
+						break;
+					case stroke === "none":
+						value = "none";
+						el.removeClass("has-prefix-icon");
+						break;
+					default:
+						value = "solid";
 				}
-				Self.parent.els.el.find(".shape-outline").val(value);
+				el.val(value);
 
 				// outline color
 				value = Shape.shapeItem.css("stroke");
@@ -112,8 +121,7 @@
 				if (stroke === "none") value = 0;
 				Els.el.find("input#shape-outline").val(value);
 				break;
-			case "update-shape-shadow":
-				break;
+			case "update-shape-shadow": break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
@@ -146,10 +154,13 @@
 				break;
 			case "set-shape-outline-style":
 				width = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				el = Self.parent.els.el.find(".shape-outline").addClass("has-prefix-icon");
 				switch (event.arg) {
 					case "dashed": value = [width*2, width]; break;
 					case "dotted": value = [width, width]; break;
 					case "solid": value = [0]; break;
+					case "none":
+						return el.removeClass("has-prefix-icon").val(event.arg);
 				}
 				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
 				break;

@@ -1230,10 +1230,15 @@ sidebar {
 		selectbox {
 			margin-bottom: 11px;
 
+			&.has-prefix-icon option {
+				font-size: 0;
+				padding-left: 29px;
+			}
+
 			&.shape-outline,
 			&.table-outline {
 				option {
-					font-size: 0;
+					padding-left: 5px;
 
 					&[value="solid"]  { --icon-prefix: url(~/icons/table-outline-solid.png); }
 					&[value="dotted"] { --icon-prefix: url(~/icons/table-outline-dotted.png); }
