@@ -160,6 +160,9 @@
 					case "dotted": value = [width, width]; break;
 					case "solid": value = [0]; break;
 					case "none":
+						Self.dispatch({ type: "set-shape-outline-color", value: "none" });
+						Self.dispatch({ type: "set-shape-outline-width", value: 0 });
+						Self.dispatch({ type: "update-shape-outline" });
 						return el.removeClass("has-prefix-icon").val(event.arg);
 				}
 				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
