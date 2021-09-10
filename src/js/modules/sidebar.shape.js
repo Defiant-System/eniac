@@ -129,17 +129,13 @@
 					shadow = filter.match(/(\d+)px\s*(\d+)px\s*(\d+)px/),
 					bX = shadow ? +shadow[1] : 0,
 					bY = shadow ? +shadow[2] : 0,
-					bS = shadow ? +shadow[3] : 0,
+					blur = shadow ? +shadow[3] : 0,
 					offset = 3,
-					angle = 35;
+					angle = Math.round(Math.atan2(bY, bX) * (180 / Math.PI));
 
-				Self.parent.els.el.find(`input[name="shape-shadow-blur-range"]`)
-					.parents(".flex-row").find("input").val(bS);
-				Self.parent.els.el.find(`input[name="shape-shadow-offset-range"]`)
-					.parents(".flex-row").find("input").val(offset);
-				Self.parent.els.el.find(`input[name="shape-shadow-opacity-range"]`)
-					.parents(".flex-row").find("input").val(opacity);
-
+				Self.parent.els.el.find(".shape-shadow-blur input").val(blur);
+				Self.parent.els.el.find(".shape-shadow-offset input").val(offset);
+				Self.parent.els.el.find(".shape-shadow-opacity input").val(opacity);
 				Self.parent.els.el.find(`input[name="shape-shadow-angle"]`).val(angle);
 
 				// drop-shadow color

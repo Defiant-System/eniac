@@ -61,9 +61,9 @@ class File {
 	<style type="text/css">
 		.st1{
 			fill: url(#SVG-GR-2);
-			strok1e: #333333;
-			stroke-width: 3px;
-			filter: drop-shadow(3px 5px 7px rgba(0,0,0,.35));
+			// stroke: #333333;
+			// stroke-width: 3px;
+			filter: drop-shadow(10px 10px 1px rgba(0,0,0,.35));
 		}
 	</style>
 	<radialGradient id="SVG-GR-2" cx="0.25" cy="0.25" r="0.75">
