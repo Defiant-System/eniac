@@ -238,6 +238,9 @@
 				// if mousedown on handle
 				el = $(event.target);
 				if (el.hasClass("handle")) {
+					if (el.hasClass("rc")) {
+						return Self.rectCornersMove(event);
+					}
 					if (el.parent().hasClass("gradient-tool")) {
 						return Self.gradientMove(event);
 					}
@@ -267,6 +270,43 @@
 			case "mouseup":
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.move);
+				break;
+		}
+	},
+	rectCornersMove(event) {
+		let APP = eniac,
+			Self = APP.tools.shape,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				let el = $(event.target),
+					type;
+				// create drag object
+				Self.drag = {
+					el,
+					type,
+					clickX: event.clientX,
+					clickY: event.clientY,
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.rectCornersMove);
+				break;
+			case "mousemove":
+				let dY = event.clientY - Drag.clickY,
+					dX = event.clientX - Drag.clickX;
+				console.log( dY, dX );
+				break;
+			case "mouseup":
+				// cover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.rectCornersMove);
 				break;
 		}
 	},

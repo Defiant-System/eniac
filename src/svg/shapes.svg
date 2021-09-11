@@ -2,14 +2,13 @@
 <svg id="shape-rounded" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st3 {
-			fill: #ff9900;
+			fill: transparent;
 			stroke: #333333;
 			stroke-width: 3px;
-			stroke: #f00;
-			stroke-dasharray: 3,3;
+			stroke: #000;
 		}
 	</style>
-	<path class="st3" d="M19.1,3h61.8C89.8,3,97,10.2,97,19.1v61.8C97,89.8,89.8,97,80.9,97H19.1C10.2,97,3,89.8,3,80.9V19.1C3,10.2,10.2,3,19.1,3z"/>
+	<rect class="st3" x="3" y="3" width="94" height="94" rx="10"/>
 </svg>
 
 <svg id="shape-rectangle" viewBox="0 0 100 100" cache="false">
@@ -17,7 +16,8 @@
 		.st0{
 			fill: url(#SVG-GR-1);
 			stroke: #111111;
-			stroke-width: 2px;
+			stroke-width: 3px;
+			stroke-dasharray: 3,3;
 		}
 	</style>
 	<linearGradient id="SVG-GR-1" x1=".5" y1=".1" x2=".5" y2=".9">

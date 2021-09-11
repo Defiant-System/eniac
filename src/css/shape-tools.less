@@ -6,7 +6,7 @@
 	width: 100px;
 	height: 100px;
 	
-	&:nth-child(4),
+	&:nth-child(7),
 	&:nth-child(5) {
 		-webkit-box-reflect: below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
 	}
@@ -41,6 +41,7 @@
 	z-index: 99;
 	// cursor: move;
 	pointer-events: none;
+	--rc: 10px;
 
 	&.hidden {
 		display: none;
@@ -63,6 +64,37 @@
 		&.se   { cursor: sw-resize; bottom: -5px; left: -5px; }
 		&.e    { cursor: w-resize; top: 50%; left: -5px; transform: translateY(-50%); }
 		&.ne   { cursor: nw-resize; top: -5px; left: -5px; }
+
+
+		&.rc {
+			border-radius: 50%;
+			width: 7px;
+			height: 7px;
+
+			&.ne {
+				cursor: nw-resize;
+				top: var(--rc);
+				left: var(--rc);
+			}
+
+			&.nw {
+				cursor: ne-resize;
+				top: var(--rc);
+				right: var(--rc);
+			}
+
+			&.sw {
+				cursor: se-resize;
+				bottom: var(--rc);
+				right: var(--rc);
+			}
+
+			&.se {
+				cursor: sw-resize;
+				bottom: var(--rc);
+				left: var(--rc);
+			}
+		}
 	}
 
 	.gradient-tool {
