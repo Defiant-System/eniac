@@ -63,7 +63,7 @@ class File {
 			fill: url(#SVG-GR-2);
 			// stroke: #333333;
 			// stroke-width: 3px;
-			filter: drop-shadow(4px 4px 5px rgba(0,0,0,.35));
+			filter: drop-shadow(4px 4px 5px rgba(0,0,0,.5));
 		}
 	</style>
 	<radialGradient id="SVG-GR-2" cx="0.25" cy="0.25" r="0.75">

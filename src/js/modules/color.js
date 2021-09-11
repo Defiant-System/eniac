@@ -94,7 +94,7 @@ const Color = {
 	},
 	rgbToHex(rgb) {
 		let d = "0123456789abcdef".split(""),
-			hex = x => isNaN(x) ? "00" : d[(x-x%16)/16] + d[x%16];
+			hex = x => isNaN(x) ? "00" : d[( x - x % 16) / 16] + d[x % 16];
 		rgb = rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\.\d]+)\)$/);
 		if (!rgb) rgb = arguments[0].match(/^rgb?\((\d+),\s*(\d+),\s*(\d+)\)$/);
 		let a = Math.round((rgb[4] || 1) * 255);

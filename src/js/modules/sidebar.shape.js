@@ -128,8 +128,8 @@
 				// console.log(Shape.shapeItem.css("filter"));
 				let filter = Shape.shapeItem.css("filter"),
 					rgbColor = filter.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
-					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : "transparent",
-					opacity = Math.round(parseInt(hexColor.slice(-2), 16) / 255 * 100),
+					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : false,
+					opacity = rgbColor ? Math.round(parseInt(hexColor.slice(-2), 16) / 255 * 100) : 100,
 					shadow = filter.match(/(\d+)px\s*(\d+)px\s*(\d+)px/),
 					bX = shadow ? +shadow[1] : 0,
 					bY = shadow ? +shadow[2] : 0,
@@ -142,6 +142,7 @@
 				Self.parent.els.el.find(".shape-shadow-opacity input").val(opacity);
 				Self.parent.els.el.find(`input[name="shape-shadow-angle"]`).val(angle);
 				// drop-shadow color
+				hexColor = hexColor ? hexColor.slice(0, -2) : "transparent";
 				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-shadow"]`)
 							.css({ "--preset-color": hexColor });
 				} break;
@@ -203,8 +204,12 @@
 					rad = (+sEl.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
 					bX = offset * Math.sin(rad),
 					bY = offset * Math.cos(rad),
+					x = Math.round((+sEl.find(".shape-shadow-opacity input:nth(0)").val() / 100) * 255),
+					d = "0123456789abcdef".split(""),
+					alpha = d[(x - x % 16) / 16] + d[x % 16],
 					color = sEl.find(`.shadow-angle-color .color-preset_`).css("--preset-color"),
-					filter = `drop-shadow(${color} ${bY}px ${bX}px ${blur}px)`;
+					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${blur}px)`;
+				// apply drop shadow
 				Shape.shapeItem.css({ filter });
 				} break;
 		}
