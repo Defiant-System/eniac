@@ -149,10 +149,14 @@
 							.css({ "--preset-color": hexColor });
 				} break;
 			case "update-shape-reflection":
-				value = Shape.shape.css("-webkit-box-reflect");
-				console.log(value);
+				// rgba(255, 255, 255, 0.35)
+				value = Shape.shape.css("-webkit-box-reflect").match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
+				value = value ? Math.round(value[4] * 100) : 0;
+				Self.parent.els.el.find(".shape-reflection input").val(value);
 				break;
 			case "update-shape-opacity":
+				value = +Shape.shape.css("opacity") * 100;
+				Self.parent.els.el.find(".shape-opacity input").val(value);
 				break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
@@ -221,8 +225,15 @@
 				Shape.shapeItem.css({ filter });
 				} break;
 			case "set-shape-reflection":
+				value = Self.parent.els.el.find(".shape-reflection input:nth(0)").val() / 100;
+				value = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value}) 0%, transparent 50%, transparent 100%)`
+				// apply reflection
+				Shape.shape.css({ "-webkit-box-reflect": value });
 				break;
 			case "set-shape-opacity":
+				value = Self.parent.els.el.find(".shape-opacity input:nth(0)").val() / 100;
+				// apply shape opacity
+				Shape.shape.css({ "opacity": value });
 				break;
 		}
 	},
