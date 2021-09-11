@@ -213,27 +213,36 @@
 				let sEl = Self.parent.els.el,
 					blur = +sEl.find(".shape-shadow-blur input:nth(0)").val(),
 					offset = +sEl.find(".shape-shadow-offset input:nth(0)").val(),
+					opacity = +sEl.find(".shape-shadow-opacity input:nth(0)").val(),
 					rad = (+sEl.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
 					bX = Math.round(offset * Math.sin(rad)),
 					bY = Math.round(offset * Math.cos(rad)),
-					x = Math.round((+sEl.find(".shape-shadow-opacity input:nth(0)").val() / 100) * 255),
+					x = Math.round((opacity / 100) * 255),
 					d = "0123456789abcdef".split(""),
 					alpha = d[(x - x % 16) / 16] + d[x % 16],
 					color = sEl.find(`.shadow-angle-color .color-preset_`).css("--preset-color"),
 					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${blur}px)`;
 				// apply drop shadow
 				Shape.shapeItem.css({ filter });
+				// make sure all fields shows same value
+				Self.parent.els.el.find(".shape-shadow-blur input").val(blur);
+				Self.parent.els.el.find(".shape-shadow-offset input").val(offset);
+				Self.parent.els.el.find(".shape-shadow-opacity input").val(opacity);
 				} break;
 			case "set-shape-reflection":
-				value = Self.parent.els.el.find(".shape-reflection input:nth(0)").val() / 100;
-				value = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value}) 0%, transparent 50%, transparent 100%)`
+				value = Self.parent.els.el.find(".shape-reflection input:nth(0)").val();
+				let reflect = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
 				// apply reflection
-				Shape.shape.css({ "-webkit-box-reflect": value });
+				Shape.shape.css({ "-webkit-box-reflect": reflect });
+				// make sure all fields shows same value
+				Self.parent.els.el.find(".shape-reflection input").val(value);
 				break;
 			case "set-shape-opacity":
-				value = Self.parent.els.el.find(".shape-opacity input:nth(0)").val() / 100;
+				value = Self.parent.els.el.find(".shape-opacity input:nth(0)").val();
 				// apply shape opacity
-				Shape.shape.css({ "opacity": value });
+				Shape.shape.css({ "opacity": value / 100 });
+				// make sure all fields shows same value
+				Self.parent.els.el.find(".shape-opacity input").val(value);
 				break;
 		}
 	},

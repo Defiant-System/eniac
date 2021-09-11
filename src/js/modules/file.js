@@ -26,20 +26,13 @@ class File {
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 
+			// svg's
 			window.find("svg > svg").map(svg => html += `<div class="shape">${svg.xml}</div>`);
+			setTimeout(() => window.find(`.shape:nth(2)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
 		
-		setTimeout(() => {
-			window.find(`.shape:nth(1)`).trigger("mousedown").trigger("mouseup")
-		}, 150);
-		
-		// temp
-		// window.find(`.toolbar-tool_[data-arg="shape"]`).trigger("click");
-		// window.find(".white-table-1 .tbl-col-head > div table").html("");
-		// window.find(".white-table-1 .tbl-col-foot > div table").html("");
-
 		// auto focus on first cell
 		// let anchor = window.find(".sheet:nth(0) table").get(3).find("td").get(6);
 		// setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
