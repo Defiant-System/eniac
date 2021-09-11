@@ -47,6 +47,8 @@
 				Self.dispatch({ ...event, type: "update-shape-fill" });
 				Self.dispatch({ ...event, type: "update-shape-outline" });
 				Self.dispatch({ ...event, type: "update-shape-shadow" });
+				Self.dispatch({ ...event, type: "update-shape-reflection" });
+				Self.dispatch({ ...event, type: "update-shape-opacity" });
 				break;
 			case "update-shape-style":
 				// reset (if any) previous active
@@ -146,6 +148,12 @@
 				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-shadow"]`)
 							.css({ "--preset-color": hexColor });
 				} break;
+			case "update-shape-reflection":
+				value = Shape.shape.css("-webkit-box-reflect");
+				console.log(value);
+				break;
+			case "update-shape-opacity":
+				break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
@@ -212,6 +220,10 @@
 				// apply drop shadow
 				Shape.shapeItem.css({ filter });
 				} break;
+			case "set-shape-reflection":
+				break;
+			case "set-shape-opacity":
+				break;
 		}
 	},
 	gradientPoints(event) {
