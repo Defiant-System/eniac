@@ -59,6 +59,9 @@
 				// remember shape
 				Self.shape = event.el;
 				Self.shapeItem = event.el.find("circle, rect, polygon, polyline, path");
+				// set "rounded corner" value
+				let rc = Self.shapeItem.attr("rx");
+				Self.els.root.css({ "--rc": rc +"px" });
 
 				// gradient tools
 				let fill = Self.shapeItem.css("fill"),
@@ -284,21 +287,20 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse1");
 
-				let el = $(event.target),
+				let shape = Self.shapeItem,
+					el = $(event.target),
 					sW = +Self.shape.prop("offsetWidth") / 2,
 					sH = +Self.shape.prop("offsetHeight") / 2,
-					oW = +el.prop("offsetWidth") / 2,
-					oX = +el.prop("offsetLeft") - sW + oW,
-					oY = +el.prop("offsetTop") - sH + oW,
-					radius = Math.round(Math.sqrt(oY*oY + oX*oX)),
-					// angle = Math.round(Math.atan2(bY, bX) * (180 / Math.PI)),
-					// offset = Math.round(Math.sqrt(bY*bY + bX*bX));
-					type;
-				
+					oW = +el.prop("offsetWidth"),
+					oX = +el.prop("offsetLeft"),
+					oY = +el.prop("offsetTop"),
+					radius = Math.round(Math.sqrt(oY*oY + oX*oX)) - oW;
+
 				// create drag object
 				Self.drag = {
+					shape,
+					radius,
 					el: el.parent(),
-					type,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					origo: { oW, oY, oX },
@@ -312,9 +314,10 @@
 					x = event.clientX - Drag.clickX,
 					rc = Math.sqrt(y*y + x*x);
 
-				// console.log(rc);
+				console.log(rc);
 				// rc = Math.abs(rc);
 				Drag.el.css({ "--rc": rc +"px" });
+				Drag.shape.attr({ rx: rc });
 				break;
 			case "mouseup":
 				// cover layout
