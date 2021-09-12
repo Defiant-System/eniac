@@ -282,29 +282,43 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				Self.els.layout.addClass("cover hideMouse1");
 
 				let el = $(event.target),
+					sW = +Self.shape.prop("offsetWidth") / 2,
+					sH = +Self.shape.prop("offsetHeight") / 2,
+					oW = +el.prop("offsetWidth") / 2,
+					oX = +el.prop("offsetLeft") - sW + oW,
+					oY = +el.prop("offsetTop") - sH + oW,
+					radius = Math.round(Math.sqrt(oY*oY + oX*oX)),
+					// angle = Math.round(Math.atan2(bY, bX) * (180 / Math.PI)),
+					// offset = Math.round(Math.sqrt(bY*bY + bX*bX));
 					type;
+				
 				// create drag object
 				Self.drag = {
-					el,
+					el: el.parent(),
 					type,
 					clickX: event.clientX,
 					clickY: event.clientY,
+					origo: { oW, oY, oX },
 				};
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.rectCornersMove);
 				break;
 			case "mousemove":
-				let dY = event.clientY - Drag.clickY,
-					dX = event.clientX - Drag.clickX;
-				console.log( dY, dX );
+				let y = event.clientY - Drag.clickY,
+					x = event.clientX - Drag.clickX,
+					rc = Math.sqrt(y*y + x*x);
+
+				// console.log(rc);
+				// rc = Math.abs(rc);
+				Drag.el.css({ "--rc": rc +"px" });
 				break;
 			case "mouseup":
 				// cover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("cover hideMouse1");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.rectCornersMove);
 				break;

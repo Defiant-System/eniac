@@ -37,11 +37,12 @@
 
 .shape-tools {
 	position: absolute;
-	border: 1px solid #3583d0;
-	z-index: 99;
+	// border: 1px solid #3583d0;
 	// cursor: move;
+	box-shadow: 0 0 0 1px #3583d0;
+	z-index: 99;
 	pointer-events: none;
-	--rc: 10px;
+	--rc: 5px;
 
 	&.hidden {
 		display: none;
@@ -68,29 +69,29 @@
 
 		&.rc {
 			border-radius: 50%;
-			width: 7px;
-			height: 7px;
+			width: 8px;
+			height: 8px;
 
 			&.ne {
-				cursor: nw-resize;
+				cursor: nwse-resize;
 				top: var(--rc);
 				left: var(--rc);
 			}
 
 			&.nw {
-				cursor: ne-resize;
+				cursor: nesw-resize;
 				top: var(--rc);
 				right: var(--rc);
 			}
 
 			&.sw {
-				cursor: se-resize;
+				cursor: nwse-resize;
 				bottom: var(--rc);
 				right: var(--rc);
 			}
 
 			&.se {
-				cursor: sw-resize;
+				cursor: nesw-resize;
 				bottom: var(--rc);
 				left: var(--rc);
 			}
