@@ -8,7 +8,7 @@
 			stroke: #000;
 		}
 	</style>
-	<rect class="st3" x="3" y="3" width="94" height="94" rx="20"/>
+	<rect class="st3" x="3" y="3" width="94" height="94" rx="15"/>
 </svg>
 
 <svg id="shape-rectangle" viewBox="0 0 100 100" cache="false">

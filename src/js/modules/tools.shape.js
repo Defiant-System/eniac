@@ -285,43 +285,53 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse1");
+				Self.els.layout.addClass("cover hideMouse");
 
 				let shape = Self.shapeItem,
 					el = $(event.target),
-					sW = +Self.shape.prop("offsetWidth") / 2,
-					sH = +Self.shape.prop("offsetHeight") / 2,
-					oW = +el.prop("offsetWidth"),
+					pEl = el.parent(),
 					oX = +el.prop("offsetLeft"),
 					oY = +el.prop("offsetTop"),
-					radius = Math.round(Math.sqrt(oY*oY + oX*oX)) - oW;
-
+					rMax = (Math.min(+shape.attr("width"), +shape.attr("height")) / 2) - 1,
+					type = el.prop("className").split(" ")[2];
+				
 				// create drag object
 				Self.drag = {
+					pEl,
+					type,
+					rMax,
 					shape,
-					radius,
-					el: el.parent(),
-					clickX: event.clientX,
-					clickY: event.clientY,
-					origo: { oW, oY, oX },
+					_max: Math.max,
+					_min: Math.min,
+					click: {
+						x: event.clientX - oX,
+						y: event.clientY - oY,
+					},
+					getRadius(x, y) {
+						let rx;
+						switch (this.type) {
+							case "ne": rx = this._min(this._max(this._max(this.rMax - x, this.rMax - y), 0), this.rMax); break;
+							case "nw": rx = this._min(this._max(this._max(x - this.rMax, -y - this.rMax), 0), this.rMax); break;
+							case "sw": rx = this._min(this._max(this._max(x - this.rMax, y - this.rMax), 0), this.rMax); break;
+							case "se": rx = this._min(this._max(this._max(-x - this.rMax, y - this.rMax), 0), this.rMax); break;
+						}
+						return this.rMax - rx;
+					}
 				};
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.rectCornersMove);
 				break;
 			case "mousemove":
-				let y = event.clientY - Drag.clickY,
-					x = event.clientX - Drag.clickX,
-					rc = Math.sqrt(y*y + x*x);
-
-				console.log(rc);
-				// rc = Math.abs(rc);
-				Drag.el.css({ "--rc": rc +"px" });
-				Drag.shape.attr({ rx: rc });
+				let x = event.clientX - Drag.click.x,
+					y = event.clientY - Drag.click.y,
+					rx = Drag.getRadius(x, y);
+				Drag.pEl.css({ "--rc": rx +"px" });
+				Drag.shape.attr({ rx });
 				break;
 			case "mouseup":
 				// cover layout
-				Self.els.layout.removeClass("cover hideMouse1");
+				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.rectCornersMove);
 				break;
