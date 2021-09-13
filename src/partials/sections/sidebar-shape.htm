@@ -28,29 +28,102 @@
 		</div>
 
 		<div class="group-row solid-options">
-			<legend>Fill</legend>
-			<div data-click="select-fill-type">
-				<div class="option-buttons_ has-text">
-					<span data-arg="solid">Solid</span>
-					<span data-arg="linearGradient">Linear</span>
-					<span data-arg="radialGradient">Radial</span>
+			<legend data-click="toggle-group-body"><i class="icon-chevron-down"></i> Fill</legend>
+			<div class="group-body">
+				<div data-click="select-fill-type">
+					<div class="option-buttons_ has-text">
+						<span data-arg="solid">Solid</span>
+						<span data-arg="linearGradient">Linear</span>
+						<span data-arg="radialGradient">Radial</span>
+					</div>
 				</div>
-			</div>
-			<div class="flex-row">
-				<legend class="bold">Color</legend>
-				<div>
-					<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-fill-color" style="--preset-color: #000000;"></div>
-				</div>
-			</div>
-			<div class="gradient-options">
-				<div class="gradient-colors" data-change="set-fill-gradient-color">
-					<!-- <span class="point"></span> -->
-				</div>
-
 				<div class="flex-row">
-					<legend class="bold">Angle</legend>
-					<div data-suffix="°">
-						<input type="number" id="shape-gradient-angle" min="0" max="360" step="1" value="315"/>
+					<legend class="bold">Color</legend>
+					<div>
+						<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-fill-color" style="--preset-color: #000000;"></div>
+					</div>
+				</div>
+				<div class="gradient-options">
+					<div class="gradient-colors" data-change="set-fill-gradient-color">
+						<!-- <span class="point"></span> -->
+					</div>
+
+					<div class="flex-row">
+						<legend class="bold">Angle</legend>
+						<div data-suffix="°">
+							<input type="number" id="shape-gradient-angle" min="0" max="360" step="1" value="315"/>
+							<div>
+								<span></span>
+								<span></span>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<span class="form-checkbox_"><input type="checkbox" id="gradient-reverse"/><i></i></span>
+						<label for="gradient-reverse">Reverse Gradient Direction</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row border-options">
+			<legend data-click="toggle-group-body"><i class="icon-chevron-down"></i> Border</legend>
+			<div class="group-body">
+				<div class="flex-row">
+					<div class="w37">
+						<selectbox class="shape-outline" data-menu="shape-outline">
+							<option class="prefix-icon" selected="1" value="solid"/>
+						</selectbox>
+					</div>
+					<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-outline-color" style="--preset-color: #000000;"></div>
+					<div class="w23" data-suffix="px">
+						<input type="number" value="1" min="0" max="10" id="shape-outline" data-change="set-shape-outline-width"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row shadow-options">
+			<legend data-click="toggle-group-body"><i class="icon-chevron-down"></i> Shadow</legend>
+			<div class="group-body">
+				<div class="flex-row shape-shadow-blur">
+					<div class="w63">
+						<span class="range-caption">Blur</span>
+						<input type="range" value="0" min="0" max="20" data-change="set-shape-shadow">
+					</div>
+					<div class="has-caption" data-suffix="px">
+						<input type="number" value="0" min="0" max="20" data-change="set-shape-shadow"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+				<div class="flex-row shape-shadow-offset">
+					<div class="w63">
+						<span class="range-caption">Offset</span>
+						<input type="range" value="0" min="0" max="40" data-change="set-shape-shadow">
+					</div>
+					<div class="has-caption" data-suffix="px">
+						<input type="number" value="0" min="0" max="40" data-change="set-shape-shadow"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+				<div class="flex-row shape-shadow-opacity">
+					<div class="w63">
+						<span class="range-caption">Opacity</span>
+						<input type="range" value="0" min="0" max="100" data-change="set-shape-shadow">
+					</div>
+					<div class="has-caption" data-suffix="%">
+						<input type="number" value="0" min="0" max="100" data-change="set-shape-shadow"/>
 						<div>
 							<span></span>
 							<span></span>
@@ -58,114 +131,51 @@
 					</div>
 				</div>
 
-				<div>
-					<span class="form-checkbox_"><input type="checkbox" id="gradient-reverse"/><i></i></span>
-					<label for="gradient-reverse">Reverse Gradient Direction</label>
+				<div class="flex-row shadow-angle-color">
+					<legend class="bold">Angle</legend>
+					<div data-suffix="°">
+						<input type="number" name="shape-shadow-angle" min="0" max="360" value="45" data-change="set-shape-shadow"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+					<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-shadow" style="--preset-color: #000000;"></div>
 				</div>
 			</div>
 		</div>
 
-		<div class="group-row">
-			<legend>Border</legend>
-			<div class="flex-row">
-				<div class="w37">
-					<selectbox class="shape-outline" data-menu="shape-outline">
-						<option class="prefix-icon" selected="1" value="solid"/>
-					</selectbox>
-				</div>
-				<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-outline-color" style="--preset-color: #000000;"></div>
-				<div class="w23" data-suffix="px">
-					<input type="number" value="1" min="0" max="10" id="shape-outline" data-change="set-shape-outline-width"/>
-					<div>
-						<span></span>
-						<span></span>
+		<div class="group-row reflection-options">
+			<legend data-click="toggle-group-body"><i class="icon-chevron-down"></i> Reflection</legend>
+			<div class="group-body">
+				<div class="flex-row shape-reflection">
+					<div class="w63">
+						<input type="range" value="50" min="0" max="100" data-change="set-shape-reflection">
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="group-row">
-			<legend>Shadow</legend>
-			<div class="flex-row shape-shadow-blur">
-				<div class="w63">
-					<span class="range-caption">Blur</span>
-					<input type="range" value="0" min="0" max="20" data-change="set-shape-shadow">
-				</div>
-				<div class="has-caption" data-suffix="px">
-					<input type="number" value="0" min="0" max="20" data-change="set-shape-shadow"/>
-					<div>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-			</div>
-			<div class="flex-row shape-shadow-offset">
-				<div class="w63">
-					<span class="range-caption">Offset</span>
-					<input type="range" value="0" min="0" max="40" data-change="set-shape-shadow">
-				</div>
-				<div class="has-caption" data-suffix="px">
-					<input type="number" value="0" min="0" max="40" data-change="set-shape-shadow"/>
-					<div>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-			</div>
-			<div class="flex-row shape-shadow-opacity">
-				<div class="w63">
-					<span class="range-caption">Opacity</span>
-					<input type="range" value="0" min="0" max="100" data-change="set-shape-shadow">
-				</div>
-				<div class="has-caption" data-suffix="%">
-					<input type="number" value="0" min="0" max="100" data-change="set-shape-shadow"/>
-					<div>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-			</div>
-
-			<div class="flex-row shadow-angle-color">
-				<legend class="bold">Angle</legend>
-				<div data-suffix="°">
-					<input type="number" name="shape-shadow-angle" min="0" max="360" value="45" data-change="set-shape-shadow"/>
-					<div>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-				<div class="color-preset_" data-click="popup-color-palette" data-change="set-shape-shadow" style="--preset-color: #000000;"></div>
-			</div>
-		</div>
-
-		<div class="group-row">
-			<legend>Reflection</legend>
-			<div class="flex-row shape-reflection">
-				<div class="w63">
-					<input type="range" value="50" min="0" max="100" data-change="set-shape-reflection">
-				</div>
-				<div data-suffix="%">
-					<input type="number" value="50" min="0" max="100" data-change="set-shape-reflection"/>
-					<div>
-						<span></span>
-						<span></span>
+					<div data-suffix="%">
+						<input type="number" value="50" min="0" max="100" data-change="set-shape-reflection"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="group-row">
-			<legend>Opacity</legend>
-			<div class="flex-row shape-opacity">
-				<div class="w63">
-					<input type="range" value="50" min="0" max="100" data-change="set-shape-opacity">
-				</div>
-				<div data-suffix="%">
-					<input type="number" value="50" min="0" max="100" data-change="set-shape-opacity"/>
-					<div>
-						<span></span>
-						<span></span>
+		<div class="group-row opacity-options">
+			<legend data-click="toggle-group-body"><i class="icon-chevron-down"></i> Opacity</legend>
+			<div class="group-body">
+				<div class="flex-row shape-opacity">
+					<div class="w63">
+						<input type="range" value="50" min="0" max="100" data-change="set-shape-opacity">
+					</div>
+					<div data-suffix="%">
+						<input type="number" value="50" min="0" max="100" data-change="set-shape-opacity"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
 					</div>
 				</div>
 			</div>
