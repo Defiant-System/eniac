@@ -297,7 +297,9 @@
 					pEl = el.parent(),
 					oX = +el.prop("offsetLeft"),
 					oY = +el.prop("offsetTop"),
-					rMax = (Math.min(+shape.attr("width"), +shape.attr("height")) / 2) - 1,
+					oW = parseInt(shape.css("width"), 10),
+					oH = parseInt(shape.css("height"), 10),
+					rMax = (Math.min(oW, oH) / 2) - 1,
 					type = el.prop("className").split(" ")[2];
 				
 				// create drag object
