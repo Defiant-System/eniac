@@ -51,6 +51,8 @@
 				}
 				break;
 			case "populate-shape-values":
+				event.values = Self.dispatch({ ...event, type: "collect-shape-values" });
+
 				Self.dispatch({ ...event, type: "update-shape-style" });
 				Self.dispatch({ ...event, type: "update-shape-fill" });
 				Self.dispatch({ ...event, type: "update-shape-outline" });
@@ -58,6 +60,22 @@
 				Self.dispatch({ ...event, type: "update-shape-reflection" });
 				Self.dispatch({ ...event, type: "update-shape-opacity" });
 				break;
+			case "collect-shape-values":
+				let data = {
+					fill: { _expand: true },
+					border: { _expand: false },
+					shadow: { _expand: true },
+					reflection: { _expand: false },
+					opacity: { _expand: false },
+				};
+
+				Object.keys(data).map(key => {
+					let el = Self.parent.els.el.find(`.group-row.${key}-options`);
+					if (data[key]._expand) el.addClass("expanded");
+					else el.removeClass("expanded");
+				});
+
+				return data;
 			case "update-shape-style":
 				// reset (if any) previous active
 				Els.el.find(".shape-styles .active").removeClass("active");
