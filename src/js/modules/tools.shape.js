@@ -185,13 +185,15 @@
 		switch (event.type) {
 			case "mousedown":
 				let shape = Self.shape,
+					rect = Self.shapeItem.prop("nodeName") === "rect",
 					el = $([shape[0], Self.els.root[0]]),
 					type = event.target.className.split(" ")[1];
 				// create drag object
 				Self.drag = {
 					el,
 					type,
-					shape: Self.shapeItem.prop("nodeName") === "rect" ? shape : false,
+					rect,
+					shape,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: {
@@ -222,9 +224,11 @@
 				}
 				Drag.el.css(data);
 				// special handling for rect-element
-				Drag.shape?.attr({
-					viewBox: `0 0 ${data.width} ${data.height}`
-				});
+				if (Drag.rect) {
+					Drag.shape.attr({
+						viewBox: `0 0 ${data.width} ${data.height}`
+					});
+				}
 				// re-focuses shape tools
 				Self.dispatch({ type: "focus-shape", el: Drag.shape });
 				break;
