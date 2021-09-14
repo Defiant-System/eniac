@@ -184,6 +184,9 @@
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
 				let shape = Self.shape,
 					rect = Self.shapeItem.prop("nodeName") === "rect",
 					el = $([shape[0], Self.els.root[0]]),
@@ -207,7 +210,10 @@
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
-				let data = {};
+				let data = {
+						width: Drag.offset.w,
+						height: Drag.offset.h,
+					};
 				if (Drag.type.includes("n")) {
 					data.top = event.clientY - Drag.clickY + Drag.offset.y;
 					data.height = Drag.offset.h + Drag.clickY - event.clientY;
@@ -233,6 +239,8 @@
 				Self.dispatch({ type: "focus-shape", el: Drag.shape });
 				break;
 			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
 				break;
@@ -341,7 +349,7 @@
 				Drag.shape.attr({ rx });
 				break;
 			case "mouseup":
-				// cover layout
+				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.rectCornersMove);

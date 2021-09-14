@@ -6,9 +6,13 @@
 			stroke: #333333;
 			stroke-width: 3;
 			stroke: #000;
+			x: 3px;
+			y: 3px;
+			width: calc( 100% - 6px );
+			height: calc( 100% - 6px );
 		}
 	</style>
-	<rect class="st3" x="3%" y="3%" width="94%" height="94%" rx="15"/>
+	<rect class="st3" width="0%" rx="15"/>
 </svg>
 
 <svg id="shape-rectangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
