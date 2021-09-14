@@ -221,11 +221,10 @@
 					data.width = event.clientX - Drag.clickX + Drag.offset.w;
 				}
 				Drag.el.css(data);
-				
 				// special handling for rect-element
-					Drag.shape?.attr({
-						viewBox: `0 0 ${data.width} ${data.height}`
-					});
+				Drag.shape?.attr({
+					viewBox: `0 0 ${data.width} ${data.height}`
+				});
 				// re-focuses shape tools
 				Self.dispatch({ type: "focus-shape", el: Drag.shape });
 				break;
@@ -238,16 +237,15 @@
 	move(event) {
 		let APP = eniac,
 			Self = APP.tools.shape,
-			Drag = Self.drag,
-			shape,
-			el;
+			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
 
 				// if mousedown on handle
-				el = $(event.target);
+				let el = $(event.target),
+					shape = Self.shape;
 				if (el.hasClass("handle")) {
 					if (el.hasClass("rc")) {
 						return Self.rectCornersMove(event);
@@ -258,7 +256,6 @@
 					return Self.resize(event);
 				}
 				
-				shape = Self.shape;
 				el = $([shape[0], Self.els.root[0]]);
 				// create drag object
 				Self.drag = {
@@ -266,8 +263,8 @@
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: {
-						x: +shape.prop("offsetLeft"),
-						y: +shape.prop("offsetTop"),
+						x: parseInt(shape.css("left"), 10),
+						y: parseInt(shape.css("top"), 10),
 					}
 				};
 				// bind event
