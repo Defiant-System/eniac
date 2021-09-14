@@ -27,7 +27,7 @@ class File {
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 
 			// svg's
-			window.find("svg > svg").map(svg => html += `<div class="shape">${svg.xml}</div>`);
+			window.find("svg > svg").map(svg => html += svg.xml);
 			setTimeout(() => window.find(`.shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook

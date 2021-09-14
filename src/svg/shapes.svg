@@ -1,5 +1,5 @@
 
-<svg id="shape-rounded" viewBox="0 0 100 100" cache="false">
+<svg id="shape-rounded" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st3 {
 			fill: transparent;
@@ -11,7 +11,7 @@
 	<rect class="st3" x="3" y="3" width="94" height="94" rx="15"/>
 </svg>
 
-<svg id="shape-rectangle" class="reflection" viewBox="0 0 100 100" cache="false">
+<svg id="shape-rectangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st0{
 			fill: url(#SVG-GR-1);
@@ -29,7 +29,7 @@
 	<rect class="st0" x="3" y="3" width="94" height="94"/>
 </svg>
 
-<svg id="shape-disc" viewBox="0 0 100 100" cache="false">
+<svg id="shape-disc" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st1{
 			fill: url(#SVG-GR-2);
@@ -43,7 +43,7 @@
 	<circle class="st1" cx="50" cy="50" r="47"/>
 </svg>
 
-<svg id="shape-triangle" class="reflection" viewBox="0 0 100 100" cache="false">
+<svg id="shape-triangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st2{
 			fill: #ea261f;

@@ -739,6 +739,27 @@ content {
 			left: 0;
 			// width: 9999px;
 			// height: 9999px;
+
+			svg.shape {
+				position: absolute;
+				top: 80px;
+				left: 600px;
+				width: 100px;
+				height: 100px;
+				overflow: visible;
+
+				&:nth-child(4) { top: 280px; left: 540px; }
+				&:nth-child(5) { top: 440px; left: 240px; }
+				&:nth-child(6) { top: 440px; left: 440px; }
+
+				> * {
+					pointer-events: none;
+				}
+	
+				&.reflection {
+					-webkit-box-reflect: below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
+				}
+			}
 		}
 	}
 	

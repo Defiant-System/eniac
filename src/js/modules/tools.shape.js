@@ -19,7 +19,7 @@
 				body = el.parents("div.body");
 			// let other handlers handle it
 			if (el.hasClass("handle")) return;
-				
+			
 			if (el.hasClass("shape")) {
 				// blur table, if any
 				Cursor.dispatch({ type: "blur-table", el: body });
@@ -47,10 +47,10 @@
 				break;
 			case "focus-shape":
 				// resize tools
-				let top = +event.el.prop("offsetTop"),
-					left = +event.el.prop("offsetLeft"),
-					width = +event.el.prop("offsetWidth"),
-					height = +event.el.prop("offsetHeight"),
+				let top = parseInt(event.el.css("top"), 10),
+					left = parseInt(event.el.css("left"), 10),
+					width = parseInt(event.el.css("width"), 10),
+					height = parseInt(event.el.css("height"), 10),
 					deg, dx, dy;
 				Self.els.root
 					.css({ top, left, width, height })
