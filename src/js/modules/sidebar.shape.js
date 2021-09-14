@@ -85,11 +85,11 @@
 
 				// reflection values
 				reflection.reflect = Shape.shape.css("-webkit-box-reflect");
-				console.log( Shape.shape );
-				reflection._expand = false;
+				reflection._expand = Shape.shape.hasClass("reflection");
 
 				// opacity values
-				opacity._expand = false;
+				opacity.value = +Shape.shape.css("opacity");
+				opacity._expand = opacity.value !== 1;
 
 				let data = { fill, border, shadow, reflection, opacity };
 				Object.keys(data).map(key => {
@@ -200,7 +200,7 @@
 				Self.parent.els.el.find(".shape-reflection input").val(value);
 				break;
 			case "update-shape-opacity":
-				value = +Shape.shape.css("opacity") * 100;
+				value = event.values.opacity.value * 100;
 				Self.parent.els.el.find(".shape-opacity input").val(value);
 				break;
 			case "set-shape-style":
