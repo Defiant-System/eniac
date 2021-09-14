@@ -1,39 +1,4 @@
 
-.shape1 {
-	position: absolute;
-	top: 80px;
-	left: 600px;
-	width: 100px;
-	height: 100px;
-
-	&:nth-child(4) { top: 280px; left: 540px; }
-	&:nth-child(5) { top: 440px; left: 240px; }
-	&:nth-child(6) { top: 440px; left: 440px; }
-
-	&:before1 {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 2;
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-		background-position: 50% 50%;
-	}
-
-	svg {
-		width: 100%;
-		height: 100%;
-		overflow: visible;
-	
-		&.reflection {
-			-webkit-box-reflect: below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
-		}
-	}
-}
-
 .shape-tools {
 	position: absolute;
 	box-shadow: 0 0 0 1px #3583d0;

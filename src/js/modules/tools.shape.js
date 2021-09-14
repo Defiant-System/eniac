@@ -191,13 +191,14 @@
 				Self.drag = {
 					el,
 					type,
+					shape: Self.shapeItem.prop("nodeName") === "rect" ? shape : false,
 					clickX: event.clientX,
 					clickY: event.clientY,
 					offset: {
-						x: +shape.prop("offsetLeft"),
-						y: +shape.prop("offsetTop"),
-						w: +shape.prop("offsetWidth"),
-						h: +shape.prop("offsetHeight"),
+						x: parseInt(shape.css("left"), 10),
+						y: parseInt(shape.css("top"), 10),
+						w: parseInt(shape.css("width"), 10),
+						h: parseInt(shape.css("height"), 10),
 					}
 				};
 				// bind event
@@ -220,6 +221,13 @@
 					data.width = event.clientX - Drag.clickX + Drag.offset.w;
 				}
 				Drag.el.css(data);
+				
+				// special handling for rect-element
+					Drag.shape?.attr({
+						viewBox: `0 0 ${data.width} ${data.height}`
+					});
+				// re-focuses shape tools
+				Self.dispatch({ type: "focus-shape", el: Drag.shape });
 				break;
 			case "mouseup":
 				// unbind event
