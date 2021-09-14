@@ -23,6 +23,7 @@
 			Els = APP.sidebar.els,
 			Shape = event.shape || APP.tools.shape,
 			name,
+			color,
 			fill,
 			value,
 			width,
@@ -35,8 +36,8 @@
 				el.addClass("active_");
 				// update tab body
 				el.parents(".group-row")
-					.removeClass("solid-options linearGradient-options radialGradient-options")
-					.addClass(`${el.data("arg")}-options`);
+					.removeClass("solid-fill linearGradient-fill radialGradient-fill")
+					.addClass(`${el.data("arg")}-fill`);
 				// update selected shape
 				if (Shape.gradient.type !== el.data("arg")) {
 					Shape.gradient.switchType(el.data("arg"));
@@ -60,22 +61,44 @@
 				Self.dispatch({ ...event, type: "update-shape-reflection" });
 				Self.dispatch({ ...event, type: "update-shape-opacity" });
 				break;
-			case "collect-shape-values":
-				let data = {
-					fill: { _expand: true },
-					border: { _expand: false },
-					shadow: { _expand: true },
-					reflection: { _expand: false },
-					opacity: { _expand: false },
-				};
+			case "collect-shape-values": {
+				let fill = {},
+					border = {},
+					shadow = {},
+					reflection = {},
+					opacity = {};
+				
+				// fill values
+				fill.color = APP.tools.shape.fill || "";
+				fill.type = APP.tools.shape.gradient.type;
+				fill._expand = fill.type !== "solid" || fill.color.slice(-2) !== "00";
 
+				// border values
+				border.color = Shape.shapeItem.css("stroke");
+				border.dash = Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
+				border.width = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				border._expand = border.width > 1;
+
+				// shadow values
+				shadow.filter = Shape.shapeItem.css("filter");
+				shadow._expand = shadow.filter !== "none";
+
+				// reflection values
+				reflection.reflect = Shape.shape.css("-webkit-box-reflect");
+				console.log( Shape.shape );
+				reflection._expand = false;
+
+				// opacity values
+				opacity._expand = false;
+
+				let data = { fill, border, shadow, reflection, opacity };
 				Object.keys(data).map(key => {
 					let el = Self.parent.els.el.find(`.group-row.${key}-options`);
 					if (data[key]._expand) el.addClass("expanded");
 					else el.removeClass("expanded");
 				});
 
-				return data;
+				return data; }
 			case "update-shape-style":
 				// reset (if any) previous active
 				Els.el.find(".shape-styles .active").removeClass("active");
@@ -91,7 +114,7 @@
 				width = +el.prop("offsetWidth") - 2;
 				
 				// click option button
-				value = APP.tools.shape.gradient.type || "solid";
+				value = event.values.fill.type;
 				Self.parent.els.el.find(`.option-buttons_ span[data-arg="${value}"]`).trigger("click");
 				switch (value) {
 					case "linearGradient":
@@ -115,13 +138,13 @@
 					default:
 						// fill solid
 						Self.parent.els.el.find(`.color-preset_[data-change="set-shape-fill-color"]`)
-							.css({ "--preset-color": APP.tools.shape.fill });
+							.css({ "--preset-color": event.values.fill.color });
 				}
 				break;
 			case "update-shape-outline":
-				let stroke = Shape.shapeItem.css("stroke");
+				color = event.values.border.color;
 				// outline style
-				value = Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
+				value = event.values.border.dash;
 				el = Self.parent.els.el.find(".shape-outline").addClass("has-prefix-icon");
 				switch (true) {
 					case value[0] === value[1]:
@@ -130,7 +153,7 @@
 					case value[0] === value[1] * 2:
 						value = "dashed";
 						break;
-					case stroke === "none":
+					case color === "none":
 						value = "none";
 						el.removeClass("has-prefix-icon");
 						break;
@@ -140,21 +163,17 @@
 				el.val(value);
 
 				// outline color
-				value = Shape.shapeItem.css("stroke");
-				value = (stroke === "none" || value === "none")
-						? "transparent"
-						: Color.rgbToHex(value).slice(0, -2);
+				value = color === "none" ? "transparent" : Color.rgbToHex(color).slice(0, -2);
 				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-outline-color"]`)
 							.css({ "--preset-color": value });
 				
 				// outline width
-				value = parseInt(Shape.shapeItem.css("stroke-width"), 10);
-				if (stroke === "none") value = 0;
+				value = color === "none" ? 0 : event.values.border.width;
 				Els.el.find("input#shape-outline").val(value);
 				break;
 			case "update-shape-shadow": {
 				// console.log(Shape.shapeItem.css("filter"));
-				let filter = Shape.shapeItem.css("filter"),
+				let filter = event.values.shadow.filter,
 					rgbColor = filter.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
 					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : false,
 					opacity = rgbColor ? Math.round(parseInt(hexColor.slice(-2), 16) / 255 * 100) : 100,
@@ -176,7 +195,7 @@
 				} break;
 			case "update-shape-reflection":
 				// rgba(255, 255, 255, 0.35)
-				value = Shape.shape.css("-webkit-box-reflect").match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
+				value = event.values.reflection.reflect.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
 				value = value ? Math.round(value[4] * 100) : 0;
 				Self.parent.els.el.find(".shape-reflection input").val(value);
 				break;

@@ -11,7 +11,7 @@
 	<rect class="st3" x="3" y="3" width="94" height="94" rx="15"/>
 </svg>
 
-<svg id="shape-rectangle" viewBox="0 0 100 100" cache="false">
+<svg id="shape-rectangle" class="reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st0{
 			fill: url(#SVG-GR-1);
@@ -43,7 +43,7 @@
 	<circle class="st1" cx="50" cy="50" r="47"/>
 </svg>
 
-<svg id="shape-triangle" viewBox="0 0 100 100" cache="false">
+<svg id="shape-triangle" class="reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st2{
 			fill: #ea261f;
