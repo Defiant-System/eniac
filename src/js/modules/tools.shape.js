@@ -376,9 +376,9 @@
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth"),
-					width = +Self.shape.prop("offsetWidth"),
-					height = +Self.shape.prop("offsetHeight");
-
+					width = parseInt(Self.shape.css("width"), 10),
+					height = parseInt(Self.shape.css("height"), 10);
+console.log( width, height );
 				// create drag object
 				Self.drag = {
 					el,

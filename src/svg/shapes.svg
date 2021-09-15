@@ -21,6 +21,10 @@
 			fill: url(#SVG-GR-1);
 			stroke: #111111;
 			stroke-width: 2;
+			x: 3px;
+			y: 3px;
+			width: calc( 100% - 6px );
+			height: calc( 100% - 6px );
 		}
 	</style>
 	<linearGradient id="SVG-GR-1" x1=".5" y1=".1" x2=".5" y2=".9">
@@ -29,7 +33,7 @@
 		<stop offset="54%" stop-color="#555555" />
 		<stop offset="100%" stop-color="#dddddd" />
 	</linearGradient>
-	<rect class="st0" x="3%" y="3%" width="94%" height="94%"/>
+	<rect class="st0" width="0%"/>
 </svg>
 
 <svg id="shape-disc" class="shape" viewBox="0 0 100 100" cache="false">
