@@ -309,37 +309,65 @@
 				let shape = Self.shapeItem,
 					el = $(event.target),
 					pEl = el.parent(),
-					oX = +el.prop("offsetLeft"),
-					oY = +el.prop("offsetTop"),
+					type = el.prop("className").split(" ")[2],
 					offset = {
+						x: +el.prop("offsetLeft"),
+						y: +el.prop("offsetTop"),
 						w: parseInt(shape.css("width"), 10),
 						h: parseInt(shape.css("height"), 10),
 					},
-					rMax = (Math.min(offset.w, offset.h) / 2) - 1,
-					type = el.prop("className").split(" ")[2];
+					radius = {
+						min: (Math.min(offset.w, offset.h) / 2) - 1,
+						max: (Math.max(offset.w, offset.h) / 2) + 3,
+					},
+					normalize = {
+						x: 0,
+						y: 0
+					},
+					ratio = offset.w / offset.h;
+				// this can most likely be written better
+				if (ratio !== 1) {
+					switch (type) {
+						case "ne": break;
+						case "nw":
+							normalize.x = ratio < 1 ? 0 : -radius.max;
+							normalize.y = ratio < 1 ? 0 : -radius.max;
+							break;
+						case "sw":
+							normalize.x = -radius.max;
+							normalize.y = -radius.max;
+							break;
+						case "se":
+							normalize.x = ratio > 1 ? 0 : -radius.max;
+							normalize.y = ratio > 1 ? 0 : -radius.max;
+							break;
+					}
+				}
 				// create drag object
 				Self.drag = {
 					el,
 					pEl,
 					type,
-					rMax,
 					shape,
+					radius,
 					offset,
+					normalize,
 					click: {
-						x: event.clientX - oX,
-						y: event.clientY - oY,
+						x: event.clientX - offset.x,
+						y: event.clientY - offset.y,
 					},
 					getRadius(x, y) {
-						let rMax = this.rMax,
+						let norm = this.normalize,
+							rm = this.radius.min,
 							rx;
-						x -= (this.offset.w / 2) + 3;
+						// console.log(this.type);
 						switch (this.type) {
-							case "ne": rx = Math.min(Math.max(rMax - x, rMax - y, 0), rMax); break;
-							case "nw": rx = Math.min(Math.max(x - rMax, -y - rMax, 0), rMax); break;
-							case "sw": rx = Math.min(Math.max(x - rMax, y - rMax, 0), rMax); break;
-							case "se": rx = Math.min(Math.max(-x - rMax, y - rMax, 0), rMax); break;
+							case "ne": rx = Math.min(Math.max(rm - x + norm.x, rm - y + norm.y, 0), rm); break;
+							case "nw": rx = Math.min(Math.max(x + norm.x - rm, -y + norm.y - rm, 0), rm); break;
+							case "sw": rx = Math.min(Math.max(x + norm.x - rm, y + norm.y - rm, 0), rm); break;
+							case "se": rx = Math.min(Math.max(-x + norm.x - rm, y + norm.y - rm, 0), rm); break;
 						}
-						return rMax - rx;
+						return rm - rx;
 					}
 				};
 
