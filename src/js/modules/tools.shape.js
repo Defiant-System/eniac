@@ -197,8 +197,10 @@
 					type,
 					rect,
 					shape,
-					clickX: event.clientX,
-					clickY: event.clientY,
+					click: {
+						x: event.clientX,
+						y: event.clientY,
+					},
 					offset: {
 						x: parseInt(shape.css("left"), 10),
 						y: parseInt(shape.css("top"), 10),
@@ -215,25 +217,23 @@
 						height: Drag.offset.h,
 					};
 				if (Drag.type.includes("n")) {
-					data.top = event.clientY - Drag.clickY + Drag.offset.y;
-					data.height = Drag.offset.h + Drag.clickY - event.clientY;
+					data.top = event.clientY - Drag.click.y + Drag.offset.y;
+					data.height = Drag.offset.h + Drag.click.y - event.clientY;
 				}
 				if (Drag.type.includes("e")) {
-					data.left = event.clientX - Drag.clickX + Drag.offset.x;
-					data.width = Drag.offset.w + Drag.clickX - event.clientX;
+					data.left = event.clientX - Drag.click.x + Drag.offset.x;
+					data.width = Drag.offset.w + Drag.click.x - event.clientX;
 				}
 				if (Drag.type.includes("s")) {
-					data.height = event.clientY - Drag.clickY + Drag.offset.h;
+					data.height = event.clientY - Drag.click.y + Drag.offset.h;
 				}
 				if (Drag.type.includes("w")) {
-					data.width = event.clientX - Drag.clickX + Drag.offset.w;
+					data.width = event.clientX - Drag.click.x + Drag.offset.w;
 				}
 				Drag.el.css(data);
 				// special handling for rect-element
 				if (Drag.rect) {
-					Drag.shape.attr({
-						viewBox: `0 0 ${data.width} ${data.height}`
-					});
+					Drag.shape.attr({ viewBox: `0 0 ${data.width} ${data.height}` });
 				}
 				// re-focuses shape tools
 				Self.dispatch({ type: "focus-shape", el: Drag.shape });
@@ -272,8 +272,10 @@
 				// create drag object
 				Self.drag = {
 					el,
-					clickX: event.clientX,
-					clickY: event.clientY,
+					click: {
+						x: event.clientX,
+						y: event.clientY,
+					},
 					offset: {
 						x: parseInt(shape.css("left"), 10),
 						y: parseInt(shape.css("top"), 10),
@@ -283,8 +285,8 @@
 				Self.els.doc.on("mousemove mouseup", Self.move);
 				break;
 			case "mousemove":
-				let top = event.clientY - Drag.clickY + Drag.offset.y,
-					left = event.clientX - Drag.clickX + Drag.offset.x;
+				let top = event.clientY - Drag.click.y + Drag.offset.y,
+					left = event.clientX - Drag.click.x + Drag.offset.x;
 				Drag.el.css({ top, left });
 				break;
 			case "mouseup":
@@ -378,16 +380,17 @@
 					r = +el.prop("offsetWidth"),
 					width = parseInt(Self.shape.css("width"), 10),
 					height = parseInt(Self.shape.css("height"), 10);
-console.log( width, height );
 				// create drag object
 				Self.drag = {
 					el,
 					type,
 					input,
 					gradient: Self.gradient,
-					clickX: event.clientX,
-					clickY: event.clientY,
 					origo: { x, y, r },
+					click: {
+						x: event.clientX,
+						y: event.clientY,
+					},
 					offset: {
 						width,
 						height,
@@ -413,8 +416,8 @@ console.log( width, height );
 				break;
 			case "mousemove":
 				if (Drag.type === "p1") {
-					let dY = event.clientY - Drag.clickY,
-						dX = event.clientX - Drag.clickX,
+					let dY = event.clientY - Drag.click.y,
+						dX = event.clientX - Drag.click.x,
 						top = dY + Drag.origo.y,
 						left = dX + Drag.origo.x,
 						y2 = dY + Drag.offset.y,
@@ -426,8 +429,8 @@ console.log( width, height );
 					Gradient.moveP1(left/oW, top/oH, x2/oW, y2/oH);
 				} else {
 					// rotate
-					let y = event.clientY - Drag.clickY + Drag.offset.y - Drag.origo.y,
-						x = event.clientX - Drag.clickX + Drag.offset.x - Drag.origo.x,
+					let y = event.clientY - Drag.click.y + Drag.offset.y - Drag.origo.y,
+						x = event.clientX - Drag.click.x + Drag.offset.x - Drag.origo.x,
 						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
 						width = Drag._sqrt(y*y + x*x),
 						oW = Drag.offset.width,
