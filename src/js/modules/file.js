@@ -28,7 +28,7 @@ class File {
 
 			// svg's
 			window.find("svg > svg").map(svg => html += svg.xml);
-			setTimeout(() => window.find(`.shape:nth(1)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);

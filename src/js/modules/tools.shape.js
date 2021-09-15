@@ -60,7 +60,7 @@
 				Self.shape = event.el;
 				Self.shapeItem = event.el.find("circle, rect, polygon, polyline, path");
 				// set "rounded corner" value
-				let rc = Self.shapeItem.attr("rx");
+				let rc = Self.shapeItem.attr("rx") || 0;
 				Self.els.root.css({ "--rc": rc +"px" });
 
 				// gradient tools
@@ -311,32 +311,35 @@
 					pEl = el.parent(),
 					oX = +el.prop("offsetLeft"),
 					oY = +el.prop("offsetTop"),
-					oW = parseInt(shape.css("width"), 10),
-					oH = parseInt(shape.css("height"), 10),
-					rMax = (Math.min(oW, oH) / 2) - 1,
+					offset = {
+						w: parseInt(shape.css("width"), 10),
+						h: parseInt(shape.css("height"), 10),
+					},
+					rMax = (Math.min(offset.w, offset.h) / 2) - 1,
 					type = el.prop("className").split(" ")[2];
-				
 				// create drag object
 				Self.drag = {
+					el,
 					pEl,
 					type,
 					rMax,
 					shape,
-					_max: Math.max,
-					_min: Math.min,
+					offset,
 					click: {
 						x: event.clientX - oX,
 						y: event.clientY - oY,
 					},
 					getRadius(x, y) {
-						let rx;
+						let rMax = this.rMax,
+							rx;
+						x -= (this.offset.w / 2) + 3;
 						switch (this.type) {
-							case "ne": rx = this._min(this._max(this._max(this.rMax - x, this.rMax - y), 0), this.rMax); break;
-							case "nw": rx = this._min(this._max(this._max(x - this.rMax, -y - this.rMax), 0), this.rMax); break;
-							case "sw": rx = this._min(this._max(this._max(x - this.rMax, y - this.rMax), 0), this.rMax); break;
-							case "se": rx = this._min(this._max(this._max(-x - this.rMax, y - this.rMax), 0), this.rMax); break;
+							case "ne": rx = Math.min(Math.max(rMax - x, rMax - y, 0), rMax); break;
+							case "nw": rx = Math.min(Math.max(x - rMax, -y - rMax, 0), rMax); break;
+							case "sw": rx = Math.min(Math.max(x - rMax, y - rMax, 0), rMax); break;
+							case "se": rx = Math.min(Math.max(-x - rMax, y - rMax, 0), rMax); break;
 						}
-						return this.rMax - rx;
+						return rMax - rx;
 					}
 				};
 
@@ -347,6 +350,8 @@
 				let x = event.clientX - Drag.click.x,
 					y = event.clientY - Drag.click.y,
 					rx = Drag.getRadius(x, y);
+				
+				// Drag.el.css({ top: y, left: x });
 				Drag.pEl.css({ "--rc": rx +"px" });
 				Drag.shape.attr({ rx });
 				break;
