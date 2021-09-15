@@ -187,25 +187,28 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let shape = Self.shape,
+				let svg = Self.shape,
+					shape = Self.shapeItem,
 					rect = Self.shapeItem.prop("nodeName") === "rect",
-					el = $([shape[0], Self.els.root[0]]),
+					el = $([svg[0], Self.els.root[0]]),
 					type = event.target.className.split(" ")[1];
 				// create drag object
 				Self.drag = {
 					el,
 					type,
 					rect,
+					svg,
 					shape,
 					click: {
 						x: event.clientX,
 						y: event.clientY,
 					},
 					offset: {
-						x: parseInt(shape.css("left"), 10),
-						y: parseInt(shape.css("top"), 10),
-						w: parseInt(shape.css("width"), 10),
-						h: parseInt(shape.css("height"), 10),
+						x: parseInt(svg.css("left"), 10),
+						y: parseInt(svg.css("top"), 10),
+						w: parseInt(svg.css("width"), 10),
+						h: parseInt(svg.css("height"), 10),
+						rx: +shape.attr("rx"),
 					}
 				};
 				// bind event
@@ -233,10 +236,16 @@
 				Drag.el.css(data);
 				// special handling for rect-element
 				if (Drag.rect) {
-					Drag.shape.attr({ viewBox: `0 0 ${data.width} ${data.height}` });
+					if (Drag.offset.rx) {
+						let w = parseInt(Drag.shape.css("width"), 10),
+							h = parseInt(Drag.shape.css("height"), 10),
+							rx = Math.min(Drag.offset.rx, (Math.min(w, h)-2)/2);
+						Drag.shape.attr({ rx });
+					}
+					Drag.svg.attr({ viewBox: `0 0 ${data.width} ${data.height}` });
 				}
 				// re-focuses shape tools
-				Self.dispatch({ type: "focus-shape", el: Drag.shape });
+				Self.dispatch({ type: "focus-shape", el: Drag.svg });
 				break;
 			case "mouseup":
 				// uncover layout
@@ -370,7 +379,6 @@
 						return rm - rx;
 					}
 				};
-
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.rectCornersMove);
 				break;
@@ -443,7 +451,6 @@
 					Gradient.moveP1 = (x1, y1, x2, y2) => Gradient.xNode.attr({ x1, y1, x2, y2 });
 					Gradient.moveP2 = (x2, y2) => Gradient.xNode.attr({ x2, y2 });
 				}
-
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
 				break;

@@ -1,7 +1,7 @@
 
 <svg id="shape-rounded" class="shape" viewBox="0 0 100 200" cache="false">
 	<style type="text/css">
-		.st3 {
+		.st0 {
 			fill: transparent;
 			stroke: #333333;
 			stroke-width: 3;
@@ -12,12 +12,12 @@
 			height: calc( 100% - 6px );
 		}
 	</style>
-	<rect class="st3" width="0%" rx="15"/>
+	<rect class="st0" width="0%" rx="25"/>
 </svg>
 
 <svg id="shape-rectangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
-		.st0{
+		.st1{
 			fill: url(#SVG-GR-1);
 			stroke: #111111;
 			stroke-width: 2;
@@ -33,12 +33,12 @@
 		<stop offset="54%" stop-color="#555555" />
 		<stop offset="100%" stop-color="#dddddd" />
 	</linearGradient>
-	<rect class="st0" width="0%"/>
+	<rect class="st1" width="0%"/>
 </svg>
 
 <svg id="shape-disc" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
-		.st1{
+		.st2{
 			fill: url(#SVG-GR-2);
 			filter: drop-shadow(4px 4px 5px rgba(0,0,0,.5));
 		}
@@ -47,12 +47,12 @@
 		<stop offset="0%" stop-color="#aaddff"/>
 		<stop offset="100%" stop-color="#336699"/>
 	  </radialGradient>
-	<circle class="st1" cx="50" cy="50" r="47"/>
+	<circle class="st2" cx="50" cy="50" r="47"/>
 </svg>
 
 <svg id="shape-triangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
-		.st2{
+		.st3{
 			fill: #ea261f;
 			stroke: #333333;
 			stroke-width: 2;
@@ -60,18 +60,30 @@
 			stroke-dasharray: 4,2;
 		}
 	</style>
-	<polygon class="st2" points="97,97 50,3.6 3,97 "/>
+	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 </svg>
 
-<svg id="shape-line" class="shape" viewBox="0 0 100 6" cache="false">
+<svg id="shape-line-1" class="shape" viewBox="0 0 100 6" cache="false">
 	<style type="text/css">
-		.st2{
+		.st4{
 			stroke: #333333;
 			stroke-width: 3;
 			stroke: #000000;
 		}
 	</style>
-	<line class="st0" x1="3" y1="3" x2="97" y2="3"/>
+	<line class="st4" x1="3" y1="3" x2="97" y2="3"/>
+</svg>
+
+<svg id="shape-line-2" class="shape" viewBox="0 0 50 50" cache="false">
+	<style type="text/css">
+		.st5{
+			fill: transparent;
+			stroke: #333333;
+			stroke-width: 3;
+			stroke: #000000;
+		}
+	</style>
+	<path class="st5" d="M 10 10 C 20 20, 40 20, 50 10"/>
 </svg>
 
 
