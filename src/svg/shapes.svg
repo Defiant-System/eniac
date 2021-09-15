@@ -63,6 +63,17 @@
 	<polygon class="st2" points="97,97 50,3.6 3,97 "/>
 </svg>
 
+<svg id="shape-line" class="shape" viewBox="0 0 100 6" cache="false">
+	<style type="text/css">
+		.st2{
+			stroke: #333333;
+			stroke-width: 3;
+			stroke: #000000;
+		}
+	</style>
+	<line class="st0" x1="3" y1="3" x2="97" y2="3"/>
+</svg>
+
 
 
 <svg id="shape-rectangle" viewBox="0 0 100 100">
