@@ -35,29 +35,32 @@
 			border-radius: 50%;
 			width: 8px;
 			height: 8px;
+			transform: translateX(-4px) translateY(-4px);
+			z-index: 11;
 
 			&.ne {
 				cursor: nwse-resize;
-				top: var(--rc);
-				left: var(--rc);
+				top: calc( var(--rc) + 4px );
+				left: calc( var(--rc) + 4px );
 			}
 
 			&.nw {
 				cursor: nesw-resize;
-				top: var(--rc);
-				right: var(--rc);
+				top: calc( var(--rc) + 4px );
+				right: calc( var(--rc) - 4px );
 			}
 
 			&.sw {
 				cursor: nwse-resize;
-				bottom: var(--rc);
-				right: var(--rc);
+				bottom: calc( var(--rc) - 4px );
+				right: calc( var(--rc) - 4px );
+				z-index: 12;
 			}
 
 			&.se {
 				cursor: nesw-resize;
-				bottom: var(--rc);
-				left: var(--rc);
+				bottom: calc( var(--rc) - 4px );
+				left: calc( var(--rc) + 4px );
 			}
 		}
 	}

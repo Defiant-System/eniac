@@ -59,9 +59,11 @@
 				// remember shape
 				Self.shape = event.el;
 				Self.shapeItem = event.el.find("circle, rect, polygon, polyline, path");
-				// set "rounded corner" value
+				// set "rounded corner" value & reset handles
 				let rc = Self.shapeItem.attr("rx") || 0;
-				Self.els.root.css({ "--rc": rc +"px" });
+				Self.els.root
+					.css({ "--rc": rc +"px" })
+					.find(".rc").removeAttr("style");
 
 				// gradient tools
 				let fill = Self.shapeItem.css("fill"),
@@ -315,69 +317,79 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let shape = Self.shapeItem,
-					el = $(event.target),
+				let el = $(event.target),
 					pEl = el.parent(),
 					type = el.prop("className").split(" ")[2],
+					shape = Self.shapeItem,
+					[t, l, vW, vH] = Self.shape.attr("viewBox").split(" "),
 					offset = {
-						x: +el.prop("offsetLeft"),
-						y: +el.prop("offsetTop"),
+						l: +el.prop("offsetLeft"),
+						t: +el.prop("offsetTop"),
+						x: parseInt(shape.css("x"), 10),
 						w: parseInt(shape.css("width"), 10),
 						h: parseInt(shape.css("height"), 10),
 					},
-					radius = {
-						min: (Math.min(offset.w, offset.h) / 2) - 1,
-						max: (Math.max(offset.w, offset.h) / 2) + 3,
-					},
-					normalize = {
-						x: 0,
-						y: 0
-					},
-					ratio = offset.w / offset.h;
-				// this can most likely be written better
-				if (ratio !== 1) {
+					ratio = offset.w / offset.h,
+					origo = {
+						x: vW / 2,
+						y: vH / 2,
+						r: Math.min(vW, vH) / 2,
+					};
+				
+				if (ratio != 1) {
 					switch (type) {
-						case "ne": break;
+						case "ne":
+							origo.x = ratio > 1 ? vH / 2 : origo.x;
+							origo.y = ratio < 1 ? vW / 2 : origo.y;
+							break;
 						case "nw":
-							normalize.x = ratio < 1 ? 0 : -radius.max;
-							normalize.y = ratio < 1 ? 0 : -radius.max;
 							break;
 						case "sw":
-							normalize.x = -radius.max;
-							normalize.y = -radius.max;
+							origo.x = ratio > 1 ? vW - (vH / 2) : origo.x;
+							origo.y = ratio < 1 ? vH - (vW / 2) : origo.y;
 							break;
 						case "se":
-							normalize.x = ratio > 1 ? 0 : -radius.max;
-							normalize.y = ratio > 1 ? 0 : -radius.max;
+							origo.x = ratio > 1 ? vH / 2 : origo.x;
+							origo.y = ratio < 1 ? vH - (vW / 2) : origo.y;
 							break;
 					}
 				}
+
 				// create drag object
 				Self.drag = {
 					el,
-					pEl,
 					type,
-					shape,
-					radius,
+					origo,
 					offset,
-					normalize,
 					click: {
-						x: event.clientX - offset.x,
-						y: event.clientY - offset.y,
+						x: event.clientX - offset.l,
+						y: event.clientY - offset.t,
 					},
-					getRadius(x, y) {
-						let norm = this.normalize,
-							rm = this.radius.min,
-							rx;
-						// console.log(this.type);
+					constrain(x, y) {
+						let top = y,
+							left = x,
+							v;
 						switch (this.type) {
-							case "ne": rx = Math.min(Math.max(rm - x + norm.x, rm - y + norm.y, 0), rm); break;
-							case "nw": rx = Math.min(Math.max(x + norm.x - rm, -y + norm.y - rm, 0), rm); break;
-							case "sw": rx = Math.min(Math.max(x + norm.x - rm, y + norm.y - rm, 0), rm); break;
-							case "se": rx = Math.min(Math.max(-x + norm.x - rm, y + norm.y - rm, 0), rm); break;
+							case "ne":
+								v = Math.min(this.origo.y-y, this.origo.x-x, this.origo.r);
+								top = Math.min(this.origo.y-v, this.origo.y);
+								left = Math.min(this.origo.x-v, this.origo.x);
+								break;
+							case "nw":
+								break;
+							case "sw":
+								v = Math.min(y-this.origo.y, x-this.origo.x, this.origo.r);
+								top = Math.max(v+this.origo.y, this.origo.y);
+								left = Math.max(v+this.origo.x, this.origo.x);
+								break;
+							case "se":
+								v = Math.min(y-this.origo.y, this.origo.x-x, this.origo.r);
+								top = Math.max(v+this.origo.y, this.origo.y);
+								left = Math.min(this.origo.x-v, this.origo.x);
+								break;
 						}
-						return rm - rx;
-					}
+						return { top, left };
+					},
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.rectCornersMove);
@@ -385,11 +397,11 @@
 			case "mousemove":
 				let x = event.clientX - Drag.click.x,
 					y = event.clientY - Drag.click.y,
-					rx = Drag.getRadius(x, y);
+					{ top, left } = Drag.constrain(x, y);
 				
-				// Drag.el.css({ top: y, left: x });
-				Drag.pEl.css({ "--rc": rx +"px" });
-				Drag.shape.attr({ rx });
+				Drag.el.css({ top, left });
+				// Drag.pEl.css({ "--rc": rx +"px" });
+				// Drag.shape.attr({ rx });
 				break;
 			case "mouseup":
 				// uncover layout

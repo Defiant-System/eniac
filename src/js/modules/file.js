@@ -28,7 +28,11 @@ class File {
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 
 			// svg's
-			window.find("svg > svg").map(svg => html += svg.xml);
+			window.find("svg > svg").map(svg => {
+				let [t, l, w, h] = svg.getAttribute("viewBox").split(" ");
+				svg.setAttribute("style", `width: ${w}px; height: ${h}px;`);
+				html += svg.xml;
+			});
 			setTimeout(() => window.find(`.shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
