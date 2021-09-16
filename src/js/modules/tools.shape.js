@@ -180,7 +180,8 @@
 					Self.gradient = { type: "solid", switchType };
 				}
 				// update sidebar
-				APP.sidebar.dispatch({ ...event, type: "show-line" });
+				let type = name === "line" ? "show-line" : "show-shape";
+				APP.sidebar.dispatch({ ...event, type });
 				break;
 		}
 	},

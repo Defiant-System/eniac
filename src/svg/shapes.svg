@@ -56,6 +56,7 @@
 			stroke-width: 3;
 			stroke: #336699;
 			stroke-dasharray: 6,3;
+			filter: drop-shadow(4px 4px 5px rgba(0,0,0,.5));
 		}
 	</style>
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>

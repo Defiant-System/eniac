@@ -93,7 +93,7 @@
 
 				let data = { fill, border, shadow, reflection, opacity };
 				Object.keys(data).map(key => {
-					let el = Self.parent.els.el.find(`.group-row.${key}-options`);
+					let el = Self.parent.els.el.find(`.group-row.shape-${key}-options`);
 					if (data[key]._expand) el.addClass("expanded");
 					else el.removeClass("expanded");
 				});
@@ -105,7 +105,7 @@
 				// update sidebar value
 				fill = Shape.shapeItem.cssProp("fill");
 				if (!fill.startsWith("url(")) {
-					value = Color.rgbToHex(fill);
+					value = Color.rgbToHex(fill).slice(0,-2);
 					Els.el.find(`.shape-styles span[data-arg="${value}"]`).addClass("active");
 				}
 				break;
@@ -256,23 +256,32 @@
 				break;
 			case "set-shape-shadow": {
 				let sEl = Self.parent.els.el,
-					blur = +sEl.find(".shape-shadow-blur input:nth(0)").val(),
-					offset = +sEl.find(".shape-shadow-offset input:nth(0)").val(),
-					opacity = +sEl.find(".shape-shadow-opacity input:nth(0)").val(),
-					rad = (+sEl.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
-					bX = Math.round(offset * Math.sin(rad)),
-					bY = Math.round(offset * Math.cos(rad)),
-					x = Math.round((opacity / 100) * 255),
+					data = {
+						blur: +sEl.find(".shape-shadow-blur input:nth(0)").val(),
+						offset: +sEl.find(".shape-shadow-offset input:nth(0)").val(),
+						opacity: +sEl.find(".shape-shadow-opacity input:nth(0)").val(),
+					};
+				// obey new value of event provides value
+				if (event.el) {
+					let cn = event.el.parents(".flex-row").prop("className"),
+						name = cn.split(" ")[1].split("-")[2];
+					data[name] = +event.value;
+				}
+
+				let rad = (+sEl.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
+					bX = Math.round(data.offset * Math.sin(rad)),
+					bY = Math.round(data.offset * Math.cos(rad)),
+					x = Math.round((data.opacity / 100) * 255),
 					d = "0123456789abcdef".split(""),
 					alpha = d[(x - x % 16) / 16] + d[x % 16],
 					color = sEl.find(`.shadow-angle-color .color-preset_`).css("--preset-color"),
-					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${blur}px)`;
+					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
 				// apply drop shadow
 				Shape.shapeItem.css({ filter });
 				// make sure all fields shows same value
-				Self.parent.els.el.find(".shape-shadow-blur input").val(blur);
-				Self.parent.els.el.find(".shape-shadow-offset input").val(offset);
-				Self.parent.els.el.find(".shape-shadow-opacity input").val(opacity);
+				Self.parent.els.el.find(".shape-shadow-blur input").val(data.blur);
+				Self.parent.els.el.find(".shape-shadow-offset input").val(data.offset);
+				Self.parent.els.el.find(".shape-shadow-opacity input").val(data.opacity);
 				} break;
 			case "set-shape-reflection":
 				value = Self.parent.els.el.find(".shape-reflection input:nth(0)").val();

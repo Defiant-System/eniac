@@ -14,11 +14,120 @@
 			<span class="icon-line-style-5" data-arg="#fcad2a"></span>
 			<span class="icon-line-style-6" data-arg="#fc47a1"></span>
 		</div>
-	</div>
 
-	<!-- Styles body -->
-	<div class="sidebar-body active">
+		<div class="group-row line-stroke-options">
+			<legend data-click="toggle-group-body">Stroke</legend>
+			<div class="group-body">
+				<div class="flex-row">
+					<div class="w37">
+						<selectbox class="line-stroke" data-menu="line-stroke">
+							<option class="prefix-icon" selected="1" value="solid"/>
+						</selectbox>
+					</div>
+					<div class="color-preset_" data-click="popup-color-palette" data-change="set-line-stroke-color" style="--preset-color: #000000;"></div>
+					<div class="w23">
+						<input type="number" value="1" min="0" max="10" id="line-stroke" data-change="set-line-stroke-width"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<div class="group-row line-shadow-options">
+			<legend data-click="toggle-group-body">Shadow</legend>
+			<div class="group-body">
+				<div class="flex-row line-shadow-blur">
+					<div class="w63">
+						<span class="range-caption">Blur</span>
+						<input type="range" value="0" min="0" max="20" data-change="set-line-shadow">
+					</div>
+					<div class="has-caption" data-suffix="px">
+						<input type="number" value="0" min="0" max="20" data-change="set-line-shadow"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+				<div class="flex-row line-shadow-offset">
+					<div class="w63">
+						<span class="range-caption">Offset</span>
+						<input type="range" value="0" min="0" max="40" data-change="set-line-shadow">
+					</div>
+					<div class="has-caption" data-suffix="px">
+						<input type="number" value="0" min="0" max="40" data-change="set-line-shadow"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+				<div class="flex-row line-shadow-opacity">
+					<div class="w63">
+						<span class="range-caption">Opacity</span>
+						<input type="range" value="0" min="0" max="100" data-change="set-line-shadow">
+					</div>
+					<div class="has-caption" data-suffix="%">
+						<input type="number" value="0" min="0" max="100" data-change="set-line-shadow"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="flex-row shadow-angle-color">
+					<legend class="bold">Angle</legend>
+					<div data-suffix="°">
+						<input type="number" name="line-shadow-angle" min="0" max="360" value="45" data-change="set-line-shadow"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+					<div class="color-preset_" data-click="popup-color-palette" data-change="set-line-shadow" style="--preset-color: #000000;"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row line-reflection-options">
+			<legend data-click="toggle-group-body">Reflection</legend>
+			<div class="group-body">
+				<div class="flex-row line-reflection">
+					<div class="w63">
+						<input type="range" value="50" min="0" max="100" data-change="set-line-reflection">
+					</div>
+					<div data-suffix="%">
+						<input type="number" value="50" min="0" max="100" data-change="set-line-reflection"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group-row line-opacity-options">
+			<legend data-click="toggle-group-body">Opacity</legend>
+			<div class="group-body">
+				<div class="flex-row line-opacity">
+					<div class="w63">
+						<input type="range" value="50" min="0" max="100" data-change="set-line-opacity">
+					</div>
+					<div data-suffix="%">
+						<input type="number" value="50" min="0" max="100" data-change="set-line-opacity"/>
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- Arrange body -->
