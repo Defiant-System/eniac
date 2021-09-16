@@ -12,6 +12,17 @@
 		display: none;
 	}
 
+	&.is-rect {
+		.handle.rc { display: block; }
+	}
+
+	&.is-line {
+		box-shadow: 0 0 0;
+
+		.handle { display: none; }
+		.handle.line { display: block; }
+	}
+
 	.handle {
 		position: absolute;
 		width: 9px;
@@ -30,13 +41,29 @@
 		&.e    { cursor: w-resize; top: 50%; left: -5px; transform: translateY(-50%); }
 		&.ne   { cursor: nw-resize; top: -5px; left: -5px; }
 
+		&.line {
+			width: 8px;
+			height: 8px;
+			// opacity: .25;
+
+			&.ls {
+				top: -1px;
+				left: -1px;
+			}
+
+			&.le {
+				top: -1px;
+				right: -1px;
+			}
+		}
 
 		&.rc {
+			display: none;
 			border-radius: 50%;
 			width: 8px;
 			height: 8px;
 			transform: translateX(-4px) translateY(-4px);
-			z-index: 11;
+			z-index: 2;
 
 			&.ne {
 				cursor: nwse-resize;
@@ -54,7 +81,6 @@
 				cursor: nwse-resize;
 				bottom: calc( var(--rc) - 4px );
 				right: calc( var(--rc) - 4px );
-				z-index: 12;
 			}
 
 			&.se {

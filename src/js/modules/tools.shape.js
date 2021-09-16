@@ -57,11 +57,15 @@
 					.removeClass("hidden");
 
 				// remember shape
+				let names = ["circle", "rect", "polygon", "polyline", "path", "line"];
 				Self.shape = event.el;
-				Self.shapeItem = event.el.find("circle, rect, polygon, polyline, path");
+				Self.shapeItem = event.el.find(names.join(","));
 				// set "rounded corner" value & reset handles
-				let rc = Self.shapeItem.attr("rx") || 0;
+				let name = Self.shapeItem.prop("nodeName"),
+					rc = Self.shapeItem.attr("rx") || 0;
 				Self.els.root
+					.removeClass(names.map(e => `is-${e}`).join(" "))
+					.addClass(`is-${name}`)
 					.css({ "--rc": rc +"px" })
 					.find(".rc").removeAttr("style");
 
@@ -180,6 +184,58 @@
 				break;
 		}
 	},
+	move(event) {
+		let APP = eniac,
+			Self = APP.tools.shape,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				// if mousedown on handle
+				let el = $(event.target),
+					shape = Self.shape;
+				if (el.hasClass("handle")) {
+					if (el.hasClass("rc")) {
+						return Self.rectCornersMove(event);
+					}
+					if (el.hasClass("line")) {
+						return Self.lineAnchorMove(event);
+					}
+					if (el.parent().hasClass("gradient-tool")) {
+						return Self.gradientMove(event);
+					}
+					return Self.resize(event);
+				}
+				
+				el = $([shape[0], Self.els.root[0]]);
+				// create drag object
+				Self.drag = {
+					el,
+					click: {
+						x: event.clientX - parseInt(shape.css("left"), 10),
+						y: event.clientY - parseInt(shape.css("top"), 10),
+					}
+				};
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.move);
+				break;
+			case "mousemove":
+				let top = event.clientY - Drag.click.y,
+					left = event.clientX - Drag.click.x;
+				Drag.el.css({ top, left });
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.move);
+				break;
+		}
+	},
 	resize(event) {
 		let APP = eniac,
 			Self = APP.tools.shape,
@@ -257,7 +313,7 @@
 				break;
 		}
 	},
-	move(event) {
+	lineAnchorMove(event) {
 		let APP = eniac,
 			Self = APP.tools.shape,
 			Drag = Self.drag;
@@ -265,44 +321,35 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
 
 				// if mousedown on handle
 				let el = $(event.target),
-					shape = Self.shape;
-				if (el.hasClass("handle")) {
-					if (el.hasClass("rc")) {
-						return Self.rectCornersMove(event);
-					}
-					if (el.parent().hasClass("gradient-tool")) {
-						return Self.gradientMove(event);
-					}
-					return Self.resize(event);
-				}
-				
-				el = $([shape[0], Self.els.root[0]]);
+					shape = Self.shapeItem;
+
 				// create drag object
 				Self.drag = {
 					el,
+					shape,
 					click: {
-						x: event.clientX,
-						y: event.clientY,
-					},
-					offset: {
-						x: parseInt(shape.css("left"), 10),
-						y: parseInt(shape.css("top"), 10),
+						x: event.clientX - +el.prop("offsetLeft"),
+						y: event.clientY - +el.prop("offsetTop"),
 					}
 				};
 				// bind event
-				Self.els.doc.on("mousemove mouseup", Self.move);
+				Self.els.doc.on("mousemove mouseup", Self.lineAnchorMove);
 				break;
 			case "mousemove":
-				let top = event.clientY - Drag.click.y + Drag.offset.y,
-					left = event.clientX - Drag.click.x + Drag.offset.x;
+				let top = event.clientY - Drag.click.y,
+					left = event.clientX - Drag.click.x;
 				Drag.el.css({ top, left });
 				break;
 			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
-				Self.els.doc.off("mousemove mouseup", Self.move);
+				Self.els.doc.off("mousemove mouseup", Self.lineAnchorMove);
 				break;
 		}
 	},
