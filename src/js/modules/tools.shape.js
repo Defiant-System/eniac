@@ -333,7 +333,7 @@
 					origo = {
 						x: vW / 2,
 						y: vH / 2,
-						r: Math.min(vW, vH) / 2,
+						r: (Math.min(vW, vH) / 2) - 4,
 					};
 				
 				if (ratio != 1) {
@@ -360,6 +360,8 @@
 				// create drag object
 				Self.drag = {
 					el,
+					pEl,
+					shape,
 					type,
 					origo,
 					offset,
@@ -368,32 +370,31 @@
 						y: event.clientY - offset.t,
 					},
 					constrain(x, y) {
-						let top = y,
-							left = x,
-							v;
+						let top, left, v, rx;
 						switch (this.type) {
 							case "ne":
 								v = Math.min(this.origo.y-y, this.origo.x-x, this.origo.r);
-								top = Math.min(this.origo.y-v, this.origo.y);
-								left = Math.min(this.origo.x-v, this.origo.x);
+								// top = Math.min(this.origo.y-v, this.origo.y);
+								// left = Math.min(this.origo.x-v, this.origo.x);
 								break;
 							case "nw":
 								v = Math.min(this.origo.y-y, x-this.origo.x, this.origo.r);
-								top = Math.min(this.origo.y-v, this.origo.y);
-								left = Math.max(this.origo.x+v, this.origo.x);
+								// top = Math.min(this.origo.y-v, this.origo.y);
+								// left = Math.max(this.origo.x+v, this.origo.x);
 								break;
 							case "sw":
 								v = Math.min(y-this.origo.y, x-this.origo.x, this.origo.r);
-								top = Math.max(v+this.origo.y, this.origo.y);
-								left = Math.max(v+this.origo.x, this.origo.x);
+								// top = Math.max(v+this.origo.y, this.origo.y);
+								// left = Math.max(v+this.origo.x, this.origo.x);
 								break;
 							case "se":
 								v = Math.min(y-this.origo.y, this.origo.x-x, this.origo.r);
-								top = Math.max(v+this.origo.y, this.origo.y);
-								left = Math.min(this.origo.x-v, this.origo.x);
+								// top = Math.max(v+this.origo.y, this.origo.y);
+								// left = Math.min(this.origo.x-v, this.origo.x);
 								break;
 						}
-						return { top, left };
+						rx = Math.min(Math.max(this.origo.r-v, 0), this.origo.r);
+						return { top, left, rx };
 					},
 				};
 				// bind event
@@ -402,11 +403,11 @@
 			case "mousemove":
 				let x = event.clientX - Drag.click.x,
 					y = event.clientY - Drag.click.y,
-					{ top, left } = Drag.constrain(x, y);
+					{ top, left, rx } = Drag.constrain(x, y);
 				
-				Drag.el.css({ top, left });
-				// Drag.pEl.css({ "--rc": rx +"px" });
-				// Drag.shape.attr({ rx });
+				// Drag.el.css({ top, left });
+				Drag.pEl.css({ "--rc": rx +"px" });
+				Drag.shape.attr({ rx });
 				break;
 			case "mouseup":
 				// uncover layout
