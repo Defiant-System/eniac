@@ -127,6 +127,51 @@
 </svg>
 
 
+
+<svg id="icon-line-style-1" viewBox="0 0 77 56">
+	<style type="text/css">
+		.st0{stroke:#222222;stroke-width:3;}
+	</style>
+	<line class="st0" x1="5" y1="28" x2="72" y2="28"/>
+</svg>
+
+<svg id="icon-line-style-2" viewBox="0 0 77 56">
+	<style type="text/css">
+		.st0{stroke:#1ba3fc;stroke-width:3;}
+	</style>
+	<line class="st0" x1="5" y1="28" x2="72" y2="28"/>
+</svg>
+
+<svg id="icon-line-style-3" viewBox="0 0 77 56">
+	<style type="text/css">
+		.st0{stroke:#65d744;stroke-width:3;}
+	</style>
+	<line class="st0" x1="5" y1="28" x2="72" y2="28"/>
+</svg>
+
+<svg id="icon-line-style-4" viewBox="0 0 77 56">
+	<style type="text/css">
+		.st0{stroke:#ea261f;stroke-width:3;}
+	</style>
+	<line class="st0" x1="5" y1="28" x2="72" y2="28"/>
+</svg>
+
+<svg id="icon-line-style-5" viewBox="0 0 77 56">
+	<style type="text/css">
+		.st0{stroke:#fcad2a;stroke-width:3;}
+	</style>
+	<line class="st0" x1="5" y1="28" x2="72" y2="28"/>
+</svg>
+
+<svg id="icon-line-style-6" viewBox="0 0 77 56">
+	<style type="text/css">
+		.st0{stroke:#fc47a1;stroke-width:3;}
+	</style>
+	<line class="st0" x1="5" y1="28" x2="72" y2="28"/>
+</svg>
+
+
+
 <svg id="icon-shape-style-1" viewBox="0 0 77 56">
 	<style type="text/css">
 		.st0{fill:#222222;}

@@ -15,6 +15,7 @@
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 	},
+	line: @import "sidebar.line.js",
 	sheet: @import "sidebar.sheet.js",
 	shape: @import "sidebar.shape.js",
 	table: @import "sidebar.table.js",
@@ -34,9 +35,11 @@
 			case "show-caption":
 			case "show-table":
 			case "show-shape":
+			case "show-line":
 			case "show-chart":
 			case "show-empty":
-				Self.els.el.removeClass("show-sheet show-title show-caption show-table show-shape show-chart show-empty");
+				name = ["sheet", "title", "caption", "table", "shape", "line", "chart", "empty"];
+				Self.els.el.removeClass(name.map(e => `show-${e}`).join(" "));
 				Self.els.el.addClass(event.type);
 				// trigger populate event
 				name = event.type.split("-")[1];
