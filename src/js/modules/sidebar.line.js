@@ -9,7 +9,9 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.line,
-			Line = Self.line,
+			Els = APP.sidebar.els,
+			Shape = event.shape || APP.tools.shape,
+			value,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -17,6 +19,10 @@
 				event.values = Self.dispatch({ ...event, type: "collect-line-values" });
 
 				Self.dispatch({ ...event, type: "update-line-style" });
+				Self.dispatch({ ...event, type: "update-line-stroke" });
+				Self.dispatch({ ...event, type: "update-line-shadow" });
+				Self.dispatch({ ...event, type: "update-line-reflection" });
+				Self.dispatch({ ...event, type: "update-line-opacity" });
 				break;
 			case "collect-line-values": {
 				let stroke = {},
@@ -25,7 +31,11 @@
 					opacity = {};
 
 				// border values
+				stroke.width = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				stroke.color = Color.rgbToHex(Shape.shapeItem.css("stroke")).slice(0,-2);
+				stroke.dash = Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
 				stroke._expand = true;
+				console.log(stroke);
 
 				// shadow values
 				shadow._expand = true;
@@ -46,6 +56,10 @@
 				return data; }
 			case "update-line-style":
 				break;
+			case "update-line-stroke": break;
+			case "update-line-shadow": break;
+			case "update-line-reflection": break;
+			case "update-line-opacity": break;
 		}
 	}
 }

@@ -13,9 +13,10 @@
 		// 	let target = this.parent.els.el.find(".gradient-colors .point:nth(0)")[0];
 		// 	eniac.popups.dispatch({ type: "popup-color-ring", target });
 		// }, 500);
-		setTimeout(() => {
-			eniac.sidebar.shape.dispatch({ type: "set-shape-shadow" });
-		}, 300);
+		
+		// setTimeout(() => {
+		// 	eniac.sidebar.shape.dispatch({ type: "set-shape-shadow" });
+		// }, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -93,7 +94,7 @@
 
 				let data = { fill, border, shadow, reflection, opacity };
 				Object.keys(data).map(key => {
-					let el = Self.parent.els.el.find(`.group-row.shape-${key}-options`);
+					let el = Els.el.find(`.group-row.shape-${key}-options`);
 					if (data[key]._expand) el.addClass("expanded");
 					else el.removeClass("expanded");
 				});
@@ -115,7 +116,7 @@
 				
 				// click option button
 				value = event.values.fill.type;
-				Self.parent.els.el.find(`.option-buttons_ span[data-arg="${value}"]`).trigger("click");
+				Els.el.find(`.option-buttons_ span[data-arg="${value}"]`).trigger("click");
 				switch (value) {
 					case "linearGradient":
 					case "radialGradient":
@@ -137,7 +138,7 @@
 						break;
 					default:
 						// fill solid
-						Self.parent.els.el.find(`.color-preset_[data-change="set-shape-fill-color"]`)
+						Els.el.find(`.color-preset_[data-change="set-shape-fill-color"]`)
 							.css({ "--preset-color": event.values.fill.color });
 				}
 				break;
@@ -145,7 +146,7 @@
 				color = event.values.border.color;
 				// outline style
 				value = event.values.border.dash;
-				el = Self.parent.els.el.find(".shape-outline").addClass("has-prefix-icon");
+				el = Els.el.find(".shape-outline").addClass("has-prefix-icon");
 				switch (true) {
 					case value[0] === value[1]:
 						value = "dotted";
@@ -164,7 +165,7 @@
 
 				// outline color
 				value = color === "none" ? "transparent" : Color.rgbToHex(color).slice(0, -2);
-				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-outline-color"]`)
+				Els.el.find(`.color-preset_[data-change="set-shape-outline-color"]`)
 							.css({ "--preset-color": value });
 				
 				// outline width
@@ -172,7 +173,6 @@
 				Els.el.find("input#shape-outline").val(value);
 				break;
 			case "update-shape-shadow": {
-				// console.log(Shape.shapeItem.css("filter"));
 				let filter = event.values.shadow.filter,
 					rgbColor = filter.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
 					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : false,
@@ -184,24 +184,24 @@
 					angle = Math.round(Math.atan2(bY, bX) * (180 / Math.PI)),
 					offset = Math.round(Math.sqrt(bY*bY + bX*bX));
 				// drop-shadow values
-				Self.parent.els.el.find(".shape-shadow-blur input").val(blur);
-				Self.parent.els.el.find(".shape-shadow-offset input").val(offset);
-				Self.parent.els.el.find(".shape-shadow-opacity input").val(opacity);
-				Self.parent.els.el.find(`input[name="shape-shadow-angle"]`).val(angle);
+				Els.el.find(".shape-shadow-blur input").val(blur);
+				Els.el.find(".shape-shadow-offset input").val(offset);
+				Els.el.find(".shape-shadow-opacity input").val(opacity);
+				Els.el.find(`input[name="shape-shadow-angle"]`).val(angle);
 				// drop-shadow color
 				hexColor = hexColor ? hexColor.slice(0, -2) : "transparent";
-				Self.parent.els.el.find(`.color-preset_[data-change="set-shape-shadow"]`)
+				Els.el.find(`.color-preset_[data-change="set-shape-shadow"]`)
 							.css({ "--preset-color": hexColor });
 				} break;
 			case "update-shape-reflection":
 				// rgba(255, 255, 255, 0.35)
 				value = event.values.reflection.reflect.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
 				value = value ? Math.round(value[4] * 100) : 0;
-				Self.parent.els.el.find(".shape-reflection input").val(value);
+				Els.el.find(".shape-reflection input").val(value);
 				break;
 			case "update-shape-opacity":
 				value = event.values.opacity.value * 100;
-				Self.parent.els.el.find(".shape-opacity input").val(value);
+				Els.el.find(".shape-opacity input").val(value);
 				break;
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
@@ -235,7 +235,7 @@
 				break;
 			case "set-shape-outline-style":
 				width = parseInt(Shape.shapeItem.css("stroke-width"), 10);
-				el = Self.parent.els.el.find(".shape-outline").addClass("has-prefix-icon");
+				el = Els.el.find(".shape-outline").addClass("has-prefix-icon");
 				switch (event.arg) {
 					case "dashed": value = [width*2, width]; break;
 					case "dotted": value = [width, width]; break;
@@ -255,11 +255,10 @@
 				Shape.shapeItem.css({ "stroke-width": +event.value +"px" });
 				break;
 			case "set-shape-shadow": {
-				let sEl = Self.parent.els.el,
-					data = {
-						blur: +sEl.find(".shape-shadow-blur input:nth(0)").val(),
-						offset: +sEl.find(".shape-shadow-offset input:nth(0)").val(),
-						opacity: +sEl.find(".shape-shadow-opacity input:nth(0)").val(),
+				let data = {
+						blur: +Els.el.find(".shape-shadow-blur input:nth(0)").val(),
+						offset: +Els.el.find(".shape-shadow-offset input:nth(0)").val(),
+						opacity: +Els.el.find(".shape-shadow-opacity input:nth(0)").val(),
 					};
 				// obey new value of event provides value
 				if (event.el) {
@@ -267,36 +266,36 @@
 						name = cn.split(" ")[1].split("-")[2];
 					data[name] = +event.value;
 				}
-
-				let rad = (+sEl.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
+				// collect / prepare values for sidebar
+				let rad = (+Els.el.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
 					bX = Math.round(data.offset * Math.sin(rad)),
 					bY = Math.round(data.offset * Math.cos(rad)),
 					x = Math.round((data.opacity / 100) * 255),
 					d = "0123456789abcdef".split(""),
 					alpha = d[(x - x % 16) / 16] + d[x % 16],
-					color = sEl.find(`.shadow-angle-color .color-preset_`).css("--preset-color"),
+					color = Els.el.find(`.shadow-angle-color .color-preset_`).css("--preset-color"),
 					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
 				// apply drop shadow
 				Shape.shapeItem.css({ filter });
 				// make sure all fields shows same value
-				Self.parent.els.el.find(".shape-shadow-blur input").val(data.blur);
-				Self.parent.els.el.find(".shape-shadow-offset input").val(data.offset);
-				Self.parent.els.el.find(".shape-shadow-opacity input").val(data.opacity);
+				Els.el.find(".shape-shadow-blur input").val(data.blur);
+				Els.el.find(".shape-shadow-offset input").val(data.offset);
+				Els.el.find(".shape-shadow-opacity input").val(data.opacity);
 				} break;
 			case "set-shape-reflection":
-				value = Self.parent.els.el.find(".shape-reflection input:nth(0)").val();
+				value = Els.el.find(".shape-reflection input:nth(0)").val();
 				let reflect = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
 				// apply reflection
 				Shape.shape.css({ "-webkit-box-reflect": reflect });
 				// make sure all fields shows same value
-				Self.parent.els.el.find(".shape-reflection input").val(value);
+				Els.el.find(".shape-reflection input").val(value);
 				break;
 			case "set-shape-opacity":
-				value = Self.parent.els.el.find(".shape-opacity input:nth(0)").val();
+				value = Els.el.find(".shape-opacity input:nth(0)").val();
 				// apply shape opacity
 				Shape.shape.css({ "opacity": value / 100 });
 				// make sure all fields shows same value
-				Self.parent.els.el.find(".shape-opacity input").val(value);
+				Els.el.find(".shape-opacity input").val(value);
 				break;
 		}
 	},
