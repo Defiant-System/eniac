@@ -369,31 +369,17 @@
 						y: event.clientY - offset.t,
 					},
 					constrain(x, y) {
-						let d = {};
+						let min = Math.min,
+							max = Math.max,
+							o = this.origo,
+							v;
 						switch (this.type) {
-							case "ne":
-								d.v = Math.min(this.origo.y-y, this.origo.x-x, this.origo.r);
-								// d.top = Math.min(this.origo.y-d.v, this.origo.y);
-								// d.left = Math.min(this.origo.x-d.v, this.origo.x);
-								break;
-							case "nw":
-								d.v = Math.min(this.origo.y-y, x-this.origo.x, this.origo.r);
-								// d.top = Math.min(this.origo.y-d.v, this.origo.y);
-								// d.left = Math.max(this.origo.x+d.v, this.origo.x);
-								break;
-							case "sw":
-								d.v = Math.min(y-this.origo.y, x-this.origo.x, this.origo.r);
-								// d.top = Math.max(d.v+this.origo.y, this.origo.y);
-								// d.left = Math.max(d.v+this.origo.x, this.origo.x);
-								break;
-							case "se":
-								d.v = Math.min(y-this.origo.y, this.origo.x-x, this.origo.r);
-								// d.top = Math.max(d.v+this.origo.y, this.origo.y);
-								// d.left = Math.min(this.origo.x-d.v, this.origo.x);
-								break;
+							case "ne": v = min(o.y-y, o.x-x, o.r); break;
+							case "nw": v = min(o.y-y, x-o.x, o.r); break;
+							case "sw": v = min(y-o.y, x-o.x, o.r); break;
+							case "se": v = min(y-o.y, o.x-x, o.r); break;
 						}
-						d.rx = Math.min(Math.max(this.origo.r-d.v, 0), this.origo.r);
-						return d;
+						return min(max(o.r-v, 0), o.r);
 					},
 				};
 				// bind event
@@ -402,9 +388,7 @@
 			case "mousemove":
 				let x = event.clientX - Drag.click.x,
 					y = event.clientY - Drag.click.y,
-					{ top, left, rx } = Drag.constrain(x, y);
-				
-				// Drag.el.css({ top, left });
+					rx = Drag.constrain(x, y);
 				Drag.pEl.css({ "--rc": rx +"px" });
 				Drag.shape.attr({ rx });
 				break;
