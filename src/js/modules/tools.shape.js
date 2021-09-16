@@ -331,28 +331,28 @@
 					},
 					ratio = offset.w / offset.h,
 					origo = {
-						x: vW / 2,
-						y: vH / 2,
-						r: (Math.min(offset.w, offset.h) / 2) - 1,
+						x: vW * .5,
+						y: vH * .5,
+						r: (Math.min(offset.w, offset.h) * .5) - 1,
 					};
 				// calculate origo for handles
 				if (ratio != 1) {
 					switch (type) {
 						case "ne":
-							origo.x = ratio > 1 ? vH / 2 : origo.x;
-							origo.y = ratio < 1 ? vW / 2 : origo.y;
+							origo.x = ratio > 1 ? vH * .5 : origo.x;
+							origo.y = ratio < 1 ? vW * .5 : origo.y;
 							break;
 						case "nw":
-							origo.x = ratio > 1 ? vW - (vH / 2) : origo.x;
-							origo.y = ratio < 1 ? vW / 2 : origo.y;
+							origo.x = ratio > 1 ? vW - (vH * .5) : origo.x;
+							origo.y = ratio < 1 ? vW * .5 : origo.y;
 							break;
 						case "sw":
-							origo.x = ratio > 1 ? vW - (vH / 2) : origo.x;
-							origo.y = ratio < 1 ? vH - (vW / 2) : origo.y;
+							origo.x = ratio > 1 ? vW - (vH * .5) : origo.x;
+							origo.y = ratio < 1 ? vH - (vW * .5) : origo.y;
 							break;
 						case "se":
-							origo.x = ratio > 1 ? vH / 2 : origo.x;
-							origo.y = ratio < 1 ? vH - (vW / 2) : origo.y;
+							origo.x = ratio > 1 ? vH * .5 : origo.x;
+							origo.y = ratio < 1 ? vH - (vW * .5) : origo.y;
 							break;
 					}
 				}
