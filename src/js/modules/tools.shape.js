@@ -369,31 +369,31 @@
 						y: event.clientY - offset.t,
 					},
 					constrain(x, y) {
-						let top, left, v, rx;
+						let d = {};
 						switch (this.type) {
 							case "ne":
-								v = Math.min(this.origo.y-y, this.origo.x-x, this.origo.r);
-								// top = Math.min(this.origo.y-v, this.origo.y);
-								// left = Math.min(this.origo.x-v, this.origo.x);
+								d.v = Math.min(this.origo.y-y, this.origo.x-x, this.origo.r);
+								// d.top = Math.min(this.origo.y-d.v, this.origo.y);
+								// d.left = Math.min(this.origo.x-d.v, this.origo.x);
 								break;
 							case "nw":
-								v = Math.min(this.origo.y-y, x-this.origo.x, this.origo.r);
-								// top = Math.min(this.origo.y-v, this.origo.y);
-								// left = Math.max(this.origo.x+v, this.origo.x);
+								d.v = Math.min(this.origo.y-y, x-this.origo.x, this.origo.r);
+								// d.top = Math.min(this.origo.y-d.v, this.origo.y);
+								// d.left = Math.max(this.origo.x+d.v, this.origo.x);
 								break;
 							case "sw":
-								v = Math.min(y-this.origo.y, x-this.origo.x, this.origo.r);
-								// top = Math.max(v+this.origo.y, this.origo.y);
-								// left = Math.max(v+this.origo.x, this.origo.x);
+								d.v = Math.min(y-this.origo.y, x-this.origo.x, this.origo.r);
+								// d.top = Math.max(d.v+this.origo.y, this.origo.y);
+								// d.left = Math.max(d.v+this.origo.x, this.origo.x);
 								break;
 							case "se":
-								v = Math.min(y-this.origo.y, this.origo.x-x, this.origo.r);
-								// top = Math.max(v+this.origo.y, this.origo.y);
-								// left = Math.min(this.origo.x-v, this.origo.x);
+								d.v = Math.min(y-this.origo.y, this.origo.x-x, this.origo.r);
+								// d.top = Math.max(d.v+this.origo.y, this.origo.y);
+								// d.left = Math.min(this.origo.x-d.v, this.origo.x);
 								break;
 						}
-						rx = Math.min(Math.max(this.origo.r-v, 0), this.origo.r);
-						return { top, left, rx };
+						d.rx = Math.min(Math.max(this.origo.r-d.v, 0), this.origo.r);
+						return d;
 					},
 				};
 				// bind event
