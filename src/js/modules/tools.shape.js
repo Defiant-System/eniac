@@ -333,9 +333,9 @@
 					origo = {
 						x: vW / 2,
 						y: vH / 2,
-						r: (Math.min(vW, vH) / 2) - 4,
+						r: (Math.min(offset.w, offset.h) / 2) - 1,
 					};
-				
+				// calculate origo for handles
 				if (ratio != 1) {
 					switch (type) {
 						case "ne":
@@ -356,7 +356,6 @@
 							break;
 					}
 				}
-
 				// create drag object
 				Self.drag = {
 					el,
