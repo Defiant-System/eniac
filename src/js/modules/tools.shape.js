@@ -368,9 +368,8 @@
 						x: event.clientX - offset.l,
 						y: event.clientY - offset.t,
 					},
-					constrain(x, y) {
+					getRadius(x, y) {
 						let min = Math.min,
-							max = Math.max,
 							o = this.origo,
 							v;
 						switch (this.type) {
@@ -379,7 +378,7 @@
 							case "sw": v = min(y-o.y, x-o.x, o.r); break;
 							case "se": v = min(y-o.y, o.x-x, o.r); break;
 						}
-						return min(max(o.r-v, 0), o.r);
+						return min(Math.max(o.r-v, 0), o.r);
 					},
 				};
 				// bind event
@@ -388,7 +387,7 @@
 			case "mousemove":
 				let x = event.clientX - Drag.click.x,
 					y = event.clientY - Drag.click.y,
-					rx = Drag.constrain(x, y);
+					rx = Drag.getRadius(x, y);
 				Drag.pEl.css({ "--rc": rx +"px" });
 				Drag.shape.attr({ rx });
 				break;

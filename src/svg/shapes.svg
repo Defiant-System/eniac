@@ -1,5 +1,5 @@
 
-<svg id="shape-rounded" class="shape" viewBox="0 0 100 180" cache="false">
+<svg id="shape-rounded" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st0 {
 			fill: transparent;
@@ -14,38 +14,7 @@
 	<rect class="st0" width="0%" rx="10"/>
 </svg>
 
-<svg id="shape-rounded-2" class="shape" viewBox="0 0 180 100" cache="false">
-	<style type="text/css">
-		.st0 {
-			fill: transparent;
-			stroke-width: 3;
-			stroke: #000000;
-			x: 3px;
-			y: 3px;
-			width: calc( 100% - 6px );
-			height: calc( 100% - 6px );
-		}
-	</style>
-	<rect class="st0" width="0%" rx="10"/>
-</svg>
-
-<svg id="shape-rounded-3" class="shape" viewBox="0 0 100 100" cache="false">
-	<style type="text/css">
-		.st0 {
-			fill: transparent;
-			stroke-width: 3;
-			stroke: #000000;
-			x: 3px;
-			y: 3px;
-			width: calc( 100% - 6px );
-			height: calc( 100% - 6px );
-		}
-	</style>
-	<rect class="st0" width="0%" rx="10"/>
-</svg>
-
-<!--
-<svg id="shape-rectangle" class="shape reflection" viewBox="0 0 180 100" cache="false">
+<svg id="shape-rectangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st1{
 			fill: url(#SVG-GR-1);
@@ -112,7 +81,7 @@
 	</style>
 	<path class="st5" d="M 0 0 C 20 -50, 90 80, 100 0"/>
 </svg>
--->
+
 
 
 <svg id="shape-rectangle" viewBox="0 0 100 100">
