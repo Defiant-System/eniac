@@ -343,6 +343,8 @@
 							origo.y = ratio < 1 ? vW / 2 : origo.y;
 							break;
 						case "nw":
+							origo.x = ratio > 1 ? vW - (vH / 2) : origo.x;
+							origo.y = ratio < 1 ? vW / 2 : origo.y;
 							break;
 						case "sw":
 							origo.x = ratio > 1 ? vW - (vH / 2) : origo.x;
@@ -376,6 +378,9 @@
 								left = Math.min(this.origo.x-v, this.origo.x);
 								break;
 							case "nw":
+								v = Math.min(this.origo.y-y, x-this.origo.x, this.origo.r);
+								top = Math.min(this.origo.y-v, this.origo.y);
+								left = Math.max(this.origo.x+v, this.origo.x);
 								break;
 							case "sw":
 								v = Math.min(y-this.origo.y, x-this.origo.x, this.origo.r);
