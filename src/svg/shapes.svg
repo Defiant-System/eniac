@@ -62,14 +62,14 @@
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 </svg>
 
-<svg id="shape-line-1" class="shape" viewBox="0 0 100 6" cache="false">
+<svg id="shape-line-1" class="shape" viewBox="0 0 100 46" cache="false">
 	<style type="text/css">
 		.st4{
 			stroke-width: 3;
 			stroke: #1ba3fc;
 		}
 	</style>
-	<line class="st4" x1="3" y1="3" x2="97" y2="3"/>
+	<line class="st4" x1="3" y1="43" x2="97" y2="3"/>
 </svg>
 
 <svg id="shape-line-2" class="shape" viewBox="0 0 100 100" cache="false">

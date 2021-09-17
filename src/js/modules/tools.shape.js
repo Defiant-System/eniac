@@ -402,6 +402,24 @@
 				}
 				break;
 			case "mouseup":
+				if (Drag.isAnchor) {
+					// re-calculate shape dimensions
+					let y1 = +Drag.shape.attr("y1") + Drag.origo.y,
+						x1 = +Drag.shape.attr("x1") + Drag.origo.x,
+						y2 = +Drag.shape.attr("y2") + Drag.origo.y,
+						x2 = +Drag.shape.attr("x2") + Drag.origo.x,
+						top = Math.min(y1, y2) - 3,
+						left = Math.min(x1, x2) - 3,
+						width = Math.max(x1, x2) - left,
+						height = Math.max(y1, y2) - top,
+						viewBox = `0 0 ${width} ${height}`;
+					
+					Self.shape
+						.css({ top, left, width, height, })
+						.attr({ viewBox });
+				} else {
+					// anchor point
+				}
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
