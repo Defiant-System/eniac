@@ -13,7 +13,7 @@
 		// 	let target = this.parent.els.el.find(".gradient-colors .point:nth(0)")[0];
 		// 	eniac.popups.dispatch({ type: "popup-color-ring", target });
 		// }, 500);
-		
+
 		// setTimeout(() => {
 		// 	eniac.sidebar.shape.dispatch({ type: "set-shape-shadow" });
 		// }, 300);
@@ -100,6 +100,7 @@
 				});
 
 				return data; }
+			// Updaters
 			case "update-shape-style":
 				// reset (if any) previous active
 				Els.el.find(".shape-styles .active").removeClass("active");
@@ -202,11 +203,23 @@
 				value = event.values.opacity.value * 100;
 				Els.el.find(".shape-opacity input").val(value);
 				break;
+			// Setters
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
-				// update shape element
-				Shape.shapeItem.css({ fill: el.data("arg") });
+				let fn = () => {
+						// update shape element
+						Shape.shapeItem.css({ fill: el.data("arg") });
+						// update "Stroke" group color
+						let presetEl = Els.el.find(`.shape-fill-options .color-preset_[data-change="set-shape-fill-color"]`);
+						presetEl.css({ "--preset-color": el.data("arg") });
+					};
+				if (Els.el.find(`.shape-fill-options .active_`).attr("data-arg") !== "solid") {
+					Els.el.find(`.shape-fill-options span[data-arg="solid"]`).trigger("click");
+					setTimeout(fn, 10);
+				} else {
+					fn();
+				}
 				break;
 			case "set-fill-gradient-color":
 				// update gradient point

@@ -56,6 +56,7 @@
 				});
 				
 				return data; }
+			// Updaters
 			case "update-line-style":
 				// reset (if any) previous active
 				Els.el.find(".line-styles .active").removeClass("active");
@@ -123,7 +124,16 @@
 				value = event.values.opacity.value * 100;
 				Els.el.find(".line-opacity input").val(value);
 				break;
-			case "set-line-style": break;
+			// Setters
+			case "set-line-style":
+				event.el.find(".active").removeClass("active");
+				el = $(event.target).addClass("active");
+				// update shape element
+				Shape.shapeItem.css({ stroke: el.data("arg") });
+				// update "Stroke" group color
+				Els.el.find(`.color-preset_[data-change="set-line-stroke-color"]`)
+							.css({ "--preset-color": el.data("arg") });
+				break;
 			case "set-line-stroke-style": break;
 			case "set-line-stroke-color": break;
 			case "set-line-stroke-width": break;
