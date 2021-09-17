@@ -168,7 +168,34 @@
 				// apply new width
 				Shape.shapeItem.css(value);
 				 break;
-			case "set-line-shadow": break;
+			case "set-line-shadow": {
+				let data = {
+						blur: +Els.el.find(".line-shadow-blur input:nth(0)").val(),
+						offset: +Els.el.find(".line-shadow-offset input:nth(0)").val(),
+						opacity: +Els.el.find(".line-shadow-opacity input:nth(0)").val(),
+					};
+				// obey new value of event provides value
+				if (event.el) {
+					let cn = event.el.parents(".flex-row").prop("className"),
+						name = cn.split(" ")[1].split("-")[2];
+					data[name] = +event.value;
+				}
+				// collect / prepare values for sidebar
+				let rad = (+Els.el.find(`input[name="line-shadow-angle"]`).val() * Math.PI) / 180,
+					bX = Math.round(data.offset * Math.sin(rad)),
+					bY = Math.round(data.offset * Math.cos(rad)),
+					x = Math.round((data.opacity / 100) * 255),
+					d = "0123456789abcdef".split(""),
+					alpha = d[(x - x % 16) / 16] + d[x % 16],
+					color = Els.el.find(`.line-shadow-angle-color .color-preset_`).css("--preset-color"),
+					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
+				// apply drop shadow
+				Shape.shapeItem.css({ filter });
+				// make sure all fields shows same value
+				Els.el.find(".line-shadow-blur input").val(data.blur);
+				Els.el.find(".line-shadow-offset input").val(data.offset);
+				Els.el.find(".line-shadow-opacity input").val(data.opacity);
+				} break;
 			case "set-line-reflection": break;
 			case "set-line-opacity": break;
 		}

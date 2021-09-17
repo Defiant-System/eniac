@@ -275,6 +275,7 @@
 												? [+event.value, +event.value]
 												: [+event.value*2, +event.value];
 				}
+				// apply new width
 				Shape.shapeItem.css(value);
 				break;
 			case "set-shape-shadow": {
@@ -296,7 +297,7 @@
 					x = Math.round((data.opacity / 100) * 255),
 					d = "0123456789abcdef".split(""),
 					alpha = d[(x - x % 16) / 16] + d[x % 16],
-					color = Els.el.find(`.shadow-angle-color .color-preset_`).css("--preset-color"),
+					color = Els.el.find(`.shape-shadow-angle-color .color-preset_`).css("--preset-color"),
 					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
 				// apply drop shadow
 				Shape.shapeItem.css({ filter });
