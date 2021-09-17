@@ -135,9 +135,39 @@
 				Els.el.find(`.color-preset_[data-change="set-line-stroke-color"]`)
 					.css({ "--preset-color": color });
 				break;
-			case "set-line-stroke-style": break;
-			case "set-line-stroke-color": break;
-			case "set-line-stroke-width": break;
+			case "set-line-stroke-style":
+				value = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				el = Els.el.find(".line-outline").addClass("has-prefix-icon");
+				switch (event.arg) {
+					case "dashed": value = [value*2, value]; break;
+					case "dotted": value = [value, value]; break;
+					case "solid": value = [0]; break;
+					case "none":
+						Self.dispatch({ type: "set-line-stroke-color", value: "none" });
+						Self.dispatch({ type: "set-line-stroke-width", value: 0 });
+						Self.dispatch({ type: "update-line-stroke" });
+						return el.removeClass("has-prefix-icon").val(event.arg);
+				}
+				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
+				break;
+			case "set-line-stroke-color":
+				Shape.shapeItem.css({ "stroke": event.value });
+				break;
+			case "set-line-stroke-width":
+				value = {
+					"stroke-width": +event.value +"px",
+					"stroke-dasharray": Shape.shapeItem.css("stroke-dasharray"),
+				};
+				// conditions for dash-array
+				if (value["stroke-dasharray"] !== "none") {
+					let arr = value["stroke-dasharray"].split(",").map(i => parseInt(i, 10) || 0);
+					value["stroke-dasharray"] = arr[0] === arr[1]
+												? [+event.value, +event.value]
+												: [+event.value*2, +event.value];
+				}
+				// apply new width
+				Shape.shapeItem.css(value);
+				 break;
 			case "set-line-shadow": break;
 			case "set-line-reflection": break;
 			case "set-line-opacity": break;

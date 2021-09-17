@@ -67,7 +67,7 @@
 		.st4{
 			stroke-width: 3;
 			stroke: #fcad2a;
-			stroke-dasharray: 6,3;
+			stroke-dasharray: 3,3;
 			filter: drop-shadow(4px 4px 5px rgba(0,0,0,.5));
 			opacity: .75;
 		}

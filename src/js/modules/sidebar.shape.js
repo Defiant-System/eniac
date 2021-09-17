@@ -264,7 +264,18 @@
 				Shape.shapeItem.css({ "stroke": event.value });
 				break;
 			case "set-shape-outline-width":
-				Shape.shapeItem.css({ "stroke-width": +event.value +"px" });
+				value = {
+					"stroke-width": +event.value +"px",
+					"stroke-dasharray": Shape.shapeItem.css("stroke-dasharray"),
+				};
+				// conditions for dash-array
+				if (value["stroke-dasharray"] !== "none") {
+					let arr = value["stroke-dasharray"].split(",").map(i => parseInt(i, 10) || 0);
+					value["stroke-dasharray"] = arr[0] === arr[1]
+												? [+event.value, +event.value]
+												: [+event.value*2, +event.value];
+				}
+				Shape.shapeItem.css(value);
 				break;
 			case "set-shape-shadow": {
 				let data = {
