@@ -348,6 +348,7 @@
 					click.y -= y;
 					click.x -= x;
 					click.i = el.data("i");
+					// element updater
 					updateLine = function(y, x) {
 						let data = {};
 						data["y"+ this.click.i] = y;
@@ -359,10 +360,9 @@
 						rad = Math.atan2(a, b);
 					// calculate "anchor point" offset
 					origo = { y, x: y };
-					offset = {
-						y: Math.round(y + r * Math.cos(rad)),
-						x: Math.round(x + r * Math.sin(rad)),
-					};
+					offset.y = Math.round(y + r * Math.cos(rad));
+					offset.x = Math.round(x + r * Math.sin(rad));
+					// element updater
 					updateLine = function(y, x) {
 
 					};
