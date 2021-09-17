@@ -211,8 +211,8 @@
 						// update shape element
 						Shape.shapeItem.css({ fill: el.data("arg") });
 						// update "Stroke" group color
-						let presetEl = Els.el.find(`.shape-fill-options .color-preset_[data-change="set-shape-fill-color"]`);
-						presetEl.css({ "--preset-color": el.data("arg") });
+						Els.el.find(`.color-preset_[data-change="set-shape-fill-color"]`)
+							.css({ "--preset-color": el.data("arg") });
 					};
 				if (Els.el.find(`.shape-fill-options .active_`).attr("data-arg") !== "solid") {
 					Els.el.find(`.shape-fill-options span[data-arg="solid"]`).trigger("click");

@@ -128,11 +128,12 @@
 			case "set-line-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
+				color = el.data("arg");
 				// update shape element
-				Shape.shapeItem.css({ stroke: el.data("arg") });
+				Shape.shapeItem.css({ stroke: color });
 				// update "Stroke" group color
 				Els.el.find(`.color-preset_[data-change="set-line-stroke-color"]`)
-							.css({ "--preset-color": el.data("arg") });
+					.css({ "--preset-color": color });
 				break;
 			case "set-line-stroke-style": break;
 			case "set-line-stroke-color": break;
