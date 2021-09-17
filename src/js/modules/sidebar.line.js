@@ -196,8 +196,21 @@
 				Els.el.find(".line-shadow-offset input").val(data.offset);
 				Els.el.find(".line-shadow-opacity input").val(data.opacity);
 				} break;
-			case "set-line-reflection": break;
-			case "set-line-opacity": break;
+			case "set-line-reflection":
+				value = Els.el.find(".line-reflection input:nth(0)").val();
+				let reflect = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
+				// apply reflection
+				Shape.shape.css({ "-webkit-box-reflect": reflect });
+				// make sure all fields shows same value
+				Els.el.find(".line-reflection input").val(value);
+				break;
+			case "set-line-opacity":
+				value = Els.el.find(".line-opacity input:nth(0)").val();
+				// apply shape opacity
+				Shape.shape.css({ "opacity": value / 100 });
+				// make sure all fields shows same value
+				Els.el.find(".line-opacity input").val(value);
+				break;
 		}
 	}
 }
