@@ -327,24 +327,66 @@
 
 				// if mousedown on handle
 				let el = $(event.target),
-					shape = Self.shapeItem;
+					pEl = el.parent(),
+					shape = Self.shapeItem,
+					isAnchor = !el.hasClass("ap"),
+					x = +el.prop("offsetLeft"),
+					y = +el.prop("offsetTop"),
+					r = +el.prop("offsetWidth"),
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+					},
+					origo = {
+						y: +pEl.prop("offsetTop") + 3,
+						x: +pEl.prop("offsetLeft") + 3,
+					},
+					offset;
+
+				if (isAnchor) {
+					click.y -= y;
+					click.x -= x;
+				} else {
+					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
+						rad = Math.atan2(a, b);
+					console.log( rad * 180 / Math.PI );
+					// calculate "anchor point" offset
+					offset = {
+						y: Math.round(y + r * Math.cos(rad)),
+						x: Math.round(x + r * Math.sin(rad)),
+					};
+				}
 
 				// create drag object
 				Self.drag = {
 					el,
 					shape,
-					click: {
-						x: event.clientX - +el.prop("offsetLeft"),
-						y: event.clientY - +el.prop("offsetTop"),
-					}
+					isAnchor,
+					origo,
+					offset,
+					click,
+					_round: Math.round,
+					_sqrt: Math.sqrt,
+					_atan2: Math.atan2,
+					_PI: 180 / Math.PI,
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.lineAnchorMove);
 				break;
 			case "mousemove":
-				let top = event.clientY - Drag.click.y,
-					left = event.clientX - Drag.click.x;
-				Drag.el.css({ top, left });
+				if (Drag.isAnchor) {
+					let top = event.clientY - Drag.click.y,
+						left = event.clientX - Drag.click.x;
+					// apply position on anchor
+					Drag.el.css({ top, left });
+				} else {
+					let y = event.clientY - Drag.click.y - Drag.origo.y + Drag.offset.y,
+						x = event.clientX - Drag.click.x - Drag.origo.x + Drag.offset.x,
+						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
+						width = Drag._sqrt(y*y + x*x);
+					// apply position on anchor point
+					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
+				}
 				break;
 			case "mouseup":
 				// uncover layout

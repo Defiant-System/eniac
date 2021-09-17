@@ -47,19 +47,19 @@
 			height: 8px;
 			background: transparent;
 			border-color: transparent;
-			// opacity: .25;
 
-			&:after {
+			&.ls:after,
+			&.le:after {
 				content: "";
 				position: absolute;
 				top: -1px;
 				left: -1px;
 				right: -1px;
 				bottom: -1px;
+				z-index: 2;
 				background: #fff;
 				border: 1px solid rgba(0,0,0,.85);
 				cursor: crosshair;
-				// opacity: .5;
 			}
 
 			.ap {
@@ -67,6 +67,8 @@
 				top: 3px;
 				left: 3px;
 				height: 0;
+				z-index: 1;
+				pointer-events: none;
 				transform-origin: 0 0;
 				border-top: 1px solid #3583d0;
 
@@ -80,7 +82,8 @@
 					background: #fff;
 					border-radius: 50%;
 					border: 1px solid rgba(0,0,0,.85);
-					cursor: move;
+					pointer-events: all;
+					cursor: crosshair;
 				}
 			}
 
@@ -99,7 +102,7 @@
 				right: -1px;
 
 				.ap {
-					transform: rotate(265deg);
+					transform: rotate(-65deg);
 					width: 50px;
 				}
 			}
