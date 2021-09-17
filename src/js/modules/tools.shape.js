@@ -341,30 +341,41 @@
 						y: +pEl.prop("offsetTop") + y + 1,
 						x: +pEl.prop("offsetLeft") + y + 1,
 					},
-					offset;
+					offset = { r: r/2, y, x: y },
+					updateLine;
 
 				if (isAnchor) {
 					click.y -= y;
 					click.x -= x;
+					click.i = el.data("i");
+					updateLine = function(y, x) {
+						let data = {};
+						data["y"+ this.click.i] = y;
+						data["x"+ this.click.i] = x;
+						this.shape.attr(data);
+					};
 				} else {
 					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
 						rad = Math.atan2(a, b);
 					// calculate "anchor point" offset
-					origo = { y: y, x: y };
+					origo = { y, x: y };
 					offset = {
 						y: Math.round(y + r * Math.cos(rad)),
 						x: Math.round(x + r * Math.sin(rad)),
 					};
-				}
+					updateLine = function(y, x) {
 
+					};
+				}
 				// create drag object
 				Self.drag = {
 					el,
 					shape,
 					isAnchor,
-					origo,
 					offset,
+					origo,
 					click,
+					updateLine,
 					_round: Math.round,
 					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
@@ -379,6 +390,8 @@
 						left = event.clientX - Drag.click.x;
 					// apply position on anchor
 					Drag.el.css({ top, left });
+					// apply line variables
+					Drag.updateLine(top + Drag.offset.r, left + Drag.offset.r);
 				} else {
 					let y = event.clientY - Drag.click.y - Drag.origo.y + Drag.offset.y,
 						x = event.clientX - Drag.click.x - Drag.origo.x + Drag.offset.x,
