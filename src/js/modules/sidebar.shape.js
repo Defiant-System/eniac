@@ -143,8 +143,8 @@
 				}
 				break;
 			case "update-shape-outline":
-				color = event.values.border.color;
 				// outline style
+				color = event.values.border.color;
 				value = event.values.border.dash;
 				el = Els.el.find(".shape-outline").addClass("has-prefix-icon");
 				switch (true) {
@@ -194,7 +194,6 @@
 							.css({ "--preset-color": hexColor });
 				} break;
 			case "update-shape-reflection":
-				// rgba(255, 255, 255, 0.35)
 				value = event.values.reflection.reflect.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
 				value = value ? Math.round(value[4] * 100) : 0;
 				Els.el.find(".shape-reflection input").val(value);

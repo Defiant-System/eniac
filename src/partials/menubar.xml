@@ -115,4 +115,12 @@
 		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-shape-outline-style" check-group="shape-outline"/>
 	</Menu>
 
+	<Menu for="line-stroke">
+		<Menu name="None" click="set-line-stroke-style" arg="none" check-group="line-stroke" is-checked="1"/>
+		<Menu type="divider"/>
+		<Menu type="icon" name="~/icons/table-outline-solid.png" arg="solid" click="set-line-stroke-style" check-group="line-stroke"/>
+		<Menu type="icon" name="~/icons/table-outline-dashed.png" arg="dashed" click="set-line-stroke-style" check-group="line-stroke"/>
+		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-line-stroke-style" check-group="line-stroke"/>
+	</Menu>
+
 </MenuBar>

@@ -62,14 +62,12 @@
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 </svg>
 
-<svg id="shape-line-1" class="shape reflection" viewBox="0 0 100 6" cache="false">
+<svg id="shape-line-1" class="shape" viewBox="0 0 100 6" cache="false">
 	<style type="text/css">
 		.st4{
 			stroke-width: 3;
 			stroke: #fcad2a;
 			stroke-dasharray: 6,3;
-			filter: drop-shadow(4px 4px 5px rgba(0,0,0,.5));
-			opacity: .75;
 		}
 	</style>
 	<line class="st4" x1="3" y1="3" x2="97" y2="3"/>
