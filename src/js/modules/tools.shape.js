@@ -338,8 +338,8 @@
 						y: event.clientY,
 					},
 					origo = {
-						y: +pEl.prop("offsetTop") + 3,
-						x: +pEl.prop("offsetLeft") + 3,
+						y: +pEl.prop("offsetTop") + y + 1,
+						x: +pEl.prop("offsetLeft") + y + 1,
 					},
 					offset;
 
@@ -349,8 +349,8 @@
 				} else {
 					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
 						rad = Math.atan2(a, b);
-					console.log( rad * 180 / Math.PI );
 					// calculate "anchor point" offset
+					origo = { y: y, x: y };
 					offset = {
 						y: Math.round(y + r * Math.cos(rad)),
 						x: Math.round(x + r * Math.sin(rad)),
