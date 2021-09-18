@@ -430,22 +430,20 @@
 						left = Drag.origo.x + minX - m1,
 						height = maxY - minY + (m1 * 2),
 						width = maxX - minX + (m1 * 2),
-						viewBox = `0 0 ${width} ${height}`;
+						viewBox = `0 0 ${width} ${height}`,
+						data = {};
 
 					// re-calc line start + end
-					x1 -= minX - m1;
-					y1 -= minY - m1;
-					x2 -= minX - m1;
-					y2 -= minY - m1;
-					Drag.shape.attr({ x1, y1, x2, y2 });
-
-					// let data = {
-					// 	x1: x1 < x2 && y1 < y2 ? x1 : x2,
-					// 	y1: x1 < x2 && y1 < y2 ? y1 : y2,
-					// 	x2: x1 > x2 && y1 > y2 ? x1 : x2,
-					// 	y2: x1 > x2 && y1 > y2 ? x1 : x2,
-					// };
-					// Drag.shape.attr(data);
+					x1 -= minX - m1; x2 -= minX - m1;
+					y1 -= minY - m1; y2 -= minY - m1;
+					if (Drag._sqrt(y1*y1 + x1*x1) < Drag._sqrt(y2*y2 + x2*x2)) {
+						data.x1 = x1; data.x2 = x2;
+						data.y1 = y1; data.y2 = y2;
+					} else {
+						data.x1 = x2; data.x2 = x1;
+						data.y1 = y2; data.y2 = y1;
+					}
+					Drag.shape.attr(data);
 
 					// apply shape pos & dimensions
 					Self.shape
