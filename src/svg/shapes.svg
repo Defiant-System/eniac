@@ -90,7 +90,7 @@
 			stroke: #000000;
 		}
 	</style>
-	<path class="st6" d="M 4 96 C 20 -50, 90 80, 96 4"/>
+	<path class="st6" d="M4,96 C20,-50 90,80 96,4"/>
 </svg>
 
 

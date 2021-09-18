@@ -341,124 +341,120 @@
 				let el = $(event.target),
 					pEl = el.parent(),
 					shape = Self.shapeItem,
-					isAnchor = !el.hasClass("ap"),
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
-					r = +el.prop("offsetWidth"),
-					click = {
-						x: event.clientX,
-						y: event.clientY,
-					},
-					origo = {
-						y: +pEl.prop("offsetTop"),
-						x: +pEl.prop("offsetLeft"),
-						m: 4,
-					},
-					offset = { r: r/2, y, x: y },
-					updateLine;
+					r = +el.prop("offsetWidth");
 
-				if (isAnchor) {
-					click.y -= y;
-					click.x -= x;
-					click.i = el.data("i");
-					// element updater
-					updateLine = function(y, x) {
-						let data = {};
-						data["y"+ this.click.i] = y;
-						data["x"+ this.click.i] = x;
-						this.shape.attr(data);
-					};
-				} else {
-					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
-						rad = Math.atan2(a, b);
-					// calculate "anchor point" offset
-					origo = { y, x: y };
-					offset.y = Math.round(y + r * Math.cos(rad));
-					offset.x = Math.round(x + r * Math.sin(rad));
-					// element updater
-					updateLine = function(y, x) {
-
-					};
+				if (Self.els.root.hasClass("is-path")) {
+					return Self.pathAnchorMove(event);
 				}
+
 				// create drag object
 				Self.drag = {
 					el,
 					shape,
-					isAnchor,
-					offset,
-					origo,
-					click,
-					updateLine,
-					_round: Math.round,
-					_sqrt: Math.sqrt,
-					_atan2: Math.atan2,
-					_PI: 180 / Math.PI,
+					offset: { r: r/2, y, x: y },
+					origo: {
+						y: +pEl.prop("offsetTop"),
+						x: +pEl.prop("offsetLeft"),
+						m: 4,
+					},
+					click: {
+						x: event.clientX - x,
+						y: event.clientY - y,
+						i: +el.data("i")
+					},
+					updateLine(y, x) {
+						let data = {};
+						data["y"+ this.click.i] = y;
+						data["x"+ this.click.i] = x;
+						this.shape.attr(data);
+					},
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.lineAnchorMove);
 				break;
 			case "mousemove":
-				if (Drag.isAnchor) {
-					let top = event.clientY - Drag.click.y,
-						left = event.clientX - Drag.click.x;
-					// apply position on anchor
-					Drag.el.css({ top, left });
-					// apply line variables
-					Drag.updateLine(top + Drag.offset.r, left + Drag.offset.r);
-				} else {
-					let y = event.clientY - Drag.click.y - Drag.origo.y + Drag.offset.y,
-						x = event.clientX - Drag.click.x - Drag.origo.x + Drag.offset.x,
-						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
-						width = Drag._sqrt(y*y + x*x);
-					// apply position on anchor point
-					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
-				}
+				let top = event.clientY - Drag.click.y,
+					left = event.clientX - Drag.click.x;
+				// apply position on anchor
+				Drag.el.css({ top, left });
+				// apply line variables
+				Drag.updateLine(top + Drag.offset.r, left + Drag.offset.r);
 				break;
-			case "mouseup":
-				if (Drag.isAnchor) {
-					// re-calculate shape pos & dimensions
-					let m1 = Drag.origo.m,
-						y1 = +Drag.shape.attr("y1"),
-						x1 = +Drag.shape.attr("x1"),
-						y2 = +Drag.shape.attr("y2"),
-						x2 = +Drag.shape.attr("x2"),
-						minY = Math.min(y1, y2),
-						minX = Math.min(x1, x2),
-						maxY = Math.max(y1, y2),
-						maxX = Math.max(x1, x2),
-						top = Drag.origo.y + minY - m1,
-						left = Drag.origo.x + minX - m1,
-						height = maxY - minY + (m1 * 2),
-						width = maxX - minX + (m1 * 2),
-						viewBox = `0 0 ${width} ${height}`,
-						data = {};
-
-					// re-calc line start + end
-					x1 -= minX - m1; x2 -= minX - m1;
-					y1 -= minY - m1; y2 -= minY - m1;
-					if (Drag._sqrt(y1*y1 + x1*x1) < Drag._sqrt(y2*y2 + x2*x2)) {
-						data.x1 = x1; data.x2 = x2;
-						data.y1 = y1; data.y2 = y2;
-					} else {
-						data.x1 = x2; data.x2 = x1;
-						data.y1 = y2; data.y2 = y1;
-					}
-					Drag.shape.attr(data);
-
-					// apply shape pos & dimensions
-					Self.shape
-						.css({ top, left, width, height })
-						.attr({ viewBox });
-					// re-focus on line svg
-					Self.dispatch({ type: "focus-shape", el: Self.shape });
+			case "mouseup": {
+				// re-calculate shape pos & dimensions
+				let m1 = Drag.origo.m,
+					y1 = +Drag.shape.attr("y1"),
+					x1 = +Drag.shape.attr("x1"),
+					y2 = +Drag.shape.attr("y2"),
+					x2 = +Drag.shape.attr("x2"),
+					minY = Math.min(y1, y2),
+					minX = Math.min(x1, x2),
+					maxY = Math.max(y1, y2),
+					maxX = Math.max(x1, x2),
+					top = Drag.origo.y + minY - m1,
+					left = Drag.origo.x + minX - m1,
+					height = maxY - minY + (m1 * 2),
+					width = maxX - minX + (m1 * 2),
+					viewBox = `0 0 ${width} ${height}`,
+					data = {};
+				// re-calc line start + end
+				x1 -= minX - m1; x2 -= minX - m1;
+				y1 -= minY - m1; y2 -= minY - m1;
+				if (Math.sqrt(y1*y1 + x1*x1) < Math.sqrt(y2*y2 + x2*x2)) {
+					data.x1 = x1; data.x2 = x2;
+					data.y1 = y1; data.y2 = y2;
 				} else {
-					// anchor point
+					data.x1 = x2; data.x2 = x1;
+					data.y1 = y2; data.y2 = y1;
 				}
+				Drag.shape.attr(data);
+
+				// apply shape pos & dimensions
+				Self.shape
+					.css({ top, left, width, height })
+					.attr({ viewBox });
+				// re-focus on line svg
+				Self.dispatch({ type: "focus-shape", el: Self.shape });
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.lineAnchorMove);
+				} break;
+		}
+	},
+	pathAnchorMove(event) {
+		let APP = eniac,
+			Self = APP.tools.shape,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// if mousedown on handle
+				let el = $(event.target),
+					pEl = el.parent(),
+					shape = Self.shapeItem,
+					x = +el.prop("offsetLeft"),
+					y = +el.prop("offsetTop"),
+					r = +el.prop("offsetWidth");
+
+				// create drag object
+				Self.drag = {
+					el,
+					shape,
+				};
+				console.log(123);
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.pathAnchorMove);
 				break;
+			case "mousemove":
+				break;
+			case "mouseup": {
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.pathAnchorMove);
+				} break;
 		}
 	},
 	rectCornersMove(event) {
