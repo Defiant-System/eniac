@@ -461,6 +461,16 @@
 						m: 4,
 					},
 					updatePath;
+
+				// serializer to bezier string
+				path.serialize = function() {
+					return [
+						`M${this[0].x},${this[0].y}`,
+						`C${this[2].x},${this[2].y}`,
+						`${this[3].x},${this[3].y}`,
+						`${this[1].x},${this[1].y}`
+					].join(" ");
+				}
 				// if mousedown on handle
 				if (isAnchor) {
 					click.y -= y;
@@ -470,15 +480,13 @@
 					updatePath = function(y, x) {
 						// `M4,96 C20,-50 90,80 96,4`
 						let a = this.path,
-							i = this.click.i,
-							dx = x - a[i].x,
-							dy = y - a[i].y;
+							i = this.click.i;
+						a[i+2].x += x - a[i].x;
+						a[i+2].y += y - a[i].y;
 						a[i].x = x;
 						a[i].y = y;
-						a[i+2].x += dx;
-						a[i+2].y += dy;
 
-						let d = `M${a[0].x},${a[0].y} C${a[2].x},${a[2].y} ${a[3].x},${a[3].y} ${a[1].x},${a[1].y}`;
+						let d = a.serialize();
 						this.shape.attr({ d });
 					};
 				} else {
