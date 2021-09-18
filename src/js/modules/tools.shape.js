@@ -57,7 +57,7 @@
 					.removeClass("hidden");
 
 				// remember shape
-				let names = ["circle", "rect", "polygon", "polyline", "path", "line"];
+				let names = ["circle", "rect", "polygon", "polyline", "path", "line", "bezier"];
 				Self.shape = event.el;
 				Self.shapeItem = event.el.find(names.join(","));
 				// set "rounded corner" value & reset handles
@@ -180,10 +180,15 @@
 					Self.gradient = { type: "solid", switchType };
 				}
 				// update sidebar
-				let type = "show-shape";
+				let type = "show-shape",
+					d = (name === "path") ? Self.shapeItem.attr("d").split(" ") : false;
 				if (name === "line") {
 					type = "show-line";
 					Self.lineAnchorMove({ type: "position-tool-anchors" });
+				} if (d && d.length === 4) {
+					type = "show-line";
+					Self.els.root.removeClass("is-path").addClass("is-bezier");
+					Self.pathAnchorMove({ type: "position-tool-anchors", d });
 				}
 				APP.sidebar.dispatch({ ...event, type });
 				break;
@@ -338,7 +343,7 @@
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth");
 
-				if (Self.els.root.hasClass("is-path-line")) {
+				if (Self.els.root.hasClass("is-bezier")) {
 					return Self.pathAnchorMove(event);
 				}
 
@@ -444,12 +449,13 @@
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth");
 
+				// `M4,96 C20,-50 90,80 96,4`
+
 				// create drag object
 				Self.drag = {
 					el,
 					shape,
 				};
-				console.log(123);
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.pathAnchorMove);
 				break;
@@ -463,6 +469,29 @@
 				break;
 			// custom events
 			case "position-tool-anchors":
+				// console.log(event);
+				let d = [event.d[0].slice(1), event.d[3], event.d[1].slice(1), event.d[2]];
+
+				d = d.map(p => {
+					let [x, y] = p.split(",");
+					return { x, y };
+				});
+
+				Self.els.root.find(".line[data-i]").map(item => {
+					let el = $(item),
+						m = el.width() * .5,
+						i = +el.data("i") - 1,
+						top = d[i].y - m,
+						left = d[i].x - m,
+						width = 50,
+						deg = 50;
+					el.css({
+						top,
+						left,
+						"--width": width +"px",
+						"--deg": deg +"deg"
+					});
+				});
 				break;
 		}
 	},
