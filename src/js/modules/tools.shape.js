@@ -426,7 +426,7 @@
 						minX = Math.min(x1, x2),
 						maxY = Math.max(y1, y2),
 						maxX = Math.max(x1, x2),
-						top = Drag.origo.y - minY + m1,
+						top = Drag.origo.y + minY - m1,
 						left = Drag.origo.x + minX - m1,
 						height = maxY - minY + (m1 * 2),
 						width = maxX - minX + (m1 * 2),
@@ -438,6 +438,14 @@
 					x2 -= minX - m1;
 					y2 -= minY - m1;
 					Drag.shape.attr({ x1, y1, x2, y2 });
+
+					// let data = {
+					// 	x1: x1 < x2 && y1 < y2 ? x1 : x2,
+					// 	y1: x1 < x2 && y1 < y2 ? y1 : y2,
+					// 	x2: x1 > x2 && y1 > y2 ? x1 : x2,
+					// 	y2: x1 > x2 && y1 > y2 ? x1 : x2,
+					// };
+					// Drag.shape.attr(data);
 
 					// apply shape pos & dimensions
 					Self.shape
