@@ -188,7 +188,7 @@
 				} if (d && d.length === 4) {
 					type = "show-line";
 					Self.els.root.removeClass("is-path").addClass("is-bezier");
-					Self.pathAnchorMove({ type: "position-tool-anchors", d });
+					Self.bezierMove({ type: "position-tool-anchors", d });
 				}
 				APP.sidebar.dispatch({ ...event, type });
 				break;
@@ -344,7 +344,7 @@
 					r = +el.prop("offsetWidth");
 
 				if (Self.els.root.hasClass("is-bezier")) {
-					return Self.pathAnchorMove(event);
+					return Self.bezierMove(event);
 				}
 
 				// create drag object
@@ -434,7 +434,7 @@
 				break;
 		}
 	},
-	pathAnchorMove(event) {
+	bezierMove(event) {
 		let APP = eniac,
 			Self = APP.tools.shape,
 			Drag = Self.drag;
@@ -445,37 +445,100 @@
 				let el = $(event.target),
 					pEl = el.parent(),
 					shape = Self.shapeItem,
+					path = Self.bezierToArray(shape.attr("d").split(" ")),
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
-					r = +el.prop("offsetWidth");
+					r = +el.prop("offsetWidth"),
+					isAnchor = !el.hasClass("ap"),
+					offset = { r: r/2, y, x: y },
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+					},
+					origo = {
+						y: +pEl.prop("offsetTop"),
+						x: +pEl.prop("offsetLeft"),
+						m: 4,
+					},
+					updatePath;
 
-				// `M4,96 C20,-50 90,80 96,4`
+				console.log( shape.attr("d") );
+				console.log( Self.arrayToBezier(path) );
 
+				// if mousedown on handle
+				if (isAnchor) {
+					click.y -= y;
+					click.x -= x;
+					click.i = el.data("i");
+					// anchor updater
+					updatePath = function(y, x) {
+						// `M4,96 C20,-50 90,80 96,4`
+						// let d = Self.arrayToBezier(this.path);
+					};
+				} else {
+					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
+						rad = Math.atan2(a, b);
+					// calculate "anchor point" offset
+					origo = { y, x: y };
+					offset.y = Math.round(y + r * Math.cos(rad));
+					offset.x = Math.round(x + r * Math.sin(rad));
+					// anchor point updater
+					updatePath = function(y, x) {
+						// `M4,96 C20,-50 90,80 96,4`
+					};
+				}
 				// create drag object
 				Self.drag = {
 					el,
+					pEl,
+					path,
 					shape,
+					click,
+					offset,
+					origo,
+					isAnchor,
+					updatePath,
+					_round: Math.round,
+					_sqrt: Math.sqrt,
+					_atan2: Math.atan2,
+					_PI: 180 / Math.PI,
 				};
 				// bind event
-				Self.els.doc.on("mousemove mouseup", Self.pathAnchorMove);
+				Self.els.doc.on("mousemove mouseup", Self.bezierMove);
 				break;
 			case "mousemove":
+				if (Drag.isAnchor) {
+					let top = event.clientY - Drag.click.y,
+						left = event.clientX - Drag.click.x;
+					// apply position on anchor
+					Drag.el.css({ top, left });
+					// apply anchor position
+					Drag.updatePath(top + Drag.offset.r, left + Drag.offset.r);
+				} else {
+					let y = event.clientY - Drag.click.y - Drag.origo.y + Drag.offset.y,
+						x = event.clientX - Drag.click.x - Drag.origo.x + Drag.offset.x,
+						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
+						width = Drag._sqrt(y*y + x*x);
+					// apply position on anchor point
+					Drag.pEl.css({
+						"--width": `${width}px`,
+						"--deg": `${deg}deg`
+					});
+					// apply anchor point position
+					Drag.updatePath(y + Drag.offset.r, x + Drag.offset.r);
+				}
 				break;
 			case "mouseup":
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
-				Self.els.doc.off("mousemove mouseup", Self.pathAnchorMove);
+				Self.els.doc.off("mousemove mouseup", Self.bezierMove);
 				break;
 			// custom events
 			case "position-tool-anchors":
 				// console.log(event);
-				let d = [event.d[0].slice(1), event.d[3], event.d[1].slice(1), event.d[2]];
-				d = d.map(p => {
-					let [x, y] = p.split(",");
-					return { x, y };
-				});
-
+				let d = Self.bezierToArray(event.d);
+				// iterate two anchor points
 				Self.els.root.find(".line[data-i]").map(item => {
 					let el = $(item),
 						m = el.width() * .5,
@@ -487,16 +550,26 @@
 						rad = Math.atan2(a, b),
 						deg = rad * 180 / Math.PI,
 						width = Math.round(Math.sqrt(b*b + a*a));
-
+					// apply anchor points UI
 					el.css({
 						top,
 						left,
-						"--width": width +"px",
-						"--deg": deg +"deg"
+						"--width": `${width}px`,
+						"--deg": `${deg}deg`
 					});
 				});
 				break;
 		}
+	},
+	bezierToArray(d) {
+		let arr = [d[0].slice(1), d[3], d[1].slice(1), d[2]];
+		return arr.map(p => {
+			let [x, y] = p.split(",").map(a => +a);
+			return { x, y };
+		});
+	},
+	arrayToBezier(a) {
+		return `M${a[0].x},${a[0].y} C${a[2].x},${a[2].y} ${a[3].x},${a[3].y} ${a[1].x},${a[1].y}`;
 	},
 	rectCornersMove(event) {
 		let APP = eniac,
