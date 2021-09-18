@@ -555,7 +555,7 @@
 						width = maxX - minX + (m1 * 2),
 						viewBox = `0 0 ${width} ${height}`;
 					// move origo
-					Drag.path.add(m1 - minY, m1 - minX);
+					Drag.path.add(m1-minY, m1-minX);
 					// UI apply new path
 					Drag.shape.attr({ d: Drag.path.serialize() });
 					// apply shape pos & dimensions
