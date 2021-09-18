@@ -338,8 +338,9 @@
 						y: event.clientY,
 					},
 					origo = {
-						y: +pEl.prop("offsetTop") + y + 1,
-						x: +pEl.prop("offsetLeft") + y + 1,
+						y: +pEl.prop("offsetTop"),
+						x: +pEl.prop("offsetLeft"),
+						m: parseInt(shape.attr("x1"), 10),
 					},
 					offset = { r: r/2, y, x: y },
 					updateLine;
@@ -403,19 +404,28 @@
 				break;
 			case "mouseup":
 				if (Drag.isAnchor) {
-					// re-calculate shape dimensions
-					let y1 = +Drag.shape.attr("y1") + Drag.origo.y,
-						x1 = +Drag.shape.attr("x1") + Drag.origo.x,
-						y2 = +Drag.shape.attr("y2") + Drag.origo.y,
-						x2 = +Drag.shape.attr("x2") + Drag.origo.x,
-						top = Math.min(y1, y2) - 3,
-						left = Math.min(x1, x2) - 3,
-						width = Math.max(x1, x2) - left,
-						height = Math.max(y1, y2) - top,
+					// re-calculate shape pos & dimensions
+					let m1 = Drag.origo.m,
+						m2 = Drag.origo.m * 2,
+						y1 = +Drag.shape.attr("y1"),
+						x1 = +Drag.shape.attr("x1"),
+						y2 = +Drag.shape.attr("y2"),
+						x2 = +Drag.shape.attr("x2"),
+						minY = Math.min(y1, y2),
+						minX = Math.min(x1, x2),
+						maxY = Math.max(y1, y2),
+						maxX = Math.max(x1, x2),
+						top = Drag.origo.y - minY + m1,
+						left = Drag.origo.x + minX - m1,
+						height = maxY - minY + m2,
+						width = maxX - minX + m2,
 						viewBox = `0 0 ${width} ${height}`;
-					
+
+					// x1 = 3;
+					// Drag.shape.attr({ x1 });
+
 					Self.shape
-						.css({ top, left, width, height, })
+						.css({ top, left, width, height })
 						.attr({ viewBox });
 				} else {
 					// anchor point
