@@ -471,7 +471,6 @@
 			case "position-tool-anchors":
 				// console.log(event);
 				let d = [event.d[0].slice(1), event.d[3], event.d[1].slice(1), event.d[2]];
-
 				d = d.map(p => {
 					let [x, y] = p.split(",");
 					return { x, y };
@@ -483,8 +482,12 @@
 						i = +el.data("i") - 1,
 						top = d[i].y - m,
 						left = d[i].x - m,
-						width = 50,
-						deg = 50;
+						a = d[i+2].y - d[i].y,
+						b = d[i+2].x - d[i].x,
+						rad = Math.atan2(a, b),
+						deg = rad * 180 / Math.PI,
+						width = Math.round(Math.sqrt(b*b + a*a));
+
 					el.css({
 						top,
 						left,
