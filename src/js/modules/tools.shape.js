@@ -180,7 +180,19 @@
 					Self.gradient = { type: "solid", switchType };
 				}
 				// update sidebar
-				let type = name === "line" ? "show-line" : "show-shape";
+				let type = "show-shape";
+				if (name === "line") {
+					type = "show-line";
+					// position anchor points
+					Self.els.root.find(".line[data-i]").map(item => {
+						let el = $(item),
+							m = el.width() * .5,
+							i = +el.data("i"),
+							top = +Self.shapeItem.attr(`y${i}`) - m,
+							left = +Self.shapeItem.attr(`x${i}`) - m;
+						el.css({ top, left });
+					});
+				}
 				APP.sidebar.dispatch({ ...event, type });
 				break;
 		}
@@ -431,6 +443,8 @@
 					Self.shape
 						.css({ top, left, width, height })
 						.attr({ viewBox });
+					// re-focus on line svg
+					Self.dispatch({ type: "focus-shape", el: Self.shape });
 				} else {
 					// anchor point
 				}
