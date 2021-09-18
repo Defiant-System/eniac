@@ -183,15 +183,7 @@
 				let type = "show-shape";
 				if (name === "line") {
 					type = "show-line";
-					// position anchor points
-					Self.els.root.find(".line[data-i]").map(item => {
-						let el = $(item),
-							m = el.width() * .5,
-							i = +el.data("i"),
-							top = +Self.shapeItem.attr(`y${i}`) - m,
-							left = +Self.shapeItem.attr(`x${i}`) - m;
-						el.css({ top, left });
-					});
+					Self.lineAnchorMove({ type: "position-tool-anchors" });
 				}
 				APP.sidebar.dispatch({ ...event, type });
 				break;
@@ -331,6 +323,7 @@
 			Self = APP.tools.shape,
 			Drag = Self.drag;
 		switch (event.type) {
+			// native events
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
@@ -345,7 +338,7 @@
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth");
 
-				if (Self.els.root.hasClass("is-path")) {
+				if (Self.els.root.hasClass("is-path-line")) {
 					return Self.pathAnchorMove(event);
 				}
 
@@ -422,6 +415,18 @@
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.lineAnchorMove);
 				} break;
+			// custom events
+			case "position-tool-anchors":
+				// position anchor points
+				Self.els.root.find(".line[data-i]").map(item => {
+					let el = $(item),
+						m = el.width() * .5,
+						i = +el.data("i"),
+						top = +Self.shapeItem.attr(`y${i}`) - m,
+						left = +Self.shapeItem.attr(`x${i}`) - m;
+					el.css({ top, left });
+				});
+				break;
 		}
 	},
 	pathAnchorMove(event) {
@@ -429,6 +434,7 @@
 			Self = APP.tools.shape,
 			Drag = Self.drag;
 		switch (event.type) {
+			// native events
 			case "mousedown":
 				// if mousedown on handle
 				let el = $(event.target),
@@ -449,12 +455,15 @@
 				break;
 			case "mousemove":
 				break;
-			case "mouseup": {
+			case "mouseup":
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.pathAnchorMove);
-				} break;
+				break;
+			// custom events
+			case "position-tool-anchors":
+				break;
 		}
 	},
 	rectCornersMove(event) {
