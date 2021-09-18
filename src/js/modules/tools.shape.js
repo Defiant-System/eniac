@@ -340,7 +340,7 @@
 					origo = {
 						y: +pEl.prop("offsetTop"),
 						x: +pEl.prop("offsetLeft"),
-						m: parseInt(shape.attr("x1"), 10),
+						m: 4,
 					},
 					offset = { r: r/2, y, x: y },
 					updateLine;
@@ -406,7 +406,6 @@
 				if (Drag.isAnchor) {
 					// re-calculate shape pos & dimensions
 					let m1 = Drag.origo.m,
-						m2 = Drag.origo.m * 2,
 						y1 = +Drag.shape.attr("y1"),
 						x1 = +Drag.shape.attr("x1"),
 						y2 = +Drag.shape.attr("y2"),
@@ -417,12 +416,15 @@
 						maxX = Math.max(x1, x2),
 						top = Drag.origo.y - minY + m1,
 						left = Drag.origo.x + minX - m1,
-						height = maxY - minY + m2,
-						width = maxX - minX + m2,
+						height = maxY - minY + (m1 * 2),
+						width = maxX - minX + (m1 * 2),
 						viewBox = `0 0 ${width} ${height}`;
 
-					// x1 = 3;
-					// Drag.shape.attr({ x1 });
+					x1 -= minX - m1;
+					y1 -= minY - m1;
+					x2 -= minX - m1;
+					y2 -= minY - m1;
+					Drag.shape.attr({ x1, y1, x2, y2 });
 
 					Self.shape
 						.css({ top, left, width, height })
