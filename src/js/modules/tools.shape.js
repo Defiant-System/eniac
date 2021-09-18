@@ -445,7 +445,7 @@
 				let el = $(event.target),
 					pEl = el.parent(),
 					shape = Self.shapeItem,
-					path = Self.bezierToArray(shape.attr("d").split(" ")),
+					path = Self.bezierMove({ type: "bezier-to-array", d: shape.attr("d").split(" ") }),
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth"),
@@ -461,9 +461,6 @@
 						m: 4,
 					},
 					updatePath;
-
-				console.log( shape.attr("d") );
-
 				// if mousedown on handle
 				if (isAnchor) {
 					click.y -= y;
@@ -546,7 +543,7 @@
 			// custom events
 			case "position-tool-anchors":
 				// console.log(event);
-				let d = Self.bezierToArray(event.d);
+				let d = Self.bezierMove({ ...event, type: "bezier-to-array" });
 				// iterate two anchor points
 				Self.els.root.find(".line[data-i]").map(item => {
 					let el = $(item),
@@ -568,17 +565,14 @@
 					});
 				});
 				break;
+			case "bezier-to-array":
+				let z = event.d,
+					arr = [z[0].slice(1), z[3], z[1].slice(1), z[2]];
+				return arr.map(p => {
+					let [x, y] = p.split(",").map(a => +a);
+					return { x, y };
+				});
 		}
-	},
-	bezierToArray(d) {
-		let arr = [d[0].slice(1), d[3], d[1].slice(1), d[2]];
-		return arr.map(p => {
-			let [x, y] = p.split(",").map(a => +a);
-			return { x, y };
-		});
-	},
-	arrayToBezier(a) {
-		return `M${a[0].x},${a[0].y} C${a[2].x},${a[2].y} ${a[3].x},${a[3].y} ${a[1].x},${a[1].y}`;
 	},
 	rectCornersMove(event) {
 		let APP = eniac,
