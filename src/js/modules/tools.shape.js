@@ -462,15 +462,6 @@
 					},
 					updatePath;
 
-				// serializer to bezier string
-				path.serialize = function() {
-					return [
-						`M${this[0].x},${this[0].y}`,
-						`C${this[2].x},${this[2].y}`,
-						`${this[3].x},${this[3].y}`,
-						`${this[1].x},${this[1].y}`
-					].join(" ");
-				}
 				// if mousedown on handle
 				if (isAnchor) {
 					click.y -= y;
@@ -478,16 +469,14 @@
 					click.i = +el.data("i") - 1;
 					// anchor updater
 					updatePath = function(y, x) {
-						// `M4,96 C20,-50 90,80 96,4`
-						let a = this.path,
-							i = this.click.i;
-						a[i+2].x += x - a[i].x;
-						a[i+2].y += y - a[i].y;
-						a[i].x = x;
-						a[i].y = y;
-
-						let d = a.serialize();
-						this.shape.attr({ d });
+						// update anchor + point
+						let i = this.click.i;
+						this.path[i+2].x += x - this.path[i].x;
+						this.path[i+2].y += y - this.path[i].y;
+						this.path[i].x = x;
+						this.path[i].y = y;
+						// apply new path
+						this.shape.attr({ d: this.path.serialize() });
 					};
 				} else {
 					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
@@ -575,11 +564,20 @@
 				break;
 			case "bezier-to-array":
 				let z = event.d,
-					arr = [z[0].slice(1), z[3], z[1].slice(1), z[2]];
-				return arr.map(p => {
-					let [x, y] = p.split(",").map(a => +a);
-					return { x, y };
-				});
+					arr = [z[0].slice(1), z[3], z[1].slice(1), z[2]].map(p => {
+						let [x, y] = p.split(",").map(a => +a);
+						return { x, y };
+					});
+				// serializer to bezier string
+				arr.serialize = function() {
+					return [
+						`M${this[0].x},${this[0].y}`,
+						`C${this[2].x},${this[2].y}`,
+						`${this[3].x},${this[3].y}`,
+						`${this[1].x},${this[1].y}`
+					].join(" ");
+				}
+				return arr;
 		}
 	},
 	rectCornersMove(event) {
