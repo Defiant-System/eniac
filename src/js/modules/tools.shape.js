@@ -420,12 +420,14 @@
 						width = maxX - minX + (m1 * 2),
 						viewBox = `0 0 ${width} ${height}`;
 
+					// re-calc line start + end
 					x1 -= minX - m1;
 					y1 -= minY - m1;
 					x2 -= minX - m1;
 					y2 -= minY - m1;
 					Drag.shape.attr({ x1, y1, x2, y2 });
 
+					// apply shape pos & dimensions
 					Self.shape
 						.css({ top, left, width, height })
 						.attr({ viewBox });
