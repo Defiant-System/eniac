@@ -475,8 +475,6 @@
 						this.path[i+2].y += y - this.path[i].y;
 						this.path[i].x = x;
 						this.path[i].y = y;
-						// apply new path
-						this.shape.attr({ d: this.path.serialize() });
 					};
 				} else {
 					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
@@ -485,19 +483,15 @@
 					origo = { y, x: y };
 					offset.y = Math.round(y + r * Math.cos(rad));
 					offset.x = Math.round(x + r * Math.sin(rad));
-					
 					click.i = +pEl.data("i") + 1;
 					offset.py = path[click.i].y;
 					offset.px = path[click.i].x;
-
 					// anchor point updater
 					updatePath = function(y, x) {
 						// update point
 						let i = this.click.i;
 						this.path[i].y = this.offset.py + y;
 						this.path[i].x = this.offset.px + x;
-						// apply new path
-						this.shape.attr({ d: this.path.serialize() });
 					};
 				}
 				// create drag object
@@ -540,6 +534,8 @@
 					// apply anchor point position
 					Drag.updatePath(my, mx);
 				}
+				// UI apply new path
+				Drag.shape.attr({ d: Drag.path.serialize() });
 				break;
 			case "mouseup":
 				// uncover layout
