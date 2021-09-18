@@ -485,9 +485,19 @@
 					origo = { y, x: y };
 					offset.y = Math.round(y + r * Math.cos(rad));
 					offset.x = Math.round(x + r * Math.sin(rad));
+					
+					click.i = +pEl.data("i") + 1;
+					offset.py = path[click.i].y;
+					offset.px = path[click.i].x;
+
 					// anchor point updater
 					updatePath = function(y, x) {
-						// `M4,96 C20,-50 90,80 96,4`
+						// update point
+						let i = this.click.i;
+						this.path[i].y = this.offset.py + y;
+						this.path[i].x = this.offset.px + x;
+						// apply new path
+						this.shape.attr({ d: this.path.serialize() });
 					};
 				}
 				// create drag object
@@ -510,16 +520,16 @@
 				Self.els.doc.on("mousemove mouseup", Self.bezierMove);
 				break;
 			case "mousemove":
+				let my = event.clientY - Drag.click.y,
+					mx = event.clientX - Drag.click.x;
 				if (Drag.isAnchor) {
-					let top = event.clientY - Drag.click.y,
-						left = event.clientX - Drag.click.x;
 					// apply position on anchor
-					Drag.el.css({ top, left });
+					Drag.el.css({ top: my, left: mx });
 					// apply anchor position
-					Drag.updatePath(top + Drag.offset.r, left + Drag.offset.r);
+					Drag.updatePath(my + Drag.offset.r, mx + Drag.offset.r);
 				} else {
-					let y = event.clientY - Drag.click.y - Drag.origo.y + Drag.offset.y,
-						x = event.clientX - Drag.click.x - Drag.origo.x + Drag.offset.x,
+					let y = my - Drag.origo.y + Drag.offset.y,
+						x = mx - Drag.origo.x + Drag.offset.x,
 						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
 						width = Drag._sqrt(y*y + x*x);
 					// apply position on anchor point
@@ -528,7 +538,7 @@
 						"--deg": `${deg}deg`
 					});
 					// apply anchor point position
-					Drag.updatePath(y + Drag.offset.r, x + Drag.offset.r);
+					Drag.updatePath(my, mx);
 				}
 				break;
 			case "mouseup":
