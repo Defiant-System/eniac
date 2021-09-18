@@ -538,6 +538,33 @@
 				Drag.shape.attr({ d: Drag.path.serialize() });
 				break;
 			case "mouseup":
+				if (Drag.isAnchor) {
+					// re-calculate shape pos & dimensions
+					let m1 = Drag.origo.m,
+						y1 = Drag.path[0].y,
+						x1 = Drag.path[0].x,
+						y2 = Drag.path[1].y,
+						x2 = Drag.path[1].x,
+						minY = Math.min(y1, y2),
+						minX = Math.min(x1, x2),
+						maxY = Math.max(y1, y2),
+						maxX = Math.max(x1, x2),
+						top = Drag.origo.y + minY - m1,
+						left = Drag.origo.x + minX - m1,
+						height = maxY - minY + (m1 * 2),
+						width = maxX - minX + (m1 * 2),
+						viewBox = `0 0 ${width} ${height}`;
+					// move origo
+					Drag.path.add(m1 - minY, m1 - minX);
+					// UI apply new path
+					Drag.shape.attr({ d: Drag.path.serialize() });
+					// apply shape pos & dimensions
+					Self.shape
+						.css({ top, left, width, height })
+						.attr({ viewBox });
+					// re-focus on line svg
+					Self.dispatch({ type: "focus-shape", el: Self.shape });
+				}
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
@@ -574,6 +601,14 @@
 						let [x, y] = p.split(",").map(a => +a);
 						return { x, y };
 					});
+				// adds to every position
+				arr.add = function(y, x) {
+					return this.map(pos => {
+						pos.y += y;
+						pos.x += x;
+						return pos;
+					});
+				};
 				// serializer to bezier string
 				arr.serialize = function() {
 					return [
@@ -582,7 +617,7 @@
 						`${this[3].x},${this[3].y}`,
 						`${this[1].x},${this[1].y}`
 					].join(" ");
-				}
+				};
 				return arr;
 		}
 	},
