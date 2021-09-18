@@ -463,17 +463,26 @@
 					updatePath;
 
 				console.log( shape.attr("d") );
-				console.log( Self.arrayToBezier(path) );
 
 				// if mousedown on handle
 				if (isAnchor) {
 					click.y -= y;
 					click.x -= x;
-					click.i = el.data("i");
+					click.i = +el.data("i") - 1;
 					// anchor updater
 					updatePath = function(y, x) {
 						// `M4,96 C20,-50 90,80 96,4`
-						// let d = Self.arrayToBezier(this.path);
+						let a = this.path,
+							i = this.click.i,
+							dx = x - a[i].x,
+							dy = y - a[i].y;
+						a[i].x = x;
+						a[i].y = y;
+						a[i+2].x += dx;
+						a[i+2].y += dy;
+
+						let d = `M${a[0].x},${a[0].y} C${a[2].x},${a[2].y} ${a[3].x},${a[3].y} ${a[1].x},${a[1].y}`;
+						this.shape.attr({ d });
 					};
 				} else {
 					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
