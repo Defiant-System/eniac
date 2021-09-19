@@ -15,16 +15,21 @@ Smart.prototype = {
 
 		window.find(selector).map(el => {
 			let rect = el.getBoundingClientRect();
-			// console.log( rect );
 			found.push({ y: rect.y, x: rect.x });
-			found.push({ y: rect.y + rect.height, x: rect.x });
-			found.push({ y: rect.y, x: rect.x + rect.width });
-			found.push({ y: rect.y + rect.height, x: rect.x + rect.width });
-			found.push({ y: rect.y + (rect.height * .5), x: rect.x + (rect.width * .5) });
+			// found.push({ y: rect.y + rect.height, x: rect.x });
+			// found.push({ y: rect.y, x: rect.x + rect.width });
+			// found.push({ y: rect.y + rect.height, x: rect.x + rect.width });
+			// found.push({ y: rect.y + (rect.height * .5), x: rect.x + (rect.width * .5) });
 		});
-		// console.log( found );
 
-		// populate 'this'
+		// add guide line element to "this"
+		this.lines = {
+			horizontal: window.find(".guide-lines .horizontal"),
+			vertical: window.find(".guide-lines .vertical"),
+			diagonal: window.find(".guide-lines .diagonal"),
+		};
+
+		// populate "this"
 		found.map(item => Array.prototype.push.call(this, item));
 		return this;
 	},
@@ -34,7 +39,15 @@ Smart.prototype = {
 				dy = pos.top - p.y,
 				dx = pos.left - p.x;
 			if (dy < sensivity && dy > -sensivity) pos.top -= dy;
-			if (dx < sensivity && dx > -sensivity) pos.left -= dx;
+			if (dx < sensivity && dx > -sensivity) {
+				pos.left -= dx;
+
+				this.lines.vertical.css({
+					top: 100,
+					height: 200,
+					left: p.x,
+				});
+			}
 		});
 	}
 };
