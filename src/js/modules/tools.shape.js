@@ -66,7 +66,7 @@
 				Self.els.root
 					.removeClass(names.map(e => `is-${e}`).join(" "))
 					.addClass(`is-${name}`)
-					.css({ "--rc": rc +"px" })
+					.css({ "--rc": (rc-3) +"px" })
 					.find(".rc").removeAttr("style");
 
 				// gradient tools
@@ -154,16 +154,16 @@
 						};
 					switch (gradient.type) {
 						case "radialGradient":
-							top = +xNode.attr("cy") * height;
-							left = +xNode.attr("cx") * width;
+							top = (+xNode.attr("cy") * height) + 1;
+							left = (+xNode.attr("cx") * width) + 1;
 							width = +xNode.attr("r") * width;
 							deg = 45;
 							break;
 						case "linearGradient":
-							top = (+xNode.attr("y1") || 0) * height;
-							left = (+xNode.attr("x1") || 0) * width;
-							dy = (+xNode.attr("y2") * height) - top;
-							dx = (+xNode.attr("x2") * width) - left;
+							top = ((+xNode.attr("y1") || 0) * height) + 1;
+							left = ((+xNode.attr("x1") || 0) * width) + 1;
+							dy = (+xNode.attr("y2") * height) - top + 1;
+							dx = (+xNode.attr("x2") * width) - left + 1;
 							width = Math.round(Math.sqrt(dx*dx + dy*dy));
 							deg = Math.atan2(dy, dx) * (180 / Math.PI);
 							break;
@@ -651,7 +651,7 @@
 				Self.els.layout.addClass("cover hideMouse");
 
 				let el = $(event.target),
-					pEl = el.parent(),
+					pEl = el.parents(".shape-tools"),
 					type = el.prop("className").split(" ")[2],
 					shape = Self.shapeItem,
 					[t, l, vW, vH] = Self.shape.attr("viewBox").split(" "),
@@ -666,7 +666,7 @@
 					origo = {
 						x: vW * .5,
 						y: vH * .5,
-						r: (Math.min(offset.w, offset.h) * .5) - 3,
+						r: (Math.min(offset.w, offset.h) * .5),
 					};
 				// calculate origo for handles
 				if (ratio != 1) {
@@ -721,8 +721,8 @@
 				let x = event.clientX - Drag.click.x,
 					y = event.clientY - Drag.click.y,
 					rx = Drag.getRadius(x, y);
-				Drag.pEl.css({ "--rc": rx +"px" });
-				Drag.shape.attr({ rx });
+				Drag.pEl.css({ "--rc": (rx-3) +"px" });
+				Drag.shape.attr({ rx: rx });
 				break;
 			case "mouseup":
 				// uncover layout

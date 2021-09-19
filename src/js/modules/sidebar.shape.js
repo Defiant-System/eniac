@@ -308,7 +308,7 @@
 				} break;
 			case "set-shape-reflection":
 				value = Els.el.find(".shape-reflection input:nth(0)").val();
-				let reflect = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
+				let reflect = `below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
 				// apply reflection
 				Shape.shape.css({ "-webkit-box-reflect": reflect });
 				// make sure all fields shows same value
