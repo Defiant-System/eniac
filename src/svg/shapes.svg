@@ -43,7 +43,7 @@
 </svg>
 -->
 
-<svg id="shape-triangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
+<!-- <svg id="shape-triangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st3{
 			fill: #fcad2a;
@@ -54,7 +54,7 @@
 		}
 	</style>
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
-</svg>
+</svg> -->
 
 <!-- 
 <svg id="shape-line-1" class="shape" viewBox="0 0 100 30" cache="false">
