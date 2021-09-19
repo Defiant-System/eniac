@@ -746,7 +746,8 @@ content {
 			left: 0;
 
 			svg.shape {
-				background: rgba(0,0,0,.1);
+				display: none;
+				// background: rgba(0,0,0,.1);
 				position: absolute;
 				// top: 80px;
 				// left: 600px;
@@ -770,6 +771,90 @@ content {
 	
 				&.reflection {
 					-webkit-box-reflect: below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
+				}
+			}
+
+			.guide-lines {
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				> div {
+					position: absolute;
+					background: #3583d0;
+
+					&:before,
+					&:after {
+						content: "";
+						position: absolute;
+						width: 1px;
+						height: 1px;
+					}
+				}
+
+				.horizontal {
+					top: 100px;
+					left: 200px;
+					width: 220px;
+					height: 1px;
+
+					&:before {
+						background: linear-gradient(to left, #3583d0 0%, transparent 100%);
+						top: 0;
+						left: -20px;
+						width: 20px;
+					}
+
+					&:after {
+						background: linear-gradient(to right, #3583d0 0%, transparent 100%);
+						top: 0;
+						right: -20px;
+						width: 20px;
+					}
+				}
+
+				.verical {
+					top: 200px;
+					left: 100px;
+					width: 1px;
+					height: 220px;
+
+					&:before {
+						background: linear-gradient(to top, #3583d0 0%, transparent 100%);
+						left: 0;
+						top: -20px;
+						height: 20px;
+					}
+
+					&:after {
+						background: linear-gradient(to bottom, #3583d0 0%, transparent 100%);
+						left: 0;
+						bottom: -20px;
+						height: 20px;
+					}
+				}
+
+				.diagonal {
+					top: 150px;
+					left: 150px;
+					width: 220px;
+					height: 1px;
+					transform-origin: 0 0;
+					transform: rotate(45deg);
+
+					&:before {
+						background: linear-gradient(to left, #3583d0 0%, transparent 100%);
+						top: 0;
+						left: -20px;
+						width: 20px;
+					}
+
+					&:after {
+						background: linear-gradient(to right, #3583d0 0%, transparent 100%);
+						top: 0;
+						right: -20px;
+						width: 20px;
+					}
 				}
 			}
 		}
