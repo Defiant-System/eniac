@@ -10,17 +10,23 @@ const Smart = function() {
 };
 
 Smart.prototype = {
-	find(selector) {
+	find(selector, offset) {
 		let found = [];
 
-		window.find(selector).map(el => {
-			let rect = el.getBoundingClientRect();
-			found.push({ y: rect.y, x: rect.x });
-			// found.push({ y: rect.y + rect.height, x: rect.x });
-			// found.push({ y: rect.y, x: rect.x + rect.width });
-			// found.push({ y: rect.y + rect.height, x: rect.x + rect.width });
-			// found.push({ y: rect.y + (rect.height * .5), x: rect.x + (rect.width * .5) });
+		selector = "#shape-rounded";
+		window.find(selector).map(svg => {
+			let el = $(svg),
+				y = parseInt(el.css("top"), 10),
+				x = parseInt(el.css("left"), 10),
+				w = parseInt(el.css("width"), 10),
+				h = parseInt(el.css("height"), 10);
+			found.push({ y, x });
 		});
+
+		this.sensivity = 10;
+
+		// add guide line element to "this"
+		this.offset = offset;
 
 		// add guide line element to "this"
 		this.lines = {
@@ -34,21 +40,21 @@ Smart.prototype = {
 		return this;
 	},
 	snap(pos) {
-		this.map(p => {
-			let sensivity = 7,
-				dy = pos.top - p.y,
-				dx = pos.left - p.x;
-			if (dy < sensivity && dy > -sensivity) pos.top -= dy;
-			if (dx < sensivity && dx > -sensivity) {
-				pos.left -= dx;
+		let s = this.sensivity,
+			o = this.offset,
+			vert = { top: -1, left: -1, height: -1 },
+			hori = { top: -1, left: -1, height: -1 },
+			diag = { top: -1, left: -1, height: -1 };
 
-				this.lines.vertical.css({
-					top: 100,
-					height: 200,
-					left: p.x,
-				});
+		this.map(p => {
+			let dx = pos.left - p.x;
+
+			if (dx < s && dx > -s) {
+				pos.left -= dx;
 			}
 		});
+
+		// this.lines.vertical.css(vert);
 	}
 };
 

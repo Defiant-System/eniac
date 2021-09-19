@@ -30,11 +30,6 @@
 				this.dispatch({ type: "blur-shape", el: body });
 			}
 		});
-
-		// temp
-		setTimeout(() => {
-			Guides(".body .wrapper > svg");
-		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -211,10 +206,7 @@
 				Self.els.layout.addClass("cover hideMouse");
 
 				// if mousedown on handle
-				let el = $(event.target),
-					shape = Self.shape,
-					guides = Guides("svg");
-
+				let el = $(event.target);
 				if (el.hasClass("handle")) {
 					if (el.hasClass("rc")) {
 						return Self.rectCornersMove(event);
@@ -228,10 +220,19 @@
 					return Self.resize(event);
 				}
 				
-				el = $([shape[0], Self.els.root[0]]);
+				let shape = Self.shape,
+					rect = event.target.getBoundingClientRect(),
+					offset = {
+						x: event.offsetX,
+						y: event.offsetY,
+						w: rect.width,
+						h: rect.height,
+					},
+					guides = Guides("svg", offset);
+
 				// create drag object
 				Self.drag = {
-					el,
+					el: $([shape[0], Self.els.root[0]]),
 					guides,
 					click: {
 						x: event.clientX - parseInt(shape.css("left"), 10),

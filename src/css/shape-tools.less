@@ -3,7 +3,7 @@
 	.wrapper {
 		svg.shape {
 			// display: none;
-			// background: rgba(0,0,0,.1);
+			background: rgba(0,0,0,.1);
 			position: absolute;
 			width: 100px;
 			height: 100px;
@@ -32,7 +32,6 @@
 
 .shape-tools {
 	position: absolute;
-	box-shadow: 0 0 0 1px #3583d0;
 	z-index: 99;
 	pointer-events: none;
 	// border: 1px solid #3583d0;
@@ -60,6 +59,15 @@
 		.handle { display: none; }
 		.handle.line.ap,
 		.handle.line { display: block; }
+	}
+
+	.handle-box {
+		position: absolute;
+		top: -3px;
+		left: -3px;
+		right: -3px;
+		bottom: -3px;
+		box-shadow: 0 0 0 1px #3583d0;
 	}
 
 	.handle {
