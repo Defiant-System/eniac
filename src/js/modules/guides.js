@@ -49,50 +49,48 @@ Smart.prototype = {
 			hori = { top: -1, left: -1, height: 1 },
 			diag = { top: -1, left: -1, width: 1 },
 			minY, maxY, h,
-			minX, maxX, w;
+			minX, maxX, w,
+			calcH = (p, y) => {
+				m.top -= y;
+				if (p.x < m.left) {
+					minX = p.x;
+					maxX = m.left;
+					w = o.w;
+				} else {
+					minX = m.left;
+					maxX = p.x;
+					w = p.w;
+				}
+				return { top: p.y, left: minX, width: maxX-minX+w };
+			},
+			calcV = (p, x) => {
+				m.left -= x;
+				if (p.y < m.top) {
+					minY = p.y;
+					maxY = m.top;
+					h = o.h;
+				} else {
+					minY = m.top;
+					maxY = p.y;
+					h = p.h;
+				}
+				return { left: p.x, top: minY, height: maxY-minY+h };
+			};
 
 		this.map(p => {
 			let dy = m.top - p.y,
 				dx = m.left - p.x,
 				ohy = dy + o.h,
-				owx = dx + o.w,
-				calcH = y => {
-					m.top -= y;
-					if (p.x < m.left) {
-						minX = p.x;
-						maxX = m.left;
-						w = o.w;
-					} else {
-						minX = m.left;
-						maxX = p.x;
-						w = p.w;
-					}
-					return { top: p.y, left: minX, width: maxX-minX+w };
-				},
-				calcV = x => {
-					m.left -= x;
-					if (p.y < m.top) {
-						minY = p.y;
-						maxY = m.top;
-						h = o.h;
-					} else {
-						minY = m.top;
-						maxY = p.y;
-						h = p.h;
-					}
-					return { left: p.x, top: minY, height: maxY-minY+h };
-				};
-
+				owx = dx + o.w;
 			// vertical comparisons
 			switch (true) {
-				case (dy  < s && dy  > -s): hori = calcH(dy);  break;
-				case (ohy < s && ohy > -s): hori = calcH(ohy); break;
+				case (dy  < s && dy  > -s): hori = calcH(p, dy);  break;
+				case (ohy < s && ohy > -s): hori = calcH(p, ohy); break;
 			}
-
 			// horizontaö comparisons
 			switch (true) {
-				case (dx  < s && dx  > -s): vert = calcV(dx); break;
-				case (owx < s && owx > -s): vert = calcV(owx); break;
+				case (dx  < s && dx  > -s): vert = calcV(p, dx); break;
+				case (owx < s && owx > -s): vert = calcV(p, owx); break;
 			}
 		});
 
