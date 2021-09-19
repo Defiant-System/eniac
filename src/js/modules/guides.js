@@ -20,7 +20,7 @@ Smart.prototype = {
 				x = parseInt(el.css("left"), 10),
 				w = parseInt(el.css("width"), 10),
 				h = parseInt(el.css("height"), 10);
-			found.push({ y, x });
+			found.push({ y, x, w, h });
 		});
 
 		this.sensivity = 10;
@@ -52,24 +52,35 @@ Smart.prototype = {
 
 			if (dy < s && dy > -s) {
 				pos.top -= dy;
-				hori = {
-					top: p.y,
-					left: Math.min(pos.left, p.x),
-					width: Math.max(pos.left, p.x) + o.w - Math.min(pos.left, p.x)
-				};
+				// hori = {
+				// 	top: p.y,
+				// 	left: Math.min(pos.left, p.x),
+				// 	width: Math.max(pos.left, p.x) + o.w - Math.min(pos.left, p.x)
+				// };
 			}
 			if (dx < s && dx > -s) {
 				pos.left -= dx;
+
+				let minY = Math.min(pos.top, p.y),
+					maxY = Math.max(pos.top, p.y),
+					maxH = Math.max(o.h, p.h);
 				vert = {
-					top: p.y,
+					top: minY,
 					left: p.x,
 					height: pos.top + o.h - p.y
+					// height: maxY + maxH - minY
 				};
 			}
 		});
 
 		this.lines.vertical.css(vert);
 		this.lines.horizontal.css(hori);
+	},
+	reset() {
+		let data = { top: -1, left: -1, height: -1 };
+		this.lines.vertical.css(data);
+		this.lines.horizontal.css(data);
+		this.lines.horizontal.css(data);
 	}
 };
 

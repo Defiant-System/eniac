@@ -217,10 +217,10 @@
 					}
 					return Self.resize(event);
 				}
-
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse hideTools");
 				
+				// assemble variables
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
 					offset = {
@@ -254,6 +254,8 @@
 				Drag.el.css(pos);
 				break;
 			case "mouseup":
+				// hide guides
+				Drag.guides.reset();
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse hideTools");
 				// unbind event
