@@ -95,21 +95,19 @@ Smart.prototype = {
 
 			// vertical comparisons
 			switch (true) {
-				// case (dy  < s && dy  > -s): hori = calcH(g, dy);                break;
-				// case (ohy < s && ohy > -s): hori = calcH(g, ohy);               break;
-				// case (ghy < s && ghy > -s): hori = calcH(g, ghy, { t: g.h-1 }); break;
-				// case (ogh < s && ogh > -s): hori = calcH(g, ogh, { t: g.h-1 }); break;
-
-				case (oym < s && oym > -s): hori = calcH(g, oym, { t: g.mh }); break;
+				case (dy  < s && dy  > -s): hori = calcH(g, dy);                break;
+				case (ohy < s && ohy > -s): hori = calcH(g, ohy);               break;
+				case (ghy < s && ghy > -s): hori = calcH(g, ghy, { t: g.h-1 }); break;
+				case (ogh < s && ogh > -s): hori = calcH(g, ogh, { t: g.h-1 }); break;
+				case (oym < s && oym > -s): hori = calcH(g, oym, { t: g.mh });  break;
 			}
 			// horizontal comparisons
 			switch (true) {
-				// case (dx  < s && dx  > -s): vert = calcV(g, dx);               break;
-				// case (owx < s && owx > -s): vert = calcV(g, owx);              break;
-				// case (gwx < s && gwx > -s): vert = calcV(g, gwx, { l: g.w-1}); break;
-				// case (ogw < s && ogw > -s): vert = calcV(g, ogw, { l: g.w-1}); break;
-
-				case (oxm < s && oxm > -s): vert = calcV(g, oxm, { l: g.mw }); break;
+				case (dx  < s && dx  > -s): vert = calcV(g, dx);                break;
+				case (owx < s && owx > -s): vert = calcV(g, owx);               break;
+				case (gwx < s && gwx > -s): vert = calcV(g, gwx, { l: g.w-1 }); break;
+				case (ogw < s && ogw > -s): vert = calcV(g, ogw, { l: g.w-1 }); break;
+				case (oxm < s && oxm > -s): vert = calcV(g, oxm, { l: g.mw  }); break;
 			}
 		});
 
