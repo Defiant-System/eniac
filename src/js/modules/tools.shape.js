@@ -224,6 +224,7 @@
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
 					offset = {
+						el: shape[0],
 						x: event.offsetX,
 						y: event.offsetY,
 						w: rect.width,

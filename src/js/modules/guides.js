@@ -14,14 +14,16 @@ Smart.prototype = {
 		let found = [];
 
 		// selector = "#shape-rounded";
-		window.find(selector).map(svg => {
-			let el = $(svg),
-				y = parseInt(el.css("top"), 10),
-				x = parseInt(el.css("left"), 10),
-				w = parseInt(el.css("width"), 10),
-				h = parseInt(el.css("height"), 10);
-			found.push({ y, x, w, h });
-		});
+		window.find(selector)
+			.filter(el => el !== offset.el)
+			.map(svg => {
+				let el = $(svg),
+					y = parseInt(el.css("top"), 10),
+					x = parseInt(el.css("left"), 10),
+					w = parseInt(el.css("width"), 10),
+					h = parseInt(el.css("height"), 10);
+				found.push({ y, x, w, h });
+			});
 
 		this.sensivity = 10;
 
@@ -42,9 +44,9 @@ Smart.prototype = {
 	snap(pos) {
 		let s = this.sensivity,
 			o = this.offset,
-			vert = { top: -1, left: -1, width: -1 },
-			hori = { top: -1, left: -1, height: -1 },
-			diag = { top: -1, left: -1, width: -1 },
+			vert = { top: -1, left: -1, width: 1 },
+			hori = { top: -1, left: -1, height: 1 },
+			diag = { top: -1, left: -1, width: 1 },
 			minY, maxY, h,
 			minX, maxX, w;
 
@@ -54,10 +56,10 @@ Smart.prototype = {
 
 			if (dy < s && dy > -s) {
 				pos.top -= dy;
-				if (p.y < pos.top) {
-					minX = p.y;
+				if (p.x < pos.left) {
+					minX = p.x;
 					maxX = pos.left;
-					W = o.w;
+					w = o.w;
 				} else {
 					minX = pos.left;
 					maxX = p.x;
