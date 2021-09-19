@@ -225,8 +225,8 @@
 					rect = event.target.getBoundingClientRect(),
 					offset = {
 						el: shape[0],
-						x: event.offsetX,
-						y: event.offsetY,
+						x: 0,
+						y: 0,
 						w: rect.width,
 						h: rect.height,
 					},
@@ -364,15 +364,25 @@
 				if (Self.els.root.hasClass("is-bezier")) {
 					return Self.bezierMove(event);
 				}
+
+				let offset = {
+						el: Self.shape[0],
+						x: +pEl.prop("offsetLeft") - x,
+						y: +pEl.prop("offsetTop") - y,
+					},
+					guides = Guides("content .body svg", offset);
+console.log( offset );
 				// create drag object
 				Self.drag = {
 					el,
 					shape,
-					offset: { r: r/2, y, x: y },
+					offset,
+					guides,
 					origo: {
 						y: +pEl.prop("offsetTop"),
 						x: +pEl.prop("offsetLeft"),
 						m: 4,
+						r: r/2,
 					},
 					click: {
 						x: event.clientX - x,
@@ -390,12 +400,16 @@
 				Self.els.doc.on("mousemove mouseup", Self.lineAnchorMove);
 				break;
 			case "mousemove":
-				let top = event.clientY - Drag.click.y,
-					left = event.clientX - Drag.click.x;
+				let pos = {
+						top: event.clientY - Drag.click.y,
+						left: event.clientX - Drag.click.x,
+					};
+				// "filter" position with guide lines
+				Drag.guides.snap(pos);
 				// apply position on anchor
-				Drag.el.css({ top, left });
+				Drag.el.css(pos);
 				// apply line variables
-				Drag.updateLine(top + Drag.offset.r, left + Drag.offset.r);
+				Drag.updateLine(pos.top + Drag.origo.r, pos.left + Drag.origo.r);
 				break;
 			case "mouseup": {
 				// re-calculate shape pos & dimensions

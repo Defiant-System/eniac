@@ -32,8 +32,8 @@ Smart.prototype = {
 		// add guide line element to "this"
 		this.offset = {
 			...offset,
-			mh: (offset.h * .5),
-			mw: (offset.w * .5),
+			mh: (offset.h || 0) * .5,
+			mw: (offset.w || 0) * .5,
 		};
 		// add guide line element to "this"
 		this.lines = {
@@ -48,36 +48,38 @@ Smart.prototype = {
 	snap(m) {
 		let s = this.sensivity,
 			o = this.offset,
+			t = m.top + o.y,
+			l = m.left + o.x,
 			vert = { top: -1, left: -1, width: 1 },
 			hori = { top: -1, left: -1, height: 1 },
 			calcH = (g, y, add = { t: 0 }) => {
-				let minX = m.left,
+				let minX = l,
 					maxX = g.x,
 					w = g.w;
 				m.top -= y;
-				if (g.x < m.left) {
+				if (g.x < l) {
 					minX = g.x;
-					maxX = m.left;
+					maxX = l;
 					w = o.w;
 				}
 				return { top: g.y+add.t, left: minX, width: maxX-minX+w };
 			},
 			calcV = (g, x, add = { l: 0 }) => {
-				let minY = m.top,
+				let minY = t,
 					maxY = g.y,
 					h = g.h;
 				m.left -= x;
-				if (g.y < m.top) {
+				if (g.y < t) {
 					minY = g.y;
-					maxY = m.top;
+					maxY = t;
 					h = o.h;
 				}
 				return { left: g.x+add.l, top: minY, height: maxY-minY+h };
 			};
 		// iterate guide lines
 		this.map(g => {
-			let dy = m.top - g.y,
-				dx = m.left - g.x,
+			let dy = t - g.y,
+				dx = l - g.x,
 				ohy = dy + o.h,
 				ghy = dy - g.h,
 				ogh = ohy - g.h,
