@@ -1,5 +1,6 @@
 
 @import "modules/color.js"
+@import "modules/guides.js"
 @import "modules/render.js"
 @import "modules/cursor.js"
 @import "modules/file.js"

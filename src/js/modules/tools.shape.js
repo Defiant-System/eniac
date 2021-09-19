@@ -30,6 +30,11 @@
 				this.dispatch({ type: "blur-shape", el: body });
 			}
 		});
+
+		// temp
+		setTimeout(() => {
+			Guides(".body .wrapper > svg");
+		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -207,7 +212,9 @@
 
 				// if mousedown on handle
 				let el = $(event.target),
-					shape = Self.shape;
+					shape = Self.shape,
+					guides = Guides("svg");
+
 				if (el.hasClass("handle")) {
 					if (el.hasClass("rc")) {
 						return Self.rectCornersMove(event);
@@ -225,6 +232,7 @@
 				// create drag object
 				Self.drag = {
 					el,
+					guides,
 					click: {
 						x: event.clientX - parseInt(shape.css("left"), 10),
 						y: event.clientY - parseInt(shape.css("top"), 10),
@@ -234,9 +242,14 @@
 				Self.els.doc.on("mousemove mouseup", Self.move);
 				break;
 			case "mousemove":
-				let top = event.clientY - Drag.click.y,
-					left = event.clientX - Drag.click.x;
-				Drag.el.css({ top, left });
+				let pos = {
+						top: event.clientY - Drag.click.y,
+						left: event.clientX - Drag.click.x,
+					};
+				// "filter" position with guide lines
+				Drag.guides.snap(pos);
+				// move dragged object
+				Drag.el.css(pos);
 				break;
 			case "mouseup":
 				// uncover layout

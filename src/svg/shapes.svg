@@ -74,7 +74,7 @@
 	<line class="st4" x1="4" y1="34" x2="96" y2="4"/>
 </svg>
 
-<svg id="shape-line-2" class="shape" viewBox="0 0 100 118" cache="false">
+<!-- <svg id="shape-line-2" class="shape" viewBox="0 0 100 118" cache="false">
 	<style type="text/css">
 		.st5{
 			stroke-width: 2;
@@ -82,7 +82,7 @@
 		}
 	</style>
 	<line class="st5" x1="4" y1="4" x2="96" y2="114"/>
-</svg>
+</svg> -->
 
 <svg id="shape-line-3" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">

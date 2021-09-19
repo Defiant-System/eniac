@@ -1,0 +1,84 @@
+.guide-lines {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	> div {
+		position: absolute;
+		background: #3583d070;
+
+		&:before,
+		&:after {
+			content: "";
+			position: absolute;
+			width: 1px;
+			height: 1px;
+		}
+	}
+
+	.horizontal {
+		top: 123px;
+		left: 80px;
+		width: 220px;
+		height: 1px;
+
+		&:before {
+			background: linear-gradient(to left, #3583d070 0%, transparent 100%);
+			top: 0;
+			left: -23px;
+			width: 23px;
+		}
+
+		&:after {
+			background: linear-gradient(to right, #3583d070 0%, transparent 100%);
+			top: 0;
+			right: -23px;
+			width: 23px;
+		}
+	}
+
+	.vertical {
+		top: 260px;
+		left: 132px;
+		width: 1px;
+		height: 220px;
+
+		&:before {
+			background: linear-gradient(to top, #3583d070 0%, transparent 100%);
+			left: 0;
+			top: -22px;
+			height: 22px;
+		}
+
+		&:after {
+			background: linear-gradient(to bottom, #3583d070 0%, transparent 100%);
+			left: 0;
+			bottom: -22px;
+			height: 22px;
+		}
+	}
+
+	.diagonal {
+		top: 50px;
+		left: 391px;
+		width: 220px;
+		height: 1px;
+		transform-origin: 0 0;
+		transform: rotate(45deg);
+
+		&:before {
+			background: linear-gradient(to left, #3583d070 0%, transparent 100%);
+			top: 0;
+			left: -23px;
+			width: 23px;
+		}
+
+		&:after {
+			background: linear-gradient(to right, #3583d070 0%, transparent 100%);
+			top: 0;
+			right: -23px;
+			width: 23px;
+		}
+	}
+}

@@ -1,4 +1,35 @@
 
+.body {
+	.wrapper {
+		svg.shape {
+			// display: none;
+			// background: rgba(0,0,0,.1);
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			overflow: visible;
+
+			&#shape-rounded   { top: 60px; left: 400px; }
+			&#shape-rectangle { top: 440px; left: 120px; }
+			&#shape-disc      { top: 520px; left: 340px; }
+			&#shape-triangle  { top: 50px; left: 600px; }
+			&#shape-star      { top: 470px; left: 320px; }
+
+			&#shape-line-1    { top: 50px; left: 140px; }
+			&#shape-line-2    { top: 120px; left: 120px; }
+			&#shape-line-3    { top: 340px; left: 85px; }
+
+			> * {
+				pointer-events: none;
+			}
+
+			&.reflection {
+				-webkit-box-reflect: below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
+			}
+		}
+	}
+}
+
 .shape-tools {
 	position: absolute;
 	box-shadow: 0 0 0 1px #3583d0;
