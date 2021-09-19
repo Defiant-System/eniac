@@ -48,49 +48,54 @@ Smart.prototype = {
 			vert = { top: -1, left: -1, width: 1 },
 			hori = { top: -1, left: -1, height: 1 },
 			diag = { top: -1, left: -1, width: 1 },
-			minY, maxY, h,
-			minX, maxX, w,
-			calcH = (p, y) => {
+			calcH = (g, y, aT=0) => {
+				let minX = m.left,
+					maxX = g.x,
+					w = g.w;
 				m.top -= y;
-				if (p.x < m.left) {
-					minX = p.x;
+				if (g.x < m.left) {
+					minX = g.x;
 					maxX = m.left;
 					w = o.w;
-				} else {
-					minX = m.left;
-					maxX = p.x;
-					w = p.w;
 				}
-				return { top: p.y, left: minX, width: maxX-minX+w };
+				return { top: g.y+aT, left: minX, width: maxX-minX+w };
 			},
-			calcV = (p, x) => {
+			calcV = (g, x, aL=0) => {
+				let minY = m.top,
+					maxY = g.y,
+					h = g.h;
 				m.left -= x;
-				if (p.y < m.top) {
-					minY = p.y;
+				if (g.y < m.top) {
+					minY = g.y;
 					maxY = m.top;
 					h = o.h;
-				} else {
-					minY = m.top;
-					maxY = p.y;
-					h = p.h;
 				}
-				return { left: p.x, top: minY, height: maxY-minY+h };
+				return { left: g.x+aL, top: minY, height: maxY-minY+h };
 			};
 
-		this.map(p => {
-			let dy = m.top - p.y,
-				dx = m.left - p.x,
+		this.map(g => {
+			let dy = m.top - g.y,
+				dx = m.left - g.x,
 				ohy = dy + o.h,
-				owx = dx + o.w;
+				ghy = dy - g.h,
+				ogh = ohy - g.h,
+				owx = dx + o.w,
+				gwx = dx - g.w,
+				ogw = owx - g.w;
+			
 			// vertical comparisons
 			switch (true) {
-				case (dy  < s && dy  > -s): hori = calcH(p, dy);  break;
-				case (ohy < s && ohy > -s): hori = calcH(p, ohy); break;
+				case (dy  < s && dy  > -s): hori = calcH(g, dy        ); break;
+				case (ohy < s && ohy > -s): hori = calcH(g, ohy       ); break;
+				case (ghy < s && ghy > -s): hori = calcH(g, ghy, g.h-1); break;
+				case (ogh < s && ogh > -s): hori = calcH(g, ogh, g.h-1); break;
 			}
-			// horizontaö comparisons
+			// horizontal comparisons
 			switch (true) {
-				case (dx  < s && dx  > -s): vert = calcV(p, dx); break;
-				case (owx < s && owx > -s): vert = calcV(p, owx); break;
+				case (dx  < s && dx  > -s): vert = calcV(g, dx        ); break;
+				case (owx < s && owx > -s): vert = calcV(g, owx       ); break;
+				case (gwx < s && gwx > -s): vert = calcV(g, gwx, g.w-1); break;
+				case (ogw < s && ogw > -s): vert = calcV(g, ogw, g.w-1); break;
 			}
 		});
 

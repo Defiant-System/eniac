@@ -230,7 +230,7 @@
 						w: rect.width,
 						h: rect.height,
 					},
-					guides = Guides("svg", offset);
+					guides = Guides("content .body svg", offset);
 
 				// create drag object
 				Self.drag = {

@@ -56,6 +56,7 @@
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 </svg>
 
+<!-- 
 <svg id="shape-line-1" class="shape" viewBox="0 0 100 30" cache="false">
 	<style type="text/css">
 		.st4{
@@ -66,7 +67,7 @@
 	<line class="st4" x1="0" y1="30" x2="100" y2="0"/>
 </svg>
 
-<!-- <svg id="shape-line-2" class="shape" viewBox="0 0 100 118" cache="false">
+<svg id="shape-line-2" class="shape" viewBox="0 0 100 118" cache="false">
 	<style type="text/css">
 		.st5{
 			stroke-width: 2;
@@ -74,7 +75,7 @@
 		}
 	</style>
 	<line class="st5" x1="4" y1="4" x2="96" y2="114"/>
-</svg> -->
+</svg>
 
 <svg id="shape-line-3" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
@@ -86,6 +87,7 @@
 	</style>
 	<path class="st6" d="M0,100 C20,-50 90,80 100,0"/>
 </svg>
+-->
 
 <svg id="shape-star" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
