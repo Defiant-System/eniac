@@ -351,7 +351,7 @@
 
 				// if mousedown on handle
 				let el = $(event.target),
-					pEl = el.parent(),
+					pEl = el.parents(".shape-tools"),
 					shape = Self.shapeItem,
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
@@ -360,7 +360,6 @@
 				if (Self.els.root.hasClass("is-bezier")) {
 					return Self.bezierMove(event);
 				}
-
 				// create drag object
 				Self.drag = {
 					el,
@@ -456,7 +455,7 @@
 			case "mousedown":
 				// if mousedown on handle
 				let el = $(event.target),
-					pEl = el.parent(),
+					pEl = el.parents(".shape-tools"),
 					shape = Self.shapeItem,
 					path = Self.bezierMove({ type: "bezier-to-array", d: shape.attr("d").split(" ") }),
 					x = +el.prop("offsetLeft"),
