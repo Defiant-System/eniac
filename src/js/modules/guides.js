@@ -15,14 +15,15 @@ Smart.prototype = {
 
 		// selector = "#shape-rounded";
 		window.find(selector)
-			.filter(el => el !== offset.el)
 			.map(svg => {
 				let el = $(svg),
 					y = parseInt(el.css("top"), 10),
 					x = parseInt(el.css("left"), 10),
 					w = parseInt(el.css("width"), 10),
 					h = parseInt(el.css("height"), 10);
-				found.push({ y, x, w, h });
+				if (svg !== offset.el) {
+					found.push({ y, x, w, h });
+				}
 			});
 
 		this.sensivity = 10;
@@ -41,7 +42,7 @@ Smart.prototype = {
 		found.map(item => Array.prototype.push.call(this, item));
 		return this;
 	},
-	snap(pos) {
+	snap(m) {
 		let s = this.sensivity,
 			o = this.offset,
 			vert = { top: -1, left: -1, width: 1 },
@@ -51,34 +52,47 @@ Smart.prototype = {
 			minX, maxX, w;
 
 		this.map(p => {
-			let dy = pos.top - p.y,
-				dx = pos.left - p.x;
+			let dy = m.top - p.y,
+				dx = m.left - p.x,
+				ohy = dy + o.h,
+				owx = dx + o.w,
+				calcH = y => {
+					m.top -= y;
+					if (p.x < m.left) {
+						minX = p.x;
+						maxX = m.left;
+						w = o.w;
+					} else {
+						minX = m.left;
+						maxX = p.x;
+						w = p.w;
+					}
+					return { top: p.y, left: minX, width: maxX-minX+w };
+				},
+				calcV = x => {
+					m.left -= x;
+					if (p.y < m.top) {
+						minY = p.y;
+						maxY = m.top;
+						h = o.h;
+					} else {
+						minY = m.top;
+						maxY = p.y;
+						h = p.h;
+					}
+					return { left: p.x, top: minY, height: maxY-minY+h };
+				};
 
-			if (dy < s && dy > -s) {
-				pos.top -= dy;
-				if (p.x < pos.left) {
-					minX = p.x;
-					maxX = pos.left;
-					w = o.w;
-				} else {
-					minX = pos.left;
-					maxX = p.x;
-					w = p.w;
-				}
-				hori = { top: p.y, left: minX, width: maxX-minX+w };
+			// vertical comparisons
+			switch (true) {
+				case (dy  < s && dy  > -s): hori = calcH(dy);  break;
+				case (ohy < s && ohy > -s): hori = calcH(ohy); break;
 			}
-			if (dx < s && dx > -s) {
-				pos.left -= dx;
-				if (p.y < pos.top) {
-					minY = p.y;
-					maxY = pos.top;
-					h = o.h;
-				} else {
-					minY = pos.top;
-					maxY = p.y;
-					h = p.h;
-				}
-				vert = { left: p.x, top: minY, height: maxY-minY+h };
+
+			// horizontaö comparisons
+			switch (true) {
+				case (dx  < s && dx  > -s): vert = calcV(dx); break;
+				case (owx < s && owx > -s): vert = calcV(owx); break;
 			}
 		});
 
