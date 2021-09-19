@@ -6,8 +6,12 @@
 	--color: red; // #3583d0;
 
 	> div {
-		position: absolute;
 		background: var( --color );
+		position: absolute;
+		top: -99px;
+		left: -99px;
+		width: 1px;
+		height: 1px;
 		// opacity: .75;
 
 		&:before,
@@ -20,11 +24,6 @@
 	}
 
 	.horizontal {
-		top: -1px;
-		left: -1px;
-		width: -1px;
-		height: 1px;
-
 		&:before {
 			background: linear-gradient(to left, var( --color ) 0%, transparent 100%);
 			top: 0;
@@ -41,11 +40,6 @@
 	}
 
 	.vertical {
-		top: -1px;
-		left: -1px;
-		height: -1px;
-		width: 1px;
-
 		&:before {
 			background: linear-gradient(to top, var( --color ) 0%, transparent 100%);
 			left: 0;
@@ -62,10 +56,6 @@
 	}
 
 	.diagonal {
-		top: -1px;
-		left: -1px;
-		width: -1px;
-		height: 1px;
 		transform-origin: 0 0;
 		transform: rotate(45deg);
 

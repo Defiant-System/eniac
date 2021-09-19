@@ -42,9 +42,9 @@ Smart.prototype = {
 	snap(pos) {
 		let s = this.sensivity,
 			o = this.offset,
-			vert = { top: -1, left: -1, height: -1 },
+			vert = { top: -1, left: -1, width: -1 },
 			hori = { top: -1, left: -1, height: -1 },
-			diag = { top: -1, left: -1, height: -1 },
+			diag = { top: -1, left: -1, width: -1 },
 			minY, maxY, h,
 			minX, maxX, w;
 
@@ -84,7 +84,7 @@ Smart.prototype = {
 		this.lines.horizontal.css(hori);
 	},
 	reset() {
-		let data = { top: -1, left: -1, height: -1 };
+		let data = { top: -99, left: -99, width: 1, height: 1 };
 		this.lines.vertical.css(data);
 		this.lines.horizontal.css(data);
 		this.lines.horizontal.css(data);
