@@ -666,7 +666,7 @@
 					origo = {
 						x: vW * .5,
 						y: vH * .5,
-						r: (Math.min(offset.w, offset.h) * .5) - 1,
+						r: (Math.min(offset.w, offset.h) * .5) - 3,
 					};
 				// calculate origo for handles
 				if (ratio != 1) {
