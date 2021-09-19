@@ -13,7 +13,7 @@ Smart.prototype = {
 	find(selector, offset) {
 		let found = [];
 
-		selector = "#shape-rounded";
+		// selector = "#shape-rounded";
 		window.find(selector).map(svg => {
 			let el = $(svg),
 				y = parseInt(el.css("top"), 10),
@@ -44,7 +44,9 @@ Smart.prototype = {
 			o = this.offset,
 			vert = { top: -1, left: -1, height: -1 },
 			hori = { top: -1, left: -1, height: -1 },
-			diag = { top: -1, left: -1, height: -1 };
+			diag = { top: -1, left: -1, height: -1 },
+			minY, maxY, h,
+			minX, maxX, w;
 
 		this.map(p => {
 			let dy = pos.top - p.y,
@@ -52,24 +54,29 @@ Smart.prototype = {
 
 			if (dy < s && dy > -s) {
 				pos.top -= dy;
-				// hori = {
-				// 	top: p.y,
-				// 	left: Math.min(pos.left, p.x),
-				// 	width: Math.max(pos.left, p.x) + o.w - Math.min(pos.left, p.x)
-				// };
+				if (p.y < pos.top) {
+					minX = p.y;
+					maxX = pos.left;
+					W = o.w;
+				} else {
+					minX = pos.left;
+					maxX = p.x;
+					w = p.w;
+				}
+				hori = { top: p.y, left: minX, width: maxX-minX+w };
 			}
 			if (dx < s && dx > -s) {
 				pos.left -= dx;
-
-				let minY = Math.min(pos.top, p.y),
-					maxY = Math.max(pos.top, p.y),
-					maxH = Math.max(o.h, p.h);
-				vert = {
-					top: minY,
-					left: p.x,
-					height: pos.top + o.h - p.y
-					// height: maxY + maxH - minY
-				};
+				if (p.y < pos.top) {
+					minY = p.y;
+					maxY = pos.top;
+					h = o.h;
+				} else {
+					minY = pos.top;
+					maxY = p.y;
+					h = p.h;
+				}
+				vert = { left: p.x, top: minY, height: maxY-minY+h };
 			}
 		});
 

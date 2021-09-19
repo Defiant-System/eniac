@@ -3,11 +3,12 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	--color: red; // #3583d0;
 
 	> div {
 		position: absolute;
-		background: #3583d0;
-		opacity: .75;
+		background: var( --color );
+		// opacity: .75;
 
 		&:before,
 		&:after {
@@ -25,14 +26,14 @@
 		height: 1px;
 
 		&:before {
-			background: linear-gradient(to left, #3583d0 0%, transparent 100%);
+			background: linear-gradient(to left, var( --color ) 0%, transparent 100%);
 			top: 0;
 			left: -29px;
 			width: 29px;
 		}
 
 		&:after {
-			background: linear-gradient(to right, #3583d0 0%, transparent 100%);
+			background: linear-gradient(to right, var( --color ) 0%, transparent 100%);
 			top: 0;
 			right: -29px;
 			width: 29px;
@@ -46,14 +47,14 @@
 		width: 1px;
 
 		&:before {
-			background: linear-gradient(to top, #3583d0 0%, transparent 100%);
+			background: linear-gradient(to top, var( --color ) 0%, transparent 100%);
 			left: 0;
 			top: -29px;
 			height: 29px;
 		}
 
 		&:after {
-			background: linear-gradient(to bottom, #3583d0 0%, transparent 100%);
+			background: linear-gradient(to bottom, var( --color ) 0%, transparent 100%);
 			left: 0;
 			bottom: -29px;
 			height: 29px;
@@ -69,14 +70,14 @@
 		transform: rotate(45deg);
 
 		&:before {
-			background: linear-gradient(to left, #3583d0 0%, transparent 100%);
+			background: linear-gradient(to left, var( --color ) 0%, transparent 100%);
 			top: 0;
 			left: -29px;
 			width: 29px;
 		}
 
 		&:after {
-			background: linear-gradient(to right, #3583d0 0%, transparent 100%);
+			background: linear-gradient(to right, var( --color ) 0%, transparent 100%);
 			top: 0;
 			right: -29px;
 			width: 29px;
