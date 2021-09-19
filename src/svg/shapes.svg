@@ -1,10 +1,10 @@
 
-<!-- <svg id="shape-rounded" class="shape" viewBox="0 0 100 200" cache="false">
+<svg id="shape-rounded" class="shape" viewBox="0 0 250 360" cache="false">
 	<style type="text/css">
 		.st0 {
 			fill: transparent;
 			stroke-width: 3;
-			stroke: #000000;
+			stroke: #333333;
 			x: 3px;
 			y: 3px;
 			width: calc( 100% - 6px );
@@ -14,6 +14,7 @@
 	<rect class="st0" width="0%" rx="10"/>
 </svg>
 
+<!-- 
 <svg id="shape-rectangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st1{
@@ -47,7 +48,7 @@
 		<stop offset="100%" stop-color="#336699"/>
 	  </radialGradient>
 	<circle class="st2" cx="50" cy="50" r="47"/>
-</svg> -->
+</svg>
 
 <svg id="shape-triangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
@@ -61,12 +62,13 @@
 	</style>
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 </svg>
+ -->
 
 <svg id="shape-line-1" class="shape" viewBox="0 0 100 38" cache="false">
 	<style type="text/css">
 		.st4{
 			stroke-width: 2;
-			stroke: #1ba3fc;
+			stroke: #333333;
 		}
 	</style>
 	<line class="st4" x1="4" y1="34" x2="96" y2="4"/>
@@ -76,7 +78,7 @@
 	<style type="text/css">
 		.st5{
 			stroke-width: 2;
-			stroke: #1ba3fc;
+			stroke: #333333;
 		}
 	</style>
 	<line class="st5" x1="4" y1="4" x2="96" y2="114"/>
@@ -87,7 +89,7 @@
 		.st6{
 			fill: transparent;
 			stroke-width: 2;
-			stroke: #000000;
+			stroke: #333333;
 		}
 	</style>
 	<path class="st6" d="M4,96 C20,-50 90,80 96,4"/>
