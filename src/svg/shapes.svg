@@ -1,5 +1,5 @@
 
-<svg id="shape-rounded" class="shape" viewBox="0 0 250 360" cache="false">
+<svg id="shape-rounded" class="shape" viewBox="0 0 250 230" cache="false">
 	<style type="text/css">
 		.st0 {
 			fill: transparent;
@@ -7,7 +7,7 @@
 			stroke: #333333;
 		}
 	</style>
-	<rect class="st0" x="0" y="0" width="100%" height="100%" rx="10"/>
+	<rect class="st0" x="2" y="2" width="246" height="226" rx="10"/>
 </svg>
 
 <!-- 
@@ -41,6 +41,7 @@
 	  </radialGradient>
 	<circle class="st2" cx="50" cy="50" r="47"/>
 </svg>
+-->
 
 <svg id="shape-triangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
@@ -54,7 +55,6 @@
 	</style>
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 </svg>
- -->
 
 <svg id="shape-line-1" class="shape" viewBox="0 0 100 30" cache="false">
 	<style type="text/css">

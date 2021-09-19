@@ -47,14 +47,29 @@ Smart.prototype = {
 			diag = { top: -1, left: -1, height: -1 };
 
 		this.map(p => {
-			let dx = pos.left - p.x;
+			let dy = pos.top - p.y,
+				dx = pos.left - p.x;
 
+			if (dy < s && dy > -s) {
+				pos.top -= dy;
+				hori = {
+					top: p.y,
+					left: Math.min(pos.left, p.x),
+					width: Math.max(pos.left, p.x) + o.w - Math.min(pos.left, p.x)
+				};
+			}
 			if (dx < s && dx > -s) {
 				pos.left -= dx;
+				vert = {
+					top: p.y,
+					left: p.x,
+					height: pos.top + o.h - p.y
+				};
 			}
 		});
 
-		// this.lines.vertical.css(vert);
+		this.lines.vertical.css(vert);
+		this.lines.horizontal.css(hori);
 	}
 };
 

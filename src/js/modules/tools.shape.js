@@ -202,8 +202,6 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
-				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
 
 				// if mousedown on handle
 				let el = $(event.target);
@@ -219,6 +217,9 @@
 					}
 					return Self.resize(event);
 				}
+
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse hideTools");
 				
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
@@ -254,7 +255,7 @@
 				break;
 			case "mouseup":
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("cover hideMouse hideTools");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.move);
 				break;
@@ -453,6 +454,9 @@
 		switch (event.type) {
 			// native events
 			case "mousedown":
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
 				// if mousedown on handle
 				let el = $(event.target),
 					pEl = el.parents(".shape-tools"),

@@ -33,7 +33,7 @@ class File {
 				svg.setAttribute("style", `width: ${w}px; height: ${h}px;`);
 				html += svg.xml;
 			});
-			setTimeout(() => window.find(`.shape:nth(2)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.shape:nth(1)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
