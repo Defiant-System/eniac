@@ -443,8 +443,8 @@
 				Self.els.root.find(".line[data-i]").map(item => {
 					let el = $(item),
 						i = +el.data("i"),
-						top = +Self.shapeItem.attr(`y${i}`) - 1,
-						left = +Self.shapeItem.attr(`x${i}`) - 1;
+						top = +Self.shapeItem.attr(`y${i}`) - 3,
+						left = +Self.shapeItem.attr(`x${i}`) - 3;
 					el.css({ top, left });
 				});
 				break;
@@ -597,8 +597,8 @@
 				Self.els.root.find(".line[data-i]").map(item => {
 					let el = $(item),
 						i = +el.data("i") - 1,
-						top = d[i].y - 1,
-						left = d[i].x - 1,
+						top = d[i].y - 3,
+						left = d[i].x - 3,
 						a = d[i+2].y - d[i].y,
 						b = d[i+2].x - d[i].x,
 						rad = Math.atan2(a, b),
