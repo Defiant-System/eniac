@@ -47,15 +47,13 @@
 	}
 
 	&.is-line {
-		box-shadow: 0 0 0;
-
+		.handle-box { box-shadow: 0 0 0; }
 		.handle { display: none; }
 		.handle.line { display: block; }
 	}
 
 	&.is-bezier {
-		box-shadow: 0 0 0;
-
+		.handle-box { box-shadow: 0 0 0; }
 		.handle { display: none; }
 		.handle.line.ap,
 		.handle.line { display: block; }
@@ -79,13 +77,13 @@
 		border: 1px solid rgba(0,0,0,.85);
 		pointer-events: all;
 
-		&.n    { cursor: n-resize; top: -5px; left: 50%; transform: translateX(-50%); }
+		&.n    { cursor: n-resize; top: -5px; left: 50%; transform: translateX(-5px); }
 		&.nw   { cursor: ne-resize; top: -5px; right: -5px; }
-		&.w    { cursor: e-resize; top: 50%; right: -5px; transform: translateY(-50%); }
+		&.w    { cursor: e-resize; top: 50%; right: -5px; transform: translateY(-5px); }
 		&.sw   { cursor: se-resize; bottom: -5px; right: -5px;  }
-		&.s    { cursor: s-resize; bottom: -5px; left: 50%; transform: translateX(-50%); }
+		&.s    { cursor: s-resize; bottom: -5px; left: 50%; transform: translateX(-5px); }
 		&.se   { cursor: sw-resize; bottom: -5px; left: -5px; }
-		&.e    { cursor: w-resize; top: 50%; left: -5px; transform: translateY(-50%); }
+		&.e    { cursor: w-resize; top: 50%; left: -5px; transform: translateY(-5px); }
 		&.ne   { cursor: nw-resize; top: -5px; left: -5px; }
 
 		&.line {
@@ -135,20 +133,6 @@
 					border: 1px solid rgba(0,0,0,.85);
 					pointer-events: all;
 					cursor: crosshair;
-				}
-			}
-
-			&[data-i="1"] {
-				.ap {
-					// transform: rotate(65deg);
-					// width: 80px;
-				}
-			}
-
-			&[data-i="2"] {
-				.ap {
-					// transform: rotate(-65deg);
-					// width: 50px;
 				}
 			}
 		}

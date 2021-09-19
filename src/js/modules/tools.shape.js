@@ -439,10 +439,9 @@
 				// position anchor points
 				Self.els.root.find(".line[data-i]").map(item => {
 					let el = $(item),
-						m = el.width() * .5,
 						i = +el.data("i"),
-						top = +Self.shapeItem.attr(`y${i}`) - m,
-						left = +Self.shapeItem.attr(`x${i}`) - m;
+						top = +Self.shapeItem.attr(`y${i}`) - 1,
+						left = +Self.shapeItem.attr(`x${i}`) - 1;
 					el.css({ top, left });
 				});
 				break;
@@ -591,10 +590,9 @@
 				// iterate two anchor points
 				Self.els.root.find(".line[data-i]").map(item => {
 					let el = $(item),
-						m = el.width() * .5,
 						i = +el.data("i") - 1,
-						top = d[i].y - m,
-						left = d[i].x - m,
+						top = d[i].y - 1,
+						left = d[i].x - 1,
 						a = d[i+2].y - d[i].y,
 						b = d[i+2].x - d[i].x,
 						rad = Math.atan2(a, b),
