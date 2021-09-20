@@ -558,36 +558,56 @@
 	move(event) {
 		let APP = eniac,
 			Self = APP.tools.table,
-			Drag = Self.drag,
-			top, left,
-			sheet,
-			el;
+			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
 				
-				sheet = Self.sheet.el;
-				el = $([sheet[0], Self.els.root[0]]);
+				let sheet = Self.sheet.el,
+					el = $([sheet[0], Self.els.root[0]]),
+					offset = {
+						el: sheet[0],
+						y: sheet.prop("offsetTop"),
+						x: sheet.prop("offsetLeft"),
+					},
+					guides = new Guides({
+						selector: ".sheet, svg",
+						context: "content .body",
+						offset,
+					});
+
+				console.log( offset );
+				
 				// create drag object
 				Self.drag = {
 					el,
-					clickX: event.clientX,
-					clickY: event.clientY,
-					offset: {
-						x: sheet.prop("offsetLeft"),
-						y: sheet.prop("offsetTop"),
-					}
+					guides,
+					click: {
+						y: event.clientY - offset.y,
+						x: event.clientX - offset.x,
+					},
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.move);
 				break;
 			case "mousemove":
-				top = event.clientY - Drag.clickY + Drag.offset.y;
-				left = event.clientX - Drag.clickX + Drag.offset.x;
-				Drag.el.css({ top, left });
+				let pos = {
+						top: event.clientY - Drag.click.y,
+						left: event.clientX - Drag.click.x,
+					};
+				// "filter" position with guide lines
+				Drag.guides.snap(pos);
+				// apply position on sheet (and sheet-tools)
+				Drag.el.css(pos);
 				break;
 			case "mouseup":
+				// hide guides
+				Drag.guides.reset();
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.move);
 				break;

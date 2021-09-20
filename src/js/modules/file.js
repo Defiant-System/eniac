@@ -22,7 +22,7 @@ class File {
 			// html += window.render({ template: "white-table-1" });
 
 			html = "";
-			// html += window.render({ template: "sheet", match: `//Sheet[@id="barebone"]` });
+			html += window.render({ template: "sheet", match: `//Sheet[@id="barebone"]` });
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
@@ -33,7 +33,9 @@ class File {
 				svg.setAttribute("style", `width: ${w}px; height: ${h}px;`);
 				html += svg.xml;
 			});
-			setTimeout(() => window.find(`.shape:nth(1)`).trigger("mousedown").trigger("mouseup"), 150);
+
+			// setTimeout(() => window.find(`.shape:nth(1)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.sheet td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);

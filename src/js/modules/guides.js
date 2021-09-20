@@ -6,15 +6,15 @@ class Guides {
 		// default properties
 		this.els = [];
 		// selector = "#shape-rounded";
-		window.find(opt.selector).map(svg => {
-				let el = $(svg),
+		window.find(opt.selector).map(elem => {
+				let el = $(elem),
 					y = parseInt(el.css("top"), 10),
 					x = parseInt(el.css("left"), 10),
 					w = parseInt(el.css("width"), 10),
 					h = parseInt(el.css("height"), 10),
 					mh = h * .5,
 					mw = w * .5;
-				if (svg !== opt.offset.el) {
+				if (elem !== opt.offset.el) {
 					this.els.push({ y, x, w, h, mh, mw });
 				}
 			});

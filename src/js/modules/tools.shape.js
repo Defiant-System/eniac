@@ -224,7 +224,8 @@
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
 					guides = new Guides({
-						selector: "content .body svg",
+						selector: ".sheet, svg",
+						context: "content .body",
 						offset: {
 							el: shape[0],
 							w: rect.width,
@@ -366,7 +367,8 @@
 				}
 
 				let guides = new Guides({
-						selector: "content .body svg",
+						selector: ".sheet, svg",
+						context: "content .body",
 						offset: {
 							el: Self.shape[0],
 							x: +pEl.prop("offsetLeft") + 2,
@@ -505,7 +507,8 @@
 					click.i = +el.data("i") - 1;
 					// prepare guides
 					guides = new Guides({
-						selector: "content .body svg",
+						selector: ".sheet, svg",
+						context: "content .body",
 						offset: {
 							el: Self.shape[0],
 							x: +pEl.prop("offsetLeft") + 2,
