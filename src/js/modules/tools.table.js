@@ -569,18 +569,19 @@
 				let sheet = Self.sheet.el,
 					el = $([sheet[0], Self.els.root[0]]),
 					offset = {
-						el: sheet[0],
 						y: sheet.prop("offsetTop"),
 						x: sheet.prop("offsetLeft"),
 					},
 					guides = new Guides({
 						selector: ".sheet, svg",
 						context: "content .body",
-						offset,
+						offset: {
+							el: sheet[0],
+							w: sheet.width(),
+							h: sheet.height(),
+						},
 					});
 
-				console.log( offset );
-				
 				// create drag object
 				Self.drag = {
 					el,

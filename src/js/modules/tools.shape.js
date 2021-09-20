@@ -371,8 +371,8 @@
 						context: "content .body",
 						offset: {
 							el: Self.shape[0],
-							x: +pEl.prop("offsetLeft") + 2,
 							y: +pEl.prop("offsetTop") + 2,
+							x: +pEl.prop("offsetLeft") + 2,
 						}
 					});
 
