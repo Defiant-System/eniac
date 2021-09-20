@@ -1,6 +1,9 @@
 
 class Guides {
 	constructor(opt={}) {
+		// reference to root application
+		let APP = eniac;
+		// default properties
 		this.els = [];
 		// selector = "#shape-rounded";
 		window.find(opt.selector).map(svg => {
@@ -32,7 +35,7 @@ class Guides {
 			mh: opt.offset.h * .5 || 0,
 			mw: opt.offset.w * .5 || 0,
 			// snap sensitivity
-			sensitivity: 10,
+			sensitivity: APP.Settings["guides-snap-sensitivity"] || 10,
 			// override defaults, if any
 			...opt.offset,
 		};

@@ -8,8 +8,17 @@
 const XLSX = await window.fetch("~/js/xdef.js");
 // const XLSX = await window.fetch("~/js/xlsx.full.min.js");
 
+
+// default settings
+const DefaultSettings = {
+	"guides-snap-sensitivity": 10,
+};
+
+
 const eniac = {
 	init() {
+		// get settings or use default settings
+		this.Settings = window.settings.getItem("settings") || DefaultSettings;
 		// init renderer
 		Cursor.init();
 		Render.init();
@@ -70,7 +79,7 @@ const eniac = {
 				break;
 			// menubar events
 			case "set-guides-sensitivity":
-				console.log(event);
+				Self.Settings["guides-snap-sensitivity"] = +event.arg;
 				break;
 			// system menu events
 			case "before-menu:sheet-tab":
