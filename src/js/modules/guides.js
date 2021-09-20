@@ -1,21 +1,9 @@
 
-const Smart = function() {
-	let guide = Object.create(Array.prototype);
-	for (var prop in Smart.prototype) {
-		if (Smart.prototype.hasOwnProperty(prop)) {
-			guide[prop] = Smart.prototype[prop];
-		}
-	}
-	return guide;
-};
-
-Smart.prototype = {
-	find(selector, offset) {
-		let found = [];
-
+class Guides {
+	constructor(opt) {
+		this.els = [];
 		// selector = "#shape-rounded";
-		window.find(selector)
-			.map(svg => {
+		window.find(opt.selector).map(svg => {
 				let el = $(svg),
 					y = parseInt(el.css("top"), 10),
 					x = parseInt(el.css("left"), 10),
@@ -23,35 +11,35 @@ Smart.prototype = {
 					h = parseInt(el.css("height"), 10),
 					mh = h * .5,
 					mw = w * .5;
-				if (svg !== offset.el) {
-					found.push({ y, x, w, h, mh, mw });
+				if (svg !== opt.offset.el) {
+					this.els.push({ y, x, w, h, mh, mw });
 				}
 			});
-		// snap sensitivity
-		this.sensivity = 10;
-		// add guide line element to "this"
-		this.offset = {
-			x: 0,
-			y: 0,
-			w: 0,
-			h: 0,
-			...offset,
-			mh: offset.h * .5 || 0,
-			mw: offset.w * .5 || 0,
-		};
 		// add guide line element to "this"
 		this.lines = {
 			horizontal: window.find(".guide-lines .horizontal"),
 			vertical: window.find(".guide-lines .vertical"),
 			diagonal: window.find(".guide-lines .diagonal"),
 		};
-		// populate "this"
-		found.map(item => Array.prototype.push.call(this, item));
-		return this;
-	},
+		// add guide line element to "this"
+		this.opts = {
+			// offsets origo
+			x: 0,
+			y: 0,
+			// offsets guide line
+			w: 0,
+			h: 0,
+			// snap sensitivity
+			sensitivity: 10,
+			...opt.offset,
+			mh: opt.offset.h * .5 || 0,
+			mw: opt.offset.w * .5 || 0,
+		};
+	}
+
 	snap(m) {
-		let s = this.sensivity,
-			o = this.offset,
+		let o = this.opts,
+			s = o.sensitivity,
 			t = m.top + o.y,
 			l = m.left + o.x,
 			vert = { top: -1, left: -1, width: 1 },
@@ -81,7 +69,7 @@ Smart.prototype = {
 				return { left: g.x+add.l, top: minY, height: maxY-minY+h };
 			};
 		// iterate guide lines
-		this.map(g => {
+		this.els.map(g => {
 			let dy = t - g.y,
 				dx = l - g.x,
 				ohy = dy + o.h,
@@ -112,16 +100,12 @@ Smart.prototype = {
 		// apply UI update
 		this.lines.vertical.css(vert);
 		this.lines.horizontal.css(hori);
-	},
+	}
+
 	reset() {
 		let data = { top: -99, left: -99, width: 1, height: 1 };
 		this.lines.vertical.css(data);
 		this.lines.horizontal.css(data);
 		this.lines.horizontal.css(data);
 	}
-};
-
-const Guides = function() {
-	var guide = new Smart();
-	return guide.find.apply(guide, arguments);
-};
+}

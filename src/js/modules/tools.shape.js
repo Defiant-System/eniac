@@ -223,12 +223,14 @@
 				// assemble variables
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
-					offset = {
-						el: shape[0],
-						w: rect.width,
-						h: rect.height,
-					},
-					guides = Guides("content .body svg", offset);
+					guides = new Guides({
+						selector: "content .body svg",
+						offset: {
+							el: shape[0],
+							w: rect.width,
+							h: rect.height,
+						}
+					});
 
 				// create drag object
 				Self.drag = {
@@ -363,10 +365,13 @@
 					return Self.bezierMove(event);
 				}
 
-				let guides = Guides("content .body svg", {
-						el: Self.shape[0],
-						x: +pEl.prop("offsetLeft") + 2,
-						y: +pEl.prop("offsetTop") + 2,
+				let guides = new Guides({
+						selector: "content .body svg",
+						offset: {
+							el: Self.shape[0],
+							x: +pEl.prop("offsetLeft") + 2,
+							y: +pEl.prop("offsetTop") + 2,
+						}
 					});
 
 				// create drag object
@@ -499,10 +504,13 @@
 					click.x -= x;
 					click.i = +el.data("i") - 1;
 					// prepare guides
-					guides = Guides("content .body svg", {
-						el: Self.shape[0],
-						x: +pEl.prop("offsetLeft") + 2,
-						y: +pEl.prop("offsetTop") + 2,
+					guides = new Guides({
+						selector: "content .body svg",
+						offset: {
+							el: Self.shape[0],
+							x: +pEl.prop("offsetLeft") + 2,
+							y: +pEl.prop("offsetTop") + 2,
+						}
 					});
 					// anchor updater
 					updatePath = function(pos) {
