@@ -57,7 +57,7 @@
 					.removeClass("hidden");
 
 				// remember shape
-				let names = ["circle", "rect", "polygon", "polyline", "path", "line", "bezier"];
+				let names = ["circle", "ellipse", "rect", "polygon", "polyline", "path", "line", "bezier"];
 				Self.shape = event.el;
 				Self.shapeItem = event.el.find(names.join(","));
 				// set "rounded corner" value & reset handles
