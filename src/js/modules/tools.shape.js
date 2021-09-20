@@ -490,21 +490,28 @@
 						x: +pEl.prop("offsetLeft"),
 						m: 4,
 					},
-					updatePath;
+					updatePath,
+					guides;
 
 				// if mousedown on handle
 				if (isAnchor) {
 					click.y -= y;
 					click.x -= x;
 					click.i = +el.data("i") - 1;
+					// prepare guides
+					guides = Guides("content .body svg", {
+						el: Self.shape[0],
+						x: +pEl.prop("offsetLeft") + 2,
+						y: +pEl.prop("offsetTop") + 2,
+					});
 					// anchor updater
-					updatePath = function(y, x) {
+					updatePath = function(pos) {
 						// update anchor + point
 						let i = this.click.i;
-						this.path[i+2].x += x - this.path[i].x;
-						this.path[i+2].y += y - this.path[i].y;
-						this.path[i].x = x;
-						this.path[i].y = y;
+						this.path[i+2].x += pos.left - this.path[i].x + 3;
+						this.path[i+2].y += pos.top - this.path[i].y + 3;
+						this.path[i].x = pos.left + 3;
+						this.path[i].y = pos.top + 3;
 					};
 				} else {
 					let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
@@ -513,6 +520,7 @@
 					origo = { y, x: y };
 					offset.y = Math.round(y + r * Math.cos(rad));
 					offset.x = Math.round(x + r * Math.sin(rad));
+					pEl = el.parent();
 					click.i = +pEl.data("i") + 1;
 					offset.py = path[click.i].y;
 					offset.px = path[click.i].x;
@@ -529,10 +537,11 @@
 					el,
 					pEl,
 					path,
+					origo,
 					shape,
 					click,
 					offset,
-					origo,
+					guides,
 					isAnchor,
 					updatePath,
 					_round: Math.round,
@@ -544,15 +553,21 @@
 				Self.els.doc.on("mousemove mouseup", Self.bezierMove);
 				break;
 			case "mousemove":
-				let my = event.clientY - Drag.click.y,
-					mx = event.clientX - Drag.click.x;
 				if (Drag.isAnchor) {
+					let pos = {
+							top: event.clientY - Drag.click.y,
+							left: event.clientX - Drag.click.x,
+						};
+					// "filter" position with guide lines
+					Drag.guides.snap(pos);
 					// apply position on anchor
-					Drag.el.css({ top: my, left: mx });
+					Drag.el.css(pos);
 					// apply anchor position
-					Drag.updatePath(my + Drag.offset.r, mx + Drag.offset.r);
+					Drag.updatePath(pos);
 				} else {
-					let y = my - Drag.origo.y + Drag.offset.y,
+					let my = event.clientY - Drag.click.y,
+						mx = event.clientX - Drag.click.x,
+						y = my - Drag.origo.y + Drag.offset.y,
 						x = mx - Drag.origo.x + Drag.offset.x,
 						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
 						width = Drag._sqrt(y*y + x*x);
@@ -592,6 +607,8 @@
 					Self.shape
 						.css({ top, left, width, height })
 						.attr({ viewBox });
+					// hide guides
+					Drag.guides.reset();
 					// re-focus on line svg
 					Self.dispatch({ type: "focus-shape", el: Self.shape });
 				}
