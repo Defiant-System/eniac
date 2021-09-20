@@ -225,8 +225,6 @@
 					rect = event.target.getBoundingClientRect(),
 					offset = {
 						el: shape[0],
-						x: 0,
-						y: 0,
 						w: rect.width,
 						h: rect.height,
 					},
@@ -359,7 +357,7 @@
 					shape = Self.shapeItem,
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
-					r = +el.prop("offsetWidth");
+					r = +el.prop("offsetWidth") * .5;
 
 				if (Self.els.root.hasClass("is-bezier")) {
 					return Self.bezierMove(event);
@@ -367,11 +365,11 @@
 
 				let offset = {
 						el: Self.shape[0],
-						x: +pEl.prop("offsetLeft") - x,
-						y: +pEl.prop("offsetTop") - y,
+						x: +pEl.prop("offsetLeft") + 2,
+						y: +pEl.prop("offsetTop") + 2,
 					},
 					guides = Guides("content .body svg", offset);
-console.log( offset );
+
 				// create drag object
 				Self.drag = {
 					el,
@@ -381,18 +379,17 @@ console.log( offset );
 					origo: {
 						y: +pEl.prop("offsetTop"),
 						x: +pEl.prop("offsetLeft"),
-						m: 4,
-						r: r/2,
+						r,
 					},
 					click: {
 						x: event.clientX - x,
 						y: event.clientY - y,
 						i: +el.data("i")
 					},
-					updateLine(y, x) {
+					updateLine(pos) {
 						let data = {};
-						data["y"+ this.click.i] = y;
-						data["x"+ this.click.i] = x;
+						data["y"+ this.click.i] = pos.top + 3;
+						data["x"+ this.click.i] = pos.left + 3;
 						this.shape.attr(data);
 					},
 				};
@@ -409,11 +406,11 @@ console.log( offset );
 				// apply position on anchor
 				Drag.el.css(pos);
 				// apply line variables
-				Drag.updateLine(pos.top + Drag.origo.r, pos.left + Drag.origo.r);
+				Drag.updateLine(pos);
 				break;
 			case "mouseup": {
 				// re-calculate shape pos & dimensions
-				let m1 = Drag.origo.m,
+				let m1 = Drag.origo.r,
 					y1 = +Drag.shape.attr("y1"),
 					x1 = +Drag.shape.attr("x1"),
 					y2 = +Drag.shape.attr("y2"),
@@ -446,6 +443,8 @@ console.log( offset );
 					.attr({ viewBox });
 				// re-focus on line svg
 				Self.dispatch({ type: "focus-shape", el: Self.shape });
+				// hide guides
+				Drag.guides.reset();
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event

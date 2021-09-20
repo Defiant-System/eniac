@@ -31,9 +31,13 @@ Smart.prototype = {
 		this.sensivity = 10;
 		// add guide line element to "this"
 		this.offset = {
+			x: 0,
+			y: 0,
+			w: 0,
+			h: 0,
 			...offset,
-			mh: (offset.h || 0) * .5,
-			mw: (offset.w || 0) * .5,
+			mh: offset.h * .5 || 0,
+			mw: offset.w * .5 || 0,
 		};
 		// add guide line element to "this"
 		this.lines = {

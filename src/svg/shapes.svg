@@ -27,8 +27,7 @@
 	<rect class="st1" x="0" y="0" width="100%" height="100%"/>
 </svg> -->
 
-<!-- 
-<svg id="shape-disc" class="shape" viewBox="0 0 100 100" cache="false">
+<!-- <svg id="shape-disc" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st2{
 			fill: url(#SVG-GR-2);
@@ -40,8 +39,7 @@
 		<stop offset="100%" stop-color="#336699"/>
 	  </radialGradient>
 	<circle class="st2" cx="50" cy="50" r="47"/>
-</svg>
--->
+</svg> -->
 
 <!-- <svg id="shape-triangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
@@ -74,9 +72,9 @@
 		}
 	</style>
 	<line class="st5" x1="0" y1="0" x2="100" y2="120"/>
-</svg>
+</svg> -->
 
-<svg id="shape-line-3" class="shape" viewBox="0 0 100 100" cache="false">
+<!-- <svg id="shape-line-3" class="shape" viewBox="0 0 100 100" cache="false">
 	<style type="text/css">
 		.st6{
 			fill: transparent;
