@@ -272,7 +272,7 @@
 		switch (event.type) {
 			case "mousedown":
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				Self.els.layout.addClass("cover hideMouse hideTools");
 
 				let svg = Self.shape,
 					shape = Self.shapeItem,
@@ -356,7 +356,7 @@
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("cover hideMouse hideTools");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
 				break;

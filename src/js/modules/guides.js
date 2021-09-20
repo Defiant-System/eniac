@@ -43,7 +43,34 @@ class Guides {
 	}
 
 	snapDim(d) {
-		
+		let o = this.opts,
+			s = o.sensitivity,
+			h = d.height + o.y,
+			w = d.width + o.x,
+			vert = { top: -1, left: -1, width: 1 },
+			calcV = (g, cw, add = { w: 0 }) => {
+				let minY = o.y,
+					maxY = g.y,
+					h = g.h;
+				d.width -= cw;
+				if (maxY < minY) {
+					minY = g.y;
+					maxY = o.y;
+					h = o.h;
+				}
+				return { top: minY, left: g.x, height: maxY-minY+h };
+			};
+		// iterate guide lines
+		this.els.map(g => {
+			let dh = h - g.y,
+				dw = w - g.x;
+			// horizontal comparisons
+			switch (true) {
+				case (dw  < s && dw  > -s): vert = calcV(g, dw); break;
+			}
+		});
+		// apply UI update
+		this.lines.vertical.css(vert);
 	}
 
 	snapPos(m) {
@@ -58,7 +85,7 @@ class Guides {
 					maxX = g.x,
 					w = g.w;
 				m.top -= y;
-				if (g.x < l) {
+				if (maxX < minX) {
 					minX = g.x;
 					maxX = l;
 					w = o.w;
@@ -70,12 +97,12 @@ class Guides {
 					maxY = g.y,
 					h = g.h;
 				m.left -= x;
-				if (g.y < t) {
+				if (maxY < minY) {
 					minY = g.y;
 					maxY = t;
 					h = o.h;
 				}
-				return { left: g.x+add.l, top: minY, height: maxY-minY+h };
+				return { top: minY, left: g.x+add.l, height: maxY-minY+h };
 			};
 		// iterate guide lines
 		this.els.map(g => {

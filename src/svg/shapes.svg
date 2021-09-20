@@ -18,7 +18,7 @@
 			stroke-width: 2;
 		}
 	</style>
-	<rect class="st1" x="0" y="0" width="100%" height="100%" rx="50"/>
+	<rect class="st1" x="0" y="0" width="100%" height="100%" rx="30"/>
 </svg>
 
 <!-- <svg id="shape-rectangle" class="shape reflection" viewBox="0 0 100 100" cache="false">
