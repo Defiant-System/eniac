@@ -251,7 +251,7 @@
 						left: event.clientX - Drag.click.x,
 					};
 				// "filter" position with guide lines
-				Drag.guides.snap(pos);
+				Drag.guides.snapPos(pos);
 				// move dragged object
 				Drag.el.css(pos);
 				break;
@@ -278,63 +278,83 @@
 					shape = Self.shapeItem,
 					rect = Self.shapeItem.prop("nodeName") === "rect",
 					el = $([svg[0], Self.els.root[0]]),
-					type = event.target.className.split(" ")[1];
+					type = event.target.className.split(" ")[1],
+					min = { w: 50, h: 50 },
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+					},
+					offset = {
+						x: parseInt(svg.css("left"), 10),
+						y: parseInt(svg.css("top"), 10),
+						w: parseInt(svg.css("width"), 10),
+						h: parseInt(svg.css("height"), 10),
+						rx: +shape.attr("rx"),
+					},
+					guides = new Guides({
+						selector: ".sheet, svg",
+						context: "content .body",
+						offset: { el: svg[0], ...offset }
+					});
 				// create drag object
 				Self.drag = {
 					el,
 					type,
 					rect,
 					svg,
+					min,
 					shape,
-					click: {
-						x: event.clientX,
-						y: event.clientY,
-					},
-					offset: {
-						x: parseInt(svg.css("left"), 10),
-						y: parseInt(svg.css("top"), 10),
-						w: parseInt(svg.css("width"), 10),
-						h: parseInt(svg.css("height"), 10),
-						rx: +shape.attr("rx"),
-					}
+					click,
+					offset,
+					guides,
+					_min: Math.min,
 				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
-				let data = {
+				let dim = {
 						width: Drag.offset.w,
 						height: Drag.offset.h,
 					};
 				if (Drag.type.includes("n")) {
-					data.top = event.clientY - Drag.click.y + Drag.offset.y;
-					data.height = Drag.offset.h + Drag.click.y - event.clientY;
+					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
+					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
 				}
 				if (Drag.type.includes("e")) {
-					data.left = event.clientX - Drag.click.x + Drag.offset.x;
-					data.width = Drag.offset.w + Drag.click.x - event.clientX;
+					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
+					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
 				}
 				if (Drag.type.includes("s")) {
-					data.height = event.clientY - Drag.click.y + Drag.offset.h;
+					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
 				}
 				if (Drag.type.includes("w")) {
-					data.width = event.clientX - Drag.click.x + Drag.offset.w;
+					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
 				}
-				Drag.el.css(data);
+
+				// "filter" position with guide lines
+				Drag.guides.snapDim(dim);
+
+				// apply new dimensions to element
+				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
+				if (dim.height < Drag.min.h) dim.height = Drag.min.h;
+				Drag.el.css(dim);
 				// special handling for rect-element
 				if (Drag.rect) {
 					if (Drag.offset.rx) {
 						let w = parseInt(Drag.shape.css("width"), 10),
 							h = parseInt(Drag.shape.css("height"), 10),
-							rx = Math.min(Drag.offset.rx, (Math.min(w, h)-2)/2);
+							rx = Drag._min(Drag.offset.rx, Drag._min(w, h) * .5);
 						Drag.shape.attr({ rx });
 					}
-					Drag.svg.attr({ viewBox: `0 0 ${data.width} ${data.height}` });
+					Drag.svg.attr({ viewBox: `0 0 ${dim.width} ${dim.height}` });
 				}
 				// re-focuses shape tools
 				Self.dispatch({ type: "focus-shape", el: Drag.svg });
 				break;
 			case "mouseup":
+				// hide guides
+				Drag.guides.reset();
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
@@ -407,7 +427,7 @@
 						left: event.clientX - Drag.click.x,
 					};
 				// "filter" position with guide lines
-				Drag.guides.snap(pos);
+				Drag.guides.snapPos(pos);
 				// apply position on anchor
 				Drag.el.css(pos);
 				// apply line variables
@@ -570,7 +590,7 @@
 							left: event.clientX - Drag.click.x,
 						};
 					// "filter" position with guide lines
-					Drag.guides.snap(pos);
+					Drag.guides.snapPos(pos);
 					// apply position on anchor
 					Drag.el.css(pos);
 					// apply anchor position

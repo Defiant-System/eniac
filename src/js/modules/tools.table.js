@@ -600,7 +600,7 @@
 						left: event.clientX - Drag.click.x,
 					};
 				// "filter" position with guide lines
-				Drag.guides.snap(pos);
+				Drag.guides.snapPos(pos);
 				// apply position on sheet (and sheet-tools)
 				Drag.el.css(pos);
 				break;

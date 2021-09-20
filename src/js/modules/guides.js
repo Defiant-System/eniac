@@ -18,6 +18,7 @@ class Guides {
 					this.els.push({ y, x, w, h, mh, mw });
 				}
 			});
+
 		// add guide line element to "this"
 		this.lines = {
 			horizontal: window.find(".guide-lines .horizontal"),
@@ -41,7 +42,11 @@ class Guides {
 		};
 	}
 
-	snap(m) {
+	snapDim(d) {
+		
+	}
+
+	snapPos(m) {
 		let o = this.opts,
 			s = o.sensitivity,
 			t = m.top + o.y,
