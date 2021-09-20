@@ -363,18 +363,16 @@
 					return Self.bezierMove(event);
 				}
 
-				let offset = {
+				let guides = Guides("content .body svg", {
 						el: Self.shape[0],
 						x: +pEl.prop("offsetLeft") + 2,
 						y: +pEl.prop("offsetTop") + 2,
-					},
-					guides = Guides("content .body svg", offset);
+					});
 
 				// create drag object
 				Self.drag = {
 					el,
 					shape,
-					offset,
 					guides,
 					origo: {
 						y: +pEl.prop("offsetTop"),
