@@ -68,6 +68,10 @@ const eniac = {
 			case "window.keystroke":
 				Cursor.dispatch(event);
 				break;
+			// menubar events
+			case "set-guides-sensitivity":
+				console.log(event);
+				break;
 			// system menu events
 			case "before-menu:sheet-tab":
 				return Self.head.dispatch(event);

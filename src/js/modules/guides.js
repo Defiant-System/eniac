@@ -1,6 +1,6 @@
 
 class Guides {
-	constructor(opt) {
+	constructor(opt={}) {
 		this.els = [];
 		// selector = "#shape-rounded";
 		window.find(opt.selector).map(svg => {
@@ -29,11 +29,12 @@ class Guides {
 			// offsets guide line
 			w: 0,
 			h: 0,
-			// snap sensitivity
-			sensitivity: 10,
-			...opt.offset,
 			mh: opt.offset.h * .5 || 0,
 			mw: opt.offset.w * .5 || 0,
+			// snap sensitivity
+			sensitivity: 10,
+			// override defaults, if any
+			...opt.offset,
 		};
 	}
 
