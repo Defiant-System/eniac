@@ -74,32 +74,32 @@ class Guides {
 			// horizontal comparisons
 			switch (true) {
 				// bitwise comparison: east
-				case (b & 2 && l < s && l > -s):
+				case (b & 8 && l < s && l > -s):
 					c.l = l;
 					c.w -= l;
 					vert = calcV(g, c);
 					break;
-				case (b & 2 && lw < s && lw > -s):
+				case (b & 8 && lw < s && lw > -s):
 					c.l = lw;
 					c.w -= lw;
 					vert = calcV(g, c, { w: g.w });
 					break;
-				case (b & 2 && lwm < s && lwm > -s):
+				case (b & 8 && lwm < s && lwm > -s):
 					c.l = lwm;
 					c.w -= lwm;
 					vert = calcV(g, c, { w: g.mw });
 					break;
 
 				// bitwise comparison: west
-				case (b & 8 && dw < s && dw > -s):
+				case (b & 2 && dw < s && dw > -s):
 					c.w = dw;
 					vert = calcV(g, c);
 					break;
-				case (b & 8 && owx < s && owx > -s):
+				case (b & 2 && owx < s && owx > -s):
 					c.w = owx;
 					vert = calcV(g, c, { w: g.w });
 					break;
-				case (b & 8 && owm < s && owm > -s):
+				case (b & 2 && owm < s && owm > -s):
 					c.w = owm;
 					vert = calcV(g, c, { w: g.mw });
 					break;

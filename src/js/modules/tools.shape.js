@@ -281,10 +281,14 @@
 					type = event.target.className.split(" ")[1],
 					// prepare for bitwise operation for best performance
 					bearing = {
-						n: 1, ne: 3,
-						e: 2, se: 6,
-						s: 4, sw: 12,
-						w: 8, nw: 9,
+						n: 1,    // 1000
+						w: 2,    // 0100
+						s: 4,    // 0010
+						e: 8,    // 0001
+						nw: 3,   // 1100
+						sw: 6,   // 0110
+						se: 12,  // 0011
+						ne: 9,   // 1001
 					}[type],
 					min = {
 						w: 50,
@@ -333,7 +337,7 @@
 					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
 				}
 				// bitwise comparison: east
-				if (Drag.bearing & 2) {
+				if (Drag.bearing & 8) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
 				}
@@ -342,7 +346,7 @@
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
 				}
 				// bitwise comparison: west
-				if (Drag.bearing & 8) {
+				if (Drag.bearing & 2) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
 				}
 
