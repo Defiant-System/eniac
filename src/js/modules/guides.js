@@ -58,15 +58,17 @@ class Guides {
 					maxY = o.y;
 					h = o.h;
 				}
-				return { top: minY, left: g.x, height: maxY-minY+h };
+				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
 			};
 		// iterate guide lines
 		this.els.map(g => {
-			let dh = h - g.y,
-				dw = w - g.x;
+			let dy = h - g.y,
+				dx = w - g.x,
+				owx = dx - g.w;
 			// horizontal comparisons
 			switch (true) {
-				case (dw  < s && dw  > -s): vert = calcV(g, dw); break;
+				case (dx  < s && dx  > -s): vert = calcV(g, dx); break;
+				case (owx < s && owx > -s): vert = calcV(g, owx, { w: g.w }); break;
 			}
 		});
 		// apply UI update
