@@ -45,16 +45,33 @@ class Guides {
 	snapDim(d) {
 		let o = this.opts,
 			s = o.sensitivity,
-			b = o.bearing,
+			b = {
+				n: o.type.includes("n"),
+				w: o.type.includes("w"),
+				e: o.type.includes("e"),
+				s: o.type.includes("s"),
+			},
 			vert = { top: -1, left: -1, width: 1 },
+			hori = { top: -1, left: -1, height: 1 },
+			calcH = (g, c, add = { h: 0 }) => {
+				let minX = o.x,
+					maxX = g.x,
+					w = g.w;
+				d.height -= c.h;
+				d.top -= c.t;
+				if (maxX < minX) {
+					minX = g.x;
+					maxX = o.x;
+					w = o.w;
+				}
+				return { top: g.y+add.h, left: minX, width: maxX-minX+w };
+			},
 			calcV = (g, c, add = { w: 0 }) => {
 				let minY = o.y,
 					maxY = g.y,
 					h = g.h;
-				
 				d.width -= c.w;
 				d.left -= c.l;
-				
 				if (maxY < minY) {
 					minY = g.y;
 					maxY = o.y;
@@ -64,49 +81,60 @@ class Guides {
 			};
 		// iterate guide lines
 		this.els.map(g => {
-			let l = d.left - g.x,
+			let t = d.top - g.y,
+				
+				l = d.left - g.x,
 				lw = l - g.w,
 				lwm = l - g.mw,
 				dw = d.width + o.x - g.x,
 				owx = dw - g.w,
 				owm = dw - g.mw,
-				c = { w: 0, l: 0 };
+				c = { w: 0, h: 0, t: 0, l: 0 };
 			// horizontal comparisons
 			switch (true) {
-				// bitwise comparison: east
-				case (b & 8 && l < s && l > -s):
+				// east
+				case (b.e && l < s && l > -s):
 					c.l = l;
 					c.w -= l;
 					vert = calcV(g, c);
 					break;
-				case (b & 8 && lw < s && lw > -s):
+				case (b.e && lw < s && lw > -s):
 					c.l = lw;
 					c.w -= lw;
 					vert = calcV(g, c, { w: g.w });
 					break;
-				case (b & 8 && lwm < s && lwm > -s):
+				case (b.e && lwm < s && lwm > -s):
 					c.l = lwm;
 					c.w -= lwm;
 					vert = calcV(g, c, { w: g.mw });
 					break;
-
-				// bitwise comparison: west
-				case (b & 2 && dw < s && dw > -s):
+				// west
+				case (b.w && dw < s && dw > -s):
 					c.w = dw;
 					vert = calcV(g, c);
 					break;
-				case (b & 2 && owx < s && owx > -s):
+				case (b.w && owx < s && owx > -s):
 					c.w = owx;
 					vert = calcV(g, c, { w: g.w });
 					break;
-				case (b & 2 && owm < s && owm > -s):
+				case (b.w && owm < s && owm > -s):
 					c.w = owm;
 					vert = calcV(g, c, { w: g.mw });
+					break;
+			}
+			// vertical comparisons
+			switch (true) {
+				// east
+				case (b.n && t < s && t > -s):
+					c.t = t;
+					c.h -= t;
+					hori = calcH(g, c);
 					break;
 			}
 		});
 		// apply UI update
 		this.lines.vertical.css(vert);
+		this.lines.horizontal.css(hori);
 	}
 
 	snapPos(m) {
