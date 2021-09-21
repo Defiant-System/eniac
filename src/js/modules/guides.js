@@ -65,6 +65,7 @@ class Guides {
 		// iterate guide lines
 		this.els.map(g => {
 			let l = d.left - g.x,
+				lw = l - g.w,
 				dw = d.width + o.x - g.x,
 				owx = dw - g.w,
 				c = { w: 0, l: 0 };
@@ -73,7 +74,13 @@ class Guides {
 				// bitwise comparison: east
 				case (b & 2 && l < s && l > -s):
 					c.l = l;
+					c.w -= l;
 					vert = calcV(g, c);
+					break;
+				case (b & 2 && lw < s && lw > -s):
+					c.l = lw;
+					c.w -= lw;
+					vert = calcV(g, c, { w: g.w });
 					break;
 
 				// bitwise comparison: west
