@@ -55,11 +55,11 @@
 		<Menu name="Zoom In"/>
 		<Menu name="Zoom Out"/>
 		<Menu name="Zoom&#8230;" for="view-zoom">
-			<Menu name="75%"/>
-			<Menu name="100%"/>
-			<Menu name="125%"/>
-			<Menu name="150%"/>
-			<Menu name="200%"/>
+			<Menu name="75%" click="set-document-zoom" arg="75"/>
+			<Menu name="100%" click="set-document-zoom" arg="100"/>
+			<Menu name="125%" click="set-document-zoom" arg="125"/>
+			<Menu name="150%" click="set-document-zoom" arg="150"/>
+			<Menu name="200%" click="set-document-zoom" arg="200"/>
 		</Menu>
 		<Menu type="divider"/>
 		<Menu name="Smart Guides">

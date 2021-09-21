@@ -11,6 +11,7 @@ const XLSX = await window.fetch("~/js/xdef.js");
 
 // default settings
 const DefaultSettings = {
+	"document-zoom": 100,
 	"guides-snap-sensitivity": 7,
 };
 
@@ -78,6 +79,11 @@ const eniac = {
 				Cursor.dispatch(event);
 				break;
 			// menubar events
+			case "set-document-zoom":
+				Self.Settings["document-zoom"] = +event.arg;
+				// apply to element
+				window.find(".body .wrapper").css({ zoom: +event.arg +"%" });
+				break;
 			case "set-guides-sensitivity":
 				Self.Settings["guides-snap-sensitivity"] = +event.arg;
 				break;
