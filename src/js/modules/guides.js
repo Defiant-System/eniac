@@ -46,16 +46,15 @@ class Guides {
 		let o = this.opts,
 			s = o.sensitivity,
 			b = o.bearing,
-			y = d.top,
-			x = d.left,
-			h = d.height + o.y,
-			w = d.width + o.x,
 			vert = { top: -1, left: -1, width: 1 },
-			calcV = (g, cw, add = { w: 0 }) => {
+			calcV = (g, c, add = { w: 0 }) => {
 				let minY = o.y,
 					maxY = g.y,
 					h = g.h;
-				d.width -= cw;
+				
+				d.width -= c.w;
+				d.left -= c.l;
+				
 				if (maxY < minY) {
 					minY = g.y;
 					maxY = o.y;
@@ -65,14 +64,27 @@ class Guides {
 			};
 		// iterate guide lines
 		this.els.map(g => {
-			let dx = x - g.x,
-
-				dw = w - g.x,
-				owx = dw - g.w;
+			let l = d.left - g.x,
+				dw = d.width + o.x - g.x,
+				owx = dw - g.w,
+				c = { w: 0, l: 0 };
 			// horizontal comparisons
 			switch (true) {
-				case (b & 8 && dw  < s && dw  > -s): vert = calcV(g, dw); break;
-				case (b & 8 && owx < s && owx > -s): vert = calcV(g, owx, { w: g.w }); break;
+				// bitwise comparison: east
+				case (b & 2 && l < s && l > -s):
+					c.l = l;
+					vert = calcV(g, c);
+					break;
+
+				// bitwise comparison: west
+				case (b & 8 && dw < s && dw > -s):
+					c.w = dw;
+					vert = calcV(g, c);
+					break;
+				case (b & 8 && owx < s && owx > -s):
+					c.w = owx;
+					vert = calcV(g, c, { w: g.w });
+					break;
 			}
 		});
 		// apply UI update
