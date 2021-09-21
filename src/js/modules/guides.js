@@ -84,15 +84,12 @@ class Guides {
 			let t = d.top - g.y,
 				th = t - g.h,
 				thm = t - g.mh,
-
 				dh = d.height + o.y - g.y,
 				ohy = dh - g.h,
 				ohm = dh - g.mh,
-				
 				l = d.left - g.x,
 				lw = l - g.w,
 				lwm = l - g.mw,
-
 				dw = d.width + o.x - g.x,
 				owx = dw - g.w,
 				owm = dw - g.mw,
@@ -144,7 +141,7 @@ class Guides {
 					w = maxX-minX+o.w;
 					if (w < g.w) w = g.w;
 				}
-				return { top: g.y+add.t, left: minX, width: w, done: 1 };
+				return { top: g.y+add.t, left: minX, width: w };
 			},
 			calcV = (g, x, add = { l: 0 }) => {
 				let minY = t,
@@ -158,13 +155,15 @@ class Guides {
 					h = maxY-minY+o.h;
 					if (h < g.h) h = g.h;
 				}
-				return { top: minY, left: g.x+add.l, height: h, done: 1 };
+				return { top: minY, left: g.x+add.l, height: h };
 			};
 		// iterate guide lines
 		this.els.map(g => {
 			let dy = t - g.y,
 				dx = l - g.x,
 				ohy = dy + o.h,
+				oh1 = dy + o.mh,
+				oh2 = ohy - g.h - o.mh,
 				ghy = dy - g.h,
 				ogh = ohy - g.h,
 				oym = ohy - g.mh - o.mh,
@@ -174,12 +173,14 @@ class Guides {
 				gwx = dx - g.w,
 				ogw = owx - g.w,
 				oxm = owx - g.mw - o.mw,
-				_hd = hori.done,
-				_vd = vert.done;
+				_hd = hori.top !== -1,
+				_vd = vert.top !== -1;
 			// vertical comparisons
 			switch (true) {
 				case (!_hd && dy  < s && dy  > -s): hori = calcH(g, dy);                break;
 				case (!_hd && ohy < s && ohy > -s): hori = calcH(g, ohy);               break;
+				case (!_hd && oh1 < s && oh1 > -s): hori = calcH(g, oh1);               break;
+				case (!_hd && oh2 < s && oh2 > -s): hori = calcH(g, oh2, { t: g.h });   break;
 				case (!_hd && oym < s && oym > -s): hori = calcH(g, oym, { t: g.mh });  break;
 				case (!_hd && ghy < s && ghy > -s): hori = calcH(g, ghy, { t: g.h-1 }); break;
 				case (!_hd && ogh < s && ogh > -s): hori = calcH(g, ogh, { t: g.h-1 }); break;
