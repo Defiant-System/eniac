@@ -82,6 +82,7 @@ class Guides {
 		// iterate guide lines
 		this.els.map(g => {
 			let t = d.top - g.y,
+				th = t - g.h,
 				
 				l = d.left - g.x,
 				lw = l - g.w,
@@ -124,11 +125,16 @@ class Guides {
 			}
 			// vertical comparisons
 			switch (true) {
-				// east
+				// north
 				case (b.n && t < s && t > -s):
 					c.t = t;
 					c.h -= t;
 					hori = calcH(g, c);
+					break;
+				case (b.n && th < s && th > -s):
+					c.t = th;
+					c.h -= th;
+					hori = calcH(g, c, { h: g.h });
 					break;
 			}
 		});
