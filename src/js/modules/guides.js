@@ -36,7 +36,7 @@ class Guides {
 			mh: opt.offset.h * .5 || 0,
 			mw: opt.offset.w * .5 || 0,
 			// snap sensitivity
-			sensitivity: APP.Settings["guides-snap-sensitivity"] || 10,
+			sensitivity: APP.Settings["guides-snap-sensitivity"] || 7,
 			// override defaults, if any
 			...opt.offset,
 		};

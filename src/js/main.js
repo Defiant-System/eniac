@@ -11,7 +11,7 @@ const XLSX = await window.fetch("~/js/xdef.js");
 
 // default settings
 const DefaultSettings = {
-	"guides-snap-sensitivity": 10,
+	"guides-snap-sensitivity": 7,
 };
 
 

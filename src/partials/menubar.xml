@@ -66,7 +66,7 @@
 			<Menu name="Enable" check-group="smart-guides-enable" is-checked="1"/>
 			<Menu type="divider"/>
 			<Menu type="caption" name="Snap Sensitivity"/>
-			<Menu type="slider" min="3" max="20" value="10" change="set-guides-sensitivity"/>
+			<Menu type="slider" min="3" max="20" value="7" change="set-guides-sensitivity"/>
 		</Menu>
 		<Menu type="divider"/>
 		<Menu name="Hide Toolbar"/>
