@@ -83,10 +83,16 @@ class Guides {
 		this.els.map(g => {
 			let t = d.top - g.y,
 				th = t - g.h,
+				thm = t - g.mh,
+
+				dh = d.height + o.y - g.y,
+				ohy = dh - g.h,
+				ohm = dh - g.mh,
 				
 				l = d.left - g.x,
 				lw = l - g.w,
 				lwm = l - g.mw,
+
 				dw = d.width + o.x - g.x,
 				owx = dw - g.w,
 				owm = dw - g.mw,
@@ -94,48 +100,24 @@ class Guides {
 			// horizontal comparisons
 			switch (true) {
 				// east
-				case (b.e && l < s && l > -s):
-					c.l = l;
-					c.w -= l;
-					vert = calcV(g, c);
-					break;
-				case (b.e && lw < s && lw > -s):
-					c.l = lw;
-					c.w -= lw;
-					vert = calcV(g, c, { w: g.w });
-					break;
-				case (b.e && lwm < s && lwm > -s):
-					c.l = lwm;
-					c.w -= lwm;
-					vert = calcV(g, c, { w: g.mw });
-					break;
+				case (b.e && l < s && l > -s):     c.l = l;   c.w -= l;   vert = calcV(g, c);              break;
+				case (b.e && lw < s && lw > -s):   c.l = lw;  c.w -= lw;  vert = calcV(g, c, { w: g.w });  break;
+				case (b.e && lwm < s && lwm > -s): c.l = lwm; c.w -= lwm; vert = calcV(g, c, { w: g.mw }); break;
 				// west
-				case (b.w && dw < s && dw > -s):
-					c.w = dw;
-					vert = calcV(g, c);
-					break;
-				case (b.w && owx < s && owx > -s):
-					c.w = owx;
-					vert = calcV(g, c, { w: g.w });
-					break;
-				case (b.w && owm < s && owm > -s):
-					c.w = owm;
-					vert = calcV(g, c, { w: g.mw });
-					break;
+				case (b.w && dw < s && dw > -s):   c.w = dw;  vert = calcV(g, c);              break;
+				case (b.w && owx < s && owx > -s): c.w = owx; vert = calcV(g, c, { w: g.w });  break;
+				case (b.w && owm < s && owm > -s): c.w = owm; vert = calcV(g, c, { w: g.mw }); break;
 			}
 			// vertical comparisons
 			switch (true) {
 				// north
-				case (b.n && t < s && t > -s):
-					c.t = t;
-					c.h -= t;
-					hori = calcH(g, c);
-					break;
-				case (b.n && th < s && th > -s):
-					c.t = th;
-					c.h -= th;
-					hori = calcH(g, c, { h: g.h });
-					break;
+				case (b.n && t < s && t > -s):     c.t = t;   c.h -= t;   hori = calcH(g, c);              break;
+				case (b.n && th < s && th > -s):   c.t = th;  c.h -= th;  hori = calcH(g, c, { h: g.h });  break;
+				case (b.n && thm < s && thm > -s): c.t = thm; c.h -= thm; hori = calcH(g, c, { h: g.mh }); break;
+				// south
+				case (b.s && dh < s && dh > -s):   c.h = dh;  hori = calcH(g, c);              break;
+				case (b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h });  break;
+				case (b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh }); break;
 			}
 		});
 		// apply UI update
@@ -165,14 +147,15 @@ class Guides {
 			calcV = (g, x, add = { l: 0 }) => {
 				let minY = t,
 					maxY = g.y,
-					h = g.h;
+					h = maxY-minY+g.h;
 				m.left -= x;
 				if (maxY < minY) {
 					minY = g.y;
 					maxY = t;
-					h = o.h;
+					// h = maxY-minY+o.h;
+					h = maxY-minY+o.h;
 				}
-				return { top: minY, left: g.x+add.l, height: maxY-minY+h };
+				return { top: minY, left: g.x+add.l, height: h };
 			};
 		// iterate guide lines
 		this.els.map(g => {

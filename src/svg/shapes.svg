@@ -4,7 +4,7 @@
 		.st0 {
 			fill: transparent;
 			stroke-width: 2;
-			stroke: #333333;
+			stroke: #888;
 		}
 	</style>
 	<rect class="st0" x="0" y="0" width="100%" height="100%" rx="10"/>
@@ -14,7 +14,7 @@
 	<style type="text/css">
 		.st1{
 			fill: transparent;
-			stroke: #333333;
+			stroke: #888;
 			stroke-width: 2;
 		}
 	</style>
