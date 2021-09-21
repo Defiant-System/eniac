@@ -66,8 +66,10 @@ class Guides {
 		this.els.map(g => {
 			let l = d.left - g.x,
 				lw = l - g.w,
+				lwm = l - g.mw,
 				dw = d.width + o.x - g.x,
 				owx = dw - g.w,
+				owm = dw - g.mw,
 				c = { w: 0, l: 0 };
 			// horizontal comparisons
 			switch (true) {
@@ -82,6 +84,11 @@ class Guides {
 					c.w -= lw;
 					vert = calcV(g, c, { w: g.w });
 					break;
+				case (b & 2 && lwm < s && lwm > -s):
+					c.l = lwm;
+					c.w -= lwm;
+					vert = calcV(g, c, { w: g.mw });
+					break;
 
 				// bitwise comparison: west
 				case (b & 8 && dw < s && dw > -s):
@@ -91,6 +98,10 @@ class Guides {
 				case (b & 8 && owx < s && owx > -s):
 					c.w = owx;
 					vert = calcV(g, c, { w: g.w });
+					break;
+				case (b & 8 && owm < s && owm > -s):
+					c.w = owm;
+					vert = calcV(g, c, { w: g.mw });
 					break;
 			}
 		});
