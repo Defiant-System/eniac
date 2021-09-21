@@ -135,25 +135,28 @@ class Guides {
 			calcH = (g, y, add = { t: 0 }) => {
 				let minX = l,
 					maxX = g.x,
-					w = g.w;
+					w = maxX-minX+g.w;
+				if (w < o.w) w = o.w;
 				m.top -= y;
 				if (maxX < minX) {
 					minX = g.x;
 					maxX = l;
-					w = o.w;
+					w = maxX-minX+o.w;
+					if (w < g.w) w = g.w;
 				}
-				return { top: g.y+add.t, left: minX, width: maxX-minX+w };
+				return { top: g.y+add.t, left: minX, width: w };
 			},
 			calcV = (g, x, add = { l: 0 }) => {
 				let minY = t,
 					maxY = g.y,
 					h = maxY-minY+g.h;
+				if (h < o.h) h = o.h;
 				m.left -= x;
 				if (maxY < minY) {
 					minY = g.y;
 					maxY = t;
-					// h = maxY-minY+o.h;
 					h = maxY-minY+o.h;
+					if (h < g.h) h = g.h;
 				}
 				return { top: minY, left: g.x+add.l, height: h };
 			};
