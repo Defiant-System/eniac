@@ -279,7 +279,17 @@
 					rect = Self.shapeItem.prop("nodeName") === "rect",
 					el = $([svg[0], Self.els.root[0]]),
 					type = event.target.className.split(" ")[1],
-					min = { w: 50, h: 50 },
+					// prepare for bitwise operation for best performance
+					bearing = {
+						n: 1, ne: 3,
+						e: 2, se: 6,
+						s: 4, sw: 12,
+						w: 8, nw: 9,
+					}[type],
+					min = {
+						w: 50,
+						h: 50,
+					},
 					click = {
 						x: event.clientX,
 						y: event.clientY,
@@ -294,12 +304,12 @@
 					guides = new Guides({
 						selector: ".sheet, svg",
 						context: "content .body",
-						offset: { el: svg[0], ...offset }
+						offset: { el: svg[0], ...offset, bearing }
 					});
 				// create drag object
 				Self.drag = {
 					el,
-					type,
+					bearing,
 					rect,
 					svg,
 					min,
@@ -317,18 +327,22 @@
 						width: Drag.offset.w,
 						height: Drag.offset.h,
 					};
-				if (Drag.type.includes("n")) {
+				// bitwise comparison: north
+				if (Drag.bearing & 1) {
 					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
 					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
 				}
-				if (Drag.type.includes("e")) {
+				// bitwise comparison: east
+				if (Drag.bearing & 2) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
 				}
-				if (Drag.type.includes("s")) {
+				// bitwise comparison: south
+				if (Drag.bearing & 4) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
 				}
-				if (Drag.type.includes("w")) {
+				// bitwise comparison: west
+				if (Drag.bearing & 8) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
 				}
 

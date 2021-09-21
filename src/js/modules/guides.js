@@ -45,6 +45,9 @@ class Guides {
 	snapDim(d) {
 		let o = this.opts,
 			s = o.sensitivity,
+			b = o.bearing,
+			y = d.top,
+			x = d.left,
 			h = d.height + o.y,
 			w = d.width + o.x,
 			vert = { top: -1, left: -1, width: 1 },
@@ -62,13 +65,14 @@ class Guides {
 			};
 		// iterate guide lines
 		this.els.map(g => {
-			let dy = h - g.y,
-				dx = w - g.x,
-				owx = dx - g.w;
+			let dx = x - g.x,
+
+				dw = w - g.x,
+				owx = dw - g.w;
 			// horizontal comparisons
 			switch (true) {
-				case (dx  < s && dx  > -s): vert = calcV(g, dx); break;
-				case (owx < s && owx > -s): vert = calcV(g, owx, { w: g.w }); break;
+				case (b & 8 && dw  < s && dw  > -s): vert = calcV(g, dw); break;
+				case (b & 8 && owx < s && owx > -s): vert = calcV(g, owx, { w: g.w }); break;
 			}
 		});
 		// apply UI update
