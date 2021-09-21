@@ -169,6 +169,8 @@ class Guides {
 				ogh = ohy - g.h,
 				oym = ohy - g.mh - o.mh,
 				owx = dx + o.w,
+				ow1 = dx + o.mw,
+				ow2 = owx - g.w - o.mw,
 				gwx = dx - g.w,
 				ogw = owx - g.w,
 				oxm = owx - g.mw - o.mw,
@@ -186,7 +188,9 @@ class Guides {
 			switch (true) {
 				case (!_vd && dx  < s && dx  > -s): vert = calcV(g, dx);                break;
 				case (!_vd && owx < s && owx > -s): vert = calcV(g, owx);               break;
-				case (!_vd && oxm < s && oxm > -s): vert = calcV(g, oxm, { l: g.mw  }); break;
+				case (!_vd && ow1 < s && ow1 > -s): vert = calcV(g, ow1);               break;
+				case (!_vd && ow2 < s && ow2 > -s): vert = calcV(g, ow2, { l: g.w });   break;
+				case (!_vd && oxm < s && oxm > -s): vert = calcV(g, oxm, { l: g.mw });  break;
 				case (!_vd && gwx < s && gwx > -s): vert = calcV(g, gwx, { l: g.w-1 }); break;
 				case (!_vd && ogw < s && ogw > -s): vert = calcV(g, ogw, { l: g.w-1 }); break;
 			}
