@@ -281,14 +281,14 @@
 					type = event.target.className.split(" ")[1],
 					// prepare for bitwise operation for best performance
 					bearing = {
-						n: 1,    // 1000
-						w: 2,    // 0100
-						s: 4,    // 0010
-						e: 8,    // 0001
-						nw: 3,   // 1100
-						sw: 6,   // 0110
-						se: 12,  // 0011
-						ne: 9,   // 1001
+						n: 1,    // 1 0 0 0
+						w: 2,    // 0 1 0 0
+						s: 4,    // 0 0 1 0
+						e: 8,    // 0 0 0 1
+						nw: 3,   // 1 1 0 0
+						sw: 6,   // 0 1 1 0
+						se: 12,  // 0 0 1 1
+						ne: 9,   // 1 0 0 1
 					}[type],
 					min = {
 						w: 50,
