@@ -144,7 +144,7 @@ class Guides {
 					w = maxX-minX+o.w;
 					if (w < g.w) w = g.w;
 				}
-				return { top: g.y+add.t, left: minX, width: w };
+				return { top: g.y+add.t, left: minX, width: w, done: 1 };
 			},
 			calcV = (g, x, add = { l: 0 }) => {
 				let minY = t,
@@ -158,7 +158,7 @@ class Guides {
 					h = maxY-minY+o.h;
 					if (h < g.h) h = g.h;
 				}
-				return { top: minY, left: g.x+add.l, height: h };
+				return { top: minY, left: g.x+add.l, height: h, done: 1 };
 			};
 		// iterate guide lines
 		this.els.map(g => {
@@ -171,22 +171,24 @@ class Guides {
 				owx = dx + o.w,
 				gwx = dx - g.w,
 				ogw = owx - g.w,
-				oxm = owx - g.mw - o.mw;
+				oxm = owx - g.mw - o.mw,
+				_hd = hori.done,
+				_vd = vert.done;
 			// vertical comparisons
 			switch (true) {
-				case (dy  < s && dy  > -s): hori = calcH(g, dy);                break;
-				case (ohy < s && ohy > -s): hori = calcH(g, ohy);               break;
-				case (oym < s && oym > -s): hori = calcH(g, oym, { t: g.mh });  break;
-				case (ghy < s && ghy > -s): hori = calcH(g, ghy, { t: g.h-1 }); break;
-				case (ogh < s && ogh > -s): hori = calcH(g, ogh, { t: g.h-1 }); break;
+				case (!_hd && dy  < s && dy  > -s): hori = calcH(g, dy);                break;
+				case (!_hd && ohy < s && ohy > -s): hori = calcH(g, ohy);               break;
+				case (!_hd && oym < s && oym > -s): hori = calcH(g, oym, { t: g.mh });  break;
+				case (!_hd && ghy < s && ghy > -s): hori = calcH(g, ghy, { t: g.h-1 }); break;
+				case (!_hd && ogh < s && ogh > -s): hori = calcH(g, ogh, { t: g.h-1 }); break;
 			}
 			// horizontal comparisons
 			switch (true) {
-				case (dx  < s && dx  > -s): vert = calcV(g, dx);                break;
-				case (owx < s && owx > -s): vert = calcV(g, owx);               break;
-				case (oxm < s && oxm > -s): vert = calcV(g, oxm, { l: g.mw  }); break;
-				case (gwx < s && gwx > -s): vert = calcV(g, gwx, { l: g.w-1 }); break;
-				case (ogw < s && ogw > -s): vert = calcV(g, ogw, { l: g.w-1 }); break;
+				case (!_vd && dx  < s && dx  > -s): vert = calcV(g, dx);                break;
+				case (!_vd && owx < s && owx > -s): vert = calcV(g, owx);               break;
+				case (!_vd && oxm < s && oxm > -s): vert = calcV(g, oxm, { l: g.mw  }); break;
+				case (!_vd && gwx < s && gwx > -s): vert = calcV(g, gwx, { l: g.w-1 }); break;
+				case (!_vd && ogw < s && ogw > -s): vert = calcV(g, ogw, { l: g.w-1 }); break;
 			}
 		});
 		// apply UI update
