@@ -28,6 +28,14 @@ class File {
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 			// setTimeout(() => window.find(`.sheet td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 
+			html += `<div class="xl-text">
+						This is text
+					</div>`;
+
+			html += `<div class="xl-image">
+						<img src="/fs/Desktop/coast.jpg"/>
+					</div>`;
+
 			// svg's
 			window.find("svg > svg").map(svg => {
 				let [t, l, w, h] = svg.getAttribute("viewBox").split(" ");

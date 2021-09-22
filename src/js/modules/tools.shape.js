@@ -20,7 +20,7 @@
 			// let other handlers handle it
 			if (el.hasClass("handle")) return;
 			
-			if (el.hasClass("shape")) {
+			if (el.hasClass("xl-shape")) {
 				// blur table, if any
 				Cursor.dispatch({ type: "blur-table", el: body });
 				// focus shape
