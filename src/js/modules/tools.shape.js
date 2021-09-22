@@ -15,19 +15,28 @@
 		// bind event handlers
 		this.els.root.on("mousedown", this.move);
 		window.find("content > div.body").on("mousedown", event => {
-			let el = $(event.target),
+			let Tools = eniac.tools,
+				el = $(event.target),
+				name = el.attr("class"),
+				type = name.startsWith("xl-") ? name.slice(3) : "",
 				body = el.parents("div.body");
-			// let other handlers handle it
-			if (el.hasClass("handle")) return;
-			
-			if (el.hasClass("xl-shape")) {
-				// blur table, if any
-				Cursor.dispatch({ type: "blur-table", el: body });
-				// focus shape
-				this.dispatch({ type: "focus-shape", el });
-				this.move(event);
-			} else {
-				this.dispatch({ type: "blur-shape", el: body });
+
+			switch (true) {
+				// let other handlers handle it
+				case el.hasClass("handle"): return;
+				case type === "text":
+				case type === "image":
+				case type === "shape":
+					// blur table, if any
+					Cursor.dispatch({ type: "blur-table", el: body });
+					// focus shape
+					Tools[type].dispatch({ type: `focus-${type}`, el });
+					Tools[type].move(event);
+					break;
+				default:
+					Tools.text.dispatch({ type: "blur-text", el: body });
+					Tools.image.dispatch({ type: "blur-image", el: body });
+					Tools.shape.dispatch({ type: "blur-shape", el: body });
 			}
 		});
 	},

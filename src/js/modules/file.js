@@ -29,7 +29,7 @@ class File {
 			// setTimeout(() => window.find(`.sheet td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 
 			html += `<div class="xl-text">
-						This is text
+						This is <b>bold</b> text
 					</div>`;
 
 			html += `<div class="xl-image">
@@ -43,8 +43,8 @@ class File {
 				html += svg.xml;
 			});
 
-			setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
