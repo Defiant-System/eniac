@@ -255,10 +255,17 @@
 					case "none":
 						Self.dispatch({ type: "set-shape-outline-color", value: "none" });
 						Self.dispatch({ type: "set-shape-outline-width", value: 0 });
-						Self.dispatch({ type: "update-shape-outline" });
+						// border values
+						let border = {
+							color: Shape.shapeItem.css("stroke"),
+							dash: Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0),
+							width: parseInt(Shape.shapeItem.css("stroke-width"), 10),
+						};
+						Self.dispatch({ type: "update-shape-outline", values: { border } });
 						return el.removeClass("has-prefix-icon").val(event.arg);
 				}
 				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
+				console.log( Shape.shapeItem.css("stroke-dasharray") );
 				break;
 			case "set-shape-outline-color":
 				Shape.shapeItem.css({ "stroke": event.value });
@@ -269,7 +276,7 @@
 					"stroke-dasharray": Shape.shapeItem.css("stroke-dasharray"),
 				};
 				// conditions for dash-array
-				if (value["stroke-dasharray"] !== "none") {
+				if (value["stroke-dasharray"].split(",").length > 1) {
 					let arr = value["stroke-dasharray"].split(",").map(i => parseInt(i, 10) || 0);
 					value["stroke-dasharray"] = arr[0] === arr[1]
 												? [+event.value, +event.value]

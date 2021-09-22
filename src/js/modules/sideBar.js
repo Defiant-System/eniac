@@ -19,6 +19,8 @@
 	sheet: @import "sidebar.sheet.js",
 	shape: @import "sidebar.shape.js",
 	table: @import "sidebar.table.js",
+	image: @import "sidebar.image.js",
+	text: @import "sidebar.text.js",
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar,
@@ -35,10 +37,12 @@
 			case "show-caption":
 			case "show-table":
 			case "show-shape":
+			case "show-image":
+			case "show-text":
 			case "show-line":
 			case "show-chart":
 			case "show-empty":
-				name = ["sheet", "title", "caption", "table", "shape", "line", "chart", "empty"];
+				name = ["sheet", "title", "caption", "table", "shape", "image", "text", "line", "chart", "empty"];
 				Self.els.el.removeClass(name.map(e => `show-${e}`).join(" "));
 				Self.els.el.addClass(event.type);
 				// trigger populate event

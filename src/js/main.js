@@ -133,6 +133,8 @@ const eniac = {
 	tools: {
 		table: @import "modules/tools.table.js",
 		shape: @import "modules/tools.shape.js",
+		image: @import "modules/tools.image.js",
+		text: @import "modules/tools.text.js",
 	}
 };
 
