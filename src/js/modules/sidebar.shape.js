@@ -265,7 +265,6 @@
 						return el.removeClass("has-prefix-icon").val(event.arg);
 				}
 				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
-				console.log( Shape.shapeItem.css("stroke-dasharray") );
 				break;
 			case "set-shape-outline-color":
 				Shape.shapeItem.css({ "stroke": event.value });
