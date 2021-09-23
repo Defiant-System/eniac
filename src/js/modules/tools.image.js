@@ -46,7 +46,7 @@
 				if (el.hasClass("handle")) {
 					return Self.resize(event);
 				}
-				
+
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse hideTools");
 
@@ -119,6 +119,8 @@
 						y: +image.prop("offsetTop"),
 						w: +image.prop("offsetWidth"),
 						h: +image.prop("offsetHeight"),
+						ratio: +image.prop("offsetWidth") / +image.prop("offsetHeight"),
+						diagonal: type.length === 2,
 					},
 					min = {
 						w: 50,
@@ -132,6 +134,7 @@
 					type,
 					click,
 					offset,
+					_round: Math.round,
 				};
 
 				// bind event
@@ -139,6 +142,7 @@
 				break;
 			case "mousemove":
 				let dim = {
+						...Drag.offset,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
 					};
@@ -155,10 +159,24 @@
 				// movement: south
 				if (Drag.type.includes("s")) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
+					// calculate due to ratio resize
+					if (dim.diagonal) {
+
+					} else {
+						dim.width = Drag._round(dim.height * dim.ratio);
+						dim.left = Drag._round(dim.x + (dim.w - dim.width) * .5);
+					}
 				}
 				// movement: west
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
+					// calculate due to ratio resize
+					if (dim.diagonal) {
+
+					} else {
+						dim.height = Drag._round(dim.width / dim.ratio);
+						dim.top = Drag._round(dim.y + (dim.h - dim.height) * .5);
+					}
 				}
 
 				// apply new dimensions to element
