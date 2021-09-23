@@ -124,24 +124,22 @@
 					},
 					min = {
 						w: 50,
-						h: 50,
+						h: Math.round(50 / offset.ratio),
 					},
-					calcWidthLeft = dim => {
-						let _round = Math.round;
+					calcWidthLeft = function(dim) {
 						if (dim.diagonal) {
 
 						} else {
-							dim.width = _round(dim.height * dim.ratio);
-							dim.left = _round(dim.x + (dim.w - dim.width) * .5);
+							dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w);
+							dim.left = this._round(dim.x + (dim.w - dim.width) * .5);
 						}
 					},
-					calcHeightTop = dim => {
-						let _round = Math.round;
+					calcHeightTop = function(dim) {
 						if (dim.diagonal) {
 
 						} else {
-							dim.height = _round(dim.width / dim.ratio);
-							dim.top = _round(dim.y + (dim.h - dim.height) * .5);
+							dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h);
+							dim.top = this._round(dim.y + (dim.h - dim.height) * .5);
 						}
 					};
 
@@ -154,6 +152,8 @@
 					offset,
 					calcHeightTop,
 					calcWidthLeft,
+					_round: Math.round,
+					_max: Math.max,
 				};
 
 				// bind event
