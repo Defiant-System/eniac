@@ -98,6 +98,61 @@
 		}
 	},
 	resize(event) {
-		
+		let APP = eniac,
+			Self = APP.tools.text,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				let text = Self.text,
+					type = event.target.className.split(" ")[1],
+					min = { w: 50 },
+					click = {
+						x: event.clientX,
+					},
+					offset = {
+						x: +text.prop("offsetLeft"),
+						w: +text.prop("offsetWidth"),
+					};
+
+				// create drag object
+				Self.drag = {
+					el: $([text[0], Self.els.root[0]]),
+					min,
+					type,
+					click,
+					offset,
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.resize);
+				break;
+			case "mousemove":
+				let dim = { width: Drag.offset.w };
+				// movement: east
+				if (Drag.type.includes("e")) {
+					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
+					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
+				}
+				// movement: west
+				if (Drag.type.includes("w")) {
+					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
+				}
+
+				// apply new dimensions to element
+				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
+				Drag.el.css(dim);
+				break;
+			case "mouseup":
+				// re-focuses shape tools
+				Self.dispatch({ type: "focus-text", el: Self.text });
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.resize);
+				break;
+		}
 	}
 }

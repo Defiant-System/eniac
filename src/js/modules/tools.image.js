@@ -40,14 +40,15 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
-				// cover layout
-				Self.els.layout.addClass("cover hideMouse hideTools");
 
 				// if mousedown on handle
 				let el = $(event.target);
 				if (el.hasClass("handle")) {
 					return Self.resize(event);
 				}
+				
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse hideTools");
 
 				let image = Self.image,
 					offset = {
@@ -99,6 +100,80 @@
 		}
 	},
 	resize(event) {
+		let APP = eniac,
+			Self = APP.tools.image,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
 
+				let image = Self.image,
+					type = event.target.className.split(" ")[1],
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+					},
+					offset = {
+						x: +image.prop("offsetLeft"),
+						y: +image.prop("offsetTop"),
+						w: +image.prop("offsetWidth"),
+						h: +image.prop("offsetHeight"),
+					},
+					min = {
+						w: 50,
+						h: 50,
+					};
+
+				// create drag object
+				Self.drag = {
+					el: $([image[0], Self.els.root[0]]),
+					min,
+					type,
+					click,
+					offset,
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.resize);
+				break;
+			case "mousemove":
+				let dim = {
+						width: Drag.offset.w,
+						height: Drag.offset.h,
+					};
+				// movement: north
+				if (Drag.type.includes("n")) {
+					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
+					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
+				}
+				// movement: east
+				if (Drag.type.includes("e")) {
+					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
+					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
+				}
+				// movement: south
+				if (Drag.type.includes("s")) {
+					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
+				}
+				// movement: west
+				if (Drag.type.includes("w")) {
+					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
+				}
+
+				// apply new dimensions to element
+				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
+				if (dim.height < Drag.min.h) dim.height = Drag.min.h;
+				Drag.el.css(dim);
+				break;
+			case "mouseup":
+				// re-focuses shape tools
+				Self.dispatch({ type: "focus-image", el: Self.image });
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.resize);
+				break;
+		}
 	}
 }

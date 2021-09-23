@@ -336,21 +336,21 @@
 						width: Drag.offset.w,
 						height: Drag.offset.h,
 					};
-				// bitwise comparison: north
+				// movement: north
 				if (Drag.type.includes("n")) {
 					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
 					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
 				}
-				// bitwise comparison: east
+				// movement: east
 				if (Drag.type.includes("e")) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
 				}
-				// bitwise comparison: south
+				// movement: south
 				if (Drag.type.includes("s")) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
 				}
-				// bitwise comparison: west
+				// movement: west
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
 				}

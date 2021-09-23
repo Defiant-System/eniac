@@ -67,6 +67,17 @@ layout {
 		.handle.line { display: block; }
 	}
 
+	&[data-area="text"] {
+		.handle {
+			&.n,
+			&.nw,
+			&.sw,
+			&.s,
+			&.se,
+			&.ne { display: none; }
+		}
+	}
+
 	.handle-box {
 		position: absolute;
 		top: -1px;
