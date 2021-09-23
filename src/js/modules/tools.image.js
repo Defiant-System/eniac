@@ -128,7 +128,7 @@
 					},
 					calcWidthLeft = function(dim) {
 						if (dim.diagonal) {
-
+							// dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h);
 						} else {
 							dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w);
 							dim.left = this._round(dim.x + (dim.w - dim.width) * .5);
@@ -136,7 +136,7 @@
 					},
 					calcHeightTop = function(dim) {
 						if (dim.diagonal) {
-
+							dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w);
 						} else {
 							dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h);
 							dim.top = this._round(dim.y + (dim.h - dim.height) * .5);
@@ -164,6 +164,7 @@
 						...Drag.offset,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
+						_done: []
 					};
 				// movement: north
 				if (Drag.type.includes("n")) {
@@ -179,17 +180,17 @@
 					// calculate due to uniform ratio resize
 					Drag.calcHeightTop(dim);
 				}
-				// movement: south
-				if (Drag.type.includes("s")) {
-					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
-					// calculate due to uniform ratio resize
-					Drag.calcWidthLeft(dim);
-				}
 				// movement: west
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
 					// calculate due to uniform ratio resize
 					Drag.calcHeightTop(dim);
+				}
+				// movement: south
+				if (Drag.type.includes("s")) {
+					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
+					// calculate due to uniform ratio resize
+					Drag.calcWidthLeft(dim);
 				}
 
 				// apply new dimensions to element
