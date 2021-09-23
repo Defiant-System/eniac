@@ -13,32 +13,7 @@
 		};
 
 		// bind event handlers
-		this.els.root.on("mousedown", this.move);
-		window.find("content > div.body").on("mousedown", event => {
-			let Tools = eniac.tools,
-				el = $(event.target),
-				name = el.attr("class"),
-				type = name.startsWith("xl-") ? name.slice(3) : "",
-				body = el.parents("div.body");
-
-			switch (true) {
-				// let other handlers handle it
-				case el.hasClass("handle"): return;
-				case type === "text":
-				case type === "image":
-				case type === "shape":
-					// blur table, if any
-					Cursor.dispatch({ type: "blur-table", el: body });
-					// focus shape
-					Tools[type].dispatch({ type: `focus-${type}`, el });
-					Tools[type].move(event);
-					break;
-				default:
-					Tools.text.dispatch({ type: "blur-text", el: body });
-					Tools.image.dispatch({ type: "blur-image", el: body });
-					Tools.shape.dispatch({ type: "blur-shape", el: body });
-			}
-		});
+		window.find("content > div.body").on("mousedown", this.dispatch);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -47,6 +22,38 @@
 			el;
 		switch (event.type) {
 			// native events
+			case "mousedown": {
+				// proxies mousedown event
+				let Tools = eniac.tools,
+					el = $(event.target),
+					name = el.attr("class"),
+					type = name.startsWith("xl-") ? name.slice(3) : "",
+					body = el.parents("div.body");
+
+				switch (true) {
+					// let other handlers handle it
+					case el.hasClass("handle"):
+						type = el.parents(".shape-tools").data("area");
+						Tools[type].move(event);
+						return;
+					case type === "text":
+					case type === "image":
+					case type === "shape":
+						// blur table, if any
+						Cursor.dispatch({ type: "blur-table", el: body });
+						// switch context for tools
+						Self.els.root.data({ "area": type });
+						// focus shape
+						Tools[type].dispatch({ type: `focus-${type}`, el });
+						Tools[type].move(event);
+						break;
+					default:
+						Tools.text.dispatch({ type: "blur-text", el: body });
+						Tools.image.dispatch({ type: "blur-image", el: body });
+						Tools.shape.dispatch({ type: "blur-shape", el: body });
+				}
+				break; }
+			// csutom events
 			case "blur-shape":
 				if (event.el.hasClass("body")) {
 					Self.els.root.addClass("hidden");
@@ -233,7 +240,7 @@
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
 					guides = new Guides({
-						selector: ".sheet, svg",
+						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: shape[0],
@@ -281,7 +288,7 @@
 		switch (event.type) {
 			case "mousedown":
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse hideTools");
+				Self.els.layout.addClass("cover hideMouse");
 
 				let svg = Self.shape,
 					shape = Self.shapeItem,
@@ -304,7 +311,7 @@
 						rx: +shape.attr("rx"),
 					},
 					guides = new Guides({
-						selector: ".sheet, svg",
+						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: { el: svg[0], ...offset, type }
 					});
@@ -372,7 +379,7 @@
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse hideTools");
+				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
 				break;
@@ -403,7 +410,7 @@
 				}
 
 				let guides = new Guides({
-						selector: ".sheet, svg",
+						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: Self.shape[0],
@@ -543,7 +550,7 @@
 					click.i = +el.data("i") - 1;
 					// prepare guides
 					guides = new Guides({
-						selector: ".sheet, svg",
+						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: Self.shape[0],
