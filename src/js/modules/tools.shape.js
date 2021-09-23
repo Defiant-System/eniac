@@ -354,7 +354,6 @@
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
 				}
-
 				// "filter" position with guide lines
 				Drag.guides.snapDim(dim);
 
@@ -372,10 +371,10 @@
 					}
 					Drag.svg.attr({ viewBox: `0 0 ${dim.width} ${dim.height}` });
 				}
-				// re-focuses shape tools
-				Self.dispatch({ type: "focus-shape", el: Drag.svg });
 				break;
 			case "mouseup":
+				// re-focuses shape tools
+				Self.dispatch({ type: "focus-shape", el: Drag.svg });
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout
