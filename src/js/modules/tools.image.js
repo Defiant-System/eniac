@@ -125,6 +125,24 @@
 					min = {
 						w: 50,
 						h: 50,
+					},
+					calcWidthLeft = dim => {
+						let _round = Math.round;
+						if (dim.diagonal) {
+
+						} else {
+							dim.width = _round(dim.height * dim.ratio);
+							dim.left = _round(dim.x + (dim.w - dim.width) * .5);
+						}
+					},
+					calcHeightTop = dim => {
+						let _round = Math.round;
+						if (dim.diagonal) {
+
+						} else {
+							dim.height = _round(dim.width / dim.ratio);
+							dim.top = _round(dim.y + (dim.h - dim.height) * .5);
+						}
 					};
 
 				// create drag object
@@ -134,7 +152,8 @@
 					type,
 					click,
 					offset,
-					_round: Math.round,
+					calcHeightTop,
+					calcWidthLeft,
 				};
 
 				// bind event
@@ -150,33 +169,27 @@
 				if (Drag.type.includes("n")) {
 					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
 					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
+					// calculate due to uniform ratio resize
+					Drag.calcWidthLeft(dim);
 				}
 				// movement: east
 				if (Drag.type.includes("e")) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
+					// calculate due to uniform ratio resize
+					Drag.calcHeightTop(dim);
 				}
 				// movement: south
 				if (Drag.type.includes("s")) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
-					// calculate due to ratio resize
-					if (dim.diagonal) {
-
-					} else {
-						dim.width = Drag._round(dim.height * dim.ratio);
-						dim.left = Drag._round(dim.x + (dim.w - dim.width) * .5);
-					}
+					// calculate due to uniform ratio resize
+					Drag.calcWidthLeft(dim);
 				}
 				// movement: west
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
-					// calculate due to ratio resize
-					if (dim.diagonal) {
-
-					} else {
-						dim.height = Drag._round(dim.width / dim.ratio);
-						dim.top = Drag._round(dim.y + (dim.h - dim.height) * .5);
-					}
+					// calculate due to uniform ratio resize
+					Drag.calcHeightTop(dim);
 				}
 
 				// apply new dimensions to element
