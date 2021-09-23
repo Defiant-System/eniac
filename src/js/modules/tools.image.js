@@ -129,27 +129,20 @@
 					calcMore = function(dim) {
 						dim._more.map(i => {
 							switch (i) {
-								case "t":
-									dim.top = this._round(dim.y + (dim.h - dim.height) * .5);
-									break;
-								case "t2":
-									dim.top = this._round(dim.y + dim.h - dim.height);
-									break;
-								case "l":
-									dim.left = this._round(dim.x + (dim.w - dim.width) * .5);
-									break;
-								case "l2":
-									dim.left = this._round(dim.x + dim.w - dim.width);
-									break;
-								case "h":
-									dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h);
-									break;
-								case "w":
-									dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w);
-									break;
+								case "t":  dim.top = this._round(dim.y + (dim.h - dim.height) * .5); break;
+								case "t2": dim.top = this._round(dim.y + dim.h - dim.height); break;
+								case "l":  dim.left = this._round(dim.x + (dim.w - dim.width) * .5); break;
+								case "l2": dim.left = this._round(dim.x + dim.w - dim.width); break;
+								case "h":  dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h); break;
+								case "w":  dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w); break;
 							}
 						});
-					};
+					},
+					guides = new Guides({
+						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
+						context: "content .body",
+						offset: { el: image[0], ...offset, type }
+					});
 
 				// create drag object
 				Self.drag = {
@@ -159,6 +152,7 @@
 					click,
 					offset,
 					calcMore,
+					guides,
 					_round: Math.round,
 					_max: Math.max,
 				};
@@ -171,6 +165,7 @@
 						...Drag.offset,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
+						uniform: Drag.type.length > 1,
 					};
 				// movement: east
 				if (Drag.type.includes("e")) {
@@ -189,7 +184,7 @@
 					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
 					dim._more = ["w", "l"];
 					// ratio resize
-					if (Drag.type.length > 1) dim._more = ["h", "t2"];
+					if (dim.uniform) dim._more = ["h", "t2"];
 				}
 				// movement: south
 				if (Drag.type.includes("s")) {
@@ -202,6 +197,9 @@
 				// calculate ratio resize
 				Drag.calcMore(dim);
 
+				// "filter" position with guide lines
+				Drag.guides.snapDim(dim);
+
 				// apply new dimensions to element
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
 				if (dim.height < Drag.min.h) dim.height = Drag.min.h;
@@ -210,6 +208,8 @@
 			case "mouseup":
 				// re-focuses shape tools
 				Self.dispatch({ type: "focus-image", el: Self.image });
+				// hide guides
+				Drag.guides.reset();
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event

@@ -45,6 +45,7 @@ class Guides {
 	snapDim(d) {
 		let o = this.opts,
 			s = o.sensitivity,
+			u = d.uniform,
 			b = {
 				n: o.type.includes("n"),
 				w: o.type.includes("w"),
