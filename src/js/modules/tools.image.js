@@ -126,21 +126,29 @@
 						w: 50,
 						h: Math.round(50 / offset.ratio),
 					},
-					calcWidthLeft = function(dim) {
-						if (dim.diagonal) {
-							// dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h);
-						} else {
-							dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w);
-							dim.left = this._round(dim.x + (dim.w - dim.width) * .5);
-						}
-					},
-					calcHeightTop = function(dim) {
-						if (dim.diagonal) {
-							dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w);
-						} else {
-							dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h);
-							dim.top = this._round(dim.y + (dim.h - dim.height) * .5);
-						}
+					calcMore = function(dim) {
+						dim._more.map(i => {
+							switch (i) {
+								case "t":
+									dim.top = this._round(dim.y + (dim.h - dim.height) * .5);
+									break;
+								case "t2":
+									dim.top = this._round(dim.y + dim.h - dim.height);
+									break;
+								case "l":
+									dim.left = this._round(dim.x + (dim.w - dim.width) * .5);
+									break;
+								case "l2":
+									dim.left = this._round(dim.x + dim.w - dim.width);
+									break;
+								case "h":
+									dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h);
+									break;
+								case "w":
+									dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w);
+									break;
+							}
+						});
 					};
 
 				// create drag object
@@ -150,8 +158,7 @@
 					type,
 					click,
 					offset,
-					calcHeightTop,
-					calcWidthLeft,
+					calcMore,
 					_round: Math.round,
 					_max: Math.max,
 				};
@@ -164,34 +171,36 @@
 						...Drag.offset,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
-						_done: []
 					};
-				// movement: north
-				if (Drag.type.includes("n")) {
-					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
-					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
-					// calculate due to uniform ratio resize
-					Drag.calcWidthLeft(dim);
-				}
 				// movement: east
 				if (Drag.type.includes("e")) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
-					// calculate due to uniform ratio resize
-					Drag.calcHeightTop(dim);
+					dim._more = ["h", "t"];
 				}
 				// movement: west
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
-					// calculate due to uniform ratio resize
-					Drag.calcHeightTop(dim);
+					dim._more = ["h", "t"];
+				}
+				// movement: north
+				if (Drag.type.includes("n")) {
+					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
+					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
+					dim._more = ["w", "l"];
+					// ratio resize
+					if (Drag.type.length > 1) dim._more = ["h", "t2"];
 				}
 				// movement: south
 				if (Drag.type.includes("s")) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
-					// calculate due to uniform ratio resize
-					Drag.calcWidthLeft(dim);
+					dim._more = ["w", "l"];
+					// ratio resize
+					if (Drag.type === "sw") dim._more = ["w"];
+					else if (Drag.type === "se") dim._more = ["w", "l2"];
 				}
+				// calculate ratio resize
+				Drag.calcMore(dim);
 
 				// apply new dimensions to element
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
