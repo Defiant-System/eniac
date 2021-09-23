@@ -42,6 +42,33 @@ class Guides {
 		};
 	}
 
+	snapDim2(d) {
+		let o = this.opts,
+			s = o.sensitivity,
+			u = d.uniform,
+			b = {
+				n: o.type.includes("n"),
+				w: o.type.includes("w"),
+				e: o.type.includes("e"),
+				s: o.type.includes("s"),
+			},
+			diag = { top: -1, left: -1, height: 1 };
+		
+		diag = {
+			top: o.y,
+			left: o.x,
+			transform: `rotate(${o.r}deg)`,
+			width: Math.sqrt(d.height*d.height + d.width*d.width) + 10,
+		};
+		
+		// iterate guide lines
+		this.els.map(g => {
+
+		});
+		// apply UI update
+		this.lines.diagonal.css(diag);
+	}
+
 	snapDim(d) {
 		let o = this.opts,
 			s = o.sensitivity,
@@ -206,6 +233,6 @@ class Guides {
 		let data = { top: -99, left: -99, width: 1, height: 1 };
 		this.lines.vertical.css(data);
 		this.lines.horizontal.css(data);
-		this.lines.horizontal.css(data);
+		this.lines.diagonal.css(data);
 	}
 }
