@@ -110,6 +110,8 @@
 
 				let image = Self.image,
 					type = event.target.className.split(" ")[1],
+					w = +image.prop("offsetWidth"),
+					h = +image.prop("offsetHeight"),
 					click = {
 						x: event.clientX,
 						y: event.clientY,
@@ -117,9 +119,10 @@
 					offset = {
 						x: +image.prop("offsetLeft"),
 						y: +image.prop("offsetTop"),
-						w: +image.prop("offsetWidth"),
-						h: +image.prop("offsetHeight"),
-						ratio: +image.prop("offsetWidth") / +image.prop("offsetHeight"),
+						w,
+						h,
+						r: Math.atan2(h, w) * 180 / Math.PI,
+						ratio: w / h,
 						diagonal: type.length === 2,
 					},
 					min = {
@@ -198,7 +201,7 @@
 				Drag.calcMore(dim);
 
 				// "filter" position with guide lines
-				Drag.guides.snapDim(dim);
+				Drag.guides.snapDim2(dim);
 
 				// apply new dimensions to element
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
