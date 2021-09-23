@@ -121,7 +121,9 @@
 						y: +image.prop("offsetTop"),
 						w,
 						h,
-						r: Math.atan2(h, w) * 180 / Math.PI,
+						r: ["nw", "se"].includes(type)
+							? Math.atan2(h, -w) * 180 / Math.PI
+							: Math.atan2(h, w) * 180 / Math.PI,
 						ratio: w / h,
 						diagonal: type.length === 2,
 					},

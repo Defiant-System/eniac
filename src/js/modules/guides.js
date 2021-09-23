@@ -55,8 +55,8 @@ class Guides {
 			diag = { top: -1, left: -1, height: 1 };
 		
 		diag = {
-			top: o.y,
-			left: o.x,
+			top: d.top || o.y,
+			left: (d.left || o.x) + (o.r > 90 ? d.width : 0),
 			transform: `rotate(${o.r}deg)`,
 			width: Math.sqrt(d.height*d.height + d.width*d.width) + 10,
 		};
