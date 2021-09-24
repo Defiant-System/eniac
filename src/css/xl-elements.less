@@ -1,11 +1,40 @@
 
 .body {
 	.wrapper {
-		.xl-text {
+		svg.xl-shape {
+			// display: none;
 			// background: rgba(0,0,0,.05);
 			position: absolute;
+			width: 100px;
+			height: 100px;
+			overflow: visible;
+
+			// temp
+			&#shape-rounded   { top: 150px; left: 420px; }
+			&#shape-rectangle { top: 60px; left: 120px; }
+			&#shape-disc      { top: 520px; left: 340px; }
+			&#shape-ellipse   { top: 290px; left: 140px; }
+			&#shape-triangle  { top: 480px; left: 570px; }
+			&#shape-star      { top: 380px; left: 540px; }
+
+			&#shape-line-1    { top: 120px; left: 150px; }
+			&#shape-line-2    { top: 120px; left: 120px; }
+			&#shape-line-3    { top: 140px; left: 120px; }
+
+			> * {
+				pointer-events: none;
+			}
+
+			&.reflection {
+				-webkit-box-reflect: below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
+			}
+		}
+
+		.xl-text {
+			background: rgba(0,0,0,.05);
+			position: absolute;
 			top: 50px;
-			left: 100px;
+			left: 130px;
 			width: 200px;
 			height: 40px;
 

@@ -52,20 +52,65 @@ class Guides {
 				e: o.type.includes("e"),
 				s: o.type.includes("s"),
 			},
-			diag = { top: -1, left: -1, height: 1 };
+			vert = { top: -1, left: -1, width: 1 },
+			hori = { top: -1, left: -1, height: 1 },
+			diag = { top: -1, left: -1, height: 1 },
+			_lock = [],
+			calcV = (g, c, add = { w: 0 }) => {
+				let minY = o.y,
+					maxY = g.y,
+					h = g.h;
+				d.width -= c.w;
+				d.left -= c.l;
+				if (maxY < minY) {
+					minY = g.y;
+					maxY = o.y;
+					h = o.h;
+				}
+				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
+			};
 		
 		diag = {
 			top: d.top || o.y,
-			left: (d.left || o.x) + (o.r > 90 ? d.width : 0),
+			left: d.left || o.x,
 			transform: `rotate(${o.r}deg)`,
 			width: Math.sqrt(d.height*d.height + d.width*d.width) + 10,
 		};
+
+		if (o.r > 90) diag.left += d.width;
 		
 		// iterate guide lines
 		this.els.map(g => {
+			let l = d.left - g.x,
+				lw = l - g.w,
+				c = { w: 0, h: 0, t: 0, l: 0 };
 
+			// horizontal comparisons
+			switch (true) {
+				// east
+				case (b.e && l < s && l > -s):
+					if (u) _lock.push("t", "h");
+					c.l = l;
+					c.w -= l;
+					vert = calcV(g, c);
+					break;
+			}
 		});
+
+		_lock.map(p => {
+			switch (p) {
+				case "t":
+					d.top = 171;
+					break;
+				case "h":
+					d.height = d.width / d.ratio;
+					break;
+			}
+		});
+
 		// apply UI update
+		this.lines.vertical.css(vert);
+		this.lines.horizontal.css(hori);
 		this.lines.diagonal.css(diag);
 	}
 
