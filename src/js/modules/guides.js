@@ -42,19 +42,20 @@ class Guides {
 		};
 	}
 
-	snapDim2(d) {
+	snapDim(d) {
 		let o = this.opts,
 			s = o.sensitivity,
 			u = d.uniform,
 			b = {
+				t: o.type,
 				n: o.type.includes("n"),
 				w: o.type.includes("w"),
 				e: o.type.includes("e"),
 				s: o.type.includes("s"),
 			},
-			vert = { top: -1, left: -1, width: 1 },
-			hori = { top: -1, left: -1, height: 1 },
-			diag = { top: -1, left: -1, height: 1 },
+			vert = { top: -99, left: -99, width: 1 },
+			hori = { top: -99, left: -99, height: 1 },
+			diag = { top: -99, left: -99, height: 1 },
 			_lock = [],
 			calcV = (g, c, add = { w: 0 }) => {
 				let minY = o.y,
@@ -70,41 +71,67 @@ class Guides {
 				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
 			};
 		
-		diag = {
-			top: d.top || o.y,
-			left: d.left || o.x,
-			transform: `rotate(${o.r}deg)`,
-			width: Math.sqrt(d.height*d.height + d.width*d.width) + 10,
-		};
-
-		if (o.r > 90) diag.left += d.width;
+		if (u) {
+			diag = {
+				top: d.top || o.y,
+				left: d.left || o.x,
+				transform: `rotate(${o.r}deg)`,
+				width: Math.sqrt(d.height*d.height + d.width*d.width) + 10,
+			};
+			if (o.r > 90) diag.left += d.width;
+		}
 		
 		// iterate guide lines
 		this.els.map(g => {
-			let l = d.left - g.x,
+			let t = d.top - g.y,
+				th = t - g.h,
+				thm = t - g.mh,
+				dh = d.height + o.y - g.y,
+				ohy = dh - g.h,
+				ohm = dh - g.mh,
+				l = d.left - g.x,
 				lw = l - g.w,
+				lwm = l - g.mw,
+				dw = d.width + o.x - g.x,
+				owx = dw - g.w,
+				owm = dw - g.mw,
 				c = { w: 0, h: 0, t: 0, l: 0 };
 
 			// horizontal comparisons
 			switch (true) {
-				// east
-				case (b.e && l < s && l > -s):
+				// north-east
+				case (b.n && b.e && l < s && l > -s):
 					if (u) _lock.push("t", "h");
 					c.l = l;
 					c.w -= l;
 					vert = calcV(g, c);
 					break;
+				// east
+				case (!u && b.e && l < s && l > -s):     c.l = l;   c.w -= l;   vert = calcV(g, c);              break;
+				case (!u && b.e && lw < s && lw > -s):   c.l = lw;  c.w -= lw;  vert = calcV(g, c, { w: g.w });  break;
+				case (!u && b.e && lwm < s && lwm > -s): c.l = lwm; c.w -= lwm; vert = calcV(g, c, { w: g.mw }); break;
+				// west
+				case (!u && b.w && dw < s && dw > -s):   c.w = dw;  vert = calcV(g, c);              break;
+				case (!u && b.w && owx < s && owx > -s): c.w = owx; vert = calcV(g, c, { w: g.w });  break;
+				case (!u && b.w && owm < s && owm > -s): c.w = owm; vert = calcV(g, c, { w: g.mw }); break;
+			}
+			// vertical comparisons
+			switch (true) {
+				// north
+				case (!u && b.n && t < s && t > -s):     c.t = t;   c.h -= t;   hori = calcH(g, c);              break;
+				case (!u && b.n && th < s && th > -s):   c.t = th;  c.h -= th;  hori = calcH(g, c, { h: g.h });  break;
+				case (!u && b.n && thm < s && thm > -s): c.t = thm; c.h -= thm; hori = calcH(g, c, { h: g.mh }); break;
+				// south
+				case (!u && b.s && dh < s && dh > -s):   c.h = dh;  hori = calcH(g, c);              break;
+				case (!u && b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h });  break;
+				case (!u && b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh }); break;
 			}
 		});
 
 		_lock.map(p => {
 			switch (p) {
-				case "t":
-					d.top = o.y + ((d.left - o.x) / o.ratio);
-					break;
-				case "h":
-					d.height = d.width / d.ratio;
-					break;
+				case "t": d.top = o.y + ((d.left - o.x) / o.ratio); break;
+				case "h": d.height = d.width / d.ratio; break;
 			}
 		});
 
@@ -114,7 +141,7 @@ class Guides {
 		this.lines.diagonal.css(diag);
 	}
 
-	snapDim(d) {
+	snapDim_old(d) {
 		let o = this.opts,
 			s = o.sensitivity,
 			u = d.uniform,
