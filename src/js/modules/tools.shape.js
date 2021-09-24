@@ -366,7 +366,7 @@
 					if (Drag.offset.rx) {
 						let w = parseInt(Drag.shape.css("width"), 10),
 							h = parseInt(Drag.shape.css("height"), 10),
-							rx = Drag._min(Drag.offset.rx, Drag._min(w, h) * .5);
+							rx = Drag._min(Drag.offset.rx, Drag._min(w, h) >> 1);
 						Drag.shape.attr({ rx });
 					}
 					Drag.svg.attr({ viewBox: `0 0 ${dim.width} ${dim.height}` });
@@ -402,7 +402,7 @@
 					shape = Self.shapeItem,
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
-					r = +el.prop("offsetWidth") * .5;
+					r = +el.prop("offsetWidth") >> 1;
 
 				if (Self.els.root.hasClass("is-bezier")) {
 					return Self.bezierMove(event);
@@ -745,28 +745,28 @@
 					},
 					ratio = offset.w / offset.h,
 					origo = {
-						x: vW * .5,
-						y: vH * .5,
-						r: (Math.min(offset.w, offset.h) * .5),
+						x: vW >> 1,
+						y: vH >> 1,
+						r: (Math.min(offset.w, offset.h) >> 1),
 					};
 				// calculate origo for handles
 				if (ratio != 1) {
 					switch (type) {
 						case "ne":
-							origo.x = ratio > 1 ? vH * .5 : origo.x;
-							origo.y = ratio < 1 ? vW * .5 : origo.y;
+							origo.x = ratio > 1 ? vH >> 1 : origo.x;
+							origo.y = ratio < 1 ? vW >> 1 : origo.y;
 							break;
 						case "nw":
-							origo.x = ratio > 1 ? vW - (vH * .5) : origo.x;
-							origo.y = ratio < 1 ? vW * .5 : origo.y;
+							origo.x = ratio > 1 ? vW - (vH >> 1) : origo.x;
+							origo.y = ratio < 1 ? vW >> 1 : origo.y;
 							break;
 						case "sw":
-							origo.x = ratio > 1 ? vW - (vH * .5) : origo.x;
-							origo.y = ratio < 1 ? vH - (vW * .5) : origo.y;
+							origo.x = ratio > 1 ? vW - (vH >> 1) : origo.x;
+							origo.y = ratio < 1 ? vH - (vW >> 1) : origo.y;
 							break;
 						case "se":
-							origo.x = ratio > 1 ? vH * .5 : origo.x;
-							origo.y = ratio < 1 ? vH - (vW * .5) : origo.y;
+							origo.x = ratio > 1 ? vH >> 1 : origo.x;
+							origo.y = ratio < 1 ? vH - (vW >> 1) : origo.y;
 							break;
 					}
 				}

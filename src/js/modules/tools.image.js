@@ -134,9 +134,9 @@
 					calcMore = function(dim) {
 						dim._more.map(i => {
 							switch (i) {
-								case "t":  dim.top = this._round(dim.y + (dim.h - dim.height) * .5); break;
+								case "t":  dim.top = this._round(dim.y + (dim.h - dim.height) >> 1); break;
 								case "t2": dim.top = this._round(dim.y + dim.h - dim.height); break;
-								case "l":  dim.left = this._round(dim.x + (dim.w - dim.width) * .5); break;
+								case "l":  dim.left = this._round(dim.x + (dim.w - dim.width) >> 1); break;
 								case "l2": dim.left = this._round(dim.x + dim.w - dim.width); break;
 								case "h":  dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h); break;
 								case "w":  dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w); break;

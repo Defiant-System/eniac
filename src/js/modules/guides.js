@@ -12,8 +12,8 @@ class Guides {
 					x = parseInt(el.css("left"), 10),
 					w = parseInt(el.css("width"), 10),
 					h = parseInt(el.css("height"), 10),
-					mh = h * .5,
-					mw = w * .5;
+					mh = h >> 1,
+					mw = w >> 1;
 				if (!isNaN(y) && !isNaN(x) && elem !== opt.offset.el) {
 					this.els.push({ y, x, w, h, mh, mw });
 				}
@@ -33,8 +33,8 @@ class Guides {
 			// offsets guide line
 			w: 0,
 			h: 0,
-			mh: opt.offset.h * .5 || 0,
-			mw: opt.offset.w * .5 || 0,
+			mh: opt.offset.h >> 1 || 0,
+			mw: opt.offset.w >> 1 || 0,
 			// snap sensitivity
 			sensitivity: APP.Settings["guides-snap-sensitivity"] || 7,
 			// override defaults, if any
