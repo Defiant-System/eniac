@@ -57,6 +57,19 @@ class Guides {
 			hori = { top: -99, left: -99, height: 1 },
 			diag = { top: -99, left: -99, height: 1 },
 			_lock = [],
+			calcH = (g, c, add = { h: 0 }) => {
+				let minX = o.x,
+					maxX = g.x,
+					w = g.w;
+				d.height -= c.h;
+				d.top -= c.t;
+				if (maxX < minX) {
+					minX = g.x;
+					maxX = o.x;
+					w = o.w;
+				}
+				return { top: g.y+add.h, left: minX, width: maxX-minX+w };
+			},
 			calcV = (g, c, add = { w: 0 }) => {
 				let minY = o.y,
 					maxY = g.y,
@@ -99,39 +112,71 @@ class Guides {
 
 			// horizontal comparisons
 			switch (true) {
-				// north-east
-				case (b.n && b.e && l < s && l > -s):
+				// east
+				case (b.e && l < s && l > -s):
 					if (u) _lock.push("t", "h");
 					c.l = l;
 					c.w -= l;
 					vert = calcV(g, c);
 					break;
-				// east
-				case (!u && b.e && l < s && l > -s):     c.l = l;   c.w -= l;   vert = calcV(g, c);              break;
-				case (!u && b.e && lw < s && lw > -s):   c.l = lw;  c.w -= lw;  vert = calcV(g, c, { w: g.w });  break;
-				case (!u && b.e && lwm < s && lwm > -s): c.l = lwm; c.w -= lwm; vert = calcV(g, c, { w: g.mw }); break;
+				case (b.e && lw < s && lw > -s):
+					if (u) _lock.push("t", "h");
+					c.l = lw;
+					c.w -= lw;
+					vert = calcV(g, c, { w: g.w });
+					break;
+				case (b.e && lwm < s && lwm > -s):
+					if (u) _lock.push("t", "h");
+					c.l = lwm;
+					c.w -= lwm;
+					vert = calcV(g, c, { w: g.mw });
+					break;
+
 				// west
-				case (!u && b.w && dw < s && dw > -s):   c.w = dw;  vert = calcV(g, c);              break;
-				case (!u && b.w && owx < s && owx > -s): c.w = owx; vert = calcV(g, c, { w: g.w });  break;
-				case (!u && b.w && owm < s && owm > -s): c.w = owm; vert = calcV(g, c, { w: g.mw }); break;
+				case (b.w && dw < s && dw > -s):
+					if (u) _lock.push("t", "h");
+					c.w = dw;
+					vert = calcV(g, c, { w: 1 });
+					break;
+				case (b.w && owx < s && owx > -s):
+					if (u) _lock.push("t", "h");
+					c.w = owx;
+					vert = calcV(g, c, { w: g.w });
+					break;
+				case (b.w && owm < s && owm > -s):
+					if (u) _lock.push("t", "h");
+					c.w = owm;
+					vert = calcV(g, c, { w: g.mw });
+					break;
 			}
+
+			// let iNL = _lock.includes("n"),
+			// 	iHL = _lock.includes("h");
+
 			// vertical comparisons
-			switch (true) {
-				// north
-				case (!u && b.n && t < s && t > -s):     c.t = t;   c.h -= t;   hori = calcH(g, c);              break;
-				case (!u && b.n && th < s && th > -s):   c.t = th;  c.h -= th;  hori = calcH(g, c, { h: g.h });  break;
-				case (!u && b.n && thm < s && thm > -s): c.t = thm; c.h -= thm; hori = calcH(g, c, { h: g.mh }); break;
-				// south
-				case (!u && b.s && dh < s && dh > -s):   c.h = dh;  hori = calcH(g, c);              break;
-				case (!u && b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h });  break;
-				case (!u && b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh }); break;
-			}
+			// switch (true) {
+			// 	// north
+			// 	case (!u && b.n && t < s && t > -s):     c.t = t;   c.h -= t;   hori = calcH(g, c);              break;
+			// 	case (!u && b.n && th < s && th > -s):   c.t = th;  c.h -= th;  hori = calcH(g, c, { h: g.h });  break;
+			// 	case (!u && b.n && thm < s && thm > -s): c.t = thm; c.h -= thm; hori = calcH(g, c, { h: g.mh }); break;
+			// 	// south
+			// 	case (!u && b.s && dh < s && dh > -s):   c.h = dh;  hori = calcH(g, c);              break;
+			// 	case (!u && b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h });  break;
+			// 	case (!u && b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh }); break;
+			// }
 		});
 
 		_lock.map(p => {
-			switch (p) {
-				case "t": d.top = o.y + ((d.left - o.x) / o.ratio); break;
-				case "h": d.height = d.width / d.ratio; break;
+			switch (true) {
+				case (["ne", "sw"].includes(b.t) && p === "t"): d.top = o.y + ((d.left - o.x) / o.ratio); break;
+				case (["ne", "sw"].includes(b.t) && p === "h"): d.height = d.width / d.ratio; break;
+
+				case (["nw", "se"].includes(b.t) && p === "t"):
+					d.top = o.y - ((d.width - o.w) / o.ratio);
+					break;
+				case (["nw", "se"].includes(b.t) && p === "h"):
+					d.height = d.width / d.ratio;
+					break;
 			}
 		});
 
@@ -139,87 +184,6 @@ class Guides {
 		this.lines.vertical.css(vert);
 		this.lines.horizontal.css(hori);
 		this.lines.diagonal.css(diag);
-	}
-
-	snapDim_old(d) {
-		let o = this.opts,
-			s = o.sensitivity,
-			u = d.uniform,
-			b = {
-				n: o.type.includes("n"),
-				w: o.type.includes("w"),
-				e: o.type.includes("e"),
-				s: o.type.includes("s"),
-			},
-			vert = { top: -1, left: -1, width: 1 },
-			hori = { top: -1, left: -1, height: 1 },
-			calcH = (g, c, add = { h: 0 }) => {
-				let minX = o.x,
-					maxX = g.x,
-					w = g.w;
-				d.height -= c.h;
-				d.top -= c.t;
-				if (maxX < minX) {
-					minX = g.x;
-					maxX = o.x;
-					w = o.w;
-				}
-				return { top: g.y+add.h, left: minX, width: maxX-minX+w };
-			},
-			calcV = (g, c, add = { w: 0 }) => {
-				let minY = o.y,
-					maxY = g.y,
-					h = g.h;
-				d.width -= c.w;
-				d.left -= c.l;
-				if (maxY < minY) {
-					minY = g.y;
-					maxY = o.y;
-					h = o.h;
-				}
-				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
-			};
-		// iterate guide lines
-		this.els.map(g => {
-			let t = d.top - g.y,
-				th = t - g.h,
-				thm = t - g.mh,
-				dh = d.height + o.y - g.y,
-				ohy = dh - g.h,
-				ohm = dh - g.mh,
-				l = d.left - g.x,
-				lw = l - g.w,
-				lwm = l - g.mw,
-				dw = d.width + o.x - g.x,
-				owx = dw - g.w,
-				owm = dw - g.mw,
-				c = { w: 0, h: 0, t: 0, l: 0 };
-			// horizontal comparisons
-			switch (true) {
-				// east
-				case (b.e && l < s && l > -s):     c.l = l;   c.w -= l;   vert = calcV(g, c);              break;
-				case (b.e && lw < s && lw > -s):   c.l = lw;  c.w -= lw;  vert = calcV(g, c, { w: g.w });  break;
-				case (b.e && lwm < s && lwm > -s): c.l = lwm; c.w -= lwm; vert = calcV(g, c, { w: g.mw }); break;
-				// west
-				case (b.w && dw < s && dw > -s):   c.w = dw;  vert = calcV(g, c);              break;
-				case (b.w && owx < s && owx > -s): c.w = owx; vert = calcV(g, c, { w: g.w });  break;
-				case (b.w && owm < s && owm > -s): c.w = owm; vert = calcV(g, c, { w: g.mw }); break;
-			}
-			// vertical comparisons
-			switch (true) {
-				// north
-				case (b.n && t < s && t > -s):     c.t = t;   c.h -= t;   hori = calcH(g, c);              break;
-				case (b.n && th < s && th > -s):   c.t = th;  c.h -= th;  hori = calcH(g, c, { h: g.h });  break;
-				case (b.n && thm < s && thm > -s): c.t = thm; c.h -= thm; hori = calcH(g, c, { h: g.mh }); break;
-				// south
-				case (b.s && dh < s && dh > -s):   c.h = dh;  hori = calcH(g, c);              break;
-				case (b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h });  break;
-				case (b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh }); break;
-			}
-		});
-		// apply UI update
-		this.lines.vertical.css(vert);
-		this.lines.horizontal.css(hori);
 	}
 
 	snapPos(m) {
