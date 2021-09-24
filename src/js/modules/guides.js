@@ -100,8 +100,7 @@ class Guides {
 		_lock.map(p => {
 			switch (p) {
 				case "t":
-					let b2 = (d.left - o.x) * Math.tan(o.r * (Math.PI/180));
-					d.top = o.y + b2;
+					d.top = o.y + ((d.left - o.x) / o.ratio);
 					break;
 				case "h":
 					d.height = d.width / d.ratio;
