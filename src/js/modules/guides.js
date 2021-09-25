@@ -68,7 +68,7 @@ class Guides {
 					maxX = o.x;
 					w = o.w;
 				}
-				if (u) freeze();
+				// if (u) freeze();
 				return { top: g.y+add.h, left: minX, width: maxX-minX+w };
 			},
 			calcV = (g, c, add = { w: 0 }) => {
@@ -82,7 +82,7 @@ class Guides {
 					maxY = o.y;
 					h = o.h;
 				}
-				if (u) freeze();
+				// if (u) freeze();
 				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
 			},
 			freeze = () => {
@@ -115,9 +115,14 @@ class Guides {
 		
 		if (b.d) {
 			switch (b.t) {
+				case "ne":
 				case "nw":
 					d.height = Math.max(Math.round(d.width / d.ratio), d.min.h);
 					d.top = Math.round(d.y + d.h - d.height);
+					break;
+				case "se":
+					d.width = Math.max(Math.round(d.height * d.ratio), d.min.w);
+					d.left = Math.round(d.x + d.w - d.width);
 					break;
 				case "sw":
 					d.width = Math.max(Math.round(d.height * d.ratio), d.min.w);
@@ -132,11 +137,21 @@ class Guides {
 			};
 			if (o.r > 90) diag.left += d.width;
 
-		} else {
+		} else if (u) { // uniform resize
 			switch (b.t) {
 				case "n":
-					d.top = Math.round(d.y + ((d.h - d.height) >> 1));
+					d.top = Math.round(d.y + d.h - d.height);
 					d.width = Math.max(Math.round(d.height * d.ratio), d.min.w);
+					d.left = o.x + ((o.w - d.width) >> 1);
+					break;
+				case "s":
+					d.width = Math.max(Math.round(d.height * d.ratio), d.min.w);
+					d.left = o.x + ((o.w - d.width) >> 1);
+					break;
+				case "e":
+				case "w":
+					d.height = Math.max(Math.round(d.width / d.ratio), d.min.h);
+					d.top = Math.round(d.y + ((d.h - d.height) >> 1));
 					break;
 			}
 		}
