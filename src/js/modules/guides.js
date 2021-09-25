@@ -48,7 +48,7 @@ class Guides {
 			u = d.uniform,
 			b = {
 				t: o.type,
-				d: d.diagonal,
+				d: o.diagonal,
 				n: o.type.includes("n"),
 				w: o.type.includes("w"),
 				e: o.type.includes("e"),
@@ -88,6 +88,7 @@ class Guides {
 			freeze = () => {
 				switch (b.t) {
 					case "ne":
+						break;
 					case "sw":
 						d.top = o.y + ((d.left - o.x) / o.ratio);
 						d.height = d.width / d.ratio;
@@ -113,6 +114,16 @@ class Guides {
 			};
 		
 		if (b.d) {
+			switch (b.t) {
+				case "nw":
+					d.height = Math.max(Math.round(d.width / d.ratio), d.min.h);
+					d.top = Math.round(d.y + d.h - d.height);
+					break;
+				case "sw":
+					d.width = Math.max(Math.round(d.height * d.ratio), d.min.w);
+					break;
+			}
+
 			diag = {
 				top: d.top || o.y,
 				left: d.left || o.x,
@@ -120,6 +131,14 @@ class Guides {
 				width: Math.sqrt(d.height*d.height + d.width*d.width) + 10,
 			};
 			if (o.r > 90) diag.left += d.width;
+
+		} else {
+			switch (b.t) {
+				case "n":
+					d.top = Math.round(d.y + ((d.h - d.height) >> 1));
+					d.width = Math.max(Math.round(d.height * d.ratio), d.min.w);
+					break;
+			}
 		}
 		
 		// iterate guide lines

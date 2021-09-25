@@ -168,40 +168,41 @@
 			case "mousemove":
 				let dim = {
 						...Drag.offset,
+						min: Drag.min,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
-						diagonal: Drag.offset.diagonal,
 						uniform: true,
 					};
 				// movement: east
 				if (Drag.type.includes("e")) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
-					dim._more = ["h", "t"];
+					// dim._more = ["h", "t"];
 				}
 				// movement: west
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
-					dim._more = ["h", "t"];
+					// dim._more = ["h", "t"];
 				}
 				// movement: north
 				if (Drag.type.includes("n")) {
 					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
 					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
-					dim._more = ["w", "l"];
+					// dim._more = ["w", "l"];
 					// ratio resize
-					if (dim.uniform) dim._more = ["h", "t2"];
+					// if (Drag.offset.diagonal) dim._more = ["h", "t2"];
+					// if (dim.uniform) dim._more = ["h", "t2"];
 				}
 				// movement: south
 				if (Drag.type.includes("s")) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
-					dim._more = ["w", "l"];
+					// dim._more = ["w", "l"];
 					// ratio resize
-					if (Drag.type === "sw") dim._more = ["w"];
-					else if (Drag.type === "se") dim._more = ["w", "l2"];
+					// if (Drag.type === "sw") dim._more = ["w"];
+					// else if (Drag.type === "se") dim._more = ["w", "l2"];
 				}
 				// calculate ratio resize
-				Drag.calcMore(dim);
+				// Drag.calcMore(dim);
 
 				// "filter" position with guide lines
 				Drag.guides.snapDim(dim);
