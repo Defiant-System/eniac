@@ -210,7 +210,12 @@
 				// apply new dimensions to element
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
 				if (dim.height < Drag.min.h) dim.height = Drag.min.h;
-				Drag.el.css(dim);
+				Drag.el.css({
+						top: dim.top,
+						left: dim.left,
+						width: dim.width,
+						height: dim.height,
+					});
 				break;
 			case "mouseup":
 				// re-focuses shape tools
