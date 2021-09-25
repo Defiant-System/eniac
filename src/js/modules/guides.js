@@ -56,7 +56,6 @@ class Guides {
 			vert = { top: -99, left: -99, width: 1 },
 			hori = { top: -99, left: -99, height: 1 },
 			diag = { top: -99, left: -99, height: 1 },
-			_lock = [],
 			calcH = (g, c, add = { h: 0 }) => {
 				let minX = o.x,
 					maxX = g.x,
@@ -82,6 +81,30 @@ class Guides {
 					h = o.h;
 				}
 				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
+			},
+			freeze = () => {
+				switch (b.t) {
+					case "ne":
+					case "sw":
+						d.top = o.y + ((d.left - o.x) / o.ratio);
+						d.height = d.width / d.ratio;
+						break;
+					case "nw":
+						d.top = o.y - ((d.width - o.w) / o.ratio);
+						d.height = d.width / d.ratio;
+						break;
+					case "se":
+						d.height = d.width / d.ratio;
+						break;
+					case "e":
+						d.top = 189;
+						d.height = d.width / d.ratio;
+						break;
+					case "w":
+						d.top = 194;
+						d.height = d.width / d.ratio;
+						break;
+				}
 			};
 		
 		if (u) {
@@ -114,43 +137,40 @@ class Guides {
 			switch (true) {
 				// east
 				case (b.e && l < s && l > -s):
-					if (u) _lock.push("t", "h");
 					c.l = l;
 					c.w -= l;
 					vert = calcV(g, c);
+					if (u) freeze();
 					break;
 				case (b.e && lw < s && lw > -s):
-					if (u) _lock.push("t", "h");
 					c.l = lw;
 					c.w -= lw;
 					vert = calcV(g, c, { w: g.w });
+					if (u) freeze();
 					break;
 				case (b.e && lwm < s && lwm > -s):
-					if (u) _lock.push("t", "h");
 					c.l = lwm;
 					c.w -= lwm;
 					vert = calcV(g, c, { w: g.mw });
+					if (u) freeze();
 					break;
 				// west
 				case (b.w && dw < s && dw > -s):
-					if (u) _lock.push("t", "h");
 					c.w = dw;
 					vert = calcV(g, c, { w: 1 });
+					if (u) freeze();
 					break;
 				case (b.w && owx < s && owx > -s):
-					if (u) _lock.push("t", "h");
 					c.w = owx;
 					vert = calcV(g, c, { w: g.w });
+					if (u) freeze();
 					break;
 				case (b.w && owm < s && owm > -s):
-					if (u) _lock.push("t", "h");
 					c.w = owm;
 					vert = calcV(g, c, { w: g.mw });
+					if (u) freeze();
 					break;
 			}
-
-			// let iNL = _lock.includes("n"),
-			// 	iHL = _lock.includes("h");
 
 			// vertical comparisons
 			// switch (true) {
@@ -163,25 +183,6 @@ class Guides {
 			// 	case (!u && b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h });  break;
 			// 	case (!u && b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh }); break;
 			// }
-		});
-
-		_lock.map(p => {
-			switch (true) {
-				case (["ne", "sw"].includes(b.t) && p === "t"):
-					d.top = o.y + ((d.left - o.x) / o.ratio);
-					break;
-				case (["ne", "sw"].includes(b.t) && p === "h"):
-					d.height = d.width / d.ratio;
-					break;
-				case (["se"].includes(b.t) && p === "t"):
-					break;
-				case (["nw"].includes(b.t) && p === "t"):
-					d.top = o.y - ((d.width - o.w) / o.ratio);
-					break;
-				case (["nw", "se"].includes(b.t) && p === "h"):
-					d.height = d.width / d.ratio;
-					break;
-			}
 		});
 
 		// apply UI update

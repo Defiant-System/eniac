@@ -170,7 +170,7 @@
 						...Drag.offset,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
-						uniform: Drag.type.length > 1,
+						uniform: true,
 					};
 				// movement: east
 				if (Drag.type.includes("e")) {
