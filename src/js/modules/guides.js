@@ -131,7 +131,6 @@ class Guides {
 					c.w -= lwm;
 					vert = calcV(g, c, { w: g.mw });
 					break;
-
 				// west
 				case (b.w && dw < s && dw > -s):
 					if (u) _lock.push("t", "h");
@@ -168,10 +167,15 @@ class Guides {
 
 		_lock.map(p => {
 			switch (true) {
-				case (["ne", "sw"].includes(b.t) && p === "t"): d.top = o.y + ((d.left - o.x) / o.ratio); break;
-				case (["ne", "sw"].includes(b.t) && p === "h"): d.height = d.width / d.ratio; break;
-
-				case (["nw", "se"].includes(b.t) && p === "t"):
+				case (["ne", "sw"].includes(b.t) && p === "t"):
+					d.top = o.y + ((d.left - o.x) / o.ratio);
+					break;
+				case (["ne", "sw"].includes(b.t) && p === "h"):
+					d.height = d.width / d.ratio;
+					break;
+				case (["se"].includes(b.t) && p === "t"):
+					break;
+				case (["nw"].includes(b.t) && p === "t"):
 					d.top = o.y - ((d.width - o.w) / o.ratio);
 					break;
 				case (["nw", "se"].includes(b.t) && p === "h"):
