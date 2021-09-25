@@ -68,7 +68,7 @@ class Guides {
 					maxX = o.x;
 					w = o.w;
 				}
-				if (u) freeze();
+				if (u) freeze(true);
 				return { top: g.y+add.h, left: minX, width: maxX-minX+w };
 			},
 			calcV = (g, c, add = { w: 0 }) => {
@@ -85,7 +85,7 @@ class Guides {
 				if (u) freeze();
 				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
 			},
-			freeze = () => {
+			freeze = (h) => {
 				switch (b.t) {
 					case "ne":
 						d.left = o.x - ((d.height - o.h) * o.ratio);
@@ -93,7 +93,8 @@ class Guides {
 						break;
 					case "sw":
 						d.top = o.y + ((d.left - o.x) / o.ratio);
-						d.height = d.width / d.ratio;
+						if (h) d.width = d.height * d.ratio;
+						else d.height = d.width / d.ratio;
 						break;
 					case "nw":
 						d.height = d.width / d.ratio;
