@@ -170,6 +170,7 @@
 						...Drag.offset,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
+						diagonal: Drag.offset.diagonal,
 						uniform: true,
 					};
 				// movement: east

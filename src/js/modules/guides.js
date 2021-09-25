@@ -48,6 +48,7 @@ class Guides {
 			u = d.uniform,
 			b = {
 				t: o.type,
+				d: d.diagonal,
 				n: o.type.includes("n"),
 				w: o.type.includes("w"),
 				e: o.type.includes("e"),
@@ -67,6 +68,7 @@ class Guides {
 					maxX = o.x;
 					w = o.w;
 				}
+				if (u) freeze();
 				return { top: g.y+add.h, left: minX, width: maxX-minX+w };
 			},
 			calcV = (g, c, add = { w: 0 }) => {
@@ -80,6 +82,7 @@ class Guides {
 					maxY = o.y;
 					h = o.h;
 				}
+				if (u) freeze();
 				return { top: minY, left: g.x+add.w, height: maxY-minY+h };
 			},
 			freeze = () => {
@@ -97,17 +100,20 @@ class Guides {
 						d.height = d.width / d.ratio;
 						break;
 					case "e":
-						d.top = o.y - (((d.width - o.w) / o.ratio) >> 1);
-						d.height = d.width / d.ratio;
-						break;
 					case "w":
 						d.top = o.y - (((d.width - o.w) / o.ratio) >> 1);
 						d.height = d.width / d.ratio;
 						break;
+					case "n":
+						break;
+					case "s":
+						d.left = o.x - (((d.height - o.h) * o.ratio) >> 1);
+						d.width = d.height * d.ratio;
+						break;
 				}
 			};
 		
-		if (u) {
+		if (b.d) {
 			diag = {
 				top: d.top || o.y,
 				left: d.left || o.x,
@@ -132,57 +138,28 @@ class Guides {
 				owx = dw - g.w,
 				owm = dw - g.mw,
 				c = { w: 0, h: 0, t: 0, l: 0 };
-
 			// horizontal comparisons
 			switch (true) {
 				// east
-				case (b.e && l < s && l > -s):
-					c.l = l;
-					c.w -= l;
-					vert = calcV(g, c);
-					if (u) freeze();
-					break;
-				case (b.e && lw < s && lw > -s):
-					c.l = lw;
-					c.w -= lw;
-					vert = calcV(g, c, { w: g.w });
-					if (u) freeze();
-					break;
-				case (b.e && lwm < s && lwm > -s):
-					c.l = lwm;
-					c.w -= lwm;
-					vert = calcV(g, c, { w: g.mw });
-					if (u) freeze();
-					break;
+				case (b.e && l < s && l > -s):     c.l = l;   c.w -= l;   vert = calcV(g, c);              break;
+				case (b.e && lw < s && lw > -s):   c.l = lw;  c.w -= lw;  vert = calcV(g, c, { w: g.w });  break;
+				case (b.e && lwm < s && lwm > -s): c.l = lwm; c.w -= lwm; vert = calcV(g, c, { w: g.mw }); break;
 				// west
-				case (b.w && dw < s && dw > -s):
-					c.w = dw;
-					vert = calcV(g, c, { w: 1 });
-					if (u) freeze();
-					break;
-				case (b.w && owx < s && owx > -s):
-					c.w = owx;
-					vert = calcV(g, c, { w: g.w });
-					if (u) freeze();
-					break;
-				case (b.w && owm < s && owm > -s):
-					c.w = owm;
-					vert = calcV(g, c, { w: g.mw });
-					if (u) freeze();
-					break;
+				case (b.w && dw < s && dw > -s): c.w = dw; vert = calcV(g, c, { w: (u?1:0) });           break;
+				case (b.w && owx < s && owx > -s): c.w = owx; vert = calcV(g, c, { w: g.w + (u?1:0) });  break;
+				case (b.w && owm < s && owm > -s): c.w = owm; vert = calcV(g, c, { w: g.mw + (u?1:0) }); break;
 			}
-
 			// vertical comparisons
-			// switch (true) {
-			// 	// north
-			// 	case (!u && b.n && t < s && t > -s):     c.t = t;   c.h -= t;   hori = calcH(g, c);              break;
-			// 	case (!u && b.n && th < s && th > -s):   c.t = th;  c.h -= th;  hori = calcH(g, c, { h: g.h });  break;
-			// 	case (!u && b.n && thm < s && thm > -s): c.t = thm; c.h -= thm; hori = calcH(g, c, { h: g.mh }); break;
-			// 	// south
-			// 	case (!u && b.s && dh < s && dh > -s):   c.h = dh;  hori = calcH(g, c);              break;
-			// 	case (!u && b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h });  break;
-			// 	case (!u && b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh }); break;
-			// }
+			switch (true) {
+				// north
+				case (b.n && t < s && t > -s):     c.t = t;   c.h -= t;   hori = calcH(g, c);              break;
+				case (b.n && th < s && th > -s):   c.t = th;  c.h -= th;  hori = calcH(g, c, { h: g.h });  break;
+				case (b.n && thm < s && thm > -s): c.t = thm; c.h -= thm; hori = calcH(g, c, { h: g.mh }); break;
+				// south
+				case (b.s && dh < s && dh > -s):   c.h = dh;  hori = calcH(g, c, { h: (u?-1:0) });        break;
+				case (b.s && ohy < s && ohy > -s): c.h = ohy; hori = calcH(g, c, { h: g.h + (u?-1:0) });  break;
+				case (b.s && ohm < s && ohm > -s): c.h = ohm; hori = calcH(g, c, { h: g.mh + (u?-1:0) }); break;
+			}
 		});
 
 		// apply UI update
