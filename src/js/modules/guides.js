@@ -97,11 +97,11 @@ class Guides {
 						d.height = d.width / d.ratio;
 						break;
 					case "e":
-						d.top = 189;
+						d.top = o.y - (((d.width - o.w) / o.ratio) >> 1);
 						d.height = d.width / d.ratio;
 						break;
 					case "w":
-						d.top = 194;
+						d.top = o.y - (((d.width - o.w) / o.ratio) >> 1);
 						d.height = d.width / d.ratio;
 						break;
 				}
