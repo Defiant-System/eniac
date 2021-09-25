@@ -105,7 +105,6 @@ class Guides {
 						d.height = d.width / d.ratio;
 						break;
 					case "n":
-						break;
 					case "s":
 						d.left = o.x - (((d.height - o.h) * o.ratio) >> 1);
 						d.width = d.height * d.ratio;
