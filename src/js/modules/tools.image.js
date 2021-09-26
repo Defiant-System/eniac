@@ -48,25 +48,26 @@
 				}
 
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse hideTools");
+				Self.els.layout.addClass("cover hideMouse1 hideTools");
 
 				let image = Self.image,
-					offset = {
-						x: el.prop("offsetLeft"),
-						y: el.prop("offsetTop"),
-					},
+					x = +el.prop("offsetLeft"),
+					y = +el.prop("offsetTop"),
+					w = +el.prop("offsetWidth"),
+					h = +el.prop("offsetHeight"),
+					offset = { x, y },
 					click = {
-						x: event.clientX - offset.x,
-						y: event.clientY - offset.y,
+						x: event.clientX - x,
+						y: event.clientY - y,
 					},
 					guides = new Guides({
 						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: image[0],
-							w: el.prop("offsetWidth"),
-							h: el.prop("offsetHeight"),
-							...offset,
+							mx: x + (w >> 1),
+							my: y + (h >> 1),
+							x, y, w, h,
 						}
 					});
 
@@ -95,7 +96,7 @@
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse hideTools");
+				Self.els.layout.removeClass("cover hideMouse1 hideTools");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.move);
 				break;

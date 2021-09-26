@@ -251,18 +251,20 @@ class Guides {
 				}
 				return { top: minY, left: g.x+add.l, height: h };
 			};
-
+		// restrains position
 		if (m.restrict) {
 			let dy = m.top - o.y,
 				dx = m.left - o.x,
-				tie = dx > dy ? "h" : "v";
-
-			switch (tie) {
-				case "h": m.top = o.y; break;
+				tie = ["h", "ne", "v", "nw", "h", "ne", "v", "nw", "h"],
+				deg = Math.round(Math.atan2(dy, dx) * 180 / Math.PI);
+			if (deg < 0) deg += 360;
+			switch (tie[Math.round(deg / 45)]) {
 				case "v": m.left = o.x; break;
+				case "h": m.top = o.y; break;
+				case "ne": m.left = o.x + (m.top - o.y); break;
+				case "nw": m.left = o.x - (m.top - o.y); break;
 			}
 		}
-
 		// iterate guide lines
 		this.els.map(g => {
 			let dy = t - g.y,

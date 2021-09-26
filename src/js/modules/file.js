@@ -28,9 +28,9 @@ class File {
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 			// setTimeout(() => window.find(`.sheet td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 
-			html += `<div class="xl-text">
-						This is <b>bold</b> text
-					</div>`;
+			// html += `<div class="xl-text">
+			// 			This is <b>bold</b> text
+			// 		</div>`;
 
 			html += `<div class="xl-image">
 						<img src="/fs/Desktop/coast.jpg"/>
