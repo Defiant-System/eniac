@@ -67,7 +67,7 @@
 							el: image[0],
 							mx: x + (w >> 1),
 							my: y + (h >> 1),
-							x, y, w, h,
+							t: y, l: x, w, h,
 						}
 					});
 

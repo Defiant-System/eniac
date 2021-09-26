@@ -253,16 +253,16 @@ class Guides {
 			};
 		// restrains position
 		if (m.restrict) {
-			let dy = m.top - o.y,
-				dx = m.left - o.x,
+			let dy = m.top - o.t,
+				dx = m.left - o.l,
 				tie = ["h", "ne", "v", "nw", "h", "ne", "v", "nw", "h"],
 				deg = Math.round(Math.atan2(dy, dx) * 180 / Math.PI);
 			if (deg < 0) deg += 360;
 			switch (tie[Math.round(deg / 45)]) {
-				case "v": m.left = o.x; break;
-				case "h": m.top = o.y; break;
-				case "ne": m.left = o.x + (m.top - o.y); break;
-				case "nw": m.left = o.x - (m.top - o.y); break;
+				case "v": m.left = o.l; break;
+				case "h": m.top = o.t; break;
+				case "ne": m.left = o.l + (m.top - o.t); break;
+				case "nw": m.left = o.l - (m.top - o.t); break;
 			}
 		}
 		// iterate guide lines
