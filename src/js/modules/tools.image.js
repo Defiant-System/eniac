@@ -131,18 +131,6 @@
 						w: 50,
 						h: Math.round(50 / offset.ratio),
 					},
-					calcMore = function(dim) {
-						dim._more.map(i => {
-							switch (i) {
-								case "t":  dim.top = this._round(dim.y + ((dim.h - dim.height) >> 1)); break;
-								case "t2": dim.top = this._round(dim.y + dim.h - dim.height); break;
-								case "l":  dim.left = this._round(dim.x + ((dim.w - dim.width) >> 1)); break;
-								case "l2": dim.left = this._round(dim.x + dim.w - dim.width); break;
-								case "h":  dim.height = this._max(this._round(dim.width / dim.ratio), this.min.h); break;
-								case "w":  dim.width = this._max(this._round(dim.height * dim.ratio), this.min.w); break;
-							}
-						});
-					},
 					guides = new Guides({
 						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
@@ -156,7 +144,6 @@
 					type,
 					click,
 					offset,
-					calcMore,
 					guides,
 					_round: Math.round,
 					_max: Math.max,
@@ -177,32 +164,20 @@
 				if (Drag.type.includes("e")) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
-					// dim._more = ["h", "t"];
 				}
 				// movement: west
 				if (Drag.type.includes("w")) {
 					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
-					// dim._more = ["h", "t"];
 				}
 				// movement: north
 				if (Drag.type.includes("n")) {
 					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
 					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
-					// dim._more = ["w", "l"];
-					// ratio resize
-					// if (Drag.offset.diagonal) dim._more = ["h", "t2"];
-					// if (dim.uniform) dim._more = ["h", "t2"];
 				}
 				// movement: south
 				if (Drag.type.includes("s")) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
-					// dim._more = ["w", "l"];
-					// ratio resize
-					// if (Drag.type === "sw") dim._more = ["w"];
-					// else if (Drag.type === "se") dim._more = ["w", "l2"];
 				}
-				// calculate ratio resize
-				// Drag.calcMore(dim);
 
 				// "filter" position with guide lines
 				Drag.guides.snapDim(dim);

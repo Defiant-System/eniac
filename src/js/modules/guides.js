@@ -88,19 +88,33 @@ class Guides {
 			freeze = (h) => {
 				switch (b.t) {
 					case "ne":
-						d.left = o.x - ((d.height - o.h) * o.ratio);
-						d.width = d.height * d.ratio;
+						if (h) {
+							d.width = d.height * d.ratio;
+							d.left = o.x - ((d.height - o.h) * o.ratio);
+						} else {
+							d.height = d.width / d.ratio;
+							d.top = o.y - ((d.width - o.w) / o.ratio);
+						}
+						break;
+					case "se":
+						if (h) {
+							d.width = d.height * d.ratio;
+							d.left = o.x - ((d.height - o.h) * o.ratio);
+						} else {
+							d.height = d.width / d.ratio;
+						}
 						break;
 					case "sw":
-						d.top = o.y + ((d.left - o.x) / o.ratio);
+						// d.top = o.y + ((d.left - o.x) / o.ratio);
 						if (h) d.width = d.height * d.ratio;
 						else d.height = d.width / d.ratio;
 						break;
 					case "nw":
-						d.height = d.width / d.ratio;
-						break;
-					case "se":
-						d.height = d.width / d.ratio;
+						if (h) d.width = d.height * d.ratio;
+						else {
+							d.height = d.width / d.ratio;
+							d.top = o.y - ((d.width - o.w) / o.ratio);
+						}
 						break;
 					case "e":
 					case "w":
