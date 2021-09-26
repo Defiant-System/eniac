@@ -105,7 +105,6 @@ class Guides {
 						}
 						break;
 					case "sw":
-						// d.top = o.y + ((d.left - o.x) / o.ratio);
 						if (h) d.width = d.height * d.ratio;
 						else d.height = d.width / d.ratio;
 						break;
