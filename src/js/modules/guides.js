@@ -48,7 +48,7 @@ class Guides {
 			u = d.uniform,
 			b = {
 				t: o.type,
-				d: o.diagonal,
+				d: d.diagonal,
 				n: o.type.includes("n"),
 				w: o.type.includes("w"),
 				e: o.type.includes("e"),
@@ -251,6 +251,18 @@ class Guides {
 				}
 				return { top: minY, left: g.x+add.l, height: h };
 			};
+
+		if (m.restrict) {
+			let dy = m.top - o.y,
+				dx = m.left - o.x,
+				tie = dx > dy ? "h" : "v";
+
+			switch (tie) {
+				case "h": m.top = o.y; break;
+				case "v": m.left = o.x; break;
+			}
+		}
+
 		// iterate guide lines
 		this.els.map(g => {
 			let dy = t - g.y,

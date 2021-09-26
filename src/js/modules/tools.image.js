@@ -66,6 +66,7 @@
 							el: image[0],
 							w: el.prop("offsetWidth"),
 							h: el.prop("offsetHeight"),
+							...offset,
 						}
 					});
 
@@ -83,6 +84,7 @@
 				let pos = {
 						top: event.clientY - Drag.click.y,
 						left: event.clientX - Drag.click.x,
+						restrict: event.shiftKey,
 					};
 				// "filter" position with guide lines
 				Drag.guides.snapPos(pos);
@@ -125,7 +127,6 @@
 							? Math.atan2(h, -w) * 180 / Math.PI
 							: Math.atan2(h, w) * 180 / Math.PI,
 						ratio: w / h,
-						diagonal: type.length === 2,
 					},
 					min = {
 						w: 50,
@@ -158,6 +159,7 @@
 						min: Drag.min,
 						width: Drag.offset.w,
 						height: Drag.offset.h,
+						diagonal: Drag.type.length === 2,
 						uniform: true,
 					};
 				// movement: east
