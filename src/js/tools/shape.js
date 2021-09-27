@@ -31,7 +31,7 @@
 				// proxies mousedown event
 				let el = $(event.target),
 					name = el.attr("class");
-				name = name.startsWith("xl-") ? name.slice(3) : "";
+				name = name.startsWith("xl-") ? name.slice(3).split(" ")[0] : "";
 
 				switch (true) {
 					// let other handlers handle it
