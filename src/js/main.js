@@ -128,13 +128,13 @@ const eniac = {
 	},
 	head: @import "modules/head.js",
 	foot: @import "modules/foot.js",
-	sidebar: @import "modules/sidebar.js",
+	sidebar: @import "sidebar/sidebar.js",
 	popups: @import "modules/popups.js",
 	tools: {
-		table: @import "modules/tools.table.js",
-		shape: @import "modules/tools.shape.js",
-		image: @import "modules/tools.image.js",
-		text: @import "modules/tools.text.js",
+		table: @import "tools/table.js",
+		shape: @import "tools/shape.js",
+		image: @import "tools/image.js",
+		text: @import "tools/text.js",
 	}
 };
 

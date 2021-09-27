@@ -15,12 +15,12 @@
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 	},
-	line: @import "sidebar.line.js",
-	sheet: @import "sidebar.sheet.js",
-	shape: @import "sidebar.shape.js",
-	table: @import "sidebar.table.js",
-	image: @import "sidebar.image.js",
-	text: @import "sidebar.text.js",
+	line: @import "./line.js",
+	sheet: @import "./sheet.js",
+	shape: @import "./shape.js",
+	table: @import "./table.js",
+	image: @import "./image.js",
+	text: @import "./text.js",
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar,

@@ -29,12 +29,13 @@ class File {
 			// setTimeout(() => window.find(`.sheet td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 
 			html += `<div class="xl-text">
-						This is <b>bold</b> text
+						This is <b>bold</b> text<br/>
+						More text here...
 					</div>`;
 
-			html += `<div class="xl-image">
-						<img src="/fs/Desktop/coast.jpg"/>
-					</div>`;
+			// html += `<div class="xl-image">
+			// 			<img src="/fs/Desktop/coast.jpg"/>
+			// 		</div>`;
 
 			// svg's
 			window.find("svg > svg").map(svg => {
@@ -44,7 +45,7 @@ class File {
 			});
 
 			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
