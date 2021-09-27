@@ -1,9 +1,9 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template name="sheet">
-	<div class="sheet">
+<xsl:template name="xl-table">
+	<div class="xl-table">
 		<xsl:if test="@class">
-			<xsl:attribute name="class">sheet <xsl:value-of select="@class"/></xsl:attribute>
+			<xsl:attribute name="class">xl-table <xsl:value-of select="@class"/></xsl:attribute>
 		</xsl:if>
 		<xsl:if test="@title">
 			<div class="table-title"><xsl:value-of select="@title"/></div>

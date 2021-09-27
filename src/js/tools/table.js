@@ -52,8 +52,10 @@
 				break;
 			// custom events
 			case "focus-table":
+				break;
 			case "blur-table":
-				console.log(event);
+				Self.sheet = {};
+				Self.els.root.addClass("hidden");
 				break;
 			case "set-sheet":
 				el = event.sheet;
@@ -66,10 +68,6 @@
 					colNum: grid.getRowCells(0).length,
 					rowNum: grid.rows.length,
 				};
-				break;
-			case "reset-tools":
-				Self.sheet = {};
-				Self.els.root.addClass("hidden");
 				break;
 			case "sync-tools-dim":
 				top = Sheet.el.prop("offsetTop");

@@ -11,7 +11,7 @@ const Cursor = {
 		};
 
 		// bind event handlers
-		this.els.layout.on("mousedown", ".sheet td", this.resize);
+		this.els.layout.on("mousedown", ".xl-table td", this.resize);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -29,7 +29,7 @@ const Cursor = {
 			case "focus-cell":
 				// anchor cell
 				anchor = $(event.anchor);
-				sheet = anchor.parents(".sheet");
+				sheet = anchor.parents(".xl-table");
 				if (anchor.prop("nodeName") !== "TD") anchor = anchor.parents("td");
 
 				// focus clicked table

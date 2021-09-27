@@ -22,11 +22,11 @@ class File {
 			// html += window.render({ template: "white-table-1" });
 
 			html = "";
-			// html += window.render({ template: "sheet", match: `//Sheet[@id="barebone"]` });
-			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-1"]` });
-			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-2"]` });
-			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
-			// setTimeout(() => window.find(`.sheet td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
+			html += window.render({ template: "xl-table", match: `//Sheet[@id="barebone"]` });
+			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-1"]` });
+			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-2"]` });
+			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-3"]` });
+			// setTimeout(() => window.find(`.xl-table td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 
 			html += `<div class="xl-text">
 						This is <b>bold</b> text<br/>
@@ -51,7 +51,7 @@ class File {
 		Render.workbook(this._file.book, html);
 		
 		// auto focus on first cell
-		// let anchor = window.find(".sheet:nth(0) table").get(3).find("td").get(6);
+		// let anchor = window.find(".xl-table:nth(0) table").get(3).find("td").get(6);
 		// setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 	}
 

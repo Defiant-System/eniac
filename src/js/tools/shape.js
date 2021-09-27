@@ -30,7 +30,7 @@
 			case "mousedown": {
 				// proxies mousedown event
 				let el = $(event.target),
-					name = el.attr("class");
+					name = el.attr("class") || "";
 				name = name.startsWith("xl-") ? name.slice(3).split(" ")[0] : "";
 
 				switch (true) {
@@ -52,9 +52,6 @@
 						Tools[name].move(event);
 						break;
 					default:
-						// hide table tools
-						name = Self.els.root.data("area")
-						Tools[name].dispatch({ type: "reset-tools" });
 						// update sidebar
 						APP.sidebar.dispatch({ type: "show-sheet" });
 						// blur XL element, if any
