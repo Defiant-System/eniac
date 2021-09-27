@@ -39,14 +39,14 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
-				// cover layout
-				Self.els.layout.addClass("cover hideMouse hideTools");
-
 				// if mousedown on handle
 				let el = $(event.target);
 				if (el.hasClass("handle")) {
 					return Self.resize(event);
 				}
+				
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse hideTools");
 
 				let text = Self.text,
 					offset = {
@@ -104,7 +104,7 @@
 		switch (event.type) {
 			case "mousedown":
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				Self.els.layout.addClass("cover");
 
 				let text = Self.text,
 					type = event.target.className.split(" ")[1],
@@ -149,7 +149,7 @@
 				// re-focuses shape tools
 				Self.dispatch({ type: "focus-text", el: Self.text });
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("cover");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
 				break;
