@@ -300,7 +300,7 @@
 		switch (event.type) {
 			case "mousedown":
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				Self.els.layout.addClass("cover resize-only hideMouse");
 
 				let svg = Self.shape,
 					shape = Self.shapeItem,
@@ -375,24 +375,24 @@
 				Drag.el.css(dim);
 				// special handling for rect-element
 				if (Drag.rect) {
-					if (Drag.offset.rx) {
-						let w = parseInt(Drag.shape.css("width"), 10),
-							h = parseInt(Drag.shape.css("height"), 10),
-							rx = Drag._min(Drag.offset.rx, Drag._min(w, h) >> 1);
-						Drag.shape.attr({ rx });
-					}
+					// if (Drag.offset.rx) {
+					// 	let w = parseInt(Drag.shape.css("width"), 10),
+					// 		h = parseInt(Drag.shape.css("height"), 10),
+					// 		rx = Drag._min(Drag.offset.rx, Drag._min(w, h) >> 1);
+					// 	Drag.shape.attr({ rx });
+					// }
 					Drag.svg.attr({ viewBox: `0 0 ${dim.width} ${dim.height}` });
 				}
 				break;
 			case "mouseup":
-				// re-focuses shape tools
-				Self.dispatch({ type: "focus-shape", el: Drag.svg });
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("cover resize-only hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
+				// re-focuses shape tools
+				Self.dispatch({ type: "focus-shape", el: Drag.svg });
 				break;
 		}
 	},
