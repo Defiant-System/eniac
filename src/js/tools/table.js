@@ -575,7 +575,7 @@
 						x: sheet.prop("offsetLeft"),
 					},
 					guides = new Guides({
-						selector: ".sheet, svg",
+						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: sheet[0],

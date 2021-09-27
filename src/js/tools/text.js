@@ -58,7 +58,7 @@
 						y: event.clientY - offset.y,
 					},
 					guides = new Guides({
-						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
+						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: text[0],

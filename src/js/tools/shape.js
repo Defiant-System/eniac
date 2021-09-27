@@ -31,12 +31,18 @@
 				// proxies mousedown event
 				let el = $(event.target),
 					name = el.attr("class") || "";
-				name = name.startsWith("xl-") ? name.slice(3).split(" ")[0] : "";
+				
+				if (name.startsWith("xl-") ) {
+					name = name.slice(3).split(" ")[0];
+				}
 
 				switch (true) {
 					// let other handlers handle it
+					case el.prop("nodeName") === "TD":
+					case el.hasClass("move"):
+						return;
 					case el.hasClass("handle"):
-						name = el.parents(".shape-tools").data("area");
+						name = el.parents("[data-area]").data("area");
 						Tools[name].move(event);
 						return;
 					case Self.types.includes(name):
@@ -249,7 +255,7 @@
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
 					guides = new Guides({
-						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
+						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: shape[0],
@@ -320,7 +326,7 @@
 						rx: +shape.attr("rx"),
 					},
 					guides = new Guides({
-						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
+						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: { el: svg[0], ...offset, type }
 					});
@@ -418,7 +424,7 @@
 				}
 
 				let guides = new Guides({
-						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
+						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: Self.shape[0],
@@ -558,7 +564,7 @@
 					click.i = +el.data("i") - 1;
 					// prepare guides
 					guides = new Guides({
-						selector: ".sheet, .xl-shape, .xl-image, .xl-text",
+						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
 						context: "content .body",
 						offset: {
 							el: Self.shape[0],

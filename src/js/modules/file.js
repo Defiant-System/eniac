@@ -22,11 +22,10 @@ class File {
 			// html += window.render({ template: "white-table-1" });
 
 			html = "";
-			html += window.render({ template: "xl-table", match: `//Sheet[@id="barebone"]` });
-			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-1"]` });
+			// html += window.render({ template: "xl-table", match: `//Sheet[@id="barebone"]` });
+			html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-1"]` });
 			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-2"]` });
 			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-3"]` });
-			// setTimeout(() => window.find(`.xl-table td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 
 			html += `<div class="xl-text">
 						This is <b>bold</b> text<br/>
@@ -44,8 +43,9 @@ class File {
 				html += svg.xml;
 			});
 
+			setTimeout(() => window.find(`.xl-table td:nth(14)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);

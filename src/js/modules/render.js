@@ -57,7 +57,7 @@ const Render = {
 		html += `<style>${css}</style>`;
 
 		// remove existing sheet
-		this.els.body.find(".sheet").remove();
+		this.els.body.find(".xl-table").remove();
 		// append new sheet
 		this.els.body.append(html);
 		// hide tools

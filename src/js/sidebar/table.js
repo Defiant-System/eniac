@@ -63,15 +63,15 @@
 			case "update-table-head-footer-rows":
 				// selectbox: table-header-rows
 				value = [Sheet.find(".tbl-body > div:nth-child(1) tr:nth-child(1) td").length];
-				if (value[0] > 0) value.push("table-header-rows-freeze");
+				// if (value[0] > 0) value.push("table-header-rows-freeze");
 				Els.el.find(`selectbox.table-header-rows`).val(value);
 				// selectbox: table-header-columns
 				value = [Sheet.find(".tbl-col-head > div:nth-child(2) tr").length];
-				if (value[0] > 0) value.push("table-header-columns-freeze");
+				// if (value[0] > 0) value.push("table-header-columns-freeze");
 				Els.el.find(`selectbox.table-header-columns`).val(value);
 				// selectbox: table-footer-rows
 				value = [Sheet.find(".tbl-col-foot > div:nth-child(2) tr").length];
-				if (value[0] > 0) value.push("table-footer-rows-freeze");
+				// if (value[0] > 0) value.push("table-footer-rows-freeze");
 				Els.el.find(`selectbox.table-footer-rows`).val(value);
 				break;
 			case "update-table-row-col":
@@ -126,7 +126,7 @@
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
 				
-				Sheet.prop({ className: `sheet ${el.data("arg")}` });
+				Sheet.prop({ className: `xl-table ${el.data("arg")}` });
 				break;
 			case "set-table-col-head":
 				// head row columns
