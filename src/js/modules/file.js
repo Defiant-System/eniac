@@ -28,9 +28,9 @@ class File {
 			// html += window.render({ template: "sheet", match: `//Sheet[@id="temp-3"]` });
 			// setTimeout(() => window.find(`.sheet td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
 
-			// html += `<div class="xl-text">
-			// 			This is <b>bold</b> text
-			// 		</div>`;
+			html += `<div class="xl-text">
+						This is <b>bold</b> text
+					</div>`;
 
 			html += `<div class="xl-image">
 						<img src="/fs/Desktop/coast.jpg"/>
@@ -44,7 +44,7 @@ class File {
 			});
 
 			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);

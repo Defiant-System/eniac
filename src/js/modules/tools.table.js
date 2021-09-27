@@ -51,6 +51,10 @@
 				Self.els.rows.find("> div:nth-child(2) table").css({ top });
 				break;
 			// custom events
+			case "focus-table":
+			case "blur-table":
+				console.log(event);
+				break;
 			case "set-sheet":
 				el = event.sheet;
 				// zip sheet cells ordered

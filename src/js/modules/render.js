@@ -61,6 +61,6 @@ const Render = {
 		// append new sheet
 		this.els.body.append(html);
 		// hide tools
-		Cursor.dispatch({ type: "blur-table" });
+		// Cursor.dispatch({ type: "blur-table" });
 	}
 };

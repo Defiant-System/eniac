@@ -9,14 +9,19 @@
 			root,
 			doc: $(document),
 			layout: window.find("layout"),
+			body: window.find("content > div.body"),
 			gradientTool: root.find(".gradient-tool"),
 		};
+
+		// types of XL elements
+		this.types = ["table", "shape", "image", "text"];
 
 		// bind event handlers
 		window.find("content > div.body").on("mousedown", this.dispatch);
 	},
 	dispatch(event) {
 		let APP = eniac,
+			Tools = APP.tools,
 			Self = APP.tools.shape,
 			Shape = Self.shape,
 			el;
@@ -24,36 +29,42 @@
 			// native events
 			case "mousedown": {
 				// proxies mousedown event
-				let Tools = eniac.tools,
-					el = $(event.target),
-					name = el.attr("class"),
-					type = name.startsWith("xl-") ? name.slice(3) : "",
-					body = el.parents("div.body");
+				let el = $(event.target),
+					name = el.attr("class");
+				name = name.startsWith("xl-") ? name.slice(3) : "";
 
 				switch (true) {
 					// let other handlers handle it
 					case el.hasClass("handle"):
-						type = el.parents(".shape-tools").data("area");
-						Tools[type].move(event);
+						name = el.parents(".shape-tools").data("area");
+						Tools[name].move(event);
 						return;
-					case type === "text":
-					case type === "image":
-					case type === "shape":
-						// blur table, if any
-						Cursor.dispatch({ type: "blur-table", el: body });
+					case Self.types.includes(name):
+						// blur XL element, if any
+						Self.dispatch({ type: "blur-focused" });
 						// switch context for tools
-						Self.els.root.data({ "area": type });
+						Self.els.root.data({ "area": name });
 						// focus shape
-						Tools[type].dispatch({ type: `focus-${type}`, el });
-						Tools[type].move(event);
+						Tools[name].dispatch({ type: `focus-${name}`, el });
+						Tools[name].move(event);
+						// update sidebar
+						APP.sidebar.dispatch({ type: `show-${name}` });
 						break;
 					default:
-						Tools.text.dispatch({ type: "blur-text", el: body });
-						Tools.image.dispatch({ type: "blur-image", el: body });
-						Tools.shape.dispatch({ type: "blur-shape", el: body });
+						// hide table tools
+						name = Self.els.root.data("area")
+						Tools[name].dispatch({ type: "reset-tools" });
+						// update sidebar
+						APP.sidebar.dispatch({ type: "show-sheet" });
+						// blur XL element, if any
+						Self.dispatch({ type: "blur-focused" });
 				}
 				break; }
 			// csutom events
+			case "blur-focused":
+				Self.types.map(n =>
+					Tools[n].dispatch({ type: `blur-${n}`, el: Self.els.body }));
+				break;
 			case "blur-shape":
 				if (event.el.hasClass("body")) {
 					Self.els.root.addClass("hidden");

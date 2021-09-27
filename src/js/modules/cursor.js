@@ -56,12 +56,6 @@ const Cursor = {
 				Self.anchor = false;
 				break;
 			case "blur-table":
-				if (event.el.hasClass("body")) {
-					// update sidebar
-					APP.sidebar.dispatch({ type: "show-sheet" });
-					// hide table tools
-					Tools.dispatch({ type: "reset-tools" });
-				}
 				break;
 			case "re-sync-selection":
 			case "select-cell":
