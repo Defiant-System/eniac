@@ -65,9 +65,10 @@
 						context: "content .body",
 						offset: {
 							el: image[0],
-							mx: x + (w >> 1),
-							my: y + (h >> 1),
-							t: y, l: x, w, h,
+							t: y,
+							l: x,
+							w,
+							h,
 						}
 					});
 
