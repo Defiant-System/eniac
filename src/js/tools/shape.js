@@ -46,9 +46,10 @@
 						Self.els.root.data({ "area": name });
 						// focus shape
 						Tools[name].dispatch({ type: `focus-${name}`, el });
-						Tools[name].move(event);
 						// update sidebar
 						APP.sidebar.dispatch({ type: `show-${name}` });
+						// trigger "move" mousedown event
+						Tools[name].move(event);
 						break;
 					default:
 						// hide table tools
