@@ -38,13 +38,25 @@
 
 				switch (true) {
 					// let other handlers handle it
-					case el.prop("nodeName") === "TD":
 					case el.hasClass("tool"):
 						return;
 					case el.hasClass("handle"):
 						name = el.parents("[data-area]").data("area");
 						Tools[name].move(event);
 						return;
+					case el.prop("nodeName") === "TD":
+						let sheet = el.parents(".xl-table");
+						// blur XL element, if any
+						Self.dispatch({ type: "blur-focused" });
+						// switch context for tools
+						Self.els.root.data({ "area": "table" });
+						// focus table
+						Tools.table.dispatch({ type: "focus-cell", el });
+						// sync tools sheet
+						Tools.table.dispatch({ type: "sync-sheet-table", sheet });
+						// update sidebar
+						APP.sidebar.dispatch({ type: "show-table", sheet });
+						break;
 					case Self.types.includes(name):
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });

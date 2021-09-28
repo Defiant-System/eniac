@@ -51,8 +51,9 @@
 				Self.els.rows.find("> div:nth-child(2) table").css({ top });
 				break;
 			// custom events
+			case "focus-cell":
 			case "focus-table":
-				// handled by Cursor
+				console.log(event);
 				break;
 			case "blur-table":
 				Self.sheet = {};
@@ -175,10 +176,11 @@
 					getColIndex(td) {
 						return this.cols.indexOf(td);
 					}
-				};
-			// col head rows
-			let r1 = Els.cols.find("> div:nth-child(1) tr"),
+				},
+				// col head rows
+				r1 = Els.cols.find("> div:nth-child(1) tr"),
 				r2 = Els.cols.find("> div:nth-child(2) tr");
+			
 			if (r1.length) r1.map((row, i) => grid.cols.push(...$("td", row), ...r2.get(i).find("td")));
 			else r2.map((row, i) => grid.cols.push(...$("td", row)));
 
