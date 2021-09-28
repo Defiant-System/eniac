@@ -26,6 +26,10 @@
 			Shape = Self.shape,
 			el;
 		switch (event.type) {
+			// system events
+			case "window.keystroke":
+				console.log(event);
+				break;
 			// native events
 			case "mousedown": {
 				// proxies mousedown event
@@ -46,6 +50,8 @@
 						return;
 					case el.prop("nodeName") === "TD":
 						let sheet = el.parents(".xl-table");
+						// reference of active tool
+						Tools.active = "table";
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
 						// switch context for tools
@@ -54,6 +60,8 @@
 						Tools.table.dispatch({ type: "focus-cell", el });
 						break;
 					case Self.types.includes(name):
+						// reference of active tool
+						Tools.active = name;
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
 						// switch context for tools

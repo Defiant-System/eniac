@@ -75,7 +75,7 @@ const eniac = {
 				});
 				break;
 			case "window.keystroke":
-				Cursor.dispatch(event);
+				Self.tools[Self.tools.active].dispatch(event);
 				break;
 			// menubar events
 			case "set-document-zoom":
