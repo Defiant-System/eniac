@@ -52,10 +52,6 @@
 						Self.els.root.data({ "area": "table" });
 						// focus table
 						Tools.table.dispatch({ type: "focus-cell", el });
-						// sync tools sheet
-						Tools.table.dispatch({ type: "sync-sheet-table", sheet });
-						// update sidebar
-						APP.sidebar.dispatch({ type: "show-table", sheet });
 						break;
 					case Self.types.includes(name):
 						// blur XL element, if any

@@ -62,7 +62,6 @@ const Cursor = {
 			case "select-cell":
 				anchor = event.anchor || Self.anchor;
 				table = anchor.parents(".tbl-root:first");
-
 				offset = Self.getOffset(anchor[0], table[0]);
 				Self.els.root.addClass("show").css(offset);
 

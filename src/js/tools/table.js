@@ -29,6 +29,7 @@
 			Sheet = Self.sheet,
 			top, left, width, height,
 			grid, cols, rows,
+			pEl,
 			el;
 		switch (event.type) {
 			// native events
@@ -52,6 +53,14 @@
 				break;
 			// custom events
 			case "focus-cell":
+				pEl = event.el.parents(".xl-table");
+				// sync tools sheet
+				Self.dispatch({ type: "sync-sheet-table", sheet: pEl });
+				// show tools for table
+				Self.els.root.removeClass("hidden");
+				// update sidebar
+				APP.sidebar.dispatch({ type: "show-table", sheet: pEl });
+				break;
 			case "focus-table":
 				console.log(event);
 				break;

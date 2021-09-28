@@ -2,7 +2,7 @@
 @import "modules/color.js"
 @import "modules/guides.js"
 @import "modules/render.js"
-@import "modules/cursor.js"
+// @impo1rt "modules/cursor.js"
 @import "modules/file.js"
 
 const XLSX = await window.fetch("~/js/xdef.js");
@@ -21,7 +21,7 @@ const eniac = {
 		// get settings or use default settings
 		this.Settings = window.settings.getItem("settings") || DefaultSettings;
 		// init renderer
-		Cursor.init();
+		// Cursor.init();
 		Render.init();
 		// init all sub-objects
 		Object.keys(this)
