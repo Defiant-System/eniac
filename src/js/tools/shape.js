@@ -70,11 +70,9 @@
 					Tools[n].dispatch({ type: `blur-${n}`, el: Self.els.body }));
 				break;
 			case "blur-shape":
-				if (event.el.hasClass("body")) {
-					Self.els.root.addClass("hidden");
-					// forget shape
-					Self.shape = false;
-				}
+				Self.els.root.addClass("hidden");
+				// forget shape
+				Self.shape = false;
 				break;
 			case "focus-shape":
 				// resize tools

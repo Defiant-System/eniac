@@ -43,7 +43,8 @@ const Cursor = {
 			case "focus-table":
 				sheet = event.sheet;
 				if (Tools.sheet && sheet.isSame(Tools.sheet.el)) return;
-
+				// blur XL element, if any
+				APP.tools.shape.dispatch({ type: "blur-focused" });
 				// sync tools sheet
 				Tools.dispatch({ type: "sync-sheet-table", sheet });
 				// show tools for table

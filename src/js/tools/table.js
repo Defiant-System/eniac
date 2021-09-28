@@ -52,6 +52,7 @@
 				break;
 			// custom events
 			case "focus-table":
+				// handled by Cursor
 				break;
 			case "blur-table":
 				Self.sheet = {};
