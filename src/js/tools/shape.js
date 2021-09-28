@@ -39,7 +39,7 @@
 				switch (true) {
 					// let other handlers handle it
 					case el.prop("nodeName") === "TD":
-					case el.hasClass("move"):
+					case el.hasClass("tool"):
 						return;
 					case el.hasClass("handle"):
 						name = el.parents("[data-area]").data("area");
