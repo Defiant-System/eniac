@@ -243,7 +243,7 @@
 				// sync tools selection indicators
 				APP.tools.table.dispatch({ type: "select-coords", ...APP.tools.table.selected });
 				// re-sync selection box
-				Cursor.dispatch({ type: "re-sync-selection" });
+				APP.tools.table.dispatch({ type: "re-sync-selection" });
 				break;
 			case "toggle-table-caption":
 				// toggle table caption

@@ -12,6 +12,7 @@
 			cols: root.find(".table-cols"),
 			rows: root.find(".table-rows"),
 			move: root.find(".tool.move"),
+			selection: root.find(".selection"),
 			resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
 		};
 		// placeholder
@@ -29,13 +30,14 @@
 			Sheet = Self.sheet,
 			top, left, width, height,
 			grid, cols, rows,
-			pEl,
+			table, anchor, offset,
+			xNum, yNum,
 			el;
 		switch (event.type) {
 			// native events
 			case "scroll":
 				el = $(event.target);
-				Sheet = el.parents(".sheet:first");
+				Sheet = el.parents(".xl-table:first");
 				top = -event.target.scrollTop;
 				left = -event.target.scrollLeft;
 				
@@ -53,16 +55,28 @@
 				break;
 			// custom events
 			case "focus-cell":
-				pEl = event.el.parents(".xl-table");
-				// sync tools sheet
-				Self.dispatch({ type: "sync-sheet-table", sheet: pEl });
-				// show tools for table
-				Self.els.root.removeClass("hidden");
-				// update sidebar
-				APP.sidebar.dispatch({ type: "show-table", sheet: pEl });
+				// anchor cell
+				anchor = event.el;
+				table = anchor.parents(".xl-table");
+				// focus clicked table
+				Self.dispatch({ type: "focus-table", sheet: table });
+
+				[yNum, xNum] = Self.sheet.grid.getCoord(anchor[0]);
+				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum] });
+				// UI select element
+				Self.dispatch({ ...event, anchor, type: "select-cell" });
+				break;
+			case "blur-cell":
+				// reset reference to cell
+				Self.anchor = false;
 				break;
 			case "focus-table":
-				console.log(event);
+				// sync tools sheet
+				Self.dispatch({ ...event, type: "sync-sheet-table" });
+				// update sidebar
+				APP.sidebar.dispatch({ ...event, type: "show-table" });
+				// show tools for table
+				Self.els.root.removeClass("hidden");
 				break;
 			case "blur-table":
 				Self.sheet = {};
@@ -160,6 +174,16 @@
 
 				Self.els.rows.find(".active").removeClass("active");
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
+				break;
+			case "re-sync-selection":
+			case "select-cell":
+				anchor = event.anchor || Self.anchor;
+				table = anchor.parents(".tbl-root:first");
+				offset = APP.popups.getOffset(anchor[0], table[0]);
+				Self.els.selection.addClass("show").css(offset);
+
+				// save anchor reference
+				Self.anchor = anchor;
 				break;
 			case "select-columns":
 			case "select-rows":
@@ -356,7 +380,7 @@
 					Drag.sheetRow.css({ height });
 					Drag.root.css({ height: Drag.ttHeight + height - Drag.rowHeight });
 				}
-				Cursor.dispatch({ type: "re-sync-selection" });
+				Self.dispatch({ type: "re-sync-selection" });
 				break;
 			case "mouseup":
 				// uncover layout

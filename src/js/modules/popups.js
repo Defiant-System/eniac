@@ -125,7 +125,7 @@
 				// reference to target popup
 				el = Self.els[event.arg +"Options"];
 				dim = el[0].getBoundingClientRect();
-				pos = Cursor.getOffset(event.target, Self.els.layout[0]);
+				pos = Self.getOffset(event.target, Self.els.layout[0]);
 				top = pos.top + event.target.offsetHeight + 16;
 				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 3;
 				// show popup
@@ -152,6 +152,15 @@
 				console.log(event);
 				break;
 		}
+	},
+	getOffset(el, pEl) {
+		let rect1 = el.getBoundingClientRect(),
+			rect2 = pEl.getBoundingClientRect(),
+			top = Math.floor(rect1.top - rect2.top) + pEl.offsetTop - 2,
+			left = Math.floor(rect1.left - rect2.left) + pEl.offsetLeft - 2,
+			width = rect1.width + 5,
+			height = rect1.height + 5;
+		return { top, left, width, height };
 	},
 	getPosition(el, rEl) {
 		let pEl = el,

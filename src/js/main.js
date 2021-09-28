@@ -2,7 +2,6 @@
 @import "modules/color.js"
 @import "modules/guides.js"
 @import "modules/render.js"
-// @impo1rt "modules/cursor.js"
 @import "modules/file.js"
 
 const XLSX = await window.fetch("~/js/xdef.js");
