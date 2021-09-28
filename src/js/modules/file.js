@@ -17,24 +17,15 @@ class File {
 			/* blue-table-2     */
 			/* orange-table-1   */
 			/* white-table-1    */
-			// html = window.render({ template: "barebone-table" });
-			// html += window.render({ template: "gray-table-1" });
-			// html += window.render({ template: "white-table-1" });
 
 			html = "";
-			// html += window.render({ template: "xl-table", match: `//Sheet[@id="barebone"]` });
-			html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-1"]` });
-			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-2"]` });
-			// html += window.render({ template: "xl-table", match: `//Sheet[@id="temp-3"]` });
+			// html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
+			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-1"]` });
+			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-2"]` });
+			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
 
-			html += `<div class="xl-text">
-						This is <b>bold</b> text<br/>
-						More text here...
-					</div>`;
-
-			// html += `<div class="xl-image">
-			// 			<img src="/fs/Desktop/coast.jpg"/>
-			// 		</div>`;
+			html += window.render({ template: "xl-text", match: `//Text[@id="temp-text-1"]` });
+			html += window.render({ template: "xl-image", match: `//Image[@id="temp-image-1"]` });
 
 			// svg's
 			window.find("svg > svg").map(svg => {

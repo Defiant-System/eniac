@@ -1,5 +1,21 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:template name="xl-text">
+	<div class="xl-text">
+		<xsl:value-of select="normalize-space(.)"/>
+	</div>
+</xsl:template>
+
+
+<xsl:template name="xl-image">
+	<div class="xl-image">
+		<img>
+			<xsl:attribute name="src"><xsl:value-of select="normalize-space(.)"/></xsl:attribute>
+		</img>
+	</div>
+</xsl:template>
+
+
 <xsl:template name="xl-table">
 	<div class="xl-table">
 		<xsl:if test="@class">
@@ -14,6 +30,7 @@
 		</xsl:if>
 	</div>
 </xsl:template>
+
 
 <xsl:template name="scaffold-table">
 	<div class="tbl-root">
@@ -68,6 +85,7 @@
 	</div>
 </xsl:template>
 
+
 <xsl:template name="table-row">
 	<tr>
 		<xsl:for-each select="Cell">
@@ -95,12 +113,14 @@
 	</xsl:choose>
 </xsl:template>
 
+
 <xsl:template name="type-text">
 	<div class="selection-type"><xsl:call-template name="get-footer-type" /></div>
 	<div class="selection-value">
 		<xsl:value-of select="text()"/>
 	</div>
 </xsl:template>
+
 
 <xsl:template name="type-selection">
 	<div class="selection-data">
@@ -127,6 +147,7 @@
 	</div>
 </xsl:template>
 
+
 <xsl:template name="type-formula">
 	<div class="selection-type">Formula</div>
 	<div class="selection-value">
@@ -136,6 +157,7 @@
 		</div>
 	</div>
 </xsl:template>
+
 
 <xsl:template name="get-footer-type">
 	<xsl:choose>

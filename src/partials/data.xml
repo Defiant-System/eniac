@@ -1,6 +1,14 @@
 
 <Data>
-	<Sheet id="barebone" class="temp-0">
+	<Text id="temp-text-1" class="text-1">
+		<![CDATA[This is <b>bold</b> text<br/>More text here...]]>
+	</Text>
+
+	<Image id="temp-image-1" class="image-1">
+		<![CDATA[/fs/Desktop/coast.jpg]]>
+	</Image>
+
+	<Table id="barebone" class="temp-0">
 		<Head>
 			<Table/>
 			<Table/>
@@ -26,9 +34,9 @@
 			<Table/>
 			<Table/>
 		</Foot>
-	</Sheet>
+	</Table>
 
-	<Sheet id="scaffold" title="Title">
+	<Table id="scaffold" title="Title">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -75,9 +83,9 @@
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Foot>
-	</Sheet>
+	</Table>
 
-	<Sheet id="temp-1" title="Clipped Table" class="green-table-1 clipped1 temp-1">
+	<Table id="temp-1" title="Clipped Table" class="green-table-1 clipped1 temp-1">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -112,9 +120,9 @@
 				<Row><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Foot>
-	</Sheet>
+	</Table>
 
-	<Sheet id="temp-2" title="Clipped (No Column)" class="blue-table-1 clipped1 temp-2">
+	<Table id="temp-2" title="Clipped (No Column)" class="blue-table-1 clipped1 temp-2">
 		<Head>
 			<Table/>
 			<Table/>
@@ -149,9 +157,9 @@
 				<Row><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Foot>
-	</Sheet>
+	</Table>
 
-	<Sheet id="temp-3" caption="No Row Head" class="green-table-1 alt-row-bg temp-3">
+	<Table id="temp-3" caption="No Row Head" class="green-table-1 alt-row-bg temp-3">
 		<Head>
 			<Table/>
 			<Table>
@@ -174,5 +182,5 @@
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Foot>
-	</Sheet>
+	</Table>
 </Data>
