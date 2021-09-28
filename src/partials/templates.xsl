@@ -2,7 +2,7 @@
 
 <xsl:template name="xl-text">
 	<div class="xl-text">
-		<xsl:value-of select="normalize-space(.)"/>
+		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</div>
 </xsl:template>
 
