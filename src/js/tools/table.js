@@ -151,6 +151,10 @@
 				Self.els.rows.find(".active").removeClass("active");
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
 				break;
+			case "select-columns":
+			case "select-rows":
+				console.log(event);
+				break;
 		}
 	},
 	grid: {
