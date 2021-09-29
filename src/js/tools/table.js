@@ -612,29 +612,95 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				let el = $(event.target),
-					offset = {
-						x: event.offsetX,
-						y: event.offsetY,
+				// auto focus cell
+				let el = $(event.target);
+				Self.dispatch({ type: "focus-cell", el });
+
+				let offset = {
+						top: el.prop("offsetTop"),
+						left: el.prop("offsetLeft"),
+						width: el[0].getBoundingClientRect().width,
+						height: el.prop("offsetHeight"),
 					},
 					click = {
-						x: event.clientX - offset.x,
-						y: event.clientY - offset.y,
-					};
+						x: event.clientX - event.offsetX,
+						y: event.clientY - event.offsetY,
+					},
+					table = Self.sheet.grid,
+					[rowIndex, cellIndex] = table.getCoord(el[0]),
+					cells = table.rows[0].map((td, index) => {
+						let rect = td.getBoundingClientRect();
+						return {
+							index,
+							left: rect.x - offset.left,
+							right: rect.x + rect.width - offset.left,
+						};
+					}),
+					rows = table.rows.map((item, index) => {
+						let rect = item[0].parentNode.getBoundingClientRect();
+						return {
+							index,
+							top: rect.y - offset.top,
+							bottom: rect.y + rect.height - offset.top,
+						};
+					});
 
-				// auto focus cell
-				Self.dispatch({ type: "focus-cell", el });
+				console.log( offset );
+				return console.log( cells, rows );
 
 				// create drag object
 				Self.drag = {
 					el,
 					click,
+					offset,
+					cellIndex,
+					rowIndex,
+					grid: {
+						x: [offset.width, ...cells],
+						y: [offset.height, ...rows],
+					},
 				};
 
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeSelection);
 				break;
 			case "mousemove":
+				let top = Drag.offset.top,
+					left = Drag.offset.left,
+					height = event.clientY - Drag.click.y + Drag.offset.height,
+					width = event.clientX - Drag.click.x + Drag.offset.width,
+					yNum,
+					xNum;
+
+				if (height < 0) {
+					top = event.clientY - Drag.clickY + Drag.offset.top;
+					Drag.grid.filterY = Drag.grid.y.filter(b => b.top > top);
+					top = Math.min(...Drag.grid.filterY.map(b => b.top));
+					height = Drag.offset.top + Drag.offset.height - top;
+					// get columns to be highlighted
+					yNum = [Drag.rowIndex, ...Drag.grid.filterY.map(b => b.index).filter(i => i < Drag.rowIndex)];
+				} else {
+					Drag.grid.filterY = Drag.grid.y.filter(b => b.bottom < height);
+					height = Math.max(...Drag.grid.filterY.map(b => b.bottom));
+					// get columns to be highlighted
+					yNum = [Drag.rowIndex, ...Drag.grid.filterY.map(b => b.index).filter(i => i > Drag.rowIndex)];
+				}
+
+				if (width < 0) {
+					left = event.clientX - Drag.clickX + Drag.offset.left;
+					Drag.grid.filterX = Drag.grid.x.filter(b => b.left > left);
+					left = Math.min(...Drag.grid.filterX.map(b => b.left));
+					width = Drag.offset.left + Drag.offset.width - left;
+					// get rows to be highlighted
+					xNum = [Drag.cellIndex, ...Drag.grid.filterX.map(b => b.index).filter(i => i < Drag.cellIndex)];
+				} else {
+					Drag.grid.filterX = Drag.grid.x.filter(b => b.right < width);
+					width = Math.max(...Drag.grid.filterX.map(b => b.right));
+					// get rows to be highlighted
+					xNum = [Drag.cellIndex, ...Drag.grid.filterX.map(b => b.index).filter(i => i > Drag.cellIndex)];
+				}
+
+				console.log( yNum, xNum );
 				break;
 			case "mouseup":
 				// uncover layout
