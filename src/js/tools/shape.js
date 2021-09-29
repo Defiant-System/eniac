@@ -43,22 +43,24 @@
 				switch (true) {
 					// let other handlers handle it
 					case el.hasClass("tool"):
-						return;
+						switch (el.prop("className").split(" ")[1]) {
+							case "hv-resize":
+							case "h-resize":
+							case "v-resize": return Tools.table.resizeClip(event);
+							case "move": return Tools.table.move(event);
+						}
+						break;
 					case el.hasClass("handle"):
 						name = el.parents("[data-area]").data("area");
 						Tools[name].move(event);
 						return;
 					case el.prop("nodeName") === "TD":
-						let sheet = el.parents(".xl-table");
 						// reference of active tool
 						Tools.active = "table";
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
-						// switch context for tools
-						Self.els.root.data({ "area": "table" });
-						// focus table
-						Tools.table.dispatch({ type: "focus-cell", el });
-						break;
+						// proxy event to "selection resize"
+						return Tools.table.resizeSelection(event);
 					case Self.types.includes(name):
 						// reference of active tool
 						Tools.active = name;

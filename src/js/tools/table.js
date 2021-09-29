@@ -21,8 +21,8 @@
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
 		this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
-		this.els.resizes.on("mousedown", this.resizeClip);
-		this.els.move.on("mousedown", this.move);
+		// this.els.resizes.on("mousedown", this.resizeClip);
+		// this.els.move.on("mousedown", this.move);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -598,6 +598,49 @@
 				Self.els.layout.removeClass("cover");
 				// unbind events
 				Self.els.doc.off("mousemove mouseup", Self.resizeGrid);
+				break;
+		}
+	},
+	resizeSelection(event) {
+		let APP = eniac,
+			Self = APP.tools.table,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover");
+
+				let el = $(event.target),
+					offset = {
+						x: event.offsetX,
+						y: event.offsetY,
+					},
+					click = {
+						x: event.clientX - offset.x,
+						y: event.clientY - offset.y,
+					};
+
+				// auto focus cell
+				Self.dispatch({ type: "focus-cell", el });
+
+				// create drag object
+				Self.drag = {
+					el,
+					click,
+				};
+
+				// bind events
+				Self.els.doc.on("mousemove mouseup", Self.resizeSelection);
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover");
+				// unbind events
+				Self.els.doc.off("mousemove mouseup", Self.resizeSelection);
 				break;
 		}
 	},
