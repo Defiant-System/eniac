@@ -55,6 +55,8 @@
 						Tools[name].move(event);
 						return;
 					case el.prop("nodeName") === "TD":
+						// if table-tool related; let it be handled by "others"
+						if (el.parents(".table-tool").length) return;
 						// reference of active tool
 						Tools.active = "table";
 						// blur XL element, if any

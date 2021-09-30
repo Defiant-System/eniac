@@ -41,7 +41,7 @@
 			Self = APP.tools.table,
 			Table = Self.table,
 			top, left, width, height,
-			grid, cols, rows,
+			grid, cols, rows, data,
 			table, anchor, offset,
 			xNum, yNum,
 			el;
@@ -78,9 +78,7 @@
 				Self.dispatch({ type: "focus-table", table });
 
 				[yNum, xNum] = Self.table.grid.getCoord(anchor[0]);
-				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum] });
-				// UI select element
-				Self.dispatch({ ...event, anchor, type: "select-cell" });
+				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum], anchor });
 				break;
 			case "blur-cell":
 				// reset reference to cell
@@ -181,28 +179,64 @@
 				// zip tool cells
 				Self.table.toolGrid = Self.grid.tools();
 				break;
+			case "re-sync-selection":
+				event.xNum = Self.selected.xNum;
+				event.yNum = Self.selected.yNum;
+				/* falls through */
 			case "select-coords":
 				cols = event.xNum.length ? event.xNum : [event.xNum];
 				rows = event.yNum.length ? event.yNum : [event.yNum];
 				// remember selected coords
 				Self.selected = { xNum: event.xNum, yNum: event.yNum };
-
+				// table tool columns
 				Self.els.cols.find(".active").removeClass("active");
 				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));
-
+				// table tool rows
 				Self.els.rows.find(".active").removeClass("active");
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
-				break;
-			case "re-sync-selection":
-			case "select-cell":
-				anchor = event.anchor || Self.anchor;
-				table = anchor.parents(".tbl-root:first");
-				offset = APP.popups.getOffset(anchor[0], table[0]);
-				Self.els.selection.addClass("show").css(offset);
 
-				// save anchor reference
-				Self.anchor = anchor;
+				// clear selected cell className(s)
+				Table.grid.table.find(".anchor, .selected").removeClass("anchor selected");
+				// selection box dimensions
+				data = {
+					top: 1e5,
+					left: 1e5,
+					width: -1e2,
+					height: -1e2,
+				};
+				// set selected cell className(s)
+				rows.map(y => {
+					cols.map(x => {
+						let td = Table.grid.rows[y][x],
+							top = td.offsetTop - 2,
+							left = td.offsetLeft - 2,
+							height = top + td.offsetHeight + 5,
+							width = left + td.offsetWidth + 5,
+							el = $(td);
+						el.addClass("selected");
+						if (data.top > top) data.top = top;
+						if (data.left > left) data.left = left;
+						if (data.height < height) data.height = height;
+						if (data.width < width) data.width = width;
+						if (!event.anchor) event.anchor = el;
+					});
+				});
+				// UI indicate anchor cell
+				event.anchor.addClass("anchor");
+				// adjust width + height down
+				data.height -= data.top;
+				data.width -= data.left;
+				Self.els.selection.addClass("show").css(data);
 				break;
+			// case "select-cell":
+			// 	anchor = event.anchor || Self.anchor;
+			// 	table = anchor.parents(".tbl-root:first");
+			// 	offset = APP.popups.getOffset(anchor[0], table[0]);
+			// 	Self.els.selection.addClass("show").css(offset);
+
+			// 	// save anchor reference
+			// 	Self.anchor = anchor;
+			// 	break;
 			case "select-columns":
 			case "select-rows":
 				console.log(event);
