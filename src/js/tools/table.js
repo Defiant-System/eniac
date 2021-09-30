@@ -93,6 +93,11 @@
 				Self.els.root.removeClass("hidden");
 				break;
 			case "blur-table":
+				// reset current table, if any
+				if (Self.table.el) {
+					Self.table.el.find(".anchor, .selected").removeClass("anchor selected");
+				}
+
 				Self.table = {};
 				Self.els.root.addClass("hidden");
 				break;
@@ -196,7 +201,7 @@
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
 
 				// clear selected cell className(s)
-				Table.grid.table.find(".anchor, .selected").removeClass("anchor selected");
+				Table.el.find(".anchor, .selected").removeClass("anchor selected");
 				// selection box dimensions
 				data = {
 					top: 1e5,
