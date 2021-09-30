@@ -19,12 +19,12 @@ class File {
 			/* white-table-1    */
 
 			html = "";
-			// html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
+			html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
 			html += window.render({ template: "xl-table", match: `//Table[@id="temp-1"]` });
-			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-2"]` });
-			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
+			html += window.render({ template: "xl-table", match: `//Table[@id="temp-2"]` });
+			html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
 
-			html += window.render({ template: "xl-text", match: `//Text[@id="temp-text-1"]` });
+			// html += window.render({ template: "xl-text", match: `//Text[@id="temp-text-1"]` });
 			// html += window.render({ template: "xl-image", match: `//Image[@id="temp-image-1"]` });
 
 			// svg's

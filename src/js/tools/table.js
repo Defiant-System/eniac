@@ -23,6 +23,15 @@
 		this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
 		// this.els.resizes.on("mousedown", this.resizeClip);
 		// this.els.move.on("mousedown", this.move);
+
+		// temp
+		setTimeout(() => {
+			this.dispatch({
+				type: "select-coords",
+				yNum: [4],
+				xNum: [2],
+			});
+		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -633,7 +642,7 @@
 						return {
 							index,
 							left: rect.x - offset.left,
-							right: rect.x + rect.width - offset.left,
+							right: rect.right - offset.left,
 						};
 					}),
 					rows = table.rows.map((item, index) => {
@@ -641,12 +650,9 @@
 						return {
 							index,
 							top: rect.y - offset.top,
-							bottom: rect.y + rect.height - offset.top,
+							bottom: rect.bottom - offset.top,
 						};
 					});
-
-				console.log( offset );
-				return console.log( cells, rows );
 
 				// create drag object
 				Self.drag = {
@@ -673,12 +679,12 @@
 					xNum;
 
 				if (height < 0) {
-					top = event.clientY - Drag.clickY + Drag.offset.top;
-					Drag.grid.filterY = Drag.grid.y.filter(b => b.top > top);
-					top = Math.min(...Drag.grid.filterY.map(b => b.top));
-					height = Drag.offset.top + Drag.offset.height - top;
-					// get columns to be highlighted
-					yNum = [Drag.rowIndex, ...Drag.grid.filterY.map(b => b.index).filter(i => i < Drag.rowIndex)];
+					// top = event.clientY - Drag.clickY + Drag.offset.top;
+					// Drag.grid.filterY = Drag.grid.y.filter(b => b.top > top);
+					// top = Math.min(...Drag.grid.filterY.map(b => b.top));
+					// height = Drag.offset.top + Drag.offset.height - top;
+					// // get columns to be highlighted
+					// yNum = [Drag.rowIndex, ...Drag.grid.filterY.map(b => b.index).filter(i => i < Drag.rowIndex)];
 				} else {
 					Drag.grid.filterY = Drag.grid.y.filter(b => b.bottom < height);
 					height = Math.max(...Drag.grid.filterY.map(b => b.bottom));
@@ -687,12 +693,12 @@
 				}
 
 				if (width < 0) {
-					left = event.clientX - Drag.clickX + Drag.offset.left;
-					Drag.grid.filterX = Drag.grid.x.filter(b => b.left > left);
-					left = Math.min(...Drag.grid.filterX.map(b => b.left));
-					width = Drag.offset.left + Drag.offset.width - left;
-					// get rows to be highlighted
-					xNum = [Drag.cellIndex, ...Drag.grid.filterX.map(b => b.index).filter(i => i < Drag.cellIndex)];
+					// left = event.clientX - Drag.clickX + Drag.offset.left;
+					// Drag.grid.filterX = Drag.grid.x.filter(b => b.left > left);
+					// left = Math.min(...Drag.grid.filterX.map(b => b.left));
+					// width = Drag.offset.left + Drag.offset.width - left;
+					// // get rows to be highlighted
+					// xNum = [Drag.cellIndex, ...Drag.grid.filterX.map(b => b.index).filter(i => i < Drag.cellIndex)];
 				} else {
 					Drag.grid.filterX = Drag.grid.x.filter(b => b.right < width);
 					width = Math.max(...Drag.grid.filterX.map(b => b.right));
@@ -700,7 +706,8 @@
 					xNum = [Drag.cellIndex, ...Drag.grid.filterX.map(b => b.index).filter(i => i > Drag.cellIndex)];
 				}
 
-				console.log( yNum, xNum );
+				// make tool columns + rows active
+				Self.dispatch({ type: "select-coords", yNum, xNum });
 				break;
 			case "mouseup":
 				// uncover layout
@@ -728,8 +735,6 @@
 						x: sheet.prop("offsetLeft"),
 					},
 					guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: {
 							el: sheet[0],
 							w: sheet.width(),

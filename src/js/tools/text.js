@@ -63,8 +63,6 @@
 						y: event.clientY - offset.y,
 					},
 					guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: {
 							el: text[0],
 							w: el.prop("offsetWidth"),

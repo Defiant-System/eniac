@@ -2,11 +2,28 @@
 class Guides {
 	constructor(opt={}) {
 		// reference to root application
-		let APP = eniac;
+		let APP = eniac,
+			opts = {
+				// default selector & context
+				selector: opt.selector || ".xl-table, .xl-shape, .xl-image, .xl-text",
+				context: opt.context || "content .body",
+				// offsets origo
+				x: 0,
+				y: 0,
+				// offsets guide line
+				w: 0,
+				h: 0,
+				mh: opt.offset.h >> 1 || 0,
+				mw: opt.offset.w >> 1 || 0,
+				// snap sensitivity
+				sensitivity: APP.Settings["guides-snap-sensitivity"] || 7,
+				// override defaults, if any
+				...opt.offset,
+			};
 		// default properties
 		this.els = [];
 		// selector = "#shape-rounded";
-		window.find(opt.selector, opt.context).map(elem => {
+		window.find(opts.selector, opts.context).map(elem => {
 				let el = $(elem),
 					y = parseInt(el.css("top"), 10),
 					x = parseInt(el.css("left"), 10),
@@ -14,11 +31,10 @@ class Guides {
 					h = parseInt(el.css("height"), 10),
 					mh = h >> 1,
 					mw = w >> 1;
-				if (!isNaN(y) && !isNaN(x) && elem !== opt.offset.el) {
+				if (!isNaN(y) && !isNaN(x) && elem !== opts.el) {
 					this.els.push({ y, x, w, h, mh, mw });
 				}
 			});
-
 		// add guide line element to "this"
 		this.lines = {
 			horizontal: window.find(".guide-lines .horizontal"),
@@ -26,20 +42,7 @@ class Guides {
 			diagonal: window.find(".guide-lines .diagonal"),
 		};
 		// add guide line element to "this"
-		this.opts = {
-			// offsets origo
-			x: 0,
-			y: 0,
-			// offsets guide line
-			w: 0,
-			h: 0,
-			mh: opt.offset.h >> 1 || 0,
-			mw: opt.offset.w >> 1 || 0,
-			// snap sensitivity
-			sensitivity: APP.Settings["guides-snap-sensitivity"] || 7,
-			// override defaults, if any
-			...opt.offset,
-		};
+		this.opts = opts;
 	}
 
 	snapDim(d) {

@@ -271,8 +271,6 @@
 				let shape = Self.shape,
 					rect = event.target.getBoundingClientRect(),
 					guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: {
 							el: shape[0],
 							w: rect.width,
@@ -342,8 +340,6 @@
 						rx: +shape.attr("rx"),
 					},
 					guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: { el: svg[0], ...offset, type }
 					});
 				// create drag object
@@ -440,8 +436,6 @@
 				}
 
 				let guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: {
 							el: Self.shape[0],
 							y: +pEl.prop("offsetTop") + 2,
@@ -580,8 +574,6 @@
 					click.i = +el.data("i") - 1;
 					// prepare guides
 					guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: {
 							el: Self.shape[0],
 							x: +pEl.prop("offsetLeft") + 2,

@@ -58,6 +58,17 @@ const Cursor = {
 				break;
 			case "blur-table":
 				break;
+			case "re-sync-selection":
+			case "select-cell":
+				anchor = event.anchor || Self.anchor;
+				table = anchor.parents(".tbl-root:first");
+
+				offset = Self.getOffset(anchor[0], table[0]);
+				Self.els.root.addClass("show").css(offset);
+
+				// save anchor reference
+				Self.anchor = anchor;
+				break;
 		}
 	},
 	getOffset(el, pEl) {
