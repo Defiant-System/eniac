@@ -26,14 +26,11 @@
 
 		// temp
 		setTimeout(() => {
-			let table = window.find(".xl-table:nth(0)");
-			this.dispatch({ type: "focus-table", table });
+			this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
+			this.dispatch({ type: "select-coords", xNum: [2], yNum: [10, 11] });
 
-			this.dispatch({
-				type: "select-coords",
-				xNum: [2],
-				yNum: [10, 11],
-			});
+			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(3)") });
+			// this.els.cols.find("td:nth(1)").trigger("click");
 		}, 400);
 	},
 	dispatch(event) {
@@ -213,10 +210,11 @@
 				rows.map(y => {
 					cols.map(x => {
 						let td = Table.grid.rows[y][x],
-							top = td.offsetTop - 2,
-							left = td.offsetLeft - 2,
-							height = top + td.offsetHeight + 5,
-							width = left + td.offsetWidth + 5,
+							offset = Table.grid.getOffset(td),
+							top = offset.top - 2,
+							left = offset.left - 2,
+							height = top + offset.height + 5,
+							width = left + offset.width + 5,
 							el = $(td);
 
 						el.addClass("selected");
@@ -224,7 +222,7 @@
 						if (data.left > left) data.left = left;
 						if (data.width < width) data.width = width;
 						if (data.height < height) data.height = height;
-						if (y === Table.grid.rows.length-1) data.height -= 1;
+						// if (y === Table.grid.rows.length-1) data.height -= 1;
 						if (!event.anchor) event.anchor = el;
 					});
 				});
@@ -235,23 +233,14 @@
 				data.width -= data.left;
 				Self.els.selection.addClass("show").css(data);
 				break;
-			// case "select-cell":
-			// 	anchor = event.anchor || Self.anchor;
-			// 	table = anchor.parents(".tbl-root:first");
-			// 	offset = APP.popups.getOffset(anchor[0], table[0]);
-			// 	Self.els.selection.addClass("show").css(offset);
-
-			// 	// save anchor reference
-			// 	Self.anchor = anchor;
-			// 	break;
 			case "select-columns":
-				xNum = [$(event.target).index()];
+				xNum = [Self.table.toolGrid.getColIndex(event.target)];
 				yNum = Self.table.grid.rows.map((item, index) => index);
 				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
 			case "select-rows":
 				xNum = Self.table.grid.rows[0].map((item, index) => index);
-				yNum = [$(event.target).parent().index()];
+				yNum = [Self.table.toolGrid.getRowIndex(event.target)];
 				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
 		}
@@ -323,6 +312,15 @@
 								if (row[x] === td) return [y, x];
 							}
 						}
+					},
+					getOffset(td) {
+						let rect1 = td.getBoundingClientRect(),
+							rect2 = this.table[0].getBoundingClientRect(),
+							top = Math.floor(rect1.top - rect2.top),
+							left = Math.floor(rect1.left - rect2.left),
+							width = rect1.width,
+							height = rect1.height;
+						return { top, left, width, height };
 					},
 					get width() {
 						return this.table.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0);
