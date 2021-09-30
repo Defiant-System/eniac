@@ -178,9 +178,7 @@
 		</Body>
 		<Foot>
 			<Table/>
-			<Table>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-			</Table>
+			<Table/>
 		</Foot>
 	</Table>
 </Data>
