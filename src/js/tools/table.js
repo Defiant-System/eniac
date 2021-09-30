@@ -31,8 +31,8 @@
 
 			this.dispatch({
 				type: "select-coords",
-				xNum: [1, 2],
-				yNum: [4, 5],
+				xNum: [2],
+				yNum: [10, 11],
 			});
 		}, 400);
 	},
@@ -213,11 +213,13 @@
 							height = top + td.offsetHeight + 5,
 							width = left + td.offsetWidth + 5,
 							el = $(td);
+
 						el.addClass("selected");
 						if (data.top > top) data.top = top;
 						if (data.left > left) data.left = left;
-						if (data.height < height) data.height = height;
 						if (data.width < width) data.width = width;
+						if (data.height < height) data.height = height;
+						if (y === Table.grid.rows.length-1) data.height -= 1;
 						if (!event.anchor) event.anchor = el;
 					});
 				});
@@ -238,13 +240,14 @@
 			// 	Self.anchor = anchor;
 			// 	break;
 			case "select-columns":
-				Self.dispatch({
-					type: "select-coords",
-					xNum: [3],
-					yNum: [1,2,3,4,5,6],
-				});
+				xNum = [$(event.target).index()];
+				yNum = Self.table.grid.rows.map((item, index) => index);
+				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
 			case "select-rows":
+				xNum = Self.table.grid.rows[0].map((item, index) => index);
+				yNum = [$(event.target).parent().index()];
+				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
 		}
 	},
