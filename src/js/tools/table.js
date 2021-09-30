@@ -238,8 +238,13 @@
 			// 	Self.anchor = anchor;
 			// 	break;
 			case "select-columns":
+				Self.dispatch({
+					type: "select-coords",
+					xNum: [3],
+					yNum: [1,2,3,4,5,6],
+				});
+				break;
 			case "select-rows":
-				console.log(event);
 				break;
 		}
 	},
