@@ -115,8 +115,12 @@
 		<Foot>
 			<Table>
 				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
 			</Table>
 			<Table>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Foot>
@@ -124,8 +128,12 @@
 
 	<Table id="temp-2" title="Clipped (No Column)" class="blue-table-2 clipped1 temp-2">
 		<Head>
-			<Table/>
-			<Table/>
+			<Table>
+				<Row><Cell/></Row>
+			</Table>
+			<Table>
+				<Row><Cell/><Cell/><Cell/></Row>
+			</Table>
 		</Head>
 		<Body>
 			<Table>

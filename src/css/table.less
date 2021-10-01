@@ -38,17 +38,17 @@ table {
 		left: 480px;
 		// top: 340px;
 		// left: 100px;
-
-		.tbl-root1 {
-			// constrain dimensions
-			width: 361px;
-			height: 251px;
-		}
 	}
 
 	&.temp-3 {
 		top: 50px;
 		left: 480px;
+	}
+
+	&.clipped .tbl-root {
+		// constrain dimensions
+		width: 361px;
+		height: 211px;
 	}
 
 	&:after {
@@ -199,8 +199,12 @@ table {
 					border-right: 0;
 				}
 
-				tr:last-child td {
-					border-bottom: 0;
+				tr:last-child {
+					// height: 24px;
+
+					td {
+						border-bottom: 0;
+					}
 				}
 			}
 
@@ -233,12 +237,16 @@ table {
 				table:after {
 					content: "";
 					position: absolute;
-					top: 0;
+					top: -1px;
 					left: 0;
 					right: 0;
 					height: 0;
 					z-index: 2;
 					border-top: 1px solid @table_border;
+				}
+
+				tr:first-child {
+					// height: 26px;
 				}
 
 				tr:last-child td {

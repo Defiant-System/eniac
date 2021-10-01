@@ -31,7 +31,7 @@
 			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
 			// this.dispatch({ type: "select-coords", xNum: [2], yNum: [10, 11] });
 
-			this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(2)") });
+			this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(3)") });
 			this.els.cols.find("td:nth(1)").trigger("click");
 		}, 400);
 	},
