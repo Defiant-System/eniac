@@ -38,7 +38,7 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools.table,
-			Table = Self.table,
+			Tbl = Self.table,
 			top, left, width, height,
 			grid, cols, rows, data,
 			table, anchor, offset,
@@ -52,17 +52,17 @@
 			// native events
 			case "scroll":
 				el = $(event.target);
-				Table = el.parents(".xl-table:first");
+				Tbl = el.parents(".xl-table:first");
 				top = -event.target.scrollTop;
 				left = -event.target.scrollLeft;
 				
 				// vertical sync
-				Table.find(`.tbl-col-head > div:nth(1) table,
+				Tbl.find(`.tbl-col-head > div:nth(1) table,
 							.tbl-col-foot > div:nth(1) table`).css({ left });
 				// horizontal sync
-				Table.find(".tbl-body div:nth-child(1) table").css({ top });
+				Tbl.find(".tbl-body div:nth-child(1) table").css({ top });
 
-				if (!Table.isSame(Self.table.el)) return;
+				if (!Tbl.isSame(Self.table.el)) return;
 
 				// tool cols + rows
 				Self.els.cols.find("> div:nth-child(2) table").css({ left });
@@ -104,6 +104,10 @@
 				el = event.table;
 				// zip table cells ordered
 				grid = Self.grid.table(el);
+				console.log( grid.height );
+
+				let tmp = new Table(el);
+				console.log( tmp.height );
 
 				Self.table = {
 					el,
@@ -115,13 +119,13 @@
 				APP.tools.active = "table";
 				break;
 			case "sync-tools-dim":
-				top = Table.el.prop("offsetTop");
-				left = Table.el.prop("offsetLeft");
-				width = Table.el.prop("offsetWidth");
-				height = Table.el.prop("offsetHeight");
+				top = Tbl.el.prop("offsetTop");
+				left = Tbl.el.prop("offsetLeft");
+				width = Tbl.el.prop("offsetWidth");
+				height = Tbl.el.prop("offsetHeight");
 				Self.els.root.css({ top, left, width, height });
 
-				el = Table.el.find(".table-title");
+				el = Tbl.el.find(".table-title");
 				top = (el.prop("offsetHeight") + parseInt(el.css("margin-bottom"), 10));
 				top = isNaN(top) ? 0 : top;
 				Self.els.rows.css({ "--rows-top": `${top}px` });
@@ -198,7 +202,7 @@
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
 
 				// clear selected cell className(s)
-				Table.el.find(".anchor, .selected").removeClass("anchor selected");
+				Tbl.el.find(".anchor, .selected").removeClass("anchor selected");
 				// selection box dimensions
 				data = {
 					top: 1e5,
@@ -209,8 +213,8 @@
 				// set selected cell className(s)
 				rows.map(y => {
 					cols.map(x => {
-						let td = Table.grid.rows[y][x],
-							offset = Table.grid.getOffset(td),
+						let td = Tbl.grid.rows[y][x],
+							offset = Tbl.grid.getOffset(td),
 							top = offset.top - 2,
 							left = offset.left - 2,
 							height = top + offset.height + 5,
@@ -222,7 +226,7 @@
 						if (data.left > left) data.left = left;
 						if (data.width < width) data.width = width;
 						if (data.height < height) data.height = height;
-						// if (y === Table.grid.rows.length-1) data.height -= 1;
+						// if (y === Tbl.grid.rows.length-1) data.height -= 1;
 						if (!event.anchor) event.anchor = el;
 					});
 				});
@@ -246,33 +250,6 @@
 		}
 	},
 	grid: {
-		tools() {
-			let Els = eniac.tools.table.els,
-				grid = {
-					rows: [...Els.rows.find("td")],
-					cols: [],
-					getRow(y) {
-						return $(this.rows[y]);
-					},
-					getCol(x) {
-						return $(this.cols[x]);
-					},
-					getRowIndex(td) {
-						return this.rows.indexOf(td);
-					},
-					getColIndex(td) {
-						return this.cols.indexOf(td);
-					}
-				},
-				// col head rows
-				r1 = Els.cols.find("> div:nth-child(1) tr"),
-				r2 = Els.cols.find("> div:nth-child(2) tr");
-			
-			if (r1.length) r1.map((row, i) => grid.cols.push(...$("td", row), ...r2.get(i).find("td")));
-			else r2.map((row, i) => grid.cols.push(...$("td", row)));
-
-			return grid;
-		},
 		table(table) {
 			let r1, r2,
 				grid = {

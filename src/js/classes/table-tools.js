@@ -12,13 +12,8 @@ class TableTools {
 			r1 = colEl.find("> div:nth-child(1) tr"),
 			r2 = colEl.find("> div:nth-child(2) tr"),
 			cols = [];
-
-		if (r1.length) {
-			r1.map((row, i) => cols.push(...$("td", row), ...r2.get(i).find("td")));
-		} else {
-			r2.map((row, i) => cols.push(...$("td", row)));
-		}
-
+		if (r1.length) r1.map((row, i) => cols.push(...$("td", row), ...r2.get(i).find("td")));
+		else r2.map((row, i) => cols.push(...$("td", row)));
 		return cols;
 	}
 	
