@@ -314,6 +314,10 @@
 						table tr:first-child td {
 							border-top-left-radius: 0;
 							border-top-right-radius: 0;
+
+							&:after {
+								top: 0;
+							}
 						}
 					}
 				}
@@ -328,6 +332,10 @@
 							border-bottom: 0;
 							border-bottom-left-radius: 0;
 							border-bottom-right-radius: 0;
+
+							&:after {
+								border-bottom: 0;
+							}
 						}
 					}
 
@@ -336,6 +344,7 @@
 
 						&:before {
 							display: block;
+							top: -1px;
 						}
 
 						table tr:last-child td {
@@ -359,7 +368,7 @@
 						right: 0;
 						height: 1px;
 						z-index: 2;
-						border-bottom: 1px solid lighten(@table_border, 13%);
+						border-bottom: 1px solid darken(#d6e6fb, 7%);
 					}
 
 					tr:last-child td {

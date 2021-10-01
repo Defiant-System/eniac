@@ -115,12 +115,8 @@
 		<Foot>
 			<Table>
 				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
 			</Table>
 			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/></Row>
 			</Table>
 		</Foot>
