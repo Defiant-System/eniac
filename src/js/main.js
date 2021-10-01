@@ -1,6 +1,6 @@
 
-@import "classes/table.js"
-@import "classes/table-tools.js"
+@import "classes/grid.js"
+@import "classes/grid-tools.js"
 @import "classes/guides.js"
 @import "classes/file.js"
 @import "modules/color.js"

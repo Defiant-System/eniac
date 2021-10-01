@@ -1,5 +1,5 @@
 
-class Table {
+class Grid {
 	constructor(el) {
 		this._el = el;
 	}

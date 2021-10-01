@@ -16,7 +16,7 @@
 			resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
 		};
 		// instantiate table tools
-		this.tblTools = new TableTools();
+		this.gridTools = new GridTools();
 		// placeholder
 		this.table = {};
 
@@ -38,7 +38,7 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools.table,
-			Tbl = Self.table,
+			Table = Self.grid,
 			top, left, width, height,
 			grid, cols, rows, data,
 			table, anchor, offset,
@@ -52,17 +52,17 @@
 			// native events
 			case "scroll":
 				el = $(event.target);
-				Tbl = el.parents(".xl-table:first");
+				Table = el.parents(".xl-table:first");
 				top = -event.target.scrollTop;
 				left = -event.target.scrollLeft;
 				
 				// vertical sync
-				Tbl.find(`.tbl-col-head > div:nth(1) table,
+				Table.find(`.tbl-col-head > div:nth(1) table,
 							.tbl-col-foot > div:nth(1) table`).css({ left });
 				// horizontal sync
-				Tbl.find(".tbl-body div:nth-child(1) table").css({ top });
+				Table.find(".tbl-body div:nth-child(1) table").css({ top });
 
-				if (!Tbl.isSame(Self.table.el)) return;
+				if (!Table.isSame(Table._el)) return;
 
 				// tool cols + rows
 				Self.els.cols.find("> div:nth-child(2) table").css({ left });
@@ -76,7 +76,7 @@
 				// focus clicked table
 				Self.dispatch({ type: "focus-table", table });
 
-				[yNum, xNum] = Self.table.grid.getCoord(anchor[0]);
+				[yNum, xNum] = Self.grid.getCoord(anchor[0]);
 				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum], anchor });
 				break;
 			case "blur-cell":
@@ -93,50 +93,39 @@
 				break;
 			case "blur-table":
 				// reset current table, if any
-				if (Self.table.el) {
-					Self.table.el.find(".anchor, .selected").removeClass("anchor selected");
+				if (Self.grid._el) {
+					Self.grid._el.find(".anchor, .selected").removeClass("anchor selected");
 				}
 
-				Self.table = {};
+				Self.grid = {};
 				Self.els.root.addClass("hidden");
 				break;
 			case "set-table":
 				el = event.table;
 				// zip table cells ordered
-				grid = Self.grid.table(el);
-				console.log( grid.height );
-
-				let tmp = new Table(el);
-				console.log( tmp.height );
-
-				Self.table = {
-					el,
-					grid,
-					colNum: grid.getRowCells(0).length,
-					rowNum: grid.rows.length,
-				};
+				Self.grid = new Grid(el);
 				// update active tool type
 				APP.tools.active = "table";
 				break;
 			case "sync-tools-dim":
-				top = Tbl.el.prop("offsetTop");
-				left = Tbl.el.prop("offsetLeft");
-				width = Tbl.el.prop("offsetWidth");
-				height = Tbl.el.prop("offsetHeight");
+				top = Table._el.prop("offsetTop");
+				left = Table._el.prop("offsetLeft");
+				width = Table._el.prop("offsetWidth");
+				height = Table._el.prop("offsetHeight");
 				Self.els.root.css({ top, left, width, height });
 
-				el = Tbl.el.find(".table-title");
+				el = Table._el.find(".table-title");
 				top = (el.prop("offsetHeight") + parseInt(el.css("margin-bottom"), 10));
 				top = isNaN(top) ? 0 : top;
 				Self.els.rows.css({ "--rows-top": `${top}px` });
 				break;
 			case "sync-table-tools":
-				// if (event.table && Self.table && event.table.isSame(Self.table.el)) return;
+				// if (event.table && Self.grid && event.table.isSame(Self.grid._el)) return;
 				Self.dispatch({ ...event, type: "set-table" });
 				Self.dispatch({ ...event, type: "sync-tools-dim" });
 
 				// toggle between "clip" resizers
-				if (Self.table.el.hasClass("clipped")) Self.els.root.addClass("clip");
+				if (Self.grid._el.hasClass("clipped")) Self.els.root.addClass("clip");
 				else Self.els.root.removeClass("clip");
 
 				let toolCols = Self.els.cols.find("> div").html(""),
@@ -146,9 +135,9 @@
 				/*
 				 * tools columns
 				 */
-				cols = Self.table.el.find(".tbl-col-head > div");
+				cols = Self.grid._el.find(".tbl-col-head > div");
 				if (!cols.length || !cols.find("tr:nth(0) td").length) {
-					cols = Self.table.el.find(".tbl-body > div");
+					cols = Self.grid._el.find(".tbl-body > div");
 				}
 				// populate tool columns
 				cols.map((el, i) => {
@@ -168,9 +157,9 @@
 				/*
 				 * tools rows
 				 */
-				rows = Self.table.el.find(".tbl-root > div > div:nth-child(1)");
+				rows = Self.grid._el.find(".tbl-root > div > div:nth-child(1)");
 				if (!rows.find("tr").length) {
-					rows = Self.table.el.find(".tbl-root > div > div:nth-child(2)");
+					rows = Self.grid._el.find(".tbl-root > div > div:nth-child(2)");
 				}
 				// populate tool rows
 				rows.map((el, i) => {
@@ -202,7 +191,7 @@
 				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
 
 				// clear selected cell className(s)
-				Tbl.el.find(".anchor, .selected").removeClass("anchor selected");
+				Table._el.find(".anchor, .selected").removeClass("anchor selected");
 				// selection box dimensions
 				data = {
 					top: 1e5,
@@ -213,8 +202,8 @@
 				// set selected cell className(s)
 				rows.map(y => {
 					cols.map(x => {
-						let td = Tbl.grid.rows[y][x],
-							offset = Tbl.grid.getOffset(td),
+						let td = Table.rows[y][x],
+							offset = Table.getOffset(td),
 							top = offset.top - 2,
 							left = offset.left - 2,
 							height = top + offset.height + 5,
@@ -226,7 +215,7 @@
 						if (data.left > left) data.left = left;
 						if (data.width < width) data.width = width;
 						if (data.height < height) data.height = height;
-						// if (y === Tbl.grid.rows.length-1) data.height -= 1;
+						// if (y === Table.rows.length-1) data.height -= 1;
 						if (!event.anchor) event.anchor = el;
 					});
 				});
@@ -238,126 +227,15 @@
 				Self.els.selection.addClass("show").css(data);
 				break;
 			case "select-columns":
-				xNum = [Self.tblTools.getColIndex(event.target)];
-				yNum = Self.table.grid.rows.map((item, index) => index);
+				xNum = [Self.gridTools.getColIndex(event.target)];
+				yNum = Self.grid.rows.map((item, index) => index);
 				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
 			case "select-rows":
-				xNum = Self.table.grid.rows[0].map((item, index) => index);
-				yNum = [Self.tblTools.getRowIndex(event.target)];
+				xNum = Self.grid.rows[0].map((item, index) => index);
+				yNum = [Self.gridTools.getRowIndex(event.target)];
 				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
-		}
-	},
-	grid: {
-		table(table) {
-			let r1, r2,
-				grid = {
-					table,
-					layout: {
-						rows: {},
-						cols: {},
-					},
-					rows: [],
-					cells: [],
-					getRow(y) {
-						return $(this.rows[y]);
-					},
-					getRowCells(y) {
-						return $(this.rows[y]);
-					},
-					getCoordCell(y, x) {
-						return $(this.getRowCells(y)[x]);
-					},
-					getCoordRow(y) {
-						let found = [];
-						if (this.layout.cols.head > 0) found.push(this.getRowCells(y)[0]);
-						if (this.layout.cols.body > 0) found.push(this.getRowCells(y)[this.layout.cols.head]);
-						return $(found);
-					},
-					getCoordCol(x) {
-						let found = [];
-						if (this.layout.rows.head > 0) found.push(this.getRowCells(0)[x]);
-						if (this.layout.rows.body > 0) found.push(this.getRowCells(this.layout.rows.head)[x]);
-						if (this.layout.rows.foot > 0) found.push(this.getRowCells(this.layout.rows.head + this.layout.rows.body)[x]);
-						return $(found);
-					},
-					getCoord(td) {
-						for (let y=0, yl=this.rows.length; y<yl; y++) {
-							let row = this.rows[y];
-							for (let x=0, xl=row.length; x<xl; x++) {
-								if (row[x] === td) return [y, x];
-							}
-						}
-					},
-					getOffset(td) {
-						let rect1 = td.getBoundingClientRect(),
-							rect2 = this.table[0].getBoundingClientRect(),
-							top = Math.floor(rect1.top - rect2.top),
-							left = Math.floor(rect1.left - rect2.left),
-							width = rect1.width,
-							height = rect1.height;
-						return { top, left, width, height };
-					},
-					get width() {
-						return this.table.find(".tbl-body > div > table").reduce((acc, el) => acc + el.offsetWidth, 0);
-					},
-					get height() {
-						return this.table.find(".tbl-root div > div:nth-child(2) > table").reduce((acc, el) => acc + el.offsetHeight, 0);
-					},
-					get dimension() {
-						let rows = this.layout.rows.head + this.layout.rows.body + this.layout.rows.foot,
-							cols = this.layout.cols.head + this.layout.cols.body,
-							min = { rows: 0, cols: 0, height: 0, width: 0 };
-						this.rows.map((tr, y) => {
-							let s = false;
-							tr.map((td, x) => {
-								s = !!td.innerHTML;
-								if (s) {
-									min.width = Math.max(min.width, td.offsetLeft + td.offsetWidth);
-									min.height = Math.max(min.height, td.offsetTop + td.offsetHeight);
-									min.rows = Math.max(min.rows, y+1);
-									min.cols = Math.max(min.cols, x+1);
-								}
-							});
-						});
-						return { rows, cols, min };
-					}
-				};
-			// col head rows
-			r1 = table.find(".tbl-col-head > div:nth-child(1) tr");
-			r2 = table.find(".tbl-col-head > div:nth-child(2) tr");
-			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
-			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
-			// column layout info
-			grid.layout.rows.head = r1.length || r2.length;
-
-			// col body rows
-			r1 = table.find(".tbl-body > div:nth-child(1) tr");
-			r2 = table.find(".tbl-body > div:nth-child(2) tr");
-			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
-			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
-			// column layout info
-			grid.layout.rows.body = r1.length || r2.length;
-			grid.layout.cols.head = r1.length ? r1.get(0).find("td").length : 0;
-			grid.layout.cols.body = r2.get(0).find("td").length;
-
-			// all cells
-			grid.cells.push(...table.find(".tbl-col-head td"));
-			r1.map((row, i) => {
-				grid.cells.push( ...$("td", row) );
-				grid.cells.push( ...r2.get(i).find("td") );
-			});
-			grid.cells.push(...table.find(".tbl-col-foot td"));
-			// col foot rows
-			r1 = table.find(".tbl-col-foot > div:nth-child(1) tr");
-			r2 = table.find(".tbl-col-foot > div:nth-child(2) tr");
-			if (r1.length) r1.map((row, i) => grid.rows.push([...$("td", row), ...r2.get(i).find("td")]));
-			else r2.map((row, i) => grid.rows.push([...$("td", row)]));
-			// column layout info
-			grid.layout.rows.foot = r1.length || r2.length;
-
-			return grid;
 		}
 	},
 	resizeColRow(event) {
@@ -382,18 +260,18 @@
 					};
 					// identify if "column" or "row"
 					if (event.offsetX > event.target.offsetWidth) {
-						index = Self.table.toolGrid.getColIndex(el[0]);
+						index = Self.gridTools.getColIndex(el[0]);
 
 						Self.drag.el = el;
 						Self.drag.tblWidth = tbl.prop("offsetWidth");
-						Self.drag.tblCol = Self.table.grid.getCoordCol(index);
+						Self.drag.tblCol = Self.grid.getCoordCol(index);
 						Self.drag.ttWidth = Self.drag.root[0].getBoundingClientRect().width;
 						Self.drag.colWidth = Self.drag.el[0].getBoundingClientRect().width;
 					} else if (event.offsetX < 0) {
-						index = Self.table.toolGrid.getRowIndex(el[0]);
+						index = Self.gridTools.getRowIndex(el[0]);
 
 						Self.drag.el = el.parent();
-						Self.drag.tblRow = Self.table.grid.getCoordRow(index).parent();
+						Self.drag.tblRow = Self.grid.getCoordRow(index).parent();
 						Self.drag.ttHeight = Self.drag.root[0].offsetHeight;
 						Self.drag.rowHeight = Self.drag.el[0].offsetHeight;
 					}
@@ -448,7 +326,7 @@
 				Self.els.layout.addClass("cover");
 
 				let Sidebar = APP.sidebar.els.el,
-					table = Self.table.el.find(".tbl-root"),
+					table = Self.grid._el.find(".tbl-root"),
 					type = event.target.className.split(" ")[1].split("-")[0];
 
 				// create drag object
@@ -478,8 +356,8 @@
 						height: 176,
 					},
 					max: {
-						width: Self.table.grid.width,
-						height: Self.table.grid.height,
+						width: Self.grid.width,
+						height: Self.grid.height,
 					}
 				};
 
@@ -525,9 +403,9 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				let table = Self.table.el.find(".tbl-root"),
+				let table = Self.grid._el.find(".tbl-root"),
 					type = event.target.className.split(" ")[1].split("-")[0],
-					min = Self.table.grid.dimension.min,
+					min = Self.grid.dimension.min,
 					snap = { x: 90, y: 25 },
 					tbody = [
 						table.find(".tbl-col-head > div:nth-child(2) tbody"),
@@ -662,7 +540,7 @@
 						x: event.clientX - event.offsetX,
 						y: event.clientY - event.offsetY,
 					},
-					table = Self.table.grid,
+					table = Self.grid,
 					[rowIndex, cellIndex] = table.getCoord(el[0]),
 					cells = table.rows[0].map((td, index) => {
 						let rect = td.getBoundingClientRect();
@@ -755,7 +633,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 				
-				let table = Self.table.el,
+				let table = Self.grid._el,
 					el = $([table[0], Self.els.root[0]]),
 					offset = {
 						y: table.prop("offsetTop"),

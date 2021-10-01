@@ -1,5 +1,5 @@
 
-class TableTools {
+class GridTools {
 	constructor() {
 		this._el = window.find(".table-tools");
 	}
