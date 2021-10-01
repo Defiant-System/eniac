@@ -15,6 +15,8 @@
 			selection: root.find(".selection"),
 			resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
 		};
+		// instantiate table tools
+		this.tblTools = new TableTools();
 		// placeholder
 		this.table = {};
 
@@ -178,8 +180,6 @@
 				Self.els.rows
 					.removeClass("has-row-head has-row-foot")
 					.addClass(rNames.join(" "));
-				// zip tool cells
-				Self.table.toolGrid = Self.grid.tools();
 				break;
 			case "re-sync-selection":
 				event.xNum = Self.selected.xNum;
@@ -234,13 +234,13 @@
 				Self.els.selection.addClass("show").css(data);
 				break;
 			case "select-columns":
-				xNum = [Self.table.toolGrid.getColIndex(event.target)];
+				xNum = [Self.tblTools.getColIndex(event.target)];
 				yNum = Self.table.grid.rows.map((item, index) => index);
 				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
 			case "select-rows":
 				xNum = Self.table.grid.rows[0].map((item, index) => index);
-				yNum = [Self.table.toolGrid.getRowIndex(event.target)];
+				yNum = [Self.tblTools.getRowIndex(event.target)];
 				Self.dispatch({ type: "select-coords", xNum, yNum });
 				break;
 		}
