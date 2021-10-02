@@ -4,6 +4,22 @@ class Grid {
 		this._el = el;
 	}
 
+	addRow() {
+		
+	}
+
+	removeRow() {
+		
+	}
+
+	addCol() {
+		
+	}
+
+	removeCol() {
+		
+	}
+
 	get rows() {
 		let r1, r2,
 			rows = [];

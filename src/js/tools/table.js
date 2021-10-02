@@ -18,7 +18,7 @@
 		// instantiate table tools
 		this.gridTools = new GridTools();
 		// placeholder
-		this.table = {};
+		this.grid = {};
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
@@ -31,8 +31,8 @@
 			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
 			// this.dispatch({ type: "select-coords", xNum: [2], yNum: [10, 11] });
 
-			this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(1)") });
-			this.els.cols.find("td:nth(1)").trigger("click");
+			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
+			// this.els.cols.find("td:nth(1)").trigger("click");
 		}, 400);
 	},
 	dispatch(event) {
@@ -393,9 +393,7 @@
 	resizeGrid(event) {
 		let APP = eniac,
 			Self = APP.tools.table,
-			Drag = Self.gDrag,
-			add, width, height,
-			el;
+			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
 				// prevent default behaviour
@@ -403,10 +401,19 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				let table = Self.grid._el.find(".tbl-root"),
+				let el = Self.els.root,
+					table = Self.grid._el.find(".tbl-root"),
 					type = event.target.className.split(" ")[1].split("-")[0],
-					min = Self.grid.dimension.min,
+					dimMin = Self.grid.dimension.min,
 					snap = { x: 90, y: 25 },
+					min = {
+						width: Math.max(dimMin.width, snap.x * 5),
+						height: Math.max(dimMin.height, snap.y * 6),
+					},
+					click = {
+						x: event.clientX - table.prop("offsetWidth"),
+						y: event.clientY - table.prop("offsetHeight"),
+					},
 					tbody = [
 						table.find(".tbl-col-head > div:nth-child(2) tbody"),
 						table.find(".tbl-body > div:nth-child(1) tbody"),
@@ -414,29 +421,8 @@
 						table.find(".tbl-col-foot > div:nth-child(2) tbody"),
 						Self.els.cols.find("> div:nth-child(2) tbody"),
 						Self.els.rows.find("> div:nth-child(2) tbody"),
-					].map(e => e.length ? e[0] : null);
-
-				// create drag object
-				Self.gDrag = {
-					el: Self.els.root,
-					table,
-					tbody,
-					snap,
-					clickX: event.clientX,
-					clickY: event.clientY,
-					vResize: type.includes("v"),
-					hResize: type.includes("h"),
-					toolWidth: tbody[4].parentNode.offsetWidth,
-					add: { y: 0, x: 0 },
-					min: {
-						width: Math.max(min.width, snap.x * 5),
-						height: Math.max(min.height, snap.y * 6),
-					},
-					offset: {
-						width: table.prop("offsetWidth"),
-						height: table.prop("offsetHeight"),
-					},
-					addRow: body => {
+					].map(e => e.length ? e[0] : null),
+					addRow = body => {
 						let clone = body.lastChild.cloneNode(true);
 						clone.childNodes.map(cell => {
 							cell.innerHTML = "";
@@ -445,13 +431,13 @@
 						});
 						body.appendChild(clone);
 					},
-					addColumn: body => {
+					addColumn = body => {
 						let cell = body.firstChild.lastChild.cloneNode();
 						cell.innerHTML = "";
 						[...cell.attributes].map(a => cell.removeAttr(a.name));
 						body.childNodes.map(row => row.appendChild(cell.cloneNode()));
 					},
-					syncRows: (Drag, add) => {
+					syncRows = (Drag, add) => {
 						if (add.y > Drag.add.y) {
 							if (Drag.tbody[1]) Drag.addRow(Drag.tbody[1]);
 							Drag.addRow(Drag.tbody[2]);
@@ -465,7 +451,7 @@
 						}
 						Drag.add.y = add.y;
 					},
-					syncCols: (Drag, add) => {
+					syncCols = (Drag, add) => {
 						if (add.x > Drag.add.x) {
 							if (Drag.tbody[0]) Drag.addColumn(Drag.tbody[0]);
 							if (Drag.tbody[3]) Drag.addColumn(Drag.tbody[3]);
@@ -486,26 +472,44 @@
 							Drag.el.css({ width: Drag.table.prop("offsetWidth") });
 						}
 						Drag.add.x = add.x;
-					},
+					};
+
+				// create drag object
+				Self.drag = {
+					el,
+					table,
+					tbody,
+					snap,
+					click,
+					vResize: type.includes("v"),
+					hResize: type.includes("h"),
+					toolWidth: tbody[4].parentNode.offsetWidth,
+					add: { y: 0, x: 0 },
+					min,
+					addRow,
+					addColumn,
+					syncRows,
+					syncCols,
 				};
 
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
 				break;
 			case "mousemove":
-				height = Math.max(event.clientY - Drag.clickY + Drag.offset.height, Drag.min.height);
-				width = Math.max(event.clientX - Drag.clickX + Drag.offset.width, Drag.min.width);
+				let height = Math.max(event.clientY - Drag.click.y, 0),
+					width = Math.max(event.clientX - Drag.click.x, 0),
+					// calculate how much to add to table
+					add = {
+						y: Math.floor((height - Drag.min.height) / Drag.snap.y),
+						x: Math.floor((width - Drag.min.width) / Drag.snap.x),
+					};
 
-				// calculate how much to add to table
-				add = {
-					y: Math.floor((height - Drag.min.height) / Drag.snap.y),
-					x: Math.floor((width - Drag.min.width) / Drag.snap.x),
-				};
+				Drag.el.css({ height, width });
 
 				// this prevents unnecessary DOM manipulation
-				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
+				// if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
 				// this prevents unnecessary DOM manipulation
-				if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(Drag, add);
+				// if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(Drag, add);
 				break;
 			case "mouseup":
 				// uncover layout
