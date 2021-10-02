@@ -3,7 +3,7 @@ class Grid {
 	constructor(el) {
 		this._el = el;
 		// selectors
-		this.selector = {
+		this.parts = {
 			hHead: ".tbl-col-head > div:nth-child(1)",
 			hBody: ".tbl-col-head > div:nth-child(2)",
 			bHead: ".tbl-body > div:nth-child(1)",
@@ -11,12 +11,15 @@ class Grid {
 			fHead: ".tbl-col-foot > div:nth-child(1)",
 			fBody: ".tbl-col-foot > div:nth-child(2)",
 		};
-		// prepare clones
-		this.createClones("td");
+		for (let key in this.parts) {
+			let selector = this.parts[key],
+				el = this._el.find(selector);
+			this.parts[key] = { selector, el };
+		}
 
 		// temp
 		setTimeout(() => {
-			this.addRow();
+			this.addRow(2);
 		}, 500);
 
 		// setTimeout(() => {
@@ -24,37 +27,43 @@ class Grid {
 		// }, 1500);
 	}
 
-	createClones(type) {
+	createClone(body, type) {
+		let clone;
 		switch (type) {
 			case "td":
-				this._td = this._el.find("td:nth(0)").clone(true)[0];
-				this._td.innerHTML = "";
-				[...this._td.attributes].map(a => this._td.removeAttr(a.name));
-				/* falls through */
+				clone = body.find("td:nth(0)").clone(true)[0];
+				clone.innerHTML = "";
+				[...clone.attributes].map(a => clone.removeAttr(a.name));
+				break;
 			case "tr":
-				this._tr = this._el.find("tr:nth(0)").clone(true)[0];
-				this._tr.childNodes.map(cell => {
+				clone = body.find("tr:nth(0)").clone(true)[0];
+				clone.childNodes.map(cell => {
 					if (cell.nodeType === 1) {
 						cell.innerHTML = "1";
 						[...cell.attributes].map(a => cell.removeAttr(a.name));
 					}
 				});
-				[...this._tr.attributes].map(a => this._tr.removeAttr(a.name));
+				[...clone.attributes].map(a => clone.removeAttr(a.name));
 				break;
 		}
+		return clone;
 	}
 
 	addRow(n) {
 		let layout = this.layout,
 			index = n || this.rows.length - 1,
-			method = index === 0 ? "before" : "after";
-		console.log(layout);
-		this._el.find(`${this.selector.bHead} tbody tr:nth(${index})`)[method](this._tr);
-		this._el.find(`${this.selector.bBody} tbody tr:nth(${index})`)[method](this._tr);
+			method = index === 0 ? "before" : "after",
+			clone;
+
+		clone = this.createClone(this.parts.bHead.el, "tr");
+		this.parts.bHead.el.find(`tbody tr:nth(${index})`)[method](clone);
+		
+		clone = this.createClone(this.parts.bBody.el, "tr");
+		this.parts.bBody.el.find(`tbody tr:nth(${index})`)[method](clone);
 	}
 
 	removeRow() {
-		this._el.find(`${this.selector.bBody} tr:last-child`).remove();
+		this.parts.bBody.el.find(`tr:last-child`).remove();
 	}
 
 	addCol() {
@@ -69,18 +78,18 @@ class Grid {
 		let r1, r2,
 			rows = [];
 		// col head rows
-		r1 = this._el.find(`${this.selector.hHead} tr`);
-		r2 = this._el.find(`${this.selector.hBody} tr`);
+		r1 = this.parts.hHead.el.find("tr");
+		r2 = this.parts.hBody.el.find("tr");
 		if (r1.length) r1.map((row, i) => rows.push([...$("td", row), ...r2.get(i).find("td")]));
 		else r2.map((row, i) => rows.push([...$("td", row)]));
 		// col body rows
-		r1 = this._el.find(`${this.selector.bHead} tr`);
-		r2 = this._el.find(`${this.selector.bBody} tr`);
+		r1 = this.parts.bHead.el.find("tr");
+		r2 = this.parts.bBody.el.find("tr");
 		if (r1.length) r1.map((row, i) => rows.push([...$("td", row), ...r2.get(i).find("td")]));
 		else r2.map((row, i) => rows.push([...$("td", row)]));
 		// col foot rows
-		r1 = this._el.find(`${this.selector.fHead} tr`);
-		r2 = this._el.find(`${this.selector.fBody} tr`);
+		r1 = this.parts.fHead.el.find("tr");
+		r2 = this.parts.fBody.el.find("tr");
 		if (r1.length) r1.map((row, i) => rows.push([...$("td", row), ...r2.get(i).find("td")]));
 		else r2.map((row, i) => rows.push([...$("td", row)]));
 
@@ -98,18 +107,18 @@ class Grid {
 			cols = {},
 			r1, r2;
 		// col head rows
-		r1 = this._el.find(`${this.selector.hHead} tr`);
-		r2 = this._el.find(`${this.selector.hBody} tr`);
+		r1 = this.parts.hHead.el.find("tr");
+		r2 = this.parts.hBody.el.find("tr");
 		rows.head = r1.length || r2.length;
 		// col body rows
-		r1 = this._el.find(`${this.selector.bHead} tr`);
-		r2 = this._el.find(`${this.selector.bBody} tr`);
+		r1 = this.parts.bHead.el.find("tr");
+		r2 = this.parts.bBody.el.find("tr");
 		rows.body = r1.length || r2.length;
 		cols.head = r1.length ? r1.get(0).find("td").length : 0;
 		cols.body = r2.get(0).find("td").length;
 		// col foot rows
-		r1 = this._el.find(`${this.selector.fHead} tr`);
-		r2 = this._el.find(`${this.selector.fBody} tr`);
+		r1 = this.parts.fHead.el.find("tr");
+		r2 = this.parts.fBody.el.find("tr");
 		rows.foot = r1.length || r2.length;
 
 		return { rows, cols };
