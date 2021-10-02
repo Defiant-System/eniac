@@ -2,6 +2,21 @@
 class GridTools {
 	constructor() {
 		this._el = window.find(".table-tools");
+		this._cols = this._el.find(".table-cols");
+		this._rows = this._el.find(".table-rows");
+	}
+
+	syncDim(table) {
+		let top = table.prop("offsetTop"),
+			left = table.prop("offsetLeft"),
+			width = table.prop("offsetWidth"),
+			height = table.prop("offsetHeight");
+		this._el.css({ top, left, width, height });
+		// adjust for table with "title"
+		let _title = table.find(".table-title");
+		top = _title.prop("offsetHeight") + parseInt(_title.css("margin-bottom"), 10);
+		top = isNaN(top) ? 0 : top;
+		this._rows.css({ "--rows-top": `${top}px` });
 	}
 
 	addRow() {

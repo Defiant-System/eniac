@@ -122,7 +122,8 @@
 			case "sync-table-tools":
 				// if (event.table && Self.grid && event.table.isSame(Self.grid._el)) return;
 				Self.dispatch({ ...event, type: "set-table" });
-				Self.dispatch({ ...event, type: "sync-tools-dim" });
+
+				Self.gridTools.syncDim(event.table);
 
 				// toggle between "clip" resizers
 				if (Self.grid._el.hasClass("clipped")) Self.els.root.addClass("clip");
