@@ -64,19 +64,19 @@ class GridTools {
 		this._rows.removeClass("has-row-head has-row-foot").addClass(rNames.join(" "));
 	}
 
-	addRow() {
+	addRow(n, where="after") {
 		
 	}
 
-	removeRow() {
+	removeRow(n) {
 		
 	}
 
-	addCol() {
+	addCol(n, where="after") {
 		
 	}
 
-	removeCol() {
+	removeCol(n) {
 		
 	}
 

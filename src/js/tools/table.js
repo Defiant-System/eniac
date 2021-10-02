@@ -107,25 +107,11 @@
 				// update active tool type
 				APP.tools.active = "table";
 				break;
-			case "sync-tools-dim":
-				top = Table._el.prop("offsetTop");
-				left = Table._el.prop("offsetLeft");
-				width = Table._el.prop("offsetWidth");
-				height = Table._el.prop("offsetHeight");
-				Self.els.root.css({ top, left, width, height });
-
-				el = Table._el.find(".table-title");
-				top = (el.prop("offsetHeight") + parseInt(el.css("margin-bottom"), 10));
-				top = isNaN(top) ? 0 : top;
-				Self.els.rows.css({ "--rows-top": `${top}px` });
-				break;
 			case "sync-table-tools":
 				// if (event.table && Self.grid && event.table.isSame(Self.grid._el)) return;
 				Self.dispatch({ ...event, type: "set-table" });
-
 				Self.gridTools.syncDim(event.table);
 				Self.gridTools.syncRowsCols(event.table);
-				
 				break;
 			case "re-sync-selection":
 				event.xNum = Self.selected.xNum;

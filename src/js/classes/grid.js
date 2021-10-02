@@ -57,7 +57,7 @@ class Grid {
 		return clone;
 	}
 
-	addRow(n, method="after") {
+	addRow(n, where="after") {
 		let cols = this.layout.cols,
 			rows = this.layout.rows,
 			i = n !== undefined ? n : rows.head + rows.body - 1,
@@ -71,11 +71,11 @@ class Grid {
 		if (cols.head) {
 			part = this.parts[`${p}Head`];
 			clone = this.createClone(part.el, "tr");
-			part.el.find(`tbody tr:nth(${i})`)[method](clone);
+			part.el.find(`tbody tr:nth(${i})`)[where](clone);
 		}
 		part = this.parts[`${p}Body`];
 		clone = this.createClone(part.el, "tr");
-		part.el.find(`tbody tr:nth(${i})`)[method](clone);
+		part.el.find(`tbody tr:nth(${i})`)[where](clone);
 	}
 
 	removeRow(n) {
@@ -93,7 +93,7 @@ class Grid {
 		this.parts[`${p}Body`].el.find(`tr:nth(${i})`).remove();
 	}
 
-	addCol(n, method="after") {
+	addCol(n, where="after") {
 		let cols = this.layout.cols,
 			rows = this.layout.rows,
 			i = n !== undefined ? n : cols.head + cols.body - 1,
@@ -105,12 +105,12 @@ class Grid {
 			default: p = "Body"; i -= cols.head;
 		}
 		if (rows.head) {
-			this.parts[`h${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+			this.parts[`h${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[where](clone.cloneNode(true)));
 		}
 		if (rows.foot) {
-			this.parts[`f${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+			this.parts[`f${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[where](clone.cloneNode(true)));
 		}
-		this.parts[`b${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+		this.parts[`b${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[where](clone.cloneNode(true)));
 	}
 
 	removeCol(n) {
