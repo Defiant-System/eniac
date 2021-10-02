@@ -4,6 +4,22 @@ class GridTools {
 		this._el = window.find(".table-tools");
 	}
 
+	addRow() {
+		
+	}
+
+	removeRow() {
+		
+	}
+
+	addCol() {
+		
+	}
+
+	removeCol() {
+		
+	}
+
 	get rows() {
 		return [...this._el.find(".table-rows td")];
 	}
