@@ -18,23 +18,21 @@ class Grid {
 		}
 
 		// temp
+		// setTimeout(() => {
+		// 	this.addCol(1, "before");
+		// }, 500);
+
+		// setTimeout(() => {
+		// 	this.removeCol(1);
+		// }, 1500);
+
 		setTimeout(() => {
-			this.addCol(1);
+			this.addRow(4);
 		}, 500);
 
-		setTimeout(() => {
-			this.removeCol(3);
-		}, 1500);
-
-		/*
-		setTimeout(() => {
-			this.addRow(7, "before");
-		}, 500);
-
-		setTimeout(() => {
-			this.removeRow(8);
-		}, 1500);
-		*/
+		// setTimeout(() => {
+		// 	this.removeRow(8);
+		// }, 1500);
 	}
 
 	createClone(body, type) {
@@ -42,14 +40,14 @@ class Grid {
 		switch (type) {
 			case "td":
 				clone = body.find("td:nth(0)").clone(true)[0];
-				clone.innerHTML = "";
+				clone.innerHTML = "1";
 				[...clone.attributes].map(a => clone.removeAttr(a.name));
 				break;
 			case "tr":
 				clone = body.find("tr:nth(0)").clone(true)[0];
 				clone.childNodes.map(cell => {
 					if (cell.nodeType === 1) {
-						cell.innerHTML = "";
+						cell.innerHTML = "2";
 						[...cell.attributes].map(a => cell.removeAttr(a.name));
 					}
 				});
@@ -107,16 +105,27 @@ class Grid {
 			default: p = "Body"; i -= cols.head;
 		}
 		if (rows.head) {
-			this.parts[`h${p}`].el.find(`tbody tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+			this.parts[`h${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
 		}
 		if (rows.foot) {
-			this.parts[`f${p}`].el.find(`tbody tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+			this.parts[`f${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
 		}
-		this.parts[`b${p}`].el.find(`tbody tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+		this.parts[`b${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
 	}
 
-	removeCol() {
-		
+	removeCol(n) {
+		let cols = this.layout.cols,
+			rows = this.layout.rows,
+			i = n !== undefined ? n : cols.head + cols.body - 1,
+			p;
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < cols.head): p = "Head"; break;
+			default: p = "Body"; i -= cols.head;
+		}
+		this.parts[`h${p}`].el.find(`tr td:nth-child(${i+1})`).remove();
+		this.parts[`b${p}`].el.find(`tr td:nth-child(${i+1})`).remove();
+		this.parts[`f${p}`].el.find(`tr td:nth-child(${i+1})`).remove();
 	}
 
 	get rows() {
