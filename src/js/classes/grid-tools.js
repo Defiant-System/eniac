@@ -17,6 +17,51 @@ class GridTools {
 		top = _title.prop("offsetHeight") + parseInt(_title.css("margin-bottom"), 10);
 		top = isNaN(top) ? 0 : top;
 		this._rows.css({ "--rows-top": `${top}px` });
+
+		// toggle between "clip" resizers
+		this._el.toggleClass("clip", !table.hasClass("clipped"));
+	}
+
+	syncRowsCols(table) {
+		let cNames = [],
+			rNames = [],
+			toolCols = this._cols.find("> div").html(""),
+			toolRows = this._rows.find("> div").html("");
+
+		// tools columns
+		let cols = table.find(".tbl-col-head > div");
+		if (!cols.length || !cols.find("tr:nth(0) td").length) {
+			cols = table.find(".tbl-body > div");
+		}
+		// populate tool columns
+		cols.map((el, i) => {
+			let str = $("tr:nth(0) td", el).map(col => {
+					let rect = col.getBoundingClientRect();
+					return `<td style="width: ${Math.round(rect.width)}px;"><s></s></td>`;
+				});
+			if (i === 0 && str.length) cNames.push("has-col-head");
+			let width = Math.floor(el.firstChild.getBoundingClientRect().width);
+			str = `<table style="width: ${width}px;"><tr>${str.join("")}</tr></table>`;
+			toolCols.get(i).html(str);
+		});
+		// reset tool columns UI
+		this._cols.removeClass("has-col-head").addClass(cNames.join(" "));
+
+		// tools rows
+		let rows = table.find(".tbl-root > div > div:nth-child(1)");
+		if (!rows.find("tr").length) {
+			rows = table.find(".tbl-root > div > div:nth-child(2)");
+		}
+		// populate tool rows
+		rows.map((el, i) => {
+			let str = $("tr", el).map(row =>
+						`<tr style="height: ${row.offsetHeight}px;"><td><s></s></td></tr>`);
+			if (i === 0 && str.length) rNames.push("has-row-head");
+			if (i === 2 && str.length) rNames.push("has-row-foot");
+			toolRows.get(i).html(`<table>${str.join("")}</table>`);
+		});
+		// reset tool columns UI
+		this._rows.removeClass("has-row-head has-row-foot").addClass(rNames.join(" "));
 	}
 
 	addRow() {
