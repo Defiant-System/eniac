@@ -19,11 +19,15 @@ class Grid {
 
 		// temp
 		setTimeout(() => {
-			this.addRow(2);
+			this.addRow();
+			// this.addRow(7);
+			// this.addRow(7, "before");
 		}, 500);
 
 		// setTimeout(() => {
 		// 	this.removeRow();
+		// 	this.removeRow(0);
+		// 	this.removeRow(7);
 		// }, 1500);
 	}
 
@@ -49,20 +53,30 @@ class Grid {
 		return clone;
 	}
 
-	addRow(n) {
-		let layout = this.layout,
-			index = n || this.rows.length - 1,
-			method = index === 0 ? "before" : "after",
+	addRow(n, method="after") {
+		let cols = this.layout.cols,
+			rows = this.layout.rows,
+			i = n !== undefined ? n : rows.head + rows.body - 1,
+			p = "b",
+			part,
 			clone;
-
-		clone = this.createClone(this.parts.bHead.el, "tr");
-		this.parts.bHead.el.find(`tbody tr:nth(${index})`)[method](clone);
-		
-		clone = this.createClone(this.parts.bBody.el, "tr");
-		this.parts.bBody.el.find(`tbody tr:nth(${index})`)[method](clone);
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < rows.head): p = "h"; break;
+			case (i >= rows.head + rows.body): p = "f"; i -= rows.head + rows.body; break;
+			default: p = "b"; i -= rows.head;
+		}
+		if (cols.head) {
+			part = this.parts[`${p}Head`];
+			clone = this.createClone(part.el, "tr");
+			part.el.find(`tbody tr:nth(${i})`)[method](clone);
+		}
+		part = this.parts[`${p}Body`];
+		clone = this.createClone(part.el, "tr");
+		part.el.find(`tbody tr:nth(${i})`)[method](clone);
 	}
 
-	removeRow() {
+	removeRow(n) {
 		this.parts.bBody.el.find(`tr:last-child`).remove();
 	}
 
