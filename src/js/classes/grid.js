@@ -19,16 +19,22 @@ class Grid {
 
 		// temp
 		setTimeout(() => {
-			this.addRow();
-			// this.addRow(7);
-			// this.addRow(7, "before");
+			this.addCol(1);
 		}, 500);
 
-		// setTimeout(() => {
-		// 	this.removeRow();
-		// 	this.removeRow(0);
-		// 	this.removeRow(7);
-		// }, 1500);
+		setTimeout(() => {
+			this.removeCol(3);
+		}, 1500);
+
+		/*
+		setTimeout(() => {
+			this.addRow(7, "before");
+		}, 500);
+
+		setTimeout(() => {
+			this.removeRow(8);
+		}, 1500);
+		*/
 	}
 
 	createClone(body, type) {
@@ -43,7 +49,7 @@ class Grid {
 				clone = body.find("tr:nth(0)").clone(true)[0];
 				clone.childNodes.map(cell => {
 					if (cell.nodeType === 1) {
-						cell.innerHTML = "1";
+						cell.innerHTML = "";
 						[...cell.attributes].map(a => cell.removeAttr(a.name));
 					}
 				});
@@ -57,9 +63,7 @@ class Grid {
 		let cols = this.layout.cols,
 			rows = this.layout.rows,
 			i = n !== undefined ? n : rows.head + rows.body - 1,
-			p = "b",
-			part,
-			clone;
+			p, part, clone;
 		// adjust index and find out "position"
 		switch (true) {
 			case (i < rows.head): p = "h"; break;
@@ -77,11 +81,38 @@ class Grid {
 	}
 
 	removeRow(n) {
-		this.parts.bBody.el.find(`tr:last-child`).remove();
+		let cols = this.layout.cols,
+			rows = this.layout.rows,
+			i = n !== undefined ? n : rows.head + rows.body - 1,
+			p;
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < rows.head): p = "h"; break;
+			case (i >= rows.head + rows.body): p = "f"; i -= rows.head + rows.body; break;
+			default: p = "b"; i -= rows.head;
+		}
+		this.parts[`${p}Head`].el.find(`tr:nth(${i})`).remove();
+		this.parts[`${p}Body`].el.find(`tr:nth(${i})`).remove();
 	}
 
-	addCol() {
-		
+	addCol(n, method="after") {
+		let cols = this.layout.cols,
+			rows = this.layout.rows,
+			i = n !== undefined ? n : cols.head + cols.body - 1,
+			clone = this.createClone(this.parts.bBody.el, "td"),
+			p, part;
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < cols.head): p = "Head"; break;
+			default: p = "Body"; i -= cols.head;
+		}
+		if (rows.head) {
+			this.parts[`h${p}`].el.find(`tbody tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+		}
+		if (rows.foot) {
+			this.parts[`f${p}`].el.find(`tbody tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
+		}
+		this.parts[`b${p}`].el.find(`tbody tr td:nth-child(${i+1})`).map(td => td[method](clone.cloneNode(true)));
 	}
 
 	removeCol() {
