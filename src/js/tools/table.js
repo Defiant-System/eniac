@@ -431,25 +431,26 @@
 						});
 						body.appendChild(clone);
 					},
+					syncRows = (Drag, add) => {
+						if (add.y === Drag.add.y) return;
+
+						if (add.y > Drag.add.y) {
+							if (Drag.tbody[1]) Drag.addRow(Drag.tbody[1]);
+							Drag.addRow(Drag.tbody[2]);
+							Drag.addRow(Drag.tbody[5]);
+						} else if (add.y < Drag.add.y) {
+							if (Drag.tbody[1]) Drag.tbody[1].removeChild(Drag.tbody[1].lastChild);
+							Drag.tbody[2].removeChild(Drag.tbody[2].lastChild);
+							Drag.tbody[5].removeChild(Drag.tbody[5].lastChild);
+						}
+						Drag.el.css({ height: Drag.table.prop("offsetHeight") });
+						Drag.add.y = add.y;
+					},
 					addColumn = body => {
 						let cell = body.firstChild.lastChild.cloneNode();
 						cell.innerHTML = "";
 						[...cell.attributes].map(a => cell.removeAttr(a.name));
 						body.childNodes.map(row => row.appendChild(cell.cloneNode()));
-					},
-					syncRows = (Drag, add) => {
-						if (add.y > Drag.add.y) {
-							if (Drag.tbody[1]) Drag.addRow(Drag.tbody[1]);
-							Drag.addRow(Drag.tbody[2]);
-							Drag.addRow(Drag.tbody[5]);
-							Drag.el.css({ height: Drag.table.prop("offsetHeight") });
-						} else if (add.y < Drag.add.y) {
-							if (Drag.tbody[1]) Drag.tbody[1].removeChild(Drag.tbody[1].lastChild);
-							Drag.tbody[2].removeChild(Drag.tbody[2].lastChild);
-							Drag.tbody[5].removeChild(Drag.tbody[5].lastChild);
-							Drag.el.css({ height: Drag.table.prop("offsetHeight") });
-						}
-						Drag.add.y = add.y;
 					},
 					syncCols = (Drag, add) => {
 						if (add.x > Drag.add.x) {
@@ -496,20 +497,18 @@
 				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
 				break;
 			case "mousemove":
-				let height = Math.max(event.clientY - Drag.click.y, 0),
-					width = Math.max(event.clientX - Drag.click.x, 0),
+				let height = Math.max(event.clientY - Drag.click.y, Drag.min.height),
+					width = Math.max(event.clientX - Drag.click.x, Drag.min.width),
 					// calculate how much to add to table
 					add = {
 						y: Math.floor((height - Drag.min.height) / Drag.snap.y),
 						x: Math.floor((width - Drag.min.width) / Drag.snap.x),
 					};
 
-				Drag.el.css({ height, width });
-
 				// this prevents unnecessary DOM manipulation
-				// if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
+				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
 				// this prevents unnecessary DOM manipulation
-				// if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(Drag, add);
+				if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(Drag, add);
 				break;
 			case "mouseup":
 				// uncover layout
