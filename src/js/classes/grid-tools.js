@@ -105,7 +105,7 @@ class GridTools {
 			default: p = "Body"; i -= rows.head;
 		}
 		// insert clone at position
-		this.parts[`r${p}`].el.find(`tbody tr:nth(${i})`)[where](this._TR);
+		this.parts[`r${p}`].el.find(`tbody tr:nth(${i})`)[where](this._TR.cloneNode(true));
 		// UI update tools height
 		this._el.css({ height: this._grid._el.prop("offsetHeight") });
 	}
@@ -137,7 +137,7 @@ class GridTools {
 		}
 		// insert clone at position
 		part = this.parts[`c${p}`];
-		part.el.find(`tr td:nth-child(${i+1})`)[where](this._TD);
+		part.el.find(`tr td:nth-child(${i+1})`)[where](this._TD.cloneNode(true));
 		// UI update column table width
 		let width = part.el.find("td").reduce((acc, td) => acc + parseInt(td.style.width, 10), 0);
 		part.el.find("table").css({ width });

@@ -27,13 +27,13 @@
 		// this.els.move.on("mousedown", this.move);
 
 		// temp
-		setTimeout(() => {
+		// setTimeout(() => {
 			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
 			// this.dispatch({ type: "select-coords", xNum: [2], yNum: [10, 11] });
 
 			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
 			// this.els.cols.find("td:nth(1)").trigger("click");
-		}, 400);
+		// }, 400);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -289,120 +289,67 @@
 			Self = APP.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
-			case "mousedown":
+			case "mousedown": {
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
 				Self.els.layout.addClass("cover");
 
 				let el = Self.els.root,
-					table = Self.grid._el.find(".tbl-root"),
+					grid = Self.grid,
+					table = grid._el.find(".tbl-root"),
+					dimMin = grid.dimension.min,
 					type = event.target.className.split(" ")[1].split("-")[0],
-					dimMin = Self.grid.dimension.min,
+					add = { y: 0, x: 0 },
 					snap = { x: 90, y: 25 },
 					min = {
-						width: Math.max(dimMin.width, snap.x * 5),
-						height: Math.max(dimMin.height, snap.y * 6),
+						width: Math.max(dimMin.width, snap.x * 3),
+						height: Math.max(dimMin.height, snap.y * 4),
 					},
 					click = {
 						x: event.clientX - table.prop("offsetWidth"),
 						y: event.clientY - table.prop("offsetHeight"),
 					},
-					tbody = [
-						table.find(".tbl-col-head > div:nth-child(2) tbody"),
-						table.find(".tbl-body > div:nth-child(1) tbody"),
-						table.find(".tbl-body > div:nth-child(2) tbody"),
-						table.find(".tbl-col-foot > div:nth-child(2) tbody"),
-						Self.els.cols.find("> div:nth-child(2) tbody"),
-						Self.els.rows.find("> div:nth-child(2) tbody"),
-					].map(e => e.length ? e[0] : null),
-					addRow = body => {
-						let clone = body.lastChild.cloneNode(true);
-						clone.childNodes.map(cell => {
-							cell.innerHTML = "";
-							cell.className = "";
-							[...cell.attributes].map(a => cell.removeAttr(a.name));
-						});
-						body.appendChild(clone);
+					syncRows = function(add) {
+						this.grid[ add.y > this.add.y ? "addRow" : "removeRow" ]();
+						this.add.y = add.y;
 					},
-					syncRows = (Drag, add) => {
-						if (add.y === Drag.add.y) return;
-
-						if (add.y > Drag.add.y) {
-							if (Drag.tbody[1]) Drag.addRow(Drag.tbody[1]);
-							Drag.addRow(Drag.tbody[2]);
-							Drag.addRow(Drag.tbody[5]);
-						} else if (add.y < Drag.add.y) {
-							if (Drag.tbody[1]) Drag.tbody[1].removeChild(Drag.tbody[1].lastChild);
-							Drag.tbody[2].removeChild(Drag.tbody[2].lastChild);
-							Drag.tbody[5].removeChild(Drag.tbody[5].lastChild);
-						}
-						Drag.el.css({ height: Drag.table.prop("offsetHeight") });
-						Drag.add.y = add.y;
-					},
-					addColumn = body => {
-						let cell = body.firstChild.lastChild.cloneNode();
-						cell.innerHTML = "";
-						[...cell.attributes].map(a => cell.removeAttr(a.name));
-						body.childNodes.map(row => row.appendChild(cell.cloneNode()));
-					},
-					syncCols = (Drag, add) => {
-						if (add.x > Drag.add.x) {
-							if (Drag.tbody[0]) Drag.addColumn(Drag.tbody[0]);
-							if (Drag.tbody[3]) Drag.addColumn(Drag.tbody[3]);
-							Drag.addColumn(Drag.tbody[2]);
-							Drag.addColumn(Drag.tbody[4]);
-
-							Drag.toolWidth += Drag.snap.x;
-							Drag.tbody[4].parentNode.style.width = `${Drag.toolWidth}px`;
-							Drag.el.css({ width: Drag.table.prop("offsetWidth") });
-						} else if (add.x < Drag.add.x) {
-							if (Drag.tbody[0]) Drag.tbody[0].childNodes.map(row => row.removeChild(row.lastChild))
-							if (Drag.tbody[3]) Drag.tbody[3].childNodes.map(row => row.removeChild(row.lastChild))
-							Drag.tbody[2].childNodes.map(row => row.removeChild(row.lastChild))
-							Drag.tbody[4].childNodes.map(row => row.removeChild(row.lastChild))
-							
-							Drag.toolWidth -= Drag.snap.x;
-							Drag.tbody[4].parentNode.style.width = `${Drag.toolWidth}px`;
-							Drag.el.css({ width: Drag.table.prop("offsetWidth") });
-						}
-						Drag.add.x = add.x;
+					syncCols = function(add) {
+						// console.log(this);
 					};
 
 				// create drag object
 				Self.drag = {
 					el,
-					table,
-					tbody,
-					snap,
-					click,
-					vResize: type.includes("v"),
-					hResize: type.includes("h"),
-					toolWidth: tbody[4].parentNode.offsetWidth,
-					add: { y: 0, x: 0 },
 					min,
-					addRow,
-					addColumn,
+					add,
+					snap,
+					grid,
+					click,
 					syncRows,
 					syncCols,
+					vResize: type.includes("v"),
+					hResize: type.includes("h"),
+					_min: Math.min,
+					_max: Math.max,
+					_floor: Math.floor,
 				};
 
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
-				break;
+				break; }
 			case "mousemove":
-				let height = Math.max(event.clientY - Drag.click.y, Drag.min.height),
-					width = Math.max(event.clientX - Drag.click.x, Drag.min.width),
+				let height = event.clientY - Drag.click.y,
+					width = event.clientX - Drag.click.x,
 					// calculate how much to add to table
 					add = {
-						y: Math.floor((height - Drag.min.height) / Drag.snap.y),
-						x: Math.floor((width - Drag.min.width) / Drag.snap.x),
+						y: Drag._floor((height - Drag.min.height) / Drag.snap.y),
+						x: Drag._floor((width - Drag.min.width) / Drag.snap.x),
 					};
-
 				// this prevents unnecessary DOM manipulation
-				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(Drag, add);
+				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(add);
 				// this prevents unnecessary DOM manipulation
-				if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(Drag, add);
+				if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(add);
 				break;
 			case "mouseup":
 				// uncover layout
