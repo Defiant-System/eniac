@@ -78,13 +78,13 @@
 	</Menu>
 
 	<Menu for="table-tool-cols">
-		<Menu name="Sort Ascending"/>
-		<Menu name="Sort Descending"/>
+		<Menu name="Sort Ascending" click="sort-column-asc"/>
+		<Menu name="Sort Descending" click="sort-column-desc"/>
 		<Menu type="divider"/>
-		<Menu name="Add Column Before"/>
-		<Menu name="Add Column After"/>
+		<Menu name="Add Column Before" click="add-column-before"/>
+		<Menu name="Add Column After" click="add-column-after"/>
 		<Menu type="divider"/>
-		<Menu name="Delete Column"/>
+		<Menu name="Delete Column" click="delete-column"/>
 	</Menu>
 
 	<Menu for="table-tool-rows">

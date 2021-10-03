@@ -33,7 +33,7 @@
 			top, left, width, height,
 			grid, cols, rows, data,
 			table, anchor, offset,
-			xNum, yNum,
+			xNum, yNum, value,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -64,14 +64,17 @@
 			case "sort-column-asc":
 			case "sort-column-desc":
 
-			case "add-row-above":
-			case "add-row-below":
-			case "delete-row":
-
 			case "add-column-before":
 			case "add-column-after":
 			case "delete-column":
-				console.log(111, event);
+
+			case "delete-row":
+
+			case "add-row-above":
+			case "add-row-below":
+				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
+				value = event.type.endsWith("-above") ? "before" : "after";
+				Self.grid.addRow(yNum, value);
 				break;
 			// custom events
 			case "focus-cell":
