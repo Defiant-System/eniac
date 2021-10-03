@@ -35,6 +35,7 @@
 			table, anchor, offset,
 			xNum, yNum,
 			el;
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
@@ -58,6 +59,19 @@
 				// tool cols + rows
 				Self.els.cols.find("> div:nth-child(2) table").css({ left });
 				Self.els.rows.find("> div:nth-child(2) table").css({ top });
+				break;
+			// menu events
+			case "sort-column-asc":
+			case "sort-column-desc":
+
+			case "add-row-above":
+			case "add-row-below":
+			case "delete-row":
+
+			case "add-column-before":
+			case "add-column-after":
+			case "delete-column":
+				console.log(111, event);
 				break;
 			// custom events
 			case "focus-cell":
@@ -168,13 +182,13 @@
 						if (isTableRows) {
 							defiant.menu({
 								el,
-								menu: "table-tool-cols",
+								menu: "table-tool-rows",
 								add: { top: -4, left: 16 }
 							});
 						} else {
 							defiant.menu({
 								el,
-								menu: "table-tool-rows",
+								menu: "table-tool-cols",
 								add: { top: -1, left: 73 }
 							});
 						}

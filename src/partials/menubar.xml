@@ -88,10 +88,10 @@
 	</Menu>
 
 	<Menu for="table-tool-rows">
-		<Menu name="Add Row Above"/>
-		<Menu name="Add Row Below"/>
+		<Menu name="Add Row Above" click="add-row-above"/>
+		<Menu name="Add Row Below" click="add-row-below"/>
 		<Menu type="divider"/>
-		<Menu name="Delete Row"/>
+		<Menu name="Delete Row" click="delete-row"/>
 	</Menu>
 
 	<Menu for="sheet-tab">
