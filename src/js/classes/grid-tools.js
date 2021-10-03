@@ -110,7 +110,16 @@ class GridTools {
 	}
 
 	removeRow(n) {
-		
+		let rows = this._grid.layout.rows,
+			i = n !== undefined ? n : rows.head + rows.body - 1,
+			p;
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < rows.head): p = "Head"; break;
+			case (i >= rows.head + rows.body): p = "Foot"; i -= rows.head + rows.body; break;
+			default: p = "Body"; i -= rows.head;
+		}
+		this.parts[`r${p}`].el.find(`tr:nth(${i})`).remove();
 	}
 
 	addCol(n, where="after") {

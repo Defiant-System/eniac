@@ -28,12 +28,12 @@ class Grid {
 		// }, 1500);
 
 		setTimeout(() => {
-			this.addRow(4);
+			this.addRow(1);
 		}, 500);
 
-		// setTimeout(() => {
-		// 	this.removeRow(8);
-		// }, 1500);
+		setTimeout(() => {
+			this.removeRow(2);
+		}, 1500);
 	}
 
 	createClone(body, type) {
@@ -82,8 +82,7 @@ class Grid {
 	}
 
 	removeRow(n) {
-		let cols = this.layout.cols,
-			rows = this.layout.rows,
+		let rows = this.layout.rows,
 			i = n !== undefined ? n : rows.head + rows.body - 1,
 			p;
 		// adjust index and find out "position"
@@ -122,7 +121,6 @@ class Grid {
 
 	removeCol(n) {
 		let cols = this.layout.cols,
-			rows = this.layout.rows,
 			i = n !== undefined ? n : cols.head + cols.body - 1,
 			p;
 		// adjust index and find out "position"
