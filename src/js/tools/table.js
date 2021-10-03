@@ -122,7 +122,7 @@
 				Self.els.root.addClass("hidden");
 				break;
 			case "set-table":
-				el = event.table;
+				el = event.table || Self.grid._el;
 				// zip table cells ordered
 				Self.grid = new Grid(el, Self.gridTools);
 				// update active tool type

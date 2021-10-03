@@ -255,19 +255,19 @@
 				if (event.el.is(":checked")) {
 					Els.el.find(".table-clipping").addClass("expand");
 					Table.addClass("clipped");
-					APP.tools.table.els.root.addClass("clip");
 				} else {
 					Els.el.find(".table-clipping").removeClass("expand");
 					Table.removeClass("clipped");
-					APP.tools.table.els.root.removeClass("clip");
 					// update sidebar
 					el = Els.el.find(`.table-clipping button[arg="width"]`);
 					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
 					el = Els.el.find(`.table-clipping button[arg="height"]`);
 					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
-					
+					// reset dimensions
 					Table.find(".tbl-root").css({ width: "", height: "" });
 				}
+				// re-sync table tools
+				APP.tools.table.dispatch({ type: "sync-table-tools" });
 				break;
 			case "fit-table-clip":
 				// disable button
