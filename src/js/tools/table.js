@@ -69,7 +69,9 @@
 			case "delete-column":
 
 			case "delete-row":
-
+				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
+				Self.grid.removeRow(yNum);
+				break;
 			case "add-row-above":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
 				Self.grid.addRow(yNum, "before");
