@@ -34,6 +34,7 @@
 			case "mousedown": {
 				// proxies mousedown event
 				let el = $(event.target),
+					nodeName = el.prop("nodeName"),
 					name = el.attr("class") || "";
 				
 				if (name.startsWith("xl-") ) {
@@ -54,7 +55,9 @@
 						name = el.parents("[data-area]").data("area");
 						Tools[name].move(event);
 						return;
-					case el.prop("nodeName") === "TD":
+					case nodeName === "S":
+						return Tools.table.resizeColRow(event);
+					case nodeName === "TD":
 						// if table-tool related; let it be handled by "others"
 						if (el.parents(".table-tool").length) return;
 						// reference of active tool

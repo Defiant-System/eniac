@@ -121,11 +121,13 @@
 				Self.grid.select(event);
 				break;
 			case "select-columns":
+				if (event.target.nodeName === "S") return;
 				xNum = [Self.gridTools.getColIndex(event.target)];
 				yNum = Self.grid.rows.map((item, index) => index);
 				Self.grid.select({ xNum, yNum });
 				break;
 			case "select-rows":
+				if (event.target.nodeName === "S") return;
 				xNum = Self.grid.rows[0].map((item, index) => index);
 				yNum = [Self.gridTools.getRowIndex(event.target)];
 				Self.grid.select({ xNum, yNum });
