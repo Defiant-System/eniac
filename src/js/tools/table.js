@@ -321,7 +321,6 @@
 					click,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
-					_min: Math.min,
 					_max: Math.max,
 					_floor: Math.floor,
 				};
@@ -330,8 +329,8 @@
 				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
 				break; }
 			case "mousemove":
-				let height = event.clientY - Drag.click.y,
-					width = event.clientX - Drag.click.x,
+				let height = Drag._max(event.clientY - Drag.click.y, Drag.min.height),
+					width = Drag._max(event.clientX - Drag.click.x, Drag.min.width),
 					// calculate how much to add to table
 					addY = Drag._floor((height - Drag.min.height) / Drag.snap.y),
 					addX = Drag._floor((width - Drag.min.width) / Drag.snap.x);
