@@ -309,13 +309,6 @@
 					click = {
 						x: event.clientX - table.prop("offsetWidth"),
 						y: event.clientY - table.prop("offsetHeight"),
-					},
-					syncRows = function(add) {
-						this.grid[ add.y > this.add.y ? "addRow" : "removeRow" ]();
-						this.add.y = add.y;
-					},
-					syncCols = function(add) {
-						// console.log(this);
 					};
 
 				// create drag object
@@ -326,8 +319,6 @@
 					snap,
 					grid,
 					click,
-					syncRows,
-					syncCols,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
 					_min: Math.min,
@@ -342,14 +333,18 @@
 				let height = event.clientY - Drag.click.y,
 					width = event.clientX - Drag.click.x,
 					// calculate how much to add to table
-					add = {
-						y: Drag._floor((height - Drag.min.height) / Drag.snap.y),
-						x: Drag._floor((width - Drag.min.width) / Drag.snap.x),
-					};
+					addY = Drag._floor((height - Drag.min.height) / Drag.snap.y),
+					addX = Drag._floor((width - Drag.min.width) / Drag.snap.x);
 				// this prevents unnecessary DOM manipulation
-				if (Drag.vResize && add.y !== Drag.add.y) Drag.syncRows(add);
+				if (Drag.vResize && addY !== Drag.add.y) {
+					Drag.grid[ addY > Drag.add.y ? "addRow" : "removeRow" ]();
+					Drag.add.y = addY;
+				}
 				// this prevents unnecessary DOM manipulation
-				if (Drag.hResize && add.x !== Drag.add.x) Drag.syncCols(add);
+				if (Drag.hResize && addX !== Drag.add.x) {
+					Drag.grid[ addX > Drag.add.x ? "addCol" : "removeCol" ]();
+					Drag.add.x = addX;
+				}
 				break;
 			case "mouseup":
 				// uncover layout
