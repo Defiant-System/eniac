@@ -126,7 +126,9 @@
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
 				
-				Table.prop({ className: `xl-table ${el.data("arg")}` });
+				// Table.prop({ className: `xl-table ${el.data("arg")}` });
+				Table.removeClass("gray-table-1 blue-table-1 green-table-1 blue-table-2 orange-table-1 white-table-1")
+					.addClass(el.data("arg"));
 				break;
 			case "set-table-col-head":
 				// head row columns
