@@ -54,7 +54,8 @@
 				// horizontal sync
 				Table.find(".tbl-body div:nth-child(1) table").css({ top });
 
-				if (!Table.isSame(Table._el)) return;
+				// prevent table-tool sync, if table-tools aren't focus on event table
+				if (!Table.isSame(Self.grid._el)) return;
 
 				// tool cols + rows
 				Self.els.cols.find("> div:nth-child(2) table").css({ left });
