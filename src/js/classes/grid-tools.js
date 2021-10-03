@@ -4,10 +4,34 @@ class GridTools {
 		this._el = window.find(".table-tools");
 		this._cols = this._el.find(".table-cols");
 		this._rows = this._el.find(".table-rows");
+		// selectors
+		this.parts = {
+			cHead: ".table-cols > div:nth-child(1)",
+			cBody: ".table-cols > div:nth-child(2)",
+			rHead: ".table-rows > div:nth-child(1)",
+			rBody: ".table-rows > div:nth-child(2)",
+			rFoot: ".table-rows > div:nth-child(3)",
+		};
+		for (let key in this.parts) {
+			let selector = this.parts[key],
+				el = this._el.find(selector);
+			this.parts[key] = { selector, el };
+		}
 	}
 
-	syncDim(table) {
-		let top = table.prop("offsetTop"),
+	createClones() {
+		if (this._TD !== undefined) return;
+		// prepare TD clone
+		this._TD = this.parts.cBody.el.find("td:nth(0)").clone(true)[0];
+		[...this._TD.attributes].map(a => this._TD.removeAttribute(a.name));
+		// prepare TR clone
+		this._TR = this.parts.rBody.el.find("tr:nth(0)").clone(true)[0];
+		[...this._TR.attributes].map(a => this._TR.removeAttribute(a.name));
+	}
+
+	syncDim(grid) {
+		let table = grid._el,
+			top = table.prop("offsetTop"),
 			left = table.prop("offsetLeft"),
 			width = table.prop("offsetWidth"),
 			height = table.prop("offsetHeight");
@@ -17,13 +41,15 @@ class GridTools {
 		top = _title.prop("offsetHeight") + parseInt(_title.css("margin-bottom"), 10);
 		top = isNaN(top) ? 0 : top;
 		this._rows.css({ "--rows-top": `${top}px` });
-
 		// toggle between "clip" resizers
 		this._el.toggleClass("clip", !table.hasClass("clipped"));
+		// save reference to grid instance
+		this._grid = grid;
 	}
 
-	syncRowsCols(table) {
-		let cNames = [],
+	syncRowsCols(grid) {
+		let table = grid._el,
+			cNames = [],
 			rNames = [],
 			toolCols = this._cols.find("> div").html(""),
 			toolRows = this._rows.find("> div").html("");
@@ -60,12 +86,27 @@ class GridTools {
 			if (i === 2 && str.length) rNames.push("has-row-foot");
 			toolRows.get(i).html(`<table>${str.join("")}</table>`);
 		});
+		// prepare clones
+		this.createClones();
 		// reset tool columns UI
 		this._rows.removeClass("has-row-head has-row-foot").addClass(rNames.join(" "));
 	}
 
 	addRow(n, where="after") {
-		
+		let cols = this._grid.layout.cols,
+			rows = this._grid.layout.rows,
+			i = n !== undefined ? n : rows.head + rows.body - 1,
+			p;
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < rows.head): p = "Head"; break;
+			case (i >= rows.head + rows.body): p = "Foot"; i -= rows.head + rows.body; break;
+			default: p = "Body"; i -= rows.head;
+		}
+		// insert clone at position
+		this.parts[`r${p}`].el.find(`tbody tr:nth(${i})`)[where](this._TR);
+		// UI update tools height
+		this._el.css({ height: this._grid._el.prop("offsetHeight") });
 	}
 
 	removeRow(n) {

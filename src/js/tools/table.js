@@ -103,15 +103,15 @@
 			case "set-table":
 				el = event.table;
 				// zip table cells ordered
-				Self.grid = new Grid(el);
+				Self.grid = new Grid(el, Self.gridTools);
 				// update active tool type
 				APP.tools.active = "table";
 				break;
 			case "sync-table-tools":
 				// if (event.table && Self.grid && event.table.isSame(Self.grid._el)) return;
 				Self.dispatch({ ...event, type: "set-table" });
-				Self.gridTools.syncDim(event.table);
-				Self.gridTools.syncRowsCols(event.table);
+				Self.gridTools.syncDim(Self.grid);
+				Self.gridTools.syncRowsCols(Self.grid);
 				break;
 			case "re-sync-selection":
 				event.xNum = Self.selected.xNum;

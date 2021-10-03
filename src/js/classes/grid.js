@@ -1,7 +1,8 @@
 
 class Grid {
-	constructor(el) {
+	constructor(el, tools) {
 		this._el = el;
+		this._tools = tools;
 		// selectors
 		this.parts = {
 			hHead: ".tbl-col-head > div:nth-child(1)",
@@ -41,17 +42,17 @@ class Grid {
 			case "td":
 				clone = body.find("td:nth(0)").clone(true)[0];
 				clone.innerHTML = "1";
-				[...clone.attributes].map(a => clone.removeAttr(a.name));
+				[...clone.attributes].map(a => clone.removeAttribute(a.name));
 				break;
 			case "tr":
 				clone = body.find("tr:nth(0)").clone(true)[0];
 				clone.childNodes.map(cell => {
 					if (cell.nodeType === 1) {
 						cell.innerHTML = "2";
-						[...cell.attributes].map(a => cell.removeAttr(a.name));
+						[...cell.attributes].map(a => cell.removeAttribute(a.name));
 					}
 				});
-				[...clone.attributes].map(a => clone.removeAttr(a.name));
+				[...clone.attributes].map(a => clone.removeAttribute(a.name));
 				break;
 		}
 		return clone;
@@ -76,6 +77,8 @@ class Grid {
 		part = this.parts[`${p}Body`];
 		clone = this.createClone(part.el, "tr");
 		part.el.find(`tbody tr:nth(${i})`)[where](clone);
+		// sync grid tools
+		this._tools.addRow(n, where);
 	}
 
 	removeRow(n) {
@@ -91,6 +94,8 @@ class Grid {
 		}
 		this.parts[`${p}Head`].el.find(`tr:nth(${i})`).remove();
 		this.parts[`${p}Body`].el.find(`tr:nth(${i})`).remove();
+		// sync grid tools
+		this._tools.removeRow(n);
 	}
 
 	addCol(n, where="after") {
@@ -111,6 +116,8 @@ class Grid {
 			this.parts[`f${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[where](clone.cloneNode(true)));
 		}
 		this.parts[`b${p}`].el.find(`tr td:nth-child(${i+1})`).map(td => td[where](clone.cloneNode(true)));
+		// sync grid tools
+		this._tools.addCol(n, where);
 	}
 
 	removeCol(n) {
@@ -126,6 +133,8 @@ class Grid {
 		this.parts[`h${p}`].el.find(`tr td:nth-child(${i+1})`).remove();
 		this.parts[`b${p}`].el.find(`tr td:nth-child(${i+1})`).remove();
 		this.parts[`f${p}`].el.find(`tr td:nth-child(${i+1})`).remove();
+		// sync grid tools
+		this._tools.removeCol(n);
 	}
 
 	get rows() {
