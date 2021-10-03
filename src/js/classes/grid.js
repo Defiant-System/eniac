@@ -166,7 +166,7 @@ class Grid {
 		this._tools._selection.addClass("show").css(css);
 
 		// save reference data
-		this._selected = data;
+		this._selected = { xNum: cols, yNum: rows };
 		// sync grid tools
 		this._tools.select(cols, rows);
 	}

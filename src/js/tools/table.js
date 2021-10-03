@@ -121,8 +121,10 @@
 				break;
 			case "set-table":
 				el = event.table || Self.grid._el;
-				// zip table cells ordered
-				Self.grid = new Grid(el, Self.gridTools);
+				if (!el.isSame(Self.grid._el)) {
+					// zip table cells ordered
+					Self.grid = new Grid(el, Self.gridTools);
+				}
 				// update active tool type
 				APP.tools.active = "table";
 				break;

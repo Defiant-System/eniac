@@ -243,7 +243,7 @@
 				// sync tools table
 				APP.tools.table.dispatch({ type: "sync-table-tools", table: Table });
 				// sync tools selection indicators
-				APP.tools.table.dispatch({ type: "select-coords", ...APP.tools.table.selected });
+				APP.tools.table.dispatch({ type: "select-coords", ...APP.tools.table.grid.selected });
 				// re-sync selection box
 				APP.tools.table.dispatch({ type: "re-sync-selection" });
 				break;
