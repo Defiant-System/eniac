@@ -133,7 +133,7 @@ class GridTools {
 		// adjust index and find out "position"
 		switch (true) {
 			case (i < cols.head): p = "Head"; break;
-			default: p = "Body"; i -= cols.head;
+			default: p = "Body"; i -= cols.head + 1;
 		}
 		// insert clone at position
 		part = this.parts[`c${p}`];

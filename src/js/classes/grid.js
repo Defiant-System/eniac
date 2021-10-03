@@ -17,11 +17,9 @@ class Grid {
 				el = this._el.find(selector);
 			this.parts[key] = { selector, el };
 		}
-
 		// temp
-		// setTimeout(() => { this.addCol(1); }, 500);
+		// setTimeout(() => { this.addCol(); }, 500);
 		// setTimeout(() => { this.removeCol(2); }, 1500);
-
 		// setTimeout(() => { this.addRow(); }, 500);
 		// setTimeout(() => { this.removeRow(2); }, 1500);
 	}
@@ -31,14 +29,14 @@ class Grid {
 		switch (type) {
 			case "td":
 				clone = body.find("td:nth(0)").clone(true)[0];
-				clone.innerHTML = "1";
+				clone.innerHTML = "";
 				[...clone.attributes].map(a => clone.removeAttribute(a.name));
 				break;
 			case "tr":
 				clone = body.find("tr:nth(0)").clone(true)[0];
 				clone.childNodes.map(cell => {
 					if (cell.nodeType === 1) {
-						cell.innerHTML = "2";
+						cell.innerHTML = "";
 						[...cell.attributes].map(a => cell.removeAttribute(a.name));
 					}
 				});
