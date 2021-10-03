@@ -166,9 +166,17 @@
 					} else {
 						// table tool "contextmenu arrow" is clicked
 						if (isTableRows) {
-							defiant.menu({ menu: "table-tool-cols", el });
+							defiant.menu({
+								el,
+								menu: "table-tool-cols",
+								add: { top: -4, left: 16 }
+							});
 						} else {
-							defiant.menu({ menu: "table-tool-rows", el });
+							defiant.menu({
+								el,
+								menu: "table-tool-rows",
+								add: { top: -1, left: 73 }
+							});
 						}
 					}
 					if (Self.drag.el) {
