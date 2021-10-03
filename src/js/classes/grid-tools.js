@@ -102,7 +102,7 @@ class GridTools {
 		switch (true) {
 			case (i < rows.head): p = "Head"; break;
 			case (i >= rows.head + rows.body): p = "Foot"; i -= rows.head + rows.body; break;
-			default: p = "Body"; i -= rows.head;
+			default: p = "Body"; i -= rows.head + 1;
 		}
 		// insert clone at position
 		this.parts[`r${p}`].el.find(`tbody tr:nth(${i})`)[where](this._TR.cloneNode(true));
