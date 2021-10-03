@@ -23,7 +23,8 @@ class GridTools {
 		if (this._TD !== undefined) return;
 		// prepare TD clone
 		this._TD = this.parts.cBody.el.find("td:nth(0)").clone(true)[0];
-		[...this._TD.attributes].map(a => this._TD.removeAttribute(a.name));
+		// [...this._TD.attributes].map(a => this._TD.removeAttribute(a.name));
+		this._TD.className = "";
 		// prepare TR clone
 		this._TR = this.parts.rBody.el.find("tr:nth(0)").clone(true)[0];
 		[...this._TR.attributes].map(a => this._TR.removeAttribute(a.name));
@@ -125,11 +126,45 @@ class GridTools {
 	}
 
 	addCol(n, where="after") {
-		
+		let cols = this._grid.layout.cols,
+			i = n !== undefined ? n : cols.head + cols.body - 1,
+			p, part;
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < cols.head): p = "Head"; break;
+			default: p = "Body"; i -= cols.head;
+		}
+		// insert clone at position
+		part = this.parts[`c${p}`];
+		part.el.find(`tr td:nth-child(${i+1})`)[where](this._TD);
+
+		// UI update column table width
+		let width = part.el.find("td").reduce((acc, td) => acc + parseInt(td.style.width, 10), 0);
+		part.el.find("table").css({ width });
+
+		// UI update tools width
+		this._el.css({ width: this._grid._el.prop("offsetWidth") });
 	}
 
 	removeCol(n) {
+		let cols = this._grid.layout.cols,
+			i = n !== undefined ? n : cols.head + cols.body - 1,
+			p, part;
+		// adjust index and find out "position"
+		switch (true) {
+			case (i < cols.head): p = "Head"; break;
+			default: p = "Body"; i -= cols.head;
+		}
+		// remove row at position
+		part = this.parts[`c${p}`];
+		part.el.find(`tr td:nth-child(${i+1})`).remove();
+
+		// UI update column table width
+		let width = part.el.find("td").reduce((acc, td) => acc + parseInt(td.style.width, 10), 0);
+		part.el.find("table").css({ width });
 		
+		// UI update tools width
+		this._el.css({ width: this._grid._el.prop("offsetWidth") });
 	}
 
 	get rows() {

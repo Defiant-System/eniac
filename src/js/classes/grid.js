@@ -19,21 +19,11 @@ class Grid {
 		}
 
 		// temp
-		// setTimeout(() => {
-		// 	this.addCol(1, "before");
-		// }, 500);
+		setTimeout(() => { this.addCol(1); }, 500);
+		// setTimeout(() => { this.removeCol(2); }, 1500);
 
-		// setTimeout(() => {
-		// 	this.removeCol(1);
-		// }, 1500);
-
-		setTimeout(() => {
-			this.addRow(1);
-		}, 500);
-
-		setTimeout(() => {
-			this.removeRow(2);
-		}, 1500);
+		// setTimeout(() => { this.addRow(1); }, 500);
+		// setTimeout(() => { this.removeRow(2); }, 1500);
 	}
 
 	createClone(body, type) {
