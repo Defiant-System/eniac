@@ -22,18 +22,9 @@
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
-		this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
+		// this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
 		// this.els.resizes.on("mousedown", this.resizeClip);
 		// this.els.move.on("mousedown", this.move);
-
-		// temp
-		// setTimeout(() => {
-			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
-			// this.dispatch({ type: "select-coords", xNum: [2], yNum: [10, 11] });
-
-			// this.dispatch({ type: "focus-table", table: window.find(".xl-table:nth(0)") });
-			// this.els.cols.find("td:nth(1)").trigger("click");
-		// }, 400);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -143,8 +134,10 @@
 				let el = $(event.target.parentNode),
 					tbl = el.parents("table:first"),
 					tool = tbl.parents(".table-tool:first"),
+					isTableCols = tool.hasClass("table-cols"),
+					isTableRows = tool.hasClass("table-rows"),
 					index;
-				if (tool.hasClass("table-cols") || tool.hasClass("table-rows")) {
+				if (isTableCols || isTableRows) {
 					// create drag object
 					Self.drag = {
 						tbl,
@@ -170,6 +163,13 @@
 						Self.drag.tblRow = Self.grid.getCoordRow(index).parent();
 						Self.drag.ttHeight = Self.drag.root[0].offsetHeight;
 						Self.drag.rowHeight = Self.drag.el[0].offsetHeight;
+					} else {
+						// table tool "contextmenu arrow" is clicked
+						if (isTableRows) {
+							defiant.menu({ menu: "table-tool-cols", el });
+						} else {
+							defiant.menu({ menu: "table-tool-rows", el });
+						}
 					}
 					if (Self.drag.el) {
 						// prevent default behaviour
