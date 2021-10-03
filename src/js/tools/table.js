@@ -114,66 +114,21 @@
 				Self.gridTools.syncRowsCols(Self.grid);
 				break;
 			case "re-sync-selection":
-				event.xNum = Self.selected.xNum;
-				event.yNum = Self.selected.yNum;
+				event.xNum = Self.grid.selected.xNum;
+				event.yNum = Self.grid.selected.yNum;
 				/* falls through */
 			case "select-coords":
-				cols = event.xNum.length ? event.xNum : [event.xNum];
-				rows = event.yNum.length ? event.yNum : [event.yNum];
-				// remember selected coords
-				Self.selected = { xNum: event.xNum, yNum: event.yNum };
-				// table tool columns
-				Self.els.cols.find(".active").removeClass("active");
-				cols.map(i => Self.els.cols.find("td").get(i).addClass("active"));
-				// table tool rows
-				Self.els.rows.find(".active").removeClass("active");
-				rows.map(i => Self.els.rows.find("tr").get(i).addClass("active"));
-
-				// clear selected cell className(s)
-				Table._el.find(".anchor, .selected").removeClass("anchor selected");
-				// selection box dimensions
-				data = {
-					top: 1e5,
-					left: 1e5,
-					width: -1e2,
-					height: -1e2,
-				};
-				// set selected cell className(s)
-				rows.map(y => {
-					cols.map(x => {
-						let td = Table.rows[y][x],
-							offset = Table.getOffset(td),
-							top = offset.top - 2,
-							left = offset.left - 2,
-							height = top + offset.height + 5,
-							width = left + offset.width + 5,
-							el = $(td);
-
-						el.addClass("selected");
-						if (data.top > top) data.top = top;
-						if (data.left > left) data.left = left;
-						if (data.width < width) data.width = width;
-						if (data.height < height) data.height = height;
-						// if (y === Table.rows.length-1) data.height -= 1;
-						if (!event.anchor) event.anchor = el;
-					});
-				});
-				// UI indicate anchor cell
-				event.anchor.addClass("anchor");
-				// adjust width + height down
-				data.height -= data.top;
-				data.width -= data.left;
-				Self.els.selection.addClass("show").css(data);
+				Self.grid.select(event);
 				break;
 			case "select-columns":
 				xNum = [Self.gridTools.getColIndex(event.target)];
 				yNum = Self.grid.rows.map((item, index) => index);
-				Self.dispatch({ type: "select-coords", xNum, yNum });
+				Self.grid.select({ xNum, yNum });
 				break;
 			case "select-rows":
 				xNum = Self.grid.rows[0].map((item, index) => index);
 				yNum = [Self.gridTools.getRowIndex(event.target)];
-				Self.dispatch({ type: "select-coords", xNum, yNum });
+				Self.grid.select({ xNum, yNum });
 				break;
 		}
 	},

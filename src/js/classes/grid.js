@@ -19,7 +19,7 @@ class Grid {
 		}
 
 		// temp
-		setTimeout(() => { this.addCol(1); }, 500);
+		// setTimeout(() => { this.addCol(1); }, 500);
 		// setTimeout(() => { this.removeCol(2); }, 1500);
 
 		// setTimeout(() => { this.addRow(1); }, 500);
@@ -123,6 +123,58 @@ class Grid {
 		this.parts[`f${p}`].el.find(`tr td:nth-child(${i+1})`).remove();
 		// sync grid tools
 		this._tools.removeCol(n);
+	}
+
+	select(data) {
+		let cols = data.xNum.length ? data.xNum : [data.xNum],
+			rows = data.yNum.length ? data.yNum : [data.yNum],
+			_rows = this.rows,
+			// selection box dimensions
+			css = {
+				top: 1e5,
+				left: 1e5,
+				width: -1e2,
+				height: -1e2,
+			};
+		// clear selected cell className(s)
+		this._el.find(".anchor, .selected").removeClass("anchor selected");
+
+		// set selected cell className(s)
+		rows.map(y => {
+			cols.map(x => {
+				let td = _rows[y][x],
+					offset = this.getOffset(td),
+					top = offset.top - 2,
+					left = offset.left - 2,
+					height = top + offset.height + 5,
+					width = left + offset.width + 5,
+					el = $(td);
+
+				el.addClass("selected");
+				if (css.top > top) css.top = top;
+				if (css.left > left) css.left = left;
+				if (css.width < width) css.width = width;
+				if (css.height < height) css.height = height;
+				// if (y === Table.rows.length-1) css.height -= 1;
+				if (!data.anchor) data.anchor = el;
+			});
+		});
+		// UI indicate anchor cell
+		data.anchor.addClass("anchor");
+
+		// adjust width + height down
+		css.height -= css.top;
+		css.width -= css.left;
+		this._tools._selection.addClass("show").css(css);
+
+		// save reference data
+		this._selected = data;
+		// sync grid tools
+		this._tools.select(cols, rows);
+	}
+
+	get selected() {
+		return this._selected;
 	}
 
 	get rows() {

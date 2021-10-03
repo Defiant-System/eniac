@@ -4,6 +4,7 @@ class GridTools {
 		this._el = window.find(".table-tools");
 		this._cols = this._el.find(".table-cols");
 		this._rows = this._el.find(".table-rows");
+		this._selection = this._el.find(".selection");
 		// selectors
 		this.parts = {
 			cHead: ".table-cols > div:nth-child(1)",
@@ -137,11 +138,9 @@ class GridTools {
 		// insert clone at position
 		part = this.parts[`c${p}`];
 		part.el.find(`tr td:nth-child(${i+1})`)[where](this._TD);
-
 		// UI update column table width
 		let width = part.el.find("td").reduce((acc, td) => acc + parseInt(td.style.width, 10), 0);
 		part.el.find("table").css({ width });
-
 		// UI update tools width
 		this._el.css({ width: this._grid._el.prop("offsetWidth") });
 	}
@@ -158,18 +157,26 @@ class GridTools {
 		// remove row at position
 		part = this.parts[`c${p}`];
 		part.el.find(`tr td:nth-child(${i+1})`).remove();
-
 		// UI update column table width
 		let width = part.el.find("td").reduce((acc, td) => acc + parseInt(td.style.width, 10), 0);
 		part.el.find("table").css({ width });
-		
 		// UI update tools width
 		this._el.css({ width: this._grid._el.prop("offsetWidth") });
+	}
+
+	select(cols, rows) {
+		// reset columns & rows
+		this._cols.find(".active").removeClass("active");
+		this._rows.find(".active").removeClass("active");
+		// make active selected columns & rows
+		cols.map(i => this._cols.find("td").get(i).addClass("active"));
+		rows.map(i => this._rows.find("tr").get(i).addClass("active"));
 	}
 
 	get rows() {
 		return [...this._el.find(".table-rows td")];
 	}
+
 	get cols() {
 		let colEl = this._el.find(".table-cols"),
 			r1 = colEl.find("> div:nth-child(1) tr"),
