@@ -93,8 +93,7 @@ class GridTools {
 	}
 
 	addRow(n, where="after") {
-		let cols = this._grid.layout.cols,
-			rows = this._grid.layout.rows,
+		let rows = this._grid.layout.rows,
 			i = n !== undefined ? n : rows.head + rows.body - 1,
 			p;
 		// adjust index and find out "position"
@@ -119,7 +118,10 @@ class GridTools {
 			case (i >= rows.head + rows.body): p = "Foot"; i -= rows.head + rows.body; break;
 			default: p = "Body"; i -= rows.head;
 		}
+		// remove row at position
 		this.parts[`r${p}`].el.find(`tr:nth(${i})`).remove();
+		// UI update tools height
+		this._el.css({ height: this._grid._el.prop("offsetHeight") });
 	}
 
 	addCol(n, where="after") {
