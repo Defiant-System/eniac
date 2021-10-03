@@ -63,14 +63,19 @@
 			// menu events
 			case "sort-column-asc":
 			case "sort-column-desc":
-
+				console.log("TODO:", event);
+				break;
 			case "add-column-before":
+				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
+				Self.grid.addCol(xNum, "before");
+				break;
 			case "add-column-after":
+				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
+				Self.grid.addCol(xNum, "after");
+				break;
 			case "delete-column":
-
-			case "delete-row":
-				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
-				Self.grid.removeRow(yNum);
+				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
+				Self.grid.removeCol(xNum);
 				break;
 			case "add-row-above":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
@@ -79,6 +84,10 @@
 			case "add-row-below":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
 				Self.grid.addRow(yNum, "after");
+				break;
+			case "delete-row":
+				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
+				Self.grid.removeRow(yNum);
 				break;
 			// custom events
 			case "focus-cell":
