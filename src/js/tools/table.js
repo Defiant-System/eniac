@@ -47,16 +47,13 @@
 				Table = el.parents(".xl-table:first");
 				top = -event.target.scrollTop;
 				left = -event.target.scrollLeft;
-				
 				// vertical sync
 				Table.find(`.tbl-col-head > div:nth(1) table,
 							.tbl-col-foot > div:nth(1) table`).css({ left });
 				// horizontal sync
 				Table.find(".tbl-body div:nth-child(1) table").css({ top });
-
 				// prevent table-tool sync, if table-tools aren't focus on event table
 				if (!Table.isSame(Self.grid._el)) return;
-
 				// tool cols + rows
 				Self.els.cols.find("> div:nth-child(2) table").css({ left });
 				Self.els.rows.find("> div:nth-child(2) table").css({ top });

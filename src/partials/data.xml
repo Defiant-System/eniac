@@ -78,7 +78,7 @@
 		</Foot>
 	</Table>
 
-	<Table id="temp-1" title1="Clipped Table" class="gray-table-1 clipped temp-1">
+	<Table id="temp-1" title1="Clipped Table" class="gray-table-1 clipped1 temp-1">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -95,16 +95,10 @@
 				<Row><Cell/></Row>
 				<Row><Cell/></Row>
 				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
 			</Table>
 			<Table>
 				<Row><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell value="test"/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/></Row>
