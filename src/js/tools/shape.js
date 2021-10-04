@@ -51,6 +51,8 @@
 							case "move": return Tools.table.move(event);
 						}
 						break;
+					case el.hasClass("body"):
+						return Tools.sheet.lasso(event);
 					case el.hasClass("handle"):
 						name = el.parents("[data-area]").data("area");
 						Tools[name].move(event);

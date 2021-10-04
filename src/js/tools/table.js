@@ -156,8 +156,7 @@
 		}
 	},
 	resizeColRow(event) {
-		let APP = eniac,
-			Self = APP.tools.table,
+		let Self = eniac.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -243,8 +242,7 @@
 		}
 	},
 	resizeClip(event) {
-		let APP = eniac,
-			Self = APP.tools.table,
+		let Self = eniac.tools.table,
 			Drag = Self.cDrag,
 			el;
 		switch (event.type) {
@@ -325,8 +323,7 @@
 		}
 	},
 	resizeGrid(event) {
-		let APP = eniac,
-			Self = APP.tools.table,
+		let Self = eniac.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown": {
@@ -394,8 +391,7 @@
 		}
 	},
 	resizeSelection(event) {
-		let APP = eniac,
-			Self = APP.tools.table,
+		let Self = eniac.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -511,8 +507,7 @@
 		}
 	},
 	move(event) {
-		let APP = eniac,
-			Self = APP.tools.table,
+		let Self = eniac.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":

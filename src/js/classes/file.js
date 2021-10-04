@@ -19,8 +19,8 @@ class File {
 			/* white-table-1    */
 
 			html = "";
-			// html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
-			html += window.render({ template: "xl-table", match: `//Table[@id="temp-1"]` });
+			html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
+			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-1"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-2"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
 
