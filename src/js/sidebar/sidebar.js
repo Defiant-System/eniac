@@ -25,13 +25,14 @@
 		let APP = eniac,
 			Self = APP.sidebar,
 			name,
+			value,
 			pEl,
 			el;
 		switch (event.type) {
 			case "toggle-sidebar":
-				isOn = Self.els.layout.hasClass("show-sidebar");
-				Self.els.layout.toggleClass("show-sidebar", isOn);
-				return !isOn;
+				value = Self.els.layout.hasClass("show-sidebar");
+				Self.els.layout.toggleClass("show-sidebar", value);
+				return !value;
 			case "show-sheet":
 			case "show-title":
 			case "show-caption":
