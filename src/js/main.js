@@ -77,7 +77,8 @@ const eniac = {
 				});
 				break;
 			case "window.keystroke":
-				Self.tools[Self.tools.active].dispatch(event);
+				name = Self.tools.active || "sheet";
+				Self.tools[name].dispatch(event);
 				break;
 			// menubar events
 			case "set-document-zoom":
@@ -132,6 +133,7 @@ const eniac = {
 	sidebar: @import "sidebar/sidebar.js",
 	popups: @import "modules/popups.js",
 	tools: {
+		sheet: @import "tools/sheet.js",
 		table: @import "tools/table.js",
 		shape: @import "tools/shape.js",
 		image: @import "tools/image.js",
