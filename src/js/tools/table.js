@@ -413,10 +413,19 @@
 						y: event.clientY - event.offsetY,
 					},
 					grid = [];
-				
+				// adjust position with 1px
+				offset.top += 1;
+				offset.left += 1;
+				// collect cell info
 				table.rows.map((item, index) => {
 					if (!grid[index]) grid[index] = [];
-					item.map(td => grid[index].push(table.getOffset(td)));
+					item.map(td => {
+						let rect = table.getOffset(td);
+						// calc "right" & "bottom" for faster loop in mousemove
+						rect.bottom = rect.top + rect.height;
+						rect.right = rect.left + rect.width;
+						grid[index].push(rect);
+					});
 				});
 				
 				// create drag object
@@ -437,15 +446,19 @@
 					left = Drag.offset.left,
 					height = event.clientY - Drag.click.y,
 					width = event.clientX - Drag.click.x,
-					bottom = top + height,
-					right = left + width,
 					yNum = [Drag.rowIndex],
 					xNum = [Drag.cellIndex];
-
+				// checks whether box has negative values
+				if (height < 0) { top += height; height *= -1; }
+				if (width < 0)  { left += width; width *= -1; }
+				// less calculation during comparison
+				let bottom = top + height,
+					right = left + width;
+				// loop cell info
 				for (let y=0, yl=Drag.grid.length; y<yl; y++) {
 					for (let x=0, xl=Drag.grid[y].length; x<xl; x++) {
 						let rect = Drag.grid[y][x];
-						if (top < rect.top && left < rect.left && right > rect.left && bottom > rect.top) {
+						if (!((bottom < rect.top || top > rect.bottom) || (right < rect.left || left > rect.right))) {
 							if (!yNum.includes(y)) yNum.push(y);
 							if (!xNum.includes(x)) xNum.push(x);
 						}
