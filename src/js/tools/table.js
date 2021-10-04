@@ -419,29 +419,18 @@
 						x: event.clientX - event.offsetX,
 						y: event.clientY - event.offsetY,
 					},
-					cells = table.rows[0].map((td, index) => {
-						let rect = td.getBoundingClientRect();
-						return {
-							index,
-							left: rect.x - offset.left,
-							right: rect.right - offset.left,
-						};
-					}),
-					rows = table.rows.map((item, index) => {
-						let rect = item[0].parentNode.getBoundingClientRect();
-						return {
-							index,
-							top: rect.y - offset.top,
-							bottom: rect.bottom - offset.top,
-						};
-					}),
-					grid = {
-						x: cells,
-						y: rows,
-						// x: [offset.width, ...cells],
-						// y: [offset.height, ...rows],
-					};
-
+					grid = [];
+				
+				table.rows.map((item, index) => {
+					if (!grid[index]) grid[index] = [];
+					item.map(td => {
+						let { top, left, width, height } = table.getOffset(td),
+							right = left + width,
+							bottom = top + height;
+						grid[index].push({ td, top, left, right, bottom });
+					});
+				});
+				
 				// create drag object
 				Self.drag = {
 					el,
@@ -459,44 +448,27 @@
 			case "mousemove":
 				let top = Drag.offset.top,
 					left = Drag.offset.left,
-					height = event.clientY - Drag.click.y + Drag.offset.height,
-					width = event.clientX - Drag.click.x + Drag.offset.width,
-					filtered,
-					yNum,
-					xNum;
+					height = event.clientY - Drag.click.y,
+					width = event.clientX - Drag.click.x,
+					bottom = top + height + Drag.offset.height,
+					right = left + width + Drag.offset.width,
+					yNum = [],
+					xNum = [];
 
-				if (height < 0) {
-					top = event.clientY - Drag.clickY + Drag.offset.top;
-					filtered = Drag.grid.y.filter(b => b.top > top);
-					top = Math.min(...filtered.map(b => b.top));
-					height = Drag.offset.top + Drag.offset.height - top;
-					// get columns to be highlighted
-					yNum = [Drag.rowIndex, ...filtered.map(b => b.index).filter(i => i < Drag.rowIndex)];
-				} else {
-					filtered = Drag.grid.y.filter(b => b.bottom < height);
-					height = Math.max(...filtered.map(b => b.bottom));
-					// get columns to be highlighted
-					yNum = [Drag.rowIndex, ...filtered.map(b => b.index).filter(i => i > Drag.rowIndex)];
-				}
-
-				if (width < 0) {
-					left = event.clientX - Drag.clickX + Drag.offset.left;
-					filtered = Drag.grid.x.filter(b => b.left > left);
-					left = Math.min(...filtered.map(b => b.left));
-					width = Drag.offset.left + Drag.offset.width - left;
-					// get rows to be highlighted
-					xNum = [Drag.cellIndex, ...filtered.map(b => b.index).filter(i => i < Drag.cellIndex)];
-				} else {
-					filtered = Drag.grid.x.filter(b => b.right < width);
-					width = Math.max(...filtered.map(b => b.right));
-					// get rows to be highlighted
-					xNum = [Drag.cellIndex, ...filtered.map(b => b.index).filter(i => i > Drag.cellIndex)];
+				for (let y=0, yl=Drag.grid.length; y<yl; y++) {
+					for (let x=0, xl=Drag.grid[y].length; x<xl; x++) {
+						let rect = Drag.grid[y][x];
+						if (top < rect.top && left < rect.left && right > rect.right && bottom > rect.bottom) {
+							if (!yNum.includes(y)) yNum.push(y);
+							if (!xNum.includes(x)) xNum.push(x);
+						}
+					}
 				}
 
 				// make tool columns + rows active
-				// console.log( yNum, xNum );
+				Self.grid.select({ yNum, xNum });
 
-				Drag.selEl.css({ width, height });
+				// Drag.selEl.css({ width, height });
 				break;
 			case "mouseup":
 				// uncover layout
