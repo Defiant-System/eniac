@@ -405,16 +405,9 @@
 				Self.dispatch({ type: "focus-cell", el });
 
 				// collect info about event
-				let selEl = Self.gridTools._selection,
-					table = Self.grid,
+				let table = Self.grid,
 					[rowIndex, cellIndex] = table.getCoord(el[0]),
-					offset = {
-						top: el.prop("offsetTop"),
-						left: el.prop("offsetLeft"),
-						width: el.prop("offsetWidth"),
-						// width: el[0].getBoundingClientRect().width,
-						height: el.prop("offsetHeight"),
-					},
+					offset = table.getOffset(el[0]),
 					click = {
 						x: event.clientX - event.offsetX,
 						y: event.clientY - event.offsetY,
@@ -423,18 +416,12 @@
 				
 				table.rows.map((item, index) => {
 					if (!grid[index]) grid[index] = [];
-					item.map(td => {
-						let { top, left, width, height } = table.getOffset(td),
-							right = left + width,
-							bottom = top + height;
-						grid[index].push({ td, top, left, right, bottom });
-					});
+					item.map(td => grid[index].push(table.getOffset(td)));
 				});
 				
 				// create drag object
 				Self.drag = {
 					el,
-					selEl,
 					grid,
 					click,
 					offset,
@@ -450,25 +437,22 @@
 					left = Drag.offset.left,
 					height = event.clientY - Drag.click.y,
 					width = event.clientX - Drag.click.x,
-					bottom = top + height + Drag.offset.height,
-					right = left + width + Drag.offset.width,
-					yNum = [],
-					xNum = [];
+					bottom = top + height,
+					right = left + width,
+					yNum = [Drag.rowIndex],
+					xNum = [Drag.cellIndex];
 
 				for (let y=0, yl=Drag.grid.length; y<yl; y++) {
 					for (let x=0, xl=Drag.grid[y].length; x<xl; x++) {
 						let rect = Drag.grid[y][x];
-						if (top < rect.top && left < rect.left && right > rect.right && bottom > rect.bottom) {
+						if (top < rect.top && left < rect.left && right > rect.left && bottom > rect.top) {
 							if (!yNum.includes(y)) yNum.push(y);
 							if (!xNum.includes(x)) xNum.push(x);
 						}
 					}
 				}
-
 				// make tool columns + rows active
 				Self.grid.select({ yNum, xNum });
-
-				// Drag.selEl.css({ width, height });
 				break;
 			case "mouseup":
 				// uncover layout
