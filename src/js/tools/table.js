@@ -39,6 +39,10 @@
 				anchor = Self.grid.selected.anchor;
 				data = { yNum: [], xNum: [] };
 
+				if (!anchor) {
+					return APP.tools.dispatch({ ...event, selected: Self.grid._el });
+				}
+
 				switch (event.char) {
 					case "up":
 						data.yNum.push(Math.max(anchor.y - 1, 0));
@@ -59,7 +63,6 @@
 				}
 				// move selection
 				Self.grid.select(data);
-				// Self.grid.select({ yNum: [anchor.y], xNum: [anchor.x] });
 				break;
 			// native events
 			case "scroll":
