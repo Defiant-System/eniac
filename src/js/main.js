@@ -45,6 +45,9 @@ const eniac = {
 				break;
 			case "window.close":
 				break;
+			case "window.keystroke":
+				// forward event to tools
+				return Self.tools.dispatch(event);
 			case "new-file":
 				// save reference to file
 				Self.file = new File();
@@ -72,10 +75,6 @@ const eniac = {
 					xlsx: () => file.toBlob("xlsx"),
 					xml:  () => file.toBlob("xml"),
 				});
-				break;
-			case "window.keystroke":
-				name = Self.tools.active || "sheet";
-				Self.tools[name].dispatch(event);
 				break;
 			// menubar events
 			case "set-document-zoom":

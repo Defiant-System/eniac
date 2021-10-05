@@ -15,10 +15,6 @@
 			Self = APP.tools.sheet,
 			el;
 		switch (event.type) {
-			// system events
-			case "window.keystroke":
-				console.log(event);
-				break;
 			// custom events
 			case "focus-sheet":
 				break;

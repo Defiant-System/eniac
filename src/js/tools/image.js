@@ -16,10 +16,6 @@
 			Image = Self.image,
 			el;
 		switch (event.type) {
-			// system events
-			case "window.keystroke":
-				console.log(event);
-				break;
 			// csutom events
 			case "focus-image":
 				// resize tools

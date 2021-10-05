@@ -20,10 +20,7 @@
 			Shape = Self.shape,
 			el;
 		switch (event.type) {
-			// system events
-			case "window.keystroke":
-				console.log(event);
-				break;
+			// custom events
 			case "blur-shape":
 				Self.els.root.addClass("hidden");
 				// forget shape

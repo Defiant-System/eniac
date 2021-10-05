@@ -24,8 +24,13 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
+			name,
 			el;
 		switch (event.type) {
+			// system events
+			case "window.keystroke":
+				console.log(event);
+				break;
 			// native events
 			case "mousedown":
 				// proxies mousedown event
@@ -87,10 +92,6 @@
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
 				}
-				break;
-			// system events
-			case "window.keystroke":
-				console.log(event);
 				break;
 			// csutom events
 			case "blur-focused":

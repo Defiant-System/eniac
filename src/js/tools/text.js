@@ -16,10 +16,6 @@
 			Text = Self.text,
 			el;
 		switch (event.type) {
-			// system events
-			case "window.keystroke":
-				console.log(event);
-				break;
 			// custom events
 			case "focus-text":
 				// resize tools
