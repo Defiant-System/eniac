@@ -131,14 +131,8 @@ const eniac = {
 	head: @import "modules/head.js",
 	foot: @import "modules/foot.js",
 	sidebar: @import "sidebar/sidebar.js",
+	tools: @import "tools/tools.js",
 	popups: @import "modules/popups.js",
-	tools: {
-		sheet: @import "tools/sheet.js",
-		table: @import "tools/table.js",
-		shape: @import "tools/shape.js",
-		image: @import "tools/image.js",
-		text: @import "tools/text.js",
-	}
 };
 
 window.exports = eniac;
