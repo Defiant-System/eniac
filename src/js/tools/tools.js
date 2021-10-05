@@ -35,7 +35,7 @@
 				selected = event.selected || Self.els.body.find(".wrapper > .selected");
 				if (!selected.length) selected = Self[Self.active][Self.active];
 
-				if (!selected.length && ["sheet", "table"].includes(Self.active)) {
+				if (selected && !selected.length && ["sheet", "table"].includes(Self.active)) {
 					// forward event to table tools
 					return Self[Self.active].dispatch(event);
 				}

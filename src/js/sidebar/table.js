@@ -13,7 +13,7 @@
 		let APP = eniac,
 			Self = APP.sidebar.table,
 			Els = APP.sidebar.els,
-			Table = event.table || APP.tools.table.grid._el,
+			Table = event.table || APP.tools.table.table._el,
 			from,
 			to,
 			value,
@@ -54,11 +54,11 @@
 				// input fields: fit width
 				value = Table.find(".tbl-root").prop("offsetWidth");
 				pEl.find("input#table-clip-width").val(value);
-				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < APP.tools.table.grid.width);
+				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < APP.tools.table.table.width);
 				// input fields: fit height
 				value = Table.find(".tbl-root").prop("offsetHeight");
 				pEl.find("input#table-clip-height").val(value);
-				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < APP.tools.table.grid.height);
+				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < APP.tools.table.table.height);
 				break;
 			case "update-table-head-footer-rows":
 				// selectbox: table-header-rows
@@ -76,9 +76,9 @@
 				break;
 			case "update-table-row-col":
 				// input values
-				value = APP.tools.table.grid.dimension.rows;
+				value = APP.tools.table.table.dimension.rows;
 				Els.el.find(`input[name="table-rows-num"]`).val(value);
-				value = APP.tools.table.grid.dimension.cols;
+				value = APP.tools.table.table.dimension.cols;
 				Els.el.find(`input[name="table-cols-num"]`).val(value);
 				break;
 			case "update-table-outlines":
@@ -243,7 +243,7 @@
 				// sync tools table
 				APP.tools.table.dispatch({ type: "sync-table-tools", table: Table });
 				// sync tools selection indicators
-				APP.tools.table.dispatch({ type: "select-coords", ...APP.tools.table.grid.selected });
+				APP.tools.table.dispatch({ type: "select-coords", ...APP.tools.table.table.selected });
 				// re-sync selection box
 				APP.tools.table.dispatch({ type: "re-sync-selection" });
 				break;
@@ -278,7 +278,7 @@
 				arg = el.attr("arg");
 
 				value = {};
-				value[arg] = APP.tools.table.grid[arg];
+				value[arg] = APP.tools.table.table[arg];
 				Table.find(".tbl-root").css(value);
 				
 				value[arg] = Table.prop(arg === "width" ? "offsetWidth" : "offsetHeight");

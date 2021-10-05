@@ -18,7 +18,7 @@
 		// instantiate table tools
 		this.gridTools = new GridTools();
 		// placeholder
-		this.grid = {};
+		this.table = {};
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
@@ -26,7 +26,7 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools.table,
-			Table = Self.grid,
+			Table = Self.table,
 			top, left, width, height,
 			grid, cols, rows, data,
 			table, anchor, offset,
@@ -36,11 +36,12 @@
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				anchor = Self.grid.selected.anchor;
+				anchor = Self.table.selected.anchor;
 				data = { yNum: [], xNum: [] };
 
 				if (!anchor) {
-					return APP.tools.dispatch({ ...event, selected: Self.grid._el });
+					// this means, table need to be moved
+					return APP.tools.dispatch({ ...event, selected: Self.table._el });
 				}
 
 				switch (event.char) {
@@ -49,7 +50,7 @@
 						data.xNum.push(anchor.x);
 						break;
 					case "down":
-						data.yNum.push(Math.min(anchor.y + 1, Self.grid.rows.length - 1));
+						data.yNum.push(Math.min(anchor.y + 1, Self.table.rows.length - 1));
 						data.xNum.push(anchor.x);
 						break;
 					case "left":
@@ -58,11 +59,11 @@
 						break;
 					case "right":
 						data.yNum.push(anchor.y);
-						data.xNum.push(Math.min(anchor.x + 1, Self.grid.rows[0].length - 1));
+						data.xNum.push(Math.min(anchor.x + 1, Self.table.rows[0].length - 1));
 						break;
 				}
 				// move selection
-				Self.grid.select(data);
+				Self.table.select(data);
 				break;
 			// native events
 			case "scroll":
@@ -76,7 +77,7 @@
 				// horizontal sync
 				Table.find(".tbl-body div:nth-child(1) table").css({ top });
 				// prevent table-tool sync, if table-tools aren't focus on event table
-				if (!Table.isSame(Self.grid._el)) return;
+				if (!Table.isSame(Self.table._el)) return;
 				// tool cols + rows
 				Self.els.cols.find("> div:nth-child(2) table").css({ left });
 				Self.els.rows.find("> div:nth-child(2) table").css({ top });
@@ -88,27 +89,27 @@
 				break;
 			case "add-column-before":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
-				Self.grid.addCol(xNum, "before");
+				Self.table.addCol(xNum, "before");
 				break;
 			case "add-column-after":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
-				Self.grid.addCol(xNum, "after");
+				Self.table.addCol(xNum, "after");
 				break;
 			case "delete-column":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
-				Self.grid.removeCol(xNum);
+				Self.table.removeCol(xNum);
 				break;
 			case "add-row-above":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
-				Self.grid.addRow(yNum, "before");
+				Self.table.addRow(yNum, "before");
 				break;
 			case "add-row-below":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
-				Self.grid.addRow(yNum, "after");
+				Self.table.addRow(yNum, "after");
 				break;
 			case "delete-row":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
-				Self.grid.removeRow(yNum);
+				Self.table.removeRow(yNum);
 				break;
 			// custom events
 			case "focus-cell":
@@ -118,7 +119,7 @@
 				// focus clicked table
 				Self.dispatch({ type: "focus-table", table });
 
-				[yNum, xNum] = Self.grid.getCoord(anchor[0]);
+				[yNum, xNum] = Self.table.getCoord(anchor[0]);
 				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum], anchor });
 				break;
 			case "blur-cell":
@@ -135,46 +136,46 @@
 				break;
 			case "blur-table":
 				// reset current table, if any
-				if (Self.grid._el) {
-					Self.grid._el.find(".anchor, .selected").removeClass("anchor selected");
+				if (Self.table._el) {
+					Self.table._el.find(".anchor, .selected").removeClass("anchor selected");
 				}
 
-				Self.grid = {};
+				Self.table = {};
 				Self.els.root.addClass("hidden");
 				break;
 			case "set-table":
-				el = event.table || Self.grid._el;
-				if (!el.isSame(Self.grid._el)) {
+				el = event.table || Self.table._el;
+				if (!el.isSame(Self.table._el)) {
 					// zip table cells ordered
-					Self.grid = new Grid(el, Self.gridTools);
+					Self.table = new Grid(el, Self.gridTools);
 				}
 				// update active tool type
 				APP.tools.active = "table";
 				break;
 			case "sync-table-tools":
-				// if (event.table && Self.grid && event.table.isSame(Self.grid._el)) return;
+				// if (event.table && Self.table && event.table.isSame(Self.table._el)) return;
 				Self.dispatch({ ...event, type: "set-table" });
-				Self.gridTools.syncDim(Self.grid);
-				Self.gridTools.syncRowsCols(Self.grid);
+				Self.gridTools.syncDim(Self.table);
+				Self.gridTools.syncRowsCols(Self.table);
 				break;
 			case "re-sync-selection":
-				event.xNum = Self.grid.selected.xNum;
-				event.yNum = Self.grid.selected.yNum;
+				event.xNum = Self.table.selected.xNum;
+				event.yNum = Self.table.selected.yNum;
 				/* falls through */
 			case "select-coords":
-				Self.grid.select(event);
+				Self.table.select(event);
 				break;
 			case "select-columns":
 				if (event.target.nodeName === "S") return;
 				xNum = [Self.gridTools.getColIndex(event.target)];
-				yNum = Self.grid.rows.map((item, index) => index);
-				Self.grid.select({ xNum, yNum });
+				yNum = Self.table.rows.map((item, index) => index);
+				Self.table.select({ xNum, yNum });
 				break;
 			case "select-rows":
 				if (event.target.nodeName === "S") return;
-				xNum = Self.grid.rows[0].map((item, index) => index);
+				xNum = Self.table.rows[0].map((item, index) => index);
 				yNum = [Self.gridTools.getRowIndex(event.target)];
-				Self.grid.select({ xNum, yNum });
+				Self.table.select({ xNum, yNum });
 				break;
 		}
 	},
@@ -205,14 +206,14 @@
 
 						Self.drag.el = el;
 						Self.drag.tblWidth = tbl.prop("offsetWidth");
-						Self.drag.tblCol = Self.grid.getCoordCol(index);
+						Self.drag.tblCol = Self.table.getCoordCol(index);
 						Self.drag.ttWidth = Self.drag.root[0].getBoundingClientRect().width;
 						Self.drag.colWidth = Self.drag.el[0].getBoundingClientRect().width;
 					} else if (event.offsetX < 0) {
 						index = Self.gridTools.getRowIndex(el[0]);
 
 						Self.drag.el = el.parent();
-						Self.drag.tblRow = Self.grid.getCoordRow(index).parent();
+						Self.drag.tblRow = Self.table.getCoordRow(index).parent();
 						Self.drag.ttHeight = Self.drag.root[0].offsetHeight;
 						Self.drag.rowHeight = Self.drag.el[0].offsetHeight;
 					} else {
@@ -281,7 +282,7 @@
 				Self.els.layout.addClass("cover");
 
 				let Sidebar = APP.sidebar.els.el,
-					table = Self.grid._el.find(".tbl-root"),
+					table = Self.table._el.find(".tbl-root"),
 					type = event.target.className.split(" ")[1].split("-")[0];
 
 				// create drag object
@@ -311,8 +312,8 @@
 						height: 176,
 					},
 					max: {
-						width: Self.grid.width,
-						height: Self.grid.height,
+						width: Self.table.width,
+						height: Self.table.height,
 					}
 				};
 
@@ -356,7 +357,7 @@
 				Self.els.layout.addClass("cover");
 
 				let el = Self.els.root,
-					grid = Self.grid,
+					grid = Self.table,
 					table = grid._el.find(".tbl-root"),
 					dimMin = grid.dimension.min,
 					type = event.target.className.split(" ")[1].split("-")[0],
@@ -428,7 +429,7 @@
 				Self.dispatch({ type: "focus-cell", el });
 
 				// collect info about event
-				let table = Self.grid,
+				let table = Self.table,
 					[rowIndex, cellIndex] = table.getCoord(el[0]),
 					offset = table.getOffset(el[0]),
 					click = {
@@ -508,7 +509,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 				
-				let table = Self.grid._el,
+				let table = Self.table._el,
 					el = $([table[0], Self.els.root[0]]),
 					offset = {
 						y: table.prop("offsetTop"),
@@ -548,7 +549,7 @@
 			case "mouseup":
 				if (Date.now() - Drag.clickTime < 250) {
 					// clear selection from grid instance
-					Self.grid.unselect();
+					Self.table.unselect();
 				}
 				// hide guides
 				Drag.guides.reset();
