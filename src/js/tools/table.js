@@ -29,14 +29,15 @@
 			Table = Self.table,
 			top, left, width, height,
 			grid, cols, rows, data,
-			table, anchor, offset,
+			table, selected, anchor, offset,
 			xNum, yNum,
 			el;
 		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				anchor = Self.table.selected.anchor;
+				selected = Self.table.selected;
+				anchor = selected.anchor;
 				data = { yNum: [], xNum: [] };
 
 				if (!anchor) {
