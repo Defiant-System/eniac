@@ -31,12 +31,14 @@
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				if (!event.selected && ["sheet", "table"].includes(Self.active)) {
+				// get selected items
+				selected = event.selected || Self.els.body.find(".wrapper > .selected");
+				if (!selected.length) selected = Self[Self.active][Self.active];
+
+				if (!selected.length && ["sheet", "table"].includes(Self.active)) {
 					// forward event to table tools
 					return Self[Self.active].dispatch(event);
 				}
-				selected = event.selected || Self.els.body.find(".wrapper > .selected");
-				if (!selected.length) selected = Self[Self.active][Self.active];
 				// shiftKey => 10px movement
 				value = event.shiftKey ? 10 : 1;
 				// iterate selected element
@@ -59,8 +61,10 @@
 					}
 					// move element
 					el.css(data);
-					// focus shape
-					Self[name].dispatch({ type: `focus-${name}`, el });
+					if (selected.length === 1) {
+						// focus shape
+						Self[name].dispatch({ type: `focus-${name}`, el });
+					}
 				});
 				break;
 			// native events
