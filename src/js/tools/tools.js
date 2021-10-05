@@ -24,6 +24,8 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
+			selected,
+			value,
 			name,
 			el;
 		switch (event.type) {
@@ -33,10 +35,30 @@
 					// forward event to table tools
 					return Self.table.dispatch(event);
 				}
-				el = Self.els.body.find(".wrapper > .selected");
-				if (!el.length) el = Self[Self.active][Self.active];
+				selected = Self.els.body.find(".wrapper > .selected");
+				if (!selected.length) selected = Self[Self.active][Self.active];
 				
-				console.log(el);
+				// shiftKey => 10px movement
+				value = event.shiftKey ? 10 : 1;
+
+				selected.map(item => {
+					let el = $(item),
+						data = {},
+						move;
+					switch (event.char) {
+						case "up":
+						case "down":
+							move = event.char === "up" ? -1 : 1;
+							data.top = Math.max(parseInt(el.css("top"), 10) + (move * value), 3);
+							break;
+						case "left":
+						case "right":
+							move = event.char === "left" ? -1 : 1;
+							data.left = Math.max(parseInt(el.css("left"), 10) + (move * value), 3);
+							break;
+					}
+					el.css(data);
+				});
 				break;
 			// native events
 			case "mousedown":
