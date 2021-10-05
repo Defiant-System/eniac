@@ -26,8 +26,9 @@ class File {
 			});
 
 			// setTimeout(() => window.find(`.xl-table td:nth(24)`).trigger("mousedown").trigger("mouseup"), 150);
-			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);

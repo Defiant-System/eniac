@@ -43,6 +43,7 @@
 
 				selected.map(item => {
 					let el = $(item),
+						[a, name] = el.prop("className").split(" ")[0].split("-"),
 						data = {},
 						move;
 					switch (event.char) {
@@ -57,7 +58,10 @@
 							data.left = Math.max(parseInt(el.css("left"), 10) + (move * value), 3);
 							break;
 					}
+					// move element
 					el.css(data);
+					// focus shape
+					Self[name].dispatch({ type: `focus-${name}`, el });
 				});
 				break;
 			// native events
