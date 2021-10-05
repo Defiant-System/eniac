@@ -62,8 +62,10 @@
 						data.xNum.push(Math.min(anchor.x + 1, Self.table.rows[0].length - 1));
 						break;
 				}
-				// move selection
-				Self.table.select(data);
+				if (data.yNum.length) {
+					// move selection
+					Self.table.select(data);
+				}
 				break;
 			// native events
 			case "scroll":
