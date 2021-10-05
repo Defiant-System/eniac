@@ -93,8 +93,6 @@
 					Drag.selectable.map(r => r.el.removeClass("selected"));
 					// update sidebar
 					APP.sidebar.dispatch({ type: "show-sheet" });
-					// blur XL element, if any
-					APP.tools.dispatch({ type: "blur-focused" });
 				}
 				// reset lasso element
 				Drag.el

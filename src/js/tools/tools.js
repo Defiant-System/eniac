@@ -48,6 +48,8 @@
 						}
 						break;
 					case el.hasClass("body"):
+						// blur XL element, if any
+						Self.dispatch({ type: "blur-focused" });
 						// forward event to lasso
 						return Self.sheet.lasso(event);
 					case el.hasClass("handle"):
@@ -92,6 +94,9 @@
 				break;
 			// csutom events
 			case "blur-focused":
+				// make elements "unselected"
+				Self.els.body.find(".wrapper > .selected").removeClass("selected");
+				// notify all sub-tools
 				Self.types.map(n =>
 					Self[n].dispatch({ type: `blur-${n}`, el: Self.els.body }));
 				break;
