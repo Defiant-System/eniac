@@ -37,6 +37,10 @@
 			el;
 		// console.log(event);
 		switch (event.type) {
+			// system events
+			case "window.keystroke":
+				console.log(event);
+				break;
 			// native events
 			case "scroll":
 				el = $(event.target);

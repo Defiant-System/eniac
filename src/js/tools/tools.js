@@ -29,18 +29,26 @@
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				console.log(event);
+				if (Self.active === "table") {
+					// forward event to table tools
+					return Self.table.dispatch(event);
+				}
+				el = Self.els.body.find(".wrapper > .selected");
+				if (!el.length) el = Self[Self.active][Self.active];
+				
+				console.log(el);
 				break;
 			// native events
 			case "mousedown":
 				// proxies mousedown event
-				let el = $(event.target),
-					nodeName = el.prop("nodeName"),
-					name = el.attr("class") || "";
-				
+				el = $(event.target);
+				name = el.attr("class") || "";
+
 				if (name.startsWith("xl-") ) {
 					name = name.slice(3).split(" ")[0];
 				}
+
+				let nodeName = el.prop("nodeName");
 
 				switch (true) {
 					// let other handlers handle it
