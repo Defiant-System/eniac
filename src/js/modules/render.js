@@ -35,16 +35,6 @@ const Render = {
 			// render sheet table
 			this.sheet(book.SheetNames[0]);
 		}
-
-		// temporary
-		// let anchor = this.els.body.find("td:nth(28)")[0];
-		// Cursor.dispatch({ type: "focus-cell", anchor });
-
-		// Cursor.dispatch({
-		// 	type: "select-rectangle",
-		// 	anchorStart: Parser.getCellByCoord(1, 1),
-		// 	anchorEnd: Parser.getCellByCoord(4, 3),
-		// });
 	},
 	sheet(name) {
 		// render sheet table
@@ -60,7 +50,5 @@ const Render = {
 		this.els.body.find(".xl-table").remove();
 		// append new sheet
 		this.els.body.append(html);
-		// hide tools
-		// Cursor.dispatch({ type: "blur-table" });
 	}
 };

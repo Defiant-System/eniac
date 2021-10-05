@@ -40,10 +40,6 @@ class File {
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);
-		
-		// auto focus on first cell
-		// let anchor = window.find(".xl-table:nth(0) table").get(3).find("td").get(6);
-		// setTimeout(() => Cursor.dispatch({ type: "focus-cell", anchor }), 100);
 	}
 
 	toBlob(kind) {

@@ -28,9 +28,6 @@ const eniac = {
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init());
-		Object.keys(this.tools)
-			.filter(i => typeof this.tools[i].init === "function")
-			.map(i => this.tools[i].init());
 	},
 	async dispatch(event) {
 		let Self = eniac,
@@ -101,16 +98,6 @@ const eniac = {
 				break;
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
-			case "blur-table":
-				el = $(event.target);
-				switch (true) {
-					case el.hasClass("table-title"):
-						return Cursor.dispatch({ type: "focus-table-title", el });
-					case el.hasClass("table-caption"):
-						return Cursor.dispatch({ type: "focus-table-caption", el });
-				}
-				Self.tools.shape.dispatch({ type: "blur-shape", el });
-				return Cursor.dispatch({ type: "blur-table", el });
 			// forwards events
 			default:
 				el = event.el || (event.origin && event.origin.el);
