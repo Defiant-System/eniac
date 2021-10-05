@@ -127,6 +127,8 @@ class Grid {
 		let cols = data.xNum.length ? data.xNum : [data.xNum],
 			rows = data.yNum.length ? data.yNum : [data.yNum],
 			_rows = this.rows,
+			// anchor cell
+			anchor = {},
 			// selection box dimensions
 			css = {
 				top: 1e5,
@@ -154,11 +156,13 @@ class Grid {
 				if (css.width < width) css.width = width;
 				if (css.height < height) css.height = height;
 				// if (y === Table.rows.length-1) css.height -= 1;
-				if (!data.anchor) data.anchor = el;
+				if (!anchor.el) {
+					anchor = { el, y, x };
+				}
 			});
 		});
 		// UI indicate anchor cell
-		data.anchor.addClass("anchor");
+		anchor.el.addClass("anchor");
 
 		// adjust width + height down
 		css.height -= css.top;
@@ -166,7 +170,7 @@ class Grid {
 		this._tools._selection.addClass("show").css(css);
 
 		// save reference data
-		this._selected = { xNum: cols, yNum: rows };
+		this._selected = { xNum: cols, yNum: rows, anchor };
 		// sync grid tools
 		this._tools.select(cols, rows);
 	}

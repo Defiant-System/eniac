@@ -22,9 +22,6 @@
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
-		// this.els.layout.on("mousedown", ".table-cols, .table-rows", this.resizeColRow);
-		// this.els.resizes.on("mousedown", this.resizeClip);
-		// this.els.move.on("mousedown", this.move);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -39,7 +36,24 @@
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				console.log(event);
+				anchor = Self.grid.selected.anchor;
+
+				switch (event.char) {
+					case "up":
+						anchor.y = Math.max(anchor.y - 1, 0);
+						break;
+					case "down":
+						anchor.y = Math.min(anchor.y + 1, Self.grid.rows.length - 1);
+						break;
+					case "left":
+						anchor.x = Math.max(anchor.x - 1, 0);
+						break;
+					case "right":
+						anchor.x = Math.min(anchor.x + 1, Self.grid.rows[0].length - 1);
+						break;
+				}
+				// move selection
+				Self.grid.select({ yNum: [anchor.y], xNum: [anchor.x] });
 				break;
 			// native events
 			case "scroll":

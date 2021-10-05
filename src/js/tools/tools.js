@@ -31,16 +31,15 @@
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				if (Self.active === "table") {
+				if (["sheet", "table"].includes(Self.active)) {
 					// forward event to table tools
-					return Self.table.dispatch(event);
+					return Self[Self.active].dispatch(event);
 				}
 				selected = Self.els.body.find(".wrapper > .selected");
 				if (!selected.length) selected = Self[Self.active][Self.active];
-				
 				// shiftKey => 10px movement
 				value = event.shiftKey ? 10 : 1;
-
+				// iterate selected element
 				selected.map(item => {
 					let el = $(item),
 						[a, name] = el.prop("className").split(" ")[0].split("-"),
@@ -69,11 +68,9 @@
 				// proxies mousedown event
 				el = $(event.target);
 				name = el.attr("class") || "";
-
 				if (name.startsWith("xl-") ) {
 					name = name.slice(3).split(" ")[0];
 				}
-
 				let nodeName = el.prop("nodeName");
 
 				switch (true) {
@@ -87,8 +84,12 @@
 						}
 						break;
 					case el.hasClass("body"):
+						// reference of active tool
+						Self.active = "sheet";
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
+						// focus shape
+						Self.sheet.dispatch({ type: `focus-sheet`, el });
 						// forward event to lasso
 						return Self.sheet.lasso(event);
 					case el.hasClass("handle"):
@@ -121,6 +122,8 @@
 						Self[name].move(event);
 						break;
 					default:
+						// reference of active tool
+						Self.active = "sheet";
 						// update sidebar
 						APP.sidebar.dispatch({ type: "show-sheet" });
 						// blur XL element, if any
