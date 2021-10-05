@@ -164,10 +164,15 @@ class GridTools {
 		this._el.css({ width: this._grid._el.prop("offsetWidth") });
 	}
 
-	select(cols, rows) {
+	unselect() {
 		// reset columns & rows
 		this._cols.find(".active").removeClass("active");
 		this._rows.find(".active").removeClass("active");
+	}
+
+	select(cols, rows) {
+		// reset columns & rows
+		this.unselect();
 		// make active selected columns & rows
 		cols.map(i => this._cols.find("td").get(i).addClass("active"));
 		rows.map(i => this._rows.find("tr").get(i).addClass("active"));

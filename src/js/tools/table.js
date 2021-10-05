@@ -37,23 +37,29 @@
 			// system events
 			case "window.keystroke":
 				anchor = Self.grid.selected.anchor;
+				data = { yNum: [], xNum: [] };
 
 				switch (event.char) {
 					case "up":
-						anchor.y = Math.max(anchor.y - 1, 0);
+						data.yNum.push(Math.max(anchor.y - 1, 0));
+						data.xNum.push(anchor.x);
 						break;
 					case "down":
-						anchor.y = Math.min(anchor.y + 1, Self.grid.rows.length - 1);
+						data.yNum.push(Math.min(anchor.y + 1, Self.grid.rows.length - 1));
+						data.xNum.push(anchor.x);
 						break;
 					case "left":
-						anchor.x = Math.max(anchor.x - 1, 0);
+						data.yNum.push(anchor.y);
+						data.xNum.push(Math.max(anchor.x - 1, 0));
 						break;
 					case "right":
-						anchor.x = Math.min(anchor.x + 1, Self.grid.rows[0].length - 1);
+						data.yNum.push(anchor.y);
+						data.xNum.push(Math.min(anchor.x + 1, Self.grid.rows[0].length - 1));
 						break;
 				}
 				// move selection
-				Self.grid.select({ yNum: [anchor.y], xNum: [anchor.x] });
+				Self.grid.select(data);
+				// Self.grid.select({ yNum: [anchor.y], xNum: [anchor.x] });
 				break;
 			// native events
 			case "scroll":
@@ -517,6 +523,7 @@
 				Self.drag = {
 					el,
 					guides,
+					clickTime: Date.now(),
 					click: {
 						y: event.clientY - offset.y,
 						x: event.clientX - offset.x,
@@ -536,6 +543,10 @@
 				Drag.el.css(pos);
 				break;
 			case "mouseup":
+				if (Date.now() - Drag.clickTime < 250) {
+					// clear selection from grid instance
+					Self.grid.unselect();
+				}
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout

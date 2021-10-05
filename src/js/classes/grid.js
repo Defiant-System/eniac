@@ -123,6 +123,22 @@ class Grid {
 		this._tools.removeCol(n);
 	}
 
+	unselect() {
+		// remove reference to selected
+		this._selected = false;
+		// UI update
+		this._tools._selection
+			.removeClass("show")
+			.css({
+				top: 1e5,
+				left: 1e5,
+				width: -1e2,
+				height: -1e2,
+			});
+		// sync grid tools
+		this._tools.unselect();
+	}
+
 	select(data) {
 		let cols = data.xNum.length ? data.xNum : [data.xNum],
 			rows = data.yNum.length ? data.yNum : [data.yNum],
