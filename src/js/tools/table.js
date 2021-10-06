@@ -36,6 +36,7 @@
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
+				rows = Self.table.rows;
 				selected = Self.table.selected;
 				anchor = selected.anchor;
 				data = { yNum: [], xNum: [] };
@@ -45,25 +46,41 @@
 					return APP.tools.dispatch({ ...event, selected: Self.table._el });
 				}
 
+				let isShiftKey = event.shiftKey,
+					index;
+				// remember "old" selection
+				if (isShiftKey) {
+					data.xNum.push(...selected.xNum);
+					data.yNum.push(...selected.yNum);
+				}
+				// arrow keys
 				switch (event.char) {
 					case "up":
-						data.yNum.push(Math.max(anchor.y - 1, 0));
-						data.xNum.push(anchor.x);
+						anchor.y = Math.max(anchor.y - 1, 0);
+						index = data.yNum.indexOf(anchor.y);
+						if (isShiftKey && index >= 0) data.yNum = data.yNum.splice(0, index);
 						break;
 					case "down":
-						data.yNum.push(Math.min(anchor.y + 1, Self.table.rows.length - 1));
-						data.xNum.push(anchor.x);
+						anchor.y = Math.min(anchor.y + 1, rows.length - 1);
+						index = data.yNum.indexOf(anchor.y);
+						if (isShiftKey && index >= 0) data.yNum = data.yNum.splice(index);
 						break;
 					case "left":
-						data.yNum.push(anchor.y);
-						data.xNum.push(Math.max(anchor.x - 1, 0));
+						anchor.x = Math.max(anchor.x - 1, 0);
+						index = data.xNum.indexOf(anchor.x);
+						if (isShiftKey && index >= 0) data.xNum = data.xNum.splice(0, index);
 						break;
 					case "right":
-						data.yNum.push(anchor.y);
-						data.xNum.push(Math.min(anchor.x + 1, Self.table.rows[0].length - 1));
+						anchor.x = Math.min(anchor.x + 1, rows[0].length - 1);
+						index = data.xNum.indexOf(anchor.x);
+						if (isShiftKey && index >= 0) data.xNum = data.xNum.splice(index);
 						break;
 				}
-				if (data.yNum.length) {
+
+				if (index !== undefined) {
+					data.yNum.push(anchor.y);
+					data.xNum.push(anchor.x);
+					data.anchor = { y: anchor.y, x: anchor.x };
 					// move selection
 					Self.table.select(data);
 				}

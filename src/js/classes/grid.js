@@ -22,6 +22,18 @@ class Grid {
 		// setTimeout(() => { this.removeCol(2); }, 1500);
 		// setTimeout(() => { this.addRow(); }, 500);
 		// setTimeout(() => { this.removeRow(2); }, 1500);
+
+		// setTimeout(() => {
+		// 	let data = {
+		// 			yNum: [2,3,4],
+		// 			xNum: [2,3,4,5],
+		// 			anchor: {
+		// 				y: 4,
+		// 				x: 2,
+		// 			}
+		// 		};
+		// 	this.select(data);
+		// }, 500);
 	}
 
 	createClone(body, type) {
@@ -144,7 +156,7 @@ class Grid {
 			rows = data.yNum.length ? data.yNum : [data.yNum],
 			_rows = this.rows,
 			// anchor cell
-			anchor = {},
+			anchor = data.anchor || {},
 			// selection box dimensions
 			css = {
 				top: 1e5,
@@ -154,7 +166,9 @@ class Grid {
 			};
 		// clear selected cell className(s)
 		this._el.find(".anchor, .selected").removeClass("anchor selected");
-
+		// make sure selection arrays are in order
+		data.yNum = data.yNum.sort((a,b) => a-b);
+		data.xNum = data.xNum.sort((a,b) => a-b);
 		// set selected cell className(s)
 		rows.map(y => {
 			cols.map(x => {
@@ -171,9 +185,9 @@ class Grid {
 				if (css.left > left) css.left = left;
 				if (css.width < width) css.width = width;
 				if (css.height < height) css.height = height;
-				// if (y === Table.rows.length-1) css.height -= 1;
-				if (!anchor.el) {
-					anchor = { el, y, x };
+				if (!anchor.x) anchor = { ...anchor, x, y };
+				if (!anchor.el && anchor.y === y && anchor.x === x) {
+					anchor = { ...anchor, el };
 				}
 			});
 		});
