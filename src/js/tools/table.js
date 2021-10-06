@@ -438,15 +438,84 @@
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
-				let el = $(event.target);
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover");
+
+				// collect info about event
+				let el = $(event.target),
+					table = Self.table,
+					anchor = table.selected.anchor,
+					offset = table.getOffset(anchor.el[0]),
+					[rowIndex, cellIndex] = table.getCoord(anchor.el[0]),
+					click = {
+						y: event.clientY,
+						x: event.clientX,
+					},
+					grid = [];
+
+				if (el.hasClass("bottom-right")) {
+					click.y -= anchor.el.prop("offsetHeight");
+					click.x -= anchor.el.prop("offsetWidth");
+				}
+
+				// adjust position with 1px
+				offset.top += 1;
+				offset.left += 1;
+				// collect cell info
+				table.rows.map((item, index) => {
+					if (!grid[index]) grid[index] = [];
+					item.map(td => {
+						let rect = table.getOffset(td);
+						// calc "right" & "bottom" for faster loop in mousemove
+						rect.bottom = rect.top + rect.height;
+						rect.right = rect.left + rect.width;
+						grid[index].push(rect);
+					});
+				});
+
 				// create drag object
 				Self.drag = {
-					el,
+					grid,
+					table,
+					click,
+					offset,
+					rowIndex,
+					cellIndex,
+					anchor: {
+						y: anchor.y,
+						x: anchor.x,
+					},
 				};
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.selectionHandles);
 				break;
 			case "mousemove":
+				let top = Drag.offset.top,
+					left = Drag.offset.left,
+					height = event.clientY - Drag.click.y,
+					width = event.clientX - Drag.click.x,
+					yNum = [Drag.rowIndex],
+					xNum = [Drag.cellIndex];
+				// checks whether box has negative values
+				if (height < 0) { top += height; height *= -1; }
+				if (width < 0)  { left += width; width *= -1; }
+				// less calculation during comparison
+				let bottom = top + height,
+					right = left + width;
+				// loop cell info
+				for (let y=0, yl=Drag.grid.length; y<yl; y++) {
+					for (let x=0, xl=Drag.grid[y].length; x<xl; x++) {
+						let rect = Drag.grid[y][x];
+						if (!((bottom < rect.top || top > rect.bottom) || (right < rect.left || left > rect.right))) {
+							if (!yNum.includes(y)) yNum.push(y);
+							if (!xNum.includes(x)) xNum.push(x);
+						}
+					}
+				}
+				// make tool columns + rows active
+				Self.table.select({ yNum, xNum, anchor: Drag.anchor });
 				break;
 			case "mouseup":
 				// uncover layout

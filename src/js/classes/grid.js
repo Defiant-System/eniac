@@ -156,7 +156,7 @@ class Grid {
 			rows = data.yNum.length ? data.yNum : [data.yNum],
 			_rows = this.rows,
 			// anchor cell
-			anchor = data.anchor || {},
+			anchor = data.anchor[0] ? { el: data.anchor } : data.anchor || {},
 			// selection box dimensions
 			css = {
 				top: 1e5,
@@ -167,6 +167,7 @@ class Grid {
 			aPos = "tl tr bl br t b l r".split(" "),
 			// for selection "hole"
 			anchorPos = "";
+
 		// clear selected cell className(s)
 		this._el.find(".anchor, .selected").removeClass("anchor selected");
 		// make sure selection arrays are in order
