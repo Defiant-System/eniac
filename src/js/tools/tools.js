@@ -83,8 +83,10 @@
 						switch (el.prop("className").split(" ")[1]) {
 							case "hv-resize":
 							case "h-resize":
-							case "v-resize": return Self.table.resizeClip(event);
-							case "move": return Self.table.move(event);
+							case "v-resize":
+								return Self.table.resizeClip(event);
+							case "move":
+								return Self.table.move(event);
 						}
 						break;
 					case el.hasClass("body"):
@@ -97,9 +99,15 @@
 						// forward event to lasso
 						return Self.sheet.lasso(event);
 					case el.hasClass("handle"):
-						name = el.parents("[data-area]").data("area");
-						Self[name].move(event);
-						return;
+						switch (el.prop("className").split(" ")[1]) {
+							case "top-left":
+							case "bottom-right":
+								return Self.table.selectionHandles(event);
+							default:
+								name = el.parents("[data-area]").data("area");
+								return Self[name].move(event);
+						}
+						break;
 					case nodeName === "S":
 						return Self.table.resizeColRow(event);
 					case nodeName === "TD":

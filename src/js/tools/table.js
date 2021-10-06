@@ -433,6 +433,29 @@
 				break;
 		}
 	},
+	selectionHandles(event) {
+		let Self = eniac.tools.table,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				let el = $(event.target);
+				// create drag object
+				Self.drag = {
+					el,
+				};
+				// bind events
+				Self.els.doc.on("mousemove mouseup", Self.selectionHandles);
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover");
+				// unbind events
+				Self.els.doc.off("mousemove mouseup", Self.selectionHandles);
+				break;
+		}
+	},
 	resizeSelection(event) {
 		let Self = eniac.tools.table,
 			Drag = Self.drag;
@@ -445,7 +468,6 @@
 
 				// auto focus cell
 				let el = $(event.target);
-				
 				if (Self.table.selected && event.shiftKey) {
 					let { yNum, xNum } = Self.table.selected,
 						[y, x] = Self.table.getCoord(el[0]),
@@ -467,7 +489,6 @@
 					// no shiftKey - single cell selection
 					Self.dispatch({ type: "focus-cell", el });
 				}
-
 				// collect info about event
 				let table = Self.table,
 					[rowIndex, cellIndex] = table.getCoord(el[0]),
@@ -496,7 +517,6 @@
 						grid[index].push(rect);
 					});
 				});
-				
 				// create drag object
 				Self.drag = {
 					el,
@@ -508,7 +528,6 @@
 					rowIndex,
 					cellIndex,
 				};
-
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeSelection);
 				break;
