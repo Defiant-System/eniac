@@ -476,6 +476,7 @@
 				Self.drag = {
 					el,
 					grid,
+					table,
 					click,
 					offset,
 					rowIndex,
@@ -509,7 +510,7 @@
 					}
 				}
 				// make tool columns + rows active
-				Self.grid.select({ yNum, xNum });
+				Self.table.select({ yNum, xNum });
 				break;
 			case "mouseup":
 				// uncover layout
