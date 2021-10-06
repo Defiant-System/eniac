@@ -163,7 +163,7 @@ class Grid {
 				left: 1e5,
 				width: -1e2,
 				height: -1e2,
-			}
+			},
 			// for selection "hole"
 			anchorPos = "";
 		// clear selected cell className(s)
