@@ -25,10 +25,10 @@ class Grid {
 
 		// setTimeout(() => {
 		// 	let data = {
-		// 			yNum: [2,3,4],
-		// 			xNum: [2,3,4,5],
+		// 			yNum: [2,3,4,5],
+		// 			xNum: [2],
 		// 			anchor: {
-		// 				y: 4,
+		// 				y: 5,
 		// 				x: 2,
 		// 			}
 		// 		};
@@ -197,12 +197,22 @@ class Grid {
 		// adjust width + height down
 		css.height -= css.top;
 		css.width -= css.left;
-		this._tools._selection.addClass("show").css(css);
+		css["--aH"] = anchor.el.prop("offsetHeight") +"px";
+		css["--aW"] = anchor.el.prop("offsetWidth") +"px";
+
+		let anchorPos = "";
+		if (rows.length > 1) anchorPos += anchor.y === rows[0] ? "t" : "b";
+		if (cols.length > 1) anchorPos += anchor.x === cols[0] ? "l" : "r";
+
+		this._tools._selection
+			.removeClass("anchor-tl anchor-tr anchor-bl anchor-br")
+			.addClass(`show anchor-${anchorPos}`)
+			.css(css);
 
 		// save reference data
 		this._selected = { xNum: cols, yNum: rows, anchor };
 		// sync grid tools
-		this._tools.select(cols, rows);
+		this._tools.select({ cols, rows });
 	}
 
 	get selected() {

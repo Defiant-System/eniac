@@ -78,11 +78,12 @@
 			z-index: 2;
 			display: none;
 			pointer-events: none;
-			--height: 25px;
-			--width: 90px;
+			--aH: 25px;
+			--aW: 90px;
 			--color: #3583d015;
 
 			&:before {
+				display: none;
 				content: "";
 				background: var(--color);
 				position: absolute;
@@ -92,32 +93,41 @@
 				bottom: 1px;
 			}
 
+			&.anchor-t:before { display: block; top: calc( var(--aH) + 1px); }
+			&.anchor-b:before { display: block; bottom: calc( var(--aH) + 1px); }
+			&.anchor-l:before { display: block; left: calc( var(--aW) + 1px); }
+			&.anchor-r:before { display: block; right: calc( var(--aW) + 1px); }
+
 			&.anchor-tl:before {
-				top: calc( var(--height) + 1px);
-				left: calc( var(--width) + 1px);
-				box-shadow: 0 calc( var(--height) * -1 ) 0 var(--color),
-							calc( var(--width) * -1 ) 0 0 var(--color);
+				display: block;
+				top: calc( var(--aH) + 1px);
+				left: calc( var(--aW) + 1px);
+				box-shadow: 0 calc( var(--aH) * -1 ) 0 var(--color),
+							calc( var(--aW) * -1 ) 0 0 var(--color);
 			}
 
 			&.anchor-tr:before {
-				top: calc( var(--height) + 1px);
-				right: calc( var(--width) + 1px);
-				box-shadow: 0 calc( var(--height) * -1 ) 0 var(--color),
-							var(--width) 0 0 var(--color);
+				display: block;
+				top: calc( var(--aH) + 1px);
+				right: calc( var(--aW) + 1px);
+				box-shadow: 0 calc( var(--aH) * -1 ) 0 var(--color),
+							var(--aW) 0 0 var(--color);
 			}
 
 			&.anchor-br:before {
-				right: calc( var(--width) + 1px);
-				bottom: calc( var(--height) + 1px);
-				box-shadow: 0 var(--height) 0 var(--color),
-							var(--width) 0 0 var(--color);
+				display: block;
+				right: calc( var(--aW) + 1px);
+				bottom: calc( var(--aH) + 1px);
+				box-shadow: 0 var(--aH) 0 var(--color),
+							var(--aW) 0 0 var(--color);
 			}
 
 			&.anchor-bl:before {
-				left: calc( var(--width) + 1px);
-				bottom: calc( var(--height) + 1px);
-				box-shadow: 0 var(--height) 0 var(--color),
-							calc( var(--width) * -1 ) 0 0 var(--color);
+				display: block;
+				left: calc( var(--aW) + 1px);
+				bottom: calc( var(--aH) + 1px);
+				box-shadow: 0 var(--aH) 0 var(--color),
+							calc( var(--aW) * -1 ) 0 0 var(--color);
 			}
 
 			&.show {

@@ -170,7 +170,8 @@ class GridTools {
 		this._rows.find(".active").removeClass("active");
 	}
 
-	select(cols, rows) {
+	select(data) {
+		let { cols, rows } = data;
 		// reset columns & rows
 		this.unselect();
 		// make active selected columns & rows
