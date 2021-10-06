@@ -159,7 +159,6 @@
 				if (Self.table._el) {
 					Self.table._el.find(".anchor, .selected").removeClass("anchor selected");
 				}
-
 				Self.table = {};
 				Self.els.root.addClass("hidden");
 				break;
@@ -446,7 +445,28 @@
 
 				// auto focus cell
 				let el = $(event.target);
-				Self.dispatch({ type: "focus-cell", el });
+				
+				if (Self.table.selected && event.shiftKey) {
+					let { yNum, xNum } = Self.table.selected,
+						[y, x] = Self.table.getCoord(el[0]),
+						anchor = { x, y },
+						min, max;
+					// selected rows
+					min = Math.min(...yNum, y);
+					max = Math.max(...yNum, y);
+					yNum = [y, ...Array(max-min)].map((e,i) => min + i);
+					// selected columns
+					min = Math.min(...xNum, x);
+					max = Math.max(...xNum, x);
+					xNum = [x, ...Array(max-min)].map((e,i) => min + i);
+					// select cells
+					Self.table.select({ yNum, xNum, anchor });
+					// change event origin cell
+					el = Self.table.getCoordCell(yNum[0], xNum[0]);
+				} else {
+					// no shiftKey - single cell selection
+					Self.dispatch({ type: "focus-cell", el });
+				}
 
 				// collect info about event
 				let table = Self.table,
