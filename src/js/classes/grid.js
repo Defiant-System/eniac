@@ -163,7 +163,9 @@ class Grid {
 				left: 1e5,
 				width: -1e2,
 				height: -1e2,
-			};
+			}
+			// for selection "hole"
+			anchorPos = "";
 		// clear selected cell className(s)
 		this._el.find(".anchor, .selected").removeClass("anchor selected");
 		// make sure selection arrays are in order
@@ -193,22 +195,19 @@ class Grid {
 		});
 		// UI indicate anchor cell
 		anchor.el.addClass("anchor");
-
 		// adjust width + height down
 		css.height -= css.top;
 		css.width -= css.left;
+		// anchor hole
 		css["--aH"] = anchor.el.prop("offsetHeight") +"px";
 		css["--aW"] = anchor.el.prop("offsetWidth") +"px";
-
-		let anchorPos = "";
 		if (rows.length > 1) anchorPos += anchor.y === rows[0] ? "t" : "b";
 		if (cols.length > 1) anchorPos += anchor.x === cols[0] ? "l" : "r";
-
+		// apply CSS
 		this._tools._selection
 			.removeClass("anchor-tl anchor-tr anchor-bl anchor-br")
 			.addClass(`show anchor-${anchorPos}`)
 			.css(css);
-
 		// save reference data
 		this._selected = { xNum: cols, yNum: rows, anchor };
 		// sync grid tools
