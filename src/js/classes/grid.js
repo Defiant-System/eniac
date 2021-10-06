@@ -164,6 +164,7 @@ class Grid {
 				width: -1e2,
 				height: -1e2,
 			},
+			aPos = "tl tr bl br t b l r".split(" "),
 			// for selection "hole"
 			anchorPos = "";
 		// clear selected cell className(s)
@@ -205,7 +206,7 @@ class Grid {
 		if (cols.length > 1) anchorPos += anchor.x === cols[0] ? "l" : "r";
 		// apply CSS
 		this._tools._selection
-			.removeClass("anchor-tl anchor-tr anchor-bl anchor-br")
+			.removeClass(aPos.map(n => `anchor-${n}`).join(" "))
 			.addClass(`show anchor-${anchorPos}`)
 			.css(css);
 		// save reference data

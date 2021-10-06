@@ -471,6 +471,11 @@
 				// collect info about event
 				let table = Self.table,
 					[rowIndex, cellIndex] = table.getCoord(el[0]),
+					// define anchor cell
+					anchor = {
+						y: rowIndex,
+						x: cellIndex,
+					},
 					offset = table.getOffset(el[0]),
 					click = {
 						x: event.clientX - event.offsetX,
@@ -499,6 +504,7 @@
 					table,
 					click,
 					offset,
+					anchor,
 					rowIndex,
 					cellIndex,
 				};
@@ -530,7 +536,7 @@
 					}
 				}
 				// make tool columns + rows active
-				Self.table.select({ yNum, xNum });
+				Self.table.select({ yNum, xNum, anchor: Drag.anchor });
 				break;
 			case "mouseup":
 				// uncover layout
