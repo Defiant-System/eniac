@@ -13,8 +13,8 @@
 		let APP = eniac,
 			Self = APP.sidebar.table,
 			Els = APP.sidebar.els,
-			Grid = APP.tools.table,
-			Table = event.table || Grid.table._el,
+			Table = APP.tools.table,
+			TblEl = event.table || Table.table._el,
 			from,
 			to,
 			value,
@@ -37,94 +37,94 @@
 				el = Els.el.find(".table-styles");
 				el.find(".active").removeClass("active");
 				// table style preset
-				Table.prop("className").split(" ").map(name => {
+				TblEl.prop("className").split(" ").map(name => {
 					let item = el.find(`span[data-arg="${name}"]`);
 					if (item.length) item.addClass("active");
 				});
 				break;
 			case "update-table-title-caption-clip":
 				// checkbox values
-				value = Table.find(".table-title").length;
+				value = TblEl.find(".table-title").length;
 				Els.el.find(`input#table-title`).prop({ checked: value });
-				value = Table.find(".table-caption").length;
+				value = TblEl.find(".table-caption").length;
 				Els.el.find(`input#table-caption`).prop({ checked: value });
-				value = Table.hasClass("clipped");
+				value = TblEl.hasClass("clipped");
 				Els.el.find(`input#table-clip`).prop({ checked: value });
 				
 				pEl = Els.el.find(".table-clipping");
 				pEl.toggleClass("expand", !value);
 				// input fields: fit width
-				value = Table.find(".tbl-root").prop("offsetWidth");
+				value = TblEl.find(".tbl-root").prop("offsetWidth");
 				pEl.find("input#table-clip-width").val(value);
-				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < Grid.table.width);
+				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < Table.table.width);
 				// input fields: fit height
-				value = Table.find(".tbl-root").prop("offsetHeight");
+				value = TblEl.find(".tbl-root").prop("offsetHeight");
 				pEl.find("input#table-clip-height").val(value);
-				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < Grid.table.height);
+				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < Table.table.height);
 				break;
 			case "update-table-head-footer-rows":
 				// selectbox: table-header-rows
-				value = [Table.find(".tbl-body > div:nth-child(1) tr:nth-child(1) td").length];
+				value = [TblEl.find(".tbl-body > div:nth-child(1) tr:nth-child(1) td").length];
 				// if (value[0] > 0) value.push("table-header-rows-freeze");
 				Els.el.find(`selectbox.table-header-rows`).val(value);
 				// selectbox: table-header-columns
-				value = [Table.find(".tbl-col-head > div:nth-child(2) tr").length];
+				value = [TblEl.find(".tbl-col-head > div:nth-child(2) tr").length];
 				// if (value[0] > 0) value.push("table-header-columns-freeze");
 				Els.el.find(`selectbox.table-header-columns`).val(value);
 				// selectbox: table-footer-rows
-				value = [Table.find(".tbl-col-foot > div:nth-child(2) tr").length];
+				value = [TblEl.find(".tbl-col-foot > div:nth-child(2) tr").length];
 				// if (value[0] > 0) value.push("table-footer-rows-freeze");
 				Els.el.find(`selectbox.table-footer-rows`).val(value);
 				break;
 			case "update-table-row-col":
 				// input values
-				value = Grid.table.dimension.rows;
+				value = Table.table.dimension.rows;
 				Els.el.find(`input[name="table-rows-num"]`).val(value);
-				value = Grid.table.dimension.cols;
+				value = Table.table.dimension.cols;
 				Els.el.find(`input[name="table-cols-num"]`).val(value);
 				break;
 			case "update-table-outlines":
 				// border style
-				value = Table.cssProp("--border-style");
+				value = TblEl.cssProp("--border-style");
 				Els.el.find(".table-outline option").prop({ value });
 				// border style
-				value = Table.cssProp("--border-color");
+				value = TblEl.cssProp("--border-color");
 				Els.el.find(".table-outline-details .color-preset_").css({ "--preset-color": value });
 				// border style
-				value = parseInt(Table.cssProp("--border-width"), 10);
+				value = parseInt(TblEl.cssProp("--border-width"), 10);
 				Els.el.find(".table-outline-details input").prop({ value });
 				// checkbox values
-				value = Table.find(".table-title").hasClass("title-outline");
+				value = TblEl.find(".table-title").hasClass("title-outline");
 				Els.el.find(`input#outline-table-title`).prop({ checked: value });
 				break;
 			case "update-gridlines":
 				// enable/disable gridline options
-				value = Grid.table._tools._cols.hasClass("has-col-head") ? "removeClass" : "addClass";
+				value = Table.table._tools._cols.hasClass("has-col-head") ? "removeClass" : "addClass";
 				Els.el.find(`span[data-name="hg-header"]`)[value]("disabled_");
-				value = Grid.table._tools._rows.hasClass("has-row-head") ? "removeClass" : "addClass";
+				value = Table.table._tools._rows.hasClass("has-row-head") ? "removeClass" : "addClass";
 				Els.el.find(`span[data-name="vg-body"]`)[value]("disabled_");
-				value = Grid.table._tools._rows.hasClass("has-row-foot") ? "removeClass" : "addClass";
+				value = Table.table._tools._rows.hasClass("has-row-foot") ? "removeClass" : "addClass";
 				Els.el.find(`span[data-name="vg-footer"]`)[value]("disabled_");
 				// iterate hash record
 				for (let key in Self.glHash) {
 					let hash = Self.glHash[key],
-						method = Table.hasClass(hash) ? "removeClass" : "addClass";
+						method = TblEl.hasClass(hash) ? "removeClass" : "addClass";
 					Els.el.find(`span[data-name="${key}"]`)[method]("active_");
 				}
 				break;
 			case "update-alt-row-bg":
 				// checkbox
-				value = Table.hasClass("alt-row-bg");
+				value = TblEl.hasClass("alt-row-bg");
 				Els.el.find(`input#alternate-row-color`).prop({ checked: value });
 				// color preset
-				value = Table.cssProp("--alt-row-color");
+				value = TblEl.cssProp("--alt-row-color");
 				Els.el
 					.find(".table-alt-bg-details .color-preset_")
 					.css({ "--preset-color": value || "transparent" });
 				break;
 			case "update-table-cell-size":
 				// console.log(event);
-				// console.log( Table );
+				// console.log( TblEl );
 				break;
 			// set values based on UI interaction
 			case "set-table-style":
@@ -132,52 +132,52 @@
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
 				
-				// Table.prop({ className: `xl-table ${el.data("arg")}` });
-				Table.removeClass("gray-table-1 blue-table-1 green-table-1 blue-table-2 orange-table-1 white-table-1")
+				// TblEl.prop({ className: `xl-table ${el.data("arg")}` });
+				TblEl.removeClass("gray-table-1 blue-table-1 green-table-1 blue-table-2 orange-table-1 white-table-1")
 					.addClass(el.data("arg"));
 				break;
 			case "set-table-col-head":
 				// head row columns
-				from = Table.find(".tbl-body > div:nth-child(1) table");
-				to = Table.find(".tbl-col-head > div:nth-child(1) table");
+				from = TblEl.find(".tbl-body > div:nth-child(1) table");
+				to = TblEl.find(".tbl-col-head > div:nth-child(1) table");
 				Self.dispatch({ ...event, type: "move-rows-to", from, to });
 				// body row columns
-				from = Table.find(".tbl-body > div:nth-child(2) table");
-				to = Table.find(".tbl-col-head > div:nth-child(2) table");
+				from = TblEl.find(".tbl-body > div:nth-child(2) table");
+				to = TblEl.find(".tbl-col-head > div:nth-child(2) table");
 				Self.dispatch({ ...event, type: "move-rows-to", from, to });
 				break;
 			case "set-table-row-head":
 				// head row(s)
-				from = Table.find(".tbl-col-head > div:nth-child(2) table");
-				to = Table.find(".tbl-col-head > div:nth-child(1) table");
+				from = TblEl.find(".tbl-col-head > div:nth-child(2) table");
+				to = TblEl.find(".tbl-col-head > div:nth-child(1) table");
 				Self.dispatch({ ...event, type: "move-column-to", from, to });
 				// body row(s)
-				from = Table.find(".tbl-body > div:nth-child(2) table");
-				to = Table.find(".tbl-body > div:nth-child(1) table");
+				from = TblEl.find(".tbl-body > div:nth-child(2) table");
+				to = TblEl.find(".tbl-body > div:nth-child(1) table");
 				Self.dispatch({ ...event, type: "move-column-to", from, to });
 				// foot row(s)
-				from = Table.find(".tbl-col-foot > div:nth-child(2) table");
-				to = Table.find(".tbl-col-foot > div:nth-child(1) table");
+				from = TblEl.find(".tbl-col-foot > div:nth-child(2) table");
+				to = TblEl.find(".tbl-col-foot > div:nth-child(1) table");
 				Self.dispatch({ ...event, type: "move-column-to", from, to });
 				// sync tools table
-				Grid.dispatch({ type: "sync-table-tools", table: Table });
+				Table.dispatch({ type: "sync-table-tools", table: TblEl });
 				break;
 			case "set-table-col-foot":
 				// foot row columns
-				from = Table.find(".tbl-body > div:nth-child(1) table");
-				to = Table.find(".tbl-col-foot > div:nth-child(1) table");
+				from = TblEl.find(".tbl-body > div:nth-child(1) table");
+				to = TblEl.find(".tbl-col-foot > div:nth-child(1) table");
 				Self.dispatch({ ...event, type: "move-rows-to", from, to });
 				// body row columns
-				from = Table.find(".tbl-body > div:nth-child(2) table");
-				to = Table.find(".tbl-col-foot > div:nth-child(2) table");
+				from = TblEl.find(".tbl-body > div:nth-child(2) table");
+				to = TblEl.find(".tbl-col-foot > div:nth-child(2) table");
 				Self.dispatch({ ...event, type: "move-rows-to", from, to });
 				break;
 			case "set-alt-row-bg":
 				value = event.el.is(":checked");
-				Table[ value ? "addClass" : "removeClass" ]("alt-row-bg");
+				TblEl[ value ? "addClass" : "removeClass" ]("alt-row-bg");
 				break;
 			case "set-alt-row-color":
-				Table.css({ "--alt-row-color": event.value });
+				TblEl.css({ "--alt-row-color": event.value });
 				break;
 			case "move-rows-to": {
 				let tblFrom = event.from.find("tbody"),
@@ -244,40 +244,38 @@
 				break; }
 			case "toggle-table-title":
 				// toggle table title
-				if (event.el.is(":checked")) Table.prepend(`<div class="table-title">Title</div>`);
-				else Table.find(".table-title").remove();
+				if (event.el.is(":checked")) TblEl.prepend(`<div class="table-title">Title</div>`);
+				else TblEl.find(".table-title").remove();
 				// sync tools table
-				Grid.dispatch({ type: "sync-table-tools", table: Table });
+				Table.dispatch({ type: "sync-table-tools", table: TblEl });
 				// sync tools selection indicators
-				Grid.dispatch({ type: "select-coords", ...Grid.table.selected });
-				// re-sync selection box
-				Grid.dispatch({ type: "re-sync-selection" });
+				Table.dispatch({ type: "select-coords", ...Table.table.selected });
 				break;
 			case "toggle-table-caption":
 				// toggle table caption
-				if (event.el.is(":checked")) Table.append(`<div class="table-caption">Caption</div>`);
-				else Table.find(".table-caption").remove();
+				if (event.el.is(":checked")) TblEl.append(`<div class="table-caption">Caption</div>`);
+				else TblEl.find(".table-caption").remove();
 				break;
 			case "toggle-table-clip":
 				// toggle table clipping
 				if (event.el.is(":checked")) {
 					Els.el.find(".table-clipping").addClass("expand");
-					Table.addClass("clipped");
+					TblEl.addClass("clipped");
 					// sync sidebar with clipped table
 					Self.dispatch({ type: "update-table-title-caption-clip" });
 				} else {
 					Els.el.find(".table-clipping").removeClass("expand");
-					Table.removeClass("clipped");
+					TblEl.removeClass("clipped");
 					// update sidebar
 					el = Els.el.find(`.table-clipping button[arg="width"]`);
 					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
 					el = Els.el.find(`.table-clipping button[arg="height"]`);
 					Self.dispatch({ type: "fit-table-clip", arg: "height", target: el });
 					// reset dimensions
-					Table.find(".tbl-root").css({ width: "", height: "" });
+					TblEl.find(".tbl-root").css({ width: "", height: "" });
 				}
 				// re-sync table tools
-				Grid.dispatch({ type: "sync-table-tools" });
+				Table.dispatch({ type: "sync-table-tools" });
 				break;
 			case "fit-table-clip":
 				// disable button
@@ -286,36 +284,36 @@
 				arg = el.attr("arg");
 
 				value = {};
-				value[arg] = Grid.table[arg];
-				Table.find(".tbl-root").css(value);
+				value[arg] = Table.table[arg];
+				TblEl.find(".tbl-root").css(value);
 				
-				value[arg] = Table.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
-				Grid.els.root.css(value);
+				value[arg] = TblEl.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
+				Table.els.root.css(value);
 				break;
 			case "set-table-outline-style":
 				value = event.arg;
-				Table.css({ "--border-style": value });
+				TblEl.css({ "--border-style": value });
 				break;
 			case "set-table-outline-color":
 				value = event.value;
-				Table.css({ "--border-color": value });
+				TblEl.css({ "--border-color": value });
 				break;
 			case "set-table-outline-width":
 				value = event.value +"px";
-				Table.css({ "--border-width": value });
+				TblEl.css({ "--border-width": value });
 				break;
 			case "toggle-table-title-outline":
 				// toggle title outline
-				if (event.el.is(":checked")) Table.find(".table-title").addClass("title-outline");
-				else Table.find(".table-title").removeClass("title-outline");
+				if (event.el.is(":checked")) TblEl.find(".table-title").addClass("title-outline");
+				else TblEl.find(".table-title").removeClass("title-outline");
 				break;
 			case "set-gridlines":
 				el = $(event.target);
 				value = el.hasClass("active_");
-				Table = event.table || Grid.table._el;
+				TblEl = event.table || Table.table._el;
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
-				Table[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
+				TblEl[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
 				break;
 		}
 	}
