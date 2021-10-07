@@ -90,7 +90,7 @@
 			<div class="flex-row">
 				<legend class="bold">Rows</legend>
 				<div>
-					<input type="number" name="table-rows-num" value=""/>
+					<input type="number" min="7" max="999" name="table-rows-num" data-change="set-table-rows-num"/>
 					<div>
 						<span></span>
 						<span></span>
@@ -100,7 +100,7 @@
 			<div class="flex-row">
 				<legend class="bold">Columns</legend>
 				<div>
-					<input type="number" name="table-cols-num" value=""/>
+					<input type="number" min="5" max="999" name="table-cols-num" data-change="set-table-cols-num"/>
 					<div>
 						<span></span>
 						<span></span>
@@ -190,7 +190,7 @@
 			<div class="flex-row">
 				<legend>Width</legend>
 				<div>
-					<input type="number" value="98"/>
+					<input type="number" value="98" min="30" max="200" data-change="set-table-cell-width"/>
 					<div>
 						<span></span>
 						<span></span>
@@ -203,7 +203,7 @@
 			<div class="flex-row">
 				<legend>Height</legend>
 				<div>
-					<input type="number" value="20"/>
+					<input type="number" value="25" min="25" max="200" data-change="set-table-cell-height"/>
 					<div>
 						<span></span>
 						<span></span>

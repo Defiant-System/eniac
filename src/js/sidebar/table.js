@@ -300,6 +300,14 @@
 				value[arg] = TblEl.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
 				Table.els.root.css(value);
 				break;
+			case "set-table-rows-num":
+			case "set-table-cols-num":
+				console.log(event);
+				break;
+			case "set-table-cell-width":
+			case "set-table-cell-width":
+				console.log(event);
+				break;
 			case "set-table-outline-style":
 				value = event.arg;
 				TblEl.css({ "--border-style": value });

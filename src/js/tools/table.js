@@ -180,6 +180,7 @@
 			case "re-sync-selection":
 				event.xNum = Self.table.selected.xNum;
 				event.yNum = Self.table.selected.yNum;
+				event.anchor = Self.table.selected.anchor;
 				/* falls through */
 			case "select-coords":
 				Self.table.select(event);
@@ -188,13 +189,15 @@
 				if (event.target.nodeName === "S") return;
 				xNum = [Self.gridTools.getColIndex(event.target)];
 				yNum = Self.table.rows.map((item, index) => index);
-				Self.table.select({ xNum, yNum });
+				anchor = Self.table.selected.anchor;
+				Self.table.select({ xNum, yNum, anchor });
 				break;
 			case "select-rows":
 				if (event.target.nodeName === "S") return;
 				xNum = Self.table.rows[0].map((item, index) => index);
 				yNum = [Self.gridTools.getRowIndex(event.target)];
-				Self.table.select({ xNum, yNum });
+				anchor = Self.table.selected.anchor;
+				Self.table.select({ xNum, yNum, anchor });
 				break;
 		}
 	},
