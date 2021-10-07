@@ -194,7 +194,7 @@
 					tblTo = tblFrom;
 					tblFrom = event.to.find("tbody");
 					// manipulate DOM
-					[...Array(rowsCurr.length - rowNum)].map(tr =>
+					[...Array(rowsCurr.length - rowNum)].map(i =>
 						tblTo.prepend(tblFrom[0].lastChild));
 				} else {
 					if (!tblTo.length) {
@@ -202,8 +202,13 @@
 						tblTo = event.to.find("tbody");
 					}
 					// manipulate DOM
-					[...Array(rowNum - rowsCurr.length)].map(tr =>
-						tblTo.append(tblFrom[0].firstChild));
+					[...Array(rowNum - rowsCurr.length)].map(i => {
+						// delete potential text-elements
+						while (tblFrom[0].firstChild.nodeName !== "TR") {
+							tblFrom[0].removeChild(tblFrom[0].firstChild);
+						}
+						tblTo.append(tblFrom[0].firstChild);
+					});
 				}
 				break; }
 			case "move-column-to": {
@@ -238,8 +243,13 @@
 					}
 					// manipulate DOM
 					rowsFrom.map((tr, y) =>
-						[...Array(colNum - colCurr.length)].map(i =>
-							rowsTo.get(y).append(tr.firstChild)));
+						[...Array(colNum - colCurr.length + 1)].map(i => {
+							// delete potential text-elements
+							while (tr.firstChild.nodeName !== "TD") {
+								tr.removeChild(tr.firstChild);
+							}
+							rowsTo.get(y).append(tr.firstChild);
+						}));
 				}
 				break; }
 			case "toggle-table-title":
