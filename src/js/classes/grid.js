@@ -26,11 +26,12 @@ class Grid {
 		// setTimeout(() => {
 		// 	let data = {
 		// 			yNum: [2,3,4,5],
-		// 			xNum: [2],
-		// 			anchor: {
-		// 				y: 5,
-		// 				x: 2,
-		// 			}
+		// 			xNum: [2,3],
+		// 			anchor: { y: 5, x: 2 }
+
+		// 			// yNum: [6,7,8],
+		// 			// xNum: [4,5],
+		// 			// anchor: { y: 8, x: 5 }
 		// 		};
 		// 	this.select(data);
 		// }, 500);
@@ -173,6 +174,9 @@ class Grid {
 		// make sure selection arrays are in order
 		data.yNum = data.yNum.sort((a,b) => a-b);
 		data.xNum = data.xNum.sort((a,b) => a-b);
+		// removes potential duplicates
+		rows = [...new Set(rows)];
+		cols = [...new Set(cols)];
 		// set selected cell className(s)
 		rows.map(y => {
 			cols.map(x => {
@@ -205,6 +209,7 @@ class Grid {
 		css["--aW"] = anchor.el.prop("offsetWidth") +"px";
 		if (rows.length > 1) anchorPos += anchor.y === rows[0] ? "t" : "b";
 		if (cols.length > 1) anchorPos += anchor.x === cols[0] ? "l" : "r";
+		if (rows.length === 1 && cols.length === 1) anchorPos = "b";
 		// apply CSS
 		this._tools._selection
 			.removeClass(aPos.map(n => `anchor-${n}`).join(" "))
