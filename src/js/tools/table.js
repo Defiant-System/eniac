@@ -444,96 +444,46 @@
 				Self.els.layout.addClass("cover");
 
 				let el = $(event.target),
+					type = el.prop("className").split(" ")[1],
 					table = Self.table,
-					tangent = {},
-					origo = {},
-					grid = [],
+					selEl = table._tools._selection,
+					offset = {
+						y: selEl.prop("offsetTop"),
+						x: selEl.prop("offsetLeft"),
+						w: selEl.prop("offsetWidth"),
+						h: selEl.prop("offsetHeight"),
+					},
 					click = {
 						y: event.clientY - event.offsetY,
 						x: event.clientX - event.offsetX,
 					};
 
-				if (el.hasClass("bottom-right")) {
-					origo.y = table.selected.yNum[0];
-					origo.x = table.selected.xNum[0];
-					tangent.y = table.selected.yNum[table.selected.yNum.length-1];
-					tangent.x = table.selected.xNum[table.selected.xNum.length-1];
-				} else {
-					origo.y = table.selected.yNum[table.selected.yNum.length-1];
-					origo.x = table.selected.xNum[table.selected.xNum.length-1];
-					tangent.y = table.selected.yNum[0];
-					tangent.x = table.selected.xNum[0];
-				}
-				origo.el = table.getCoordCell(origo.y, origo.x);
-				origo.offset = table.getOffset(origo.el[0]);
-				tangent.el = table.getCoordCell(tangent.y, tangent.x);
-				tangent.offset = table.getOffset(tangent.el[0]);
-
-				// adjust position with 1px
-				if (el.hasClass("bottom-right")) {
-					origo.top = origo.offset.top + 1;
-					origo.left = origo.offset.left + 1;
-
-					click.y -= tangent.offset.top - tangent.offset.height;
-					click.x -= tangent.offset.left - tangent.offset.width;
-				} else {
-					origo.top = origo.offset.top + origo.offset.height;
-					origo.left = origo.offset.left + origo.offset.width;
-					
-					// click.y += tangent.offset.top;
-					// click.x += tangent.offset.left;
-				}
-
-				// collect cell info
-				table.rows.map((item, index) => {
-					if (!grid[index]) grid[index] = [];
-					item.map(td => {
-						let rect = table.getOffset(td);
-						// calc "right" & "bottom" for faster loop in mousemove
-						rect.bottom = rect.top + rect.height;
-						rect.right = rect.left + rect.width;
-						grid[index].push(rect);
-					});
-				});
-
 				// create drag object
 				Self.drag = {
-					el: Self.table._tools._selection,
-					grid,
-					table,
-					origo,
+					selEl,
+					type,
+					offset,
 					click,
 				};
+
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.selectionHandles);
 				break;
 			case "mousemove":
-				let top = Drag.origo.top,
-					left = Drag.origo.left,
-					height = event.clientY - Drag.click.y,
-					width = event.clientX - Drag.click.x,
-					yNum = [Drag.origo.y],
-					xNum = [Drag.origo.x];
-				// checks whether box has negative values
-				if (height < 0) { top += height; height *= -1; }
-				if (width < 0)  { left += width; width *= -1; }
-				// less calculation during comparison
-				let bottom = top + height,
-					right = left + width;
-				// loop cell info
-				for (let y=0, yl=Drag.grid.length; y<yl; y++) {
-					for (let x=0, xl=Drag.grid[y].length; x<xl; x++) {
-						let rect = Drag.grid[y][x];
-						if (!((bottom < rect.top || top > rect.bottom) || (right < rect.left || left > rect.right))) {
-							if (!yNum.includes(y)) yNum.push(y);
-							if (!xNum.includes(x)) xNum.push(x);
-						}
-					}
-				}
-				// make tool columns + rows active
-				// Drag.table.select({ yNum, xNum, anchor: Drag.anchor });
+				let dim = {};
 
-				Drag.el.css({ top, left, width, height });
+				// movement: north-east
+				if (Drag.type === "top-left") {
+					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
+					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
+					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
+					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
+				} else {
+					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
+					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
+				}
+
+				Drag.selEl.css(dim);
 				break;
 			case "mouseup":
 				// uncover layout
