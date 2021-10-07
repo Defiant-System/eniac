@@ -285,7 +285,8 @@
 		}
 	},
 	resizeClip(event) {
-		let Self = eniac.tools.table,
+		let APP = eniac,
+			Self = APP.tools.table,
 			Drag = Self.cDrag,
 			el;
 		switch (event.type) {
@@ -328,7 +329,7 @@
 					},
 					min: {
 						width: 320,
-						height: 176,
+						height: 175,
 					},
 					max: {
 						width: Self.table.width,
@@ -358,6 +359,8 @@
 				Drag.el.css(toolsCss);
 				break;
 			case "mouseup":
+				// update sidebar
+				// APP.sidebar.table.dispatch({ type: "update-table-title-caption-clip" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events
@@ -366,7 +369,8 @@
 		}
 	},
 	resizeGrid(event) {
-		let Self = eniac.tools.table,
+		let APP = eniac,
+			Self = APP.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown": {
@@ -426,6 +430,8 @@
 				}
 				break;
 			case "mouseup":
+				// update sidebar
+				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events
