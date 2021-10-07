@@ -300,6 +300,9 @@
 				value[arg] = TblEl.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
 				Table.els.root.css(value);
 				break;
+			case "set-table-font-size":
+				console.log(event);
+				break;
 			case "set-table-rows-num":
 			case "set-table-cols-num":
 				console.log(event);
