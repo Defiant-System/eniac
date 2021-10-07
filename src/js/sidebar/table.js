@@ -243,7 +243,7 @@
 					}
 					// manipulate DOM
 					rowsFrom.map((tr, y) =>
-						[...Array(colNum - colCurr.length + 1)].map(i => {
+						[...Array(colNum - colCurr.length)].map(i => {
 							// delete potential text-elements
 							while (tr.firstChild.nodeName !== "TD") {
 								tr.removeChild(tr.firstChild);
