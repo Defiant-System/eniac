@@ -498,13 +498,14 @@
 					// resize: north-east
 					dim.top += event.clientY - Drag.click.y;
 					dim.left += event.clientX - Drag.click.x;
-					dim.height += Drag.click.y - event.clientY;
 					dim.width += Drag.click.x - event.clientX;
+					dim.height += Drag.click.y - event.clientY;
 				} else {
 					// resize: south-west
 					dim.width += event.clientX - Drag.click.x;
 					dim.height += event.clientY - Drag.click.y;
 				}
+				if (dim.width < 0 || dim.height < 0) return;
 				// less calculation during comparison
 				dim.bottom = dim.top + dim.height;
 				dim.right = dim.left + dim.width;
