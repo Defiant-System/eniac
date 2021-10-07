@@ -443,26 +443,47 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				// collect info about event
 				let el = $(event.target),
 					table = Self.table,
-					anchor = table.selected.anchor,
-					offset = table.getOffset(anchor.el[0]),
-					[rowIndex, cellIndex] = table.getCoord(anchor.el[0]),
+					tangent = {},
+					origo = {},
+					grid = [],
 					click = {
-						y: event.clientY,
-						x: event.clientX,
-					},
-					grid = [];
+						y: event.clientY - event.offsetY,
+						x: event.clientX - event.offsetX,
+					};
 
 				if (el.hasClass("bottom-right")) {
-					click.y -= anchor.el.prop("offsetHeight");
-					click.x -= anchor.el.prop("offsetWidth");
+					origo.y = table.selected.yNum[0];
+					origo.x = table.selected.xNum[0];
+					tangent.y = table.selected.yNum[table.selected.yNum.length-1];
+					tangent.x = table.selected.xNum[table.selected.xNum.length-1];
+				} else {
+					origo.y = table.selected.yNum[table.selected.yNum.length-1];
+					origo.x = table.selected.xNum[table.selected.xNum.length-1];
+					tangent.y = table.selected.yNum[0];
+					tangent.x = table.selected.xNum[0];
 				}
+				origo.el = table.getCoordCell(origo.y, origo.x);
+				origo.offset = table.getOffset(origo.el[0]);
+				tangent.el = table.getCoordCell(tangent.y, tangent.x);
+				tangent.offset = table.getOffset(tangent.el[0]);
 
 				// adjust position with 1px
-				offset.top += 1;
-				offset.left += 1;
+				if (el.hasClass("bottom-right")) {
+					origo.top = origo.offset.top + 1;
+					origo.left = origo.offset.left + 1;
+
+					click.y -= tangent.offset.top - tangent.offset.height;
+					click.x -= tangent.offset.left - tangent.offset.width;
+				} else {
+					origo.top = origo.offset.top + origo.offset.height;
+					origo.left = origo.offset.left + origo.offset.width;
+					
+					// click.y += tangent.offset.top;
+					// click.x += tangent.offset.left;
+				}
+
 				// collect cell info
 				table.rows.map((item, index) => {
 					if (!grid[index]) grid[index] = [];
@@ -477,27 +498,22 @@
 
 				// create drag object
 				Self.drag = {
+					el: Self.table._tools._selection,
 					grid,
 					table,
+					origo,
 					click,
-					offset,
-					rowIndex,
-					cellIndex,
-					anchor: {
-						y: anchor.y,
-						x: anchor.x,
-					},
 				};
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.selectionHandles);
 				break;
 			case "mousemove":
-				let top = Drag.offset.top,
-					left = Drag.offset.left,
+				let top = Drag.origo.top,
+					left = Drag.origo.left,
 					height = event.clientY - Drag.click.y,
 					width = event.clientX - Drag.click.x,
-					yNum = [Drag.rowIndex],
-					xNum = [Drag.cellIndex];
+					yNum = [Drag.origo.y],
+					xNum = [Drag.origo.x];
 				// checks whether box has negative values
 				if (height < 0) { top += height; height *= -1; }
 				if (width < 0)  { left += width; width *= -1; }
@@ -515,7 +531,9 @@
 					}
 				}
 				// make tool columns + rows active
-				Self.table.select({ yNum, xNum, anchor: Drag.anchor });
+				// Drag.table.select({ yNum, xNum, anchor: Drag.anchor });
+
+				Drag.el.css({ top, left, width, height });
 				break;
 			case "mouseup":
 				// uncover layout
@@ -560,11 +578,11 @@
 				}
 				// collect info about event
 				let table = Self.table,
-					[rowIndex, cellIndex] = table.getCoord(el[0]),
+					[rowIndex, colIndex] = table.getCoord(el[0]),
 					// define anchor cell
 					anchor = {
 						y: rowIndex,
-						x: cellIndex,
+						x: colIndex,
 					},
 					offset = table.getOffset(el[0]),
 					click = {
@@ -595,7 +613,7 @@
 					offset,
 					anchor,
 					rowIndex,
-					cellIndex,
+					colIndex,
 				};
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeSelection);
@@ -606,7 +624,7 @@
 					height = event.clientY - Drag.click.y,
 					width = event.clientX - Drag.click.x,
 					yNum = [Drag.rowIndex],
-					xNum = [Drag.cellIndex];
+					xNum = [Drag.colIndex];
 				// checks whether box has negative values
 				if (height < 0) { top += height; height *= -1; }
 				if (width < 0)  { left += width; width *= -1; }
