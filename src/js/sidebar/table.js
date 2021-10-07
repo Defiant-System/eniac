@@ -13,7 +13,8 @@
 		let APP = eniac,
 			Self = APP.sidebar.table,
 			Els = APP.sidebar.els,
-			Table = event.table || APP.tools.table.table._el,
+			Grid = APP.tools.table,
+			Table = event.table || Grid.table._el,
 			from,
 			to,
 			value,
@@ -29,6 +30,7 @@
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
+				Self.dispatch({ ...event, type: "update-table-cell-size" });
 				break;
 			case "update-table-style":
 				// reset (if any) previous active
@@ -54,11 +56,11 @@
 				// input fields: fit width
 				value = Table.find(".tbl-root").prop("offsetWidth");
 				pEl.find("input#table-clip-width").val(value);
-				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < APP.tools.table.table.width);
+				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < Grid.table.width);
 				// input fields: fit height
 				value = Table.find(".tbl-root").prop("offsetHeight");
 				pEl.find("input#table-clip-height").val(value);
-				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < APP.tools.table.table.height);
+				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < Grid.table.height);
 				break;
 			case "update-table-head-footer-rows":
 				// selectbox: table-header-rows
@@ -76,9 +78,9 @@
 				break;
 			case "update-table-row-col":
 				// input values
-				value = APP.tools.table.table.dimension.rows;
+				value = Grid.table.dimension.rows;
 				Els.el.find(`input[name="table-rows-num"]`).val(value);
-				value = APP.tools.table.table.dimension.cols;
+				value = Grid.table.dimension.cols;
 				Els.el.find(`input[name="table-cols-num"]`).val(value);
 				break;
 			case "update-table-outlines":
@@ -97,11 +99,11 @@
 				break;
 			case "update-gridlines":
 				// enable/disable gridline options
-				value = APP.tools.table.els.cols.hasClass("has-col-head") ? "removeClass" : "addClass";
+				value = Grid.table._tools._cols.hasClass("has-col-head") ? "removeClass" : "addClass";
 				Els.el.find(`span[data-name="hg-header"]`)[value]("disabled_");
-				value = APP.tools.table.els.rows.hasClass("has-row-head") ? "removeClass" : "addClass";
+				value = Grid.table._tools._rows.hasClass("has-row-head") ? "removeClass" : "addClass";
 				Els.el.find(`span[data-name="vg-body"]`)[value]("disabled_");
-				value = APP.tools.table.els.rows.hasClass("has-row-foot") ? "removeClass" : "addClass";
+				value = Grid.table._tools._rows.hasClass("has-row-foot") ? "removeClass" : "addClass";
 				Els.el.find(`span[data-name="vg-footer"]`)[value]("disabled_");
 				// iterate hash record
 				for (let key in Self.glHash) {
@@ -119,6 +121,10 @@
 				Els.el
 					.find(".table-alt-bg-details .color-preset_")
 					.css({ "--preset-color": value || "transparent" });
+				break;
+			case "update-table-cell-size":
+				// console.log(event);
+				// console.log( Table );
 				break;
 			// set values based on UI interaction
 			case "set-table-style":
@@ -154,7 +160,7 @@
 				to = Table.find(".tbl-col-foot > div:nth-child(1) table");
 				Self.dispatch({ ...event, type: "move-column-to", from, to });
 				// sync tools table
-				APP.tools.table.dispatch({ type: "sync-table-tools", table: Table });
+				Grid.dispatch({ type: "sync-table-tools", table: Table });
 				break;
 			case "set-table-col-foot":
 				// foot row columns
@@ -241,11 +247,11 @@
 				if (event.el.is(":checked")) Table.prepend(`<div class="table-title">Title</div>`);
 				else Table.find(".table-title").remove();
 				// sync tools table
-				APP.tools.table.dispatch({ type: "sync-table-tools", table: Table });
+				Grid.dispatch({ type: "sync-table-tools", table: Table });
 				// sync tools selection indicators
-				APP.tools.table.dispatch({ type: "select-coords", ...APP.tools.table.table.selected });
+				Grid.dispatch({ type: "select-coords", ...Grid.table.selected });
 				// re-sync selection box
-				APP.tools.table.dispatch({ type: "re-sync-selection" });
+				Grid.dispatch({ type: "re-sync-selection" });
 				break;
 			case "toggle-table-caption":
 				// toggle table caption
@@ -257,6 +263,8 @@
 				if (event.el.is(":checked")) {
 					Els.el.find(".table-clipping").addClass("expand");
 					Table.addClass("clipped");
+					// sync sidebar with clipped table
+					Self.dispatch({ type: "update-table-title-caption-clip" });
 				} else {
 					Els.el.find(".table-clipping").removeClass("expand");
 					Table.removeClass("clipped");
@@ -264,12 +272,12 @@
 					el = Els.el.find(`.table-clipping button[arg="width"]`);
 					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
 					el = Els.el.find(`.table-clipping button[arg="height"]`);
-					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
+					Self.dispatch({ type: "fit-table-clip", arg: "height", target: el });
 					// reset dimensions
 					Table.find(".tbl-root").css({ width: "", height: "" });
 				}
 				// re-sync table tools
-				APP.tools.table.dispatch({ type: "sync-table-tools" });
+				Grid.dispatch({ type: "sync-table-tools" });
 				break;
 			case "fit-table-clip":
 				// disable button
@@ -278,11 +286,11 @@
 				arg = el.attr("arg");
 
 				value = {};
-				value[arg] = APP.tools.table.table[arg];
+				value[arg] = Grid.table[arg];
 				Table.find(".tbl-root").css(value);
 				
 				value[arg] = Table.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
-				APP.tools.table.els.root.css(value);
+				Grid.els.root.css(value);
 				break;
 			case "set-table-outline-style":
 				value = event.arg;
@@ -304,7 +312,7 @@
 			case "set-gridlines":
 				el = $(event.target);
 				value = el.hasClass("active_");
-				Table = event.table || APP.tools.table.table.el;
+				Table = event.table || Grid.table._el;
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
 				Table[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );

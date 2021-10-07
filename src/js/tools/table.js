@@ -199,7 +199,8 @@
 		}
 	},
 	resizeColRow(event) {
-		let Self = eniac.tools.table,
+		let APP = eniac,
+			Self = APP.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -277,6 +278,8 @@
 				Self.dispatch({ type: "re-sync-selection" });
 				break;
 			case "mouseup":
+				// update sidebar
+				APP.sidebar.table.dispatch({ type: "update-table-cell-size" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind event
@@ -359,8 +362,6 @@
 				Drag.el.css(toolsCss);
 				break;
 			case "mouseup":
-				// update sidebar
-				// APP.sidebar.table.dispatch({ type: "update-table-title-caption-clip" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events
