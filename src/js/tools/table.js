@@ -456,34 +456,75 @@
 					click = {
 						y: event.clientY - event.offsetY,
 						x: event.clientX - event.offsetX,
-					};
-
+					},
+					grid = [];
+				// collect cell info
+				table.rows.map((item, index) => {
+					if (!grid[index]) grid[index] = [];
+					item.map(td => {
+						let rect = table.getOffset(td);
+						// calc "right" & "bottom" for faster loop in mousemove
+						rect.bottom = rect.top + rect.height;
+						rect.right = rect.left + rect.width;
+						grid[index].push(rect);
+					});
+				});
 				// create drag object
 				Self.drag = {
-					selEl,
 					type,
-					offset,
+					grid,
+					table,
 					click,
+					offset,
+					anchor: {
+						y: table.selected.anchor.y,
+						x: table.selected.anchor.x,
+					}
 				};
-
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.selectionHandles);
 				break;
 			case "mousemove":
-				let dim = {};
-
-				// movement: north-east
+				let dim = {
+						top: Drag.offset.y + 4,
+						left: Drag.offset.x + 4,
+						height: Drag.offset.h - 8,
+						width: Drag.offset.w - 8,
+					},
+					anchor = Drag.anchor,
+					yNum = [],
+					xNum = [];
 				if (Drag.type === "top-left") {
-					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
-					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
-					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
-					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
+					// resize: north-east
+					dim.top += event.clientY - Drag.click.y;
+					dim.left += event.clientX - Drag.click.x;
+					dim.height += Drag.click.y - event.clientY;
+					dim.width += Drag.click.x - event.clientX;
 				} else {
-					dim.width = event.clientX - Drag.click.x + Drag.offset.w;
-					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
+					// resize: south-west
+					dim.width += event.clientX - Drag.click.x;
+					dim.height += event.clientY - Drag.click.y;
 				}
-
-				Drag.selEl.css(dim);
+				// less calculation during comparison
+				dim.bottom = dim.top + dim.height;
+				dim.right = dim.left + dim.width;
+				// loop cell info
+				for (let y=0, yl=Drag.grid.length; y<yl; y++) {
+					for (let x=0, xl=Drag.grid[y].length; x<xl; x++) {
+						let rect = Drag.grid[y][x];
+						if (!((dim.bottom < rect.top || dim.top > rect.bottom)
+								|| (dim.right < rect.left || dim.left > rect.right))) {
+							if (!yNum.includes(y)) yNum.push(y);
+							if (!xNum.includes(x)) xNum.push(x);
+						}
+					}
+				}
+				if (Drag.type === "bottom-right") {
+					anchor.y = yNum[yNum.length-1];
+					anchor.x = xNum[xNum.length-1];
+				}
+				// make tool columns + rows active
+				Drag.table.select({ yNum, xNum, anchor });
 				break;
 			case "mouseup":
 				// uncover layout
