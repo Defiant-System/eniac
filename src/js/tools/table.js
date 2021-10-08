@@ -110,18 +110,30 @@
 			case "add-column-before":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
 				Self.table.addCol(xNum, "before");
+				// sync table tools / selection
+				Self.dispatch({ type: "sync-table-tools" });
+				Self.dispatch({ type: "re-sync-selection" });
 				break;
 			case "add-column-after":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
 				Self.table.addCol(xNum, "after");
+				// sync table tools / selection
+				Self.dispatch({ type: "sync-table-tools" });
+				Self.dispatch({ type: "re-sync-selection" });
 				break;
 			case "delete-column":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
 				Self.table.removeCol(xNum);
+				// sync table tools / selection
+				Self.dispatch({ type: "sync-table-tools" });
+				Self.dispatch({ type: "re-sync-selection" });
 				break;
 			case "add-row-above":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
 				Self.table.addRow(yNum, "before");
+				// sync table tools / selection
+				Self.dispatch({ type: "sync-table-tools" });
+				Self.dispatch({ type: "re-sync-selection" });
 				break;
 			case "add-row-below":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
