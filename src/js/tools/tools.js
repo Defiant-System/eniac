@@ -39,6 +39,10 @@
 					// forward event to table tools
 					return Self[Self.active].dispatch(event);
 				}
+
+				// exit no element is selected
+				if (!selected) return;
+
 				// shiftKey => 10px movement
 				value = event.shiftKey ? 10 : 1;
 				// iterate selected element
