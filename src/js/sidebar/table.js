@@ -15,8 +15,8 @@
 			Els = APP.sidebar.els,
 			Table = APP.tools.table,
 			TblEl = event.table || Table.table._el,
+			xNum, yNum,
 			layout,
-			from, to,
 			value,
 			arg,
 			pEl,
@@ -224,9 +224,24 @@
 				else if (arg < value) Table.table.removeCol();
 				break;
 			case "set-cell-width":
-				console.log(event);
+				el = Table.table.selected.anchor.el;
+				[yNum, xNum] = Table.table.getCoord(el[0]);
+				// update column width
+				Table.table.getCoordCol(xNum).css({ width: +event.value });
+				// sync table tools / selection
+				Table.dispatch({ type: "sync-table-tools" });
+				Table.dispatch({ type: "re-sync-selection" });
 				break;
 			case "set-cell-height":
+				el = Table.table.selected.anchor.el;
+				[yNum, xNum] = Table.table.getCoord(el[0]);
+				// update row height
+				Table.table.getCoordRow(yNum).css({ height: +event.value });
+				// sync table tools / selection
+				Table.dispatch({ type: "sync-table-tools" });
+				Table.dispatch({ type: "re-sync-selection" });
+				break;
+			case "fit-table-cell":
 				console.log(event);
 				break;
 			case "set-table-outline-style":
