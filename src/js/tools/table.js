@@ -141,6 +141,9 @@
 
 				[yNum, xNum] = Self.table.getCoord(anchor[0]);
 				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum], anchor });
+
+				// update sidebar cell values
+				APP.sidebar.table.dispatch({ type: "update-table-cell-size", table });
 				break;
 			case "blur-cell":
 				// reset reference to cell
@@ -218,6 +221,7 @@
 					Self.drag = {
 						tbl,
 						root: Self.els.root,
+						sidebar: APP.sidebar.table,
 						clickX: event.clientX,
 						clickY: event.clientY,
 						minX: 30,
@@ -279,6 +283,9 @@
 					Drag.root.css({ height: Drag.ttHeight + height - Drag.rowHeight });
 				}
 				Self.dispatch({ type: "re-sync-selection" });
+				// TODO: if selection includes anchor - update cell dimensions
+				Drag.sidebar.dispatch({ type: "update-table-cell-size" });
+
 				break;
 			case "mouseup":
 				// update sidebar

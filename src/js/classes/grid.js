@@ -23,18 +23,18 @@ class Grid {
 		// setTimeout(() => { this.addRow(); }, 500);
 		// setTimeout(() => { this.removeRow(2); }, 1500);
 
-		setTimeout(() => {
-			let data = {
-					yNum: [2,3,4,5],
-					xNum: [2,3],
-					anchor: { y: 5, x: 2 }
+		// setTimeout(() => {
+		// 	let data = {
+		// 			yNum: [2,3,4,5],
+		// 			xNum: [2,3],
+		// 			anchor: { y: 5, x: 2 }
 
-					// yNum: [6,7,8],
-					// xNum: [4,5],
-					// anchor: { y: 8, x: 5 }
-				};
-			this.select(data);
-		}, 500);
+		// 			// yNum: [6,7,8],
+		// 			// xNum: [4,5],
+		// 			// anchor: { y: 8, x: 5 }
+		// 		};
+		// 	this.select(data);
+		// }, 500);
 	}
 
 	createClone(body, type) {

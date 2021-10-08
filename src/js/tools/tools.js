@@ -39,7 +39,6 @@
 					// forward event to table tools
 					return Self[Self.active].dispatch(event);
 				}
-
 				// exit no element is selected
 				if (!selected) return;
 

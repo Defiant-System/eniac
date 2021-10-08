@@ -30,7 +30,6 @@
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
-				Self.dispatch({ ...event, type: "update-table-cell-size" });
 				break;
 			case "update-table-style":
 				// reset (if any) previous active
@@ -123,8 +122,10 @@
 					.css({ "--preset-color": value || "transparent" });
 				break;
 			case "update-table-cell-size":
-				// console.log(event);
-				// console.log( TblEl );
+				el = Table.table.selected.anchor.el;
+				pEl = Els.el.find(".table-cell-dimensions")
+				pEl.find(`input[data-change="set-cell-width"]`).val(el.prop("offsetWidth"));
+				pEl.find(`input[data-change="set-cell-height"]`).val(el.prop("offsetHeight"));
 				break;
 			// set values based on UI interaction
 			case "set-table-style":
@@ -222,8 +223,10 @@
 				if (arg > value) Table.table.addCol();
 				else if (arg < value) Table.table.removeCol();
 				break;
-			case "set-table-cell-width":
-			case "set-table-cell-height":
+			case "set-cell-width":
+				console.log(event);
+				break;
+			case "set-cell-height":
 				console.log(event);
 				break;
 			case "set-table-outline-style":
