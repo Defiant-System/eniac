@@ -137,40 +137,16 @@
 					.addClass(el.data("arg"));
 				break;
 			case "set-table-col-head":
-				// head row columns
-				from = TblEl.find(".tbl-body > div:nth-child(1) table");
-				to = TblEl.find(".tbl-col-head > div:nth-child(1) table");
-				Self.dispatch({ ...event, type: "move-rows-to", from, to });
-				// body row columns
-				from = TblEl.find(".tbl-body > div:nth-child(2) table");
-				to = TblEl.find(".tbl-col-head > div:nth-child(2) table");
-				Self.dispatch({ ...event, type: "move-rows-to", from, to });
+				// alter table
+				Table.table.alter({ type: "col-head", num: +event.arg });
 				break;
 			case "set-table-row-head":
-				// head row(s)
-				from = TblEl.find(".tbl-col-head > div:nth-child(2) table");
-				to = TblEl.find(".tbl-col-head > div:nth-child(1) table");
-				Self.dispatch({ ...event, type: "move-column-to", from, to });
-				// body row(s)
-				from = TblEl.find(".tbl-body > div:nth-child(2) table");
-				to = TblEl.find(".tbl-body > div:nth-child(1) table");
-				Self.dispatch({ ...event, type: "move-column-to", from, to });
-				// foot row(s)
-				from = TblEl.find(".tbl-col-foot > div:nth-child(2) table");
-				to = TblEl.find(".tbl-col-foot > div:nth-child(1) table");
-				Self.dispatch({ ...event, type: "move-column-to", from, to });
-				// sync tools table
-				Table.dispatch({ type: "sync-table-tools", table: TblEl });
+				// alter table
+				Table.table.alter({ type: "row-head", num: +event.arg });
 				break;
 			case "set-table-col-foot":
-				// foot row columns
-				from = TblEl.find(".tbl-body > div:nth-child(1) table");
-				to = TblEl.find(".tbl-col-foot > div:nth-child(1) table");
-				Self.dispatch({ ...event, type: "move-rows-to", from, to });
-				// body row columns
-				from = TblEl.find(".tbl-body > div:nth-child(2) table");
-				to = TblEl.find(".tbl-col-foot > div:nth-child(2) table");
-				Self.dispatch({ ...event, type: "move-rows-to", from, to });
+				// alter table
+				Table.table.alter({ type: "col-foot", num: +event.arg });
 				break;
 			case "set-alt-row-bg":
 				value = event.el.is(":checked");
@@ -179,79 +155,6 @@
 			case "set-alt-row-color":
 				TblEl.css({ "--alt-row-color": event.value });
 				break;
-			case "move-rows-to": {
-				let tblFrom = event.from.find("tbody"),
-					tblTo = event.to.find("tbody");
-				// exit if both tables are empty
-				if (!tblFrom.length && !tblTo.length) return;
-
-				let rowsFrom = tblFrom.find("tr"),
-					rowsTo = tblTo.length ? tblTo.find("tr") : [],
-					rowsCurr = tblTo.length ? tblTo.find("tr") : [],
-					rowNum = +event.arg;
-				// course of action
-				if (rowsTo.length && rowsCurr.length > rowNum) {
-					tblTo = tblFrom;
-					tblFrom = event.to.find("tbody");
-					// manipulate DOM
-					[...Array(rowsCurr.length - rowNum)].map(i =>
-						tblTo.prepend(tblFrom[0].lastChild));
-				} else {
-					if (!tblTo.length) {
-						event.to.append(tblFrom[0].cloneNode(false));
-						tblTo = event.to.find("tbody");
-					}
-					// manipulate DOM
-					[...Array(rowNum - rowsCurr.length)].map(i => {
-						// delete potential text-elements
-						while (tblFrom[0].firstChild.nodeName !== "TR") {
-							tblFrom[0].removeChild(tblFrom[0].firstChild);
-						}
-						tblTo.append(tblFrom[0].firstChild);
-					});
-				}
-				break; }
-			case "move-column-to": {
-				let tblFrom = event.from.find("tbody"),
-					tblTo = event.to.find("tbody");
-				// exit if both tables are empty
-				if (!tblFrom.length && !tblTo.length) return;
-
-				let rowsFrom = tblFrom.find("tr"),
-					rowsTo = tblTo.length ? tblTo.find("tr") : [],
-					colCurr = rowsTo.length ? rowsTo.get(0).find("td") : [],
-					colNum = +event.arg;
-				// course of action
-				if (rowsTo.length && colCurr.length > colNum) {
-					tblFrom = tblTo;
-					rowsFrom = rowsTo;
-					tblTo = event.from.find("tbody");
-					rowsTo = tblTo.find("tr");
-					// manipulate DOM
-					rowsFrom.map((tr, y) =>
-						[...Array(colCurr.length - colNum)].map(i =>
-							rowsTo.get(y).prepend(tr.lastChild)));
-				} else {
-					// in case to-table doesn't have TBODY
-					if (!tblTo.length) {
-						event.to.append(tblFrom[0].cloneNode(false));
-						tblTo = event.to.find("tbody");
-						// first make sure both tables have equal rows
-						rowsFrom.map(tr => tblTo.append(tr.cloneNode(false)));
-						// refresh reference
-						rowsTo = tblTo.find("tr");
-					}
-					// manipulate DOM
-					rowsFrom.map((tr, y) =>
-						[...Array(colNum - colCurr.length)].map(i => {
-							// delete potential text-elements
-							while (tr.firstChild.nodeName !== "TD") {
-								tr.removeChild(tr.firstChild);
-							}
-							rowsTo.get(y).append(tr.firstChild);
-						}));
-				}
-				break; }
 			case "toggle-table-title":
 				// toggle table title
 				if (event.el.is(":checked")) TblEl.prepend(`<div class="table-title">Title</div>`);
@@ -307,7 +210,7 @@
 				arg = +event.value;
 				layout = Table.table.layout;
 				value = layout.rows.head + layout.rows.body + layout.rows.foot;
-
+				// course of action
 				if (arg > value) Table.table.addRow();
 				else if (arg < value) Table.table.removeRow();
 				break;
@@ -315,7 +218,7 @@
 				arg = +event.value;
 				layout = Table.table.layout;
 				value = layout.cols.head + layout.cols.body;
-
+				// course of action
 				if (arg > value) Table.table.addCol();
 				else if (arg < value) Table.table.removeCol();
 				break;

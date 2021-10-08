@@ -136,6 +136,96 @@ class Grid {
 		this._tools.removeCol(n);
 	}
 
+	moveRows(from, to, rowNum) {
+		let tblFrom = from.find("tbody"),
+			tblTo = to.find("tbody"),
+			rowsFrom = tblFrom.find("tr"),
+			rowsTo = tblTo.length ? tblTo.find("tr") : [],
+			rowsCurr = tblTo.length ? tblTo.find("tr") : [];
+		// course of action
+		if (rowsTo.length && rowsCurr.length > rowNum) {
+			tblTo = tblFrom;
+			tblFrom = to.find("tbody");
+			// manipulate DOM
+			[...Array(rowsCurr.length - rowNum)].map(i =>
+				tblTo.prepend(tblFrom[0].lastChild));
+		} else {
+			if (!tblTo.length) {
+				to.append(tblFrom[0].cloneNode(false));
+				tblTo = to.find("tbody");
+			}
+			// manipulate DOM
+			[...Array(rowNum - rowsCurr.length)].map(i => {
+				// delete potential text-elements
+				while (tblFrom[0].firstChild.nodeName !== "TR") {
+					tblFrom[0].removeChild(tblFrom[0].firstChild);
+				}
+				tblTo.append(tblFrom[0].firstChild);
+			});
+		}
+	}
+
+	moveCols(from, to, colNum) {
+		let tblFrom = from.find("tbody"),
+			tblTo = to.find("tbody");
+		// exit if both tables are empty
+		if (!tblFrom.length && !tblTo.length) return;
+
+		let rowsFrom = tblFrom.find("tr"),
+			rowsTo = tblTo.length ? tblTo.find("tr") : [],
+			colCurr = rowsTo.length ? rowsTo.get(0).find("td") : [];
+		// course of action
+		if (rowsTo.length && colCurr.length > colNum) {
+			tblFrom = tblTo;
+			rowsFrom = rowsTo;
+			tblTo = from.find("tbody");
+			rowsTo = tblTo.find("tr");
+			// manipulate DOM
+			rowsFrom.map((tr, y) =>
+				[...Array(colCurr.length - colNum)].map(i =>
+					rowsTo.get(y).prepend(tr.lastChild)));
+		} else {
+			// in case to-table doesn't have TBODY
+			if (!tblTo.length) {
+				to.append(tblFrom[0].cloneNode(false));
+				tblTo = to.find("tbody");
+				// first make sure both tables have equal rows
+				rowsFrom.map(tr => tblTo.append(tr.cloneNode(false)));
+				// refresh reference
+				rowsTo = tblTo.find("tr");
+			}
+			// manipulate DOM
+			rowsFrom.map((tr, y) =>
+				[...Array(colNum - colCurr.length)].map(i => {
+					// delete potential text-elements
+					while (tr.firstChild.nodeName !== "TD") {
+						tr.removeChild(tr.firstChild);
+					}
+					rowsTo.get(y).append(tr.firstChild);
+				}));
+		}
+	}
+
+	alter(change) {
+		switch (change.type) {
+			case "row-head":
+				this.moveCols(this.parts.hBody.el, this.parts.hHead.el, change.num);
+				this.moveCols(this.parts.bBody.el, this.parts.bHead.el, change.num);
+				this.moveCols(this.parts.fBody.el, this.parts.fHead.el, change.num);
+				break;
+			case "col-head":
+				this.moveRows(this.parts.bHead.el, this.parts.hHead.el, change.num);
+				this.moveRows(this.parts.bBody.el, this.parts.hBody.el, change.num);
+				break;
+			case "col-foot":
+				this.moveRows(this.parts.bHead.el, this.parts.fHead.el, change.num);
+				this.moveRows(this.parts.bBody.el, this.parts.fBody.el, change.num);
+				break;
+		}
+		this._tools.syncDim(this);
+		this._tools.syncRowsCols(this);
+	}
+
 	unselect() {
 		// remove reference to selected
 		this._selected = false;
