@@ -15,8 +15,8 @@
 			Els = APP.sidebar.els,
 			Table = APP.tools.table,
 			TblEl = event.table || Table.table._el,
-			from,
-			to,
+			layout,
+			from, to,
 			value,
 			arg,
 			pEl,
@@ -304,11 +304,23 @@
 				console.log(event);
 				break;
 			case "set-table-rows-num":
+				arg = +event.value;
+				layout = Table.table.layout;
+				value = layout.rows.head + layout.rows.body + layout.rows.foot;
+
+				if (arg > value) Table.table.addRow();
+				else if (arg < value) Table.table.removeRow();
+				break;
 			case "set-table-cols-num":
-				console.log(event);
+				arg = +event.value;
+				layout = Table.table.layout;
+				value = layout.cols.head + layout.cols.body;
+
+				if (arg > value) Table.table.addCol();
+				else if (arg < value) Table.table.removeCol();
 				break;
 			case "set-table-cell-width":
-			case "set-table-cell-width":
+			case "set-table-cell-height":
 				console.log(event);
 				break;
 			case "set-table-outline-style":
