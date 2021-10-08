@@ -23,18 +23,18 @@ class Grid {
 		// setTimeout(() => { this.addRow(); }, 500);
 		// setTimeout(() => { this.removeRow(2); }, 1500);
 
-		// setTimeout(() => {
-		// 	let data = {
-		// 			yNum: [2,3,4,5],
-		// 			xNum: [2,3],
-		// 			anchor: { y: 5, x: 2 }
+		setTimeout(() => {
+			let data = {
+					yNum: [2,3,4,5],
+					xNum: [2,3],
+					anchor: { y: 5, x: 2 }
 
-		// 			// yNum: [6,7,8],
-		// 			// xNum: [4,5],
-		// 			// anchor: { y: 8, x: 5 }
-		// 		};
-		// 	this.select(data);
-		// }, 500);
+					// yNum: [6,7,8],
+					// xNum: [4,5],
+					// anchor: { y: 8, x: 5 }
+				};
+			this.select(data);
+		}, 500);
 	}
 
 	createClone(body, type) {
@@ -255,7 +255,7 @@ class Grid {
 				width: -1e2,
 				height: -1e2,
 			},
-			aPos = "tl tr bl br t b l r".split(" "),
+			aPos = "tl tr bl br t b l r none".split(" "),
 			// for selection "hole"
 			anchorPos = "";
 
@@ -299,7 +299,7 @@ class Grid {
 		css["--aW"] = anchor.el.prop("offsetWidth") +"px";
 		if (rows.length > 1) anchorPos += anchor.y === rows[0] ? "t" : "b";
 		if (cols.length > 1) anchorPos += anchor.x === cols[0] ? "l" : "r";
-		if (rows.length === 1 && cols.length === 1) anchorPos = "b";
+		if (rows.length === 1 && cols.length === 1) anchorPos = "none";
 		// apply CSS
 		this._tools._selection
 			.removeClass(aPos.map(n => `anchor-${n}`).join(" "))

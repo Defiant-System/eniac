@@ -82,7 +82,8 @@
 			--aW: 90px;
 			--color: #3583d015;
 
-			&:before {
+			&:before,
+			&:after {
 				display: none;
 				content: "";
 				background: var(--color);
@@ -93,41 +94,30 @@
 				bottom: 1px;
 			}
 
+			&.anchor-none { }
 			&.anchor-t:before { display: block; top: calc( var(--aH) + 1px); }
 			&.anchor-b:before { display: block; bottom: calc( var(--aH) + 1px); }
 			&.anchor-l:before { display: block; left: calc( var(--aW) + 1px); }
 			&.anchor-r:before { display: block; right: calc( var(--aW) + 1px); }
 
-			&.anchor-tl:before {
-				display: block;
-				top: calc( var(--aH) + 1px);
-				left: calc( var(--aW) + 1px);
-				box-shadow: 0 calc( var(--aH) * -1 ) 0 var(--color),
-							calc( var(--aW) * -1 ) 0 0 var(--color);
+			&.anchor-tl {
+				&:before { display: block; top: calc( var(--aH) + 1px); width: calc( var(--aW) + 1px); right: auto; }
+				&:after { display: block; left: calc( var(--aW) + 1px); }
 			}
 
-			&.anchor-tr:before {
-				display: block;
-				top: calc( var(--aH) + 1px);
-				right: calc( var(--aW) + 1px);
-				box-shadow: 0 calc( var(--aH) * -1 ) 0 var(--color),
-							var(--aW) 0 0 var(--color);
+			&.anchor-tr {
+				&:before { display: block; right: calc( var(--aW) + 1px); }
+				&:after { display: block; top: calc( var(--aH) + 1px); width: calc( var(--aW) + 1px); left: auto; }
 			}
 
-			&.anchor-br:before {
-				display: block;
-				right: calc( var(--aW) + 1px);
-				bottom: calc( var(--aH) + 1px);
-				box-shadow: 0 var(--aH) 0 var(--color),
-							var(--aW) 0 0 var(--color);
+			&.anchor-br {
+				&:before { display: block; right: calc( var(--aW) + 1px); }
+				&:after { display: block; bottom: calc( var(--aH) + 1px); width: calc( var(--aW) + 1px); left: auto; }
 			}
 
-			&.anchor-bl:before {
-				display: block;
-				left: calc( var(--aW) + 1px);
-				bottom: calc( var(--aH) + 1px);
-				box-shadow: 0 var(--aH) 0 var(--color),
-							calc( var(--aW) * -1 ) 0 0 var(--color);
+			&.anchor-bl {
+				&:before { display: block; bottom: calc( var(--aH) + 1px); width: calc( var(--aW) + 1px); right: auto; }
+				&:after { display: block; left: calc( var(--aW) + 1px); }
 			}
 
 			&.show {
