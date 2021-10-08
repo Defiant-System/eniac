@@ -45,6 +45,18 @@ const eniac = {
 				break;
 			case "window.close":
 				break;
+			case "window.paste":
+				let rows = [];
+				// create a two-dimensional array
+				event.value.split("\n").map(row => {
+					// add new "line"
+					rows.push([]);
+					// add "cell" values
+					row.split("\t").map(col => rows[rows.length-1].push(col));
+				});
+				// paste 2D-array to grid
+				Self.tools.table.table.paste(rows);
+				break;
 			case "window.keystroke":
 				// forward event to tools
 				return Self.tools.dispatch(event);

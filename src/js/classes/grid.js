@@ -37,6 +37,25 @@ class Grid {
 		// }, 500);
 	}
 
+	paste(rows) {
+		let anchor = this.selected ? this.selected.anchor : { y: 0, x: 0 },
+			yNum = [],
+			xNum = [],
+			gridRows = this.rows;
+		rows.map((row, y) => {
+			row.map((cell, x) => {
+				let cY = anchor.y + y,
+					cX = anchor.x + x;
+				gridRows[cY][cX].innerHTML = cell;
+				// remember for selection
+				if (!yNum.includes(cY)) yNum.push(cY);
+				if (!xNum.includes(cX)) xNum.push(cX);
+			});
+		});
+		// select pasted cells
+		this.select({ yNum, xNum, anchor });
+	}
+
 	createClone(body, type) {
 		let clone;
 		switch (type) {
