@@ -113,6 +113,9 @@
 				// sync table tools / selection
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
+				// update sidebar
+				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "add-column-after":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
@@ -120,6 +123,9 @@
 				// sync table tools / selection
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
+				// update sidebar
+				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "delete-column":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
@@ -127,6 +133,9 @@
 				// sync table tools / selection
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
+				// update sidebar
+				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "add-row-above":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
@@ -134,14 +143,23 @@
 				// sync table tools / selection
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
+				// update sidebar
+				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "add-row-below":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
 				Self.table.addRow(yNum, "after");
+				// update sidebar
+				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "delete-row":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
 				Self.table.removeRow(yNum);
+				// update sidebar
+				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			// custom events
 			case "focus-cell":
