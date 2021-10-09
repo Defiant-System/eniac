@@ -17,7 +17,7 @@
 			<Table/>
 			<Table>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell value="2"/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/></Row>
@@ -102,7 +102,7 @@
 			</Table>
 			<Table>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell value="test"/><Cell/><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>
 				<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>

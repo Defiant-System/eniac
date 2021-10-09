@@ -22,6 +22,10 @@
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
+
+		setTimeout(() => {
+			this.table._tools.parts.cBody.el.find("td:nth(2)").trigger("click");
+		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -435,7 +439,6 @@
 						x: event.clientX - table.prop("offsetWidth"),
 						y: event.clientY - table.prop("offsetHeight"),
 					};
-
 				// create drag object
 				Self.drag = {
 					el,
@@ -450,7 +453,6 @@
 					_max: Math.max,
 					_floor: Math.floor,
 				};
-
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
 				break; }

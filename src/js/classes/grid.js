@@ -290,8 +290,8 @@ class Grid {
 				width: -1e2,
 				height: -1e2,
 			},
-			aPos = "tl tr bl br t b l r none".split(" "),
 			// for selection "hole"
+			aPos = "tl tr bl br t b l r none".split(" "),
 			anchorPos = "";
 
 		// clear selected cell className(s)
@@ -326,9 +326,12 @@ class Grid {
 		});
 		// UI indicate anchor cell
 		anchor.el.addClass("anchor");
-		// adjust width + height down
+		// adjust width + height
 		css.height -= css.top;
 		css.width -= css.left;
+
+		// if (!this.layout.rows.foot) css.height += 1;
+
 		// anchor hole
 		css["--aH"] = anchor.el.prop("offsetHeight") +"px";
 		css["--aW"] = anchor.el.prop("offsetWidth") +"px";
