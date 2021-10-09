@@ -446,6 +446,7 @@
 					click,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
+					sidebar: APP.sidebar.table,
 					_max: Math.max,
 					_floor: Math.floor,
 				};
@@ -463,16 +464,18 @@
 				if (Drag.vResize && addY !== Drag.add.y) {
 					Drag.grid[ addY > Drag.add.y ? "addRow" : "removeRow" ]();
 					Drag.add.y = addY;
+					// update sidebar
+					Drag.sidebar.dispatch({ type: "update-table-row-col" });
 				}
 				// this prevents unnecessary DOM manipulation
 				if (Drag.hResize && addX !== Drag.add.x) {
 					Drag.grid[ addX > Drag.add.x ? "addCol" : "removeCol" ]();
 					Drag.add.x = addX;
+					// update sidebar
+					Drag.sidebar.dispatch({ type: "update-table-row-col" });
 				}
 				break;
 			case "mouseup":
-				// update sidebar
-				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events
