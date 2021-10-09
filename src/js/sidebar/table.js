@@ -190,6 +190,8 @@
 				}
 				// re-sync table tools
 				Table.dispatch({ type: "sync-table-tools" });
+				// remove selection
+				Table.table.unselect();
 				break;
 			case "fit-table-clip":
 				// disable button

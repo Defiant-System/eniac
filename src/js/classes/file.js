@@ -10,7 +10,7 @@ class File {
 			// attach reference to book
 			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
 		} else {
-			html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
+			// html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
 			html += window.render({ template: "xl-table", match: `//Table[@id="temp-1"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-2"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
@@ -25,16 +25,16 @@ class File {
 			// 	html += svg.xml;
 			// });
 
-			setTimeout(() => window.find(`.xl-table td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.xl-table td:nth(23)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 
 			// temp: paste
-			// setTimeout(() => {
-			// 	let rows = [["11","136","57","167","blue","3"],["123","149","142","140","blue","3"],["257","149","70","140","blue","3"],["325","165","158","110","blue","3"],["481","149","158","143","blue","3"],["661","134","63","171","blue","3"]];
-			// 	eniac.tools.table.table.paste(rows);
-			// }, 200);
+			setTimeout(() => {
+				let rows = [["11","136","57","167","blue","3"],["123","149","142","140","blue","3"],["257","149","70","140","blue","3"],["325","165","158","110","blue","3"],["481","149","158","143","blue","3"],["661","134","63","171","blue","3"]];
+				eniac.tools.table.table.paste(rows);
+			}, 200);
 		}
 		// render workbook
 		Render.workbook(this._file.book, html);

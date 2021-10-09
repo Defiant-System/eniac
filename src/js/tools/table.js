@@ -22,10 +22,6 @@
 
 		// bind event handlers
 		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
-
-		setTimeout(() => {
-			this.table._tools.parts.cBody.el.find("td:nth(2)").trigger("click");
-		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -105,6 +101,8 @@
 				// tool cols + rows
 				Self.els.cols.find("> div:nth-child(2) table").css({ left });
 				Self.els.rows.find("> div:nth-child(2) table").css({ top });
+				// remove selection
+				Self.table.unselect();
 				break;
 			// menu events
 			case "sort-column-asc":
