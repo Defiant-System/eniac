@@ -18,9 +18,9 @@ class Grid {
 			this.parts[key] = { selector, el };
 		}
 		// temp
-		// setTimeout(() => { this.addCol(); }, 500);
+		// setTimeout(() => { this.addCol(1); }, 500);
 		// setTimeout(() => { this.removeCol(2); }, 1500);
-		// setTimeout(() => { this.addRow(); }, 500);
+		// setTimeout(() => { this.addRow(1); }, 500);
 		// setTimeout(() => { this.removeRow(2); }, 1500);
 
 		// setTimeout(() => {
@@ -42,10 +42,26 @@ class Grid {
 			yNum = [],
 			xNum = [],
 			gridRows = this.rows;
+		// make sure there is enough rows
+		rows.map((row, y) => {
+			if (!gridRows[anchor.y + y]) {
+				this.addRow(anchor.y);
+				// refresh reference to rows
+				gridRows = this.rows;
+			}
+		});
+		// actual paste
 		rows.map((row, y) => {
 			row.map((cell, x) => {
 				let cY = anchor.y + y,
 					cX = anchor.x + x;
+				// make sure there is enough columns
+				if (!gridRows[cY][cX]) {
+					this.addCol(anchor.x);
+					// refresh reference to rows
+					gridRows = this.rows;
+				}
+				// insert cell contents
 				gridRows[cY][cX].innerHTML = cell;
 				// remember for selection
 				if (!yNum.includes(cY)) yNum.push(cY);
