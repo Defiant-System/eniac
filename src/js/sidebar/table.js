@@ -34,6 +34,7 @@
 
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				Self.dispatch({ ...event, type: "update-table-size" });
+				Self.dispatch({ ...event, type: "update-table-position" });
 
 				// temp
 				setTimeout(() => {
@@ -153,6 +154,8 @@
 				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				break;
 			case "update-table-size":
+				break;
+			case "update-table-position":
 				break;
 			/*
 			 * set values based on UI interaction
@@ -304,47 +307,14 @@
 			// tab: Arrange
 			case "set-table-arrange":
 				el = $(event.target);
-				value = +TblEl.css("z-index");
-				allEl = APP.body.find(Guides.selector).filter(item => item !== TblEl[0]);
-
-				switch (el.data("name")) {
-					case "z-back":
-						allEl.map(item => {
-							let cEl = $(item),
-								zIndex = +cEl.css("z-index");
-							if (zIndex < value) cEl.css({ "z-index": zIndex+1 });
-						});
-						value = 1;
-						break;
-					case "z-front":
-						allEl.map(item => {
-							let cEl = $(item),
-								zIndex = +cEl.css("z-index");
-							if (zIndex > value) cEl.css({ "z-index": zIndex-1 });
-						});
-						value = allEl.length+1;
-						break;
-					case "z-backward":
-						allEl.map(item => {
-							let cEl = $(item),
-								zIndex = +cEl.css("z-index");
-							if (zIndex < value && zIndex >= value-1) cEl.css({ "z-index": zIndex+1 });
-						});
-						value -= 1;
-						break;
-					case "z-forward":
-						allEl.map(item => {
-							let cEl = $(item),
-								zIndex = +cEl.css("z-index");
-							if (zIndex > value && zIndex <= value+1) cEl.css({ "z-index": zIndex-1 });
-						});
-						value += 1;
-						break;
-				}
-				// apply change
-				TblEl.css({ "z-index": value });
+				value = el.data("name").split("-")[1];
+				APP.sidebar.zIndexArrange(TblEl, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-table-arrange" });
+				break;
+			case "set-table-size":
+				break;
+			case "set-table-position":
 				break;
 		}
 	}

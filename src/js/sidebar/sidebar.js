@@ -71,5 +71,45 @@
 					return Self[name].dispatch(event);
 				}
 		}
+	},
+	zIndexArrange(el, type) {
+		let siblings = eniac.body.find(Guides.selector).filter(item => item !== el[0]),
+			value = +el.css("z-index");
+		switch (type) {
+			case "back":
+				siblings.map(item => {
+					let cEl = $(item),
+						zIndex = +cEl.css("z-index");
+					if (zIndex < value) cEl.css({ "z-index": zIndex+1 });
+				});
+				value = 1;
+				break;
+			case "front":
+				siblings.map(item => {
+					let cEl = $(item),
+						zIndex = +cEl.css("z-index");
+					if (zIndex > value) cEl.css({ "z-index": zIndex-1 });
+				});
+				value = siblings.length+1;
+				break;
+			case "backward":
+				siblings.map(item => {
+					let cEl = $(item),
+						zIndex = +cEl.css("z-index");
+					if (zIndex < value && zIndex >= value-1) cEl.css({ "z-index": zIndex+1 });
+				});
+				value -= 1;
+				break;
+			case "forward":
+				siblings.map(item => {
+					let cEl = $(item),
+						zIndex = +cEl.css("z-index");
+					if (zIndex > value && zIndex <= value+1) cEl.css({ "z-index": zIndex-1 });
+				});
+				value += 1;
+				break;
+		}
+		// apply change
+		el.css({ "z-index": value });
 	}
 }
