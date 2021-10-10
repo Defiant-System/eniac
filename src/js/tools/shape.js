@@ -191,9 +191,6 @@
 					if (el.hasClass("rc")) {
 						return Self.rectCornersMove(event);
 					}
-					if (el.hasClass("line")) {
-						return Self.lineAnchorMove(event);
-					}
 					if (el.parent().hasClass("gradient-tool")) {
 						return Self.gradientMove(event);
 					}
