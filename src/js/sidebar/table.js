@@ -39,8 +39,10 @@
 				}, 200);
 				break;
 			case "update-table-arrange":
-				value = APP.body.find(window.find(Guides.selector, Guides.context));
-				console.log(value);
+				value = APP.body.find(Guides.selector);
+
+				Els.el.find(`.flex-row[data-click="set-table-arrange"] .option-buttons_ span`)
+					.toggleClass("disabled_", value.length !== 1);
 				break;
 			case "set-table-arrange":
 				console.log(event);

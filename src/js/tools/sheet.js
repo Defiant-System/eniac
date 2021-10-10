@@ -49,7 +49,7 @@
 					selectable = [];
 
 				// collect info about elements
-				APP.body.find(Guides.selector, Guides.context).map(item => {
+				APP.body.find(Guides.selector).map(item => {
 					let el = $(item),
 						top = parseInt(el.css("top"), 10),
 						left = parseInt(el.css("left"), 10),
