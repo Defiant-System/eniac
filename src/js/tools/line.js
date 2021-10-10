@@ -41,8 +41,7 @@
 				let name = Self.lineItem.prop("nodeName");
 				Self.els.root
 					.removeClass(names.map(e => `is-${e}`).join(" "))
-					.addClass(`is-${name}`)
-					.removeClass("is-path").addClass("is-bezier");
+					.addClass(`is-${name}`);
 				
 				let d = (name === "path") ? Self.lineItem.attr("d").split(" ") : false;
 				if (name === "line") {
@@ -133,7 +132,7 @@
 				// if mousedown on handle
 				let el = $(event.target),
 					pEl = el.parents(".shape-tools"),
-					shape = Self.lineItem,
+					line = Self.lineItem,
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth") >> 1;
@@ -153,7 +152,7 @@
 				// create drag object
 				Self.drag = {
 					el,
-					shape,
+					line,
 					guides,
 					origo: {
 						y: +pEl.prop("offsetTop"),
