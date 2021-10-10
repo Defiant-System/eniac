@@ -61,8 +61,6 @@
 						y: event.clientY - y,
 					},
 					guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: {
 							el: image[0],
 							t: y,
@@ -135,8 +133,6 @@
 						h: Math.round(50 / offset.ratio),
 					},
 					guides = new Guides({
-						selector: ".xl-table, .xl-shape, .xl-image, .xl-text",
-						context: "content .body",
 						offset: { el: image[0], ...offset, type }
 					});
 

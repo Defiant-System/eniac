@@ -1,12 +1,21 @@
 
 class Guides {
+
+	static get selector() {
+		return ".xl-table, .xl-shape, .xl-image, .xl-text";
+	}
+
+	static get context() {
+		return "content .body";
+	}
+
 	constructor(opt={}) {
 		// reference to root application
 		let APP = eniac,
 			opts = {
 				// default selector & context
-				selector: opt.selector || ".xl-table, .xl-shape, .xl-image, .xl-text",
-				context: opt.context || "content .body",
+				selector: opt.selector || Guides.selector,
+				context: opt.context || Guides.context,
 				// offsets origo
 				x: 0,
 				y: 0,

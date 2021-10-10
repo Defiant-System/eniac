@@ -30,6 +30,20 @@
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
+
+				Self.dispatch({ ...event, type: "update-table-arrange" });
+
+				// temp
+				setTimeout(() => {
+					Els.el.find(".sidebar-table span:nth(3)").trigger("click");
+				}, 200);
+				break;
+			case "update-table-arrange":
+				value = APP.body.find(window.find(Guides.selector, Guides.context));
+				console.log(value);
+				break;
+			case "set-table-arrange":
+				console.log(event);
 				break;
 			case "update-table-style":
 				// reset (if any) previous active

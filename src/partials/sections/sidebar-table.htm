@@ -395,10 +395,10 @@
 	<!-- Arrange body -->
 	<div class="sidebar-body">
 		<div class="group-row">
-			<div class="flex-row arrange">
+			<div class="flex-row arrange" data-click="set-table-arrange">
 				<div class="w48">
 					<div class="option-buttons_ has-title">
-						<span title="Back">
+						<span class="disabled_" title="Back">
 							<span class="icon-arrange-back c13x19"></span>
 						</span>
 						<span title="Front">
@@ -421,7 +421,7 @@
 
 			<div class="flex-row">
 				<div class="w48">
-					<selectbox data-menu="table-header-rows">
+					<selectbox disabled data-menu="table-header-rows">
 						<option selected="1" value="align">Align</option>
 					</selectbox>
 				</div>

@@ -20,6 +20,8 @@ const DefaultSettings = {
 
 const eniac = {
 	init() {
+		// fast references
+		this.body = window.find("content .body .wrapper");
 		// get settings or use default settings
 		this.Settings = window.settings.getItem("settings") || DefaultSettings;
 		// init renderer

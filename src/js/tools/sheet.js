@@ -49,7 +49,7 @@
 					selectable = [];
 
 				// collect info about elements
-				Self.els.layout.find(".xl-table, .xl-shape, .xl-image, .xl-text").map(item => {
+				APP.body.find(Guides.selector, Guides.context).map(item => {
 					let el = $(item),
 						top = parseInt(el.css("top"), 10),
 						left = parseInt(el.css("left"), 10),
