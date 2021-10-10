@@ -10,22 +10,22 @@ class File {
 			// attach reference to book
 			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
 		} else {
-			html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
+			// html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
 			html += window.render({ template: "xl-table", match: `//Table[@id="temp-1"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-2"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
 
-			html += window.render({ template: "xl-text", match: `//Text[@id="temp-text-1"]` });
+			// html += window.render({ template: "xl-text", match: `//Text[@id="temp-text-1"]` });
 			html += window.render({ template: "xl-image", match: `//Image[@id="temp-image-1"]` });
 
 			// svg's
-			// window.find("svg > svg").map(svg => {
-			// 	let [t, l, w, h] = svg.getAttribute("viewBox").split(" ");
-			// 	svg.setAttribute("style", `width: ${w}px; height: ${h}px;`);
-			// 	html += svg.xml;
-			// });
+			window.find("svg > svg").map(svg => {
+				let [t, l, w, h] = svg.getAttribute("viewBox").split(" ");
+				svg.setAttribute("style", `width: ${w}px; height: ${h}px;`);
+				html += svg.xml;
+			});
 
-			setTimeout(() => window.find(`.xl-table td:nth(13)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.xl-table:nth(0) td:nth(11)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);

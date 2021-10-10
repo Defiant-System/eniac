@@ -19,6 +19,7 @@
 			layout,
 			value,
 			arg,
+			allEl,
 			pEl,
 			el;
 		switch (event.type) {
@@ -32,29 +33,14 @@
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
 
 				Self.dispatch({ ...event, type: "update-table-arrange" });
+				Self.dispatch({ ...event, type: "update-table-size" });
 
 				// temp
 				setTimeout(() => {
 					Els.el.find(".sidebar-table span:nth(3)").trigger("click");
 				}, 200);
 				break;
-			case "update-table-arrange":
-				pEl = Els.el.find(`.flex-row[data-click="set-table-arrange"]`);
-				// disable all options if single element
-				let zTotal = APP.body.find(Guides.selector);
-				pEl.find(".option-buttons_ span").toggleClass("disabled_", zTotal.length !== 1);
-
-				// disable "back" + "backward" option, if active element is already in the back
-				value = +TblEl.css("z-index");
-				pEl.find(".option-buttons_:nth(0) > span:nth(0)").toggleClass("disabled_", value !== 1);
-				pEl.find(".option-buttons_:nth(1) > span:nth(0)").toggleClass("disabled_", value !== 1);
-				// disable "front" + "forward" option, if active element is already in front
-				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== zTotal.length);
-				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== zTotal.length);
-				break;
-			case "set-table-arrange":
-				console.log(event);
-				break;
+			// tab: Table
 			case "update-table-style":
 				// reset (if any) previous active
 				el = Els.el.find(".table-styles");
@@ -151,7 +137,27 @@
 				pEl.find(`input[data-change="set-cell-width"]`).val(el.prop("offsetWidth"));
 				pEl.find(`input[data-change="set-cell-height"]`).val(el.prop("offsetHeight"));
 				break;
-			// set values based on UI interaction
+			// tab: Arrange
+			case "update-table-arrange":
+				pEl = Els.el.find(`.flex-row[data-click="set-table-arrange"]`);
+				// disable all options if single element
+				allEl = APP.body.find(Guides.selector);
+				pEl.find(".option-buttons_ span").toggleClass("disabled_", allEl.length !== 1);
+
+				// disable "back" + "backward" option, if active element is already in the back
+				value = +TblEl.css("z-index");
+				pEl.find(".option-buttons_:nth(0) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				pEl.find(".option-buttons_:nth(1) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				// disable "front" + "forward" option, if active element is already in front
+				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
+				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
+				break;
+			case "update-table-size":
+				break;
+			/*
+			 * set values based on UI interaction
+			 */
+			// tab: Table
 			case "set-table-style":
 				el = $(event.target);
 				event.el.find(".active").removeClass("active");
@@ -294,6 +300,51 @@
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
 				TblEl[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
+				break;
+			// tab: Arrange
+			case "set-table-arrange":
+				el = $(event.target);
+				value = +TblEl.css("z-index");
+				allEl = APP.body.find(Guides.selector).filter(item => item !== TblEl[0]);
+
+				switch (el.data("name")) {
+					case "z-back":
+						allEl.map(item => {
+							let cEl = $(item),
+								zIndex = +cEl.css("z-index");
+							if (zIndex < value) cEl.css({ "z-index": zIndex+1 });
+						});
+						value = 1;
+						break;
+					case "z-front":
+						allEl.map(item => {
+							let cEl = $(item),
+								zIndex = +cEl.css("z-index");
+							if (zIndex > value) cEl.css({ "z-index": zIndex-1 });
+						});
+						value = allEl.length+1;
+						break;
+					case "z-backward":
+						allEl.map(item => {
+							let cEl = $(item),
+								zIndex = +cEl.css("z-index");
+							if (zIndex < value && zIndex >= value-1) cEl.css({ "z-index": zIndex+1 });
+						});
+						value -= 1;
+						break;
+					case "z-forward":
+						allEl.map(item => {
+							let cEl = $(item),
+								zIndex = +cEl.css("z-index");
+							if (zIndex > value && zIndex <= value+1) cEl.css({ "z-index": zIndex-1 });
+						});
+						value += 1;
+						break;
+				}
+				// apply change
+				TblEl.css({ "z-index": value });
+				// update arrange buttons
+				Self.dispatch({ ...event, type: "update-table-arrange" });
 				break;
 		}
 	}
