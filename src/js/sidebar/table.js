@@ -2,6 +2,14 @@
 // eniac.sidebar.table
 
 {
+	init(parent) {
+		// fast reference
+		this.parent = parent;
+		// temp
+		// setTimeout(() => {
+		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
+		// }, 200);
+	},
 	glHash: {
 		"h-gridlines": "hide-hg-lines",
 		"v-gridlines": "hide-vg-lines",
@@ -35,11 +43,6 @@
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				Self.dispatch({ ...event, type: "update-table-size" });
 				Self.dispatch({ ...event, type: "update-table-position" });
-
-				// temp
-				setTimeout(() => {
-					Els.el.find(".sidebar-table span:nth(3)").trigger("click");
-				}, 200);
 				break;
 			// tab: Table
 			case "update-table-style":

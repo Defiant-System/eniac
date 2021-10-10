@@ -14,9 +14,10 @@
 		// 	eniac.popups.dispatch({ type: "popup-color-ring", target });
 		// }, 500);
 
+		// temp
 		// setTimeout(() => {
-		// 	eniac.sidebar.shape.dispatch({ type: "set-shape-shadow" });
-		// }, 300);
+		// 	parent.els.el.find(".sidebar-shape .sidebar-head span:nth(1)").trigger("click");
+		// }, 200);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -28,6 +29,8 @@
 			fill,
 			value,
 			width,
+			allEl,
+			pEl,
 			el;
 		switch (event.type) {
 			case "select-fill-type":
@@ -61,6 +64,8 @@
 				Self.dispatch({ ...event, type: "update-shape-shadow" });
 				Self.dispatch({ ...event, type: "update-shape-reflection" });
 				Self.dispatch({ ...event, type: "update-shape-opacity" });
+
+				Self.dispatch({ ...event, type: "update-shape-arrange" });
 				break;
 			case "collect-shape-values": {
 				let fill = {},
@@ -100,7 +105,7 @@
 				});
 
 				return data; }
-			// Updaters
+			// tab: Table
 			case "update-shape-style":
 				// reset (if any) previous active
 				Els.el.find(".shape-styles .active").removeClass("active");
@@ -203,7 +208,25 @@
 				value = event.values.opacity.value * 100;
 				Els.el.find(".shape-opacity input").val(value);
 				break;
-			// Setters
+			// tab: Arrange
+			case "update-shape-arrange":
+				pEl = Els.el.find(`.flex-row[data-click="set-shape-arrange"]`);
+				// disable all options if single element
+				allEl = APP.body.find(Guides.selector);
+				pEl.find(".option-buttons_ span").toggleClass("disabled_", allEl.length !== 1);
+
+				// disable "back" + "backward" option, if active element is already in the back
+				value = +Shape.shape.css("z-index");
+				pEl.find(".option-buttons_:nth(0) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				pEl.find(".option-buttons_:nth(1) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				// disable "front" + "forward" option, if active element is already in front
+				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
+				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
+				break;
+			/*
+			 * set values based on UI interaction
+			 */
+			// tab: Shape
 			case "set-shape-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
@@ -326,6 +349,14 @@
 				Shape.shape.css({ "opacity": value / 100 });
 				// make sure all fields shows same value
 				Els.el.find(".shape-opacity input").val(value);
+				break;
+			// tab: Arrange
+			case "set-shape-arrange":
+				el = $(event.target);
+				value = el.data("name").split("-")[1];
+				APP.sidebar.zIndexArrange(Shape.shape, value);
+				// update arrange buttons
+				Self.dispatch({ ...event, type: "update-shape-arrange" });
 				break;
 		}
 	},
