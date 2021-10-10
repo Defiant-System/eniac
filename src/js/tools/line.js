@@ -220,7 +220,7 @@
 					.css({ top, left, width, height })
 					.attr({ viewBox });
 				// re-focus on line svg
-				Self.dispatch({ type: "focus-shape", el: Self.line });
+				Self.dispatch({ type: "focus-line", el: Self.line });
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout
