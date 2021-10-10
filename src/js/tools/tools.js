@@ -11,7 +11,7 @@
 
 		// default tools
 		this.active = "sheet";
-		this.types = ["table", "shape", "image", "text"];
+		this.types = ["table", "shape", "line", "image", "text"];
 
 		// init all sub-objects
 		Object.keys(this)
@@ -123,7 +123,9 @@
 						// proxy event to "selection resize"
 						return Self.table.resizeSelection(event);
 					case Self.types.includes(name):
-				console.log(event);
+						if (name === "shape" && Self.shape.isLine(el)) {
+							name = "line";
+						}
 						// reference of active tool
 						Self.active = name;
 						// blur XL element, if any
@@ -163,4 +165,5 @@
 	shape: @import "shape.js",
 	image: @import "image.js",
 	text: @import "text.js",
+	line: @import "line.js",
 }

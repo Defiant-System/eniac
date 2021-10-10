@@ -15,7 +15,7 @@
 		let APP = eniac,
 			Self = APP.sidebar.line,
 			Els = APP.sidebar.els,
-			Shape = event.shape || APP.tools.shape,
+			Line = event.shape || APP.tools.line,
 			color,
 			value,
 			allEl,
@@ -41,20 +41,20 @@
 					opacity = {};
 
 				// border values
-				stroke.width = parseInt(Shape.shapeItem.css("stroke-width"), 10);
-				stroke.color = Color.rgbToHex(Shape.shapeItem.css("stroke")).slice(0,-2);
-				stroke.dash = Shape.shapeItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
+				stroke.width = parseInt(Line.lineItem.css("stroke-width"), 10);
+				stroke.color = Color.rgbToHex(Line.lineItem.css("stroke")).slice(0,-2);
+				stroke.dash = Line.lineItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
 
 				// shadow values
-				shadow.filter = Shape.shapeItem.css("filter");
+				shadow.filter = Line.lineItem.css("filter");
 				shadow._expand = shadow.filter !== "none";
 
 				// reflection values
-				reflection.reflect = Shape.shape.css("-webkit-box-reflect");
-				reflection._expand = Shape.shape.hasClass("reflection");
+				reflection.reflect = Line.line.css("-webkit-box-reflect");
+				reflection._expand = Line.line.hasClass("reflection");
 
 				// opacity values
-				opacity.value = +Shape.shapeItem.css("opacity");
+				opacity.value = +Line.lineItem.css("opacity");
 				opacity._expand = opacity.value !== 1;
 
 				let data = { stroke, shadow, reflection, opacity };
@@ -141,7 +141,7 @@
 				pEl.find(".option-buttons_ span").toggleClass("disabled_", allEl.length !== 1);
 
 				// disable "back" + "backward" option, if active element is already in the back
-				value = +Shape.shape.css("z-index");
+				value = +Line.line.css("z-index");
 				pEl.find(".option-buttons_:nth(0) > span:nth(0)").toggleClass("disabled_", value !== 1);
 				pEl.find(".option-buttons_:nth(1) > span:nth(0)").toggleClass("disabled_", value !== 1);
 				// disable "front" + "forward" option, if active element is already in front
@@ -157,13 +157,13 @@
 				el = $(event.target).addClass("active");
 				color = el.data("arg");
 				// update shape element
-				Shape.shapeItem.css({ stroke: color });
+				Line.lineItem.css({ stroke: color });
 				// update "Stroke" group color
 				Els.el.find(`.color-preset_[data-change="set-line-stroke-color"]`)
 					.css({ "--preset-color": color });
 				break;
 			case "set-line-stroke-style":
-				value = parseInt(Shape.shapeItem.css("stroke-width"), 10);
+				value = parseInt(Line.lineItem.css("stroke-width"), 10);
 				el = Els.el.find(".line-outline").addClass("has-prefix-icon");
 				switch (event.arg) {
 					case "dashed": value = [value*2, value]; break;
@@ -175,15 +175,15 @@
 						Self.dispatch({ type: "update-line-stroke" });
 						return el.removeClass("has-prefix-icon").val(event.arg);
 				}
-				Shape.shapeItem.css({ "stroke-dasharray": value.join(",") });
+				Line.lineItem.css({ "stroke-dasharray": value.join(",") });
 				break;
 			case "set-line-stroke-color":
-				Shape.shapeItem.css({ "stroke": event.value });
+				Line.lineItem.css({ "stroke": event.value });
 				break;
 			case "set-line-stroke-width":
 				value = {
 					"stroke-width": +event.value +"px",
-					"stroke-dasharray": Shape.shapeItem.css("stroke-dasharray"),
+					"stroke-dasharray": Line.lineItem.css("stroke-dasharray"),
 				};
 				// conditions for dash-array
 				if (value["stroke-dasharray"] !== "none") {
@@ -193,7 +193,7 @@
 												: [+event.value*2, +event.value];
 				}
 				// apply new width
-				Shape.shapeItem.css(value);
+				Line.lineItem.css(value);
 				 break;
 			case "set-line-shadow": {
 				let data = {
@@ -217,7 +217,7 @@
 					color = Els.el.find(`.line-shadow-angle-color .color-preset_`).css("--preset-color"),
 					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
 				// apply drop shadow
-				Shape.shapeItem.css({ filter });
+				Line.lineItem.css({ filter });
 				// make sure all fields shows same value
 				Els.el.find(".line-shadow-blur input").val(data.blur);
 				Els.el.find(".line-shadow-offset input").val(data.offset);
@@ -227,14 +227,14 @@
 				value = Els.el.find(".line-reflection input:nth(0)").val();
 				let reflect = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
 				// apply reflection
-				Shape.shape.css({ "-webkit-box-reflect": reflect });
+				Line.line.css({ "-webkit-box-reflect": reflect });
 				// make sure all fields shows same value
 				Els.el.find(".line-reflection input").val(value);
 				break;
 			case "set-line-opacity":
 				value = Els.el.find(".line-opacity input:nth(0)").val();
 				// apply shape opacity
-				Shape.shape.css({ "opacity": value / 100 });
+				Line.line.css({ "opacity": value / 100 });
 				// make sure all fields shows same value
 				Els.el.find(".line-opacity input").val(value);
 				break;
@@ -242,7 +242,7 @@
 			case "set-line-arrange":
 				el = $(event.target);
 				value = el.data("name").split("-")[1];
-				APP.sidebar.zIndexArrange(Shape.shape, value);
+				APP.sidebar.zIndexArrange(Line.line, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-line-arrange" });
 				break;
