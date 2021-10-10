@@ -39,10 +39,18 @@
 				}, 200);
 				break;
 			case "update-table-arrange":
-				value = APP.body.find(Guides.selector);
+				pEl = Els.el.find(`.flex-row[data-click="set-table-arrange"]`);
+				// disable all options if single element
+				let zTotal = APP.body.find(Guides.selector);
+				pEl.find(".option-buttons_ span").toggleClass("disabled_", zTotal.length !== 1);
 
-				Els.el.find(`.flex-row[data-click="set-table-arrange"] .option-buttons_ span`)
-					.toggleClass("disabled_", value.length !== 1);
+				// disable "back" + "backward" option, if active element is already in the back
+				value = +TblEl.css("z-index");
+				pEl.find(".option-buttons_:nth(0) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				pEl.find(".option-buttons_:nth(1) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				// disable "front" + "forward" option, if active element is already in front
+				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== zTotal.length);
+				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== zTotal.length);
 				break;
 			case "set-table-arrange":
 				console.log(event);

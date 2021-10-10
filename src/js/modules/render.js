@@ -20,13 +20,6 @@ const Render = {
 			APP.head.dispatch({ type: "add-sheet", name: "Sheet 1" });
 			// append new sheet
 			this.els.body.append(html);
-
-			// let table = this.els.body.find(".temp-3 .tbl-body > div:nth-child(2)");
-			// temp
-			// let dim = Parser.tableAbsDim(table);
-
-			// table.addClass("alternate-row-bg");
-			// table.css({ "--alt-row-bg": "#ff9900" });
 		} else {
 			// render sheet names
 			book.SheetNames.map(name =>
@@ -35,6 +28,12 @@ const Render = {
 			// render sheet table
 			this.sheet(book.SheetNames[0]);
 		}
+		// make sure elements have "z-index"
+		APP.body.find(Guides.selector).map((item, i) => {
+			let el = $(item),
+				zIndex = parseInt(el.css("z-index"), 10);
+			if (isNaN(zIndex)) el.css({ zIndex: i+1 });
+		});
 	},
 	sheet(name) {
 		// render sheet table
