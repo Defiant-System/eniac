@@ -123,6 +123,7 @@
 						// proxy event to "selection resize"
 						return Self.table.resizeSelection(event);
 					case Self.types.includes(name):
+				console.log(event);
 						// reference of active tool
 						Self.active = name;
 						// blur XL element, if any

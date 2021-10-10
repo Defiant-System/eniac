@@ -5,6 +5,11 @@
 	init(parent) {
 		// fast reference
 		this.parent = parent;
+
+		// temp
+		setTimeout(() => {
+			parent.els.el.find(".sidebar-line .sidebar-head span:nth(1)").trigger("click");
+		}, 200);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -13,6 +18,8 @@
 			Shape = event.shape || APP.tools.shape,
 			color,
 			value,
+			allEl,
+			pEl,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -24,6 +31,8 @@
 				Self.dispatch({ ...event, type: "update-line-shadow" });
 				Self.dispatch({ ...event, type: "update-line-reflection" });
 				Self.dispatch({ ...event, type: "update-line-opacity" });
+
+				Self.dispatch({ ...event, type: "update-line-arrange" });
 				break;
 			case "collect-line-values": {
 				let stroke = {},
@@ -56,7 +65,7 @@
 				});
 				
 				return data; }
-			// Updaters
+			// Tab: Style
 			case "update-line-style":
 				// reset (if any) previous active
 				Els.el.find(".line-styles .active").removeClass("active");
@@ -124,7 +133,25 @@
 				value = event.values.opacity.value * 100;
 				Els.el.find(".line-opacity input").val(value);
 				break;
-			// Setters
+			// tab: Arrange
+			case "update-line-arrange":
+				pEl = Els.el.find(`.flex-row[data-click="set-line-arrange"]`);
+				// disable all options if single element
+				allEl = APP.body.find(Guides.selector);
+				pEl.find(".option-buttons_ span").toggleClass("disabled_", allEl.length !== 1);
+
+				// disable "back" + "backward" option, if active element is already in the back
+				value = +Shape.shape.css("z-index");
+				pEl.find(".option-buttons_:nth(0) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				pEl.find(".option-buttons_:nth(1) > span:nth(0)").toggleClass("disabled_", value !== 1);
+				// disable "front" + "forward" option, if active element is already in front
+				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
+				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
+				break;
+			/*
+			 * set values based on UI interaction
+			 */
+			// tab: Style
 			case "set-line-style":
 				event.el.find(".active").removeClass("active");
 				el = $(event.target).addClass("active");
@@ -210,6 +237,14 @@
 				Shape.shape.css({ "opacity": value / 100 });
 				// make sure all fields shows same value
 				Els.el.find(".line-opacity input").val(value);
+				break;
+			// tab: Arrange
+			case "set-line-arrange":
+				el = $(event.target);
+				value = el.data("name").split("-")[1];
+				APP.sidebar.zIndexArrange(Shape.shape, value);
+				// update arrange buttons
+				Self.dispatch({ ...event, type: "update-line-arrange" });
 				break;
 		}
 	}

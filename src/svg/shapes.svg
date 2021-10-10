@@ -69,7 +69,7 @@
 	<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 </svg> -->
 
-<!-- <svg id="shape-line-1" class="xl-shape" viewBox="0 0 100 30" cache="false">
+<svg id="shape-line-1" class="xl-shape" viewBox="0 0 100 30" cache="false">
 	<style type="text/css">
 		.st4{
 			stroke-width: 2;
@@ -77,7 +77,7 @@
 		}
 	</style>
 	<line class="st4" x1="0" y1="30" x2="100" y2="0"/>
-</svg> -->
+</svg>
 
 <!-- <svg id="shape-line-2" class="xl-shape" viewBox="0 0 100 120" cache="false">
 	<style type="text/css">

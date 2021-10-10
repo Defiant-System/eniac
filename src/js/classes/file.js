@@ -10,7 +10,7 @@ class File {
 			// attach reference to book
 			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
 		} else {
-			// html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
+			html += window.render({ template: "xl-table", match: `//Table[@id="barebone"]` });
 			html += window.render({ template: "xl-table", match: `//Table[@id="temp-1"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-2"]` });
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
@@ -26,8 +26,8 @@ class File {
 			});
 
 			// setTimeout(() => window.find(`.xl-table:nth(0) td:nth(11)`).trigger("mousedown").trigger("mouseup"), 150);
-			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 
 			// temp: paste

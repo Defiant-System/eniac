@@ -5,6 +5,7 @@
 	init(parent) {
 		// fast reference
 		this.parent = parent;
+		
 		// temp
 		// setTimeout(() => {
 		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
