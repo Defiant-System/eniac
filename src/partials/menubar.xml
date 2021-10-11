@@ -128,6 +128,14 @@
 		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-text-border-style" check-group="text-border"/>
 	</Menu>
 
+	<Menu for="image-outline">
+		<Menu name="None" click="set-image-outline-style" arg="none" check-group="image-outline" is-checked="1"/>
+		<Menu type="divider"/>
+		<Menu type="icon" name="~/icons/table-outline-solid.png" arg="solid" click="set-image-outline-style" check-group="image-outline"/>
+		<Menu type="icon" name="~/icons/table-outline-dashed.png" arg="dashed" click="set-image-outline-style" check-group="image-outline"/>
+		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-image-outline-style" check-group="image-outline"/>
+	</Menu>
+
 	<Menu for="line-stroke">
 		<Menu name="None" click="set-line-stroke-style" arg="none" check-group="line-stroke" is-checked="1"/>
 		<Menu type="divider"/>

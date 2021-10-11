@@ -110,8 +110,11 @@
 
 				switch (value) {
 					case "linear":
-						break;
 					case "radial":
+						// gradient
+						let points = [],
+							strip = [];
+						console.log( Text );
 						break;
 					default:
 						// fill solid
