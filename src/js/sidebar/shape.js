@@ -114,7 +114,7 @@
 				
 				// click option button
 				value = event.values.fill.type;
-				Els.el.find(`.option-buttons_ span[data-arg="${value}"]`).trigger("click");
+				Els.el.find(`.shape-fill-options .option-buttons_ span[data-arg="${value}"]`).trigger("click");
 				switch (value) {
 					case "linearGradient":
 					case "radialGradient":
@@ -258,7 +258,7 @@
 				APP.tools.shape.gradient.update(stops);
 				break;
 			case "set-shape-fill-color":
-				APP.tools.shape.shapeItem.css({ fill: event.value });
+				Shape.shapeItem.css({ fill: event.value });
 				break;
 			case "set-shape-outline-style":
 				width = parseInt(Shape.shapeItem.css("stroke-width"), 10);

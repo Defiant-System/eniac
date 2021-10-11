@@ -23,10 +23,25 @@
 			pEl,
 			el;
 		switch (event.type) {
+			case "select-fill-type":
+				// update tabs
+				el = $(event.target);
+				el.parent().find(".active_").removeClass("active_");
+				el.addClass("active_");
+				// update tab body
+				el.parents(".group-row")
+					.removeClass("solid-fill linearGradient-fill radialGradient-fill")
+					.addClass(`${el.data("arg")}-fill`);
+				// update selected shape
+				// if (Shape.gradient.type !== el.data("arg")) {
+				// 	Shape.gradient.switchType(el.data("arg"));
+				// }
+				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
 
 				Self.dispatch({ ...event, type: "update-text-style" });
+				Self.dispatch({ ...event, type: "update-text-fill" });
 				Self.dispatch({ ...event, type: "update-text-border" });
 				Self.dispatch({ ...event, type: "update-text-shadow" });
 				Self.dispatch({ ...event, type: "update-text-reflection" });
@@ -42,6 +57,13 @@
 					opacity = {};
 				
 				// fill values
+				fill.color = Text.css("background");
+				color = Color.rgbToHex(Text.css("background-color"));
+				if (color.slice(-2) === "00") color = "none";
+				fill.type = fill.color.match(/linear-|radial-/);
+				if (fill.type) fill.type = fill.type[0].slice(0,-1);
+				else fill.type = "solid";
+				fill._expand = color !== "none" || fill.type !== "solid";
 
 				// border values
 				border.color = Color.rgbToHex(Text.css("border-color"));
@@ -80,6 +102,22 @@
 					let item = el.find(`span[data-arg="${name}"]`);
 					if (item.length) item.addClass("active");
 				});
+				break;
+			case "update-text-fill":
+				// click option button
+				value = event.values.fill.type;
+				Els.el.find(`.text-fill-options .option-buttons_ span[data-arg="${value}"]`).trigger("click");
+
+				switch (value) {
+					case "linear":
+						break;
+					case "radial":
+						break;
+					default:
+						// fill solid
+						Els.el.find(`.color-preset_[data-change="set-text-fill-color"]`)
+							.css({ "--preset-color": event.values.fill.color });
+				}
 				break;
 			case "update-text-border":
 				// border style
@@ -156,7 +194,9 @@
 			 * set values based on UI interaction
 			 */
 			// tab: Style
-
+			case "set-text-fill-color":
+				Text.css({ background: event.value });
+				break;
 			case "set-text-border-style":
 				width = parseInt(Text.css("border-width"), 10);
 				el = Els.el.find(".text-border").addClass("has-prefix-icon");
