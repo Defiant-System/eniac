@@ -253,7 +253,7 @@
 
 				// if mousedown on handle
 				let el = $(event.target),
-					pEl = el.parents(".line-tools"),
+					pEl = el.parents(".shape-tools"),
 					line = Self.lineItem,
 					path = Self.bezierMove({ type: "bezier-to-array", d: line.attr("d").split(" ") }),
 					x = +el.prop("offsetLeft"),
