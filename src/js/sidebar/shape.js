@@ -47,14 +47,6 @@
 					Shape.gradient.switchType(el.data("arg"));
 				}
 				break;
-			case "toggle-group-body":
-				el = event.el.parent();
-				if (el.hasClass("expanded")) {
-					el.removeClass("expanded");
-				} else {
-					el.addClass("expanded");
-				}
-				break;
 			case "populate-shape-values":
 				event.values = Self.dispatch({ ...event, type: "collect-shape-values" });
 

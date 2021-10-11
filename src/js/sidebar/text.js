@@ -22,11 +22,46 @@
 			el;
 		switch (event.type) {
 			case "populate-text-values":
+				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
+
 				Self.dispatch({ ...event, type: "update-text-style" });
+				Self.dispatch({ ...event, type: "update-text-reflection" });
+				Self.dispatch({ ...event, type: "update-text-opacity" });
 
 				Self.dispatch({ ...event, type: "update-text-arrange" });
 				break;
-			// tab: Text
+			case "collect-text-values": {
+				let fill = {},
+					border = {},
+					shadow = {},
+					reflection = {},
+					opacity = {};
+				
+				// fill values
+
+				// border values
+
+				// shadow values
+				shadow.filter = Text.css("filter");
+				shadow._expand = shadow.filter !== "none";
+
+				// reflection values
+				reflection.reflect = Text.css("-webkit-box-reflect");
+				reflection._expand = Text.hasClass("reflection");
+
+				// opacity values
+				opacity.value = +Text.css("opacity");
+				opacity._expand = opacity.value !== 1;
+
+				let data = { fill, border, shadow, reflection, opacity };
+				Object.keys(data).map(key => {
+					let el = Els.el.find(`.group-row.text-${key}-options`);
+					if (data[key]._expand) el.addClass("expanded");
+					else el.removeClass("expanded");
+				});
+
+				return data; }
+			// tab: Style
 			case "update-text-style":
 				// reset (if any) previous active
 				el = Els.el.find(".text-styles");
@@ -36,6 +71,15 @@
 					let item = el.find(`span[data-arg="${name}"]`);
 					if (item.length) item.addClass("active");
 				});
+				break;
+			case "update-text-reflection":
+				value = event.values.reflection.reflect.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
+				value = value ? Math.round(value[4] * 100) : 0;
+				Els.el.find(".text-reflection input").val(value);
+				break;
+			case "update-text-opacity":
+				value = event.values.opacity.value * 100;
+				Els.el.find(".text-opacity input").val(value);
 				break;
 			// tab: Arrange
 			case "update-text-arrange":
@@ -55,6 +99,22 @@
 			/*
 			 * set values based on UI interaction
 			 */
+			// tab: Style
+			case "set-text-reflection":
+				value = Els.el.find(".text-reflection input:nth(0)").val();
+				let reflect = `below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
+				// apply reflection
+				Text.css({ "-webkit-box-reflect": reflect });
+				// make sure all fields shows same value
+				Els.el.find(".text-reflection input").val(value);
+				break;
+			case "set-text-opacity":
+				value = Els.el.find(".text-opacity input:nth(0)").val();
+				// apply shape opacity
+				Text.css({ "opacity": value / 100 });
+				// make sure all fields shows same value
+				Els.el.find(".text-opacity input").val(value);
+				break;
 			// tab: Arrange
 			case "set-text-arrange":
 				el = $(event.target);

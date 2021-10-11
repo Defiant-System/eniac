@@ -41,7 +41,7 @@
 			padding: 5px 5px 6px;
 
 			// temp: START
-			&.temp-text-1    { top: 100px; left: 480px; width: 140px; }
+			&.temp-text-1    { top: 100px; left: 480px; width: 140px; opacity: .35; }
 			&.temp-text-2    { top: 140px; left: 120px; width: 220px; }
 			&.temp-text-3    { top: 320px; left: 320px; width: 300px; }
 			// temp: END
@@ -68,6 +68,10 @@
 				left: 0;
 				right: 0;
 				bottom: 0;
+			}
+
+			&.reflection {
+				-webkit-box-reflect: below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
 			}
 
 			&.txt-black-white  { background: #222222; color: #fff; }
@@ -105,6 +109,10 @@
 				left: 100%;
 				height: 40px;
 				width: 40px;
+			}
+
+			&.reflection {
+				-webkit-box-reflect: below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.35) 0%, transparent 50%, transparent 100%);
 			}
 
 			img {
