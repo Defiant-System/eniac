@@ -2,6 +2,9 @@
 
 <xsl:template name="xl-text">
 	<div class="xl-text">
+		<xsl:if test="@class">
+			<xsl:attribute name="class">xl-text <xsl:value-of select="@class"/></xsl:attribute>
+		</xsl:if>
 		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</div>
 </xsl:template>
@@ -9,6 +12,9 @@
 
 <xsl:template name="xl-image">
 	<div class="xl-image">
+		<xsl:if test="@class">
+			<xsl:attribute name="class">xl-image <xsl:value-of select="@class"/></xsl:attribute>
+		</xsl:if>
 		<img>
 			<xsl:attribute name="src"><xsl:value-of select="normalize-space(.)"/></xsl:attribute>
 		</img>
