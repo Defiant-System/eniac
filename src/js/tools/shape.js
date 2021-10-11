@@ -23,6 +23,7 @@
 			// custom events
 			case "blur-shape":
 				Self.els.root.addClass("hidden");
+				Self.els.gradientTool.addClass("hidden");
 				// forget shape
 				Self.shape = false;
 				break;
@@ -44,7 +45,6 @@
 				let name = Self.shapeItem.prop("nodeName"),
 					rc = Self.shapeItem.attr("rx") || 0;
 				Self.els.root
-					// .removeClass(types.map(e => `is-${e}`).join(" "))
 					.addClass(`is-${name}`)
 					.css({ "--rc": (rc-3) +"px" })
 					.find(".rc").removeAttr("style");
@@ -154,7 +154,6 @@
 					// save reference to gradient
 					Self.gradient = gradient;
 				} else {
-					Self.els.gradientTool.addClass("hidden");
 					Self.fill = Color.rgbToHex(fill);
 					// reset reference
 					Self.gradient = { type: "solid", switchType };
