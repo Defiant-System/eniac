@@ -22,9 +22,22 @@
 			el;
 		switch (event.type) {
 			case "populate-text-values":
+				Self.dispatch({ ...event, type: "update-text-style" });
+
 				Self.dispatch({ ...event, type: "update-text-arrange" });
 				break;
 			// tab: Text
+			case "update-text-style":
+				// reset (if any) previous active
+				el = Els.el.find(".text-styles");
+				el.find(".active").removeClass("active");
+				// text style preset
+				Text.prop("className").split(" ").map(name => {
+					let item = el.find(`span[data-arg="${name}"]`);
+					if (item.length) item.addClass("active");
+				});
+				break;
+			// tab: Arrange
 			case "update-text-arrange":
 				pEl = Els.el.find(`.flex-row[data-click="set-text-arrange"]`);
 				// disable all options if single element
@@ -39,6 +52,9 @@
 				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				break;
+			/*
+			 * set values based on UI interaction
+			 */
 			// tab: Arrange
 			case "set-text-arrange":
 				el = $(event.target);
