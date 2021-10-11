@@ -1,6 +1,6 @@
 
 <Data>
-	<Text id="temp-text-1" class="temp-text-1 txt-black-white reflection">
+	<Text id="temp-text-1" class="temp-text-1 txt-yellow-black">
 		<![CDATA[This is <b>bold</b> text.<br/>More text here...]]>
 	</Text>
 

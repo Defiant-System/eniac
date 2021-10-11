@@ -17,6 +17,7 @@
 			Els = APP.sidebar.els,
 			Text = event.text || APP.tools.text.text,
 			color,
+			width,
 			value,
 			allEl,
 			pEl,
@@ -44,9 +45,9 @@
 
 				// border values
 				border.color = Color.rgbToHex(Text.css("border-color"));
-				if (border.color.slice(-2).toLowerCase() === "00") border.color = "none";
 				border.style = Text.css("border-style");
 				border.width = parseInt(Text.css("border-width"), 10);
+				if (border.width === 0) border.color = "none";
 				border._expand = border.width > 0;
 
 				// shadow values
@@ -86,18 +87,14 @@
 				value = event.values.border.style;
 				el = Els.el.find(".text-border").addClass("has-prefix-icon");
 				switch (true) {
-					case value[0] === value[1]:
-						value = "dotted";
-						break;
-					case value[0] === value[1] * 2:
-						value = "dashed";
+					case value = "dotted":
+					case value = "dashed":
+					case value = "solid":
 						break;
 					case color === "none":
 						value = "none";
 						el.removeClass("has-prefix-icon");
 						break;
-					default:
-						value = "solid";
 				}
 				el.val(value);
 
@@ -159,6 +156,42 @@
 			 * set values based on UI interaction
 			 */
 			// tab: Style
+
+			case "set-text-border-style":
+				width = parseInt(Text.css("border-width"), 10);
+				el = Els.el.find(".text-border").addClass("has-prefix-icon");
+				switch (event.arg) {
+					case "dashed": value = [width*2, width]; break;
+					case "dotted": value = [width, width]; break;
+					case "solid": value = [0]; break;
+					case "none":
+						Self.dispatch({ type: "set-text-border-color", value: "none" });
+						Self.dispatch({ type: "set-text-border-width", value: 0 });
+						// border values
+						let border = {
+							color: Text.css("border-color"),
+							dash: Text.css("border-style").split(",").map(i => parseInt(i, 10) || 0),
+							width: parseInt(Text.css("border-width"), 10),
+						};
+						Self.dispatch({ type: "update-text-border", values: { border } });
+						return el.removeClass("has-prefix-icon").val(event.arg);
+				}
+				Text.css({ "border-style": event.arg });
+				break;
+			case "set-text-border-color":
+				Text.css({ "border-color": event.value });
+				break;
+			case "set-text-border-width":
+				value = {
+					"border-width": +event.value +"px",
+					"border-style": Text.css("border-style"),
+				};
+				// apply new width
+				Text.css(value);
+				// re-focus on element
+				APP.tools.text.dispatch({ type: "focus-text", el: Text });
+				break;
+
 			case "set-text-shadow": {
 				let data = {
 						blur: +Els.el.find(".text-shadow-blur input:nth(0)").val(),
@@ -197,7 +230,7 @@
 				break;
 			case "set-text-opacity":
 				value = Els.el.find(".text-opacity input:nth(0)").val();
-				// apply shape opacity
+				// apply text opacity
 				Text.css({ "opacity": value / 100 });
 				// make sure all fields shows same value
 				Els.el.find(".text-opacity input").val(value);
