@@ -34,13 +34,11 @@
 					.removeClass("hidden");
 
 				// remember shape
-				let names = ["circle", "ellipse", "rect", "polygon", "polyline", "path", "line", "bezier", "image"];
 				Self.line = event.el;
-				Self.lineItem = event.el.find(names.join(","));
+				Self.lineItem = event.el.find(APP.tools.shapeTypes.join(","));
 
 				let name = Self.lineItem.prop("nodeName");
 				Self.els.root
-					.removeClass(names.map(e => `is-${e}`).join(" "))
 					.addClass(`is-${name}`);
 				
 				let d = (name === "path") ? Self.lineItem.attr("d").split(" ") : false;

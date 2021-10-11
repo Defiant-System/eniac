@@ -38,14 +38,13 @@
 					.removeClass("hidden");
 
 				// remember shape
-				let names = ["circle", "ellipse", "rect", "polygon", "polyline", "path", "line", "bezier", "image"];
 				Self.shape = event.el;
-				Self.shapeItem = event.el.find(names.join(","));
+				Self.shapeItem = event.el.find(APP.tools.shapeTypes.join(","));
 				// set "rounded corner" value & reset handles
 				let name = Self.shapeItem.prop("nodeName"),
 					rc = Self.shapeItem.attr("rx") || 0;
 				Self.els.root
-					.removeClass(names.map(e => `is-${e}`).join(" "))
+					// .removeClass(types.map(e => `is-${e}`).join(" "))
 					.addClass(`is-${name}`)
 					.css({ "--rc": (rc-3) +"px" })
 					.find(".rc").removeAttr("style");
@@ -166,8 +165,7 @@
 		}
 	},
 	isLine(shape) {
-		let names = ["circle", "ellipse", "rect", "polygon", "polyline", "path", "line", "bezier", "image"],
-			lineItem = shape.find(names.join(",")),
+		let lineItem = shape.find(eniac.tools.shapeTypes.join(",")),
 			name = lineItem.prop("nodeName"),
 			d = (name === "path") ? lineItem.attr("d").split(" ") : false,
 			type = name === "line" ? "line" : "shape";

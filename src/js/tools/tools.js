@@ -12,6 +12,7 @@
 		// default tools
 		this.active = "sheet";
 		this.types = ["table", "shape", "line", "image", "text"];
+		this.shapeTypes = ["circle", "ellipse", "rect", "polygon", "polyline", "path", "line", "bezier", "image"];
 
 		// init all sub-objects
 		Object.keys(this)
@@ -123,6 +124,10 @@
 						// proxy event to "selection resize"
 						return Self.table.resizeSelection(event);
 					case Self.types.includes(name):
+						// reset tools
+						Self.els.root
+							.removeClass(Self.types.map(e => `is-${e}`).join(" "))
+							.removeClass(Self.shapeTypes.map(e => `is-${e}`).join(" "));
 						if (name === "shape" && Self.shape.isLine(el)) {
 							name = "line";
 						}
