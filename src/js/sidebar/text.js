@@ -30,7 +30,7 @@
 				el.addClass("active_");
 				// update tab body
 				el.parents(".group-row")
-					.removeClass("solid-fill linearGradient-fill radialGradient-fill")
+					.removeClass("solid-fill linear-fill radial-fill")
 					.addClass(`${el.data("arg")}-fill`);
 				// update selected shape
 				// if (Shape.gradient.type !== el.data("arg")) {
