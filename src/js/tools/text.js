@@ -19,16 +19,16 @@
 		switch (event.type) {
 			// custom events
 			case "focus-text":
+				el = event.el;
+
 				// resize tools
-				let top = parseInt(event.el.css("top"), 10),
-					left = parseInt(event.el.css("left"), 10),
-					width = parseInt(event.el.css("width"), 10),
-					height = parseInt(event.el.css("height"), 10);
+				let top = parseInt(el.css("top"), 10),
+					left = parseInt(el.css("left"), 10),
+					width = parseInt(el.css("width"), 10),
+					height = parseInt(el.css("height"), 10);
 				Self.els.root
 					.css({ top, left, width, height })
 					.removeClass("hidden");
-
-				el = event.el;
 
 				let gradient = {},
 					bg = el.css("background"),
@@ -43,7 +43,7 @@
 						switch (type) {
 							case "linear":
 							case "radial":
-								head = type === "linear" ? "to right" : "circle 60px at 50px 40px";
+								head = type === "linear" ? "to bottom" : "circle 60px at 50px 40px";
 								stops.map(s => str.push(`${s.color} ${s.offset}%`));
 								background = `${type}-gradient(${head}, ${str.join(", ")})`;
 								break;
@@ -63,7 +63,7 @@
 						el,
 						switchType,
 						type: type[0].slice(0,6),
-						stops: str.map(stop => ({
+						stops: Self.gradient ? Self.gradient.stops : str.map(stop => ({
 							color: Color.rgbToHex(stop.split(")")[0] +")"),
 							offset: parseInt(stop.split(")")[1].trim(), 10),
 						})),
@@ -75,7 +75,7 @@
 						update(stops) {
 							let currStops = this.stops,
 								reorder = stops.length !== currStops.length || stops.reduce((a, e, i) => a + (e.color !== currStops[i].color ? 1 : 0), 0),
-								head = this.type === "linear" ? "to right" : "circle 60px at 50px 40px",
+								head = this.type === "linear" ? "to bottom" : "circle 60px at 50px 40px",
 								str = [];
 
 							if (reorder) this.stops = stops;
@@ -86,7 +86,7 @@
 					};
 				} else {
 					// reset reference
-					gradient = { type: "solid", switchType };
+					gradient = { ...Self.gradient, type: "solid", switchType };
 				}
 
 				// remember text element

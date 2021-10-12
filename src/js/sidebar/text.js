@@ -118,14 +118,13 @@
 					case "radial":
 						// gradient
 						let points = [],
-							strip = [],
-							head = value === "linear" ? "to right" : "circle 60px at 50px 40px";
+							strip = [];
 						Tools.text.gradient.stops.map(stop => {
 							strip.push(`${stop.color} ${stop.offset}%`);
 							points.push(`<span class="point" style="left: ${stop.offset * width / 100}px; --color: ${stop.color}; --offset: ${stop.offset};"></span>`);
 						});
 						el.html(points.join(""));
-						el.css({ "--gradient": `${value}-gradient(${head}, ${strip.join(",")})` });
+						el.css({ "--gradient": `${value}-gradient(to right, ${strip.join(",")})` });
 						break;
 					default:
 						// fill solid
