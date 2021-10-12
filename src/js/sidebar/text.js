@@ -106,6 +106,10 @@
 			case "update-text-fill":
 				// click option button
 				value = event.values.fill.type;
+
+				el = Els.el.find(".text-fill-options .gradient-colors");
+				width = +el.prop("offsetWidth") - 2;
+
 				Els.el.find(`.text-fill-options .option-buttons_ span[data-arg="${value}"]`).trigger("click");
 
 				switch (value) {
@@ -114,7 +118,12 @@
 						// gradient
 						let points = [],
 							strip = [];
-						console.log( Text );
+						APP.tools.text.gradient.stops.map(stop => {
+							strip.push(`${stop.color} ${stop.offset}%`);
+							points.push(`<span class="point" style="left: ${stop.offset * width / 100}px; --color: ${stop.color}; --offset: ${stop.offset};"></span>`);
+						});
+						el.html(points.join(""));
+						el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 						break;
 					default:
 						// fill solid

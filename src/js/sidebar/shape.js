@@ -109,7 +109,7 @@
 				}
 				break;
 			case "update-shape-fill":
-				el = Els.el.find(".gradient-colors");
+				el = Els.el.find(".shape-fill-options .gradient-colors");
 				width = +el.prop("offsetWidth") - 2;
 				
 				// click option button

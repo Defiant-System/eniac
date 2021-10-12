@@ -27,8 +27,38 @@
 					.css({ top, left, width, height })
 					.removeClass("hidden");
 
+				el = event.el;
+
+				let gradient = {},
+					bg = el.css("background"),
+					type = bg.match(/(linear|radial)-gradient\(([^()]*|\([^()]*\))*\)/g);
+
+				if (type) {
+					gradient = {
+						el,
+						str: type[0],
+						type: type[0].slice(0,6),
+						get stops() {
+							let stops = this.str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\) \d+./g);
+							return stops.map(stop => ({
+								color: Color.rgbToHex(stop.split(")")[0] +")"),
+								offset: parseInt(stop.split(")")[1].trim(), 10),
+							}));
+						},
+						add(stop, index) {
+
+						},
+						update(stops) {
+
+						}
+					};
+
+					console.log( type[0] );
+				}
+
 				// remember text element
-				Self.text = event.el;
+				Self.text = el;
+				Self.gradient = gradient;
 				break;
 		}
 	},
@@ -49,7 +79,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse hideTools");
 
-				let text = Self.text,
+				let text = Self.text.el,
 					offset = {
 						x: el.prop("offsetLeft"),
 						y: el.prop("offsetTop"),
@@ -60,7 +90,7 @@
 					},
 					guides = new Guides({
 						offset: {
-							el: text[0],
+							el: text,
 							w: el.prop("offsetWidth"),
 							h: el.prop("offsetHeight"),
 						}
@@ -68,7 +98,7 @@
 
 				// create drag object
 				Self.drag = {
-					el: $([text[0], Self.els.root[0]]),
+					el: $([text, Self.els.root[0]]),
 					guides,
 					click,
 				};
@@ -105,7 +135,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				let text = Self.text,
+				let text = Self.text.el,
 					type = event.target.className.split(" ")[1],
 					min = { w: 50 },
 					click = {
@@ -118,7 +148,7 @@
 
 				// create drag object
 				Self.drag = {
-					el: $([text[0], Self.els.root[0]]),
+					el: $([text, Self.els.root[0]]),
 					min,
 					type,
 					click,
@@ -146,7 +176,7 @@
 				break;
 			case "mouseup":
 				// re-focuses shape tools
-				Self.dispatch({ type: "focus-text", el: Self.text });
+				Self.dispatch({ type: "focus-text", el: Self.text.el });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind event
