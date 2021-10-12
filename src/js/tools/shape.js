@@ -127,7 +127,8 @@
 														offset: parseInt(x.getAttribute("offset"), 10),
 														color: x.getAttribute("stop-color"),
 													}));
-									Self.gradient.stops = newStops;
+									this.stops = newStops;
+									// Self.gradient.stops = newStops;
 								}
 								stops.map((s, i) => this.stops[i].xNode.attr({ offset: s.offset +"%" }));
 							}

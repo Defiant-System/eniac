@@ -46,14 +46,21 @@
 							}));
 						},
 						add(stop, index) {
-
+							let stops = this.stops.map(({ offset, color }) => ({ offset, color }));
+							stops.splice(index, 0, stop);
+							this.update(stops);
 						},
 						update(stops) {
+							let currStops = this.stops,
+								reorder = stops.length !== currStops.length || stops.reduce((a, e, i) => a + (e.color !== currStops[i].color ? 1 : 0), 0),
+								str = [];
 
+							// 
+							stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
+
+							this.el.css({ background: `${this.type}-gradient(0deg, ${str.join(", ")})`});
 						}
 					};
-
-					console.log( type[0] );
 				}
 
 				// remember text element

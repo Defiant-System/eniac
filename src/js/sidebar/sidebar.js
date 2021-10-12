@@ -14,6 +14,9 @@
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
+
+		// bind event handlers
+		this.els.el.on("mousedown", ".gradient-colors", this.gradientPoints);
 	},
 	line: @import "./line.js",
 	sheet: @import "./sheet.js",
@@ -75,6 +78,121 @@
 				if (Self[name]) {
 					return Self[name].dispatch(event);
 				}
+		}
+	},
+	gradientPoints(event) {
+		let APP = eniac,
+			Self = APP.sidebar,
+			Parent = Self.parent,
+			Drag = Self.drag,
+			stops;
+		switch (event.type) {
+			case "mousedown": {
+				// prevent default behaviour
+				event.preventDefault();
+
+				// dragged element
+				let el = $(event.target),
+					pEl = el.parent(),
+					index = el.index(),
+					siblings = pEl.find("span"),
+					gradient = APP.tools[APP.tools.active].gradient;
+
+				// create drag object
+				Self.drag = {
+					el,
+					pEl,
+					siblings,
+					gradient,
+					clickTime: Date.now(),
+					click: {
+						y: event.clientY - +el.prop("offsetTop"),
+						x: event.clientX - +el.prop("offsetLeft"),
+					},
+					max: {
+						x: +pEl.prop("offsetWidth") - 2,
+						y: +pEl.prop("offsetHeight") + parseInt(pEl.css("marginBottom"), 10) - 11,
+					},
+					_max: Math.max,
+					_min: Math.min,
+					_round: Math.round,
+					getStops() {
+						return this.siblings
+								.filter(el => !el.classList.contains("hidden"))
+								.map(el => {
+									let offset = Math.round(el.offsetLeft / this.max.x * 1000) / 10,
+										color = getComputedStyle(el).getPropertyValue("--color").trim();
+									return { offset, color };
+								})
+								.sort((a, b) => a.offset - b.offset);
+					}
+				};
+
+				if (el.hasClass("gradient-colors")) {
+					// add new gradient point
+					let stops = [...gradient.stops],
+						offset = Math.round(event.offsetX / Self.drag.max.x * 1000) / 10;
+					stops.map((stop, i) => { if (stop.offset < offset) index = i; });
+
+					let stop1 = stops[index],
+						stop2 = stops[index+1],
+						perc = ((offset - stop1.offset) / (stop2.offset - stop1.offset)),
+						color = Color.mixColors(stop2.color, stop1.color, perc),
+						str = `<span class="point" style="left: ${event.offsetX}px; --color: ${color}; --offset: ${offset};"></span>`,
+						target = el.insertAt(str, index)[0],
+						clientX = event.clientX,
+						clientY = event.clientY,
+						preventDefault = () => {};
+					// add new stop to array
+					gradient.add({ offset, color }, index + 1);
+					// trigger "fake" mousedown event on new point
+					Self.gradientPoints({ type: "mousedown", target, clientX, clientY, preventDefault });
+					return;
+				}
+				// point is being dragged
+				el.addClass("dragging");
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.gradientPoints);
+				} break;
+			case "mousemove":
+				let top = event.clientY - Drag.click.y,
+					left = Drag._max(Drag._min(event.clientX - Drag.click.x, Drag.max.x), 0),
+					offsetX = Drag._round(left / Drag.max.x * 1000) / 10,
+					discard = top > Drag.max.y || top < -11,
+					strip;
+				Drag.el.css({ left });
+				Drag.el[discard ? "addClass" : "removeClass"]("hidden");
+
+				// compose stops array and update SVG
+				stops = Drag.getStops();
+				Drag.gradient.update(stops);
+
+				// create sidebar gradient strip
+				strip = stops.filter(s => !s.discard)
+							.map(stop => `${stop.color} ${stop.offset}%`);
+				Drag.pEl.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+				break;
+			case "mouseup":
+				if (Date.now() - Drag.clickTime < 250) {
+					// time check for "click"
+					setTimeout(() =>
+						APP.popups.dispatch({ type: "popup-color-ring", target: event.target }));
+				}
+
+				// reset dragged element
+				Drag.el.removeClass("dragging");
+				// check if point is to be removed
+				if (Drag.el.hasClass("hidden")) {
+					// delete element
+					Drag.el.remove();
+					// compose stops array and update SVG
+					stops = Drag.getStops();
+					Drag.gradient.update(stops);
+				}
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.gradientPoints);
+				break;
 		}
 	},
 	zIndexArrange(el, type) {
