@@ -124,7 +124,7 @@
 							points.push(`<span class="point" style="left: ${stop.offset * width / 100}px; --color: ${stop.color}; --offset: ${stop.offset};"></span>`);
 						});
 						el.html(points.join(""));
-						el.css({ "--gradient": `${value}-gradient(to right, ${strip.join(",")})` });
+						el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 						break;
 					default:
 						// fill solid

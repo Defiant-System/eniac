@@ -63,7 +63,7 @@
 						el,
 						switchType,
 						type: type[0].slice(0,6),
-						stops: Self.gradient ? Self.gradient.stops : str.map(stop => ({
+						stops: str.map(stop => ({
 							color: Color.rgbToHex(stop.split(")")[0] +")"),
 							offset: parseInt(stop.split(")")[1].trim(), 10),
 						})),
