@@ -12,7 +12,8 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools.text,
+			Tools = APP.tools,
+			Self = Tools.text,
 			Text = Self.text,
 			el;
 		switch (event.type) {
@@ -31,20 +32,38 @@
 
 				let gradient = {},
 					bg = el.css("background"),
-					type = bg.match(/(linear|radial)-gradient\(([^()]*|\([^()]*\))*\)/g);
+					type = bg.match(/(linear|radial)-gradient\(([^()]*|\([^()]*\))*\)/g),
+					switchType = function(type) {
+						let el = Self.text,
+							defStops = [{ offset: 0, color: "#ffffff" }, { offset: 100, color: "#336699" }],
+							stops = this.stops || defStops,
+							htm = [],
+							background;
+						switch (type) {
+							case "linear":
+								break;
+							case "radial":
+								break;
+							case "solid":
+								background = "#336699";
+								break;
+						}
+						Self.text.css({ background });
+						// re-focus on shape
+						Self.dispatch({ type: "focus-text", el });
+					};
 
 				if (type) {
+					let str = type[0].match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\) \d+./g);
+
 					gradient = {
 						el,
-						str: type[0],
+						switchType,
 						type: type[0].slice(0,6),
-						get stops() {
-							let stops = this.str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\) \d+./g);
-							return stops.map(stop => ({
-								color: Color.rgbToHex(stop.split(")")[0] +")"),
-								offset: parseInt(stop.split(")")[1].trim(), 10),
-							}));
-						},
+						stops: str.map(stop => ({
+							color: Color.rgbToHex(stop.split(")")[0] +")"),
+							offset: parseInt(stop.split(")")[1].trim(), 10),
+						})),
 						add(stop, index) {
 							let stops = this.stops.map(({ offset, color }) => ({ offset, color }));
 							stops.splice(index, 0, stop);
@@ -55,12 +74,15 @@
 								reorder = stops.length !== currStops.length || stops.reduce((a, e, i) => a + (e.color !== currStops[i].color ? 1 : 0), 0),
 								str = [];
 
-							// 
+							if (reorder) this.stops = stops;
 							stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
 
 							this.el.css({ background: `${this.type}-gradient(0deg, ${str.join(", ")})`});
 						}
 					};
+				} else {
+					// reset reference
+					gradient = { type: "solid", switchType };
 				}
 
 				// remember text element

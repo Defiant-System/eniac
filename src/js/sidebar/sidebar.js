@@ -133,7 +133,7 @@
 					let stops = [...gradient.stops],
 						offset = Math.round(event.offsetX / Self.drag.max.x * 1000) / 10;
 					stops.map((stop, i) => { if (stop.offset < offset) index = i; });
-
+					
 					let stop1 = stops[index],
 						stop2 = stops[index+1],
 						perc = ((offset - stop1.offset) / (stop2.offset - stop1.offset)),

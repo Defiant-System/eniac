@@ -14,8 +14,9 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.text,
+			Tools = APP.tools,
 			Els = APP.sidebar.els,
-			Text = event.text || APP.tools.text.text,
+			Text = event.text || Tools.text.text,
 			color,
 			width,
 			value,
@@ -33,9 +34,9 @@
 					.removeClass("solid-fill linear-fill radial-fill")
 					.addClass(`${el.data("arg")}-fill`);
 				// update selected shape
-				// if (Shape.gradient.type !== el.data("arg")) {
-				// 	Shape.gradient.switchType(el.data("arg"));
-				// }
+				if (Tools.text.gradient.type !== el.data("arg")) {
+					Tools.text.gradient.switchType(el.data("arg"));
+				}
 				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
@@ -117,13 +118,14 @@
 					case "radial":
 						// gradient
 						let points = [],
-							strip = [];
-						APP.tools.text.gradient.stops.map(stop => {
+							strip = [],
+							head = value === "linear" ? "to right" : "circle 60px at 50px 40px";
+						Tools.text.gradient.stops.map(stop => {
 							strip.push(`${stop.color} ${stop.offset}%`);
 							points.push(`<span class="point" style="left: ${stop.offset * width / 100}px; --color: ${stop.color}; --offset: ${stop.offset};"></span>`);
 						});
 						el.html(points.join(""));
-						el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+						el.css({ "--gradient": `${value}-gradient(${head}, ${strip.join(",")})` });
 						break;
 					default:
 						// fill solid
@@ -241,7 +243,7 @@
 				// apply new width
 				Text.css(value);
 				// re-focus on element
-				APP.tools.text.dispatch({ type: "focus-text", el: Text });
+				Tools.text.dispatch({ type: "focus-text", el: Text });
 				break;
 
 			case "set-text-shadow": {

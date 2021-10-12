@@ -16,7 +16,7 @@
 	dispatch(event) {
 		let APP = eniac,
 			Tools = APP.tools,
-			Self = APP.tools.shape,
+			Self = Tools.shape,
 			Shape = Self.shape,
 			el;
 		switch (event.type) {
@@ -40,7 +40,7 @@
 
 				// remember shape
 				Self.shape = event.el;
-				Self.shapeItem = event.el.find(APP.tools.shapeTypes.join(","));
+				Self.shapeItem = event.el.find(Tools.shapeTypes.join(","));
 				// set "rounded corner" value & reset handles
 				let name = Self.shapeItem.prop("nodeName"),
 					rc = Self.shapeItem.attr("rx") || 0;
