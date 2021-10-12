@@ -37,12 +37,15 @@
 						let el = Self.text,
 							defStops = [{ offset: 0, color: "#ffffff" }, { offset: 100, color: "#336699" }],
 							stops = this.stops || defStops,
-							htm = [],
+							str = [],
+							head,
 							background;
 						switch (type) {
 							case "linear":
-								break;
 							case "radial":
+								head = type === "linear" ? "to right" : "circle 60px at 50px 40px";
+								stops.map(s => str.push(`${s.color} ${s.offset}%`));
+								background = `${type}-gradient(${head}, ${str.join(", ")})`;
 								break;
 							case "solid":
 								background = "#336699";
@@ -72,12 +75,13 @@
 						update(stops) {
 							let currStops = this.stops,
 								reorder = stops.length !== currStops.length || stops.reduce((a, e, i) => a + (e.color !== currStops[i].color ? 1 : 0), 0),
+								head = this.type === "linear" ? "to right" : "circle 60px at 50px 40px",
 								str = [];
 
 							if (reorder) this.stops = stops;
 							stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
 
-							this.el.css({ background: `${this.type}-gradient(0deg, ${str.join(", ")})`});
+							this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
 						}
 					};
 				} else {
