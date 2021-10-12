@@ -4,10 +4,12 @@
 {
 	init() {
 		// fast references
+		let root = window.find(".shape-tools");
 		this.els = {
-			root: window.find(".shape-tools"),
+			root,
 			doc: $(document),
 			layout: window.find("layout"),
+			gradientTool: root.find(".gradient-tool"),
 		};
 	},
 	dispatch(event) {
@@ -25,7 +27,8 @@
 				let top = parseInt(el.css("top"), 10),
 					left = parseInt(el.css("left"), 10),
 					width = parseInt(el.css("width"), 10),
-					height = parseInt(el.css("height"), 10);
+					height = parseInt(el.css("height"), 10),
+					deg;
 				Self.els.root
 					.css({ top, left, width, height })
 					.removeClass("hidden");
@@ -57,41 +60,52 @@
 					};
 
 				if (type) {
-					let str = type[0].match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\) \d+./g);
+					let str = type[0].match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\) \d+./g),
+						gradient = {
+							el,
+							switchType,
+							type: type[0].slice(0,6),
+							stops: str.map(stop => ({
+								color: Color.rgbToHex(stop.split(")")[0] +")"),
+								offset: parseInt(stop.split(")")[1].trim(), 10),
+							})),
+							add(stop, index) {
+								let stops = this.stops.map(({ offset, color }) => ({ offset, color }));
+								stops.splice(index, 0, stop);
+								this.update(stops);
+							},
+							update(stops) {
+								let currStops = this.stops,
+									reorder = stops.length !== currStops.length || stops.reduce((a, e, i) => a + (e.color !== currStops[i].color ? 1 : 0), 0),
+									head = this.type === "linear" ? "to bottom" : "circle 60px at 50px 40px",
+									str = [];
 
-					gradient = {
-						el,
-						switchType,
-						type: type[0].slice(0,6),
-						stops: str.map(stop => ({
-							color: Color.rgbToHex(stop.split(")")[0] +")"),
-							offset: parseInt(stop.split(")")[1].trim(), 10),
-						})),
-						add(stop, index) {
-							let stops = this.stops.map(({ offset, color }) => ({ offset, color }));
-							stops.splice(index, 0, stop);
-							this.update(stops);
-						},
-						update(stops) {
-							let currStops = this.stops,
-								reorder = stops.length !== currStops.length || stops.reduce((a, e, i) => a + (e.color !== currStops[i].color ? 1 : 0), 0),
-								head = this.type === "linear" ? "to bottom" : "circle 60px at 50px 40px",
-								str = [];
+								if (reorder) this.stops = stops;
+								stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
 
-							if (reorder) this.stops = stops;
-							stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
-
-							this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
-						}
-					};
+								this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
+							}
+						};
+					switch (gradient.type) {
+						case "radial":
+							break;
+						case "linear":
+							[left, top] = el.css("background-position").split(" ").map(n => parseInt(n, 10));
+							width = 40;
+							deg = 0;
+							break;
+					}
+					// save reference to gradient
+					Self.gradient = gradient;
 				} else {
 					// reset reference
-					gradient = { ...Self.gradient, type: "solid", switchType };
+					Self.gradient = { type: "solid", switchType };
 				}
-
+				Self.els.gradientTool
+					.css({ top, left, width, transform: `rotate(${deg}deg)` })
+					// .removeClass("hidden");
 				// remember text element
 				Self.text = el;
-				Self.gradient = gradient;
 				break;
 		}
 	},
