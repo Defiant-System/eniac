@@ -195,12 +195,13 @@ layout {
 
 	&.text-tools {
 		.gradient-box {
-			background: rgba(0,0,0,.1);
+			// background: rgba(0,0,0,.1);
 			position: absolute;
 			top: 24px;
 			left: 44px;
 			width: 68px;
 			height: 68px;
+			--deg: 45deg;
 
 			.handle {
 				&.a1 {
@@ -223,7 +224,7 @@ layout {
 				top: 0;
 				left: 0;
 				width: 60px;
-				transform: rotate(45deg);
+				transform: rotate( var(--deg) );
 			}
 		}
 	}

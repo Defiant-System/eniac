@@ -9,7 +9,8 @@
 			root,
 			doc: $(document),
 			layout: window.find("layout"),
-			gradientTool: root.find(".gradient-tool"),
+			gradientBox: root.find(".gradient-box"),
+			// gradientTool: root.find(".gradient-tool"),
 		};
 	},
 	dispatch(event) {
@@ -20,6 +21,10 @@
 			el;
 		switch (event.type) {
 			// custom events
+			case "blur-text":
+				Self.els.root.addClass("hidden");
+				Self.els.gradientBox.addClass("hidden");
+				break;
 			case "focus-text":
 				el = event.el;
 
@@ -90,11 +95,18 @@
 						case "radial":
 							break;
 						case "linear":
-							// [left, top] = el.css("background-position").split(" ").map(n => parseInt(n, 10));
-							top = 24;
-							left = 44;
-							width = 68;
+							[left, top] = el.css("background-position").split(" ").map(n => parseInt(n, 10));
+							[width, height] = el.css("background-size").split(" ").map(n => parseInt(n, 10));;
+							top += 4;
+							left += 4;
+							width -= 2;
+							height -= 2;
 							deg = 45;
+
+							// gradient tools for text-element
+							Self.els.gradientBox
+								.css({ top, left, width, height, "--deg": `${deg}deg` })
+								.removeClass("hidden");
 							break;
 					}
 					// save reference to gradient
@@ -103,9 +115,6 @@
 					// reset reference
 					Self.gradient = { type: "solid", switchType };
 				}
-				Self.els.gradientTool
-					// .css({ top, left, width, transform: `rotate(${deg}deg)` })
-					.removeClass("hidden");
 				// remember text element
 				Self.text = el;
 				break;
@@ -124,11 +133,11 @@
 				if (el.hasClass("handle")) {
 					return Self.resize(event);
 				}
-				
+
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse hideTools");
 
-				let text = Self.text.el,
+				let text = Self.text,
 					offset = {
 						x: el.prop("offsetLeft"),
 						y: el.prop("offsetTop"),
@@ -147,7 +156,7 @@
 
 				// create drag object
 				Self.drag = {
-					el: $([text, Self.els.root[0]]),
+					el: $([text[0], Self.els.root[0]]),
 					guides,
 					click,
 				};
@@ -184,7 +193,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				let text = Self.text.el,
+				let text = Self.text,
 					type = event.target.className.split(" ")[1],
 					min = { w: 50 },
 					click = {
@@ -197,7 +206,7 @@
 
 				// create drag object
 				Self.drag = {
-					el: $([text, Self.els.root[0]]),
+					el: $([text[0], Self.els.root[0]]),
 					min,
 					type,
 					click,
@@ -225,7 +234,7 @@
 				break;
 			case "mouseup":
 				// re-focuses shape tools
-				Self.dispatch({ type: "focus-text", el: Self.text.el });
+				Self.dispatch({ type: "focus-text", el: Self.text });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind event
