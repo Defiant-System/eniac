@@ -129,8 +129,12 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// if mousedown on handle
-				let el = $(event.target);
+				let el = $(event.target),
+					pEl = el.parent();
 				if (el.hasClass("handle")) {
+					if (pEl.hasClass("gradient-tool") || pEl.hasClass("gradient-box")) {
+						return Self.gradientMove(event);
+					}
 					return Self.resize(event);
 				}
 
@@ -239,6 +243,89 @@
 				Self.els.layout.removeClass("cover");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
+				break;
+		}
+	},
+	gradientMove(event) {
+		let APP = eniac,
+			Self = APP.tools.text,
+			Gradient = Self.gradient,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				let text = Self.text,
+					el = $(event.target).parents(".gradient-box"),
+					type = event.target.className.split(" ")[1],
+					click = {
+						y: event.clientY,
+						x: event.clientX,
+					},
+					offset = {
+						y: el.prop("offsetTop"),
+						x: el.prop("offsetLeft"),
+						w: el.prop("offsetWidth"),
+						h: el.prop("offsetHeight"),
+						a: parseInt(el.css("--deg"), 10)
+					};
+
+				switch (type) {
+					case "a1":
+					case "p1": click.y -= offset.y; click.x -= offset.x; break;
+					case "p2": click.y -= offset.h; click.x -= offset.w; break;
+				}
+
+				// create drag object
+				Self.drag = {
+					el,
+					text,
+					type,
+					click,
+					offset,
+					_round: Math.round,
+					_atan2: Math.atan2,
+					_PI: 180 / Math.PI,
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
+				break;
+			case "mousemove":
+				let y = event.clientY - Drag.click.y,
+					x = event.clientX - Drag.click.x,
+					data = {},
+					bg = {};
+				switch (Drag.type) {
+					case "p1":
+						data.top = y;
+						data.left = x;
+						bg["background-position"] = `${x-4}px ${y-4}px`;
+						break;
+					case "p2":
+						data.height = y;
+						data.width = x;
+						bg["background-size"] = `${x+2}px ${y+2}px`;
+						break;
+					case "a1":
+						let deg = Drag._round(Drag._atan2(y, x) * Drag._PI);
+						if (deg < 0) deg += 360;
+						data["--deg"] = `${deg}deg`;
+						break;
+				}
+				// apply "background"
+				Drag.text.css(bg);
+				// move gradient box
+				Drag.el.css(data);
+				break;
+			case "mouseup":
+				// cover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.gradientMove);
 				break;
 		}
 	}
