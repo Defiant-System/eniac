@@ -4,7 +4,7 @@
 {
 	init() {
 		// fast references
-		let root = window.find(".shape-tools");
+		let root = window.find(".text-tools");
 		this.els = {
 			root,
 			doc: $(document),
@@ -90,9 +90,11 @@
 						case "radial":
 							break;
 						case "linear":
-							[left, top] = el.css("background-position").split(" ").map(n => parseInt(n, 10));
-							width = 40;
-							deg = 0;
+							// [left, top] = el.css("background-position").split(" ").map(n => parseInt(n, 10));
+							top = 24;
+							left = 44;
+							width = 68;
+							deg = 45;
 							break;
 					}
 					// save reference to gradient
@@ -102,8 +104,8 @@
 					Self.gradient = { type: "solid", switchType };
 				}
 				Self.els.gradientTool
-					.css({ top, left, width, transform: `rotate(${deg}deg)` })
-					// .removeClass("hidden");
+					// .css({ top, left, width, transform: `rotate(${deg}deg)` })
+					.removeClass("hidden");
 				// remember text element
 				Self.text = el;
 				break;

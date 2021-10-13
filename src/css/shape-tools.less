@@ -5,6 +5,7 @@ layout {
 	}
 }
 
+.text-tools,
 .shape-tools {
 	position: absolute;
 	z-index: 99;
@@ -188,6 +189,41 @@ layout {
 				top: -4px;
 				right: -4px;
 				cursor: ns-resize;
+			}
+		}
+	}
+
+	&.text-tools {
+		.gradient-box {
+			background: rgba(0,0,0,.1);
+			position: absolute;
+			top: 24px;
+			left: 44px;
+			width: 68px;
+			height: 68px;
+
+			.handle {
+				&.a1 {
+					top: -4px;
+					right: -4px;
+					cursor: ns-resize;
+				}
+
+				&.p2 {
+					bottom: -4px;
+					right: -4px;
+					width: 7px;
+					height: 7px;
+					cursor: move;
+					border: 1px solid rgba(0,150,0,.85);
+				}
+			}
+			
+			.gradient-tool {
+				top: 0;
+				left: 0;
+				width: 60px;
+				transform: rotate(45deg);
 			}
 		}
 	}

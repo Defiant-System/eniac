@@ -320,12 +320,6 @@
 				Drag.el.css(dim);
 				// special handling for rect-element
 				if (Drag.rect) {
-					// if (Drag.offset.rx) {
-					// 	let w = parseInt(Drag.shape.css("width"), 10),
-					// 		h = parseInt(Drag.shape.css("height"), 10),
-					// 		rx = Drag._min(Drag.offset.rx, Drag._min(w, h) >> 1);
-					// 	Drag.shape.attr({ rx });
-					// }
 					Drag.svg.attr({ viewBox: `0 0 ${dim.width} ${dim.height}` });
 				}
 				break;
