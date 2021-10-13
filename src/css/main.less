@@ -1161,12 +1161,17 @@ sidebar {
 							right: 19px;
 						}
 
+						&:not(:last-child)[data-suffix="°"] {
+							left: -5px;
+						}
+
 						&[data-suffix="°"] {
 							&:after { content: "°"; }
 							input { padding-right: 10px; }
 						}
 
 						&[data-suffix="%"] {
+
 							&:after { content: "%"; }
 							input { padding-right: 17px; }
 						}
@@ -1180,12 +1185,38 @@ sidebar {
 
 				.flex-row {
 					> div {
+						position: relative;
 						width: 47%;
 						margin-top: 3px;
 					}
 
 					label[for="alternate-row-color"] {
 						top: 1px;
+					}
+				}
+
+				.angle-ring {
+					position: absolute;
+					top: 1px;
+					left: -37px;
+					width: 21px;
+					height: 21px;
+					border-radius: 50%;
+					border: 1px solid #888;
+					box-shadow: 1px 1px 0 rgba(255,255,255,.75),
+								inset 1px 1px 0 rgba(255,255,255,.75);
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: 2px;
+						left: 8px;
+						width: 3px;
+						height: 3px;
+						background: #888;
+						border-radius: 50%;
+						pointer-events: none;
+						box-shadow: 0 0 0 1px #888;
 					}
 				}
 
