@@ -78,6 +78,13 @@ overflow: initial;
 .icon-shape-style-5:before   { background-image: url(~/icons/icon-shape-style-5.png); }
 .icon-shape-style-6:before   { background-image: url(~/icons/icon-shape-style-6.png); }
 
+.image-style-1:before   { background-image: url(/fs/Desktop/coast.jpg); }
+.image-style-2:before   { background-image: url(/fs/Desktop/coast.jpg); filter: sepia(100%); }
+.image-style-3:before   { background-image: url(/fs/Desktop/coast.jpg); filter: brightness(1.5); }
+.image-style-4:before   { background-image: url(/fs/Desktop/coast.jpg); filter: contrast(150%); }
+.image-style-5:before   { background-image: url(/fs/Desktop/coast.jpg); filter: saturate(50%); }
+.image-style-6:before   { background-image: url(/fs/Desktop/coast.jpg); filter: hue-rotate(90deg); }
+
 .icon-text-style-1:before   { background-image: url(~/icons/icon-text-style-1.png); }
 .icon-text-style-2:before   { background-image: url(~/icons/icon-text-style-2.png); }
 .icon-text-style-3:before   { background-image: url(~/icons/icon-text-style-3.png); }
@@ -1369,6 +1376,20 @@ sidebar {
 						left: 0;
 						width: inherit;
 						height: inherit;
+					}
+				}
+			}
+
+			&.image-styles {
+				span {
+					border-radius: 5px;
+					
+					&:before {
+						top: 5px;
+						left: 5px;
+						width: calc( 100% - 10px );
+						height: calc( 100% - 10px );
+						background-size: contain;
 					}
 				}
 			}

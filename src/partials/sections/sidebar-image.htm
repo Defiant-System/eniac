@@ -6,13 +6,13 @@
 
 	<!-- Style body -->
 	<div class="sidebar-body active">
-		<div class="styles shape-styles" data-click="set-shape-style">
-			<span class="icon-shape-style-1" data-arg="#222222"></span>
-			<span class="icon-shape-style-2" data-arg="#1ba3fc"></span>
-			<span class="icon-shape-style-3" data-arg="#65d744"></span>
-			<span class="icon-shape-style-4" data-arg="#ea261f"></span>
-			<span class="icon-shape-style-5" data-arg="#fcad2a"></span>
-			<span class="icon-shape-style-6" data-arg="#fc47a1"></span>
+		<div class="styles image-styles" data-click="set-image-style">
+			<span class="image-style-1" data-arg="style-1"></span>
+			<span class="image-style-2" data-arg="style-2"></span>
+			<span class="image-style-3" data-arg="style-3"></span>
+			<span class="image-style-4" data-arg="style-4"></span>
+			<span class="image-style-5" data-arg="style-5"></span>
+			<span class="image-style-6" data-arg="style-6"></span>
 		</div>
 
 		<div class="group-row">
@@ -24,46 +24,6 @@
 			<div>
 				<span class="form-checkbox_"><input type="checkbox" id="image-caption" data-click="toggle-image-caption"/><i></i></span>
 				<label for="image-caption">Caption</label>
-			</div>
-		</div>
-
-		<div class="group-row image-fill-options">
-			<legend data-click="toggle-group-body">Fill</legend>
-			<div class="group-body">
-				<div data-click="select-fill-type">
-					<div class="option-buttons_ has-image">
-						<span data-arg="solid">Solid</span>
-						<span data-arg="linearGradient">Linear</span>
-						<span data-arg="radialGradient">Radial</span>
-					</div>
-				</div>
-				<div class="flex-row">
-					<legend class="bold">Color</legend>
-					<div>
-						<div class="color-preset_" data-click="popup-color-palette" data-change="set-image-fill-color" style="--preset-color: #000000;"></div>
-					</div>
-				</div>
-				<div class="gradient-options">
-					<div class="gradient-colors" data-change="set-fill-gradient-color">
-						<!-- <span class="point"></span> -->
-					</div>
-
-					<div class="flex-row">
-						<legend class="bold">Angle</legend>
-						<div data-suffix="°">
-							<input type="number" id="image-gradient-angle" min="0" max="360" step="1" value="315"/>
-							<div>
-								<span></span>
-								<span></span>
-							</div>
-						</div>
-					</div>
-
-					<div>
-						<span class="form-checkbox_"><input type="checkbox" id="gradient-reverse"/><i></i></span>
-						<label for="gradient-reverse">Reverse Gradient Direction</label>
-					</div>
-				</div>
 			</div>
 		</div>
 

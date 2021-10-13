@@ -16,7 +16,7 @@ class File {
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
 
 			html += window.render({ template: "xl-text", match: `//Text` });
-			// html += window.render({ template: "xl-image", match: `//Image[@id="temp-image-1"]` });
+			html += window.render({ template: "xl-image", match: `//Image[@id="temp-image-1"]` });
 
 			// svg's
 			window.find("svg > svg").map(svg => {
@@ -27,8 +27,8 @@ class File {
 
 			// setTimeout(() => window.find(`.xl-table:nth(0) td:nth(11)`).trigger("mousedown").trigger("mouseup"), 150);
 			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 
 			// temp: paste
 			// setTimeout(() => {
