@@ -9,6 +9,7 @@
 			root,
 			doc: $(document),
 			layout: window.find("layout"),
+			gradientTool: root.find(".gradient-tool"),
 		};
 	},
 	dispatch(event) {
@@ -21,7 +22,7 @@
 			// custom events
 			case "blur-text":
 				Self.els.root.addClass("hidden");
-				Self.els.gradientBox.addClass("hidden");
+				Self.els.gradientTool.addClass("hidden");
 				break;
 			case "focus-text":
 				el = event.el;
@@ -35,6 +36,8 @@
 				Self.els.root
 					.css({ top, left, width, height })
 					.removeClass("hidden");
+				// hide gradient tools
+				Self.els.gradientTool.addClass("hidden");
 
 				let gradient = {},
 					bg = el.css("background"),
@@ -91,6 +94,15 @@
 						};
 					switch (gradient.type) {
 						case "radial":
+							top = 40;
+							left = 150;
+							width = 50;
+							deg = 25;
+
+							// gradient tools for text-element
+							Self.els.gradientTool
+								.css({ top, left, width, transform: `rotate(${deg}deg)` })
+								.removeClass("hidden");
 							break;
 						case "linear":
 							break;
