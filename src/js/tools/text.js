@@ -44,6 +44,7 @@
 					type = bg.match(/(linear|radial)-gradient\(([^()]*|\([^()]*\))*\)/g),
 					switchType = function(type) {
 						let el = Self.text,
+							bg = this.el.css("background-image"),
 							defStops = [{ offset: 0, color: "#ffffff" }, { offset: 100, color: "#336699" }],
 							stops = this.stops || defStops,
 							str = [],
@@ -51,8 +52,17 @@
 							background;
 						switch (type) {
 							case "linear":
+								head = `${this.deg}deg`;
+								if (this.deg === undefined) {
+									this.deg = bg === "none" ? 0 : +bg.match(/(\d+)deg/)[1];
+									head = `${this.deg}deg`;
+								}
+								stops.map(s => str.push(`${s.color} ${s.offset}%`));
+								background = `${type}-gradient(${head}, ${str.join(", ")})`;
+								break;
 							case "radial":
-								head = type === "linear" ? "to bottom" : "60px at 50px 40px";
+								let [a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
+								head = `${width}px at ${left}px ${top}px`;
 								stops.map(s => str.push(`${s.color} ${s.offset}%`));
 								background = `${type}-gradient(${head}, ${str.join(", ")})`;
 								break;
@@ -63,6 +73,9 @@
 						Self.text.css({ background });
 						// re-focus on shape
 						Self.dispatch({ type: "focus-text", el });
+
+						let values = APP.sidebar.text.dispatch({ type: "collect-text-values", el });
+						APP.sidebar.text.dispatch({ type: "update-text-fill", values });
 					};
 
 				if (type) {
@@ -81,7 +94,8 @@
 									head = `${this.deg}deg`;
 								}
 								if (this.type === "radial") {
-									let [a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
+									let bg = this.el.css("background-image"),
+										[a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
 									head = `${width}px at ${left}px ${top}px`;
 								}
 
@@ -106,6 +120,10 @@
 									head = `${this.deg}deg`,
 									str = [];
 
+								if (this.deg === undefined) {
+									this.deg = +this.el.css("background-image").match(/(\d+)deg/)[1];
+									head = `${this.deg}deg`;
+								}
 								if (this.type === "radial") {
 									let bg = this.el.css("background"),
 										[a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
@@ -141,7 +159,7 @@
 					Self.gradient = gradient;
 				} else {
 					// reset reference
-					Self.gradient = { type: "solid", switchType };
+					Self.gradient = { type: "solid", el, switchType };
 				}
 				// remember text element
 				Self.text = el;
