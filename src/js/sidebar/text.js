@@ -64,6 +64,9 @@
 				fill.type = fill.color.match(/linear-|radial-/);
 				if (fill.type) fill.type = fill.type[0].slice(0,-1);
 				else fill.type = "solid";
+				// gradient rotation
+				fill.deg = Text.css("background-image").match(/(\d+)deg/);
+				fill.deg = fill.deg ? +fill.deg[1] : 45;
 				fill._expand = color !== "none" || fill.type !== "solid";
 
 				// border values
@@ -125,6 +128,11 @@
 						});
 						el.html(points.join(""));
 						el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+
+						value = event.values.fill.deg;
+						Els.el.find("input#text-gradient-angle").val(value);
+						// fill-gradient angle ring
+						Els.el.find(`.text-fill-options .angle-ring`).css({ transform: `rotate(${value+90}deg)` });
 						break;
 					default:
 						// fill solid
@@ -174,6 +182,8 @@
 				Els.el.find(".text-shadow-offset input").val(offset);
 				Els.el.find(".text-shadow-opacity input").val(opacity);
 				Els.el.find(`input[name="text-shadow-angle"]`).val(angle);
+				// drop-shadow angle ring
+				Els.el.find(`.text-shadow-angle-color .angle-ring`).css({ transform: `rotate(${angle+90}deg)` });
 				// drop-shadow color
 				hexColor = hexColor ? hexColor.slice(0, -2) : "transparent";
 				Els.el.find(`.color-preset_[data-change="set-text-shadow"]`)

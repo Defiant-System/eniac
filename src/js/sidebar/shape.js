@@ -131,6 +131,8 @@
 						let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(",");
 						value = Math.atan2(b, a) * 180 / Math.PI;
 						Els.el.find("input#shape-gradient-angle").val(value);
+						// fill-gradient angle ring
+						Els.el.find(`.shape-fill-options .angle-ring`).css({ transform: `rotate(${value+90}deg)` });
 						break;
 					default:
 						// fill solid
@@ -184,6 +186,8 @@
 				Els.el.find(".shape-shadow-offset input").val(offset);
 				Els.el.find(".shape-shadow-opacity input").val(opacity);
 				Els.el.find(`input[name="shape-shadow-angle"]`).val(angle);
+				// drop-shadow angle ring
+				Els.el.find(`.shape-shadow-angle-color .angle-ring`).css({ transform: `rotate(${angle+90}deg)` });
 				// drop-shadow color
 				hexColor = hexColor ? hexColor.slice(0, -2) : "transparent";
 				Els.el.find(`.color-preset_[data-change="set-shape-shadow"]`)
