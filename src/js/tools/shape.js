@@ -146,7 +146,7 @@
 							dy = (+xNode.attr("y2") * height) - top + 1;
 							dx = (+xNode.attr("x2") * width) - left + 1;
 							width = Math.round(Math.sqrt(dx*dx + dy*dy));
-							deg = Math.atan2(dy, dx) * (180 / Math.PI);
+							deg = Math.round(Math.atan2(dy, dx) * (180 / Math.PI));
 							break;
 					}
 					Self.els.gradientTool

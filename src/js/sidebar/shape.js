@@ -129,7 +129,7 @@
 						// gradient angle value
 						el = APP.tools.shape.els.gradientTool;
 						let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(",");
-						value = Math.atan2(b, a) * 180 / Math.PI;
+						value = Math.round(Math.atan2(b, a) * 180 / Math.PI);
 						Els.el.find("input#shape-gradient-angle").val(value);
 						// fill-gradient angle ring
 						Els.el.find(`.shape-fill-options .angle-ring`).css({ transform: `rotate(${value+90}deg)` });

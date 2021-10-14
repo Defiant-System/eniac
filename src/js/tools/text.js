@@ -107,10 +107,10 @@
 										[a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
 									head = `${width}px at ${left}px ${top}px`;
 								}
-								
+								// apply UI on element
 								stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
 								this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
-								
+								// update stops array
 								this.stops = stops;
 							}
 						};
