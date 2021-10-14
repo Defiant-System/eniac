@@ -108,8 +108,6 @@
 						gradient.deg = Math.round(rad * 180 / Math.PI);
 						if (gradient.deg < 0) gradient.deg += 360;
 						
-						// sync sidebar input value
-						APP.sidebar.els.el.find(".text-fill-options #text-gradient-angle").val(gradient.deg);
 						// gradient tools for text-element
 						Self.els.gradientTool.css({ top, left, width, transform: `rotate(${gradient.deg}deg)` });
 					}
