@@ -226,7 +226,7 @@
 			case "set-text-gradient-angle":
 				if (Tools.text.gradient.type === "radial") {
 					// rotate tool "arm"
-
+					Tools.text.els.gradientTool.css({ transform: `rotate(${event.value}deg)` });
 					// no change to focus text element
 				} else {
 					let stops = Tools.text.gradient.stops.map(s => `${s.color} ${s.offset}%`);
