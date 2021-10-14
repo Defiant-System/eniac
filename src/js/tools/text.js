@@ -32,8 +32,7 @@
 				let top = parseInt(el.css("top"), 10),
 					left = parseInt(el.css("left"), 10),
 					width = parseInt(el.css("width"), 10),
-					height = parseInt(el.css("height"), 10),
-					deg;
+					height = parseInt(el.css("height"), 10);
 				Self.els.root
 					.css({ top, left, width, height })
 					.removeClass("hidden");
@@ -95,15 +94,24 @@
 						};
 
 					if (gradient.type === "radial") {
+						// unhide gradient tool
+						Self.els.gradientTool.removeClass("hidden");
+
 						[str, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
 						top = +top + 2;
 						left = +left + 2;
 						width = +width + 2;
-						deg = 45;
+
+						let rotation = Self.els.gradientTool.css("transform"),
+							[a, b] = rotation.split("(")[1].split(")")[0].split(","),
+							rad = Math.atan2(b, a);
+						gradient.deg = Math.round(rad * 180 / Math.PI);
+						if (gradient.deg < 0) gradient.deg += 360;
+						
+						// sync sidebar input value
+						APP.sidebar.els.el.find(".text-fill-options #text-gradient-angle").val(gradient.deg);
 						// gradient tools for text-element
-						Self.els.gradientTool
-							.css({ top, left, width, transform: `rotate(${deg}deg)` })
-							.removeClass("hidden");
+						Self.els.gradientTool.css({ top, left, width, transform: `rotate(${gradient.deg}deg)` });
 					}
 					// save reference to gradient
 					Self.gradient = gradient;

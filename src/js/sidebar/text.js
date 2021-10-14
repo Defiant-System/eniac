@@ -66,7 +66,7 @@
 				else fill.type = "solid";
 				// gradient rotation
 				fill.deg = Text.css("background-image").match(/(\d+)deg/);
-				fill.deg = fill.deg ? +fill.deg[1] : 45;
+				fill.deg = fill.deg ? +fill.deg[1] : Tools.text.gradient.deg;
 				fill._expand = color !== "none" || fill.type !== "solid";
 
 				// border values
