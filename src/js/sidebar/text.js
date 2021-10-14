@@ -224,7 +224,9 @@
 				console.log(event);
 				break;
 			case "set-text-gradient-angle":
-				value = Text.css("background-image").replace(/\d+deg/, `${+event.value || 0}deg`);
+				value = Text.css("background-image");
+				value = value.indexOf(/\d+deg/) ? value : value.replace(/-gradient\(/, "-gradient(0deg");
+				value = value.replace(/\d+deg/, `${+event.value || 0}deg`);
 				Text.css({ "background-image": value });
 				break;
 			case "set-text-border-style":
