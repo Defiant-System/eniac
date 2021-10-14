@@ -240,6 +240,8 @@
 					value = `linear-gradient(${+event.value}deg, ${stops.join(", ")})`;
 					Text.css({ "background-image": value });
 				}
+				// update degree value stored in gradient object
+				Tools.text.gradient.deg = +event.value;
 				break;
 			case "set-text-border-style":
 				width = parseInt(Text.css("border-width"), 10);

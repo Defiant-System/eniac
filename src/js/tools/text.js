@@ -76,14 +76,18 @@
 									str = [],
 									head = `${this.deg}deg`;
 
-								this.stops.map(s => stops.unshift({ ...s, offset: 100 - s.offset }));
-								this.stops = stops;
-
+								if (this.deg === undefined) {
+									this.deg = +this.el.css("background-image").match(/(\d+)deg/)[1];
+									head = `${this.deg}deg`;
+								}
 								if (this.type === "radial") {
 									let [a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
 									head = `${width}px at ${left}px ${top}px`;
 								}
-								
+
+								this.stops.map(s => stops.unshift({ ...s, offset: 100 - s.offset }));
+								this.stops = stops;
+								// build up gradient stops string
 								stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
 								this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
 							},
