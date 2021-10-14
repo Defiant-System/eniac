@@ -17,6 +17,10 @@
 		};
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
+
+		setTimeout(() => {
+			window.find(".toolbar-tool_:nth(6)").trigger("click");
+		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -145,6 +149,7 @@
 			case "insert-text-box":
 				console.log(event);
 				break;
+			case "select-menu":
 			case "select-grid":
 			case "select-chart":
 			case "select-shape":

@@ -484,9 +484,50 @@ layout {
 			}
 		}
 
+		&.popup-insert-image-options {
+			width: auto;
+			min-width: 150px;
+			font-size: 13px;
+			border-radius: 7px;
+			padding: 7px 0;
+
+			.menu-entries {
+
+			}
+
+			.menu-item {
+				white-space: nowrap;
+				padding: 5px 13px;
+
+				&:hover {
+					background: #6da6f9;
+					color: #fff;
+
+					i {
+						filter: invert(100%) brightness(2.0);
+					}
+				}
+
+				i {
+					position: relative;
+					top: 1px;
+					width: 13px;
+					height: 13px;
+					display: inline-block;
+					margin-right: 3px;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+					background-size: 100%;
+					filter: opacity(75%);
+
+					&.icon-image { background-image: url(~/icons/icon-image.png); }
+					&.icon-shape { background-image: url(~/icons/icon-shape.png); }
+				}
+			}
+		}
+
 		&.popup-insert-chart-options,
 		&.popup-insert-shape-options,
-		&.popup-insert-image-options,
 		&.popup-insert-grid-options {
 			width: 213px;
 			padding: 17px 17px 11px;
