@@ -52,7 +52,7 @@
 						switch (type) {
 							case "linear":
 							case "radial":
-								head = type === "linear" ? "to bottom" : "circle 60px at 50px 40px";
+								head = type === "linear" ? "to bottom" : "60px at 50px 40px";
 								stops.map(s => str.push(`${s.color} ${s.offset}%`));
 								background = `${type}-gradient(${head}, ${str.join(", ")})`;
 								break;
@@ -71,6 +71,22 @@
 							el,
 							switchType,
 							type: type[0].slice(0,6),
+							reverse() {
+								let stops = [],
+									str = [],
+									head = `${this.deg}deg`;
+
+								this.stops.map(s => stops.unshift({ ...s, offset: 100 - s.offset }));
+								this.stops = stops;
+
+								if (this.type === "radial") {
+									let [a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
+									head = `${width}px at ${left}px ${top}px`;
+								}
+								
+								stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
+								this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
+							},
 							stops: str.map(stop => ({
 								color: Color.rgbToHex(stop.split(")")[0] +")"),
 								offset: parseInt(stop.split(")")[1].trim(), 10),
@@ -83,13 +99,19 @@
 							update(stops) {
 								let currStops = this.stops,
 									reorder = stops.length !== currStops.length || stops.reduce((a, e, i) => a + (e.color !== currStops[i].color ? 1 : 0), 0),
-									head = this.type === "linear" ? "to bottom" : "circle 60px at 50px 40px",
+									head = `${this.deg}deg`,
 									str = [];
 
-								if (reorder) this.stops = stops;
+								if (this.type === "radial") {
+									let bg = this.el.css("background"),
+										[a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
+									head = `${width}px at ${left}px ${top}px`;
+								}
+								
 								stops.map((s, i) => str.push(`${s.color} ${s.offset}%`));
-
 								this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
+								
+								this.stops = stops;
 							}
 						};
 
@@ -309,7 +331,7 @@
 						left = dX + Drag.origo.x;
 					Drag.el.css({ top, left });
 					// update text element
-					let background = `radial-gradient(circle ${Drag.origo.r}px at ${left-2}px ${top-2}px, ${Drag.gradient})`;
+					let background = `radial-gradient(${Drag.origo.r}px at ${left-2}px ${top-2}px, ${Drag.gradient})`;
 					Drag.tEl.css({ background });
 				} else {
 					// rotate
@@ -322,7 +344,7 @@
 					// updates sidebar angle input value
 					Drag.iEl.val(deg);
 					// update text element
-					let background = `radial-gradient(circle ${width-2}px at ${Drag.origo.x-2}px ${Drag.origo.y-2}px, ${Drag.gradient})`;
+					let background = `radial-gradient(${width-2}px at ${Drag.origo.x-2}px ${Drag.origo.y-2}px, ${Drag.gradient})`;
 					Drag.tEl.css({ background });
 				}
 				break;

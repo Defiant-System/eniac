@@ -140,6 +140,13 @@
 							.css({ "--preset-color": event.values.fill.color });
 				}
 				break;
+			case "text-reverse-gradient":
+				// value = event.el.is(":checked");
+				Tools.text.gradient.reverse();
+				// re-update text fill area
+				value = Self.dispatch({ type: "collect-text-values", el: Text });
+				Self.dispatch({ type: "update-text-fill", values: value });
+				break;
 			case "update-text-border":
 				// border style
 				color = event.values.border.color;

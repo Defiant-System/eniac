@@ -140,6 +140,10 @@
 							.css({ "--preset-color": event.values.fill.color });
 				}
 				break;
+			case "shape-reverse-gradient":
+				// value = event.el.is(":checked");
+				Shape.gradient.reverse();
+				break;
 			case "update-shape-outline":
 				// outline style
 				color = event.values.border.color;
