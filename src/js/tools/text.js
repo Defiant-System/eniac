@@ -17,6 +17,7 @@
 			Tools = APP.tools,
 			Self = Tools.text,
 			Text = Self.text,
+			str,
 			el;
 		switch (event.type) {
 			// custom events
@@ -92,20 +93,17 @@
 								this.el.css({ background: `${this.type}-gradient(${head}, ${str.join(", ")})`});
 							}
 						};
-					switch (gradient.type) {
-						case "radial":
-							top = 40;
-							left = 150;
-							width = 50;
-							deg = 25;
 
-							// gradient tools for text-element
-							Self.els.gradientTool
-								.css({ top, left, width, transform: `rotate(${deg}deg)` })
-								.removeClass("hidden");
-							break;
-						case "linear":
-							break;
+					if (gradient.type === "radial") {
+						[str, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
+						top = +top + 2;
+						left = +left + 2;
+						width = +width + 2;
+						deg = 45;
+						// gradient tools for text-element
+						Self.els.gradientTool
+							.css({ top, left, width, transform: `rotate(${deg}deg)` })
+							.removeClass("hidden");
 					}
 					// save reference to gradient
 					Self.gradient = gradient;
@@ -255,11 +253,72 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
+				let el = $(event.target.parentNode),
+					type = event.target.className.split(" ")[1],
+					tEl = Self.text,
+					iEl = APP.sidebar.els.el.find(".text-fill-options #text-gradient-angle"),
+					x = +el.prop("offsetLeft"),
+					y = +el.prop("offsetTop"),
+					r = +el.prop("offsetWidth") - 2,
+					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
+					rad = Math.atan2(a, b),
+					width = parseInt(tEl.css("width"), 10),
+					height = parseInt(tEl.css("height"), 10),
+					gradient = Self.gradient.stops.map(s => `${s.color} ${s.offset}%`).join(", "),
+					click = {
+						x: event.clientX,
+						y: event.clientY,
+					};
+
+				// create drag object
+				Self.drag = {
+					el,
+					tEl,
+					iEl,
+					type,
+					click,
+					gradient,
+					origo: { x, y, r },
+					offset: {
+						width,
+						height,
+						y: Math.round(y + r * Math.cos(rad)),
+						x: Math.round(x + r * Math.sin(rad)),
+					},
+					_round: Math.round,
+					_sqrt: Math.sqrt,
+					_atan2: Math.atan2,
+					_PI: 180 / Math.PI,
+				};
+
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
 				break;
 			case "mousemove":
-				
+				let dY = event.clientY - Drag.click.y,
+					dX = event.clientX - Drag.click.x;
+
+				if (Drag.type === "p1") {
+					let top = dY + Drag.origo.y,
+						left = dX + Drag.origo.x;
+					Drag.el.css({ top, left });
+					// update text element
+					let background = `radial-gradient(circle ${Drag.origo.r}px at ${left-2}px ${top-2}px, ${Drag.gradient})`;
+					Drag.tEl.css({ background });
+				} else {
+					// rotate
+					let y = dY + Drag.offset.y - Drag.origo.y,
+						x = dX + Drag.offset.x - Drag.origo.x,
+						deg = Drag._round(Drag._atan2(y, x) * Drag._PI),
+						width = Drag._round(Drag._sqrt(y*y + x*x))+2;
+					if (deg < 0) deg += 360;
+					Drag.el.css({ width, transform: `rotate(${deg}deg)` });
+					// updates sidebar angle input value
+					Drag.iEl.val(deg);
+					// update text element
+					let background = `radial-gradient(circle ${width-2}px at ${Drag.origo.x-2}px ${Drag.origo.y-2}px, ${Drag.gradient})`;
+					Drag.tEl.css({ background });
+				}
 				break;
 			case "mouseup":
 				// uncover layout

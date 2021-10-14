@@ -225,12 +225,14 @@
 				break;
 			case "set-text-gradient-angle":
 				if (Tools.text.gradient.type === "radial") {
-					
+					// rotate tool "arm"
+
+					// no change to focus text element
 				} else {
 					let stops = Tools.text.gradient.stops.map(s => `${s.color} ${s.offset}%`);
 					value = `linear-gradient(${+event.value}deg, ${stops.join(", ")})`;
+					Text.css({ "background-image": value });
 				}
-				Text.css({ "background-image": value });
 				break;
 			case "set-text-border-style":
 				width = parseInt(Text.css("border-width"), 10);
