@@ -224,9 +224,12 @@
 				console.log(event);
 				break;
 			case "set-text-gradient-angle":
-				value = Text.css("background-image");
-				value = value.indexOf(/\d+deg/) ? value : value.replace(/-gradient\(/, "-gradient(0deg");
-				value = value.replace(/\d+deg/, `${+event.value || 0}deg`);
+				if (Tools.text.gradient.type === "radial") {
+					
+				} else {
+					let stops = Tools.text.gradient.stops.map(s => `${s.color} ${s.offset}%`);
+					value = `linear-gradient(${+event.value}deg, ${stops.join(", ")})`;
+				}
 				Text.css({ "background-image": value });
 				break;
 			case "set-text-border-style":
