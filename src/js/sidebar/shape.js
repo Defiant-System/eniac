@@ -141,8 +141,10 @@
 				}
 				break;
 			case "shape-reverse-gradient":
-				// value = event.el.is(":checked");
 				Shape.gradient.reverse();
+				// re-update shape fill area
+				value = Self.dispatch({ type: "collect-shape-values", el: Text });
+				Self.dispatch({ type: "update-shape-fill", values: value });
 				break;
 			case "update-shape-outline":
 				// outline style

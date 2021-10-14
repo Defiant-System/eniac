@@ -105,6 +105,21 @@
 							xNode,
 							switchType,
 							type: xNode.prop("nodeName"),
+							reverse() {
+								let stops = [],
+									htm = [];
+								// prepare gradient html
+								this.stops.map(s => htm.unshift(`<stop offset="${100 - s.offset}%" stop-color="${s.color}"></stop>`));
+								// replace gradient stops
+								this.xNode[0].innerHTML = htm.join("");
+								// update stops array
+								this.stops = this.xNode.find("stop").map((x, index) => ({
+									index,
+									xNode: $(x),
+									offset: parseInt(x.getAttribute("offset"), 10),
+									color: x.getAttribute("stop-color"),
+								}));
+							},
 							stops: xNode.find("stop").map((x, index) => ({
 								index,
 								xNode: $(x),

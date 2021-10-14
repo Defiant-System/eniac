@@ -88,7 +88,6 @@
 								let stops = [],
 									str = [],
 									head = `${this.deg}deg`;
-
 								if (this.deg === undefined) {
 									this.deg = +this.el.css("background-image").match(/(\d+)deg/)[1];
 									head = `${this.deg}deg`;
@@ -98,7 +97,6 @@
 										[a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
 									head = `${width}px at ${left}px ${top}px`;
 								}
-
 								this.stops.map(s => stops.unshift({ ...s, offset: 100 - s.offset }));
 								this.stops = stops;
 								// build up gradient stops string
