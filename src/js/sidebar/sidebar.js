@@ -17,6 +17,7 @@
 
 		// bind event handlers
 		this.els.el.on("mousedown", ".gradient-colors", this.gradientPoints);
+		this.els.el.on("mousedown", ".angle-ring", this.angleRing);
 	},
 	line: @import "./line.js",
 	sheet: @import "./sheet.js",
@@ -192,6 +193,49 @@
 				}
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.gradientPoints);
+				break;
+		}
+	},
+	angleRing(event) {
+		let APP = eniac,
+			Self = APP.sidebar,
+			Parent = Self.parent,
+			Drag = Self.drag,
+			stops;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				let el = $(event.target),
+					iEl = el.nextAll("input:first"),
+					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
+					deg = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+				// translate deg to 0-360 range
+				if (deg < 0) deg += 360;
+				
+				Self.drag = {
+					el,
+					iEl,
+					click: { y: event.clientY - deg },
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.angleRing);
+				break;
+			case "mousemove":
+				let d = event.clientY - Drag.click.y;
+				Drag.el.css({ transform: `rotate(${d}deg)` });
+				// input element
+				Drag.iEl.val((d + 3510) % 360).trigger("change");
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.angleRing);
 				break;
 		}
 	},

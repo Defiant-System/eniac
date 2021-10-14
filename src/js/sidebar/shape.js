@@ -259,6 +259,9 @@
 
 				APP.tools.shape.gradient.update(stops);
 				break;
+			case "set-shape-gradient-angle":
+				console.log(event);
+				break;
 			case "set-shape-fill-color":
 				Shape.shapeItem.css({ fill: event.value });
 				break;

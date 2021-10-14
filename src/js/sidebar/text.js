@@ -220,6 +220,12 @@
 			case "set-text-fill-color":
 				Text.css({ background: event.value });
 				break;
+			case "set-text-fill-gradient-color":
+				console.log(event);
+				break;
+			case "set-text-gradient-angle":
+				console.log(event);
+				break;
 			case "set-text-border-style":
 				width = parseInt(Text.css("border-width"), 10);
 				el = Els.el.find(".text-border").addClass("has-prefix-icon");
