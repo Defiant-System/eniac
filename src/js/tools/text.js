@@ -130,6 +130,9 @@
 				let el = $(event.target),
 					pEl = el.parent();
 				if (el.hasClass("handle")) {
+					if (el.parent().hasClass("gradient-tool")) {
+						return Self.gradientMove(event);
+					}
 					return Self.resize(event);
 				}
 
@@ -238,6 +241,31 @@
 				Self.els.layout.removeClass("cover");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
+				break;
+		}
+	},
+	gradientMove(event) {
+		let APP = eniac,
+			Self = APP.tools.text,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
+				break;
+			case "mousemove":
+				
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.gradientMove);
 				break;
 		}
 	}
