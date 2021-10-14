@@ -113,6 +113,7 @@
 
 				el = Els.el.find(".text-fill-options .gradient-colors");
 				width = +el.prop("offsetWidth") - 2;
+				if (width < 0) width = 218;
 
 				Els.el.find(`.text-fill-options .option-buttons_ span[data-arg="${value}"]`).trigger("click");
 

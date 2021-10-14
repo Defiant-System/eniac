@@ -109,6 +109,7 @@
 			case "update-shape-fill":
 				el = Els.el.find(".shape-fill-options .gradient-colors");
 				width = +el.prop("offsetWidth") - 2;
+				if (width < 0) width = 218;
 				
 				// click option button
 				value = event.values.fill.type;
