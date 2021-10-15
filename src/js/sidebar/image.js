@@ -35,11 +35,12 @@
 				Image.toggleClass("masking", value);
 				// switch mask mode - image tools
 				let vars = {
-						"--mY": Image.css("--mY"),
-						"--mX": Image.css("--mX"),
-						"--mW": Image.css("--mW"),
-						"--mH": Image.css("--mH"),
+						"--mY": Image.css("--mY") || `0px`,
+						"--mX": Image.css("--mX") || `0px`,
+						"--mW": Image.css("--mW") || `${Image.width()}px`,
+						"--mH": Image.css("--mH") || `${Image.height()}px`,
 					};
+				// console.log(vars);
 				APP.tools.image.dispatch({ type: "set-image-mask-mode", value, vars });
 				break;
 			case "image-instant-alpha":
