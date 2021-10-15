@@ -10,6 +10,10 @@
 		setTimeout(() => {
 			parent.els.el.find(".sidebar-image .sidebar-head span:nth(1)").trigger("click");
 		}, 200);
+
+		setTimeout(() => {
+			parent.els.el.find(`button[data-click="image-toggle-mask"]`).trigger("click");
+		}, 400);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -24,7 +28,17 @@
 			case "populate-image-values":
 				Self.dispatch({ ...event, type: "update-image-arrange" });
 				break;
+			// tab: Style
 			// tab: Image
+			case "image-toggle-mask":
+				value = Image.hasClass("masking");
+				Image.toggleClass("masking", value);
+				break;
+			case "image-instant-alpha":
+			case "image-replace-image":
+				console.log(event);
+				break;
+			// tab: Arrange
 			case "update-image-arrange":
 				pEl = Els.el.find(`.flex-row[data-click="set-image-arrange"]`);
 				// disable all options if single element
@@ -39,6 +53,11 @@
 				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				break;
+			/*
+			 * set values based on UI interaction
+			 */
+			// tab: Style
+			// tab: Image
 			// tab: Arrange
 			case "set-image-arrange":
 				el = $(event.target);
