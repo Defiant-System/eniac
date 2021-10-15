@@ -89,18 +89,15 @@
 		.xl-image {
 			// background: rgba(0,0,0,.05);
 			position: absolute;
-			// overflow: hidden;
+			--mX: -50px;
+			--mY: -50px;
+			--mW: 420px;
+			--mH: 280px;
+			overflow: hidden;
 			
 			// temp: START
 			&.temp-image-1    {
-				top: 450px; left: 190px; width: 300px; height: 200px;
-
-				> div {
-					top: -50px;
-					left: -50px;
-					width: 420px;
-					height: 280px;
-				}
+				top: 350px; left: 190px; width: 300px; height: 200px;
 			}
 			// temp: END
 
@@ -125,15 +122,55 @@
 				width: 40px;
 			}
 
+			&.masking {
+				overflow: visible;
+
+				> div {
+					position: static;
+					background-image: none;
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: var(--mX);
+						left: var(--mY);
+						width: var(--mW);
+						height: var(--mH);
+						z-index: 1;
+						opacity: .35;
+						background-position: 50% 50%;
+						background-repeat: no-repeat;
+						background-size: 100% auto;
+						background-image: var(--bg) ;
+					}
+
+					&:after {
+						content: "";
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						z-index: 2;
+						opacity: 1;
+						overflow: hidden;
+						background-position: var(--mX) var(--mX);
+						background-size: var(--mW) var(--mH);
+						background-image: var(--bg) ;
+					}
+				}
+			}
+
 			> div {
 				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
+				top: var(--mX);
+				left: var(--mY);
+				width: var(--mW);
+				height: var(--mH);
 				background-position: 50% 50%;
 				background-repeat: no-repeat;
 				background-size: 100% auto;
+				background-image: var(--bg) ;
 				pointer-events: none;
 			}
 		}

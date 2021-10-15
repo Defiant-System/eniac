@@ -4,13 +4,13 @@
 		<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 	</Text>
 
-	<Text id="temp-text-2" class="temp-text-2">
+	<!-- <Text id="temp-text-2" class="temp-text-2">
 		<![CDATA[Nostrum voluptas quis ipsam quia. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 	</Text>
 
 	<Text id="temp-text-3" class="temp-text-3 txt-pink-white">
 		<![CDATA[Sunt ea iure dolor et cumque excepturi hic quas ea quas aspernatur qui architecto dolor provident et eos consequatur dolore.]]>
-	</Text>
+	</Text> -->
 
 	<Image id="temp-image-1" class="temp-image-1">
 		<![CDATA[/fs/Desktop/coast.jpg]]>
