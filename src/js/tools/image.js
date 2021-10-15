@@ -228,34 +228,63 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let image = Self.image,
+				let iEl = Self.image,
+					tEl = Self.els.root,
 					el = $(event.target),
-					pEl = el.hasClass("xl-image") ? el : el.parents(".xl-image"),
-					mY = parseInt(pEl.css("--mY"), 10),
-					mX = parseInt(pEl.css("--mX"), 10),
-					mW = parseInt(pEl.css("--mW"), 10),
-					mH = parseInt(pEl.css("--mH"), 10),
+					tOffset = {
+						y: +iEl.prop("offsetTop"),
+						x: +iEl.prop("offsetLeft"),
+						w: +iEl.prop("offsetWidth"),
+						h: +iEl.prop("offsetHeight"),
+					},
+					iMask = {
+						y: +iEl.prop("offsetTop"),
+						x: +iEl.prop("offsetLeft"),
+						w: +iEl.prop("offsetWidth"),
+						h: +iEl.prop("offsetHeight"),
+					},
+					iOffset = {
+						mY: parseInt(iEl.css("--mY"), 10),
+						mX: parseInt(iEl.css("--mX"), 10),
+						mW: parseInt(iEl.css("--mW"), 10),
+						mH: parseInt(iEl.css("--mH"), 10),
+					},
+					oY = event.offsetY,
+					oX = event.offsetX,
+					isMask = oY < 0 || oX < 0 || oY > iMask.h || oX > iMask.w,
 					click = {
-						y: event.clientY - mY,
-						x: event.clientX - mX,
+						y: event.clientY - (isMask ? iOffset.mY : tOffset.y),
+						x: event.clientX - (isMask ? iOffset.mX : tOffset.x),
 					};
 
 				// create drag object
 				Self.drag = {
-					el,
-					image,
+					el: $([iEl[0], tEl[0]]),
+					iEl,
+					tEl,
 					click,
-					offset: { mY, mX, mW, mH },
+					iMask,
+					isMask,
+					iOffset,
+					tOffset,
 				};
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.maskMove);
 				break; }
 			case "mousemove":
-				let mY = event.clientY - Drag.click.y,
-					mX = event.clientX - Drag.click.x;
-
-				Drag.image.css({ "--mY": `${mY}px`, "--mX": `${mX}px` });
+				if (Drag.isMask) {
+					let dY = event.clientY - Drag.click.y,
+						dX = event.clientX - Drag.click.x;
+					Drag.el.css({
+						"--mY": `${dY}px`,
+						"--mX": `${dX}px`,
+					});
+				} else {
+					// let top = event.clientY - Drag.click.y,
+					// 	left = event.clientX - Drag.click.x;
+					// Drag.tEl.css({ top, left });
+				}
 				break;
 			case "mouseup":
 				// uncover layout

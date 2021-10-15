@@ -120,8 +120,19 @@
 			&.masking {
 				overflow: visible;
 
+				&:before {
+					// background: rgba(255,0,0,.1);
+					content: "";
+					position: absolute;
+					top: var(--mY);
+					left: var(--mX);
+					width: var(--mW);
+					height: var(--mH);
+				}
+
 				> div {
 					position: static;
+					// pointer-events: all;
 					background-size: 0 0;
 
 					&:before {
