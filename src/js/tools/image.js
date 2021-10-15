@@ -230,7 +230,7 @@
 
 				let iEl = Self.image,
 					tEl = Self.els.root,
-					el = $(event.target),
+					el = $([iEl[0], tEl[0]]),
 					tOffset = {
 						y: +iEl.prop("offsetTop"),
 						x: +iEl.prop("offsetLeft"),
@@ -253,15 +253,13 @@
 					oX = event.offsetX,
 					isMask = oY < 0 || oX < 0 || oY > iMask.h || oX > iMask.w,
 					click = {
-						y: event.clientY - (isMask ? iOffset.mY : tOffset.y),
-						x: event.clientX - (isMask ? iOffset.mX : tOffset.x),
+						y: event.clientY - (isMask ? iOffset.mY : 0),
+						x: event.clientX - (isMask ? iOffset.mX : 0),
 					};
 
 				// create drag object
 				Self.drag = {
-					el: $([iEl[0], tEl[0]]),
-					iEl,
-					tEl,
+					el,
 					click,
 					iMask,
 					isMask,
@@ -281,9 +279,14 @@
 						"--mX": `${dX}px`,
 					});
 				} else {
-					// let top = event.clientY - Drag.click.y,
-					// 	left = event.clientX - Drag.click.x;
-					// Drag.tEl.css({ top, left });
+					let top = event.clientY - Drag.click.y,
+						left = event.clientX - Drag.click.x;
+					Drag.el.css({
+						top: top + Drag.tOffset.y,
+						left: left + Drag.tOffset.x,
+						"--mY": `${Drag.iOffset.mY - top}px`,
+						"--mX": `${Drag.iOffset.mX - left}px`,
+					});
 				}
 				break;
 			case "mouseup":
