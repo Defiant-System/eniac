@@ -96,15 +96,6 @@
 			--mW: 100%;
 			--mH: 100%;
 			
-			// temp: START
-			&.temp-image-1    {
-				top: 380px; left: 190px; width: 300px; height: 200px;
-			}
-			&.temp-image-2    {
-				top: 70px; left: 390px; width: 300px; height: 200px;
-			}
-			// temp: END
-
 			&.selected:after {
 				content: "";
 				position: absolute;
@@ -142,8 +133,8 @@
 						height: var(--mH);
 						z-index: 1;
 						opacity: .35;
-						background-position: 50% 50%;
 						background-repeat: no-repeat;
+						background-position: 50% 50%;
 						background-size: 100% auto;
 						background-image: inherit;
 					}
@@ -158,7 +149,8 @@
 						z-index: 2;
 						opacity: 1;
 						overflow: hidden;
-						background-position: var(--mX) var(--mX);
+						background-repeat: no-repeat;
+						background-position: var(--mX) var(--mY);
 						background-size: var(--mW) var(--mH);
 						background-image: inherit;
 					}

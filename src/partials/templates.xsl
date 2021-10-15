@@ -17,9 +17,13 @@
 		</xsl:if>
 		<xsl:attribute name="style">
 			background-image: url(<xsl:value-of select="normalize-space(.)"/>);
+			top: <xsl:value-of select="Dim/@y"/>px;
+			left: <xsl:value-of select="Dim/@x"/>px;
+			width: <xsl:value-of select="Dim/@w"/>px;
+			height: <xsl:value-of select="Dim/@h"/>px;
 			<xsl:if test="./Mask/@x">
-				--mX: <xsl:value-of select="Mask/@x"/>px;
 				--mY: <xsl:value-of select="Mask/@y"/>px;
+				--mX: <xsl:value-of select="Mask/@x"/>px;
 				--mW: <xsl:value-of select="Mask/@w"/>px;
 				--mH: <xsl:value-of select="Mask/@h"/>px;
 			</xsl:if>
