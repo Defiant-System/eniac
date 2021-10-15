@@ -33,6 +33,8 @@
 			case "image-toggle-mask":
 				value = Image.hasClass("masking");
 				Image.toggleClass("masking", value);
+				// switch mask mode - image tools
+				APP.tools.image.dispatch({ type: "set-image-mask-mode", value });
 				break;
 			case "image-instant-alpha":
 			case "image-replace-image":
