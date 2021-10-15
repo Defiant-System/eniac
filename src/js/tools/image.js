@@ -46,12 +46,16 @@
 
 				// if mousedown on handle
 				let el = $(event.target);
+
+				if (Self.image.hasClass("masking")) {
+					return Self.maskMove(event);
+				}
 				if (el.hasClass("handle")) {
 					return Self.resize(event);
 				}
 
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse1 hideTools");
+				Self.els.layout.addClass("cover hideMouse hideTools");
 
 				let image = Self.image,
 					x = +el.prop("offsetLeft"),
@@ -98,7 +102,7 @@
 				// hide guides
 				Drag.guides.reset();
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse1 hideTools");
+				Self.els.layout.removeClass("cover hideMouse hideTools");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.move);
 				break;
@@ -204,6 +208,37 @@
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.resize);
+				break;
+		}
+	},
+	maskMove(event) {
+		let APP = eniac,
+			Self = APP.tools.image,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				let el;
+
+				// create drag object
+				Self.drag = {
+					el,
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.maskMove);
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.maskMove);
 				break;
 		}
 	}
