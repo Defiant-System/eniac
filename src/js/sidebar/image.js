@@ -34,7 +34,13 @@
 				value = Image.hasClass("masking");
 				Image.toggleClass("masking", value);
 				// switch mask mode - image tools
-				APP.tools.image.dispatch({ type: "set-image-mask-mode", value });
+				let vars = {
+						"--mY": Image.css("--mY"),
+						"--mX": Image.css("--mX"),
+						"--mW": Image.css("--mW"),
+						"--mH": Image.css("--mH"),
+					};
+				APP.tools.image.dispatch({ type: "set-image-mask-mode", value, vars });
 				break;
 			case "image-instant-alpha":
 			case "image-replace-image":

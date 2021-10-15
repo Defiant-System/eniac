@@ -34,7 +34,9 @@
 				Self.image = event.el;
 				break;
 			case "set-image-mask-mode":
-				Self.els.root.toggleClass("mask-mode", event.value);
+				Self.els.root
+					.css(event.vars)
+					.toggleClass("mask-mode", event.value);
 				break;
 		}
 	},
