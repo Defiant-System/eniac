@@ -1,5 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
 
+	<svg id="icon-equalizer" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:#333;}
+		</style>
+		<rect x="1" y="2" class="st0" width="11" height="1"/>
+		<rect x="1" y="6" class="st0" width="11" height="1"/>
+		<rect x="1" y="10" class="st0" width="11" height="1"/>
+		<rect x="7" y="1" class="st0" width="1" height="3"/>
+		<rect x="4" y="5" class="st0" width="1" height="3"/>
+		<rect x="8" y="9" class="st0" width="1" height="3"/>
+	</svg>
+
 	<svg id="icon-fill-solid" viewBox="0 0 19 19">
 
 	</svg>

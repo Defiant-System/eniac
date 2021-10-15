@@ -106,6 +106,8 @@ overflow: initial;
 .shape-pentagon:before       { background-image: url(~/icons/shape-pentagon.png); }
 .shape-hexagon:before        { background-image: url(~/icons/shape-hexagon.png); }
 
+.icon-equalizer { background-image: url(~/icons/icon-equalizer.png); }
+
 
 layout {
 	background: #fff;
@@ -1159,7 +1161,9 @@ sidebar {
 				> div {
 					width: 30%;
 
+					&.w17 { width: 17%; }
 					&.w23 { width: 23%; }
+					&.w27 { width: 27%; }
 					&.w30 { width: 33%; }
 					&.w37 { width: 37%; }
 					&.w30 + .w63 { padding-top: 0; }
@@ -1283,6 +1287,31 @@ sidebar {
 
 				.has-caption {
 					padding-top: 11px;
+				}
+
+				.center {
+					padding-top: 1px;
+
+					button {
+						margin-left: 0;
+						width: 100%;
+
+						&.btn-icon {
+							width: 40px;
+
+							[class*="icon-"],
+							[class^="icon-"] {
+								position: relative;
+								top: 1px;
+								width: 13px;
+								height: 13px;
+								display: inline-block;
+								background-size: contain;
+								background-position: 50% 50%;
+								background-repeat: no-repeat;
+							}
+						}
+					}
 				}
 
 				input[type="range"] {
