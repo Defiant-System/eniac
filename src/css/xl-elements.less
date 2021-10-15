@@ -87,18 +87,21 @@
 		}
 
 		.xl-image {
-			// background: rgba(0,0,0,.05);
+			background: rgba(0,0,0,.05);
 			position: absolute;
-			--mX: -50px;
-			--mY: -50px;
-			--mW: 420px;
-			--mH: 280px;
 			overflow: hidden;
 			background-size: 0 0;
+			--mX: 0;
+			--mY: 0;
+			--mW: 100%;
+			--mH: 100%;
 			
 			// temp: START
 			&.temp-image-1    {
-				top: 350px; left: 190px; width: 300px; height: 200px;
+				top: 380px; left: 190px; width: 300px; height: 200px;
+			}
+			&.temp-image-2    {
+				top: 70px; left: 390px; width: 300px; height: 200px;
 			}
 			// temp: END
 

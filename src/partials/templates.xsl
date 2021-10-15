@@ -15,7 +15,15 @@
 		<xsl:if test="@class">
 			<xsl:attribute name="class">xl-image <xsl:value-of select="@class"/></xsl:attribute>
 		</xsl:if>
-		<xsl:attribute name="style">background-image: url(<xsl:value-of select="normalize-space(.)"/>);</xsl:attribute>
+		<xsl:attribute name="style">
+			background-image: url(<xsl:value-of select="normalize-space(.)"/>);
+			<xsl:if test="./Mask/@x">
+				--mX: <xsl:value-of select="Mask/@x"/>px;
+				--mY: <xsl:value-of select="Mask/@y"/>px;
+				--mW: <xsl:value-of select="Mask/@w"/>px;
+				--mH: <xsl:value-of select="Mask/@h"/>px;
+			</xsl:if>
+		</xsl:attribute>
 		<div></div>
 	</div>
 </xsl:template>
