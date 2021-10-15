@@ -7,6 +7,7 @@ layout {
 	}
 }
 
+
 .text-tools,
 .image-tools,
 .shape-tools {
@@ -47,6 +48,34 @@ layout {
 			&.se,
 			&.ne { display: none; }
 		}
+	}
+
+	&.mask-mode {
+		.mask-box {
+			display: block;
+		}
+
+		.handle-box {
+			box-shadow: 0 0 0;
+			border: 1px dashed #222;
+
+			.handle {
+				background: #000;
+				border: 1px solid #fff;
+				width: 8px;
+				height: 8px;
+			}
+		}
+	}
+
+	.mask-box {
+		display: none;
+		position: absolute;
+		top: -50px;
+		left: -50px;
+		width: 420px;
+		height: 280px;
+		box-shadow: 0 0 0 1px #3583d0;
 	}
 
 	.handle-box {
