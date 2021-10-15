@@ -94,6 +94,7 @@
 			--mW: 420px;
 			--mH: 280px;
 			overflow: hidden;
+			background-size: 0 0;
 			
 			// temp: START
 			&.temp-image-1    {
@@ -127,7 +128,7 @@
 
 				> div {
 					position: static;
-					background-image: none;
+					background-size: 0 0;
 
 					&:before {
 						content: "";
@@ -141,7 +142,7 @@
 						background-position: 50% 50%;
 						background-repeat: no-repeat;
 						background-size: 100% auto;
-						background-image: var(--bg) ;
+						background-image: inherit;
 					}
 
 					&:after {
@@ -156,7 +157,7 @@
 						overflow: hidden;
 						background-position: var(--mX) var(--mX);
 						background-size: var(--mW) var(--mH);
-						background-image: var(--bg) ;
+						background-image: inherit;
 					}
 				}
 			}
@@ -170,7 +171,7 @@
 				background-position: 50% 50%;
 				background-repeat: no-repeat;
 				background-size: 100% auto;
-				background-image: var(--bg) ;
+				background-image: inherit;
 				pointer-events: none;
 			}
 		}

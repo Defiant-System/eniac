@@ -15,7 +15,7 @@
 		<xsl:if test="@class">
 			<xsl:attribute name="class">xl-image <xsl:value-of select="@class"/></xsl:attribute>
 		</xsl:if>
-		<xsl:attribute name="style">--bg: url(<xsl:value-of select="normalize-space(.)"/>);</xsl:attribute>
+		<xsl:attribute name="style">background-image: url(<xsl:value-of select="normalize-space(.)"/>);</xsl:attribute>
 		<div></div>
 	</div>
 </xsl:template>
