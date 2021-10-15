@@ -5,7 +5,7 @@
 	init() {
 		// fast references
 		this.els = {
-			root: window.find(".shape-tools"),
+			root: window.find(".image-tools"),
 			doc: $(document),
 			layout: window.find("layout"),
 		};
@@ -17,6 +17,9 @@
 			el;
 		switch (event.type) {
 			// csutom events
+			case "blur-image":
+				Self.els.root.addClass("hidden");
+				break;
 			case "focus-image":
 				// resize tools
 				let top = parseInt(event.el.css("top"), 10),

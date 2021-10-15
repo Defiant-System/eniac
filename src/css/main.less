@@ -1112,9 +1112,9 @@ sidebar {
 				> .gradient-options { max-height: 100px; }
 			}
 
-			// &.radial-fill .group-body .angle-ring {
-			// 	display: none;
-			// }
+			&.push-down {
+				padding-bottom: 13px;
+			}
 
 			legend.bold,
 			> legend {
@@ -1124,6 +1124,15 @@ sidebar {
 			legend {
 				margin-bottom: 7px;
 				user-select: none;
+			}
+
+			.full-row {
+				min-height: 32px;
+
+				button {
+					margin-left: 0;
+					width: 100%;
+				}
 			}
 
 			.flex-row {
@@ -1269,7 +1278,7 @@ sidebar {
 
 				.range-caption {
 					position: relative;
-					top: 3px;
+					top: 2px;
 				}
 
 				.has-caption {
@@ -1510,19 +1519,6 @@ sidebar {
 		position: relative;
 		background: inherit;
 		min-height: 100%;
-
-		.group-row:nth-child(1) {
-			padding-bottom: 13px;
-		}
-
-		.full-row {
-			min-height: 32px;
-
-			button {
-				margin-left: 0;
-				width: 100%;
-			}
-		}
 	}
 }
 
