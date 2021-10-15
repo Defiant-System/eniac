@@ -18,7 +18,8 @@
 		switch (event.type) {
 			// csutom events
 			case "blur-image":
-				Self.els.root.addClass("hidden");
+				Image.removeClass("masking");
+				Self.els.root.addClass("hidden").removeClass("mask-mode");
 				break;
 			case "focus-image":
 				// resize tools
@@ -227,7 +228,14 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let el;
+				let el = $(event.target),
+					pEl = el.hasClass("xl-image") ? el : el.parents("xl-image"),
+					x = +pEl.prop("offsetLeft"),
+					y = +pEl.prop("offsetTop"),
+					w = +pEl.prop("offsetWidth"),
+					h = +pEl.prop("offsetHeight");
+
+				console.log(el);
 
 				// create drag object
 				Self.drag = {
