@@ -222,30 +222,40 @@
 			Self = APP.tools.image,
 			Drag = Self.drag;
 		switch (event.type) {
-			case "mousedown":
+			case "mousedown": {
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let el = $(event.target),
-					pEl = el.hasClass("xl-image") ? el : el.parents("xl-image"),
-					x = +pEl.prop("offsetLeft"),
-					y = +pEl.prop("offsetTop"),
-					w = +pEl.prop("offsetWidth"),
-					h = +pEl.prop("offsetHeight");
-
-				console.log(el);
+				let image = Self.image,
+					el = $(event.target),
+					pEl = el.hasClass("xl-image") ? el : el.parents(".xl-image"),
+					mY = parseInt(pEl.css("--mY"), 10),
+					mX = parseInt(pEl.css("--mX"), 10),
+					mW = parseInt(pEl.css("--mW"), 10),
+					mH = parseInt(pEl.css("--mH"), 10),
+					click = {
+						y: event.clientY - mY,
+						x: event.clientX - mX,
+					};
 
 				// create drag object
 				Self.drag = {
 					el,
+					image,
+					click,
+					offset: { mY, mX, mW, mH },
 				};
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.maskMove);
-				break;
+				break; }
 			case "mousemove":
+				let mY = event.clientY - Drag.click.y,
+					mX = event.clientX - Drag.click.x;
+
+				Drag.image.css({ "--mY": `${mY}px`, "--mX": `${mX}px` });
 				break;
 			case "mouseup":
 				// uncover layout
