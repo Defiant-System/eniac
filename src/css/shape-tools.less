@@ -108,13 +108,13 @@ layout {
 		// opacity: .4;
 
 		&.n    { cursor: n-resize; top: -5px; left: 50%; transform: translateX(-5px); }
-		&.nw   { cursor: ne-resize; top: -5px; right: -5px; }
-		&.w    { cursor: e-resize; top: 50%; right: -5px; transform: translateY(-5px); }
-		&.sw   { cursor: se-resize; bottom: -5px; right: -5px;  }
-		&.s    { cursor: s-resize; bottom: -5px; left: 50%; transform: translateX(-5px); }
-		&.se   { cursor: sw-resize; bottom: -5px; left: -5px; }
-		&.e    { cursor: w-resize; top: 50%; left: -5px; transform: translateY(-5px); }
-		&.ne   { cursor: nw-resize; top: -5px; left: -5px; }
+		&.nw   { cursor: nesw-resize; top: -5px; right: -5px; }
+		&.w    { cursor: ew-resize; top: 50%; right: -5px; transform: translateY(-5px); }
+		&.sw   { cursor: nwse-resize; bottom: -5px; right: -5px;  }
+		&.s    { cursor: ns-resize; bottom: -5px; left: 50%; transform: translateX(-5px); }
+		&.se   { cursor: nesw-resize; bottom: -5px; left: -5px; }
+		&.e    { cursor: ew-resize; top: 50%; left: -5px; transform: translateY(-5px); }
+		&.ne   { cursor: nwse-resize; top: -5px; left: -5px; }
 
 		&.line {
 			display: none;
