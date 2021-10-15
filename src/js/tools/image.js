@@ -230,7 +230,6 @@
 
 				let iEl = Self.image,
 					tEl = Self.els.root,
-					el = $([iEl[0], tEl[0]]),
 					tOffset = {
 						y: +iEl.prop("offsetTop"),
 						x: +iEl.prop("offsetLeft"),
@@ -244,27 +243,39 @@
 						h: +iEl.prop("offsetHeight"),
 					},
 					iOffset = {
-						mY: parseInt(iEl.css("--mY"), 10),
-						mX: parseInt(iEl.css("--mX"), 10),
-						mW: parseInt(iEl.css("--mW"), 10),
-						mH: parseInt(iEl.css("--mH"), 10),
+						y: parseInt(iEl.css("--mY"), 10),
+						x: parseInt(iEl.css("--mX"), 10),
+						w: parseInt(iEl.css("--mW"), 10),
+						h: parseInt(iEl.css("--mH"), 10),
 					},
 					oY = event.offsetY,
 					oX = event.offsetX,
 					isMask = oY < 0 || oX < 0 || oY > iMask.h || oX > iMask.w,
 					click = {
-						y: event.clientY - (isMask ? iOffset.mY : 0),
-						x: event.clientX - (isMask ? iOffset.mX : 0),
+						y: event.clientY - (isMask ? iOffset.y : 0),
+						x: event.clientX - (isMask ? iOffset.x : 0),
+					},
+					min = {
+						y: isMask ? 0 : iOffset.y,
+						x: isMask ? 0 : iOffset.x,
+					},
+					max = {
+						y: isMask ? iMask.h - iOffset.h : iOffset.h + iOffset.y - iMask.h,
+						x: isMask ? iMask.w - iOffset.w : iOffset.w + iOffset.x - iMask.w,
 					};
 
 				// create drag object
 				Self.drag = {
-					el,
+					el: $([iEl[0], tEl[0]]),
+					min,
+					max,
 					click,
 					iMask,
 					isMask,
 					iOffset,
 					tOffset,
+					_max: Math.max,
+					_min: Math.min,
 				};
 
 				// bind event
@@ -272,20 +283,22 @@
 				break; }
 			case "mousemove":
 				if (Drag.isMask) {
-					let dY = event.clientY - Drag.click.y,
-						dX = event.clientX - Drag.click.x;
+					let mY = Drag._max(Drag._min(event.clientY - Drag.click.y, Drag.min.y), Drag.max.y),
+						mX = Drag._max(Drag._min(event.clientX - Drag.click.x, Drag.min.x), Drag.max.x);
+					// console.log( mY, mX );
 					Drag.el.css({
-						"--mY": `${dY}px`,
-						"--mX": `${dX}px`,
+						"--mY": `${mY}px`,
+						"--mX": `${mX}px`,
 					});
 				} else {
-					let top = event.clientY - Drag.click.y,
-						left = event.clientX - Drag.click.x;
+					let top = Drag._min(Drag._max(event.clientY - Drag.click.y, Drag.min.y), Drag.max.y),
+						left = Drag._min(Drag._max(event.clientX - Drag.click.x, Drag.min.x), Drag.max.x);
+					// console.log( top, left );
 					Drag.el.css({
 						top: top + Drag.tOffset.y,
 						left: left + Drag.tOffset.x,
-						"--mY": `${Drag.iOffset.mY - top}px`,
-						"--mX": `${Drag.iOffset.mX - left}px`,
+						"--mY": `${Drag.iOffset.y - top}px`,
+						"--mX": `${Drag.iOffset.x - left}px`,
 					});
 				}
 				break;
