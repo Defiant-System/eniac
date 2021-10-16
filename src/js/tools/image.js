@@ -343,14 +343,26 @@
 					},
 					ratio = iOffset.w / iOffset.h,
 					layout = APP.tools.sheet.layout,
-					min = {
-						y: 0,
-						x: 400,
-					},
-					max = {
-						y: 0,
-						x: 0,
-					};
+					min = {},
+					max = {};
+				
+				switch (type) {
+					case "e":
+						min.mX = -tOffset.x;
+						max.mX = 0;
+						min.mW = iOffset.w + iOffset.x + tOffset.x;
+						max.mW = iOffset.w + iOffset.x;
+						break;
+					case "w":
+						min.x = tOffset.w - iOffset.x;
+						max.x = layout.width - tOffset.x - iOffset.x;
+						break;
+					case "s":
+						min.y = tOffset.h - iOffset.y;
+						max.y = layout.height - tOffset.y - iOffset.y;
+						break;
+				}
+
 				// create drag object
 				Self.drag = {
 					el: $([iEl[0], tEl[0]]),
@@ -377,14 +389,15 @@
 				if (Drag.isMask) {
 					switch (Drag.type) {
 						case "e": // movement: east
-							mX = dX + Drag.iOffset.x;
-							mW = Drag.iOffset.w - dX;
+							mX = Drag._min(Drag._max(dX + Drag.iOffset.x, Drag.min.mX), Drag.max.mX);
+							mW = Drag._max(Drag._min(Drag.iOffset.w - dX, Drag.min.mW), Drag.max.mW);
+							// console.log( mW );
 							// ratio resize
 							mH = Drag._round(mW / Drag.ratio);
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
 							break;
 						case "w": // movement: west
-							mW = Drag._max(Drag.iOffset.w + dX, Drag.min.x);
+							mW = Drag._min(Drag._max(Drag.iOffset.w + dX, Drag.min.x), Drag.max.x);
 							// ratio resize
 							mH = Drag._round(mW / Drag.ratio);
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
@@ -397,7 +410,7 @@
 							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
 							break;
 						case "s": // movement: south
-							mH = Drag.iOffset.h + dY;
+							mH = Drag._min(Drag._max(Drag.iOffset.h + dY, Drag.min.y), Drag.max.y);
 							// ratio resize
 							mW = Drag._round(Drag.ratio * mH);
 							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
