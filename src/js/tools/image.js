@@ -341,22 +341,31 @@
 						y: event.clientY,
 						x: event.clientX,
 					},
-					ratio = iOffset.w / iOffset.h;
-
+					ratio = iOffset.w / iOffset.h,
+					min = {
+						y: 0,
+						x: 400,
+					},
+					max = {
+						y: 0,
+						x: 0,
+					};
 				// console.log( iOffset.y, tOffset.y );
-
 				// create drag object
 				Self.drag = {
 					el: $([iEl[0], tEl[0]]),
+					min,
+					max,
 					type,
 					ratio,
 					click,
 					isMask,
 					iOffset,
 					tOffset,
+					_max: Math.max,
+					_min: Math.min,
 					_round: Math.round,
 				};
-
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.maskResize);
 				break; }
@@ -375,7 +384,7 @@
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
 							break;
 						case "w": // movement: west
-							mW = Drag.iOffset.w + dX;
+							mW = Drag._max(Drag.iOffset.w + dX, Drag.min.x);
 							// ratio resize
 							mH = Drag._round(mW / Drag.ratio);
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
