@@ -364,16 +364,16 @@
 
 					// movement: east
 					if (Drag.type.includes("e")) {
-						dim["--mX"] = dX + Drag.iOffset.x;
-						dim["--mW"] = Drag.iOffset.w - dX;
+						dim["--mX"] = (dX + Drag.iOffset.x) +"px";
+						dim["--mW"] = (Drag.iOffset.w - dX) +"px";
 					}
 					// movement: north
 					if (Drag.type.includes("n")) {
-						dim["--mY"] = dY + Drag.iOffset.y;
-						dim["--mH"] = Drag.iOffset.h - dY;
+						dim["--mY"] = (dY + Drag.iOffset.y) +"px";
+						dim["--mH"] = (Drag.iOffset.h - dY) +"px";
 					}
 
-					console.log(dim);
+					Drag.el.css(dim);
 				} else {
 
 				}
