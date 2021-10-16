@@ -148,7 +148,6 @@
 					guides = new Guides({
 						offset: { el: image[0], ...offset, type }
 					});
-
 				// create drag object
 				Self.drag = {
 					el: $([image[0], Self.els.root[0]]),
@@ -160,7 +159,6 @@
 					_round: Math.round,
 					_max: Math.max,
 				};
-
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
@@ -265,7 +263,6 @@
 						y: isMask ? iMask.h - iOffset.h : iOffset.h + iOffset.y - iMask.h,
 						x: isMask ? iMask.w - iOffset.w : iOffset.w + iOffset.x - iMask.w,
 					};
-
 				// create drag object
 				Self.drag = {
 					el: $([iEl[0], tEl[0]]),
@@ -279,7 +276,6 @@
 					_max: Math.max,
 					_min: Math.min,
 				};
-
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.maskMove);
 				break; }
@@ -329,6 +325,12 @@
 					pEl = el.parent(),
 					type = event.target.className.split(" ")[1],
 					isMask = pEl.hasClass("mask-box"),
+					tOffset = {
+						y: +iEl.prop("offsetTop"),
+						x: +iEl.prop("offsetLeft"),
+						w: +iEl.prop("offsetWidth"),
+						h: +iEl.prop("offsetHeight"),
+					},
 					iOffset = {
 						y: parseInt(iEl.css("--mY"), 10),
 						x: parseInt(iEl.css("--mX"), 10),
@@ -349,16 +351,17 @@
 					isMask,
 					click,
 					iOffset,
+					tOffset,
 				};
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.maskResize);
 				break; }
 			case "mousemove":
+				let dY = event.clientY - Drag.click.y,
+					dX = event.clientX - Drag.click.x,
+					dim = {};
 				if (Drag.isMask) {
-					let dY = event.clientY - Drag.click.y,
-						dX = event.clientX - Drag.click.x,
-						dim = {};
 					// movement: east
 					if (Drag.type.includes("e")) {
 						dim["--mX"] = (dX + Drag.iOffset.x) +"px";
@@ -377,11 +380,28 @@
 					if (Drag.type.includes("s")) {
 						dim["--mH"] = (Drag.iOffset.h + dY) +"px";
 					}
-					// apply new dimensions to elements
-					Drag.el.css(dim);
 				} else {
-
+					// movement: east
+					if (Drag.type.includes("e")) {
+						dim.left = dX + Drag.tOffset.x;
+						dim.width = Drag.tOffset.w - dX;
+					}
+					// movement: west
+					if (Drag.type.includes("w")) {
+						dim.width = dX + Drag.tOffset.w;
+					}
+					// movement: north
+					if (Drag.type.includes("n")) {
+						dim.top = dY + Drag.tOffset.y;
+						dim.height = Drag.tOffset.h - dY;
+					}
+					// movement: south
+					if (Drag.type.includes("s")) {
+						dim.height = dY + Drag.tOffset.h;
+					}
 				}
+				// apply new dimensions to elements
+				Drag.el.css(dim);
 				break;
 			case "mouseup":
 				// uncover layout
