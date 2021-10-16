@@ -342,6 +342,7 @@
 						x: event.clientX,
 					},
 					ratio = iOffset.w / iOffset.h,
+					layout = APP.tools.sheet.layout,
 					min = {
 						y: 0,
 						x: 400,
@@ -350,7 +351,6 @@
 						y: 0,
 						x: 0,
 					};
-				// console.log( iOffset.y, tOffset.y );
 				// create drag object
 				Self.drag = {
 					el: $([iEl[0], tEl[0]]),

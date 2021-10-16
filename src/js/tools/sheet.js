@@ -10,6 +10,14 @@
 			lasso: window.find(".sheet-lasso"),
 		};
 	},
+	get layout() {
+		let body = this.els.layout.find("content > .body"),
+			scrollTop = 0,
+			scrollLeft = 0,
+			width = body.width(),
+			height = body.height();
+		return { scrollTop, scrollLeft, width, height };
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools.sheet,
