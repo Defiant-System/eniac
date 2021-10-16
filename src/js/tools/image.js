@@ -445,6 +445,12 @@
 							mY = Drag.iOffset.y - dY;
 							break;
 						case "ne":
+							dim.top = dY + Drag.tOffset.y;
+							dim.left = dX + Drag.tOffset.x;
+							dim.width = Drag.tOffset.w - dX;
+							dim.height = Drag.tOffset.h - dY;
+							mY = Drag.iOffset.y - dY;
+							mX = Drag.iOffset.x - dX;
 							break;
 					}
 				}
