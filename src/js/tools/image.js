@@ -354,6 +354,7 @@
 					isMask,
 					iOffset,
 					tOffset,
+					_round: Math.round,
 				};
 
 				// bind event
@@ -373,22 +374,29 @@
 					// movement: west
 					if (Drag.type.includes("w")) {
 						mW = Drag.iOffset.w + dX;
+						// ratio resize
+						mH = Drag._round(mW / Drag.ratio);
+						mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
 					}
 					// movement: north
 					if (Drag.type.includes("n")) {
 						mY = dY + Drag.iOffset.y;
 						mH = Drag.iOffset.h - dY;
-						mW = Drag.ratio * mH;
-						mX = Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1);
+						// ratio resize
+						mW = Drag._round(Drag.ratio * mH);
+						mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
 					}
 					// movement: south
 					if (Drag.type.includes("s")) {
 						mH = Drag.iOffset.h + dY;
+						// ratio resize
+						mW = Drag.round(Drag.ratio * mH);
+						mX = Drag.round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
 					}
-					dim["--mY"] = `${mY}px`;
-					dim["--mX"] = `${mX}px`;
-					dim["--mH"] = `${mH}px`;
-					dim["--mW"] = `${mW}px`;
+					if (mY) dim["--mY"] = `${mY}px`;
+					if (mX) dim["--mX"] = `${mX}px`;
+					if (mH) dim["--mH"] = `${mH}px`;
+					if (mW) dim["--mW"] = `${mW}px`;
 				} else {
 					// movement: east
 					if (Drag.type.includes("e")) {
