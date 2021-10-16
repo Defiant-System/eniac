@@ -366,35 +366,53 @@
 					mY, mX, mW, mH,
 					dim = {};
 				if (Drag.isMask) {
-					// movement: east
-					if (Drag.type.includes("e")) {
-						mX = dX + Drag.iOffset.x;
-						mW = Drag.iOffset.w - dX;
-						// ratio resize
-						mH = Drag._round(mW / Drag.ratio);
-						mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
-					}
-					// movement: west
-					if (Drag.type.includes("w")) {
-						mW = Drag.iOffset.w + dX;
-						// ratio resize
-						mH = Drag._round(mW / Drag.ratio);
-						mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
-					}
-					// movement: north
-					if (Drag.type.includes("n")) {
-						mY = dY + Drag.iOffset.y;
-						mH = Drag.iOffset.h - dY;
-						// ratio resize
-						mW = Drag._round(Drag.ratio * mH);
-						mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
-					}
-					// movement: south
-					if (Drag.type.includes("s")) {
-						mH = Drag.iOffset.h + dY;
-						// ratio resize
-						mW = Drag._round(Drag.ratio * mH);
-						mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
+					switch (Drag.type) {
+						case "e": // movement: east
+							mX = dX + Drag.iOffset.x;
+							mW = Drag.iOffset.w - dX;
+							// ratio resize
+							mH = Drag._round(mW / Drag.ratio);
+							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
+							break;
+						case "w": // movement: west
+							mW = Drag.iOffset.w + dX;
+							// ratio resize
+							mH = Drag._round(mW / Drag.ratio);
+							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
+							break;
+						case "n": // movement: north
+							mY = dY + Drag.iOffset.y;
+							mH = Drag.iOffset.h - dY;
+							// ratio resize
+							mW = Drag._round(Drag.ratio * mH);
+							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
+							break;
+						case "s": // movement: south
+							mH = Drag.iOffset.h + dY;
+							// ratio resize
+							mW = Drag._round(Drag.ratio * mH);
+							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
+							break;
+						case "sw":
+							mH = Drag.iOffset.h + dY;
+							mW = Drag._round(Drag.ratio * mH);
+							break;
+						case "se":
+							mH = Drag.iOffset.h + dY;
+							mW = Drag._round(Drag.ratio * mH);
+							mX = Drag._round(Drag.iOffset.x + Drag.iOffset.w - mW);
+							break;
+						case "nw":
+							mW = Drag.iOffset.w + dX;
+							mH = Drag._round(mW / Drag.ratio);
+							mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
+							break;
+						case "ne":
+							mH = Drag.iOffset.h + dY;
+							mW = Drag._round(Drag.ratio * mH);
+							mX = Drag._round(Drag.iOffset.x + Drag.iOffset.w - mW);
+							// mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
+							break;
 					}
 					if (mY) dim["--mY"] = `${mY}px`;
 					if (mX) dim["--mX"] = `${mX}px`;
