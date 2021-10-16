@@ -437,6 +437,10 @@
 							dim.width = dX + Drag.tOffset.w;
 							break;
 						case "se":
+							dim.left = dX + Drag.tOffset.x;
+							dim.width = Drag.tOffset.w - dX;
+							dim.height = dY + Drag.tOffset.h;
+							mX = Drag.iOffset.x - dX;
 							break;
 						case "nw":
 							dim.height = Drag.tOffset.h - dY;
