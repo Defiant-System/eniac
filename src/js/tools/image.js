@@ -191,10 +191,8 @@
 				if (Drag.type.includes("s")) {
 					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
 				}
-
 				// "filter" position with guide lines
 				Drag.guides.snapDim(dim);
-
 				// apply new dimensions to element
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
 				if (dim.height < Drag.min.h) dim.height = Drag.min.h;
@@ -361,18 +359,25 @@
 					let dY = event.clientY - Drag.click.y,
 						dX = event.clientX - Drag.click.x,
 						dim = {};
-
 					// movement: east
 					if (Drag.type.includes("e")) {
 						dim["--mX"] = (dX + Drag.iOffset.x) +"px";
 						dim["--mW"] = (Drag.iOffset.w - dX) +"px";
+					}
+					// movement: west
+					if (Drag.type.includes("w")) {
+						dim["--mW"] = (Drag.iOffset.w + dX) +"px";
 					}
 					// movement: north
 					if (Drag.type.includes("n")) {
 						dim["--mY"] = (dY + Drag.iOffset.y) +"px";
 						dim["--mH"] = (Drag.iOffset.h - dY) +"px";
 					}
-
+					// movement: south
+					if (Drag.type.includes("s")) {
+						dim["--mH"] = (Drag.iOffset.h + dY) +"px";
+					}
+					// apply new dimensions to elements
 					Drag.el.css(dim);
 				} else {
 
