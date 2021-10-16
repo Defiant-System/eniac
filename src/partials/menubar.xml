@@ -11,6 +11,8 @@
 		<Menu name="Save" click="save-file" hotkey="alt+s"/>
 		<Menu name="Save as&#8230;" hotkey="alt+shift+s" click="save-file-as"/>
 		<Menu type="divider"/>
+		<Menu name="Export as PDF"/>
+		<Menu type="divider"/>
 		<Menu name="Close File"/>
 	</Menu>
 	<Menu name="Edit">
