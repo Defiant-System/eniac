@@ -408,10 +408,10 @@
 							mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
 							break;
 						case "ne":
-							mH = Drag.iOffset.h + dY;
+							mH = Drag.iOffset.h - dY;
 							mW = Drag._round(Drag.ratio * mH);
 							mX = Drag._round(Drag.iOffset.x + Drag.iOffset.w - mW);
-							// mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
+							mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
 							break;
 					}
 					if (mY) dim["--mY"] = `${mY}px`;
