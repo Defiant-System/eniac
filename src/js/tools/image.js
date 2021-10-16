@@ -228,6 +228,10 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
+				if ($(event.target).hasClass("handle")) {
+					return Self.maskResize(event);
+				}
+
 				let iEl = Self.image,
 					tEl = Self.els.root,
 					tOffset = {
@@ -307,6 +311,39 @@
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.maskMove);
+				break;
+		}
+	},
+	maskResize(event) {
+		let APP = eniac,
+			Self = APP.tools.image,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown": {
+				// prevent default behaviour
+				event.preventDefault();
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
+
+				let el;
+
+				console.log(event);
+
+				// create drag object
+				Self.drag = {
+					el,
+				};
+
+				// bind event
+				Self.els.doc.on("mousemove mouseup", Self.maskResize);
+				break; }
+			case "mousemove":
+				break;
+			case "mouseup":
+				// uncover layout
+				Self.els.layout.removeClass("cover hideMouse");
+				// unbind event
+				Self.els.doc.off("mousemove mouseup", Self.maskResize);
 				break;
 		}
 	}
