@@ -340,7 +340,8 @@
 					click = {
 						y: event.clientY,
 						x: event.clientX,
-					};
+					},
+					ratio = iOffset.w / iOffset.h;
 
 				// console.log(pEl, isMask);
 
@@ -348,8 +349,9 @@
 				Self.drag = {
 					el: $([iEl[0], tEl[0]]),
 					type,
-					isMask,
+					ratio,
 					click,
+					isMask,
 					iOffset,
 					tOffset,
 				};
@@ -360,26 +362,33 @@
 			case "mousemove":
 				let dY = event.clientY - Drag.click.y,
 					dX = event.clientX - Drag.click.x,
+					mY, mX, mW, mH,
 					dim = {};
 				if (Drag.isMask) {
 					// movement: east
 					if (Drag.type.includes("e")) {
-						dim["--mX"] = (dX + Drag.iOffset.x) +"px";
-						dim["--mW"] = (Drag.iOffset.w - dX) +"px";
+						mX = dX + Drag.iOffset.x;
+						mW = Drag.iOffset.w - dX;
 					}
 					// movement: west
 					if (Drag.type.includes("w")) {
-						dim["--mW"] = (Drag.iOffset.w + dX) +"px";
+						mW = Drag.iOffset.w + dX;
 					}
 					// movement: north
 					if (Drag.type.includes("n")) {
-						dim["--mY"] = (dY + Drag.iOffset.y) +"px";
-						dim["--mH"] = (Drag.iOffset.h - dY) +"px";
+						mY = dY + Drag.iOffset.y;
+						mH = Drag.iOffset.h - dY;
+						mW = Drag.ratio * mH;
+						mX = Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1);
 					}
 					// movement: south
 					if (Drag.type.includes("s")) {
-						dim["--mH"] = (Drag.iOffset.h + dY) +"px";
+						mH = Drag.iOffset.h + dY;
 					}
+					dim["--mY"] = `${mY}px`;
+					dim["--mX"] = `${mX}px`;
+					dim["--mH"] = `${mH}px`;
+					dim["--mW"] = `${mW}px`;
 				} else {
 					// movement: east
 					if (Drag.type.includes("e")) {
