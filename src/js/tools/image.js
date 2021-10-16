@@ -370,6 +370,9 @@
 					if (Drag.type.includes("e")) {
 						mX = dX + Drag.iOffset.x;
 						mW = Drag.iOffset.w - dX;
+						// ratio resize
+						mH = Drag._round(mW / Drag.ratio);
+						mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
 					}
 					// movement: west
 					if (Drag.type.includes("w")) {
@@ -390,8 +393,8 @@
 					if (Drag.type.includes("s")) {
 						mH = Drag.iOffset.h + dY;
 						// ratio resize
-						mW = Drag.round(Drag.ratio * mH);
-						mX = Drag.round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
+						mW = Drag._round(Drag.ratio * mH);
+						mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
 					}
 					if (mY) dim["--mY"] = `${mY}px`;
 					if (mX) dim["--mX"] = `${mX}px`;
