@@ -343,7 +343,7 @@
 					},
 					ratio = iOffset.w / iOffset.h;
 
-				// console.log(pEl, isMask);
+				// console.log( iOffset.y, tOffset.y );
 
 				// create drag object
 				Self.drag = {
@@ -414,30 +414,44 @@
 							mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
 							break;
 					}
-					if (mY) dim["--mY"] = `${mY}px`;
-					if (mX) dim["--mX"] = `${mX}px`;
-					if (mH) dim["--mH"] = `${mH}px`;
-					if (mW) dim["--mW"] = `${mW}px`;
 				} else {
-					// movement: east
-					if (Drag.type.includes("e")) {
-						dim.left = dX + Drag.tOffset.x;
-						dim.width = Drag.tOffset.w - dX;
-					}
-					// movement: west
-					if (Drag.type.includes("w")) {
-						dim.width = dX + Drag.tOffset.w;
-					}
-					// movement: north
-					if (Drag.type.includes("n")) {
-						dim.top = dY + Drag.tOffset.y;
-						dim.height = Drag.tOffset.h - dY;
-					}
-					// movement: south
-					if (Drag.type.includes("s")) {
-						dim.height = dY + Drag.tOffset.h;
+					switch (Drag.type) {
+						case "e": // movement: east
+							dim.left = dX + Drag.tOffset.x;
+							dim.width = Drag.tOffset.w - dX;
+							mX = Drag.iOffset.x - dX;
+							break;
+						case "w": // movement: west
+							dim.width = dX + Drag.tOffset.w;
+							break;
+						case "n": // movement: north
+							dim.top = dY + Drag.tOffset.y;
+							dim.height = Drag.tOffset.h - dY;
+							mY = Drag.iOffset.y - dY;
+							break;
+						case "s": // movement: south
+							dim.height = dY + Drag.tOffset.h;
+							break;
+						case "sw":
+							dim.height = dY + Drag.tOffset.h;
+							dim.width = dX + Drag.tOffset.w;
+							break;
+						case "se":
+							break;
+						case "nw":
+							dim.height = Drag.tOffset.h - dY;
+							dim.width = dX + Drag.tOffset.w;
+							dim.top = dY + Drag.tOffset.y;
+							mY = Drag.iOffset.y - dY;
+							break;
+						case "ne":
+							break;
 					}
 				}
+				if (mY) dim["--mY"] = `${mY}px`;
+				if (mX) dim["--mX"] = `${mX}px`;
+				if (mH) dim["--mH"] = `${mH}px`;
+				if (mW) dim["--mW"] = `${mW}px`;
 				// apply new dimensions to elements
 				Drag.el.css(dim);
 				break;
