@@ -325,19 +325,58 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let el;
+				let iEl = Self.image,
+					tEl = Self.els.root,
+					el = $(event.target),
+					pEl = el.parent(),
+					type = event.target.className.split(" ")[1],
+					isMask = pEl.hasClass("mask-box"),
+					iOffset = {
+						y: parseInt(iEl.css("--mY"), 10),
+						x: parseInt(iEl.css("--mX"), 10),
+						w: parseInt(iEl.css("--mW"), 10),
+						h: parseInt(iEl.css("--mH"), 10),
+					},
+					click = {
+						y: event.clientY,
+						x: event.clientX,
+					};
 
-				console.log(event);
+				// console.log(pEl, isMask);
 
 				// create drag object
 				Self.drag = {
-					el,
+					el: $([iEl[0], tEl[0]]),
+					type,
+					isMask,
+					click,
+					iOffset,
 				};
 
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.maskResize);
 				break; }
 			case "mousemove":
+				if (Drag.isMask) {
+					let dY = event.clientY - Drag.click.y,
+						dX = event.clientX - Drag.click.x,
+						dim = {};
+
+					// movement: east
+					if (Drag.type.includes("e")) {
+						dim["--mX"] = dX + Drag.iOffset.x;
+						dim["--mW"] = Drag.iOffset.w - dX;
+					}
+					// movement: north
+					if (Drag.type.includes("n")) {
+						dim["--mY"] = dY + Drag.iOffset.y;
+						dim["--mH"] = Drag.iOffset.h - dY;
+					}
+
+					console.log(dim);
+				} else {
+
+				}
 				break;
 			case "mouseup":
 				// uncover layout
