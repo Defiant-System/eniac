@@ -360,8 +360,8 @@
 					case "n":
 						min.mY = -tOffset.y;
 						max.mY = 0;
-						min.mH = 0;
-						console.log( tOffset, iOffset );
+						min.mH = iOffset.h + iOffset.y;
+						max.mH = tOffset.y + tOffset.h - iOffset.y;
 						break;
 					case "s":
 						min.y = tOffset.h - iOffset.y;
@@ -409,8 +409,7 @@
 							break;
 						case "n": // movement: north
 							mY = Drag._min(Drag._max(dY + Drag.iOffset.y, Drag.min.mY), Drag.max.mY);
-							mH = Drag.iOffset.h - dY;
-							console.log( mH );
+							mH = Drag._min(Drag._max(Drag.iOffset.h - dY, Drag.min.mH), Drag.max.mH);
 							// ratio resize
 							mW = Drag._round(Drag.ratio * mH);
 							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
