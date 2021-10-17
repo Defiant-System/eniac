@@ -346,27 +346,42 @@
 					min = {},
 					max = {};
 				
-				switch (type) {
-					case "e":
-						min.mX = -tOffset.x;
-						max.mX = 0;
-						min.mW = iOffset.w + iOffset.x + tOffset.x;
-						max.mW = iOffset.w + iOffset.x;
-						break;
-					case "w":
-						min.x = tOffset.w - iOffset.x;
-						max.x = layout.width - tOffset.x - iOffset.x;
-						break;
-					case "n":
-						min.mY = -tOffset.y;
-						max.mY = 0;
-						min.mH = iOffset.h + iOffset.y;
-						max.mH = tOffset.y + tOffset.h - iOffset.y;
-						break;
-					case "s":
-						min.y = tOffset.h - iOffset.y;
-						max.y = layout.height - tOffset.y - iOffset.y;
-						break;
+				if (isMask) {
+					switch (type) {
+						case "e":
+							min.mX = -tOffset.x;
+							max.mX = 0;
+							min.mW = iOffset.w + iOffset.x + tOffset.x;
+							max.mW = iOffset.w + iOffset.x;
+							break;
+						case "w":
+							min.x = tOffset.w - iOffset.x;
+							max.x = layout.width - tOffset.x - iOffset.x;
+							break;
+						case "n":
+							min.mY = -tOffset.y;
+							max.mY = 0;
+							min.mH = iOffset.h + iOffset.y;
+							max.mH = tOffset.y + tOffset.h - iOffset.y;
+							break;
+						case "s":
+							min.y = tOffset.h - iOffset.y;
+							max.y = layout.height - tOffset.y - iOffset.y;
+							break;
+					}
+				} else {
+					switch (type) {
+						case "n":
+							min.y = tOffset.y + iOffset.y;
+							min.h = tOffset.h - iOffset.y;
+							min.mY = 0;
+							console.log( min.h );
+							console.log( tOffset, iOffset );
+							max.y = 0;
+							max.h = 0;
+							max.mY = 0;
+							break;
+					}
 				}
 
 				// create drag object
@@ -452,9 +467,10 @@
 							dim.width = dX + Drag.tOffset.w;
 							break;
 						case "n": // movement: north
-							dim.top = dY + Drag.tOffset.y;
-							dim.height = Drag.tOffset.h - dY;
-							mY = Drag.iOffset.y - dY;
+							dim.height = Drag._min(Drag.tOffset.h - dY, Drag.min.h);
+							dim.top = Drag._max(dY + Drag.tOffset.y, Drag.min.y);
+							mY = Drag._min(Drag.iOffset.y - dY, Drag.min.mY);
+							// console.log( dim.top, dim.height, mY );
 							break;
 						case "s": // movement: south
 							dim.height = dY + Drag.tOffset.h;
@@ -485,10 +501,10 @@
 							break;
 					}
 				}
-				if (mY) dim["--mY"] = `${mY}px`;
-				if (mX) dim["--mX"] = `${mX}px`;
-				if (mH) dim["--mH"] = `${mH}px`;
-				if (mW) dim["--mW"] = `${mW}px`;
+				if (mY !== undefined) dim["--mY"] = `${mY}px`;
+				if (mX !== undefined) dim["--mX"] = `${mX}px`;
+				if (mH !== undefined) dim["--mH"] = `${mH}px`;
+				if (mW !== undefined) dim["--mW"] = `${mW}px`;
 				// apply new dimensions to elements
 				Drag.el.css(dim);
 				break;
