@@ -372,14 +372,13 @@
 				} else {
 					switch (type) {
 						case "n":
+							min.h = 10;
+							max.h = tOffset.h - iOffset.y;
 							min.y = tOffset.y + iOffset.y;
-							min.h = tOffset.h - iOffset.y;
-							min.mY = 0;
-							console.log( min.h );
-							console.log( tOffset, iOffset );
-							max.y = 0;
-							max.h = 0;
+							max.y = tOffset.y + tOffset.h - min.h;
+							min.mY = min.h - max.h;
 							max.mY = 0;
+							// console.log( tOffset, iOffset );
 							break;
 					}
 				}
@@ -467,9 +466,9 @@
 							dim.width = dX + Drag.tOffset.w;
 							break;
 						case "n": // movement: north
-							dim.height = Drag._min(Drag.tOffset.h - dY, Drag.min.h);
-							dim.top = Drag._max(dY + Drag.tOffset.y, Drag.min.y);
-							mY = Drag._min(Drag.iOffset.y - dY, Drag.min.mY);
+							dim.height = Drag._max(Drag._min(Drag.tOffset.h - dY, Drag.max.h), Drag.min.h);
+							dim.top = Drag._min(Drag._max(dY + Drag.tOffset.y, Drag.min.y), Drag.max.y);
+							mY = Drag._max(Drag._min(Drag.iOffset.y - dY, Drag.max.mY), Drag.min.mY);
 							// console.log( dim.top, dim.height, mY );
 							break;
 						case "s": // movement: south
