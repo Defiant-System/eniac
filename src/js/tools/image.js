@@ -371,6 +371,11 @@
 					}
 				} else {
 					switch (type) {
+						case "w":
+							min.w = 10;
+							max.w = iOffset.w + iOffset.x;
+							// console.log( tOffset, iOffset );
+							break;
 						case "n":
 							min.h = 10;
 							max.h = tOffset.h - iOffset.y;
@@ -378,7 +383,10 @@
 							max.y = tOffset.y + tOffset.h - min.h;
 							min.mY = min.h - max.h;
 							max.mY = 0;
-							// console.log( tOffset, iOffset );
+							break;
+						case "s":
+							min.h = 10;
+							max.h = iOffset.h + iOffset.y;
 							break;
 					}
 				}
@@ -463,16 +471,16 @@
 							mX = Drag.iOffset.x - dX;
 							break;
 						case "w": // movement: west
-							dim.width = dX + Drag.tOffset.w;
+							dim.width = Drag._min(Drag._max(dX + Drag.tOffset.w, Drag.min.w), Drag.max.w);
+							// console.log( dim.w );
 							break;
 						case "n": // movement: north
 							dim.height = Drag._max(Drag._min(Drag.tOffset.h - dY, Drag.max.h), Drag.min.h);
 							dim.top = Drag._min(Drag._max(dY + Drag.tOffset.y, Drag.min.y), Drag.max.y);
 							mY = Drag._max(Drag._min(Drag.iOffset.y - dY, Drag.max.mY), Drag.min.mY);
-							// console.log( dim.top, dim.height, mY );
 							break;
 						case "s": // movement: south
-							dim.height = dY + Drag.tOffset.h;
+							dim.height = Drag._min(Drag._max(dY + Drag.tOffset.h, Drag.min.h), Drag.max.h);
 							break;
 						case "sw":
 							dim.height = dY + Drag.tOffset.h;
