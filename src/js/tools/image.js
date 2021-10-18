@@ -360,13 +360,14 @@
 							max.mW = iOffset.w + iOffset.x;
 							break;
 						case "w":
-							future.left = tOffset.x + iOffset.x;
 							future.t1 = tOffset.y + (tOffset.h >> 1);
 							future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
 							future.h = future.t1 < future.t2
-										? tOffset.y + iOffset.h - tOffset.y + (iOffset.y * 2)
+										? iOffset.h + (iOffset.y * 2)
 										: 300;
+							console.log( future );
 							future.w = future.h * ratio;
+							console.log( tOffset, iOffset );
 
 							min.x = Math.max(tOffset.w - iOffset.x, future.w);
 							max.x = layout.width - tOffset.x - iOffset.x;
