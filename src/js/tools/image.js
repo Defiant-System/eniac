@@ -395,6 +395,12 @@
 							min.h = 10;
 							max.h = iOffset.h + iOffset.y;
 							break;
+						case "sw":
+							min.h = 10;
+							max.h = iOffset.h + iOffset.y;
+							min.w = 10;
+							max.w = iOffset.w + iOffset.x;
+							break;
 					}
 				}
 
@@ -489,8 +495,8 @@
 							dim.height = Drag._min(Drag._max(dY + Drag.tOffset.h, Drag.min.h), Drag.max.h);
 							break;
 						case "sw":
-							dim.height = dY + Drag.tOffset.h;
-							dim.width = dX + Drag.tOffset.w;
+							dim.height = Drag._min(Drag._max(dY + Drag.tOffset.h, Drag.min.h), Drag.max.h);
+							dim.width = Drag._min(Drag._max(dX + Drag.tOffset.w, Drag.min.w), Drag.max.w);
 							break;
 						case "se":
 							dim.left = dX + Drag.tOffset.x;
