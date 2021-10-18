@@ -22,6 +22,7 @@
 				Self.els.root.addClass("hidden").removeClass("mask-mode");
 				break;
 			case "focus-image":
+				if (Self.image) Self.dispatch({ type: "blur-image" });
 				// resize tools
 				let top = parseInt(event.el.css("top"), 10),
 					left = parseInt(event.el.css("left"), 10),
@@ -357,8 +358,13 @@
 							break;
 						case "w":
 							future.left = tOffset.x + iOffset.x;
-							future.h = tOffset.y + iOffset.h - tOffset.y + (iOffset.y * 2);
+							future.t1 = tOffset.y + (tOffset.h >> 1);
+							future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
+							future.h = future.t1 < future.t2
+										? tOffset.y + iOffset.h - tOffset.y + (iOffset.y * 2)
+										: 300;
 							future.w = future.h * ratio;
+
 							min.x = Math.max(tOffset.w - iOffset.x, future.w);
 							max.x = layout.width - tOffset.x - iOffset.x;
 							break;
