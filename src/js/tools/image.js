@@ -344,7 +344,8 @@
 					ratio = iOffset.w / iOffset.h,
 					layout = APP.tools.sheet.layout,
 					min = {},
-					max = {};
+					max = {},
+					future = {};
 				
 				if (isMask) {
 					switch (type) {
@@ -355,7 +356,10 @@
 							max.mW = iOffset.w + iOffset.x;
 							break;
 						case "w":
-							min.x = tOffset.w - iOffset.x;
+							future.left = tOffset.x + iOffset.x;
+							future.h = tOffset.y + iOffset.h - tOffset.y + (iOffset.y * 2);
+							future.w = future.h * ratio;
+							min.x = Math.max(tOffset.w - iOffset.x, future.w);
 							max.x = layout.width - tOffset.x - iOffset.x;
 							break;
 						case "n":
@@ -430,6 +434,7 @@
 							break;
 						case "w": // movement: west
 							mW = Drag._min(Drag._max(Drag.iOffset.w + dX, Drag.min.x), Drag.max.x);
+							// console.log(mW);
 							// ratio resize
 							mH = Drag._round(mW / Drag.ratio);
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
