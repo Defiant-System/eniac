@@ -22,7 +22,10 @@
 				Self.els.root.addClass("hidden").removeClass("mask-mode");
 				break;
 			case "focus-image":
-				if (Self.image) Self.dispatch({ type: "blur-image" });
+				if (Self.image) {
+					if (Self.image.isSame(event.el)) return;
+					else Self.dispatch({ type: "blur-image" });
+				}
 				// resize tools
 				let top = parseInt(event.el.css("top"), 10),
 					left = parseInt(event.el.css("left"), 10),
