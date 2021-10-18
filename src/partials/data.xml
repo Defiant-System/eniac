@@ -13,13 +13,13 @@
 	</Text> -->
 
 	<Image class="temp-image-1">
-		<Dim x="190" y="420" w="300" h="200"/>
+		<Dim x="190" y="120" w="300" h="200"/>
 		<Mask x="-100" y="-70" w="510" h="340"/>
 		<![CDATA[/fs/Desktop/images/girl.jpg]]>
 	</Image>
 
 	<Image class="temp-image-2">
-		<Dim x="390" y="70" w="300" h="200"/>
+		<Dim x="390" y="470" w="300" h="200"/>
 		<!-- <Mask x="0" y="0" w="420" h="280"/> -->
 		<![CDATA[/fs/Desktop/coast.jpg]]>
 	</Image>
