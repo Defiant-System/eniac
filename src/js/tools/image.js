@@ -370,37 +370,29 @@
 							break;
 					}
 				} else {
-					switch (type) {
-						case "e":
-							min.w = 10;
-							max.w = tOffset.w - iOffset.x;
-							min.x = tOffset.x + iOffset.x;
-							max.x = tOffset.x + tOffset.w - min.w;
-							min.mX = min.w - max.w;
-							max.mX = 0;
-							break;
-						case "w":
-							min.w = 10;
-							max.w = iOffset.w + iOffset.x;
-							break;
-						case "n":
-							min.h = 10;
-							max.h = tOffset.h - iOffset.y;
-							min.y = tOffset.y + iOffset.y;
-							max.y = tOffset.y + tOffset.h - min.h;
-							min.mY = min.h - max.h;
-							max.mY = 0;
-							break;
-						case "s":
-							min.h = 10;
-							max.h = iOffset.h + iOffset.y;
-							break;
-						case "sw":
-							min.h = 10;
-							max.h = iOffset.h + iOffset.y;
-							min.w = 10;
-							max.w = iOffset.w + iOffset.x;
-							break;
+					if (type.includes("e")) {
+						min.w = 20;
+						max.w = tOffset.w - iOffset.x;
+						min.x = tOffset.x + iOffset.x;
+						max.x = tOffset.x + tOffset.w - min.w;
+						min.mX = min.w - max.w;
+						max.mX = 0;
+					}
+					if (type.includes("w")) {
+						min.w = 20;
+						max.w = iOffset.w + iOffset.x;
+					}
+					if (type.includes("n")) {
+						min.h = 20;
+						max.h = tOffset.h - iOffset.y;
+						min.y = tOffset.y + iOffset.y;
+						max.y = tOffset.y + tOffset.h - min.h;
+						min.mY = min.h - max.h;
+						max.mY = 0;
+					}
+					if (type.includes("s")) {
+						min.h = 20;
+						max.h = iOffset.h + iOffset.y;
 					}
 				}
 
@@ -477,47 +469,21 @@
 							break;
 					}
 				} else {
-					switch (Drag.type) {
-						case "e": // movement: east
-							dim.width = Drag._max(Drag._min(Drag.tOffset.w - dX, Drag.max.w), Drag.min.w);
-							dim.left = Drag._min(Drag._max(dX + Drag.tOffset.x, Drag.min.x), Drag.max.x);
-							mX = Drag._max(Drag._min(Drag.iOffset.x - dX, Drag.max.mX), Drag.min.mX);
-							break;
-						case "w": // movement: west
-							dim.width = Drag._min(Drag._max(dX + Drag.tOffset.w, Drag.min.w), Drag.max.w);
-							break;
-						case "n": // movement: north
-							dim.height = Drag._max(Drag._min(Drag.tOffset.h - dY, Drag.max.h), Drag.min.h);
-							dim.top = Drag._min(Drag._max(dY + Drag.tOffset.y, Drag.min.y), Drag.max.y);
-							mY = Drag._max(Drag._min(Drag.iOffset.y - dY, Drag.max.mY), Drag.min.mY);
-							break;
-						case "s": // movement: south
-							dim.height = Drag._min(Drag._max(dY + Drag.tOffset.h, Drag.min.h), Drag.max.h);
-							break;
-						case "sw":
-							dim.height = Drag._min(Drag._max(dY + Drag.tOffset.h, Drag.min.h), Drag.max.h);
-							dim.width = Drag._min(Drag._max(dX + Drag.tOffset.w, Drag.min.w), Drag.max.w);
-							break;
-						case "se":
-							dim.left = dX + Drag.tOffset.x;
-							dim.width = Drag.tOffset.w - dX;
-							dim.height = dY + Drag.tOffset.h;
-							mX = Drag.iOffset.x - dX;
-							break;
-						case "nw":
-							dim.height = Drag.tOffset.h - dY;
-							dim.width = dX + Drag.tOffset.w;
-							dim.top = dY + Drag.tOffset.y;
-							mY = Drag.iOffset.y - dY;
-							break;
-						case "ne":
-							dim.top = dY + Drag.tOffset.y;
-							dim.left = dX + Drag.tOffset.x;
-							dim.width = Drag.tOffset.w - dX;
-							dim.height = Drag.tOffset.h - dY;
-							mY = Drag.iOffset.y - dY;
-							mX = Drag.iOffset.x - dX;
-							break;
+					if (Drag.type.includes("e")) { // movement: east
+						dim.width = Drag._max(Drag._min(Drag.tOffset.w - dX, Drag.max.w), Drag.min.w);
+						dim.left = Drag._min(Drag._max(dX + Drag.tOffset.x, Drag.min.x), Drag.max.x);
+						mX = Drag._max(Drag._min(Drag.iOffset.x - dX, Drag.max.mX), Drag.min.mX);
+					}
+					if (Drag.type.includes("w")) { // movement: west
+						dim.width = Drag._min(Drag._max(dX + Drag.tOffset.w, Drag.min.w), Drag.max.w);
+					}
+					if (Drag.type.includes("n")) { // movement: north
+						dim.height = Drag._max(Drag._min(Drag.tOffset.h - dY, Drag.max.h), Drag.min.h);
+						dim.top = Drag._min(Drag._max(dY + Drag.tOffset.y, Drag.min.y), Drag.max.y);
+						mY = Drag._max(Drag._min(Drag.iOffset.y - dY, Drag.max.mY), Drag.min.mY);
+					}
+					if (Drag.type.includes("s")) { // movement: south
+						dim.height = Drag._min(Drag._max(dY + Drag.tOffset.h, Drag.min.h), Drag.max.h);
 					}
 				}
 				if (mY !== undefined) dim["--mY"] = `${mY}px`;
