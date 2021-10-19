@@ -355,51 +355,49 @@
 					future = {};
 				
 				if (isMask) {
-					switch (type) {
-						case "e":
-							future.t1 = tOffset.y + (tOffset.h >> 1);
-							future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
-							future.h = future.t1 < future.t2
-										? iOffset.h + (iOffset.y * 2)
-										: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
-							future.w = Math.round(future.h * ratio);
-							min.mW = iOffset.w + iOffset.x + tOffset.x;
-							max.mW = Math.max(iOffset.w + iOffset.x, future.w);
-							min.mX = -tOffset.x;
-							max.mX = Math.min(0, iOffset.x + iOffset.w - future.w);
-							break;
-						case "w":
-							future.t1 = tOffset.y + (tOffset.h >> 1);
-							future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
-							future.h = future.t1 < future.t2
-										? iOffset.h + (iOffset.y * 2)
-										: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
-							future.w = Math.round(future.h * ratio);
-							min.x = Math.max(tOffset.w - iOffset.x, future.w);
-							max.x = layout.width - tOffset.x - iOffset.x;
-							break;
-						case "n":
-							future.l1 = tOffset.x + (tOffset.w >> 1);
-							future.l2 = tOffset.x + iOffset.x + (iOffset.w >> 1);
-							future.w = future.l1 < future.l2
-										? iOffset.w + (iOffset.x * 2)
-										: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
-							future.h = Math.round(future.w / ratio);
-							min.mH = Math.max(iOffset.h + iOffset.y, future.h);
-							max.mH = tOffset.y + tOffset.h - iOffset.y;
-							min.mY = -tOffset.y;
-							max.mY = Math.min(0, iOffset.y + iOffset.h - future.h);
-							break;
-						case "s":
-							future.l1 = tOffset.x + (tOffset.w >> 1);
-							future.l2 = tOffset.x + iOffset.x + (iOffset.w >> 1);
-							future.w = future.l1 < future.l2
-										? iOffset.w + (iOffset.x * 2)
-										: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
-							future.h = Math.round(future.w / ratio);
-							min.y = Math.max(tOffset.h - iOffset.y, future.h);
-							max.y = layout.height - tOffset.y - iOffset.y;
-							break;
+					if (type.includes("e")) {
+						future.t1 = tOffset.y + (tOffset.h >> 1);
+						future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
+						future.h = future.t1 < future.t2
+									? iOffset.h + (iOffset.y * 2)
+									: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
+						future.w = Math.round(future.h * ratio);
+						min.mW = iOffset.w + iOffset.x + tOffset.x;
+						max.mW = Math.max(iOffset.w + iOffset.x, future.w);
+						min.mX = -tOffset.x;
+						max.mX = Math.min(0, iOffset.x + iOffset.w - future.w);
+					}
+					if (type.includes("w")) {
+						future.t1 = tOffset.y + (tOffset.h >> 1);
+						future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
+						future.h = future.t1 < future.t2
+									? iOffset.h + (iOffset.y * 2)
+									: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
+						future.w = Math.round(future.h * ratio);
+						min.x = Math.max(tOffset.w - iOffset.x, future.w);
+						max.x = layout.width - tOffset.x - iOffset.x;
+					}
+					if (type.includes("n")) {
+						future.l1 = tOffset.x + (tOffset.w >> 1);
+						future.l2 = tOffset.x + iOffset.x + (iOffset.w >> 1);
+						future.w = future.l1 < future.l2
+									? iOffset.w + (iOffset.x * 2)
+									: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
+						future.h = Math.round(future.w / ratio);
+						min.mH = Math.max(iOffset.h + iOffset.y, future.h);
+						max.mH = tOffset.y + tOffset.h - iOffset.y;
+						min.mY = -tOffset.y;
+						max.mY = Math.min(0, iOffset.y + iOffset.h - future.h);
+					}
+					if (type.includes("s")) {
+						future.l1 = tOffset.x + (tOffset.w >> 1);
+						future.l2 = tOffset.x + iOffset.x + (iOffset.w >> 1);
+						future.w = future.l1 < future.l2
+									? iOffset.w + (iOffset.x * 2)
+									: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
+						future.h = Math.round(future.w / ratio);
+						min.y = Math.max(tOffset.h - iOffset.y, future.h);
+						max.y = layout.height - tOffset.y - iOffset.y;
 					}
 				} else {
 					if (type.includes("e")) {
@@ -480,8 +478,10 @@
 							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
 							break;
 						case "sw":
-							mH = Drag.iOffset.h + dY;
-							mW = Drag._round(Drag.ratio * mH);
+							mH = Drag._min(Drag._max(Drag.iOffset.h + dY, Drag.min.y), Drag.max.y);
+							// mH = Drag.iOffset.h + dY;
+							mW = Drag._min(Drag._max(Drag._round(Drag.ratio * mH), Drag.min.x), Drag.max.x);
+							// mW = Drag._round(Drag.ratio * mH);
 							break;
 						case "se":
 							mH = Drag.iOffset.h + dY;
