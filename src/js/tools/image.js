@@ -9,6 +9,8 @@
 			doc: $(document),
 			layout: window.find("layout"),
 		};
+		// default value
+		this.image = {};
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -20,9 +22,10 @@
 			case "blur-image":
 				Image.removeClass("masking");
 				Self.els.root.addClass("hidden").removeClass("mask-mode");
+				Self.image = {};
 				break;
 			case "focus-image":
-				if (Self.image) {
+				if (Self.image.length) {
 					if (Self.image.isSame(event.el)) return;
 					else Self.dispatch({ type: "blur-image" });
 				}
@@ -367,7 +370,7 @@
 										: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
 							future.w = future.h * ratio;
 
-							min.x = Math.max(tOffset.w - iOffset.x, future.w);
+							min.x = Math.max(tOffset.w - iOffset.x, Math.round(future.w));
 							max.x = layout.width - tOffset.x - iOffset.x;
 							break;
 						case "n":
