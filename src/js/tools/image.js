@@ -364,10 +364,8 @@
 							future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
 							future.h = future.t1 < future.t2
 										? iOffset.h + (iOffset.y * 2)
-										: 300;
-							console.log( future );
+										: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
 							future.w = future.h * ratio;
-							console.log( tOffset, iOffset );
 
 							min.x = Math.max(tOffset.w - iOffset.x, future.w);
 							max.x = layout.width - tOffset.x - iOffset.x;
