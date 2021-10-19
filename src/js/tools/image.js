@@ -482,7 +482,7 @@
 							mH = Drag._round(mW / Drag.ratio);
 							break;
 						case "se":
-							mH = Drag.iOffset.h + dY;
+							mH = Drag._min(Drag._max(Drag.iOffset.h + dY, Drag.min.y), Drag.max.y);
 							mW = Drag._round(Drag.ratio * mH);
 							mX = Drag._round(Drag.iOffset.x + Drag.iOffset.w - mW);
 							break;
