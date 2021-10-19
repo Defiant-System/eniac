@@ -13,16 +13,17 @@
 	</Text> -->
 
 	<Image class="temp-image-1">
-		<Dim x="190" y="210" w="300" h="200"/>
-		<Mask x="-100" y="-120" w="510" h="340"/>
+		<Dim x="240" y="80" w="300" h="200"/>
+		<Mask x="-190" y="-20" w="510" h="340"/>
 		<![CDATA[/fs/Desktop/images/girl.jpg]]>
 	</Image>
 
-	<Image class="temp-image-2">
+	
+	<!-- <Image class="temp-image-2">
 		<Dim x="390" y="470" w="300" h="200"/>
-		<!-- <Mask x="0" y="0" w="420" h="280"/> -->
+		<Mask x="0" y="0" w="420" h="280"/>
 		<![CDATA[/fs/Desktop/coast.jpg]]>
-	</Image>
+	</Image> -->
 
 	<Table id="barebone" class="temp-0">
 		<Head>
