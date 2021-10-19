@@ -478,10 +478,8 @@
 							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
 							break;
 						case "sw":
-							mH = Drag._min(Drag._max(Drag.iOffset.h + dY, Drag.min.y), Drag.max.y);
-							// mH = Drag.iOffset.h + dY;
-							mW = Drag._min(Drag._max(Drag._round(Drag.ratio * mH), Drag.min.x), Drag.max.x);
-							// mW = Drag._round(Drag.ratio * mH);
+							mW = Drag._min(Drag._max(Drag.iOffset.w + dX, Drag.min.x), Drag.max.x);
+							mH = Drag._round(mW / Drag.ratio);
 							break;
 						case "se":
 							mH = Drag.iOffset.h + dY;
