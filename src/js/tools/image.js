@@ -487,7 +487,7 @@
 							mX = Drag._round(Drag.iOffset.x + Drag.iOffset.w - mW);
 							break;
 						case "nw":
-							mW = Drag.iOffset.w + dX;
+							mW = Drag._min(Drag._max(Drag.iOffset.w + dX, Drag.min.x), Drag.max.x);
 							mH = Drag._round(mW / Drag.ratio);
 							mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
 							break;
