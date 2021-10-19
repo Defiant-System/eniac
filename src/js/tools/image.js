@@ -380,7 +380,14 @@
 							max.mH = tOffset.y + tOffset.h - iOffset.y;
 							break;
 						case "s":
-							min.y = tOffset.h - iOffset.y;
+							future.l1 = tOffset.x + (tOffset.w >> 1);
+							future.l2 = tOffset.x + iOffset.x + (iOffset.w >> 1);
+							future.w = future.l1 < future.l2
+										? iOffset.w + (iOffset.x * 2)
+										: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
+							future.h = future.w / ratio;
+
+							min.y = Math.max(tOffset.h - iOffset.y, Math.round(future.h));
 							max.y = layout.height - tOffset.y - iOffset.y;
 							break;
 					}
@@ -445,7 +452,6 @@
 							break;
 						case "w": // movement: west
 							mW = Drag._min(Drag._max(Drag.iOffset.w + dX, Drag.min.x), Drag.max.x);
-							// console.log(mW);
 							// ratio resize
 							mH = Drag._round(mW / Drag.ratio);
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
