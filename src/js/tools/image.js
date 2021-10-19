@@ -357,10 +357,16 @@
 				if (isMask) {
 					switch (type) {
 						case "e":
-							min.mX = -tOffset.x;
-							max.mX = 0;
+							future.t1 = tOffset.y + (tOffset.h >> 1);
+							future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
+							future.h = future.t1 < future.t2
+										? iOffset.h + (iOffset.y * 2)
+										: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
+							future.w = Math.round(future.h * ratio);
 							min.mW = iOffset.w + iOffset.x + tOffset.x;
-							max.mW = iOffset.w + iOffset.x;
+							max.mW = Math.max(iOffset.w + iOffset.x, future.w);
+							min.mX = -tOffset.x;
+							max.mX = Math.min(0, iOffset.x + iOffset.w - future.w);
 							break;
 						case "w":
 							future.t1 = tOffset.y + (tOffset.h >> 1);
@@ -368,16 +374,21 @@
 							future.h = future.t1 < future.t2
 										? iOffset.h + (iOffset.y * 2)
 										: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
-							future.w = future.h * ratio;
-
-							min.x = Math.max(tOffset.w - iOffset.x, Math.round(future.w));
+							future.w = Math.round(future.h * ratio);
+							min.x = Math.max(tOffset.w - iOffset.x, future.w);
 							max.x = layout.width - tOffset.x - iOffset.x;
 							break;
 						case "n":
-							min.mY = -tOffset.y;
-							max.mY = 0;
-							min.mH = iOffset.h + iOffset.y;
+							future.l1 = tOffset.x + (tOffset.w >> 1);
+							future.l2 = tOffset.x + iOffset.x + (iOffset.w >> 1);
+							future.w = future.l1 < future.l2
+										? iOffset.w + (iOffset.x * 2)
+										: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
+							future.h = Math.round(future.w / ratio);
+							min.mH = Math.max(iOffset.h + iOffset.y, future.h);
 							max.mH = tOffset.y + tOffset.h - iOffset.y;
+							min.mY = -tOffset.y;
+							max.mY = Math.min(0, iOffset.y + iOffset.h - future.h);
 							break;
 						case "s":
 							future.l1 = tOffset.x + (tOffset.w >> 1);
@@ -385,9 +396,8 @@
 							future.w = future.l1 < future.l2
 										? iOffset.w + (iOffset.x * 2)
 										: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
-							future.h = future.w / ratio;
-
-							min.y = Math.max(tOffset.h - iOffset.y, Math.round(future.h));
+							future.h = Math.round(future.w / ratio);
+							min.y = Math.max(tOffset.h - iOffset.y, future.h);
 							max.y = layout.height - tOffset.y - iOffset.y;
 							break;
 					}
