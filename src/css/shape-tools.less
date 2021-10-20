@@ -81,10 +81,10 @@ layout {
 	.mask-box {
 		display: none;
 		position: absolute;
-		top: var(--mY);
-		left: var(--mX);
-		width: var(--mW);
-		height: var(--mH);
+		top: calc( var(--mY) - 1px );
+		left: calc( var(--mX) - 1px );
+		width: calc( var(--mW) + 2px );
+		height: calc( var(--mH) + 2px );
 		box-shadow: 0 0 0 1px #3583d0;
 	}
 

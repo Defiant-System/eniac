@@ -7,9 +7,9 @@
 		this.parent = parent;
 
 		// temp
-		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-image .sidebar-head span:nth(1)").trigger("click");
-		// }, 200);
+		setTimeout(() => {
+			parent.els.el.find(".sidebar-image .sidebar-head span:nth(1)").trigger("click");
+		}, 200);
 
 		// setTimeout(() => {
 		// 	parent.els.el.find(`button[data-click="image-toggle-mask"]`).trigger("click");

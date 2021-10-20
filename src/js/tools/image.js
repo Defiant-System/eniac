@@ -42,6 +42,7 @@
 				Self.image = event.el;
 				break;
 			case "set-image-mask-mode":
+				console.log( event.vars );
 				Self.els.root
 					.css(event.vars)
 					.toggleClass("mask-mode", event.value);
@@ -135,12 +136,16 @@
 					w = +image.prop("offsetWidth"),
 					h = +image.prop("offsetHeight"),
 					click = {
-						x: event.clientX,
 						y: event.clientY,
+						x: event.clientX,
 					},
 					offset = {
-						x: +image.prop("offsetLeft"),
+						mY: parseInt(image.css("--mY"), 10),
+						mX: parseInt(image.css("--mX"), 10),
+						mW: parseInt(image.css("--mW"), 10),
+						mH: parseInt(image.css("--mH"), 10),
 						y: +image.prop("offsetTop"),
+						x: +image.prop("offsetLeft"),
 						w,
 						h,
 						r: ["nw", "se"].includes(type)
@@ -160,6 +165,7 @@
 					el: $([image[0], Self.els.root[0]]),
 					min,
 					type,
+					image,
 					click,
 					offset,
 					guides,
@@ -206,6 +212,19 @@
 						left: dim.left,
 						width: dim.width,
 						height: dim.height,
+					});
+
+				// apply new dimensions to mask
+				let diff = dim.width / Drag.offset.w,
+					mW = Drag.offset.mW * diff,
+					mH = Drag.offset.mH * diff,
+					mY = Drag.offset.mY * diff,
+					mX = Drag.offset.mX * diff;
+				Drag.el.css({
+						"--mY": `${mY}px`,
+						"--mX": `${mX}px`,
+						"--mW": `${mW}px`,
+						"--mH": `${mH}px`,
 					});
 				break;
 			case "mouseup":
