@@ -399,6 +399,10 @@
 						min.y = Math.max(tOffset.h - iOffset.y, future.h);
 						max.y = layout.height - tOffset.y - iOffset.y;
 					}
+					if (type.includes("sw")) min.y = tOffset.h - iOffset.y;
+					if (type.includes("nw")) min.x = tOffset.w - iOffset.x;
+					if (type.includes("ne")) min.mH = iOffset.h + iOffset.y;
+					if (type.includes("se")) min.y = tOffset.h - iOffset.y;
 				} else {
 					if (type.includes("e")) {
 						min.w = 20;
