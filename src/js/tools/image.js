@@ -428,9 +428,15 @@
 						min.x = Math.max(min.x, future.w);
 					}
 					if (type.includes("ne")) {
-						future.w = iOffset.w + iOffset.x;
-						future.h = Math.round(future.w / ratio);
-						min.mH = Math.max(min.mH, future.h);
+						future.t1 = tOffset.y + (tOffset.h >> 1);
+						future.t2 = tOffset.y + iOffset.y + (iOffset.h >> 1);
+						future.h = future.t1 < future.t2
+									? iOffset.h + iOffset.y
+									: iOffset.h - ((iOffset.y + iOffset.h - tOffset.h) * 2);
+						future.w = Math.round(future.h * ratio);
+						min.mW = Math.max(max.mW, future.w);
+						max.mW = iOffset.w + iOffset.x + tOffset.x;
+
 					}
 					if (type.includes("se")) {
 						future.w = iOffset.w + iOffset.x;
@@ -530,8 +536,10 @@
 							mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
 							break;
 						case "ne":
-							mH = Drag._min(Drag._max(Drag.iOffset.h - dY, Drag.min.mH), Drag.max.mH);
-							mW = Drag._round(Drag.ratio * mH);
+							mW = Drag._min(Drag._max(Drag.iOffset.w - dX, Drag.min.mW), Drag.max.mW);
+							mH = Drag._round(mW / Drag.ratio);
+							// mH = Drag._min(Drag._max(Drag.iOffset.h - dY, Drag.max.mH), Drag.min.mH);
+							// mW = Drag._round(Drag.ratio * mH);
 							mX = Drag._round(Drag.iOffset.x + Drag.iOffset.w - mW);
 							mY = Drag._round(Drag.iOffset.y + Drag.iOffset.h - mH);
 							break;
