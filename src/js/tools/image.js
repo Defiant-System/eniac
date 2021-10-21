@@ -501,7 +501,7 @@
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
 							break;
 						case "n": // movement: north
-							mY = Drag._min(Drag._max(dY + Drag.iOffset.y, Drag.min.mY), Drag.max.mY);
+							mY = Drag._max(Drag._min(dY + Drag.iOffset.y, Drag.max.mY), Drag.min.mY);
 							mH = Drag._min(Drag._max(Drag.iOffset.h - dY, Drag.min.mH), Drag.max.mH);
 							// ratio resize
 							mW = Drag._round(Drag.ratio * mH);
