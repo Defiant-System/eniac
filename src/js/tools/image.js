@@ -402,8 +402,8 @@
 									? iOffset.w + (iOffset.x * 2)
 									: iOffset.w - ((iOffset.x + iOffset.w - tOffset.w) * 2);
 						future.h = Math.round(future.w / ratio);
-						min.mH = Math.max(iOffset.h + iOffset.y, future.h);
-						max.mH = tOffset.y + tOffset.h - iOffset.y;
+						min.mH = iOffset.h + iOffset.y + tOffset.y;
+						max.mH = Math.max(iOffset.h + iOffset.y, future.h);
 						min.mY = -tOffset.y;
 						max.mY = Math.min(0, iOffset.y + iOffset.h - future.h);
 					}
@@ -503,8 +503,8 @@
 							mY = Drag._round(Drag.iOffset.y + ((Drag.iOffset.h - mH) >> 1));
 							break;
 						case "n": // movement: north
-							mY = Drag._max(Drag._min(dY + Drag.iOffset.y, Drag.max.mY), Drag.min.mY);
-							mH = Drag._min(Drag._max(Drag.iOffset.h - dY, Drag.min.mH), Drag.max.mH);
+							mY = Drag._min(Drag._max(dY + Drag.iOffset.y, Drag.min.mY), Drag.max.mY);
+							mH = Drag._max(Drag._min(Drag.iOffset.h - dY, Drag.min.mH), Drag.max.mH);
 							// ratio resize
 							mW = Drag._round(Drag.ratio * mH);
 							mX = Drag._round(Drag.iOffset.x + ((Drag.iOffset.w - mW) >> 1));
