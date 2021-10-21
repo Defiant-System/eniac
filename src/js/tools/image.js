@@ -42,7 +42,6 @@
 				Self.image = event.el;
 				break;
 			case "set-image-mask-mode":
-				console.log( event.vars );
 				Self.els.root
 					.css(event.vars)
 					.toggleClass("mask-mode", event.value);
@@ -418,7 +417,11 @@
 						min.y = Math.max(tOffset.h - iOffset.y, future.h);
 						max.y = layout.height - tOffset.y - iOffset.y;
 					}
-					if (type.includes("sw")) min.y = tOffset.h - iOffset.y;
+					if (type.includes("sw")) {
+						future.w = iOffset.w + tOffset.w - (iOffset.x + iOffset.w);
+						future.h = Math.round(future.w / ratio);
+						min.y = Math.max(min.y, future.h);
+					}
 					if (type.includes("nw")) min.x = tOffset.w - iOffset.x;
 					if (type.includes("ne")) min.mH = iOffset.h + iOffset.y;
 					if (type.includes("se")) min.y = tOffset.h - iOffset.y;
