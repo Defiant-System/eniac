@@ -422,7 +422,11 @@
 						future.h = Math.round(future.w / ratio);
 						min.y = Math.max(min.y, future.h);
 					}
-					if (type.includes("nw")) min.x = tOffset.w - iOffset.x;
+					if (type.includes("nw")) {
+						future.h = iOffset.h + iOffset.y;
+						future.w = Math.round(future.h * ratio);
+						min.x = Math.max(min.x, future.w);
+					}
 					if (type.includes("ne")) min.mH = iOffset.h + iOffset.y;
 					if (type.includes("se")) min.y = tOffset.h - iOffset.y;
 				} else {
