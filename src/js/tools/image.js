@@ -428,7 +428,9 @@
 						min.x = Math.max(min.x, future.w);
 					}
 					if (type.includes("ne")) {
-						min.mH = iOffset.h + iOffset.y;
+						future.w = iOffset.w + iOffset.x;
+						future.h = Math.round(future.w / ratio);
+						min.mH = Math.max(min.mH, future.h);
 					}
 					if (type.includes("se")) {
 						future.w = iOffset.w + iOffset.x;
