@@ -5,8 +5,21 @@ class File {
 		// save reference to original FS file
 		this._file = fsFile || new defiant.File();
 
-		console.log( this._file );
+		let html;
+		if (data) {
+			// attach reference to book
+			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
+		} else {
+			html = window.render({ data: this._file.data, template: "xl-file" });
+			
+			// setTimeout(() => window.find(`.xl-table:nth(0) td:nth(11)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		}
 
+		// render workbook
+		Render.workbook(this._file.book, html);
 	}
 
 	toBlob(kind) {

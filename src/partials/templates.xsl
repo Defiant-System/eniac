@@ -1,5 +1,13 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:template name="xl-file">
+	<xsl:for-each select="./Text"><xsl:call-template name="xl-text" /></xsl:for-each>
+	<xsl:for-each select="./Image"><xsl:call-template name="xl-image" /></xsl:for-each>
+	<xsl:for-each select="./Shape"><xsl:call-template name="xl-shape" /></xsl:for-each>
+	<xsl:for-each select="./Table"><xsl:call-template name="xl-table" /></xsl:for-each>
+</xsl:template>
+
+
 <xsl:template name="xl-text">
 	<div class="xl-text">
 		<xsl:if test="@class">
@@ -50,27 +58,6 @@
 		</xsl:attribute>
 		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</svg>
-</xsl:template>
-
-
-<xsl:template name="getViewboxValue">
-	<xsl:param name="text"/>
-    <xsl:param name="index"/>
-	<xsl:param name="i" select="1"/>
-
-    <xsl:choose>
-    	<xsl:when test="$index = $i">
-    		<xsl:value-of select="substring-before( $text, ' ' )"/>
-    		<xsl:if test="not( contains( $text, ' ' ) )"><xsl:value-of select="$text"/></xsl:if>
-    	</xsl:when>
-    	<xsl:otherwise>
-    		<xsl:call-template name="getViewboxValue">
-				<xsl:with-param name="text" select="substring-after( $text, ' ' )"/>
-				<xsl:with-param name="index" select="$index"/>
-				<xsl:with-param name="i" select="$i + 1"/>
-			</xsl:call-template>
-    	</xsl:otherwise>
-    </xsl:choose>
 </xsl:template>
 
 
@@ -203,6 +190,26 @@
 			<span><xsl:value-of select="count(./*)"/></span>
 		</div>
 	</div>
+</xsl:template>
+
+
+<xsl:template name="getViewboxValue">
+	<xsl:param name="text"/>
+    <xsl:param name="index"/>
+	<xsl:param name="i" select="1"/>
+    <xsl:choose>
+    	<xsl:when test="$index = $i">
+    		<xsl:value-of select="substring-before( $text, ' ' )"/>
+    		<xsl:if test="not( contains( $text, ' ' ) )"><xsl:value-of select="$text"/></xsl:if>
+    	</xsl:when>
+    	<xsl:otherwise>
+    		<xsl:call-template name="getViewboxValue">
+				<xsl:with-param name="text" select="substring-after( $text, ' ' )"/>
+				<xsl:with-param name="index" select="$index"/>
+				<xsl:with-param name="i" select="$i + 1"/>
+			</xsl:call-template>
+    	</xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 
