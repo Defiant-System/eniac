@@ -50,6 +50,8 @@
 			case "set-image-saturation":
 				// make sure all fields shows same value
 				Els.el.find(".image-saturation input").val(event.value);
+				// apply saturation on image
+				Image.css({ filter: `saturate(${(event.value * .01) + 1})` });
 				break;
 			case "image-instant-alpha":
 			case "image-replace-image":
