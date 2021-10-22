@@ -43,6 +43,14 @@
 				// console.log(vars);
 				APP.tools.image.dispatch({ type: "set-image-mask-mode", value, vars });
 				break;
+			case "set-image-exposure":
+				// make sure all fields shows same value
+				Els.el.find(".image-exposure input").val(event.value);
+				break;
+			case "set-image-saturation":
+				// make sure all fields shows same value
+				Els.el.find(".image-saturation input").val(event.value);
+				break;
 			case "image-instant-alpha":
 			case "image-replace-image":
 				console.log(event);

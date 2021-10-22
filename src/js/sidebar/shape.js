@@ -267,7 +267,12 @@
 				APP.tools.shape.gradient.update(stops);
 				break;
 			case "set-shape-gradient-angle":
-				console.log(event);
+				// make sure all fields shows same value
+				Els.el.find(".shape-gradient-angle .angle-ring")
+					.css({ transform: `rotate(${+event.value+90}deg)` });
+				Els.el.find(".shape-gradient-angle input").val(event.value);
+
+				console.log( "TODO: Update tools angle!" );
 				break;
 			case "set-shape-fill-color":
 				Shape.shapeItem.css({ fill: event.value });
