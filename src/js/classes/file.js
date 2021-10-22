@@ -16,7 +16,9 @@ class File {
 			// html += window.render({ template: "xl-table", match: `//Table[@id="temp-3"]` });
 
 			// html += window.render({ template: "xl-text", match: `//Text` });
-			html += window.render({ template: "xl-image", match: `//Image` });
+			// html += window.render({ template: "xl-image", match: `//Image` });
+
+			html += window.render({ template: "xl-shape", match: `//Shape` });
 
 			// svg's
 			window.find("svg > svg").map(svg => {

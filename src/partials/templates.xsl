@@ -33,6 +33,47 @@
 </xsl:template>
 
 
+<xsl:template name="xl-shape">
+	<svg>
+		<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+		<xsl:attribute name="class">xl-shape <xsl:value-of select="@class"/></xsl:attribute>
+		<xsl:attribute name="viewBox"><xsl:value-of select="@viewBox"/></xsl:attribute>
+		<xsl:attribute name="style">
+			width: <xsl:call-template name="getViewboxValue">
+						<xsl:with-param name="text" select="@viewBox"/>
+						<xsl:with-param name="index" select="3"/>
+					</xsl:call-template>px;
+			height: <xsl:call-template name="getViewboxValue">
+						<xsl:with-param name="text" select="@viewBox"/>
+						<xsl:with-param name="index" select="4"/>
+					</xsl:call-template>px;
+		</xsl:attribute>
+		<xsl:value-of select="." disable-output-escaping="yes"/>
+	</svg>
+</xsl:template>
+
+
+<xsl:template name="getViewboxValue">
+	<xsl:param name="text"/>
+    <xsl:param name="index"/>
+	<xsl:param name="i" select="1"/>
+
+    <xsl:choose>
+    	<xsl:when test="$index = $i">
+    		<xsl:value-of select="substring-before( $text, ' ' )"/>
+    		<xsl:if test="not( contains( $text, ' ' ) )"><xsl:value-of select="$text"/></xsl:if>
+    	</xsl:when>
+    	<xsl:otherwise>
+    		<xsl:call-template name="getViewboxValue">
+				<xsl:with-param name="text" select="substring-after( $text, ' ' )"/>
+				<xsl:with-param name="index" select="$index"/>
+				<xsl:with-param name="i" select="$i + 1"/>
+			</xsl:call-template>
+    	</xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+
 <xsl:template name="xl-table">
 	<div class="xl-table">
 		<xsl:if test="@class">

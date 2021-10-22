@@ -20,7 +20,7 @@
 		switch (event.type) {
 			// csutom events
 			case "blur-image":
-				Image.removeClass("masking");
+				if (Image.length) Image.removeClass("masking");
 				Self.els.root.addClass("hidden").removeClass("mask-mode");
 				Self.image = {};
 				break;
