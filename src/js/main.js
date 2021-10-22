@@ -64,7 +64,8 @@ const eniac = {
 				return Self.tools.dispatch(event);
 			case "new-file":
 				// save reference to file
-				Self.file = new File();
+				let req = await defiant.shell(`fs -ur "~/sample/file-1.xml"`);
+				Self.file = new File(req.result);
 				break;
 			case "open.file":
 				return Self.dispatch({ type: "new-file" });
