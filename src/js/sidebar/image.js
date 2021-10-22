@@ -43,9 +43,11 @@
 				// console.log(vars);
 				APP.tools.image.dispatch({ type: "set-image-mask-mode", value, vars });
 				break;
-			case "set-image-exposure":
+			case "set-image-brightness":
 				// make sure all fields shows same value
-				Els.el.find(".image-exposure input").val(event.value);
+				Els.el.find(".image-brightness input").val(event.value);
+				// apply saturation on image
+				Image.css({ filter: `brightness(${(event.value * .01) + 1})` });
 				break;
 			case "set-image-saturation":
 				// make sure all fields shows same value
