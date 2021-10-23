@@ -7,9 +7,9 @@
 		this.parent = parent;
 
 		// temp
-		setTimeout(() => {
-			parent.els.el.find(".sidebar-image .sidebar-head span:nth(1)").trigger("click");
-		}, 200);
+		// setTimeout(() => {
+		// 	parent.els.el.find(".sidebar-image .sidebar-head span:nth(1)").trigger("click");
+		// }, 200);
 
 		// setTimeout(() => {
 		// 	parent.els.el.find(`button[data-click="image-toggle-mask"]`).trigger("click");
@@ -28,15 +28,20 @@
 			case "populate-image-values":
 				event.values = Self.dispatch({ ...event, type: "collect-image-values" });
 
+				Self.dispatch({ ...event, type: "update-image-styles" });
 				Self.dispatch({ ...event, type: "update-filter-adjustments" });
 				Self.dispatch({ ...event, type: "update-image-arrange" });
 				break;
 			case "collect-image-values": {
-				let border = {},
+				let styles = {},
+					border = {},
 					shadow = {},
 					reflection = {},
 					opacity = {},
 					filter = {};
+
+				// styles
+				styles.bg = Image.css("background-image");
 
 				// border values
 
@@ -50,7 +55,7 @@
 				filter.brightness = Math.round((+(Image.css("--brightness") || 1) - 0.5) * 200 - 100);
 				filter.saturate = Math.round((+(Image.css("--saturate") || 1) - 1) * 100);
 
-				let data = { border, shadow, reflection, opacity, filter };
+				let data = { styles, border, shadow, reflection, opacity, filter };
 				Object.keys(data).map(key => {
 					let el = Els.el.find(`.group-row.text-${key}-options`);
 					if (data[key]._expand) el.addClass("expanded");
@@ -59,6 +64,10 @@
 
 				return data; }
 			// tab: Style
+			case "update-image-styles":
+				value = event.values.styles.bg;
+				Els.el.find(".image-styles").css({ "background-image": value });
+				break;
 			// tab: Image
 			case "update-filter-adjustments":
 				value = event.values.filter.brightness;
@@ -114,6 +123,14 @@
 			case "image-instant-alpha":
 			case "image-replace-image":
 				console.log(event);
+				break;
+			case "reset-image-filters":
+				Els.el.find(".image-brightness input").val(0);
+				Els.el.find(".image-saturate input").val(0);
+				Image.css({
+					"--brightness": 1,
+					"--saturate": 1,
+				});
 				break;
 			// tab: Arrange
 			case "set-image-arrange":

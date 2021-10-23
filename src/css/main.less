@@ -78,13 +78,6 @@ overflow: initial;
 .icon-shape-style-5:before   { background-image: url(~/icons/icon-shape-style-5.png); }
 .icon-shape-style-6:before   { background-image: url(~/icons/icon-shape-style-6.png); }
 
-.image-style-1:before   { background-image: url(/fs/Desktop/coast.jpg); }
-.image-style-2:before   { background-image: url(/fs/Desktop/coast.jpg); filter: sepia(100%); }
-.image-style-3:before   { background-image: url(/fs/Desktop/coast.jpg); filter: brightness(1.5); }
-.image-style-4:before   { background-image: url(/fs/Desktop/coast.jpg); filter: contrast(150%); }
-.image-style-5:before   { background-image: url(/fs/Desktop/coast.jpg); filter: saturate(50%); }
-.image-style-6:before   { background-image: url(/fs/Desktop/coast.jpg); filter: hue-rotate(90deg); }
-
 .icon-text-style-1:before   { background-image: url(~/icons/icon-text-style-1.png); }
 .icon-text-style-2:before   { background-image: url(~/icons/icon-text-style-2.png); }
 .icon-text-style-3:before   { background-image: url(~/icons/icon-text-style-3.png); }
@@ -1497,7 +1490,13 @@ sidebar {
 			}
 
 			&.image-styles {
+				// background-image: url(/fs/Desktop/coast.jpg);
+				background-size: 0 0;
+
 				span {
+					background-image: inherit;
+					background-size: 0 0;
+					background-repeat: no-repeat;
 					border-radius: 5px;
 					
 					&:before {
@@ -1505,25 +1504,33 @@ sidebar {
 						left: 5px;
 						width: calc( 100% - 10px );
 						height: calc( 100% - 10px );
+						background-image: inherit;
 						background-size: contain;
 					}
+
+					&.image-style-1:before   { }
+					&.image-style-2:before   { filter: sepia(100%); }
+					&.image-style-3:before   { filter: brightness(1.5); }
+					&.image-style-4:before   { filter: contrast(150%); }
+					&.image-style-5:before   { filter: saturate(50%); }
+					&.image-style-6:before   { filter: grayscale(190%); }
 				}
 			}
 
 			span {
-				//background: rgba(0,0,0,0.1);
+				// background-color: rgba(0,0,0,0.1);
 				display: inline-block;
 				position: relative;
 				width: 81px;
 				height: 61px;
 				margin: 1px 5px 3px 0;
-				//padding: 4px 0 0 4px;
 				vertical-align: middle;
 				border-radius: 2px;
 
 				&:hover:not(.active) {
-					background: #d6e7fb;
+					background-color: #d6e7fb;
 				}
+
 				&.active {
 					box-shadow: 0 0 0 2px #acc2dc;
 				}
