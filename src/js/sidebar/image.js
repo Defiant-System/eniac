@@ -33,6 +33,7 @@
 
 				Self.dispatch({ ...event, type: "update-image-styles" });
 				Self.dispatch({ ...event, type: "update-image-outline" });
+				Self.dispatch({ ...event, type: "update-image-shadow" });
 				Self.dispatch({ ...event, type: "update-image-reflection" });
 				Self.dispatch({ ...event, type: "update-image-opacity" });
 				Self.dispatch({ ...event, type: "update-filter-adjustments" });
@@ -57,6 +58,8 @@
 				outline._expand = outline.width > 0;
 
 				// shadow values
+				shadow.shadow = Image.css("box-shadow");
+				shadow._expand = shadow.shadow !== "none";
 
 				// reflection values
 				reflection.reflect = Image.css("-webkit-box-reflect");
@@ -103,6 +106,29 @@
 				value = color === "none" ? 0 : event.values.outline.width;
 				Els.el.find("input#image-outline").val(value);
 				break;
+			case "update-image-shadow": {
+				let value = event.values.shadow.shadow,
+					rgbColor = value.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
+					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : false,
+					opacity = rgbColor ? Math.round(parseInt(hexColor.slice(-2), 16) / 255 * 100) : 100,
+					shadow = value.match(/(\d+)px\s*(\d+)px\s*(\d+)px/),
+					bX = shadow ? +shadow[1] : 0,
+					bY = shadow ? +shadow[2] : 0,
+					blur = shadow ? +shadow[3] : 0,
+					angle = Math.round(Math.atan2(bY, bX) * (180 / Math.PI)),
+					offset = Math.round(Math.sqrt(bY*bY + bX*bX));
+				// drop-shadow values
+				Els.el.find(".image-shadow-blur input").val(blur);
+				Els.el.find(".image-shadow-offset input").val(offset);
+				Els.el.find(".image-shadow-opacity input").val(opacity);
+				Els.el.find(`input[name="image-shadow-angle"]`).val(angle);
+				// drop-shadow angle ring
+				Els.el.find(`.image-shadow-angle-color .angle-ring`).css({ transform: `rotate(${angle+90}deg)` });
+				// drop-shadow color
+				hexColor = hexColor ? hexColor.slice(0, -2) : "transparent";
+				Els.el.find(`.color-preset_[data-change="set-image-shadow"]`)
+							.css({ "--preset-color": hexColor });
+				} break;
 			case "update-image-reflection":
 				value = event.values.reflection.reflect.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
 				value = value ? Math.round(value[4] * 100) : 0;
@@ -180,6 +206,34 @@
 				// re-focus on element
 				Tools.image.dispatch({ type: "focus-image", el: Image });
 				break;
+			case "set-image-shadow": {
+				let data = {
+						blur: +Els.el.find(".image-shadow-blur input:nth(0)").val(),
+						offset: +Els.el.find(".image-shadow-offset input:nth(0)").val(),
+						opacity: +Els.el.find(".image-shadow-opacity input:nth(0)").val(),
+					};
+				// obey new value of event provides value
+				if (event.el) {
+					let cn = event.el.parents(".flex-row").prop("className"),
+						name = cn.split(" ")[1].split("-")[2];
+					data[name] = +event.value;
+				}
+				// collect / prepare values for sidebar
+				let rad = (+Els.el.find(`input[name="image-shadow-angle"]`).val() * Math.PI) / 180,
+					bX = Math.round(data.offset * Math.sin(rad)),
+					bY = Math.round(data.offset * Math.cos(rad)),
+					x = Math.round((data.opacity / 100) * 255),
+					d = "0123456789abcdef".split(""),
+					alpha = d[(x - x % 16) / 16] + d[x % 16],
+					color = Els.el.find(`.image-shadow-angle-color .color-preset_`).css("--preset-color"),
+					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
+				// apply drop shadow
+				Image.css({ filter });
+				// make sure all fields shows same value
+				Els.el.find(".image-shadow-blur input").val(data.blur);
+				Els.el.find(".image-shadow-offset input").val(data.offset);
+				Els.el.find(".image-shadow-opacity input").val(data.opacity);
+				} break;
 			case "set-image-reflection":
 				value = Els.el.find(".image-reflection input:nth(0)").val();
 				let reflect = `below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`

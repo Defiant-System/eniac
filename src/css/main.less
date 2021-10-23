@@ -146,8 +146,13 @@ layout {
 		z-index: 109;
 	}
 
-	&.hideMouse:before {
-		cursor: none;
+	&.hideMouse {
+		&:before {
+			cursor: none;
+		}
+		sidebar .angle-ring {
+			display: block;
+		}
 	}
 
 	&.resize-only .shape-tools .handle-box {

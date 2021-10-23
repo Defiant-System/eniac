@@ -1,5 +1,6 @@
 <Data>
-	<Image class="temp-image-1 reflection">
+	<Image class="temp-image-1">
+		<Shadow x="7" y="7" blur="11" color="#22222250"/>
 		<Border style="solid" width="3" color="#222222"/>
 		<Filter brightness="1" saturate="2"/>
 		<Dim x="160" y="90" w="300" h="200"/>
