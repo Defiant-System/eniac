@@ -86,8 +86,9 @@
 			case "update-image-outline":
 				// outline style
 				color = event.values.outline.color;
-				value = event.values.outline.style;
+				value = event.values.outline.style || "none";
 				el = Els.el.find(".image-outline").addClass("has-prefix-icon");
+				/*
 				switch (true) {
 					case value = "dotted":
 					case value = "dashed":
@@ -97,6 +98,11 @@
 						value = "none";
 						el.removeClass("has-prefix-icon");
 						break;
+				}
+				*/
+				if (color === "none") {
+					value = "none";
+					el.removeClass("has-prefix-icon");
 				}
 				el.val(value);
 
