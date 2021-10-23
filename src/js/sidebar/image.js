@@ -47,8 +47,8 @@
 				// opacity values
 
 				// filter values
-				filter.brightness = Math.round((+Image.css("--brightness") - 1.5) * 100);
-				filter.saturate = Math.round((+Image.css("--saturate") - 1) * 100);
+				filter.brightness = Math.round((+(Image.css("--brightness") || 1) - 0.5) * 200 - 100);
+				filter.saturate = Math.round((+(Image.css("--saturate") || 1) - 1) * 100);
 
 				let data = { border, shadow, reflection, opacity, filter };
 				Object.keys(data).map(key => {
