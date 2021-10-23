@@ -177,6 +177,20 @@
 				// update sidebar
 				APP.sidebar.dispatch({ ...event, type: "show-shape" });
 				break;
+			case "update-gradient-rotation":
+				let Y1 = +Self.gradient.xNode.attr("y1"),
+					X1 = +Self.gradient.xNode.attr("x1"),
+					Y2 = +Self.gradient.xNode.attr("y2"),
+					X2 = +Self.gradient.xNode.attr("x2"),
+					dY = Y2 - Y1,
+					dX = X2 - X1,
+					r = Math.sqrt(dY*dY + dX*dX),
+					rad = +event.value * (Math.PI / 180),
+					y2 = Number.parseFloat(Y1 + r * Math.sin(rad)).toFixed(2),
+					x2 = Number.parseFloat(X1 + r * Math.cos(rad)).toFixed(2);
+				Self.gradient.xNode.attr({ x2, y2 });
+				Self.els.gradientTool.css({ transform: `rotate(${event.value}deg)` })
+				break;
 		}
 	},
 	isLine(shape) {

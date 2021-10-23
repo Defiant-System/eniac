@@ -131,7 +131,7 @@
 						el = APP.tools.shape.els.gradientTool;
 						let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(",");
 						value = Math.round(Math.atan2(b, a) * 180 / Math.PI);
-						Els.el.find("input#shape-gradient-angle").val(value);
+						Els.el.find(".shape-gradient-angle input").val(value);
 						// fill-gradient angle ring
 						Els.el.find(`.shape-fill-options .angle-ring`).css({ transform: `rotate(${value+90}deg)` });
 						break;
@@ -271,8 +271,8 @@
 				Els.el.find(".shape-gradient-angle .angle-ring")
 					.css({ transform: `rotate(${+event.value+90}deg)` });
 				Els.el.find(".shape-gradient-angle input").val(event.value);
-
-				console.log( "TODO: Update tools angle!" );
+				// update gradient element rotation
+				Shape.dispatch({ type: "update-gradient-rotation", value: event.value });
 				break;
 			case "set-shape-fill-color":
 				Shape.shapeItem.css({ fill: event.value });
