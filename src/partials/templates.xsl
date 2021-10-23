@@ -35,6 +35,8 @@
 				--mW: <xsl:value-of select="Mask/@w"/>px;
 				--mH: <xsl:value-of select="Mask/@h"/>px;
 			</xsl:if>
+			<xsl:if test="Filter/@brightness">--brightness: <xsl:value-of select="Filter/@brightness"/>;</xsl:if>
+			<xsl:if test="Filter/@saturate">--saturate: <xsl:value-of select="Filter/@saturate"/>;</xsl:if>
 		</xsl:attribute>
 		<div></div>
 	</div>

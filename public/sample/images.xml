@@ -1,5 +1,6 @@
 <Data>
 	<Image class="temp-image-1">
+		<Filter brightness="1" saturate="2"/>
 		<Dim x="240" y="90" w="300" h="200"/>
 		<Mask x="-90" y="-20" w="510" h="340"/>
 		<![CDATA[/fs/Desktop/images/girl.jpg]]>

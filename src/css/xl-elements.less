@@ -104,6 +104,10 @@
 			--mY: 0;
 			--mW: 100%;
 			--mH: 100%;
+			--brightness: 1;
+			--saturate: 1;
+			filter: brightness( var(--brightness) )
+					saturate( var(--saturate) );
 			
 			&.selected:after {
 				content: "";
