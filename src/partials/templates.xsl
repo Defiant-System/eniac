@@ -29,6 +29,9 @@
 			left: <xsl:value-of select="Dim/@x"/>px;
 			width: <xsl:value-of select="Dim/@w"/>px;
 			height: <xsl:value-of select="Dim/@h"/>px;
+			<xsl:if test="Border">
+				border: <xsl:value-of select="Border/@width"/>px <xsl:value-of select="Border/@style"/> <xsl:value-of select="Border/@color"/>;
+			</xsl:if>
 			<xsl:if test="Mask/@x">
 				--mY: <xsl:value-of select="Mask/@y"/>px;
 				--mX: <xsl:value-of select="Mask/@x"/>px;

@@ -1,15 +1,21 @@
 <Data>
 	<Image class="temp-image-1 reflection">
+		<Border style="solid" width="3" color="#222222"/>
 		<Filter brightness="1" saturate="2"/>
-		<Dim x="240" y="90" w="300" h="200"/>
+		<Dim x="160" y="90" w="300" h="200"/>
 		<Mask x="-90" y="-20" w="510" h="340"/>
 		<![CDATA[/fs/Desktop/images/girl.jpg]]>
 	</Image>
 
 	<Image class="temp-image-2">
+		<Border style="dashed" width="2" color="#222222"/>
 		<!-- <Filter brightness="1" saturate="2" reflection=".15" opacity="0.45"/> -->
 		<Dim x="390" y="470" w="300" h="200"/>
 		<Mask x="0" y="0" w="300" h="200"/>
 		<![CDATA[/fs/Desktop/coast.jpg]]>
 	</Image>
+
+	<Text class="temp-text-1">
+		<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
+	</Text>
 </Data>

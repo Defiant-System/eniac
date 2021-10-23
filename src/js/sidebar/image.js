@@ -18,8 +18,11 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.image,
+			Tools = APP.tools,
 			Els = APP.sidebar.els,
-			Image = event.image || APP.tools.image.image,
+			Image = event.image || Tools.image.image,
+			color,
+			width,
 			value,
 			allEl,
 			pEl,
@@ -29,6 +32,7 @@
 				event.values = Self.dispatch({ ...event, type: "collect-image-values" });
 
 				Self.dispatch({ ...event, type: "update-image-styles" });
+				Self.dispatch({ ...event, type: "update-image-outline" });
 				Self.dispatch({ ...event, type: "update-image-reflection" });
 				Self.dispatch({ ...event, type: "update-image-opacity" });
 				Self.dispatch({ ...event, type: "update-filter-adjustments" });
@@ -36,7 +40,7 @@
 				break;
 			case "collect-image-values": {
 				let styles = {},
-					border = {},
+					outline = {},
 					shadow = {},
 					reflection = {},
 					opacity = {},
@@ -46,6 +50,11 @@
 				styles.bg = Image.css("background-image");
 
 				// border values
+				outline.color = Color.rgbToHex(Image.css("border-color"));
+				outline.style = Image.css("border-style");
+				outline.width = parseInt(Image.css("border-width"), 10);
+				if (outline.width === 0) outline.color = "none";
+				outline._expand = outline.width > 0;
 
 				// shadow values
 
@@ -61,7 +70,7 @@
 				filter.brightness = Math.round((+(Image.css("--brightness") || 1) - 0.5) * 200 - 100);
 				filter.saturate = Math.round((+(Image.css("--saturate") || 1) - 1) * 100);
 
-				let data = { styles, border, shadow, reflection, opacity, filter };
+				let data = { styles, outline, shadow, reflection, opacity, filter };
 				Object.keys(data).map(key => {
 					let el = Els.el.find(`.group-row.image-${key}-options`);
 					if (data[key]._expand) el.addClass("expanded");
@@ -73,6 +82,32 @@
 			case "update-image-styles":
 				value = event.values.styles.bg;
 				Els.el.find(".image-styles").css({ "background-image": value });
+				break;
+			case "update-image-outline":
+				// outline style
+				color = event.values.outline.color;
+				value = event.values.outline.style;
+				el = Els.el.find(".image-outline").addClass("has-prefix-icon");
+				switch (true) {
+					case value = "dotted":
+					case value = "dashed":
+					case value = "solid":
+						break;
+					case color === "none":
+						value = "none";
+						el.removeClass("has-prefix-icon");
+						break;
+				}
+				el.val(value);
+
+				// outline color
+				value = color === "none" ? "transparent" : ( color.length > 7 ? color.slice(0, -2) : color);
+				Els.el.find(`.color-preset_[data-change="set-image-outline-color"]`)
+							.css({ "--preset-color": value });
+				
+				// outline width
+				value = color === "none" ? 0 : event.values.outline.width;
+				Els.el.find("input#image-outline").val(value);
 				break;
 			case "update-image-reflection":
 				value = event.values.reflection.reflect.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
@@ -109,6 +144,48 @@
 			 * set values based on UI interaction
 			 */
 			// tab: Style
+			case "set-image-outline-style":
+				width = parseInt(Image.css("border-width"), 10);
+				el = Els.el.find(".image-outline").addClass("has-prefix-icon");
+				let outline = {};
+				switch (event.arg) {
+					case "dashed":
+					case "dotted":
+					case "solid":
+						if (width === 0) {
+							outline.style = event.arg;
+							outline.color = "#222222";
+							outline.width = 1;
+							Self.dispatch({ type: "set-image-outline-color", value: outline.color });
+							Self.dispatch({ type: "set-image-outline-width", value: outline.width });
+							Self.dispatch({ type: "update-image-outline", values: { outline } });
+						}
+						break;
+					case "none":
+						Self.dispatch({ type: "set-image-outline-color", value: "transparent" });
+						Self.dispatch({ type: "set-image-outline-width", value: 0 });
+						// border values
+						outline.color = Image.css("border-color");
+						outline.dash = Image.css("border-style").split(",").map(i => parseInt(i, 10) || 0);
+						outline.width = parseInt(Image.css("border-width"), 10);
+						Self.dispatch({ type: "update-image-outline", values: { outline } });
+						return el.removeClass("has-prefix-icon").val(event.arg);
+				}
+				Image.css({ "border-style": event.arg });
+				break;
+			case "set-image-outline-color":
+				Image.css({ "border-color": event.value });
+				break;
+			case "set-image-outline-width":
+				value = {
+					"border-width": +event.value +"px",
+					"border-style": Image.css("border-style"),
+				};
+				// apply new width
+				Image.css(value);
+				// re-focus on element
+				Tools.image.dispatch({ type: "focus-image", el: Image });
+				break;
 			case "set-image-reflection":
 				value = Els.el.find(".image-reflection input:nth(0)").val();
 				let reflect = `below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
