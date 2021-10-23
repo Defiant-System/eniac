@@ -29,6 +29,8 @@
 				event.values = Self.dispatch({ ...event, type: "collect-image-values" });
 
 				Self.dispatch({ ...event, type: "update-image-styles" });
+				Self.dispatch({ ...event, type: "update-image-reflection" });
+				Self.dispatch({ ...event, type: "update-image-opacity" });
 				Self.dispatch({ ...event, type: "update-filter-adjustments" });
 				Self.dispatch({ ...event, type: "update-image-arrange" });
 				break;
@@ -48,8 +50,12 @@
 				// shadow values
 
 				// reflection values
+				reflection.reflect = Image.css("-webkit-box-reflect");
+				reflection._expand = Image.hasClass("reflection");
 
 				// opacity values
+				opacity.value = +Image.css("opacity");
+				opacity._expand = opacity.value !== 1;
 
 				// filter values
 				filter.brightness = Math.round((+(Image.css("--brightness") || 1) - 0.5) * 200 - 100);
@@ -57,7 +63,7 @@
 
 				let data = { styles, border, shadow, reflection, opacity, filter };
 				Object.keys(data).map(key => {
-					let el = Els.el.find(`.group-row.text-${key}-options`);
+					let el = Els.el.find(`.group-row.image-${key}-options`);
 					if (data[key]._expand) el.addClass("expanded");
 					else el.removeClass("expanded");
 				});
@@ -67,6 +73,15 @@
 			case "update-image-styles":
 				value = event.values.styles.bg;
 				Els.el.find(".image-styles").css({ "background-image": value });
+				break;
+			case "update-image-reflection":
+				value = event.values.reflection.reflect.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/);
+				value = value ? Math.round(value[4] * 100) : 0;
+				Els.el.find(".image-reflection input").val(value);
+				break;
+			case "update-image-opacity":
+				value = event.values.opacity.value * 100;
+				Els.el.find(".image-opacity input").val(value);
 				break;
 			// tab: Image
 			case "update-filter-adjustments":
@@ -94,6 +109,21 @@
 			 * set values based on UI interaction
 			 */
 			// tab: Style
+			case "set-image-reflection":
+				value = Els.el.find(".image-reflection input:nth(0)").val();
+				let reflect = `below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
+				// apply reflection
+				Image.css({ "-webkit-box-reflect": reflect });
+				// make sure all fields shows same value
+				Els.el.find(".image-reflection input").val(value);
+				break;
+			case "set-image-opacity":
+				value = Els.el.find(".image-opacity input:nth(0)").val();
+				// apply shape opacity
+				Image.css({ "opacity": value / 100 });
+				// make sure all fields shows same value
+				Els.el.find(".image-opacity input").val(value);
+				break;
 			// tab: Image
 			case "image-toggle-mask":
 				value = Image.hasClass("masking");

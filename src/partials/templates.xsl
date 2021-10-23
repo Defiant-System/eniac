@@ -29,12 +29,14 @@
 			left: <xsl:value-of select="Dim/@x"/>px;
 			width: <xsl:value-of select="Dim/@w"/>px;
 			height: <xsl:value-of select="Dim/@h"/>px;
-			<xsl:if test="./Mask/@x">
+			<xsl:if test="Mask/@x">
 				--mY: <xsl:value-of select="Mask/@y"/>px;
 				--mX: <xsl:value-of select="Mask/@x"/>px;
 				--mW: <xsl:value-of select="Mask/@w"/>px;
 				--mH: <xsl:value-of select="Mask/@h"/>px;
 			</xsl:if>
+			<xsl:if test="Filter/@reflection">-webkit-box-reflect: below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, <xsl:value-of select="Filter/@reflection"/>) 0%, transparent 50%, transparent 100%);</xsl:if>
+			<xsl:if test="Filter/@opacity">opacity: <xsl:value-of select="Filter/@opacity"/>;</xsl:if>
 			<xsl:if test="Filter/@brightness">--brightness: <xsl:value-of select="Filter/@brightness"/>;</xsl:if>
 			<xsl:if test="Filter/@saturate">--saturate: <xsl:value-of select="Filter/@saturate"/>;</xsl:if>
 		</xsl:attribute>

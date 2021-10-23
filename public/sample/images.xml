@@ -1,5 +1,5 @@
 <Data>
-	<Image class="temp-image-1">
+	<Image class="temp-image-1 reflection">
 		<Filter brightness="1" saturate="2"/>
 		<Dim x="240" y="90" w="300" h="200"/>
 		<Mask x="-90" y="-20" w="510" h="340"/>
@@ -7,6 +7,7 @@
 	</Image>
 
 	<Image class="temp-image-2">
+		<!-- <Filter brightness="1" saturate="2" reflection=".15" opacity="0.45"/> -->
 		<Dim x="390" y="470" w="300" h="200"/>
 		<Mask x="0" y="0" w="300" h="200"/>
 		<![CDATA[/fs/Desktop/coast.jpg]]>
