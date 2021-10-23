@@ -96,9 +96,8 @@
 		}
 
 		.xl-image {
-			background: rgba(0,0,0,.05);
+			// background: rgba(0,0,0,.05);
 			position: absolute;
-			overflow: hidden;
 			background-size: 0 0;
 			--mX: 0;
 			--mY: 0;
@@ -106,8 +105,6 @@
 			--mH: 100%;
 			--brightness: 1;
 			--saturate: 1;
-			filter: brightness( var(--brightness) )
-					saturate( var(--saturate) );
 			
 			&.selected:after {
 				content: "";
@@ -130,7 +127,7 @@
 				width: 40px;
 			}
 
-			&.masking {
+			&.masking .img-wrapper {
 				overflow: visible;
 
 				&:before {
@@ -183,17 +180,53 @@
 				}
 			}
 
-			> div {
+			.img-title {
+				// background: rgba(0,0,0,.05);
 				position: absolute;
-				top: var(--mY);
-				left: var(--mX);
-				width: var(--mW);
-				height: var(--mH);
-				background-position: 50% 50%;
-				background-repeat: no-repeat;
-				background-size: 100% auto;
+				bottom: 100%;
+				left: 0;
+				right: 0;
+				text-align: center;
+				padding: 5px 0 9px;
+				font-size: 18px;
+				font-weight: 500;
+			}
+
+			.img-caption {
+				// background: rgba(0,0,0,.05);
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				padding: 9px 0 5px;
+				text-align: center;
+				font-size: 15px;
+			}
+
+			.img-wrapper {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				overflow: hidden;
 				background-image: inherit;
-				pointer-events: none;
+				background-size: 0 0;
+				filter: brightness( var(--brightness) )
+						saturate( var(--saturate) );
+
+				> div {
+					position: absolute;
+					top: var(--mY);
+					left: var(--mX);
+					width: var(--mW);
+					height: var(--mH);
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+					background-size: 100% auto;
+					background-image: inherit;
+					pointer-events: none;
+				}
 			}
 		}
 	}

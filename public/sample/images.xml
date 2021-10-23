@@ -1,9 +1,9 @@
 <Data>
 	<Image class="temp-image-1">
-		<Text title="An Image" caption="Image Caption"/>
 		<Filter brightness="1" saturate="2"/>
-		<Dim x="160" y="90" w="300" h="200"/>
+		<Dim x="130" y="130" w="300" h="200"/>
 		<Mask x="-90" y="-20" w="510" h="340"/>
+		<Text title="An Image"/>
 		<![CDATA[/fs/Desktop/images/girl.jpg]]>
 	</Image>
 
@@ -13,6 +13,7 @@
 		<!-- <Filter brightness="1" saturate="2" reflection=".15" opacity="0.45"/> -->
 		<Dim x="390" y="470" w="300" h="200"/>
 		<Mask x="0" y="0" w="300" h="200"/>
+		<Text caption="Image Caption"/>
 		<![CDATA[/fs/Desktop/coast.jpg]]>
 	</Image>
 

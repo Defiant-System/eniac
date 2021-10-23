@@ -46,7 +46,15 @@
 			<xsl:if test="Filter/@brightness">--brightness: <xsl:value-of select="Filter/@brightness"/>;</xsl:if>
 			<xsl:if test="Filter/@saturate">--saturate: <xsl:value-of select="Filter/@saturate"/>;</xsl:if>
 		</xsl:attribute>
-		<div></div>
+		<xsl:if test="Text/@title">
+			<div class="img-title"><xsl:value-of select="Text/@title"/></div>
+		</xsl:if>
+		<div class="img-wrapper">
+			<div></div>
+		</div>
+		<xsl:if test="Text/@caption">
+			<div class="img-caption"><xsl:value-of select="Text/@caption"/></div>
+		</xsl:if>
 	</div>
 </xsl:template>
 
