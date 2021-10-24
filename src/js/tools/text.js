@@ -255,6 +255,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([text[0], Self.els.root[0]]),
+					text,
 					min,
 					type,
 					click,
@@ -279,6 +280,9 @@
 				// apply new dimensions to element
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
 				Drag.el.css(dim);
+
+				// re-focus on shape
+				Self.dispatch({ type: "focus-text", el: Drag.text });
 				break;
 			case "mouseup":
 				// re-focuses shape tools
