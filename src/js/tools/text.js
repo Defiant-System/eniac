@@ -61,7 +61,8 @@
 								background = `${type}-gradient(${head}, ${str.join(", ")})`;
 								break;
 							case "radial":
-								let [a, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
+								let parts = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/),
+									[a, width, left, top] = parts ? parts : [0, 50, 10, 10];
 								head = `${width}px at ${left}px ${top}px`;
 								stops.map(s => str.push(`${s.color} ${s.offset}%`));
 								background = `${type}-gradient(${head}, ${str.join(", ")})`;
