@@ -32,6 +32,7 @@
 				event.values = Self.dispatch({ ...event, type: "collect-image-values" });
 
 				Self.dispatch({ ...event, type: "update-image-styles" });
+				Self.dispatch({ ...event, type: "update-image-title-caption" });
 				Self.dispatch({ ...event, type: "update-image-outline" });
 				Self.dispatch({ ...event, type: "update-image-shadow" });
 				Self.dispatch({ ...event, type: "update-image-reflection" });
@@ -85,6 +86,13 @@
 			case "update-image-styles":
 				value = event.values.styles.bg;
 				Els.el.find(".image-styles").css({ "background-image": value });
+				break;
+			case "update-image-title-caption":
+				// checkbox values
+				value = Image.find(".img-title").length;
+				Els.el.find(`input#image-title`).prop({ checked: value });
+				value = Image.find(".img-caption").length;
+				Els.el.find(`input#image-caption`).prop({ checked: value });
 				break;
 			case "update-image-outline":
 				// outline style
@@ -164,6 +172,16 @@
 			 * set values based on UI interaction
 			 */
 			// tab: Style
+			case "toggle-image-title":
+				// toggle image title
+				if (event.el.is(":checked")) Image.prepend(`<div class="img-title">Title</div>`);
+				else Image.find(".img-title").remove();
+				break;
+			case "toggle-image-caption":
+				// toggle image caption
+				if (event.el.is(":checked")) Image.append(`<div class="img-caption">Caption</div>`);
+				else Image.find(".img-caption").remove();
+				break;
 			case "set-image-outline-style":
 				width = parseInt(Image.css("border-width"), 10);
 				el = Els.el.find(".image-outline").addClass("has-prefix-icon");
@@ -212,7 +230,7 @@
 						offset: +Els.el.find(".image-shadow-offset input:nth(0)").val(),
 						opacity: +Els.el.find(".image-shadow-opacity input:nth(0)").val(),
 					};
-				// obey new value of event provides value
+				// obey new value of event - provides value
 				if (event.el) {
 					let cn = event.el.parents(".flex-row").prop("className"),
 						name = cn.split(" ")[1].split("-")[2];
