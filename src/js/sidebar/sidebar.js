@@ -97,7 +97,8 @@
 					pEl = el.parent(),
 					index = el.index(),
 					siblings = pEl.find("span"),
-					gradient = APP.tools[APP.tools.active].gradient;
+					gradient = APP.tools[APP.tools.active].gradient,
+					discardable = gradient.stops.length > 2;
 
 				// create drag object
 				Self.drag = {
@@ -105,6 +106,7 @@
 					pEl,
 					siblings,
 					gradient,
+					discardable,
 					clickTime: Date.now(),
 					click: {
 						y: event.clientY - +el.prop("offsetTop"),
@@ -163,8 +165,10 @@
 					discard = top > Drag.max.y || top < -11,
 					strip;
 				Drag.el.css({ left });
-				Drag.el[discard ? "addClass" : "removeClass"]("hidden");
-
+				// discardable gradient stop
+				if (Drag.discardable) {
+					Drag.el[discard ? "addClass" : "removeClass"]("hidden");
+				}
 				// compose stops array and update SVG
 				stops = Drag.getStops();
 				Drag.gradient.update(stops);
