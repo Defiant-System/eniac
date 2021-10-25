@@ -146,10 +146,11 @@ layout {
 		z-index: 109;
 	}
 
-	&.hideMouse {
-		&:before {
-			cursor: none;
-		}
+	&.hideMouse:before {
+		cursor: none;
+	}
+	
+	&.show-angle-ring {
 		sidebar .angle-ring {
 			display: block;
 		}

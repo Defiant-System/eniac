@@ -77,8 +77,8 @@
 				border._expand = border.width > 0;
 
 				// shadow values
-				shadow.filter = Text.css("filter");
-				shadow._expand = shadow.filter !== "none";
+				shadow.shadow = Text.css("box-shadow");
+				shadow._expand = shadow.shadow !== "none";
 
 				// reflection values
 				reflection.reflect = Text.css("-webkit-box-reflect");
@@ -174,11 +174,11 @@
 				Els.el.find("input#text-border").val(value);
 				break;
 			case "update-text-shadow": {
-				let filter = event.values.shadow.filter,
-					rgbColor = filter.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
+				let value = event.values.shadow.shadow,
+					rgbColor = value.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\)/),
 					hexColor = rgbColor ? Color.rgbToHex(rgbColor[0]) : false,
 					opacity = rgbColor ? Math.round(parseInt(hexColor.slice(-2), 16) / 255 * 100) : 100,
-					shadow = filter.match(/(\d+)px\s*(\d+)px\s*(\d+)px/),
+					shadow = value.match(/(\d+)px\s*(\d+)px\s*(\d+)px/),
 					bX = shadow ? +shadow[1] : 0,
 					bY = shadow ? +shadow[2] : 0,
 					blur = shadow ? +shadow[3] : 0,
@@ -297,10 +297,12 @@
 					x = Math.round((data.opacity / 100) * 255),
 					d = "0123456789abcdef".split(""),
 					alpha = d[(x - x % 16) / 16] + d[x % 16],
-					color = Els.el.find(`.text-shadow-angle-color .color-preset_`).css("--preset-color"),
-					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
+					color = Els.el.find(`.text-shadow-angle-color .color-preset_`).css("--preset-color");
+				// provide accurate value of color transparency
+				if (color.length > 7) color = color.slice(0,7);
+				color += alpha;
 				// apply drop shadow
-				Text.css({ filter });
+				Text.css({ "box-shadow": `${bX}px ${bY}px ${data.blur}px ${color}` });
 				// make sure all fields shows same value
 				Els.el.find(".text-shadow-blur input").val(data.blur);
 				Els.el.find(".text-shadow-offset input").val(data.offset);

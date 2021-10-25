@@ -211,7 +211,7 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				Self.els.layout.addClass("cover hideMouse show-angle-ring");
 
 				let el = $(event.target),
 					iEl = el.nextAll("input:first"),
@@ -237,7 +237,7 @@
 				break;
 			case "mouseup":
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("cover hideMouse show-angle-ring");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.angleRing);
 				break;
