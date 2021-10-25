@@ -243,10 +243,12 @@
 					x = Math.round((data.opacity / 100) * 255),
 					d = "0123456789abcdef".split(""),
 					alpha = d[(x - x % 16) / 16] + d[x % 16],
-					color = Els.el.find(`.image-shadow-angle-color .color-preset_`).css("--preset-color"),
-					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
+					color = Els.el.find(`.image-shadow-angle-color .color-preset_`).css("--preset-color");
+				// provide accurate value of color transparency
+				if (color.length > 7) color = color.slice(0,7);
+				color += alpha;
 				// apply drop shadow
-				Image.css({ filter });
+				Image.css({ "box-shadow": `${bX}px ${bY}px ${data.blur}px ${color}` });
 				// make sure all fields shows same value
 				Els.el.find(".image-shadow-blur input").val(data.blur);
 				Els.el.find(".image-shadow-offset input").val(data.offset);
