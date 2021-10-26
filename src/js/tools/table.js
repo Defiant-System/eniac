@@ -40,6 +40,15 @@
 				selected = Self.table.selected;
 				anchor = selected.anchor;
 				data = { yNum: [], xNum: [] };
+				
+				if (["del", "backspace"].includes(event.char)) {
+					// notify gracefully
+					Self.dispatch({ type: "blur-table" });
+					// detach table from DOM
+					Table._el.remove();
+					// focus sheet root
+					return APP.body.trigger("mousedown");
+				}
 
 				if (!anchor) {
 					// this means, table need to be moved
