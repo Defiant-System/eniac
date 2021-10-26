@@ -469,7 +469,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let input = APP.sidebar.els.el.find("input#shape-gradient-angle"),
+				let input = APP.sidebar.els.el.find(".shape-gradient-angle input"),
 					el = $(event.target.parentNode),
 					type = event.target.className.split(" ")[1],
 					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),
@@ -542,6 +542,9 @@
 				}
 				break;
 			case "mouseup":
+				// update angle ring
+				let angle = +Drag.input.val() + 90;
+				Drag.input.parent().find(".angle-ring").css({ transform: `rotate(${angle}deg)` });
 				// cover layout
 				Self.els.layout.removeClass("cover hideMouse");
 				// unbind event
