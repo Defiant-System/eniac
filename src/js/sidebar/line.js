@@ -46,7 +46,7 @@
 				stroke.dash = Line.lineItem.css("stroke-dasharray").split(",").map(i => parseInt(i, 10) || 0);
 
 				// shadow values
-				shadow.filter = Line.lineItem.css("filter");
+				shadow.filter = Line.line.css("filter");
 				shadow._expand = shadow.filter !== "none";
 
 				// reflection values
@@ -217,7 +217,7 @@
 					color = Els.el.find(`.line-shadow-angle-color .color-preset_`).css("--preset-color"),
 					filter = `drop-shadow(${color + alpha} ${bY}px ${bX}px ${data.blur}px)`;
 				// apply drop shadow
-				Line.lineItem.css({ filter });
+				Line.line.css({ filter });
 				// make sure all fields shows same value
 				Els.el.find(".line-shadow-blur input").val(data.blur);
 				Els.el.find(".line-shadow-offset input").val(data.offset);
@@ -225,7 +225,7 @@
 				} break;
 			case "set-line-reflection":
 				value = Els.el.find(".line-reflection input:nth(0)").val();
-				let reflect = `below 0px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
+				let reflect = `below 3px -webkit-linear-gradient(bottom, rgba(255, 255, 255, ${value / 100}) 0%, transparent 50%, transparent 100%)`
 				// apply reflection
 				Line.line.css({ "-webkit-box-reflect": reflect });
 				// make sure all fields shows same value
