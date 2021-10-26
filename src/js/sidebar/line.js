@@ -119,6 +119,8 @@
 				Els.el.find(".line-shadow-offset input").val(offset);
 				Els.el.find(".line-shadow-opacity input").val(opacity);
 				Els.el.find(`input[name="line-shadow-angle"]`).val(angle);
+				// fill-gradient angle ring
+				Els.el.find(`.line-shadow-angle-color .angle-ring`).css({ transform: `rotate(${angle+90}deg)` });
 				// drop-shadow color
 				hexColor = hexColor ? hexColor.slice(0, -2) : "transparent";
 				Els.el.find(`.color-preset_[data-change="set-line-shadow"]`)
@@ -208,7 +210,8 @@
 					data[name] = +event.value;
 				}
 				// collect / prepare values for sidebar
-				let rad = (+Els.el.find(`input[name="line-shadow-angle"]`).val() * Math.PI) / 180,
+				let angle = +Els.el.find(`input[name="line-shadow-angle"]`).val(),
+					rad = angle * Math.PI / 180,
 					bX = Math.round(data.offset * Math.sin(rad)),
 					bY = Math.round(data.offset * Math.cos(rad)),
 					x = Math.round((data.opacity / 100) * 255),
@@ -222,6 +225,7 @@
 				Els.el.find(".line-shadow-blur input").val(data.blur);
 				Els.el.find(".line-shadow-offset input").val(data.offset);
 				Els.el.find(".line-shadow-opacity input").val(data.opacity);
+				Els.el.find(".line-shadow-angle-color .angle-ring").css({ transform: `rotate(${angle+90}deg)` });
 				} break;
 			case "set-line-reflection":
 				value = Els.el.find(".line-reflection input:nth(0)").val();

@@ -329,7 +329,8 @@
 					data[name] = +event.value;
 				}
 				// collect / prepare values for sidebar
-				let rad = (+Els.el.find(`input[name="shape-shadow-angle"]`).val() * Math.PI) / 180,
+				let angle = +Els.el.find(`input[name="shape-shadow-angle"]`).val(),
+					rad = angle * Math.PI / 180,
 					bX = Math.round(data.offset * Math.sin(rad)),
 					bY = Math.round(data.offset * Math.cos(rad)),
 					x = Math.round((data.opacity / 100) * 255),
@@ -343,6 +344,7 @@
 				Els.el.find(".shape-shadow-blur input").val(data.blur);
 				Els.el.find(".shape-shadow-offset input").val(data.offset);
 				Els.el.find(".shape-shadow-opacity input").val(data.opacity);
+				Els.el.find(".shape-fill-options .angle-ring").css({ transform: `rotate(${angle+90}deg)` });
 				} break;
 			case "set-shape-reflection":
 				value = Els.el.find(".shape-reflection input:nth(0)").val();
