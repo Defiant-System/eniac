@@ -49,7 +49,8 @@
 				// iterate selected element
 				selected.map(item => {
 					let el = $(item),
-						[a, name] = el.prop("className").split(" ")[0].split("-"),
+						// [a, name] = el.prop("className").split(" ")[0].split("-"),
+						name = Self.els.root.data("area"),
 						data = {},
 						move;
 					switch (event.char) {

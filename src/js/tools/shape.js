@@ -93,6 +93,7 @@
 							case "solid":
 								if (this.xNode) this.xNode.remove();
 								fill = "#336699";
+
 								break;
 						}
 						Self.shapeItem.css({ fill });
@@ -173,6 +174,8 @@
 					Self.fill = Color.rgbToHex(fill);
 					// reset reference
 					Self.gradient = { type: "solid", switchType };
+					// hide gradient tools
+					Self.els.gradientTool.addClass("hidden");
 				}
 				// update sidebar
 				APP.sidebar.dispatch({ ...event, type: "show-shape" });
