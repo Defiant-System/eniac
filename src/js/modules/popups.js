@@ -187,7 +187,7 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
+				Self.els.layout.addClass("hideMouse");
 
 				let origin = Self.origin.el,
 					stopIndex = origin.index(),
@@ -315,7 +315,7 @@
 				break;
 			case "mouseup":
 				// uncover layout
-				Self.els.layout.removeClass("cover hideMouse");
+				Self.els.layout.removeClass("hideMouse");
 				// unbind event
 				Self.els.doc.off("mousemove mouseup", Self.doColorRing);
 				break;
