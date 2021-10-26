@@ -1,6 +1,6 @@
 
 <Data>
-	<Table id="barebone" class="temp-0">
+	<Table id="template-1">
 		<Head>
 			<Table/>
 			<Table/>
@@ -18,6 +18,47 @@
 		<Foot>
 			<Table/>
 			<Table/>
+		</Foot>
+	</Table>
+
+	<Table id="template-2" class="gray-table-1">
+		<Head>
+			<Table>
+				<Row><Cell/></Row>
+			</Table>
+			<Table>
+				<Row><Cell/><Cell/><Cell/></Row>
+			</Table>
+		</Head>
+		<Body>
+			<Table>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+				<Row><Cell/></Row>
+			</Table>
+			<Table>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
+				<Row><Cell/><Cell/><Cell/></Row>
+			</Table>
+		</Body>
+		<Foot>
+			<Table>
+				<Row><Cell/></Row>
+			</Table>
+			<Table>
+				<Row><Cell/><Cell/><Cell/></Row>
+			</Table>
 		</Foot>
 	</Table>
 </Data>

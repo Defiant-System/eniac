@@ -18,10 +18,10 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		// setTimeout(() => {
-		// 	// window.find(".toolbar-tool_:nth(6)").trigger("click");
-		// 	window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
-		// }, 700);
+		setTimeout(() => {
+			window.find(".toolbar-tool_:nth(2)").trigger("click");
+			// window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
+		}, 700);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -30,6 +30,7 @@
 			name,
 			value,
 			func,
+			str,
 			pEl,
 			el;
 		// console.log(event);
@@ -147,11 +148,18 @@
 				// bind event handler
 				Self.els.doc.bind("mouseup", func);
 				break;
-			case "insert-text-box":
-				console.log(event);
+			case "insert-table":
+				name = event.target.getAttribute("data-arg");
+				str = window.render({ template: "xl-table", match: `//Table[@id="template-2"]` });
+				str = str.replace(/gray-table-1/, name);
+				el = APP.body.append(str);
+				// auto focus on first grid cell
+				el.find("td:nth(0)").trigger("mousedown").trigger("mouseup");
+				// close popup
+				Self.dispatch({ type: "close-popup" });
 				break;
 			case "select-menu":
-			case "insert-grid":
+			case "insert-text-box":
 			case "insert-chart":
 			case "insert-shape":
 			case "insert-image":
