@@ -18,10 +18,10 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		setTimeout(() => {
-			// window.find(".toolbar-tool_:nth(6)").trigger("click");
-			window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
-		}, 700);
+		// setTimeout(() => {
+		// 	// window.find(".toolbar-tool_:nth(6)").trigger("click");
+		// 	window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
+		// }, 700);
 	},
 	dispatch(event) {
 		let APP = eniac,
