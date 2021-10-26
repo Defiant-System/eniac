@@ -230,7 +230,6 @@
 					_sqrt: Math.sqrt,
 					_atan2: Math.atan2,
 				};
-
 				// depending on clicked item
 				switch (type) {
 					case "ring":
@@ -253,7 +252,14 @@
 						el.css({ top: event.offsetY - 3 });
 						break;
 				}
-				// bind event
+				// trigger mousemove event for "first" calculation
+				Self.doColorRing({
+					type: "mousemove",
+					drag: Self.drag,
+					clientY: event.clientY,
+					clientX: event.clientX,
+				});
+				// bind event after transition has ended
 				Self.els.doc.on("mousemove mouseup", Self.doColorRing);
 				break;
 			case "mousemove":
