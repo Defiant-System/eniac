@@ -139,12 +139,27 @@
 					return Self.bezierMove(event);
 				}
 
-				let guides = new Guides({
+				let p1Handle = pEl.find(`.line[data-i="1"]`),
+					p2Handle = pEl.find(`.line[data-i="2"]`),
+					pX = +pEl.prop("offsetLeft"),
+					pY = +pEl.prop("offsetTop"),
+					p1 = {
+						w: 0, h: 0,
+						x: pX + +p1Handle.prop("offsetLeft") + 2,
+						y: pY + +p1Handle.prop("offsetTop") + 2,
+					},
+					p2 = {
+						w: 0, h: 0,
+						x: pX + +p2Handle.prop("offsetLeft") + 2,
+						y: pY + +p2Handle.prop("offsetTop") + 2,
+					},
+					guides = new Guides({
 						offset: {
 							el: Self.line[0],
 							y: +pEl.prop("offsetTop") + 2,
 							x: +pEl.prop("offsetLeft") + 2,
-						}
+						},
+						lines: [+el.data("i") === 1 ? p2 : p1],
 					});
 
 				// create drag object
@@ -276,13 +291,29 @@
 					click.y -= y;
 					click.x -= x;
 					click.i = +el.data("i") - 1;
+
+					let p1Handle = pEl.find(`.line[data-i="1"]`),
+						p2Handle = pEl.find(`.line[data-i="2"]`),
+						pX = +pEl.prop("offsetLeft"),
+						pY = +pEl.prop("offsetTop"),
+						p1 = {
+							w: 0, h: 0,
+							x: pX + +p1Handle.prop("offsetLeft") + 2,
+							y: pY + +p1Handle.prop("offsetTop") + 2,
+						},
+						p2 = {
+							w: 0, h: 0,
+							x: pX + +p2Handle.prop("offsetLeft") + 2,
+							y: pY + +p2Handle.prop("offsetTop") + 2,
+						};
 					// prepare guides
 					guides = new Guides({
 						offset: {
 							el: Self.line[0],
 							x: +pEl.prop("offsetLeft") + 2,
 							y: +pEl.prop("offsetTop") + 2,
-						}
+						},
+						lines: [+el.data("i") === 1 ? p2 : p1],
 					});
 					// anchor updater
 					updatePath = function(pos) {

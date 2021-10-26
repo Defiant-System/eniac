@@ -24,13 +24,14 @@ class Guides {
 				h: 0,
 				mh: opt.offset.h >> 1 || 0,
 				mw: opt.offset.w >> 1 || 0,
+				lines: opt.lines || [],
 				// snap sensitivity
 				sensitivity: APP.Settings["guides-snap-sensitivity"] || 7,
 				// override defaults, if any
 				...opt.offset,
 			};
 		// default properties
-		this.els = [];
+		this.els = [...opts.lines];
 		// selector = "#shape-rounded";
 		window.find(opts.selector, opts.context).map(elem => {
 				let el = $(elem),
@@ -44,6 +45,7 @@ class Guides {
 					this.els.push({ y, x, w, h, mh, mw });
 				}
 			});
+
 		// add guide line element to "this"
 		this.lines = {
 			horizontal: window.find(".guide-lines .horizontal"),
