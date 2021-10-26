@@ -17,6 +17,7 @@
 			Tools = APP.tools,
 			Els = APP.sidebar.els,
 			Text = event.text || Tools.text.text,
+			stops,
 			color,
 			width,
 			value,
@@ -228,7 +229,7 @@
 				Text.css({ background: event.value });
 				break;
 			case "set-text-fill-gradient-color":
-				console.log(event);
+				// console.log(event);
 				break;
 			case "set-text-gradient-angle":
 				if (Tools.text.gradient.type === "radial") {
@@ -236,7 +237,7 @@
 					Tools.text.els.gradientTool.css({ transform: `rotate(${event.value}deg)` });
 					// no change to focused text-element
 				} else {
-					let stops = Tools.text.gradient.stops.map(s => `${s.color} ${s.offset}%`);
+					stops = Tools.text.gradient.stops.map(s => `${s.color} ${s.offset}%`);
 					value = `linear-gradient(${+event.value}deg, ${stops.join(", ")})`;
 					Text.css({ "background-image": value });
 				}

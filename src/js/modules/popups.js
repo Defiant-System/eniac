@@ -18,9 +18,10 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		// setTimeout(() => {
-		// 	window.find(".toolbar-tool_:nth(6)").trigger("click");
-		// }, 300);
+		setTimeout(() => {
+			// window.find(".toolbar-tool_:nth(6)").trigger("click");
+			window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
+		}, 700);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -150,10 +151,10 @@
 				console.log(event);
 				break;
 			case "select-menu":
-			case "select-grid":
-			case "select-chart":
-			case "select-shape":
-			case "select-image":
+			case "insert-grid":
+			case "insert-chart":
+			case "insert-shape":
+			case "insert-image":
 				console.log(event);
 				break;
 		}
@@ -189,7 +190,12 @@
 				Self.els.layout.addClass("cover hideMouse");
 
 				let origin = Self.origin.el,
+					stopIndex = origin.index(),
 					oParent = origin.parent(),
+					stops = oParent.find(".point").map(p => {
+						let el = $(p);
+						return { offset: +el.css("--offset"), color: el.css("--color") };
+					}),
 					section = oParent.parents("[data-section]").data("section"),
 					[hue, sat, lgh, alpha] = Color.hexToHsl(Self.origin.value.trim()),
 					root = Self.els.colorRing,
@@ -202,6 +208,7 @@
 					dragEvent = {
 						handler: APP.sidebar[section].dispatch,
 						name: oParent.data("change"),
+						gradient: APP.tools[APP.tools.active].gradient,
 					};
 
 				// create drag object
@@ -212,6 +219,8 @@
 					box,
 					type,
 					origin,
+					stops,
+					stopIndex,
 					hue, sat, lgh, alpha,
 					event: dragEvent,
 					_PI: Math.PI,
@@ -281,13 +290,22 @@
 				Drag.origin.css({ "--color": hex });
 				Self.origin.value = hex;
 
+				// update selected xl-element
+				Drag.stops[Drag.stopIndex].color = hex;
+				Drag.event.gradient.update(Drag.stops);
+
+				// update sidebar strip
+				let strip = Drag.stops.map(s => `${s.color} ${s.offset}%`);
+				Drag.oParent.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+
 				// route event
-				Drag.event.handler({
-					type: Drag.event.name,
-					el: Drag.oParent,
-					point: Drag.origin,
-					hex
-				});
+				// Drag.event.handler({
+				// 	type: Drag.event.name,
+				// 	el: Drag.oParent,
+				// 	point: Drag.origin,
+				// 	stops: Drag.stops,
+				// 	hex
+				// });
 				break;
 			case "mouseup":
 				// uncover layout
