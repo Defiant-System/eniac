@@ -175,7 +175,88 @@
 
 	<!-- Text body -->
 	<div class="sidebar-body">
+		<div class="group-row">
+			<legend>Font</legend>
+			<div>
+				<selectbox data-menu="table-header-rows">
+					<option selected="1" value="arial">Arial</option>
+				</selectbox>
+			</div>
 
+			<div class="flex-row">
+				<div class="w63">
+					<selectbox data-menu="table-header-rows">
+						<option selected="1" value="regular">Regular</option>
+					</selectbox>
+				</div>
+				<div>
+					<input type="number" value="10"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="option-buttons_">
+				<span>
+					<span class="icon-bold c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-italic c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-underline c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-strike c13x19"></span>
+				</span>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Text Colour</legend>
+				<div class="color-preset_" data-click="popup-color-palette" data-change="set-text-color" style="--preset-color: #000000;"></div>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<legend>Alignment</legend>
+			<div class="option-buttons_">
+				<span>
+					<span class="icon-justify-left c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-justify-center c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-justify-right c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-justify-full c13x19 active"></span>
+				</span>
+				<span>
+					<span class="icon-justify-fit c13x19"></span>
+				</span>
+			</div>
+			
+			<div class="option-buttons_">
+				<span>
+					<span class="icon-valign-top c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-valign-middle c13x19"></span>
+				</span>
+				<span>
+					<span class="icon-valign-bottom c13x19"></span>
+				</span>
+			</div>
+			<div>
+				<span class="form-checkbox_"><input type="checkbox" id="wrap-text-in-cell" checked /><i></i></span>
+				<label for="wrap-text-in-cell">Wrap Text In Cell</label>
+			</div>
+		</div>
 	</div>
 
 	<!-- Arrange body -->
