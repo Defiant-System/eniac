@@ -244,13 +244,19 @@
 
 				let text = Self.text,
 					type = event.target.className.split(" ")[1],
-					min = { w: 50 },
+					min = {
+						w: 50,
+						h: 50,
+					},
 					click = {
 						x: event.clientX,
+						y: event.clientY,
 					},
 					offset = {
-						x: +text.prop("offsetLeft"),
-						w: +text.prop("offsetWidth"),
+						x: parseInt(text.css("left"), 10),
+						y: parseInt(text.css("top"), 10),
+						w: parseInt(text.css("width"), 10),
+						h: parseInt(text.css("height"), 10),
 					};
 
 				// create drag object
@@ -267,11 +273,23 @@
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
 			case "mousemove":
-				let dim = { width: Drag.offset.w };
+				let dim = {
+						width: Drag.offset.w,
+						height: Drag.offset.h,
+					};
+				// movement: north
+				if (Drag.type.includes("n")) {
+					dim.top = event.clientY - Drag.click.y + Drag.offset.y;
+					dim.height = Drag.offset.h + Drag.click.y - event.clientY;
+				}
 				// movement: east
 				if (Drag.type.includes("e")) {
 					dim.left = event.clientX - Drag.click.x + Drag.offset.x;
 					dim.width = Drag.offset.w + Drag.click.x - event.clientX;
+				}
+				// movement: south
+				if (Drag.type.includes("s")) {
+					dim.height = event.clientY - Drag.click.y + Drag.offset.h;
 				}
 				// movement: west
 				if (Drag.type.includes("w")) {
@@ -280,6 +298,7 @@
 
 				// apply new dimensions to element
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
+				if (dim.height < Drag.min.h) dim.height = Drag.min.h;
 				Drag.el.css(dim);
 
 				// re-focus on shape
