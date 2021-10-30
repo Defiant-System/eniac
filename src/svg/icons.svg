@@ -360,40 +360,33 @@
 		<rect x="1" y="10" class="st1" width="17" height="4"/>
 	</svg>
 
-	<svg id="icon-valign-top" viewBox="0 0 19 19">
+	<svg id="icon-valign-top" viewBox="0 0 19 13">
 		<style type="text/css">
 			.st0{fill:#333;}
-			.st1{opacity:.35;}
 		</style>
-		<rect x="9" y="6" class="st1" width="1" height="9"/>
-		<rect x="4" y="4" class="st0" width="11" height="1"/>
-		<rect x="6" y="6.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.5511 7.8913)" class="st0" width="4.6" height="1"/>
-		<rect x="10.3" y="4.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -1.8109 9.6784)" class="st0" width="1" height="4.6"/>
+		<rect class="st0" x="2" y="1" width="15" height="1"/>
+		<rect class="st0" x="9" y="3" width="1" height="9"/>
+		<polygon class="st0" points="8.8,2.7 6,5.5 6.7,6.2 9.5,3.4 12.3,6.2 13,5.5 10.2,2.7 9.5,2 "/>
 	</svg>
 
-	<svg id="icon-valign-middle" viewBox="0 0 19 19">
+	<svg id="icon-valign-middle" viewBox="0 0 19 13">
 		<style type="text/css">
 			.st0{fill:#333;}
-			.st1{opacity:.35;}
 		</style>
-		<rect x="9" y="2" class="st1" width="1" height="6"/>
-		<rect x="9" y="11" class="st1" width="1" height="6"/>
-		<rect x="4" y="9" class="st0" width="11" height="1"/>
-		<rect x="8.5" y="6.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -1.8109 9.6784)" class="st0" width="4.6" height="1"/>
-		<rect x="7.8" y="4.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.5511 7.8913)" class="st0" width="1" height="4.6"/>
-		<rect x="6" y="11.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.0866 9.3558)" class="st0" width="4.6" height="1"/>
-		<rect x="10.3" y="9.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -5.3464 11.1429)" class="st0" width="1" height="4.6"/>
+		<rect class="st0" x="2" y="6" width="15" height="1"/>
+		<rect class="st0" x="9" width="1" height="5"/>
+		<rect class="st0" x="9" y="8" width="1" height="5"/>
+		<polygon class="st0" points="10.2,5.4 13,2.5 12.3,1.8 9.5,4.7 6.7,1.8 6,2.5 8.8,5.4 9.5,6.1 "/>
+		<polygon class="st0" points="8.8,7.7 6,10.5 6.7,11.2 9.5,8.4 12.3,11.2 13,10.5 10.2,7.7 9.5,7 "/>
 	</svg>
 
-	<svg id="icon-valign-bottom" viewBox="0 0 19 19">
+	<svg id="icon-valign-bottom" viewBox="0 0 19 13">
 		<style type="text/css">
 			.st0{fill:#333;}
-			.st1{opacity:.35;}
 		</style>
-		<rect x="9" y="4" class="st1" width="1" height="9"/>
-		<rect x="4" y="14" class="st0" width="11" height="1"/>
-		<rect x="8.5" y="11.5" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -5.3464 11.1429)" class="st0" width="4.6" height="1"/>
-		<rect x="7.8" y="9.7" class="st1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.0866 9.3558)" class="st0" width="1" height="4.6"/>
+		<rect class="st0" x="2" y="11" width="15" height="1"/>
+		<rect class="st0" x="9" y="1" width="1" height="9"/>
+		<polygon class="st0" points="10.2,10.4 13,7.5 12.3,6.8 9.5,9.7 6.7,6.8 6,7.5 8.8,10.4 9.5,11.1 "/>
 	</svg>
 
 	<svg id="icon-border-1" viewBox="0 0 19 19">

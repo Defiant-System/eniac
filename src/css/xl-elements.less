@@ -30,6 +30,7 @@
 			overflow: hidden;
 			display: flex;
 			align-items: flex-start;
+			text-align: left;
 
 			&.selected:after {
 				content: "";
@@ -44,6 +45,10 @@
 			&.vTop    {  }
 			&.vMiddle { align-items: center; }
 			&.vBottom { align-items: flex-end; }
+			&.hLeft   {  }
+			&.hCenter { text-align: center; }
+			&.hRight  { text-align: right; }
+			&.hFull   { text-align: justify; }
 
 			&:before {
 				// background: rgba(0,0,0,.1);

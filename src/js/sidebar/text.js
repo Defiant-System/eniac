@@ -214,6 +214,7 @@
 				break;
 			// tab: Text
 			case "update-text-font":
+				console.log( event.values );
 				break;
 			case "update-text-color":
 				break;
@@ -222,8 +223,8 @@
 				// reset all options
 				pEl.find(".active_").removeClass("active_");
 
-				pEl.find(`span[data-name="justify-left"]`).addClass("active_");
-				pEl.find(`span[data-name="valign-top"]`).addClass("active_");
+				pEl.find(`[data-click="set-text-hAlign"] span[data-name="${event.values.text.hAlign}"]`).addClass("active_");
+				pEl.find(`[data-click="set-text-vAlign"] span[data-name="${event.values.text.vAlign}"]`).addClass("active_");
 				break;
 			// tab: Arrange
 			case "update-text-arrange":
@@ -347,7 +348,11 @@
 				break;
 			case "set-text-color":
 				break;
-			case "set-text-alignment":
+			case "set-text-hAlign":
+				console.log(event);
+				break;
+			case "set-text-vAlign":
+				console.log(event);
 				break;
 			// tab: Arrange
 			case "set-text-arrange":
