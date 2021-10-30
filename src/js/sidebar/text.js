@@ -58,7 +58,8 @@
 					border = {},
 					shadow = {},
 					reflection = {},
-					opacity = {};
+					opacity = {},
+					text = {};
 				
 				// fill values
 				fill.color = Text.css("background");
@@ -91,7 +92,10 @@
 				opacity.value = +Text.css("opacity");
 				opacity._expand = opacity.value !== 1;
 
-				let data = { fill, border, shadow, reflection, opacity };
+				text.hAlign = Text.css("text-align");
+				console.log( Text.css("vertical-align") );
+
+				let data = { fill, border, shadow, reflection, opacity, text };
 				Object.keys(data).map(key => {
 					let el = Els.el.find(`.group-row.text-${key}-options`);
 					if (data[key]._expand) el.addClass("expanded");

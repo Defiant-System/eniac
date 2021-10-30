@@ -13,6 +13,9 @@
 		<xsl:if test="@class">
 			<xsl:attribute name="class">xl-text <xsl:value-of select="@class"/></xsl:attribute>
 		</xsl:if>
+		<xsl:if test="@style">
+			<xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute>
+		</xsl:if>
 		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</div>
 </xsl:template>
@@ -65,6 +68,7 @@
 		<xsl:attribute name="class">xl-shape <xsl:value-of select="@class"/></xsl:attribute>
 		<xsl:attribute name="viewBox"><xsl:value-of select="@viewBox"/></xsl:attribute>
 		<xsl:attribute name="style">
+			<xsl:value-of select="@style"/>
 			width: <xsl:call-template name="getViewboxValue">
 						<xsl:with-param name="text" select="@viewBox"/>
 						<xsl:with-param name="index" select="3"/>
@@ -83,6 +87,9 @@
 	<div class="xl-table">
 		<xsl:if test="@class">
 			<xsl:attribute name="class">xl-table <xsl:value-of select="@class"/></xsl:attribute>
+		</xsl:if>
+		<xsl:if test="@style">
+			<xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute>
 		</xsl:if>
 		<xsl:if test="@title">
 			<div class="table-title"><xsl:value-of select="@title"/></div>

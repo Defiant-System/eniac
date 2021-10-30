@@ -17,7 +17,7 @@
 		<![CDATA[/fs/Desktop/coast.jpg]]>
 	</Image>
 
-	<Text class="temp-text-1">
+	<Text class="temp-text-1" style="top: 100px; left: 540px; width: 170px;">
 		<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 	</Text>
 </Data>

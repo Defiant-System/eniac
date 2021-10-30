@@ -1,5 +1,5 @@
 <Data>
-	<Table id="scaffold" title="Title" class="temp-1">
+	<Table id="scaffold" title="Title" class="temp-1" style="top: 40px; left: 40px;">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -40,7 +40,7 @@
 		</Foot>
 	</Table>
 
-	<Table id="temp-1" title1="Clipped Table" class="gray-table-1 clipped1 temp-2">
+	<Table id="temp-1" title1="Clipped Table" class="gray-table-1 clipped1 temp-2" style="top: 390px; left: 40px;">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -79,7 +79,7 @@
 		</Foot>
 	</Table>
 
-	<Table id="temp-2" title="Clipped (No Column)" class="blue-table-2 temp-3">
+	<Table id="temp-2" title="Clipped (No Column)" class="blue-table-2 temp-3" style="top: 390px; left: 480px;">
 		<Head>
 			<Table>
 				<Row><Cell/></Row>
@@ -120,7 +120,7 @@
 		</Foot>
 	</Table>
 
-	<Table id="temp-3" caption="No Row Head" class="green-table-1 alt-row-bg temp-4">
+	<Table id="temp-3" caption="No Row Head" class="green-table-1 alt-row-bg temp-4" style="top: 50px; left: 480px;">
 		<Head>
 			<Table/>
 			<Table>
