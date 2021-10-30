@@ -48,7 +48,9 @@
 				Self.dispatch({ ...event, type: "update-text-shadow" });
 				Self.dispatch({ ...event, type: "update-text-reflection" });
 				Self.dispatch({ ...event, type: "update-text-opacity" });
-
+				Self.dispatch({ ...event, type: "update-text-font" });
+				Self.dispatch({ ...event, type: "update-text-color" });
+				Self.dispatch({ ...event, type: "update-text-alignment" });
 				Self.dispatch({ ...event, type: "update-text-arrange" });
 				break;
 			case "collect-text-values": {
@@ -206,6 +208,13 @@
 				value = event.values.opacity.value * 100;
 				Els.el.find(".text-opacity input").val(value);
 				break;
+			// tab: Text
+			case "update-text-font":
+				break;
+			case "update-text-color":
+				break;
+			case "update-text-alignment":
+				break;
 			// tab: Arrange
 			case "update-text-arrange":
 				pEl = Els.el.find(`.flex-row[data-click="set-text-arrange"]`);
@@ -278,7 +287,6 @@
 				// re-focus on element
 				Tools.text.dispatch({ type: "focus-text", el: Text });
 				break;
-
 			case "set-text-shadow": {
 				let data = {
 						blur: +Els.el.find(".text-shadow-blur input:nth(0)").val(),
@@ -323,6 +331,13 @@
 				Text.css({ "opacity": value / 100 });
 				// make sure all fields shows same value
 				Els.el.find(".text-opacity input").val(value);
+				break;
+			// tab: Text
+			case "set-text-font":
+				break;
+			case "set-text-color":
+				break;
+			case "set-text-alignment":
 				break;
 			// tab: Arrange
 			case "set-text-arrange":
