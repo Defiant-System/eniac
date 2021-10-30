@@ -93,7 +93,7 @@
 				opacity._expand = opacity.value !== 1;
 
 				text.hAlign = Text.css("text-align");
-				console.log( Text.css("vertical-align") );
+				text.vAlign = Text.css("align-items");
 
 				let data = { fill, border, shadow, reflection, opacity, text };
 				Object.keys(data).map(key => {
@@ -218,6 +218,12 @@
 			case "update-text-color":
 				break;
 			case "update-text-alignment":
+				pEl = Els.el.find(`.text-hv-alignment`);
+				// reset all options
+				pEl.find(".active_").removeClass("active_");
+
+				pEl.find(`span[data-name="justify-left"]`).addClass("active_");
+				pEl.find(`span[data-name="valign-top"]`).addClass("active_");
 				break;
 			// tab: Arrange
 			case "update-text-arrange":

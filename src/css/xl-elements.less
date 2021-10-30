@@ -27,6 +27,9 @@
 			// background: rgba(0,0,0,.05);
 			position: absolute;
 			padding: 5px 5px 6px;
+			overflow: hidden;
+			display: flex;
+			align-items: flex-start;
 
 			&.selected:after {
 				content: "";
@@ -37,6 +40,10 @@
 				bottom: -2px;
 				box-shadow: 0 0 0 1px #3583d0aa;
 			}
+
+			&.vTop    {  }
+			&.vMiddle { align-items: center; }
+			&.vBottom { align-items: flex-end; }
 
 			&:before {
 				// background: rgba(0,0,0,.1);
@@ -57,6 +64,8 @@
 				right: 0;
 				bottom: 0;
 			}
+
+			> div {}
 
 			&.txt-black-white  { background: #222222; color: #fff; }
 			&.txt-blue-black   { background: #1ba3fc; color: #000; }

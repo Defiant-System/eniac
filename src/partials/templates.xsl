@@ -16,7 +16,7 @@
 		<xsl:if test="@style">
 			<xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute>
 		</xsl:if>
-		<xsl:value-of select="." disable-output-escaping="yes"/>
+		<div><xsl:value-of select="." disable-output-escaping="yes"/></div>
 	</div>
 </xsl:template>
 
