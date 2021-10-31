@@ -52,6 +52,7 @@
 				Self.dispatch({ ...event, type: "update-text-font" });
 				Self.dispatch({ ...event, type: "update-text-color" });
 				Self.dispatch({ ...event, type: "update-text-alignment" });
+				Self.dispatch({ ...event, type: "update-text-line-height" });
 				Self.dispatch({ ...event, type: "update-text-arrange" });
 				break;
 			case "collect-text-values": {
@@ -214,14 +215,14 @@
 			case "update-text-font":
 				pEl = Els.el.find(`.text-font-options`);
 
+				// TODO: font-family
 				value = Text.css("font-family");
-				// console.log( value );
 
+				// font style
 				["fBold", "fItalic", "fUnderline", "fStrike"].map(type => {
 					let value = Text.hasClass(type);
 					pEl.find(`.option-buttons_ span[data-name="${type}"]`).toggleClass("active_", !value);
 				});
-				
 				value = parseInt(Text.css("font-size"), 10);
 				pEl.find(`input[name="text-font-size"]`).val(value);
 				break;
@@ -240,6 +241,16 @@
 				pEl.find(`[data-click="set-text-hAlign"] span[data-name="${value}"]`).addClass("active_");
 				value = Text.css("align-items");
 				pEl.find(`[data-click="set-text-vAlign"] span[data-name="${value}"]`).addClass("active_");
+				break;
+			case "update-text-line-height":
+				// translate to decimal value
+				value = {
+					fS: parseInt(Text.css("font-size"), 10),
+					lH: parseInt(Text.css("line-height"), 10),
+				};
+				value.v = (value.lH / value.fS).toFixed(1);
+				
+				console.log( value.v );
 				break;
 			// tab: Arrange
 			case "update-text-arrange":
@@ -360,9 +371,6 @@
 			case "set-text-font-family":
 				console.log(event);
 				break;
-			case "set-text-font-family-type":
-				console.log(event);
-				break;
 			case "set-text-font-size":
 				Text.css({ "font-size": event.value +"px" });
 				break;
@@ -390,6 +398,9 @@
 				Text.css({ "align-items": el.data("name") });
 				// update text vertical alignment
 				Self.dispatch({ type: "update-text-alignment" });
+				break;
+			case "set-text-line-height":
+				console.log(event);
 				break;
 			// tab: Arrange
 			case "set-text-arrange":

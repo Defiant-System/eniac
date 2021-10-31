@@ -174,19 +174,13 @@
 	</div>
 
 	<!-- Text body -->
-	<div class="sidebar-body">
-		<div class="group-row text-font-options">
+	<div class="sidebar-body text-font-options">
+		<div class="group-row">
 			<legend>Font</legend>
-			<div>
-				<selectbox data-menu="sys:font-families" data-change="set-text-font-family">
-					<option selected="1" value="arial">Arial</option>
-				</selectbox>
-			</div>
-
 			<div class="flex-row">
 				<div class="w63">
-					<selectbox data-menu="font-family-types">
-						<option selected="1" value="regular">Regular</option>
+					<selectbox data-menu="sys:font-families" data-change="set-text-font-family">
+						<option selected="1" value="arial">Arial</option>
 					</selectbox>
 				</div>
 				<div data-suffix="px">
@@ -216,7 +210,7 @@
 
 		<div class="group-row">
 			<div class="flex-row">
-				<legend class="bold">Text Colour</legend>
+				<legend class="bold">Text Color</legend>
 				<div class="color-preset_" data-click="popup-color-palette" data-change="set-text-color" style="--preset-color: #000000;"></div>
 			</div>
 		</div>
@@ -248,6 +242,17 @@
 				<span data-name="flex-end" title="Vertically align bottom.">
 					<span class="icon-valign-bottom c13x19"></span>
 				</span>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend>Spacing</legend>
+				<div class="w63">
+					<selectbox data-menu="text-line-height">
+						<option selected="1" value="1.0">1.0 - Single</option>
+					</selectbox>
+				</div>
 			</div>
 		</div>
 	</div>

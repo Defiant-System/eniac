@@ -1,5 +1,5 @@
 <Data>
-	<Text class="temp-text-1 vMiddle fItalic" style="top: 100px; left: 500px; width: 240px; height: 170px; font-size: 16px;">
+	<Text class="temp-text-1 vMiddle fItalic" style="top: 100px; left: 500px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
 		<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 	</Text>
 

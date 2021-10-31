@@ -146,11 +146,11 @@
 		<Menu type="icon" name="~/icons/table-outline-dotted.png" arg="dotted" click="set-line-stroke-style" check-group="line-stroke"/>
 	</Menu>
 
-	<Menu for="font-family-types">
-		<Menu name="Light" click="set-text-font-family-type" check-group="font-family-type"/>
-		<Menu name="Regular" click="set-text-font-family-type" check-group="font-family-type" is-checked="1"/>
-		<Menu name="Italic" click="set-text-font-family-type" check-group="font-family-type"/>
-		<Menu name="Bold" click="set-text-font-family-type" check-group="font-family-type"/>
+	<Menu for="text-line-height">
+		<Menu name="1.0 - Single" click="set-text-line-height" arg="1.0" check-group="line-height" is-checked="1"/>
+		<Menu name="1.2" click="set-text-line-height" arg="1.2" check-group="line-height"/>
+		<Menu name="1.5" click="set-text-line-height" arg="1.5" check-group="line-height"/>
+		<Menu name="2.0 - Double" click="set-text-line-height" arg="2.0" check-group="line-height"/>
 	</Menu>
 
 </MenuBar>
