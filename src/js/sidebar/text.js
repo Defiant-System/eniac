@@ -92,9 +92,6 @@
 				opacity.value = +Text.css("opacity");
 				opacity._expand = opacity.value !== 1;
 
-				text.hAlign = Text.css("text-align");
-				text.vAlign = Text.css("align-items");
-
 				let data = { fill, border, shadow, reflection, opacity, text };
 				Object.keys(data).map(key => {
 					let el = Els.el.find(`.group-row.text-${key}-options`);
@@ -223,8 +220,10 @@
 				// reset all options
 				pEl.find(".active_").removeClass("active_");
 
-				pEl.find(`[data-click="set-text-hAlign"] span[data-name="${event.values.text.hAlign}"]`).addClass("active_");
-				pEl.find(`[data-click="set-text-vAlign"] span[data-name="${event.values.text.vAlign}"]`).addClass("active_");
+				value = Text.css("text-align");
+				pEl.find(`[data-click="set-text-hAlign"] span[data-name="${value}"]`).addClass("active_");
+				value = Text.css("align-items");
+				pEl.find(`[data-click="set-text-vAlign"] span[data-name="${value}"]`).addClass("active_");
 				break;
 			// tab: Arrange
 			case "update-text-arrange":
@@ -349,10 +348,16 @@
 			case "set-text-color":
 				break;
 			case "set-text-hAlign":
-				console.log(event);
+				el = $(event.target);
+				Text.css({ "text-align": el.data("name") });
+				// update text vertical alignment
+				Self.dispatch({ type: "update-text-alignment" });
 				break;
 			case "set-text-vAlign":
-				console.log(event);
+				el = $(event.target);
+				Text.css({ "align-items": el.data("name") });
+				// update text vertical alignment
+				Self.dispatch({ type: "update-text-alignment" });
 				break;
 			// tab: Arrange
 			case "set-text-arrange":
