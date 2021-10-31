@@ -211,9 +211,18 @@
 				break;
 			// tab: Text
 			case "update-text-font":
-				console.log( event.values );
+				value = Text.css("font-family");
+				console.log( value );
+				value = Text.css("font-style");
+				console.log( value );
+				value = Text.css("font-size");
+				console.log( value );
 				break;
 			case "update-text-color":
+				// font color
+				value = Color.rgbToHex(Text.css("color")).slice(0,-2);
+				Els.el.find(`.color-preset_[data-change="set-text-color"]`)
+					.css({ "--preset-color": value });
 				break;
 			case "update-text-alignment":
 				pEl = Els.el.find(`.text-hv-alignment`);
@@ -245,10 +254,8 @@
 			 */
 			// tab: Style
 			case "set-text-fill-color":
+				console.log(event);
 				Text.css({ background: event.value });
-				break;
-			case "set-text-fill-gradient-color":
-				// console.log(event);
 				break;
 			case "set-text-gradient-angle":
 				if (Tools.text.gradient.type === "radial") {
@@ -346,6 +353,10 @@
 			case "set-text-font":
 				break;
 			case "set-text-color":
+				Text.css({ "color": event.value });
+				// sidebar font color preset
+				Els.el.find(`.color-preset_[data-change="set-text-color"]`)
+					.css({ "--preset-color": event.value });
 				break;
 			case "set-text-hAlign":
 				el = $(event.target);
