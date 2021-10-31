@@ -24,6 +24,7 @@
 			allEl,
 			pEl,
 			el;
+		// console.log(event);
 		switch (event.type) {
 			case "select-fill-type":
 				// update tabs
@@ -211,12 +212,18 @@
 				break;
 			// tab: Text
 			case "update-text-font":
+				pEl = Els.el.find(`.text-font-options`);
+
 				value = Text.css("font-family");
-				console.log( value );
-				value = Text.css("font-style");
-				console.log( value );
-				value = Text.css("font-size");
-				console.log( value );
+				// console.log( value );
+
+				["fBold", "fItalic", "fUnderline", "fStrike"].map(type => {
+					let value = Text.hasClass(type);
+					pEl.find(`.option-buttons_ span[data-name="${type}"]`).toggleClass("active_", !value);
+				});
+				
+				value = parseInt(Text.css("font-size"), 10);
+				pEl.find(`input[name="text-font-size"]`).val(value);
 				break;
 			case "update-text-color":
 				// font color
@@ -350,7 +357,21 @@
 				Els.el.find(".text-opacity input").val(value);
 				break;
 			// tab: Text
-			case "set-text-font":
+			case "set-text-font-family":
+				console.log(event);
+				break;
+			case "set-text-font-family-type":
+				console.log(event);
+				break;
+			case "set-text-font-size":
+				console.log(event);
+				break;
+			case "set-text-font-style":
+				el = $(event.target);
+				value = el.hasClass("active_");
+				Text.toggleClass(el.data("name"), value);
+				// update text vertical alignment
+				Self.dispatch({ type: "update-text-font" });
 				break;
 			case "set-text-color":
 				Text.css({ "color": event.value });

@@ -175,22 +175,22 @@
 
 	<!-- Text body -->
 	<div class="sidebar-body">
-		<div class="group-row">
+		<div class="group-row text-font-options">
 			<legend>Font</legend>
 			<div>
-				<selectbox data-menu="font-families">
+				<selectbox data-menu="sys:font-families" data-change="set-text-font-family">
 					<option selected="1" value="arial">Arial</option>
 				</selectbox>
 			</div>
 
 			<div class="flex-row">
 				<div class="w63">
-					<selectbox data-menu="table-header-rows">
+					<selectbox data-menu="font-family-types">
 						<option selected="1" value="regular">Regular</option>
 					</selectbox>
 				</div>
-				<div>
-					<input type="number" value="10"/>
+				<div data-suffix="px">
+					<input type="number" name="text-font-size" min="1" max="73" step="1" value="13" data-change="set-text-font-size"/>
 					<div>
 						<span></span>
 						<span></span>
@@ -198,17 +198,17 @@
 				</div>
 			</div>
 
-			<div class="option-buttons_">
-				<span>
+			<div class="option-buttons_" data-click="set-text-font-style">
+				<span data-name="fBold" title="Bold.">
 					<span class="icon-bold c13x19"></span>
 				</span>
-				<span>
+				<span data-name="fItalic" title="Italic.">
 					<span class="icon-italic c13x19"></span>
 				</span>
-				<span>
+				<span data-name="fUnderline" title="Underline.">
 					<span class="icon-underline c13x19"></span>
 				</span>
-				<span>
+				<span data-name="fStrike" title="Strike.">
 					<span class="icon-strike c13x19"></span>
 				</span>
 			</div>
