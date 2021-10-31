@@ -219,7 +219,7 @@
 				value = Text.css("font-family");
 
 				// font style
-				["fBold", "fItalic", "fUnderline", "fStrike"].map(type => {
+				["bold", "italic", "underline", "strike"].map(type => {
 					let value = Text.hasClass(type);
 					pEl.find(`.option-buttons_ span[data-name="${type}"]`).toggleClass("active_", !value);
 				});
@@ -237,10 +237,15 @@
 				// reset all options
 				pEl.find(".active_").removeClass("active_");
 
-				value = Text.css("text-align");
-				pEl.find(`[data-click="set-text-hAlign"] span[data-name="${value}"]`).addClass("active_");
-				value = Text.css("align-items");
-				pEl.find(`[data-click="set-text-vAlign"] span[data-name="${value}"]`).addClass("active_");
+				value = Text.prop("className").split(" ");
+				if (Text.css("text-align") === "left") {
+					// if default "text align left"
+					value.push("left");
+				}
+				value.map(name =>
+					pEl.find(`[data-click="set-text-hAlign"] span[data-name="${name}"]`).addClass("active_"));
+				value.map(name =>
+					pEl.find(`[data-click="set-text-vAlign"] span[data-name="${name}"]`).addClass("active_"));
 				break;
 			case "update-text-line-height":
 				// translate to decimal value
@@ -395,7 +400,7 @@
 				break;
 			case "set-text-vAlign":
 				el = $(event.target);
-				Text.css({ "align-items": el.data("name") });
+				Text.removeClass("top middle bottom").addClass(el.data("name"));
 				// update text vertical alignment
 				Self.dispatch({ type: "update-text-alignment" });
 				break;
