@@ -364,7 +364,7 @@
 				console.log(event);
 				break;
 			case "set-text-font-size":
-				console.log(event);
+				Text.css({ "font-size": event.value +"px" });
 				break;
 			case "set-text-font-style":
 				el = $(event.target);
