@@ -107,15 +107,23 @@
 		<div class="tbl-col-head">
 			<div>
 				<table>
-					<xsl:for-each select="Head/Table[1]/Row">
-						<xsl:call-template name="table-row" />
+					<xsl:for-each select="Row[@xlt='1']">
+					<tr>
+						<xsl:for-each select="Cell[@xlt='4']">
+							<xsl:call-template name="table-cell" />
+						</xsl:for-each>
+					</tr>
 					</xsl:for-each>
 				</table>
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Head/Table[2]/Row">
-						<xsl:call-template name="table-row" />
+					<xsl:for-each select="Row[@xlt='1']">
+					<tr>
+						<xsl:for-each select="Cell[not(@xlt)]">
+							<xsl:call-template name="table-cell" />
+						</xsl:for-each>
+					</tr>
 					</xsl:for-each>
 				</table>
 			</div>
@@ -123,15 +131,23 @@
 		<div class="tbl-body">
 			<div>
 				<table>
-					<xsl:for-each select="Body/Table[1]/Row">
-						<xsl:call-template name="table-row" />
+					<xsl:for-each select="Row[@xlt='2']">
+					<tr>
+						<xsl:for-each select="Cell[@xlt='4']">
+							<xsl:call-template name="table-cell" />
+						</xsl:for-each>
+					</tr>
 					</xsl:for-each>
 				</table>
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Body/Table[2]/Row">
-						<xsl:call-template name="table-row" />
+					<xsl:for-each select="Row[@xlt='2']">
+					<tr>
+						<xsl:for-each select="Cell[not(@xlt)]">
+							<xsl:call-template name="table-cell" />
+						</xsl:for-each>
+					</tr>
 					</xsl:for-each>
 				</table>
 			</div>
@@ -139,15 +155,23 @@
 		<div class="tbl-col-foot">
 			<div>
 				<table>
-					<xsl:for-each select="Foot/Table[1]/Row">
-						<xsl:call-template name="table-row" />
+					<xsl:for-each select="Row[@xlt='3']">
+					<tr>
+						<xsl:for-each select="Cell[@xlt='4']">
+							<xsl:call-template name="table-cell" />
+						</xsl:for-each>
+					</tr>
 					</xsl:for-each>
 				</table>
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Foot/Table[2]/Row">
-						<xsl:call-template name="table-row" />
+					<xsl:for-each select="Row[@xlt='3']">
+					<tr>
+						<xsl:for-each select="Cell[not(@xlt)]">
+							<xsl:call-template name="table-cell" />
+						</xsl:for-each>
+					</tr>
 					</xsl:for-each>
 				</table>
 			</div>
@@ -156,16 +180,8 @@
 </xsl:template>
 
 
-<xsl:template name="table-row">
-	<tr>
-		<xsl:for-each select="Cell">
-			<xsl:call-template name="table-cell" />
-		</xsl:for-each>
-	</tr>
-</xsl:template>
-
 <xsl:template name="table-cell">
-	<td><xsl:value-of select="@value"/></td>
+	<td><xsl:value-of select="@v"/></td>
 </xsl:template>
 
 

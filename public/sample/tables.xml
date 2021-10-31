@@ -1,145 +1,59 @@
 <Data>
-	<Table id="scaffold" title="Title" class="temp-1" style="top: 40px; left: 40px;">
-		<Head>
-			<Table>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Head>
-		<Body>
-			<Table>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Body>
-		<Foot>
-			<Table>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Foot>
+	<Table id="scaffold" style="top: 40px; left: 40px;">
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
 	</Table>
 
-	<Table id="temp-1" title1="Clipped Table" class="gray-table-1 clipped1 temp-2" style="top: 390px; left: 40px;">
-		<Head>
-			<Table>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Head>
-		<Body>
-			<Table>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Body>
-		<Foot>
-			<Table>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Foot>
+	<Table title="Clipped Table" class="gray-table-1 clipped1" style="top: 390px; left: 40px;">
+		<Row xlt="1">
+			<Cell xlt="4"/><Cell/><Cell/><Cell/>
+		</Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="3">
+			<Cell xlt="4"/><Cell/><Cell/><Cell/>
+		</Row>
 	</Table>
 
-	<Table id="temp-2" title="Clipped (No Column)" class="blue-table-2 temp-3" style="top: 390px; left: 480px;">
-		<Head>
-			<Table>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Head>
-		<Body>
-			<Table>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Body>
-		<Foot>
-			<Table>
-				<Row><Cell/></Row>
-			</Table>
-			<Table>
-				<Row><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Foot>
+	<Table title="Clipped (No Column)" class="blue-table-2" style="top: 390px; left: 480px;">
+		<Row xlt="1">
+			<Cell xlt="4"/><Cell/><Cell/><Cell/>
+		</Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell xlt="4"/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="3">
+			<Cell xlt="4"/><Cell/><Cell/><Cell/>
+		</Row>
 	</Table>
 
-	<Table id="temp-3" caption="No Row Head" class="green-table-1 alt-row-bg temp-4" style="top: 50px; left: 480px;">
-		<Head>
-			<Table/>
-			<Table>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Head>
-		<Body>
-			<Table/>
-			<Table>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell value1="2"/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-				<Row><Cell/><Cell/><Cell/><Cell/></Row>
-			</Table>
-		</Body>
-		<Foot>
-			<Table/>
-			<Table/>
-		</Foot>
+	<Table caption="No Row Head" class="green-table-1" style="top: 50px; left: 480px;">
+		<Row xlt="1">
+			<Cell/><Cell/><Cell/><Cell/>
+		</Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
+		<Row xlt="3">
+			<Cell/><Cell/><Cell/><Cell/>
+		</Row>
 	</Table>
 </Data>
