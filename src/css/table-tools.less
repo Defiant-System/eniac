@@ -185,8 +185,21 @@
 			height: 16px;
 			border-radius: 4px;
 			background: #fff;
-			box-shadow: 0 0 0 1px #d0d0d0,
-						0 1px 3px rgba(0,0,0,0.15);
+
+			&:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 2;
+				pointer-events: none;
+				border-radius: inherit;
+				// background: #fff;
+				box-shadow: 0 0 0 1px #d0d0d0,
+							0 1px 3px rgba(0,0,0,0.15);
+			}
 
 			&.has-col-head {
 				> div {
@@ -337,9 +350,21 @@
 			height: calc( 100% - var(--rows-top) );
 			flex-direction: column;
 			border-radius: 4px;
-			background: #fff;
-			box-shadow: 0 0 0 1px #d0d0d0,
-						0 1px 3px rgba(0,0,0,0.15);
+
+			&:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 2;
+				pointer-events: none;
+				border-radius: inherit;
+				// background: #fff;
+				box-shadow: 0 0 0 1px #d0d0d0,
+							0 1px 3px rgba(0,0,0,0.2);
+			}
 
 			&.has-row-head {
 				> div {
