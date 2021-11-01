@@ -86,7 +86,9 @@
 <xsl:template name="xl-table">
 	<div class="xl-table">
 		<xsl:if test="@class">
-			<xsl:attribute name="class">xl-table <xsl:value-of select="@class"/></xsl:attribute>
+			<xsl:attribute name="class">xl-table <xsl:value-of select="@class"/>
+				<xsl:if test="@width and @height"> clipped</xsl:if>
+			</xsl:attribute>
 		</xsl:if>
 		<xsl:if test="@style">
 			<xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute>
@@ -104,12 +106,18 @@
 
 <xsl:template name="scaffold-table">
 	<div class="tbl-root">
+		<xsl:if test="@width and @height">
+			<xsl:attribute name="style">
+				width: <xsl:value-of select="@width"/>px;
+				height: <xsl:value-of select="@height"/>px;
+			</xsl:attribute>
+		</xsl:if>
 		<div class="tbl-col-head">
 			<div>
 				<table>
-					<xsl:for-each select="Row[@xlt='1']">
+					<xsl:for-each select="Row[@tp='1']">
 					<tr>
-						<xsl:for-each select="Cell[@xlt='4']">
+						<xsl:for-each select="Cell[@tp='4']">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -118,9 +126,9 @@
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Row[@xlt='1']">
+					<xsl:for-each select="Row[@tp='1']">
 					<tr>
-						<xsl:for-each select="Cell[not(@xlt)]">
+						<xsl:for-each select="Cell[not(@tp)]">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -131,9 +139,9 @@
 		<div class="tbl-body">
 			<div>
 				<table>
-					<xsl:for-each select="Row[@xlt='2']">
+					<xsl:for-each select="Row[@tp='2']">
 					<tr>
-						<xsl:for-each select="Cell[@xlt='4']">
+						<xsl:for-each select="Cell[@tp='4']">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -142,9 +150,9 @@
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Row[@xlt='2']">
+					<xsl:for-each select="Row[@tp='2']">
 					<tr>
-						<xsl:for-each select="Cell[not(@xlt)]">
+						<xsl:for-each select="Cell[not(@tp)]">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -155,9 +163,9 @@
 		<div class="tbl-col-foot">
 			<div>
 				<table>
-					<xsl:for-each select="Row[@xlt='3']">
+					<xsl:for-each select="Row[@tp='3']">
 					<tr>
-						<xsl:for-each select="Cell[@xlt='4']">
+						<xsl:for-each select="Cell[@tp='4']">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -166,9 +174,9 @@
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Row[@xlt='3']">
+					<xsl:for-each select="Row[@tp='3']">
 					<tr>
-						<xsl:for-each select="Cell[not(@xlt)]">
+						<xsl:for-each select="Cell[not(@tp)]">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
