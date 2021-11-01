@@ -7,9 +7,9 @@
 		this.parent = parent;
 		
 		// temp
-		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
-		// }, 200);
+		setTimeout(() => {
+			parent.els.el.find(".sidebar-table .sidebar-head span:nth(3)").trigger("click");
+		}, 200);
 	},
 	glHash: {
 		"h-gridlines": "hide-hg-lines",
@@ -21,8 +21,9 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.table,
+			Tools = APP.tools,
 			Els = APP.sidebar.els,
-			Table = APP.tools.table,
+			Table = Tools.table,
 			TblEl = event.table || Table.table._el,
 			xNum, yNum,
 			layout,
@@ -40,10 +41,9 @@
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
-
 				Self.dispatch({ ...event, type: "update-table-arrange" });
-				Self.dispatch({ ...event, type: "update-table-size" });
-				Self.dispatch({ ...event, type: "update-table-position" });
+				Self.dispatch({ ...event, type: "update-table-box-size" });
+				Self.dispatch({ ...event, type: "update-table-box-position" });
 				break;
 			// tab: Table
 			case "update-table-style":
@@ -157,9 +157,17 @@
 				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				break;
-			case "update-table-size":
+			case "update-table-box-size":
+				value = TblEl.prop("offsetWidth");
+				Els.el.find(`.table-box-size input[name="width"]`).val(value);
+				value = TblEl.prop("offsetHeight");
+				Els.el.find(`.table-box-size input[name="height"]`).val(value);
 				break;
-			case "update-table-position":
+			case "update-table-box-position":
+				value = TblEl.prop("offsetLeft");
+				Els.el.find(`.table-box-position input[name="x"]`).val(value);
+				value = TblEl.prop("offsetTop");
+				Els.el.find(`.table-box-position input[name="y"]`).val(value);
 				break;
 			/*
 			 * set values based on UI interaction
@@ -316,9 +324,21 @@
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				break;
-			case "set-table-size":
+			case "set-table-box-size":
+				TblEl.css({
+					width: Els.el.find(`.table-box-size input[name="width"]`).val() +"px",
+					height: Els.el.find(`.table-box-size input[name="height"]`).val() +"px",
+				});
+				// re-focus on element
+				Tools.table.dispatch({ type: "focus-table", el: TblEl });
 				break;
-			case "set-table-position":
+			case "set-table-box-position":
+				TblEl.css({
+					left: Els.el.find(`.table-box-position input[name="x"]`).val() +"px",
+					top: Els.el.find(`.table-box-position input[name="y"]`).val() +"px",
+				});
+				// re-focus on element
+				Tools.table.dispatch({ type: "focus-table", el: TblEl });
 				break;
 		}
 	}

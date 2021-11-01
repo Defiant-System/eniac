@@ -326,7 +326,6 @@
 				Self.dispatch({ type: "re-sync-selection" });
 				// TODO: if selection includes anchor - update cell dimensions
 				Drag.sidebar.dispatch({ type: "update-table-cell-size" });
-
 				break;
 			case "mouseup":
 				// update sidebar
@@ -704,7 +703,8 @@
 		}
 	},
 	move(event) {
-		let Self = eniac.tools.table,
+		let APP = eniac,
+			Self = APP.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -731,6 +731,7 @@
 				Self.drag = {
 					el,
 					guides,
+					sidebar: APP.sidebar.table,
 					clickTime: Date.now(),
 					click: {
 						y: event.clientY - offset.y,
@@ -749,6 +750,8 @@
 				Drag.guides.snapPos(pos);
 				// apply position on table (and table-tools)
 				Drag.el.css(pos);
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-table-box-position" });
 				break;
 			case "mouseup":
 				if (Date.now() - Drag.clickTime < 250) {

@@ -425,18 +425,18 @@
 			</div>
 		</div>
 
-		<div class="group-row">
+		<div class="group-row table-box-size">
 			<div class="flex-row">
 				<legend class="bold">Size</legend>
-				<div class="indent has-title" title="Width">
-					<input type="number" value="20"/>
+				<div class="indent has-title" title="Width" data-suffix="px">
+					<input type="number" min="0" max="1e5" step="1" name="width" data-change="set-table-box-size"/>
 					<div>
 						<span></span>
 						<span></span>
 					</div>
 				</div>
-				<div class="has-title" title="Height">
-					<input type="number" value="20"/>
+				<div class="has-title" title="Height" data-suffix="px">
+					<input type="number" min="0" max="1e5" step="1" name="height" data-change="set-table-box-size"/>
 					<div>
 						<span></span>
 						<span></span>
@@ -445,18 +445,18 @@
 			</div>
 		</div>
 
-		<div class="group-row">
+		<div class="group-row table-box-position">
 			<div class="flex-row">
 				<legend class="bold">Position</legend>
-				<div class="indent has-title" title="X">
-					<input type="number" value="20"/>
+				<div class="indent has-title" title="X" data-suffix="px">
+					<input type="number" min="0" max="1e5" step="1" name="x" data-change="set-table-box-position"/>
 					<div>
 						<span></span>
 						<span></span>
 					</div>
 				</div>
-				<div class="has-title" title="Y">
-					<input type="number" value="20"/>
+				<div class="has-title" title="Y" data-suffix="px">
+					<input type="number" min="0" max="1e5" step="1" name="y" data-change="set-table-box-position"/>
 					<div>
 						<span></span>
 						<span></span>
