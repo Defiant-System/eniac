@@ -348,7 +348,6 @@
 				if (!el.hasClass("clip")) {
 					return Self.resizeGrid(event);
 				}
-
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
@@ -380,15 +379,14 @@
 						height: table.prop("offsetHeight") - el.prop("offsetHeight"),
 					},
 					min: {
-						width: 320,
-						height: 175,
+						width: +sEl.find(`.table-box-size input[name="width"]`).attr("min"),
+						height: +sEl.find(`.table-box-size input[name="height"]`).attr("min"),
 					},
 					max: {
 						width: Self.table.width,
 						height: Self.table.height,
 					}
 				};
-
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeClip);
 				break;

@@ -35,7 +35,7 @@
 				// get selected items
 				selected = event.selected || Self.els.body.find(".wrapper > .selected");
 				if (!selected.length) selected = Self[Self.active][Self.active];
-
+				
 				if (event.target && event.target.nodeName === "INPUT") return;
 				if (selected && !selected.length && ["sheet", "table"].includes(Self.active)) {
 					// forward event to table tools
@@ -49,8 +49,8 @@
 				// iterate selected element
 				selected.map(item => {
 					let el = $(item),
-						// [a, name] = el.prop("className").split(" ")[0].split("-"),
-						name = Self.els.root.data("area"),
+						[a, name] = el.prop("className").split(" ")[0].split("-"),
+						// name = Self.els.root.data("area"),
 						data = {},
 						move;
 					switch (event.char) {
