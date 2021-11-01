@@ -8,7 +8,7 @@
 
 		// temp
 		setTimeout(() => {
-			parent.els.el.find(".sidebar-text .sidebar-head span:nth(1)").trigger("click");
+			parent.els.el.find(".sidebar-text .sidebar-head span:nth(2)").trigger("click");
 		}, 200);
 	},
 	dispatch(event) {
@@ -54,6 +54,8 @@
 				Self.dispatch({ ...event, type: "update-text-alignment" });
 				Self.dispatch({ ...event, type: "update-text-line-height" });
 				Self.dispatch({ ...event, type: "update-text-arrange" });
+				Self.dispatch({ ...event, type: "update-text-box-size" });
+				Self.dispatch({ ...event, type: "update-text-box-position" });
 				break;
 			case "collect-text-values": {
 				let fill = {},
@@ -271,6 +273,18 @@
 				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				break;
+			case "update-text-box-size":
+				value = Text.prop("offsetWidth");
+				Els.el.find(`.text-box-size input[name="width"]`).val(value);
+				value = Text.prop("offsetHeight");
+				Els.el.find(`.text-box-size input[name="height"]`).val(value);
+				break;
+			case "update-text-box-position":
+				value = Text.prop("offsetLeft");
+				Els.el.find(`.text-box-position input[name="x"]`).val(value);
+				value = Text.prop("offsetTop");
+				Els.el.find(`.text-box-position input[name="y"]`).val(value);
+				break;
 			/*
 			 * set values based on UI interaction
 			 */
@@ -413,6 +427,22 @@
 				APP.sidebar.zIndexArrange(Text, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-text-arrange" });
+				break;
+			case "set-text-box-size":
+				Text.css({
+					width: Els.el.find(`.text-box-size input[name="width"]`).val() +"px",
+					height: Els.el.find(`.text-box-size input[name="height"]`).val() +"px",
+				});
+				// re-focus on element
+				Tools.text.dispatch({ type: "focus-text", el: Text });
+				break;
+			case "set-text-box-position":
+				Text.css({
+					left: Els.el.find(`.text-box-position input[name="x"]`).val() +"px",
+					top: Els.el.find(`.text-box-position input[name="y"]`).val() +"px",
+				});
+				// re-focus on element
+				Tools.text.dispatch({ type: "focus-text", el: Text });
 				break;
 		}
 	}

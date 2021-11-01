@@ -206,6 +206,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([text[0], Self.els.root[0]]),
+					sidebar: APP.sidebar.text,
 					guides,
 					click,
 				};
@@ -222,6 +223,8 @@
 				Drag.guides.snapPos(pos);
 				// move dragged object
 				Drag.el.css(pos);
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-text-box-position" });
 				break;
 			case "mouseup":
 				// hide guides
@@ -262,6 +265,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([text[0], Self.els.root[0]]),
+					sidebar: APP.sidebar.text,
 					text,
 					min,
 					type,
@@ -300,9 +304,10 @@
 				if (dim.width < Drag.min.w) dim.width = Drag.min.w;
 				if (dim.height < Drag.min.h) dim.height = Drag.min.h;
 				Drag.el.css(dim);
-
 				// re-focus on shape
 				Self.dispatch({ type: "focus-text", el: Drag.text });
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-text-box-size" });
 				break;
 			case "mouseup":
 				// re-focuses shape tools
