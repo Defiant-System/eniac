@@ -404,7 +404,7 @@
 				Self.dispatch({ type: "update-text-alignment" });
 				break;
 			case "set-text-line-height":
-				console.log(event);
+				Text.css({ "line-height": event.arg });
 				break;
 			// tab: Arrange
 			case "set-text-arrange":
