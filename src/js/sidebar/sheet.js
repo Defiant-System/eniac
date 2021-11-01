@@ -5,6 +5,9 @@
 	init(parent) {
 		// fast references
 		this.sheet = eniac.body.parent();
+
+		// temp
+		// this.sheet.css({ "background-color": "#eee" });
 	},
 	dispatch(event) {
 		let APP = eniac,
