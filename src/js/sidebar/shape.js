@@ -20,8 +20,9 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.shape,
+			Tools = APP.tools,
 			Els = APP.sidebar.els,
-			Shape = event.shape || APP.tools.shape,
+			Shape = event.shape || Tools.shape,
 			name,
 			color,
 			fill,
@@ -54,8 +55,9 @@
 				Self.dispatch({ ...event, type: "update-shape-shadow" });
 				Self.dispatch({ ...event, type: "update-shape-reflection" });
 				Self.dispatch({ ...event, type: "update-shape-opacity" });
-
 				Self.dispatch({ ...event, type: "update-shape-arrange" });
+				Self.dispatch({ ...event, type: "update-shape-box-size" });
+				Self.dispatch({ ...event, type: "update-shape-box-position" });
 				break;
 			case "collect-shape-values": {
 				let fill = {},
@@ -65,8 +67,8 @@
 					opacity = {};
 				
 				// fill values
-				fill.color = APP.tools.shape.fill || "";
-				fill.type = APP.tools.shape.gradient.type;
+				fill.color = Tools.shape.fill || "";
+				fill.type = Tools.shape.gradient.type;
 				fill._expand = fill.type !== "solid" || fill.color.slice(-2) !== "00";
 
 				// border values
@@ -128,7 +130,7 @@
 						el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 
 						// gradient angle value
-						el = APP.tools.shape.els.gradientTool;
+						el = Tools.shape.els.gradientTool;
 						let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(",");
 						value = Math.round(Math.atan2(b, a) * 180 / Math.PI);
 						Els.el.find(".shape-gradient-angle input").val(value);
@@ -224,6 +226,18 @@
 				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				break;
+			case "update-shape-box-size":
+				value = parseInt(Shape.shape.css("width"), 10);
+				Els.el.find(`.shape-box-size input[name="width"]`).val(value);
+				value = parseInt(Shape.shape.css("height"), 10);
+				Els.el.find(`.shape-box-size input[name="height"]`).val(value);
+				break;
+			case "update-shape-box-position":
+				value = parseInt(Shape.shape.css("left"), 10);
+				Els.el.find(`.shape-box-position input[name="x"]`).val(value);
+				value = parseInt(Shape.shape.css("top"), 10);
+				Els.el.find(`.shape-box-position input[name="y"]`).val(value);
+				break;
 			/*
 			 * set values based on UI interaction
 			 */
@@ -264,7 +278,7 @@
 				// UI update sidebar gradient strip
 				event.el.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 
-				APP.tools.shape.gradient.update(stops);
+				Tools.shape.gradient.update(stops);
 				break;
 			case "set-shape-gradient-angle":
 				// make sure all fields shows same value
@@ -368,6 +382,25 @@
 				APP.sidebar.zIndexArrange(Shape.shape, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-shape-arrange" });
+				break;
+			case "set-shape-box-size":
+				let dim = {
+						width: +Els.el.find(`.shape-box-size input[name="width"]`).val(),
+						height: +Els.el.find(`.shape-box-size input[name="height"]`).val(),
+					};
+				Shape.shape.css(dim);
+				// update viewbox attribute
+				Tools.shape.shape.attr({ viewBox: `0 0 ${dim.width} ${dim.height}` });
+				// re-focus on element
+				Tools.shape.dispatch({ type: "focus-shape", el: Shape.shape });
+				break;
+			case "set-shape-box-position":
+				Shape.shape.css({
+					left: Els.el.find(`.shape-box-position input[name="x"]`).val() +"px",
+					top: Els.el.find(`.shape-box-position input[name="y"]`).val() +"px",
+				});
+				// re-focus on element
+				Tools.shape.dispatch({ type: "focus-shape", el: Shape.shape });
 				break;
 		}
 	}

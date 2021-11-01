@@ -239,10 +239,10 @@
 							h: rect.height,
 						}
 					});
-
 				// create drag object
 				Self.drag = {
 					el: $([shape[0], Self.els.root[0]]),
+					sidebar: APP.sidebar.shape,
 					guides,
 					click: {
 						x: event.clientX - parseInt(shape.css("left"), 10),
@@ -261,6 +261,8 @@
 				Drag.guides.snapPos(pos);
 				// move dragged object
 				Drag.el.css(pos);
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-shape-box-position" });
 				break;
 			case "mouseup":
 				// hide guides
@@ -315,6 +317,7 @@
 					click,
 					offset,
 					guides,
+					sidebar: APP.sidebar.shape,
 					_min: Math.min,
 				};
 				// bind event
@@ -354,6 +357,8 @@
 				if (Drag.rect) {
 					Drag.svg.attr({ viewBox: `0 0 ${dim.width} ${dim.height}` });
 				}
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-shape-box-size" });
 				break;
 			case "mouseup":
 				// hide guides
