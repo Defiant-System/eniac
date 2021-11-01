@@ -393,7 +393,7 @@
 				break;
 			case "set-text-hAlign":
 				el = $(event.target);
-				Text.css({ "text-align": el.data("name") });
+				Text.removeClass("left center right justify").addClass(el.data("name"));
 				// update text vertical alignment
 				Self.dispatch({ type: "update-text-alignment" });
 				break;
