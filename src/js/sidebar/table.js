@@ -153,6 +153,8 @@
 				Els.el.find(`.table-box-size input[name="width"]`).val(value);
 				value = TblEl.prop("offsetHeight");
 				Els.el.find(`.table-box-size input[name="height"]`).val(value);
+				value = TblEl.hasClass("clipped");
+				Els.el.find(`.table-box-size input#table-clip`).prop({ checked: value });
 				break;
 			case "update-table-box-position":
 				value = TblEl.prop("offsetLeft");

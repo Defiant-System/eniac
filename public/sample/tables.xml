@@ -16,7 +16,7 @@
 		<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 	</Text>
 
-	<Table title="Clipped Table" class="gray-table-1" width="320" height="180" style="top: 390px; left: 40px;">
+	<Table title="Clipped Table" class="gray-table-1" width="320" height="200" style="top: 390px; left: 40px;">
 		<Row tp="1">
 			<Cell tp="4"/><Cell/><Cell/><Cell/><Cell/>
 		</Row>
