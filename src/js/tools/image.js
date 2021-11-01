@@ -25,7 +25,7 @@
 				Self.image = {};
 				break;
 			case "focus-image":
-				if (Self.image.length) {
+				if (!event.updateDim && Self.image.length) {
 					if (Self.image.isSame(event.el)) return;
 					else Self.dispatch({ type: "blur-image" });
 				}
@@ -89,14 +89,13 @@
 							h,
 						}
 					});
-
 				// create drag object
 				Self.drag = {
 					el: $([image[0], Self.els.root[0]]),
+					sidebar: APP.sidebar.image,
 					guides,
 					click,
 				};
-
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.move);
 				break;
@@ -110,6 +109,8 @@
 				Drag.guides.snapPos(pos);
 				// move dragged object
 				Drag.el.css(pos);
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-image-box-position" });
 				break;
 			case "mouseup":
 				// hide guides
@@ -162,6 +163,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([image[0], Self.els.root[0]]),
+					sidebar: APP.sidebar.image,
 					min,
 					type,
 					image,
@@ -225,6 +227,8 @@
 						"--mW": `${mW}px`,
 						"--mH": `${mH}px`,
 					});
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-image-box-size" });
 				break;
 			case "mouseup":
 				// re-focuses shape tools

@@ -8,7 +8,7 @@
 
 		// temp
 		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-image .sidebar-head span:nth(1)").trigger("click");
+		// 	parent.els.el.find(".sidebar-image .sidebar-head span:nth(2)").trigger("click");
 		// }, 200);
 
 		// setTimeout(() => {
@@ -39,6 +39,8 @@
 				Self.dispatch({ ...event, type: "update-image-opacity" });
 				Self.dispatch({ ...event, type: "update-filter-adjustments" });
 				Self.dispatch({ ...event, type: "update-image-arrange" });
+				Self.dispatch({ ...event, type: "update-image-box-size" });
+				Self.dispatch({ ...event, type: "update-image-box-position" });
 				break;
 			case "collect-image-values": {
 				let styles = {},
@@ -167,6 +169,18 @@
 				// disable "front" + "forward" option, if active element is already in front
 				pEl.find(".option-buttons_:nth(0) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
 				pEl.find(".option-buttons_:nth(1) > span:nth(1)").toggleClass("disabled_", value !== allEl.length);
+				break;
+			case "update-image-box-size":
+				value = Image.prop("offsetWidth");
+				Els.el.find(`.image-box-size input[name="width"]`).val(value);
+				value = Image.prop("offsetHeight");
+				Els.el.find(`.image-box-size input[name="height"]`).val(value);
+				break;
+			case "update-image-box-position":
+				value = Image.prop("offsetLeft");
+				Els.el.find(`.image-box-position input[name="x"]`).val(value);
+				value = Image.prop("offsetTop");
+				Els.el.find(`.image-box-position input[name="y"]`).val(value);
 				break;
 			/*
 			 * set values based on UI interaction
@@ -314,6 +328,22 @@
 				APP.sidebar.zIndexArrange(Image, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-image-arrange" });
+				break;
+			case "set-image-box-size":
+				Image.css({
+					width: Els.el.find(`.image-box-size input[name="width"]`).val() +"px",
+					height: Els.el.find(`.image-box-size input[name="height"]`).val() +"px",
+				});
+				// re-focus on element
+				Tools.image.dispatch({ type: "focus-image", el: Image, updateDim: true });
+				break;
+			case "set-image-box-position":
+				Image.css({
+					left: Els.el.find(`.image-box-position input[name="x"]`).val() +"px",
+					top: Els.el.find(`.image-box-position input[name="y"]`).val() +"px",
+				});
+				// re-focus on element
+				Tools.image.dispatch({ type: "focus-image", el: Image, updateDim: true });
 				break;
 		}
 	}
