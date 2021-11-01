@@ -261,6 +261,7 @@
 					// create drag object
 					Self.drag = {
 						tbl,
+						grid: Self.table,
 						root: Self.els.root,
 						sidebar: APP.sidebar.table,
 						clickX: event.clientX,
@@ -323,13 +324,13 @@
 					Drag.tblRow.css({ height });
 					Drag.root.css({ height: Drag.ttHeight + height - Drag.rowHeight });
 				}
-				Self.dispatch({ type: "re-sync-selection" });
+				if (Drag.grid.selected) {
+					Self.dispatch({ type: "re-sync-selection" });
+				}
 				// TODO: if selection includes anchor - update cell dimensions
 				Drag.sidebar.dispatch({ type: "update-table-cell-size" });
 				break;
 			case "mouseup":
-				// update sidebar
-				APP.sidebar.table.dispatch({ type: "update-table-cell-size" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind event

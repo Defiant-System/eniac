@@ -128,6 +128,7 @@
 					.css({ "--preset-color": value || "transparent" });
 				break;
 			case "update-table-cell-size":
+				if (!Table.table.selected) return;
 				el = Table.table.selected.anchor.el;
 				pEl = Els.el.find(".table-cell-dimensions")
 				pEl.find(`input[data-change="set-cell-width"]`).val(el.prop("offsetWidth"));
