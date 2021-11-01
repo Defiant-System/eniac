@@ -253,9 +253,8 @@
 					fS: parseInt(Text.css("font-size"), 10),
 					lH: parseInt(Text.css("line-height"), 10),
 				};
-				value.v = (value.lH / value.fS).toFixed(1);
-				
-				console.log( value.v );
+				value.v = (value.lH / value.fS).toFixed(1).toString();
+				Els.el.find(`selectbox[data-menu="text-line-height"]`).val(value.v);
 				break;
 			// tab: Arrange
 			case "update-text-arrange":
