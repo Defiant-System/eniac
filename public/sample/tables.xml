@@ -12,7 +12,11 @@
 		<Row xlt="2"><Cell/><Cell/><Cell/><Cell/></Row>
 	</Table>
 
-	<Table title="Clipped Table" class="gray-table-1 clipped1" style="top: 390px; left: 40px;">
+	<Text class="temp-text-1 middle italic" style="top: 100px; left: 500px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
+		<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
+	</Text>
+
+	<!-- <Table title="Clipped Table" class="gray-table-1 clipped1" style="top: 390px; left: 40px;">
 		<Row xlt="1">
 			<Cell xlt="4"/><Cell/><Cell/><Cell/>
 		</Row>
@@ -55,5 +59,5 @@
 		<Row xlt="3">
 			<Cell/><Cell/><Cell/><Cell/>
 		</Row>
-	</Table>
+	</Table> -->
 </Data>

@@ -354,7 +354,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				let Sidebar = APP.sidebar.els.el,
+				let sEl = APP.sidebar.els.el,
 					table = Self.table._el.find(".tbl-root"),
 					type = event.target.className.split(" ")[1].split("-")[0];
 
@@ -362,15 +362,14 @@
 				Self.cDrag = {
 					el,
 					table,
+					sidebar: APP.sidebar.table,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
 					clickX: event.clientX,
 					clickY: event.clientY,
 					input: {
-						width: Sidebar.find("input#table-clip-width"),
-						height: Sidebar.find("input#table-clip-height"),
-						btnWidth: Sidebar.find(`.table-clipping button[arg="width"]`),
-						btnHeight: Sidebar.find(`.table-clipping button[arg="height"]`),
+						width: sEl.find("input#table-clip-width"),
+						height: sEl.find("input#table-clip-height"),
 					},
 					offset: {
 						width: table.prop("offsetWidth"),
@@ -400,16 +399,16 @@
 					tableCss.width = Math.max(Math.min(event.clientX - Drag.clickX + Drag.offset.width, Drag.max.width), Drag.min.width);
 					toolsCss.width = tableCss.width - Drag.diff.width;
 					Drag.input.width.val(tableCss.width);
-					Drag.input.btnWidth.toggleAttr("disabled", tableCss.width < Drag.max.width);
 				}
 				if (Drag.vResize) {
 					tableCss.height = Math.max(Math.min(event.clientY - Drag.clickY + Drag.offset.height, Drag.max.height), Drag.min.height);
 					toolsCss.height = tableCss.height - Drag.diff.height;
 					Drag.input.height.val(tableCss.height);
-					Drag.input.btnHeight.toggleAttr("disabled", tableCss.height < Drag.max.height);
 				}
 				Drag.table.css(tableCss);
 				Drag.el.css(toolsCss);
+				// update sidebar
+				Drag.sidebar.dispatch({ type: "update-table-box-size" });
 				break;
 			case "mouseup":
 				// uncover layout

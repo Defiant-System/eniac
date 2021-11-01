@@ -10,6 +10,10 @@
 		setTimeout(() => {
 			parent.els.el.find(".sidebar-table .sidebar-head span:nth(3)").trigger("click");
 		}, 200);
+
+		setTimeout(() => {
+			parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+		}, 300);
 	},
 	glHash: {
 		"h-gridlines": "hide-hg-lines",
@@ -35,7 +39,7 @@
 		switch (event.type) {
 			case "populate-table-values":
 				Self.dispatch({ ...event, type: "update-table-style" });
-				Self.dispatch({ ...event, type: "update-table-title-caption-clip" });
+				Self.dispatch({ ...event, type: "update-table-title-caption" });
 				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
 				Self.dispatch({ ...event, type: "update-table-row-col" });
 				Self.dispatch({ ...event, type: "update-table-outlines" });
@@ -56,25 +60,12 @@
 					if (item.length) item.addClass("active");
 				});
 				break;
-			case "update-table-title-caption-clip":
+			case "update-table-title-caption":
 				// checkbox values
 				value = TblEl.find(".table-title").length;
 				Els.el.find(`input#table-title`).prop({ checked: value });
 				value = TblEl.find(".table-caption").length;
 				Els.el.find(`input#table-caption`).prop({ checked: value });
-				value = TblEl.hasClass("clipped");
-				Els.el.find(`input#table-clip`).prop({ checked: value });
-				
-				pEl = Els.el.find(".table-clipping");
-				pEl.toggleClass("expand", !value);
-				// input fields: fit width
-				value = TblEl.find(".tbl-root").prop("offsetWidth");
-				pEl.find("input#table-clip-width").val(value);
-				pEl.find(`button[arg="width"]`).toggleAttr("disabled", value < Table.table.width);
-				// input fields: fit height
-				value = TblEl.find(".tbl-root").prop("offsetHeight");
-				pEl.find("input#table-clip-height").val(value);
-				pEl.find(`button[arg="height"]`).toggleAttr("disabled", value < Table.table.height);
 				break;
 			case "update-table-head-footer-rows":
 				// selectbox: table-header-rows
@@ -169,6 +160,29 @@
 				value = TblEl.prop("offsetTop");
 				Els.el.find(`.table-box-position input[name="y"]`).val(value);
 				break;
+			case "toggle-table-clip":
+				// toggle table clipping
+				if (event.el.is(":checked")) {
+					TblEl.addClass("clipped");
+					// enable input fields
+					Els.el.find(`.table-box-size input[name="width"]`)
+						.attr({ max: Table.table.width })
+						.removeAttr("disabled");
+					Els.el.find(`.table-box-size input[name="height"]`)
+						.attr({ max: Table.table.height })
+						.removeAttr("disabled");
+				} else {
+					TblEl.removeClass("clipped");
+					// reset dimensions
+					TblEl.find(".tbl-root").css({ width: "", height: "" });
+					// dinable input fields
+					Els.el.find(`.table-box-size input[type="number"]`).attr({ disabled: true });
+				}
+				// re-sync table tools
+				Table.dispatch({ type: "sync-table-tools" });
+				// remove selection
+				Table.table.unselect();
+				break;
 			/*
 			 * set values based on UI interaction
 			 */
@@ -214,42 +228,6 @@
 				// toggle table caption
 				if (event.el.is(":checked")) TblEl.append(`<div class="table-caption">Caption</div>`);
 				else TblEl.find(".table-caption").remove();
-				break;
-			case "toggle-table-clip":
-				// toggle table clipping
-				if (event.el.is(":checked")) {
-					Els.el.find(".table-clipping").addClass("expand");
-					TblEl.addClass("clipped");
-					// sync sidebar with clipped table
-					Self.dispatch({ type: "update-table-title-caption-clip" });
-				} else {
-					Els.el.find(".table-clipping").removeClass("expand");
-					TblEl.removeClass("clipped");
-					// update sidebar
-					el = Els.el.find(`.table-clipping button[arg="width"]`);
-					Self.dispatch({ type: "fit-table-clip", arg: "width", target: el });
-					el = Els.el.find(`.table-clipping button[arg="height"]`);
-					Self.dispatch({ type: "fit-table-clip", arg: "height", target: el });
-					// reset dimensions
-					TblEl.find(".tbl-root").css({ width: "", height: "" });
-				}
-				// re-sync table tools
-				Table.dispatch({ type: "sync-table-tools" });
-				// remove selection
-				Table.table.unselect();
-				break;
-			case "fit-table-clip":
-				// disable button
-				el = $(event.target);
-				el.attr({ disabled: true });
-				arg = el.attr("arg");
-
-				value = {};
-				value[arg] = Table.table[arg];
-				TblEl.find(".tbl-root").css(value);
-				
-				value[arg] = TblEl.prop(arg === "width" ? "offsetWidth" : "offsetHeight");
-				Table.els.root.css(value);
 				break;
 			case "set-table-font-size":
 				console.log(event);
@@ -325,7 +303,7 @@
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				break;
 			case "set-table-box-size":
-				TblEl.css({
+				TblEl.find(".tbl-root").css({
 					width: Els.el.find(`.table-box-size input[name="width"]`).val() +"px",
 					height: Els.el.find(`.table-box-size input[name="height"]`).val() +"px",
 				});

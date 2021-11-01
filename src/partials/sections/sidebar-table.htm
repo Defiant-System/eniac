@@ -27,40 +27,6 @@
 				<span class="form-checkbox_"><input type="checkbox" id="table-caption" data-click="toggle-table-caption"/><i></i></span>
 				<label for="table-caption">Caption</label>
 			</div>
-			<div>
-				<span class="form-checkbox_"><input type="checkbox" id="table-clip" data-click="toggle-table-clip"/><i></i></span>
-				<label for="table-clip">Clip</label>
-			</div>
-		</div>
-
-		<div class="group-row table-clipping collapsed">
-			<legend>Table Clip</legend>
-			<div class="flex-row">
-				<legend>Width</legend>
-				<div>
-					<input type="number" id="table-clip-width"/>
-					<div>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-				<div>
-					<button data-click="fit-table-clip" arg="width">Fit</button>
-				</div>
-			</div>
-			<div class="flex-row">
-				<legend>Height</legend>
-				<div>
-					<input type="number" id="table-clip-height"/>
-					<div>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-				<div>
-					<button data-click="fit-table-clip" arg="height">Fit</button>
-				</div>
-			</div>
 		</div>
 
 		<div class="group-row">
@@ -429,18 +395,25 @@
 			<div class="flex-row">
 				<legend class="bold">Size</legend>
 				<div class="indent has-title" title="Width" data-suffix="px">
-					<input type="number" min="0" max="1e5" step="1" name="width" data-change="set-table-box-size"/>
+					<input type="number" disabled min="0" max="1e5" step="1" name="width" data-change="set-table-box-size"/>
 					<div>
 						<span></span>
 						<span></span>
 					</div>
 				</div>
 				<div class="has-title" title="Height" data-suffix="px">
-					<input type="number" min="0" max="1e5" step="1" name="height" data-change="set-table-box-size"/>
+					<input type="number" disabled min="0" max="1e5" step="1" name="height" data-change="set-table-box-size"/>
 					<div>
 						<span></span>
 						<span></span>
 					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div></div>
+				<div class="w65">
+					<span class="form-checkbox_"><input type="checkbox" id="table-clip" data-click="toggle-table-clip"/><i></i></span>
+					<label for="table-clip">Clip Table</label>
 				</div>
 			</div>
 		</div>
