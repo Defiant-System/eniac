@@ -4,7 +4,6 @@
 @import "classes/guides.js"
 @import "classes/file.js"
 @import "modules/color.js"
-@import "modules/render.js"
 
 
 const XLSX = await window.fetch("~/js/xdef.js");
@@ -24,8 +23,6 @@ const eniac = {
 		this.body = window.find("content .body .wrapper");
 		// get settings or use default settings
 		this.Settings = window.settings.getItem("settings") || DefaultSettings;
-		// init renderer
-		Render.init();
 		// init all sub-objects
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
@@ -64,7 +61,8 @@ const eniac = {
 				return Self.tools.dispatch(event);
 			case "new-file":
 				// save reference to file
-				let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
+				let req = await defiant.shell(`fs -ur "~/sample/sheet.xml"`);
+				// let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/shapes.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/images.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/texts.xml"`);

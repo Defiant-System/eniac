@@ -5,21 +5,62 @@ class File {
 		// save reference to original FS file
 		this._file = fsFile || new defiant.File();
 
-		let html;
-		if (data) {
-			// attach reference to book
-			this._file.book = XLSX.read(data, { type: "array", cellStyles: true });
-		} else {
-			html = window.render({ data: this._file.data, template: "xl-file" });
-			
-			setTimeout(() => window.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-			// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		switch (this._file.kind) {
+			case "xlsx":
+				this._file.workbook = XLSX.read(data, { type: "array", cellStyles: true });
+				break;
+			case "xml":
+				this._file.workbook = this._file.data;
+				break;
 		}
 
 		// render workbook
-		Render.workbook(this._file.book, html);
+		this.render({ part: "sheet-names" });
+		this.render({ part: "sheet", name: this.sheetNames[0] });
+	}
+
+	render(opt) {
+		let APP = eniac,
+			str;
+		switch (opt.part) {
+			case "sheet-names":
+				str = this.sheetNames.reverse().map(name => APP.head.dispatch({ type: "add-sheet", name }))
+				break;
+			case "sheet":
+				// remove existing "sheet-body"
+				APP.body.find(".sheet-body").remove();
+				// render & append "sheet-body"
+				str = this.sheet(opt.name);
+				APP.body.append(`<div class="sheet-body">${str}</div>`);
+				break;
+		}
+	}
+
+	get sheetNames() {
+		switch (this._file.kind) {
+			case "xlsx":
+				return this._file.workbook.SheetNames;
+			case "xml":
+				let xSheets = this._file.workbook.selectNodes(`/Workbook/Sheet`);
+				return xSheets.map(xSheet => xSheet.getAttribute("name"));
+		}
+	}
+
+	sheet(name) {
+		let sheet, str;
+		switch (this._file.kind) {
+			case "xlsx":
+				let { html, css } = XLSX.utils.sheet_to_html_css(sheet, this.book);
+				str = `${html}<style>${css}</style>`;
+				return str;
+			case "xml":
+				str = window.render({
+					data: this._file.data,
+					match: `/Workbook/Sheet[@name="${name}"]`,
+					template: "xl-file",
+				});
+				return str;
+		}
 	}
 
 	toBlob(kind) {

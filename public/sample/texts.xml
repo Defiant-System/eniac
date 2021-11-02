@@ -1,28 +1,15 @@
-<Data>
-	<Text class="temp-text-1 middle italic" style="top: 100px; left: 500px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
-		<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
-	</Text>
+<Workbook>
+	<Sheet name="Texts">
+		<Text class="temp-text-1 middle italic" style="top: 100px; left: 500px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
+			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
+		</Text>
 
-	<Text class="temp-text-2" style="top: 440px; left: 530px; width: 220px; color: #ffff00; background-image: radial-gradient(60px at 150px 40px, rgba(50,176,240,1) 0%, rgba(131,58,180,1) 100%);">
-		<![CDATA[Nostrum voluptas quis ipsam quia. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
-	</Text>
+		<Text class="temp-text-2" style="top: 440px; left: 530px; width: 220px; color: #ffff00; background-image: radial-gradient(60px at 150px 40px, rgba(50,176,240,1) 0%, rgba(131,58,180,1) 100%);">
+			<![CDATA[Nostrum voluptas quis ipsam quia. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
+		</Text>
 
-	<Text class="temp-text-3 txt-pink-white" style="top: 450px; left: 130px; width: 300px;">
-		<![CDATA[Sunt ea iure dolor et cumque excepturi hic quas ea quas aspernatur qui architecto dolor provident et eos consequatur dolore.]]>
-	</Text>
-
-	<Table class="gray-table-1" style="top: 40px; left: 40px;">
-		<Row tp="1">
-			<Cell tp="4"/><Cell/><Cell/><Cell/>
-		</Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="3">
-			<Cell tp="4"/><Cell/><Cell/><Cell/>
-		</Row>
-	</Table>
-</Data>
+		<Text class="temp-text-3 txt-pink-white" style="top: 450px; left: 130px; width: 300px;">
+			<![CDATA[Sunt ea iure dolor et cumque excepturi hic quas ea quas aspernatur qui architecto dolor provident et eos consequatur dolore.]]>
+		</Text>
+	</Sheet>
+</Workbook>

@@ -56,9 +56,11 @@
 				if (el.prop("nodeName") !== "SPAN" || el.hasClass("active")) return;
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
-				return;
 				// render clicked sheet
-				Render.sheet(el.find("i").html());
+				APP.file.render({
+					part: "sheet",
+					name: el.find("i").html(),
+				});
 				break;
 		}
 	}
