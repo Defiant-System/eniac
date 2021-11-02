@@ -1,5 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
 
+	<svg id="icon-undo" viewBox="0 0 13 13">
+		<path fill="#333" d="M6.5,1.9C5,1.9,3.6,2.5,2.6,3.5L1,1.9V6h4.1L3.6,4.5c0.7-0.7,1.8-1.2,2.9-1.2c2.3,0,4.1,1.8,4.1,4.1c0,1.2-0.5,2.3-1.4,3.1
+			l0.9,1c1.1-1,1.9-2.5,1.9-4.1C12,4.3,9.5,1.9,6.5,1.9z"/>
+	</svg>
+
+	<svg id="icon-redo" viewBox="0 0 13 13">
+		<path fill="#333" d="M1,7.4c0,1.6,0.7,3.1,1.8,4.1l0.9-1C2.9,9.7,2.4,8.6,2.4,7.4c0-2.3,1.8-4.1,4.1-4.1c1.1,0,2.2,0.5,2.9,1.2L7.9,6H12V1.9
+			l-1.6,1.6c-1-1-2.4-1.6-3.9-1.6C3.5,1.9,1,4.4,1,7.4z"/>
+	</svg>
+	
 	<svg id="icon-equalizer" viewBox="0 0 13 13">
 		<style type="text/css">
 			.st0{fill:#333;}
@@ -11,19 +21,6 @@
 		<rect x="4" y="5" class="st0" width="1" height="3"/>
 		<rect x="8" y="9" class="st0" width="1" height="3"/>
 	</svg>
-
-	<svg id="icon-fill-solid" viewBox="0 0 19 19">
-
-	</svg>
-
-	<svg id="icon-fill-linear" viewBox="0 0 19 19">
-
-	</svg>
-
-	<svg id="icon-fill-radial" viewBox="0 0 19 19">
-
-	</svg>
-
 	
 	<svg id="icon-sidebar" viewBox="0 0 13 13">
 		<style type="text/css">

@@ -25,8 +25,13 @@
 				Els.el.find(`.color-preset_[data-change="set-sheet-bgcolor"]`)
 					.css({ "--preset-color": value });
 				break;
+			case "set-sheet-name":
+				console.log( event );
+				break;
 			case "set-sheet-bgcolor":
 				Sheet.css({ "background-color": event.value });
+				// update file
+				APP.file.dispatch({ ...event, type: "update-sheet-background" });
 				break;
 		}
 	}

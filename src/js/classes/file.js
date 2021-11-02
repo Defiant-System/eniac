@@ -15,8 +15,8 @@ class File {
 		}
 
 		// render workbook
-		this.render({ part: "sheet-names" });
-		this.render({ part: "sheet", name: this.sheetNames[0] });
+		this.dispatch({ type: "render-sheet-names" });
+		this.dispatch({ type: "render-sheet", name: this.sheetNames[0] });
 
 		setTimeout(() => window.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
@@ -24,19 +24,25 @@ class File {
 		// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 	}
 
-	render(opt) {
+	dispatch(event) {
 		let APP = eniac,
 			str;
-		switch (opt.part) {
-			case "sheet-names":
-				str = this.sheetNames.reverse().map(name => APP.head.dispatch({ type: "add-sheet", name }))
+		switch (event.type) {
+			case "render-sheet-names":
+				this.sheetNames.reverse().map(name => APP.head.dispatch({ type: "add-sheet", name }));
 				break;
-			case "sheet":
+			case "render-sheet":
 				// remove existing "sheet-body"
-				APP.body.find(".sheet-body").remove();
+				APP.body.find(Guides.selector).remove();
 				// render & append "sheet-body"
-				str = this.sheet(opt.name);
-				APP.body.append(`<div class="sheet-body">${str}</div>`);
+				str = this.sheet(event.name);
+				APP.body.append(str);
+				break;
+			case "update-sheet-name":
+				// console.log(event);
+				break;
+			case "update-sheet-background":
+				// console.log(event);
 				break;
 		}
 	}

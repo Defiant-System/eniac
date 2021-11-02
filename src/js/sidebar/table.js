@@ -7,9 +7,9 @@
 		this.parent = parent;
 
 		// temp
-		setTimeout(() => {
-			parent.els.el.find(".sidebar-table .sidebar-head span:nth(3)").trigger("click");
-		}, 200);
+		// setTimeout(() => {
+		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(3)").trigger("click");
+		// }, 200);
 
 		// setTimeout(() => {
 		// 	parent.els.el.find(".sidebar-table input#table-clip").trigger("click");

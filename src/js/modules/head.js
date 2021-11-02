@@ -59,8 +59,8 @@
 				// TODO: remember focused item and re-focus, if any
 				APP.body.trigger("mousedown");
 				// render clicked sheet
-				APP.file.render({
-					part: "sheet",
+				APP.file.dispatch({
+					type: "render-sheet",
 					name: el.find("i").html(),
 				});
 				break;
