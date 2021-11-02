@@ -1,6 +1,6 @@
 <Workbook>
 	<Sheet name="Images">
-		<Image class="temp-image-1">
+		<Image>
 			<Filter brightness="1" saturate="2"/>
 			<Dim x="130" y="130" w="300" h="200"/>
 			<Mask x="-90" y="-20" w="510" h="340"/>
@@ -8,7 +8,7 @@
 			<![CDATA[/fs/Desktop/images/girl.jpg]]>
 		</Image>
 
-		<Image class="temp-image-2">
+		<Image>
 			<Shadow x="7" y="7" blur="13" color="#22222270"/>
 			<Border style="solid" width="2" color="#222222"/>
 			<!-- <Filter brightness="1" saturate="2" reflection=".15" opacity="0.45"/> -->
@@ -18,7 +18,7 @@
 			<![CDATA[/fs/Desktop/coast.jpg]]>
 		</Image>
 
-		<Text class="temp-text-1" style="top: 100px; left: 540px; width: 170px;">
+		<Text style="top: 100px; left: 540px; width: 170px;">
 			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 		</Text>
 	</Sheet>

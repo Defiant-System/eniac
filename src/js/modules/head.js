@@ -56,6 +56,8 @@
 				if (el.prop("nodeName") !== "SPAN" || el.hasClass("active")) return;
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
+				// TODO: remember focused item and re-focus, if any
+				APP.body.trigger("mousedown");
 				// render clicked sheet
 				APP.file.render({
 					part: "sheet",

@@ -157,6 +157,7 @@
 				break;
 			// csutom events
 			case "blur-focused":
+				console.log(event);
 				// make elements "unselected"
 				Self.els.body.find(".wrapper > .selected").removeClass("selected");
 				// notify all sub-tools

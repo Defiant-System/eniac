@@ -17,6 +17,11 @@ class File {
 		// render workbook
 		this.render({ part: "sheet-names" });
 		this.render({ part: "sheet", name: this.sheetNames[0] });
+
+		setTimeout(() => window.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 	}
 
 	render(opt) {

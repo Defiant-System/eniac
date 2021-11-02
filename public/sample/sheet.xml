@@ -1,6 +1,6 @@
 <Workbook>
 	<Sheet name="Tables">
-		<Table id="scaffold" style="top: 40px; left: 40px;">
+		<Table style="top: 40px; left: 40px;">
 			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
 			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
 			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
@@ -77,7 +77,7 @@
 	</Sheet>
 
 	<Sheet name="Images">
-		<Image class="temp-image-1">
+		<Image>
 			<Filter brightness="1" saturate="2"/>
 			<Dim x="130" y="130" w="300" h="200"/>
 			<Mask x="-90" y="-20" w="510" h="340"/>
@@ -85,7 +85,7 @@
 			<![CDATA[/fs/Desktop/images/girl.jpg]]>
 		</Image>
 
-		<Image class="temp-image-2">
+		<Image>
 			<Shadow x="7" y="7" blur="13" color="#22222270"/>
 			<Border style="solid" width="2" color="#222222"/>
 			<!-- <Filter brightness="1" saturate="2" reflection=".15" opacity="0.45"/> -->
@@ -97,7 +97,7 @@
 	</Sheet>
 
 	<Sheet name="Shapes">
-		<Shape class="temp-1" viewBox="0 0 100 100" style="top: 150px; left: 420px;"><![CDATA[
+		<Shape viewBox="0 0 100 100" style="top: 150px; left: 420px;"><![CDATA[
 			<style type="text/css">
 				.st1{
 					fill: url(#SVG-GR-1);
@@ -114,7 +114,7 @@
 			<rect class="st1" x="0" y="0" width="100%" height="100%"/>
 		]]></Shape>
 
-		<Shape class="temp-2" viewBox="0 0 200 260" style="top: 310px; left: 120px;"><![CDATA[
+		<Shape viewBox="0 0 200 260" style="top: 310px; left: 120px;"><![CDATA[
 			<style type="text/css">
 				.st0 {
 					fill: transparent;
@@ -131,7 +131,7 @@
 			<rect class="st0" x="0" y="0" width="100%" height="100%" rx="10"/>
 		]]></Shape>
 
-		<Shape class="temp-3" viewBox="0 0 100 100" style="top: 520px; left: 340px;"><![CDATA[
+		<Shape viewBox="0 0 100 100" style="top: 520px; left: 340px;"><![CDATA[
 			<style type="text/css">
 				.st2{
 					fill: url(#SVG-GR-2);
@@ -145,7 +145,7 @@
 			<circle class="st2" cx="50" cy="50" r="50"/>
 		]]></Shape>
 
-		<Shape class="temp-4" viewBox="0 0 200 100" style="top: 290px; left: 540px;"><![CDATA[
+		<Shape viewBox="0 0 200 100" style="top: 290px; left: 540px;"><![CDATA[
 			<style type="text/css">
 				.st21{
 					fill: #336633;
@@ -154,7 +154,7 @@
 			<ellipse class="st21" cx="100" cy="50" rx="100" ry="50" />
 		]]></Shape>
 
-		<Shape class="temp-5" viewBox="0 0 100 100" style="top: 500px; left: 690px;"><![CDATA[
+		<Shape viewBox="0 0 100 100" style="top: 500px; left: 690px;"><![CDATA[
 			<style type="text/css">
 				.st3{
 					fill: #fcad2a;
@@ -167,7 +167,7 @@
 			<polygon class="st3" points="97,97 50,3.6 3,97 "/>
 		]]></Shape>
 
-		<Shape class="temp-6" viewBox="0 0 100 30" style="top: 440px; left: 530px;"><![CDATA[
+		<Shape viewBox="0 0 100 30" style="top: 440px; left: 530px;"><![CDATA[
 			<style type="text/css">
 				.st4{
 					stroke-width: 2;
@@ -177,7 +177,7 @@
 			<line class="st4" x1="0" y1="30" x2="100" y2="0"/>
 		]]></Shape>
 
-		<Shape class="temp-7" viewBox="0 0 100 120" style="top: 360px; left: 360px;"><![CDATA[
+		<Shape viewBox="0 0 100 120" style="top: 360px; left: 360px;"><![CDATA[
 			<style type="text/css">
 				.st5{
 					stroke-width: 2;
@@ -187,7 +187,7 @@
 			<line class="st5" x1="0" y1="0" x2="100" y2="120"/>
 		]]></Shape>
 
-		<Shape class="temp-8" viewBox="0 0 100 100" style="top: 80px; left: 280px;"><![CDATA[
+		<Shape viewBox="0 0 100 100" style="top: 80px; left: 280px;"><![CDATA[
 			<style type="text/css">
 				.st6{
 					fill: transparent;
@@ -198,7 +198,7 @@
 			<path class="st6" d="M0,100 C20,-50 90,80 100,0"/>
 		]]></Shape>
 
-		<Shape class="temp-9" viewBox="0 0 100 100" style="top: 120px; left: 120px;"><![CDATA[
+		<Shape viewBox="0 0 100 100" style="top: 120px; left: 120px;"><![CDATA[
 			<style type="text/css">
 				.st7{
 					fill: #ff0000;
@@ -207,7 +207,7 @@
 			<path class="st7" d="M50,4.6L35.1,34L3,39.3l22.9,23.5L21,95.4l29-14.8l29,14.8l-4.9-32.6L97,39.3L64.9,34L50,4.6z"/>
 		]]></Shape>
 
-		<Shape class="temp-10" viewBox="0 0 100 100" preserveAspectRatio="none" style="top: 70px; left: 580px;"><![CDATA[
+		<Shape viewBox="0 0 100 100" preserveAspectRatio="none" style="top: 70px; left: 580px;"><![CDATA[
 			<path fill="#333" d="M68.011,23.133c2.143-9.261-2.834-17.224-8.88-22.045c8.115,11.023,4.133,20.513,2.448,24.035c-0.687,0.229-1.298,0.229-1.681,0.229 c0.154,3.062-2.681,6.966-7.042,9.876c0.917-0.153,1.913-0.537,2.907-0.768C45.047,47.628,42.751,53.215,42.828,65.462 c-3.292,0.154-7.806-0.154-10.487-0.382c-0.611-8.574,7.333-17.297,10.334-20.896c3.063-3.674,26.638-31.538-14.008-22.429 c3.216,4.67-4.285,9.952-8.879,12.861c7.424-2.68,21.846-5.502,21.203,1.223c-0.816,8.554-14.467,17.376-18.37,28.169 c-2.297-0.23-4.747-0.612-6.508-1.072c2.219,4.747-6.276,7.502-10.87,8.42c5.97,0.689,12.324,0.766,14.544,0.766 c-1.071,12.554,7.808,20.974,18.371,24.646c-12.093-7.118-14.774-20.129,0.765-18.677c-2.603-2.755-4.134-4.897-4.899-6.735 c2.45-0.152,7.348-0.612,9.645-0.918c1.377,3.751,4.974,8.496,7.195,10.41c3.982-5.741,10.411-6.68,14.697-1.99 c3.229,3.536,1.146,14.161-1.531,20.055c13.457-17.729,1.059-28.555-3.521-32.456c41.868-20.512,32.912-29.315,12.857-24.877 C98.78,29.179,106.744,14.712,68.011,23.133z M78.728,47.244c1.072,2.297-6.584,9.722-21.279,15.081 c-4.285-6.277-2.525-10.871-1.38-13.167C69.007,44.871,77.653,44.948,78.728,47.244z M82.4,31.399 c-3.062,3.368-16.838,9.951-24.647,12.708c1.914-4.289,4.442-9.032,6.431-11.79C75.817,29.41,85.463,28.032,82.4,31.399z"/>
 		]]></Shape>
 	</Sheet>
