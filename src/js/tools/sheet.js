@@ -9,6 +9,9 @@
 			layout: window.find("layout"),
 			lasso: window.find(".sheet-lasso"),
 		};
+
+		// temp
+		eniac.sidebar.els.el.find(`input[data-change="set-sheet-name"]`).focus();
 	},
 	get layout() {
 		let body = this.els.layout.find("content > .body"),
@@ -22,10 +25,10 @@
 		let APP = eniac,
 			Self = APP.tools.sheet,
 			el;
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
-				console.log(event);
 				break;
 			// custom events
 			case "focus-sheet":

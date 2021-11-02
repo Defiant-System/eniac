@@ -41,7 +41,7 @@
 				anchor = selected.anchor;
 				data = { yNum: [], xNum: [] };
 				
-				if (["del", "backspace"].includes(event.char)) {
+				if (!anchor && ["del", "backspace"].includes(event.char)) {
 					// notify gracefully
 					Self.dispatch({ type: "blur-table" });
 					// detach table from DOM

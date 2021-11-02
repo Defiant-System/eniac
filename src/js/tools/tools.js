@@ -36,7 +36,14 @@
 				selected = event.selected || Self.els.body.find(".wrapper > .selected");
 				if (!selected.length) selected = Self[Self.active][Self.active];
 				
-				if (event.target && event.target.nodeName === "INPUT") return;
+				if (event.target && event.target.nodeName === "INPUT") {
+					el = $(event.target);
+					switch (event.char) {
+						case "esc":
+						case "return": el.blur(); break;
+					}
+					return;
+				}
 				if (selected && !selected.length && ["sheet", "table"].includes(Self.active)) {
 					// forward event to table tools
 					return Self[Self.active].dispatch(event);
