@@ -1,5 +1,5 @@
 <Workbook>
-	<Sheet name="Tables" background="#eee">
+	<Sheet name="Tables">
 		<Table style="top: 40px; left: 40px;">
 			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
 			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
@@ -62,7 +62,7 @@
 		</Table>
 	</Sheet>
 
-	<Sheet name="Texts">
+	<Sheet name="Texts" background="#eeeeee">
 		<Text class="temp-text-1 middle italic" style="top: 100px; left: 500px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
 			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 		</Text>

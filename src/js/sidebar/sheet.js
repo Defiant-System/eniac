@@ -29,8 +29,10 @@
 				el.val(value);
 				break;
 			case "update-sheet-background":
-				value = Sheet.css("background-color");
-				value = Color.rgbToHex(value).slice(0,-2);
+				value = APP.file.dispatch({ type: "get-sheet-background" }) || "#ffffff";
+				// update sheet background
+				Sheet.css({ "background-color": value });
+				// update sidebar color-preset
 				Els.el.find(`.color-preset_[data-change="set-sheet-bgcolor"]`)
 					.css({ "--preset-color": value });
 				break;
@@ -42,9 +44,14 @@
 				APP.file.dispatch({ ...event, type: "update-sheet-name" });
 				break;
 			case "set-sheet-bgcolor":
+				// update UI
 				Sheet.css({ "background-color": event.value });
 				// update file
 				APP.file.dispatch({ ...event, type: "update-sheet-background" });
+				break;
+			case "duplicate-sheet":
+			case "delete-sheet":
+				console.log(event);
 				break;
 		}
 	}

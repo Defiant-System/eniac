@@ -62,7 +62,7 @@
 					name: el.find("i").html(),
 				});
 				// TODO: remember focused item and re-focus, if any
-				APP.body.trigger("mousedown");
+				APP.sidebar.sheet.dispatch({ type: "populate-sheet-values" });
 				break;
 		}
 	}

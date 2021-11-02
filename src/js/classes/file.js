@@ -38,6 +38,7 @@ class File {
 			case "render-sheet":
 				// keep track of active sheet name
 				name = event.name || this.activeSheet;
+				this._activeSheet = name;
 				// remove existing "sheet-body"
 				APP.body.find(Guides.selector).remove();
 				// render & append "sheet-body"
@@ -56,6 +57,10 @@ class File {
 				xSheet = this._file.data.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
 				xSheet.setAttribute("background", event.value);
 				break;
+			case "get-sheet-background":
+				// update XML
+				xSheet = this._file.data.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				return xSheet.getAttribute("background");
 		}
 	}
 
