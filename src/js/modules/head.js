@@ -20,6 +20,7 @@
 			Self = APP.head,
 			max, delta, left,
 			name, cn, str,
+			index,
 			el;
 		switch (event.type) {
 			// native events
@@ -34,11 +35,17 @@
 				console.log( "make adjustments to menu", event.xMenu );
 				break;
 			// custom events
+			case "new-sheet":
+				index = Self.els.reel.find(".active").index();
+				name = APP.file.dispatch({ type: "create-new-sheet", index });
+				Self.dispatch({ type: "add-sheet", name, makeActive: true });
+				// empty work space
+				APP.body.find(Guides.selector).remove();
+				break;
 			case "add-sheet":
-				name = event.name || "Sheet 1";
 				el = Self.els.reel.find(".active").removeClass("active");
 				cn = event.makeActive ? `class="active"` : "";
-				str = `<span ${cn}><i>${name}</i><u data-menu="sheet-tab"></u></span>`;
+				str = `<span ${cn}><i>${event.name}</i><u data-menu="sheet-tab"></u></span>`;
 				if (el.length) el.after(str);
 				else Self.els.reel.prepend(str);
 				// TODO: add sheet to file & UI
