@@ -15,9 +15,11 @@ class File {
 		}
 
 		// render workbook
+		this._activeSheet = this.sheetNames[0];
 		this.dispatch({ type: "render-sheet-names" });
-		this.dispatch({ type: "render-sheet", name: this.sheetNames[0] });
+		this.dispatch({ type: "render-sheet" });
 
+		setTimeout(() => window.find(`layout .body`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => window.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
@@ -26,23 +28,33 @@ class File {
 
 	dispatch(event) {
 		let APP = eniac,
+			xSheet,
+			name,
 			str;
 		switch (event.type) {
 			case "render-sheet-names":
 				this.sheetNames.reverse().map(name => APP.head.dispatch({ type: "add-sheet", name }));
 				break;
 			case "render-sheet":
+				// keep track of active sheet name
+				name = event.name || this.activeSheet;
 				// remove existing "sheet-body"
 				APP.body.find(Guides.selector).remove();
 				// render & append "sheet-body"
-				str = this.sheet(event.name);
+				str = this.sheet(name);
 				APP.body.append(str);
 				break;
 			case "update-sheet-name":
-				// console.log(event);
+				// update XML
+				xSheet = this._file.data.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xSheet.setAttribute("name", event.value);
+				// internal reference to active sheet
+				this._activeSheet = event.value;
 				break;
 			case "update-sheet-background":
-				// console.log(event);
+				// update XML
+				xSheet = this._file.data.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xSheet.setAttribute("background", event.value);
 				break;
 		}
 	}
@@ -55,6 +67,10 @@ class File {
 				let xSheets = this._file.workbook.selectNodes(`/Workbook/Sheet`);
 				return xSheets.map(xSheet => xSheet.getAttribute("name"));
 		}
+	}
+
+	get activeSheet() {
+		return this._activeSheet;
 	}
 
 	sheet(name) {

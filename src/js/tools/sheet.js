@@ -11,7 +11,7 @@
 		};
 
 		// temp
-		eniac.sidebar.els.el.find(`input[data-change="set-sheet-name"]`).focus();
+		// eniac.sidebar.els.el.find(`input[data-change="set-sheet-name"]`).focus();
 	},
 	get layout() {
 		let body = this.els.layout.find("content > .body"),
