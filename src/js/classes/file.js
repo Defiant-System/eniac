@@ -29,11 +29,15 @@ class File {
 	dispatch(event) {
 		let APP = eniac,
 			xSheet,
+			xClone,
 			name,
 			str;
 		switch (event.type) {
 			case "render-sheet-names":
-				this.sheetNames.reverse().map(name => APP.head.dispatch({ type: "add-sheet", name }));
+				this.sheetNames.reverse().map(name => {
+					let makeActive = name === this._activeSheet;
+					APP.head.dispatch({ type: "add-sheet", name, makeActive })
+				});
 				break;
 			case "render-sheet":
 				// keep track of active sheet name
@@ -44,6 +48,16 @@ class File {
 				// render & append "sheet-body"
 				str = this.sheet(name);
 				APP.body.append(str);
+				break;
+			case "duplicate-active-sheet":
+				xSheet = this._file.data.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xClone = xSheet.cloneNode(true);
+				xClone.setAttribute("name", event.name);
+				xSheet.parentNode.insertBefore(xClone, xSheet.nextSibling);
+				break;
+			case "delete-active-sheet":
+				xSheet = this._file.data.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xSheet.parentNode.removeChild(xSheet);
 				break;
 			case "update-sheet-name":
 				// update XML

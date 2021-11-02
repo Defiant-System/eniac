@@ -22,6 +22,7 @@
 			case "populate-sheet-values":
 				Self.dispatch({ type: "update-sheet-name" });
 				Self.dispatch({ type: "update-sheet-background" });
+				Self.dispatch({ type: "update-sheet-buttons" });
 				break;
 			case "update-sheet-name":
 				el = Els.el.find(`input[data-change="set-sheet-name"]`);
@@ -36,9 +37,16 @@
 				Els.el.find(`.color-preset_[data-change="set-sheet-bgcolor"]`)
 					.css({ "--preset-color": value });
 				break;
+			case "update-sheet-buttons":
+				if (APP.head.els.reel.find("> span:not(.remove-sheet)").length > 1) {
+					Els.el.find(`button[data-click="delete-sheet"]`).removeAttr("disabled");
+				} else {
+					Els.el.find(`button[data-click="delete-sheet"]`).attr({ disabled: true });
+				}
+				break;
 			case "set-sheet-name":
-				value = APP.file.activeSheet;
-				el = APP.head.els.reel.find(`span i:contains("${value}")`);
+				name = APP.file.activeSheet;
+				el = APP.head.els.reel.find(`span i:contains("${name}")`);
 				el.html(event.value);
 				// update file
 				APP.file.dispatch({ ...event, type: "update-sheet-name" });
@@ -50,8 +58,17 @@
 				APP.file.dispatch({ ...event, type: "update-sheet-background" });
 				break;
 			case "duplicate-sheet":
+				// update UI
+				name = APP.file.activeSheet +"-1";
+				APP.head.dispatch({ type: "add-sheet", name, makeActive: true });
+				// update file
+				APP.file.dispatch({ type: "duplicate-active-sheet", name });
+				break;
 			case "delete-sheet":
-				console.log(event);
+				// update UI
+				APP.head.dispatch({ type: "remove-sheet" });
+				// update file
+				APP.file.dispatch({ type: "delete-active-sheet" });
 				break;
 		}
 	}

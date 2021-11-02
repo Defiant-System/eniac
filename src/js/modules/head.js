@@ -19,7 +19,7 @@
 		let APP = eniac,
 			Self = APP.head,
 			max, delta, left,
-			name, cn,
+			name, cn, str,
 			el;
 		switch (event.type) {
 			// native events
@@ -35,13 +35,16 @@
 				break;
 			// custom events
 			case "add-sheet":
-				name = event.name || "Sheet1";
-				Self.els.reel.find(".active").removeClass("active");
-				Self.els.reel.prepend(`<span class="active"><i>${name}</i><u data-click1="remove-sheet" data-menu="sheet-tab"></u></span>`);
+				name = event.name || "Sheet 1";
+				el = Self.els.reel.find(".active").removeClass("active");
+				cn = event.makeActive ? `class="active"` : "";
+				str = `<span ${cn}><i>${name}</i><u data-menu="sheet-tab"></u></span>`;
+				if (el.length) el.after(str);
+				else Self.els.reel.prepend(str);
 				// TODO: add sheet to file & UI
 				break;
 			case "remove-sheet":
-				el = event.origin.el.parents("span");
+				el = event.origin ? event.origin.el.parents("span") : Self.els.reel.find(".active");
 				el.cssSequence("remove-sheet", "animationend", el => {
 					let nextEl = el.next("span");
 					if (!nextEl.length) nextEl = el.prev("span");					
@@ -56,11 +59,9 @@
 				if (el.prop("nodeName") !== "SPAN" || el.hasClass("active")) return;
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
+				name = el.find("i").html();
 				// render clicked sheet
-				APP.file.dispatch({
-					type: "render-sheet",
-					name: el.find("i").html(),
-				});
+				APP.file.dispatch({ type: "render-sheet", name });
 				// TODO: remember focused item and re-focus, if any
 				APP.sidebar.sheet.dispatch({ type: "populate-sheet-values" });
 				break;
