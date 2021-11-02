@@ -163,6 +163,9 @@
 				}
 				break;
 			// csutom events
+			case "reset-tools":
+				Self.active = false;
+				/* falls through */
 			case "blur-focused":
 				// make elements "unselected"
 				Self.els.body.find(".wrapper > .selected").removeClass("selected");
