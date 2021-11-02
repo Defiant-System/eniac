@@ -87,6 +87,11 @@
 				Els.el.find(`input[name="table-rows-num"]`).val(value);
 				value = Table.table.dimension.cols;
 				Els.el.find(`input[name="table-cols-num"]`).val(value);
+				// update size values
+				value = Table.table.width;
+				Els.el.find(`.table-box-size input[name="width"]`).val(value);
+				value = Table.table.height;
+				Els.el.find(`.table-box-size input[name="height"]`).val(value);
 				break;
 			case "update-table-outlines":
 				// border style
