@@ -20,7 +20,7 @@
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
 		setTimeout(() => {
-			window.find(".toolbar-tool_:nth(2)").trigger("click");
+			window.find(".toolbar-tool_:nth(7)").trigger("click");
 			// window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
 		}, 500);
 	},
@@ -171,11 +171,57 @@
 				Self.dispatch({ type: "close-popup" });
 				console.log(event);
 				break;
-			case "select-menu":
+			case "import-shape-image":
 				// close popup
 				Self.dispatch({ type: "close-popup" });
 				el = $(event.target);
-				console.log( el.data("arg") );
+				// type of import
+				switch (el.data("arg")) {
+					case "image":
+						data = {
+							png: file => Self.dispatch({ type: "insert-image", file }),
+							jpg: file => Self.dispatch({ type: "insert-image", file }),
+							gif: file => Self.dispatch({ type: "insert-image", file }),
+						};
+						break;
+					case "shape":
+						data = {
+							svg: file => Self.dispatch({ type: "insert-shape", file }),
+						};
+						break;
+				}
+				// show dialog
+				window.dialog.open({ type: "import", ...data });
+				break;
+			case "insert-image":
+				console.log(event);
+				break;
+			case "insert-shape":
+				event.file.open({ responseType: "text" })
+					.then(svg => {
+						let str = svg.data.match(/<svg .*?<\/svg>/gms),
+							span = document.createElement("span");
+						// failed to import svg file
+						if (!str) return window.dialog.alert("Could not import file&hellip; ");
+
+						// insert svg string into temp span element
+						span.innerHTML = str[0].trim();
+						// remove attributes from svg element
+						let el = span.firstChild;
+						[...el.attributes].map(a => (a.name !== "viewBox") ? el.removeAttribute(a.name) : null);
+						
+						// insert shape
+						el = APP.body.append(el);
+						// position element
+						el.addClass("xl-shape")
+							.css({
+								top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
+								left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
+								zIndex: APP.body.find(Guides.selector).length,
+							})
+							// focus on shape
+							.trigger("mousedown").trigger("mouseup");
+					});
 				break;
 			case "insert-text-box":
 				pos = {
@@ -185,7 +231,7 @@
 				};
 				data = $.xmlFromString(`<data><Text style="top:${pos.top}px; left:${pos.left}px; width:100px; z-index:${pos.zIndex};"><![CDATA[Text]]></Text></data>`);
 				str = window.render({ template: "xl-text", match: `//Text`, data });
-				// insert shape
+				// insert text element
 				el = APP.body.append(str);
 				// focus on shape
 				el.trigger("mousedown").trigger("mouseup");
