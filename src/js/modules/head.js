@@ -69,11 +69,11 @@
 				name = el.find("i").html();
 				// render clicked sheet
 				APP.file.dispatch({ type: "render-sheet", name });
-				// reset (active) tools
-				APP.tools.dispatch({ type: "reset-tools" });
+
 				// TODO: remember focused item and re-focus, if any
-				APP.sidebar.sheet.dispatch({ type: "populate-sheet-values" });
-				break;
+
+				// reset (active) tools and focus on "sheet"
+				return APP.body.trigger("mousedown").trigger("mouseup");
 		}
 	}
 }

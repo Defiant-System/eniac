@@ -310,8 +310,23 @@
 				Image.css({ "--saturate": (event.value * .01) + 1 });
 				break;
 			case "image-instant-alpha":
-			case "image-replace-image":
 				console.log(event);
+				break;
+			case "image-replace-image":
+				window.dialog.open({
+					type: "import",
+					png: file => Self.dispatch({ type: "insert-image", file }),
+					gif: file => Self.dispatch({ type: "insert-image", file }),
+					jpg: file => Self.dispatch({ type: "insert-image", file }),
+				});
+				break;
+			case "insert-image":
+				// remove active image
+				Image.remove();
+				// reset (active) tools
+				Tools.dispatch({ type: "reset-tools" });
+				// insert image by forwarding event to "popups"
+				APP.popups.dispatch(event);
 				break;
 			case "reset-image-filters":
 				Els.el.find(".image-brightness input").val(0);
