@@ -78,10 +78,8 @@
 
 	<Sheet name="Images">
 		<Image>
-			<Filter brightness="1" saturate="2"/>
 			<Dim x="130" y="130" w="300" h="200"/>
-			<Mask x="-90" y="-20" w="510" h="340"/>
-			<Text title="An Image"/>
+			<Mask x="0" y="0" w="300" h="200"/>
 			<![CDATA[/fs/Desktop/images/girl.jpg]]>
 		</Image>
 

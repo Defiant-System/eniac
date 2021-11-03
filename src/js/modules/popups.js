@@ -195,6 +195,15 @@
 				break;
 			case "insert-image":
 				console.log(event);
+
+				el = $.nodeFromString(`<Image>
+											<Dim x="130" y="130" w="300" h="200"/>
+											<Mask x="-90" y="-20" w="510" h="340"/>
+											<Text title="An Image"/>
+											<![CDATA[${event.file.path}]]>
+										</Image>`);
+				console.log(el);
+
 				break;
 			case "insert-shape":
 				event.file.open({ responseType: "text" })
