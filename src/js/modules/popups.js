@@ -161,9 +161,22 @@
 			case "select-menu":
 			case "insert-text-box":
 			case "insert-chart":
-			case "insert-shape":
 			case "insert-image":
 				console.log(event);
+				break;
+			case "insert-shape":
+				name = $(event.target).data("arg");
+				el = APP.body.append(window.find(`svg#${name}`).clone(true));
+				
+				el.removeAttr("cache")
+					.css({
+						top: 150,
+						left: 420,
+						width: 100,
+						height: 100,
+						zIndex: 1,
+					});
+
 				break;
 		}
 	},
