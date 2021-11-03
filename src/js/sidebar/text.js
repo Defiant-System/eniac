@@ -289,8 +289,10 @@
 			 * set values based on UI interaction
 			 */
 			// tab: Style
-			case "set-text-fill-color":
+			case "set-text-style":
 				console.log(event);
+				break;
+			case "set-text-fill-color":
 				Text.css({ background: event.value });
 				break;
 			case "set-text-gradient-angle":
