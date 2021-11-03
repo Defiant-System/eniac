@@ -13,8 +13,7 @@
 		this.els.root.on("wheel", this.dispatch);
 
 		// temp
-		// setTimeout(() => this.dispatch({ type: "new-sheet" }), 100);
-		// setTimeout(() => window.find(`.grid-column span[data-arg="gray-table-1"]`).trigger("click"), 300);
+		setTimeout(() => this.els.reel.find("> span:nth(2)").trigger("click"), 100);
 	},
 	dispatch(event) {
 		let APP = eniac,

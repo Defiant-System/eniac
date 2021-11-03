@@ -18,12 +18,13 @@ class File {
 		this._activeSheet = this.sheetNames[0];
 		this.dispatch({ type: "render-sheet-names" });
 		this.dispatch({ type: "render-sheet" });
+		// trigger first mousedown
+		setTimeout(() => window.find(`layout .body`).trigger("mousedown").trigger("mouseup"), 10);
 
-		setTimeout(() => window.find(`layout .body`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => window.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => window.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => window.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-		// setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		setTimeout(() => window.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 	}
 
 	dispatch(event) {
