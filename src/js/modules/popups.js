@@ -8,6 +8,7 @@
 			doc: $(document),
 			layout: window.find("layout"),
 			root: window.find(".popups"),
+			formulaOptions: window.find(".popups .popup-insert-formula-options"),
 			gridOptions: window.find(".popups .popup-insert-grid-options"),
 			chartOptions: window.find(".popups .popup-insert-chart-options"),
 			shapeOptions: window.find(".popups .popup-insert-shape-options"),
@@ -18,10 +19,10 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		// setTimeout(() => {
-		// 	window.find(".toolbar-tool_:nth(5)").trigger("click");
-		// 	// window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
-		// }, 100);
+		setTimeout(() => {
+			window.find(".toolbar-tool_:nth(2)").trigger("click");
+			// window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
+		}, 500);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -159,11 +160,22 @@
 				// close popup
 				Self.dispatch({ type: "close-popup" });
 				break;
+			case "insert-formula":
+				// close popup
+				Self.dispatch({ type: "close-popup" });
+				el = $(event.target);
+				console.log( el.data("arg") );
+				break;
 			case "insert-chart":
-			case "select-menu":
 				// close popup
 				Self.dispatch({ type: "close-popup" });
 				console.log(event);
+				break;
+			case "select-menu":
+				// close popup
+				Self.dispatch({ type: "close-popup" });
+				el = $(event.target);
+				console.log( el.data("arg") );
 				break;
 			case "insert-text-box":
 				pos = {

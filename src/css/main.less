@@ -485,22 +485,29 @@ layout {
 			}
 		}
 
+		&.popup-insert-formula-options,
 		&.popup-insert-image-options {
 			width: auto;
-			min-width: 150px;
+			min-width: 130px;
 			font-size: 13px;
 			border-radius: 7px;
 			padding: 7px 0;
 
-			.menu-entries {
-
+			.menu-divider {
+				background: rgba(0,0,0,.15);
+				height: 1px;
+				margin: 5px 0;
 			}
 
 			.menu-item {
 				white-space: nowrap;
 				padding: 5px 13px;
 
-				&:hover {
+				&.disabled {
+					opacity: .35;
+				}
+
+				&:not(.disabled):hover {
 					background: #6da6f9;
 					color: #fff;
 
