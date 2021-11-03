@@ -21,7 +21,11 @@
 
 		setTimeout(() => {
 			window.find(".toolbar-tool_:nth(7)").trigger("click");
-			// window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
+			
+			// setTimeout(() => {
+			// 	window.find(`.menu-item[data-arg="image"]`).trigger("click");
+			// }, 100);
+
 		}, 500);
 	},
 	dispatch(event) {
@@ -194,16 +198,33 @@
 				window.dialog.open({ type: "import", ...data });
 				break;
 			case "insert-image":
-				console.log(event);
+				let img = new Image();
 
-				el = $.nodeFromString(`<Image>
-											<Dim x="130" y="130" w="300" h="200"/>
-											<Mask x="-90" y="-20" w="510" h="340"/>
-											<Text title="An Image"/>
-											<![CDATA[${event.file.path}]]>
-										</Image>`);
-				console.log(el);
-
+				img.onload = e => {
+					let dim = {
+							width: img.width,
+							height: img.height,
+							top: (APP.body.parent().prop("offsetHeight") - img.height) >> 1,
+							left: (APP.body.parent().prop("offsetWidth") - img.width) >> 1,
+							zIndex: APP.body.find(Guides.selector).length,
+						},
+						str = `<data>
+									<Image>
+										<Dim x="${dim.left}" y="${dim.top}" w="${dim.width}" h="${dim.height}" zIndex="${dim.zIndex}"/>
+										<Mask x="0" y="0" w="${dim.width}" h="${dim.height}"/>
+										<![CDATA[${event.file.path}]]>
+									</Image>
+								</data>`;
+					// prepare render
+					data = $.nodeFromString(str);
+					str = window.render({ template: "xl-image", match: `//Image`, data });
+					// insert text element
+					el = APP.body.append(str);
+					// focus on shape
+					el.trigger("mousedown").trigger("mouseup");
+				};
+				// preload image to find out height & width
+				img.src = event.file.path;
 				break;
 			case "insert-shape":
 				event.file.open({ responseType: "text" })

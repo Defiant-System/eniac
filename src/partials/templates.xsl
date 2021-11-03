@@ -32,6 +32,9 @@
 			left: <xsl:value-of select="Dim/@x"/>px;
 			width: <xsl:value-of select="Dim/@w"/>px;
 			height: <xsl:value-of select="Dim/@h"/>px;
+			<xsl:if test="Dim/@zIndex">
+				z-index: <xsl:value-of select="Dim/@zIndex"/>;
+			</xsl:if>
 			<xsl:if test="Shadow">
 				box-shadow: <xsl:value-of select="Shadow/@x"/>px <xsl:value-of select="Shadow/@y"/>px <xsl:value-of select="Shadow/@blur"/>px <xsl:value-of select="Shadow/@color"/>;
 			</xsl:if>
