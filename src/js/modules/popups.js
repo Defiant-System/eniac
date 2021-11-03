@@ -18,15 +18,16 @@
 		// bind event handlers
 		this.els.colorRing.on("mousedown", this.doColorRing);
 
-		setTimeout(() => {
-			window.find(".toolbar-tool_:nth(6)").trigger("click");
-			// window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
-		}, 700);
+		// setTimeout(() => {
+		// 	window.find(".toolbar-tool_:nth(5)").trigger("click");
+		// 	// window.find(".text-fill-options .point:nth(0)").trigger("mousedown").trigger("mouseup");
+		// }, 100);
 	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.popups,
 			dim, pos, top, left,
+			data,
 			name,
 			value,
 			func,
@@ -158,24 +159,37 @@
 				// close popup
 				Self.dispatch({ type: "close-popup" });
 				break;
-			case "select-menu":
-			case "insert-text-box":
 			case "insert-chart":
-			case "insert-image":
+			case "select-menu":
+				// close popup
+				Self.dispatch({ type: "close-popup" });
 				console.log(event);
+				break;
+			case "insert-text-box":
+				pos = {
+					top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
+					left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
+					zIndex: APP.body.find(Guides.selector).length,
+				};
+				data = $.xmlFromString(`<data><Text style="top:${pos.top}px; left:${pos.left}px; width:100px; z-index:${pos.zIndex};"><![CDATA[Text]]></Text></data>`);
+				str = window.render({ template: "xl-text", match: `//Text`, data });
+				// insert shape
+				el = APP.body.append(str);
+				// focus on shape
+				el.trigger("mousedown").trigger("mouseup");
 				break;
 			case "insert-shape":
 				// close popup
 				Self.dispatch({ type: "close-popup" });
 				// prepare shape
 				name = $(event.target).data("arg");
-				value = {
+				pos = {
 					top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
 					left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
 					zIndex: APP.body.find(Guides.selector).length,
 				};
 				str = window.find(`svg#${name}`).clone(true)[0].outerHTML;
-				str = str.replace(/ id=".+?"/, ` style="top:${value.top}px; left:${value.left}px; width:100px; height:100px; z-index:1;"`)
+				str = str.replace(/ id=".+?"/, ` style="top:${pos.top}px; left:${pos.left}px; width:100px; height:100px; z-index:${pos.zIndex};"`)
 						.replace(/ cache="keep"/, ` class="xl-shape"`)
 						.replace(/dsic\d+/g, m => `dsic${Date.now()}`);
 				// insert shape
