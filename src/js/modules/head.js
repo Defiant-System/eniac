@@ -13,7 +13,7 @@
 		this.els.root.on("wheel", this.dispatch);
 
 		// temp
-		setTimeout(() => this.els.reel.find("> span:nth(2)").trigger("click"), 100);
+		// setTimeout(() => this.els.reel.find("> span:nth(2)").trigger("click"), 100);
 	},
 	dispatch(event) {
 		let APP = eniac,

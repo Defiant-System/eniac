@@ -6,6 +6,8 @@ class File {
 		this._file = fsFile || new defiant.File();
 
 		switch (this._file.kind) {
+			case "csv":
+				return console.log(this._file);
 			case "xlsx":
 				this._file.workbook = XLSX.read(data, { type: "array", cellStyles: true });
 				break;
@@ -27,7 +29,7 @@ class File {
 		// setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-		setTimeout(() => APP.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => APP.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 	}
 
 	dispatch(event) {
