@@ -165,18 +165,27 @@
 				console.log(event);
 				break;
 			case "insert-shape":
+				// close popup
+				Self.dispatch({ type: "close-popup" });
+				// prepare shape
 				name = $(event.target).data("arg");
 				el = APP.body.append(window.find(`svg#${name}`).clone(true));
-				
-				el.removeAttr("cache")
-					.css({
-						top: 150,
-						left: 420,
+				el.find("rect[stroke-width]").remove();
+				value = {
+						top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
+						left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
 						width: 100,
 						height: 100,
-						zIndex: 1,
-					});
-
+						zIndex: APP.body.find(Guides.selector).length,
+					};
+				// reset shape
+				el.removeAttr("cache")
+					.removeAttr("id")
+					.addClass(`xl-shape`)
+					.css(value)
+					// focus on shape
+					.trigger("mousedown")
+					.trigger("mouseup");
 				break;
 		}
 	},

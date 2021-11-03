@@ -1,58 +1,48 @@
 
-<svg id="shape-line" viewBox="0 0 100 100">
+<svg id="shape-line" viewBox="0 0 100 100" cache="keep">
 	<style type="text/css">
 		.st0{
-			stroke-width: 3;
+			stroke-width: 2;
 			stroke: #333;
-		}
-		.st1{
-			stroke-width: 1;
-			stroke: #000;
-			fill: #fff;
 		}
 	</style>
 	<line class="st0" x1="3" y1="94" x2="94" y2="3"/>
-	<rect class="st1" x="2" y="80" width="16" height="16"/>
-	<rect class="st1" x="80" y="2" width="16" height="16"/>
+	<rect stroke-width="1" stroke="#000" fill="#fff" x="2" y="80" width="16" height="16"/>
+	<rect stroke-width="1" stroke="#000" fill="#fff" x="80" y="2" width="16" height="16"/>
 </svg>
 
-<svg id="shape-bezier" viewBox="0 0 100 100">
+<svg id="shape-bezier" viewBox="0 0 100 100" cache="keep">
 	<style type="text/css">
 		.st0{
 			fill: transparent;
-			stroke-width: 3;
+			stroke-width: 2;
 			stroke: #333;
-		}
-		.st1{
-			stroke-width: 1;
-			stroke: #000;
-			fill: #fff;
 		}
 	</style>
 	<path class="st0" d="M10,94 C20,-30 80,90 94,6"/>
-	<rect class="st1" x="2" y="84" width="16" height="16"/>
-	<rect class="st1" x="82" y="2" width="16" height="16"/>
+	<rect stroke-width="1" stroke="#000" fill="#fff" x="2" y="84" width="16" height="16"/>
+	<rect stroke-width="1" stroke="#000" fill="#fff" x="82" y="2" width="16" height="16"/>
 </svg>
 
 <svg id="shape-rectangle" viewBox="0 0 100 100" cache="keep">
 	<style type="text/css">
 		.st0{fill:#444;}
 	</style>
-	<rect class="st0" x="3" y="3" width="94" height="94"/>
+	<rect class="st0" x="0" y="0" width="100%" height="100%"/>
 </svg>
 
 <svg id="shape-rounded" viewBox="0 0 100 100" cache="keep">
 	<style type="text/css">
 		.st0{fill:#444;}
 	</style>
-	<rect class="st0" x="3" y="3" width="94" height="94" rx="15"/>
+	<rect class="st0" x="0" y="0" width="100%" height="100%" rx="15"/>
 </svg>
 
 <svg id="shape-disc" viewBox="0 0 100 100" cache="keep">
 	<style type="text/css">
 		.st0{fill:#444;}
 	</style>
-	<circle class="st0" cx="50" cy="50" r="47"/>
+	<circle class="st0" cx="50" cy="50" r="50"/>
 </svg>
 
 <svg id="shape-triangle" viewBox="0 0 100 100" cache="keep">
