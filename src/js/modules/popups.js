@@ -169,23 +169,20 @@
 				Self.dispatch({ type: "close-popup" });
 				// prepare shape
 				name = $(event.target).data("arg");
-				el = APP.body.append(window.find(`svg#${name}`).clone(true));
-				el.find("rect[stroke-width]").remove();
 				value = {
-						top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
-						left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
-						width: 100,
-						height: 100,
-						zIndex: APP.body.find(Guides.selector).length,
-					};
-				// reset shape
-				el.removeAttr("cache")
-					.removeAttr("id")
-					.addClass(`xl-shape`)
-					.css(value)
-					// focus on shape
-					.trigger("mousedown")
-					.trigger("mouseup");
+					top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
+					left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
+					zIndex: APP.body.find(Guides.selector).length,
+				};
+				str = window.find(`svg#${name}`).clone(true)[0].outerHTML;
+				str = str.replace(/ id=".+?"/, ` style="top:${value.top}px; left:${value.left}px; width:100px; height:100px; z-index:1;"`)
+						.replace(/ cache="keep"/, ` class="xl-shape"`)
+						.replace(/dsic\d+/g, m => `dsic${Date.now()}`);
+				// insert shape
+				el = APP.body.append(str);
+				el.find("rect[stroke-width]").remove();
+				// focus on shape
+				el.trigger("mousedown").trigger("mouseup");
 				break;
 		}
 	},
