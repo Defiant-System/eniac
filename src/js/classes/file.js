@@ -7,7 +7,9 @@ class File {
 
 		switch (this._file.kind) {
 			case "csv":
-				return console.log(this._file);
+				// parse CSV file into workbook
+				this._file.workbook = CSV.parse(this._file.data);
+				break;
 			case "xlsx":
 				this._file.workbook = XLSX.read(data, { type: "array", cellStyles: true });
 				break;
@@ -106,6 +108,7 @@ class File {
 		switch (this._file.kind) {
 			case "xlsx":
 				return this._file.workbook.SheetNames;
+			case "csv":
 			case "xml":
 				let xSheets = this._file.workbook.selectNodes(`/Workbook/Sheet`);
 				return xSheets.map(xSheet => xSheet.getAttribute("name"));
@@ -123,9 +126,10 @@ class File {
 				let { html, css } = XLSX.utils.sheet_to_html_css(sheet, this.book);
 				str = `${html}<style>${css}</style>`;
 				return str;
+			case "csv":
 			case "xml":
 				str = window.render({
-					data: this._file.data,
+					data: this._file.workbook,
 					match: `/Workbook/Sheet[@name="${name}"]`,
 					template: "xl-file",
 				});
@@ -148,6 +152,10 @@ class File {
                 	view[i] = file.charCodeAt(i) & 0xFF;
                 }
                 data = buffer;
+				break;
+			case "csv":
+				type = "text/csv";
+				data = file;
 				break;
 			case "xml":
 				type = "application/xml";

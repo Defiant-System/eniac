@@ -2,6 +2,7 @@
 @import "classes/grid.js"
 @import "classes/grid-tools.js"
 @import "classes/guides.js"
+@import "classes/csv.js"
 @import "classes/file.js"
 @import "modules/color.js"
 
