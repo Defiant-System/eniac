@@ -14,9 +14,9 @@ const CSV = {
 		str.push(`<Sheet name="Sheet 1">`);
 		str.push(`<Table width="${width}" height="${height}" style="${style}">`);
 
-		// returns workbook
+		// parse data string to XML
 		data.trim().split("\n").map(row => {
-			let xRow = `<Row tp="2">`;
+			let xRow = "";
 			row.split(",").map(cell => {
 				let v = cell.trim();
 				if (v.startsWith('"') && v.endsWith('"')) {
@@ -24,9 +24,7 @@ const CSV = {
 				}
 				xRow += `<Cell v="${v}"/>`;
 			});
-			xRow += "</Row>";
-
-			str.push(xRow);
+			str.push(`<Row tp="2">${xRow}</Row>`);
 		});
 
 		str.push(`</Table>`);
@@ -36,5 +34,8 @@ const CSV = {
 		// console.log( str.join("\n") );
 
 		return $.xmlFromString(str.join("")).documentElement;
+	},
+	export(table) {
+		// TODO: export table to CSV
 	}
 };
