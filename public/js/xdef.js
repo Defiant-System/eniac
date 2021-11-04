@@ -17645,6 +17645,7 @@ var HTML_ = (function() {
 			if (CS > 1) sp.cs = CS; // colspan
 			sp.t = cell && cell.t || "z";
 			if (cell && cell.f) sp.f = cell.f;
+			if (sp.style) sp.style = sp.style.join(";");
 			sp.id = coord;
 			// hex color fix
 			w = w.replace(/#FF(.{6});/g, "#$1;");
@@ -17801,13 +17802,15 @@ var HTML_ = (function() {
 				case "!rows":
 					item.map((row, i) => {
 						if (!out[coord[i][0]]) out[coord[i][0]] = {};
-						out[coord[i][0]].height = Math.max(25, row.hpt * (96/72));
+						if (!out[coord[i][0]].style) out[coord[i][0]].style = [];
+						out[coord[i][0]].style.push(`height: ${Math.max(25, row.hpt * (96/72))}px`);
 					});
 					break;
 				case "!cols":
 					item.map((col, i) => {
 						if (!out[coord[0][i]]) out[coord[0][i]] = {};
-						out[coord[0][i]].width = width2px(col.width);
+						if (!out[coord[0][i]].style) out[coord[0][i]].style = [];
+						out[coord[0][i]].style.push(`width: ${width2px(col.width)}px`);
 					});
 					break;
 				default:
@@ -17826,7 +17829,6 @@ var HTML_ = (function() {
 					if (font.italic) cnames.push("italic");
 					if (font.underline) cnames.push("underline");
 					if (font.strike) cnames.push("strike");
-
 					if (style.alignment) {
 						if (["right", "center"].includes(style.alignment.horizontal)) cnames.push(style.alignment.horizontal);
 						if (["top", "bottom"].includes(style.alignment.vertical)) cnames.push(style.alignment.vertical);
@@ -17837,7 +17839,6 @@ var HTML_ = (function() {
 					if (cnames.length) {
 						if (!out[key]) out[key] = {};
 						out[key].cn = cnames.join(" ");
-						// out.push(`#${key} { ${cellCss.join(";")} }`);
 					}
 			}
 		}
