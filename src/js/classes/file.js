@@ -13,7 +13,7 @@ class File {
 			case "xlsx":
 				let book = XLSX.read(data, { type: "array", cellStyles: true });
 				this._file.workbook = XLSX.utils.book_to_xml(book);
-				console.log( this._file.workbook );
+				// console.log( this._file.workbook );
 				break;
 			case "xml":
 				this._file.workbook = this._file.data;

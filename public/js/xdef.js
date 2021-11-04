@@ -17645,7 +17645,10 @@ var HTML_ = (function() {
 			if (CS > 1) sp.cs = CS; // colspan
 			sp.t = cell && cell.t || "z";
 			if (cell && cell.f) sp.f = cell.f;
-			if (sp.style) sp.style = sp.style.join(";");
+			if (sp.style) {
+				if (sp.style.length) sp.style = sp.style.join(";");
+				else delete sp.style;
+			}
 			sp.id = coord;
 			// hex color fix
 			w = w.replace(/#FF(.{6});/g, "#$1;");
@@ -17817,6 +17820,7 @@ var HTML_ = (function() {
 					if (!item.styleIndex) continue;
 
 					let cnames = [],
+						styles = [],
 						style = book.Styles.CellXf[item.styleIndex],
 						fill = book.Styles.Fills[style.fillId],
 						font = book.Styles.Fonts[style.fontId],
@@ -17829,6 +17833,10 @@ var HTML_ = (function() {
 					if (font.italic) cnames.push("italic");
 					if (font.underline) cnames.push("underline");
 					if (font.strike) cnames.push("strike");
+					if (fill?.bgColor) styles.push(`background:#${fill.fgColor.rgb}`);
+					if (font.color) styles.push(`color:#${font.color.rgb}`);
+					if (font.name) styles.push(`font-family:${font.name},sans-serif`);
+					if (font.sz) styles.push(`font-size:${(font.sz * (96/72) - 2)}px`);
 					if (style.alignment) {
 						if (["right", "center"].includes(style.alignment.horizontal)) cnames.push(style.alignment.horizontal);
 						if (["top", "bottom"].includes(style.alignment.vertical)) cnames.push(style.alignment.vertical);
@@ -17839,6 +17847,10 @@ var HTML_ = (function() {
 					if (cnames.length) {
 						if (!out[key]) out[key] = {};
 						out[key].cn = cnames.join(" ");
+					}
+					if (styles.length) {
+						if (!out[key]) out[key] = {};
+						out[key].style = styles;
 					}
 			}
 		}
