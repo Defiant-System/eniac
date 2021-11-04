@@ -112,6 +112,37 @@ var HTML_ = (function() {
 		return sheet_to_workbook(html_to_sheet(str, opts), opts);
 	}
 
+	function make_xml_row(sheet, ref, row, css) {
+		let merges = sheet["!merges"] || [],
+			out = [];
+		for (var C=ref.s.c, Cl=ref.e.c; C<=Cl; ++C) {
+			var RS = 0,
+				CS = 0;
+			for (var j=0; j<merges.length; ++j) {
+				if (merges[j].s.r > row || merges[j].s.c > C) continue;
+				if (merges[j].e.r < row || merges[j].e.c < C) continue;
+				if (merges[j].s.r < row || merges[j].s.c < C) { RS = -1; break; }
+				RS = merges[j].e.r - merges[j].s.r + 1; CS = merges[j].e.c - merges[j].s.c + 1; break;
+			}
+			if (RS < 0) continue;
+			var coord = encode_cell({ r: row, c: C }),
+				cell = sheet[coord],
+				w = (cell && cell.v != null) && (cell.h || escapehtml(cell.w || (format_cell(cell), cell.w) || "")) || "",
+				sp = { ...css[coord] };
+
+			if (RS > 1) sp.rs = RS; // rowspan
+			if (CS > 1) sp.cs = CS; // colspan
+			sp.t = cell && cell.t || "z";
+			if (cell && cell.f) sp.f = cell.f;
+			sp.id = coord;
+			// hex color fix
+			w = w.replace(/#FF(.{6});/g, "#$1;");
+			// cell xml string
+			out.push(writexNode("C", w, sp));
+		}
+		return `<R tp="2">${out.join("")}</R>`;
+	}
+
 	function make_html_row(ws, r, R, o) {
 		var M = (ws["!merges"] || []),
 			oo = [];
@@ -183,7 +214,6 @@ var HTML_ = (function() {
 			switch (key) {
 				case "!ref": break;
 				case "!rows":
-					// console.log( JSON.stringify(item) );
 					item.map((row, i) =>
 						row.hpx > 35 ? out.push(`#${coord[i][0]} { height: ${row.hpt * (96/72)}px; }`) : null);
 					break;
@@ -241,51 +271,72 @@ var HTML_ = (function() {
 		}
 	}
 
-	function make_xml_row(sheet, ref, row) {
-		let merges = sheet["!merges"] || [],
-			out = [];
-		for (var C=ref.s.c, Cl=ref.e.c; C<=Cl; ++C) {
-			var RS = 0,
-				CS = 0;
-			for (var j=0; j<merges.length; ++j) {
-				if (merges[j].s.r > row || merges[j].s.c > C) continue;
-				if (merges[j].e.r < row || merges[j].e.c < C) continue;
-				if (merges[j].s.r < row || merges[j].s.c < C) { RS = -1; break; }
-				RS = merges[j].e.r - merges[j].s.r + 1; CS = merges[j].e.c - merges[j].s.c + 1; break;
-			}
-			if (RS < 0) continue;
-			var coord = encode_cell({ r: row, c: C }),
-				cell = sheet[coord],
-				w = (cell && cell.v != null) && (cell.h || escapehtml(cell.w || (format_cell(cell), cell.w) || "")) || "",
-				sp = {};
+	function parse_table_css(sheet, book) {
+		let out = {},
+			coord = [];
+		// translate keys to two dimensional array
+		Object.keys(sheet)
+			.filter(k => !k.startsWith("!"))
+			.map(key => {
+				let [n, c, r] = key.match(/(\D+)(\d+)/);
+				if (!coord[r-1]) coord[r-1] = [];
+				coord[r-1].push(key);
+			});
+		// iterate keys
+		for (let key in sheet) {
+			let item = sheet[key];
+			switch (key) {
+				case "!ref": break;
+				case "!rows":
+					item.map((row, i) => {
+						if (!out[coord[i][0]]) out[coord[i][0]] = {};
+						out[coord[i][0]].height = Math.max(25, row.hpt * (96/72));
+					});
+					break;
+				case "!cols":
+					item.map((col, i) => {
+						if (!out[coord[0][i]]) out[coord[0][i]] = {};
+						out[coord[0][i]].width = width2px(col.width);
+					});
+					break;
+				default:
+					if (!item.styleIndex) continue;
 
-			if (RS > 1) sp.rowspan = RS;
-			if (CS > 1) sp.colspan = CS;
-			sp.t = cell && cell.t || "z";
-			if (cell && cell.f) sp.f = cell.f;
-			sp.id = coord;
-			if (sp.t != "z") {
-				// sp.v = cell.v;
-				if (cell.z != null) sp.z = cell.z;
-			}
-			// temp fix
-			w = w.replace(/#FF(.{6});/g, "#$1;");
+					let cnames = [],
+						style = book.Styles.CellXf[item.styleIndex],
+						fill = book.Styles.Fills[style.fillId],
+						font = book.Styles.Fonts[style.fontId],
+						numFmt = book.Styles.NumberFmt ? book.Styles.NumberFmt[style.numFmtId] : 0,
+						border = book.Styles.Borders[style.borderId],
+						noBorder = border.width.join("") + border.style.join("") + border.color.join(""),
+						hasBorders = noBorder !== "0000solidsolidsolidsolid000000000000";
 
-			out.push(writexNode("C", w, sp));
+					if (font.bold) cnames.push("bold");
+					if (font.italic) cnames.push("italic");
+					if (font.underline) cnames.push("underline");
+					if (font.strike) cnames.push("strike");
+
+					if (cnames.length) {
+						if (!out[key]) out[key] = {};
+						out[key].cn = cnames.join(" ");
+						// out.push(`#${key} { ${cellCss.join(";")} }`);
+					}
+			}
 		}
-		return `<R tp="2">${out.join("")}</R>`;
+		return out;
 	}
 
 	function book_to_xml(book) {
 		let out = [];
 		for (let key in book.Sheets) {
 			let sheet = book.Sheets[key],
-				ref = decode_range(sheet["!ref"]);
+				ref = decode_range(sheet["!ref"]),
+				css = parse_table_css(sheet, book);
 			// translate into xml
 			out.push(`<Sheet name="${key}">`);
 			out.push(`<Table>`);
 			for (var row=ref.s.r, rowLen=ref.e.r; row<=rowLen; ++row) {
-				out.push(make_xml_row(sheet, ref, row));
+				out.push(make_xml_row(sheet, ref, row, css));
 			}
 			out.push(`</Table>`);
 			out.push(`</Sheet>`);

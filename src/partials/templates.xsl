@@ -153,6 +153,9 @@
 				<table>
 					<xsl:for-each select="R[@tp='2']">
 					<tr>
+						<xsl:if test="./C[1][@height]">
+							<xsl:attribute name="style">height: <xsl:value-of select="./C[1]/@height"/>px;</xsl:attribute>
+						</xsl:if>
 						<xsl:for-each select="C[not(@tp)]">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
@@ -198,6 +201,15 @@
 		</xsl:if>
 		<xsl:if test="@cs">
 			<xsl:attribute name="colspan"><xsl:value-of select="@cs"/></xsl:attribute>
+		</xsl:if>
+		<xsl:if test="@cn">
+			<xsl:attribute name="class"><xsl:value-of select="@cn"/></xsl:attribute>
+		</xsl:if>
+		<xsl:if test="@width or @height">
+			<xsl:attribute name="style">
+				<xsl:if test="@width">width: <xsl:value-of select="@width"/>px;</xsl:if>
+				<xsl:if test="@height">height: <xsl:value-of select="@height"/>px;</xsl:if>
+			</xsl:attribute>
 		</xsl:if>
 		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</td>
