@@ -2,8 +2,8 @@
 @import "classes/grid.js"
 @import "classes/grid-tools.js"
 @import "classes/guides.js"
-@import "classes/csv.js"
 @import "classes/file.js"
+@import "modules/csv.js"
 @import "modules/color.js"
 
 
@@ -62,9 +62,9 @@ const eniac = {
 				return Self.tools.dispatch(event);
 			case "new-file":
 				// save reference to file
-				// let req = await defiant.shell(`fs -ur "~/sample/year.csv"`);
+				let req = await defiant.shell(`fs -ur "~/sample/year.csv"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/sheet.xml"`);
-				let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
+				// let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/shapes.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/images.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/texts.xml"`);

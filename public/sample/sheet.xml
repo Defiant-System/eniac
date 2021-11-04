@@ -1,64 +1,64 @@
 <Workbook>
 	<Sheet name="Tables">
 		<Table style="top: 40px; left: 40px;">
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
 		</Table>
 
 		<Table title="Clipped Table" class="gray-table-1" width="320" height="200" style="top: 390px; left: 40px;">
-			<Row tp="1">
-				<Cell tp="4"/><Cell/><Cell/><Cell/><Cell/>
-			</Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="3">
-				<Cell tp="4"/><Cell/><Cell/><Cell/><Cell/>
-			</Row>
+			<R tp="1">
+				<C tp="4"/><C/><C/><C/><C/>
+			</R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
+			<R tp="3">
+				<C tp="4"/><C/><C/><C/><C/>
+			</R>
 		</Table>
 
 		<Table title="Clipped (No Column)" class="blue-table-2" style="top: 390px; left: 480px;">
-			<Row tp="1">
-				<Cell tp="4"/><Cell/><Cell/><Cell/>
-			</Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-			<Row tp="3">
-				<Cell tp="4"/><Cell/><Cell/><Cell/>
-			</Row>
+			<R tp="1">
+				<C tp="4"/><C/><C/><C/>
+			</R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="3">
+				<C tp="4"/><C/><C/><C/>
+			</R>
 		</Table>
 
 		<Table caption="No Row Head" class="green-table-1" style="top: 50px; left: 480px;">
-			<Row tp="1">
-				<Cell/><Cell/><Cell/><Cell/>
-			</Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="2"><Cell/><Cell/><Cell/><Cell/></Row>
-			<Row tp="3">
-				<Cell/><Cell/><Cell/><Cell/>
-			</Row>
+			<R tp="1">
+				<C/><C/><C/><C/>
+			</R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="3">
+				<C/><C/><C/><C/>
+			</R>
 		</Table>
 	</Sheet>
 

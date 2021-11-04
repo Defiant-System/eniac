@@ -116,9 +116,9 @@
 		<div class="tbl-col-head">
 			<div>
 				<table>
-					<xsl:for-each select="Row[@tp='1']">
+					<xsl:for-each select="R[@tp='1']">
 					<tr>
-						<xsl:for-each select="Cell[@tp='4']">
+						<xsl:for-each select="C[@tp='4']">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -127,9 +127,9 @@
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Row[@tp='1']">
+					<xsl:for-each select="R[@tp='1']">
 					<tr>
-						<xsl:for-each select="Cell[not(@tp)]">
+						<xsl:for-each select="C[not(@tp)]">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -140,9 +140,9 @@
 		<div class="tbl-body">
 			<div>
 				<table>
-					<xsl:for-each select="Row[@tp='2']">
+					<xsl:for-each select="R[@tp='2']">
 					<tr>
-						<xsl:for-each select="Cell[@tp='4']">
+						<xsl:for-each select="C[@tp='4']">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -151,9 +151,9 @@
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Row[@tp='2']">
+					<xsl:for-each select="R[@tp='2']">
 					<tr>
-						<xsl:for-each select="Cell[not(@tp)]">
+						<xsl:for-each select="C[not(@tp)]">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -164,9 +164,9 @@
 		<div class="tbl-col-foot">
 			<div>
 				<table>
-					<xsl:for-each select="Row[@tp='3']">
+					<xsl:for-each select="R[@tp='3']">
 					<tr>
-						<xsl:for-each select="Cell[@tp='4']">
+						<xsl:for-each select="C[@tp='4']">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
@@ -175,9 +175,9 @@
 			</div>
 			<div>
 				<table>
-					<xsl:for-each select="Row[@tp='3']">
+					<xsl:for-each select="R[@tp='3']">
 					<tr>
-						<xsl:for-each select="Cell[not(@tp)]">
+						<xsl:for-each select="C[not(@tp)]">
 							<xsl:call-template name="table-cell" />
 						</xsl:for-each>
 					</tr>
