@@ -140,13 +140,15 @@
 		<div class="tbl-body">
 			<div>
 				<table>
-					<xsl:for-each select="R[@tp='2']">
-					<tr>
-						<xsl:for-each select="C[@tp='4']">
-							<xsl:call-template name="table-cell" />
+					<xsl:if test="count( R[@tp='2']/C[@tp='4'] )">
+						<xsl:for-each select="R[@tp='2']">
+						<tr>
+							<xsl:for-each select="C[@tp='4']">
+								<xsl:call-template name="table-cell" />
+							</xsl:for-each>
+						</tr>
 						</xsl:for-each>
-					</tr>
-					</xsl:for-each>
+					</xsl:if>
 				</table>
 			</div>
 			<div>
