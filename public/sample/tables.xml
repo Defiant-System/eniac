@@ -1,7 +1,12 @@
 <Workbook>
 	<Sheet name="Tables">
 		<Table style="top: 40px; left: 40px;">
-			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2">
+				<C cn="bold center" style="height: 45px; width: 155px; font-size: 16px;"><![CDATA[text]]></C>
+				<C cn="italic underline right bottom" style="height: 35px; width: 120px; font-size: 12px;"><![CDATA[text]]></C>
+				<C/>
+				<C/>
+			</R>
 			<R tp="2"><C/><C rs="2" cs="2"/><C/></R>
 			<R tp="2"><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>

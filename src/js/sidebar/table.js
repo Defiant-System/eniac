@@ -7,9 +7,9 @@
 		this.parent = parent;
 
 		// temp
-		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(3)").trigger("click");
-		// }, 200);
+		setTimeout(() => {
+			parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
+		}, 200);
 
 		// setTimeout(() => {
 		// 	parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
@@ -45,6 +45,9 @@
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
+
+				Self.dispatch({ ...event, type: "update-font-family" });
+
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				Self.dispatch({ ...event, type: "update-table-box-size" });
 				Self.dispatch({ ...event, type: "update-table-box-position" });
