@@ -11,7 +11,11 @@ class File {
 				this._file.workbook = CSV.parse(this._file.data);
 				break;
 			case "xlsx":
-				this._file.workbook = XLSX.read(data, { type: "array", cellStyles: true });
+				let book = XLSX.read(data, { type: "array", cellStyles: true });
+				this._file.workbook = XLSX.utils.book_to_xml(book);
+
+				return;
+				
 				break;
 			case "xml":
 				this._file.workbook = this._file.data;
@@ -24,7 +28,7 @@ class File {
 		this.dispatch({ type: "render-sheet" });
 
 		let APP = eniac;
-		
+
 		// trigger first mousedown
 		setTimeout(() => APP.body.trigger("mousedown").trigger("mouseup"), 10);
 

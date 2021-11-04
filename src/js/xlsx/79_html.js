@@ -241,11 +241,16 @@ var HTML_ = (function() {
 		}
 	}
 
+	function book_to_xml(book) {
+		console.log(12222);
+	}
+
 	return {
 		to_workbook: html_to_book,
 		to_sheet: html_to_sheet,
 		_row: make_html_row,
 		_preamble: make_html_preamble,
+		book_to_xml: book_to_xml,
 		from_sheet: sheet_to_html,
 		with_css_from_sheet: sheet_to_html_css,
 	};

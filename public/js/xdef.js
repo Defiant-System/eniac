@@ -17745,11 +17745,16 @@ var HTML_ = (function() {
 		}
 	}
 
+	function book_to_xml(book) {
+		console.log(12222);
+	}
+
 	return {
 		to_workbook: html_to_book,
 		to_sheet: html_to_sheet,
 		_row: make_html_row,
 		_preamble: make_html_preamble,
+		book_to_xml: book_to_xml,
 		from_sheet: sheet_to_html,
 		with_css_from_sheet: sheet_to_html_css,
 	};
@@ -18944,6 +18949,7 @@ var utils = {
 	make_json: sheet_to_json,
 	make_formulae: sheet_to_formulae,
 	table_to_sheet: parse_dom_table,
+	book_to_xml: HTML_.book_to_xml,
 	sheet_to_html: HTML_.from_sheet,
 	sheet_to_html_css: HTML_.with_css_from_sheet,
 	sheet_to_row_object_array: sheet_to_json

@@ -2,10 +2,8 @@
 	<Sheet name="Tables">
 		<Table style="top: 40px; left: 40px;">
 			<R tp="2"><C/><C/><C/><C/></R>
-			<R tp="2"><C/><C/><C/><C/></R>
-			<R tp="2"><C/><C/><C/><C/></R>
-			<R tp="2"><C/><C/><C/><C/></R>
-			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C rs="2" cs="2"/><C/></R>
+			<R tp="2"><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>

@@ -190,7 +190,15 @@
 
 
 <xsl:template name="table-cell">
-	<td><xsl:value-of select="@v"/></td>
+	<td>
+		<xsl:if test="@rs">
+			<xsl:attribute name="rowspan"><xsl:value-of select="@rs"/></xsl:attribute>
+		</xsl:if>
+		<xsl:if test="@cs">
+			<xsl:attribute name="colspan"><xsl:value-of select="@cs"/></xsl:attribute>
+		</xsl:if>
+		<xsl:value-of select="@v"/>
+	</td>
 </xsl:template>
 
 
