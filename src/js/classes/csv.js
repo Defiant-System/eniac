@@ -1,14 +1,21 @@
 
 const CSV = {
 	parse(data) {
-		let str = [];
+		let APP = eniac,
+			str = [],
+			width = 400,
+			height = 190,
+			top = (APP.body.parent().prop("offsetHeight") - height) >> 1,
+			left = (APP.body.parent().prop("offsetWidth") - width) >> 1,
+			zIndex = APP.body.find(Guides.selector).length,
+			style = `top:${top}px; left:${left}px; z-index:${zIndex}`;
 
 		str.push(`<Workbook>`);
 		str.push(`<Sheet name="Sheet 1">`);
-		str.push(`<Table style="top: 40px; left: 40px;">`);
+		str.push(`<Table width="${width}" height="${height}" style="${style}">`);
 
 		// returns workbook
-		data.split("\n").map(row => {
+		data.trim().split("\n").map(row => {
 			let xRow = `<Row tp="2">`;
 			row.split(",").map(cell => {
 				let v = cell.trim();
