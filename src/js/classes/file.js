@@ -13,9 +13,7 @@ class File {
 			case "xlsx":
 				let book = XLSX.read(data, { type: "array", cellStyles: true });
 				this._file.workbook = XLSX.utils.book_to_xml(book);
-
-				return;
-				
+				console.log( this._file.workbook );
 				break;
 			case "xml":
 				this._file.workbook = this._file.data;
@@ -109,14 +107,8 @@ class File {
 	}
 
 	get sheetNames() {
-		switch (this._file.kind) {
-			case "xlsx":
-				return this._file.workbook.SheetNames;
-			case "csv":
-			case "xml":
-				let xSheets = this._file.workbook.selectNodes(`/Workbook/Sheet`);
-				return xSheets.map(xSheet => xSheet.getAttribute("name"));
-		}
+		let xSheets = this._file.workbook.selectNodes(`/Workbook/Sheet`);
+		return xSheets.map(xSheet => xSheet.getAttribute("name"));
 	}
 
 	get activeSheet() {
@@ -127,9 +119,9 @@ class File {
 		let sheet, str;
 		switch (this._file.kind) {
 			case "xlsx":
-				let { html, css } = XLSX.utils.sheet_to_html_css(sheet, this.book);
-				str = `${html}<style>${css}</style>`;
-				return str;
+				// let { html, css } = XLSX.utils.sheet_to_html_css(sheet, this.book);
+				// str = `${html}<style>${css}</style>`;
+				// return str;
 			case "csv":
 			case "xml":
 				str = window.render({

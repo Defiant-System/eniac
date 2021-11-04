@@ -241,8 +241,57 @@ var HTML_ = (function() {
 		}
 	}
 
+	function make_xml_row(sheet, ref, row) {
+		let merges = sheet["!merges"] || [],
+			out = [];
+		for (var C=ref.s.c, Cl=ref.e.c; C<=Cl; ++C) {
+			var RS = 0,
+				CS = 0;
+			for (var j=0; j<merges.length; ++j) {
+				if (merges[j].s.r > row || merges[j].s.c > C) continue;
+				if (merges[j].e.r < row || merges[j].e.c < C) continue;
+				if (merges[j].s.r < row || merges[j].s.c < C) { RS = -1; break; }
+				RS = merges[j].e.r - merges[j].s.r + 1; CS = merges[j].e.c - merges[j].s.c + 1; break;
+			}
+			if (RS < 0) continue;
+			var coord = encode_cell({ r: row, c: C }),
+				cell = sheet[coord],
+				w = (cell && cell.v != null) && (cell.h || escapehtml(cell.w || (format_cell(cell), cell.w) || "")) || "",
+				sp = {};
+
+			if (RS > 1) sp.rowspan = RS;
+			if (CS > 1) sp.colspan = CS;
+			sp.t = cell && cell.t || "z";
+			if (cell && cell.f) sp.f = cell.f;
+			sp.id = coord;
+			if (sp.t != "z") {
+				// sp.v = cell.v;
+				if (cell.z != null) sp.z = cell.z;
+			}
+			// temp fix
+			w = w.replace(/#FF(.{6});/g, "#$1;");
+
+			out.push(writexNode("C", w, sp));
+		}
+		return `<R tp="2">${out.join("")}</R>`;
+	}
+
 	function book_to_xml(book) {
-		console.log(12222);
+		let out = [];
+		for (let key in book.Sheets) {
+			let sheet = book.Sheets[key],
+				ref = decode_range(sheet["!ref"]);
+			// translate into xml
+			out.push(`<Sheet name="${key}">`);
+			out.push(`<Table>`);
+			for (var row=ref.s.r, rowLen=ref.e.r; row<=rowLen; ++row) {
+				out.push(make_xml_row(sheet, ref, row));
+			}
+			out.push(`</Table>`);
+			out.push(`</Sheet>`);
+		}
+		let str = `<Workbook>${out.join("")}</Workbook>`;
+		return $.xmlFromString(str).documentElement;
 	}
 
 	return {

@@ -361,6 +361,13 @@ function writextag(f, g, h) {
 		">";
 }
 
+function writexNode(f, g, h) {
+	return "<"+ f +
+		((h != null) ? wxt_helper(h) : "") +
+		((g != null) ? (g.match(wtregex) ? ' xml:space="preserve"' : "") + "><![CDATA[" + g + "]]></" + f : "/") +
+		">";
+}
+
 function write_w3cdtf(d, t) {
 	try {
 		return d.toISOString().replace(/\.\d*/,"");

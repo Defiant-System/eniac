@@ -191,13 +191,15 @@
 
 <xsl:template name="table-cell">
 	<td>
+		<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+		<xsl:attribute name="t"><xsl:value-of select="@t"/></xsl:attribute>
 		<xsl:if test="@rs">
 			<xsl:attribute name="rowspan"><xsl:value-of select="@rs"/></xsl:attribute>
 		</xsl:if>
 		<xsl:if test="@cs">
 			<xsl:attribute name="colspan"><xsl:value-of select="@cs"/></xsl:attribute>
 		</xsl:if>
-		<xsl:value-of select="@v"/>
+		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</td>
 </xsl:template>
 
