@@ -171,7 +171,7 @@
 				Self.dispatch({ type: "close-popup" });
 				console.log(event);
 				break;
-			case "import-shape-image":
+			case "import-file":
 				// close popup
 				Self.dispatch({ type: "close-popup" });
 				el = $(event.target);
@@ -187,6 +187,11 @@
 					case "shape":
 						data = {
 							svg: file => Self.dispatch({ type: "insert-shape", file }),
+						};
+						break;
+					case "csv":
+						data = {
+							csv: file => Self.dispatch({ type: "insert-csv", file }),
 						};
 						break;
 				}
@@ -247,6 +252,12 @@
 							})
 							// focus on shape
 							.trigger("mousedown").trigger("mouseup");
+					});
+				break;
+			case "insert-csv":
+				event.file.open({ responseType: "text" })
+					.then(file => {
+						console.log( file );
 					});
 				break;
 			case "insert-text-box":

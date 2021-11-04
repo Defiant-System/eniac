@@ -85,6 +85,10 @@
 		<path class="st0" d="M3.2,6.4c0.7,0,1.2-0.5,1.2-1.2C4.5,4.5,3.9,4,3.2,4C2.6,4,2,4.5,2,5.2C2,5.9,2.6,6.4,3.2,6.4z"/>
 	</svg>
 
+	<svg id="icon-csv" viewBox="0 0 13 13">
+		
+	</svg>
+
 	<svg id="icon-chevron-down" viewBox="0 0 14 14">
 		<style type="text/css">
 			.st0{fill:#27d;}
