@@ -41,6 +41,12 @@ class Guides {
 					h = parseInt(el.css("height"), 10),
 					mh = h >> 1,
 					mw = w >> 1;
+				if (el.hasClass("xl-table")) {
+					w += 1;
+					h += 1;
+					mh = h >> 1;
+					mw = w >> 1;
+				}
 				if (!isNaN(y) && !isNaN(x) && elem !== opts.el) {
 					this.els.push({ y, x, w, h, mh, mw });
 				}

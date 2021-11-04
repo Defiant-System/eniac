@@ -28,7 +28,7 @@ class File {
 		// trigger first mousedown
 		setTimeout(() => APP.body.trigger("mousedown").trigger("mouseup"), 10);
 
-		setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);

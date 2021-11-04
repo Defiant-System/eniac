@@ -111,6 +111,8 @@
 						Self.sheet.dispatch({ type: `focus-sheet`, el });
 						// forward event to lasso
 						return Self.sheet.lasso(event);
+					case el.hasClass("img-wrapper"):
+						return Self.image.move(event);
 					case el.hasClass("handle"):
 						switch (el.prop("className").split(" ")[1]) {
 							case "top-left":
