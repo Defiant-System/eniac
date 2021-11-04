@@ -88,11 +88,9 @@
 
 <xsl:template name="xl-table">
 	<div class="xl-table">
-		<xsl:if test="@class">
-			<xsl:attribute name="class">xl-table <xsl:value-of select="@class"/>
-				<xsl:if test="@width and @height"> clipped</xsl:if>
-			</xsl:attribute>
-		</xsl:if>
+		<xsl:attribute name="class">xl-table <xsl:value-of select="@class"/>
+			<xsl:if test="@width and @height"> clipped</xsl:if>
+		</xsl:attribute>
 		<xsl:if test="@style">
 			<xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute>
 		</xsl:if>

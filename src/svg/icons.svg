@@ -86,7 +86,11 @@
 	</svg>
 
 	<svg id="icon-csv" viewBox="0 0 13 13">
-		
+		<style type="text/css">
+			.st0{fill:#333333;}
+		</style>
+		<polygon class="st0" points="2,1 2,12 11,12 11,5.1 6.9,5.1 6.9,1 "/>
+		<polygon class="st0" points="7.5,4.5 10.9,4.5 7.5,1.1 "/>
 	</svg>
 
 	<svg id="icon-chevron-down" viewBox="0 0 14 14">

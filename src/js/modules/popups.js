@@ -257,7 +257,12 @@
 			case "insert-csv":
 				event.file.open({ responseType: "text" })
 					.then(file => {
-						console.log( file );
+						let data = CSV.parse(file.data),
+							str = window.render({ template: "xl-table", match: `//Table`, data }),
+							// insert text element
+							el = APP.body.append(str);
+						// focus on shape
+						el.find("td:nth(0)").trigger("mousedown").trigger("mouseup");
 					});
 				break;
 			case "insert-text-box":

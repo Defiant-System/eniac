@@ -62,11 +62,11 @@ const eniac = {
 				return Self.tools.dispatch(event);
 			case "new-file":
 				// save reference to file
-				// let req = await defiant.shell(`fs -ur "~/sample/year.csv"`);
+				let req = await defiant.shell(`fs -ur "~/sample/year.csv"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/sheet.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/shapes.xml"`);
-				let req = await defiant.shell(`fs -ur "~/sample/images.xml"`);
+				// let req = await defiant.shell(`fs -ur "~/sample/images.xml"`);
 				// let req = await defiant.shell(`fs -ur "~/sample/texts.xml"`);
 				Self.file = new File(req.result);
 				break;
