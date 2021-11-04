@@ -17827,6 +17827,13 @@ var HTML_ = (function() {
 					if (font.underline) cnames.push("underline");
 					if (font.strike) cnames.push("strike");
 
+					if (style.alignment) {
+						if (["right", "center"].includes(style.alignment.horizontal)) cnames.push(style.alignment.horizontal);
+						if (["top", "bottom"].includes(style.alignment.vertical)) cnames.push(style.alignment.vertical);
+						if (!style.alignment.vertical) cnames.push("bottom");
+					}
+					if (["superscript", "subscript"].includes(font.vertAlign)) cnames.push(font.vertAlign);
+
 					if (cnames.length) {
 						if (!out[key]) out[key] = {};
 						out[key].cn = cnames.join(" ");

@@ -263,24 +263,16 @@ table {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		width: 90px;
-		// max-width: 170px;
 
 		&.active {
 			color: transparent;
 		}
 
-		// &.selected:not(.anchor) {
-		// 	background: #edf3fa;
-		// }
-
 		&:last-child {
 			border-right-color: transparent;
 		}
 
-		&[t="s"] {
-			
-		}
-
+		&[t="s"] { }
 		&[t="z"],
 		&[t="n"] {
 			width: 50px;
@@ -294,6 +286,14 @@ table {
 		&.underline { text-decoration: underline; }
 		&.strike    { text-decoration: line-through; }
 		&.underline.strike { text-decoration: underline line-through; }
+
+		&.superscript  { font-size: smaller; vertical-align: super; }
+		&.subscript    { font-size: smaller; vertical-align: sub; }
+
+		&.top    { vertical-align: top; }
+		&.bottom { vertical-align: bottom; }
+		&.center { text-align: center; }
+		&.right  { text-align: right; }
 	}
 
 	sup {
