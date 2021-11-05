@@ -584,6 +584,8 @@
 				Drag.table.select({ yNum, xNum, anchor });
 				break;
 			case "mouseup":
+				// TODO
+				console.log( "trigger table sidebar; 'populate-table-values'" );
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events
@@ -592,7 +594,8 @@
 		}
 	},
 	resizeSelection(event) {
-		let Self = eniac.tools.table,
+		let APP = eniac,
+			Self = APP.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -693,6 +696,8 @@
 				Self.table.select({ yNum, xNum, anchor: Drag.anchor });
 				break;
 			case "mouseup":
+				// no shiftKey - single cell selection
+				APP.sidebar.table.dispatch({ type: "update-cell-border-options" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events

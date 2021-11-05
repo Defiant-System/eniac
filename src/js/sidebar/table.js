@@ -48,7 +48,9 @@
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
 				// tab: Cell
+				Self.dispatch({ ...event, type: "update-cell-data-format" });
 				Self.dispatch({ ...event, type: "update-cell-fill-color" });
+				// Self.dispatch({ ...event, type: "update-cell-border-options" });
 				// tab: Text
 				Self.dispatch({ ...event, type: "update-cell-font" });
 				Self.dispatch({ ...event, type: "update-cell-color" });
@@ -150,11 +152,25 @@
 				pEl.find(`input[data-change="set-cell-height"]`).val(el.prop("offsetHeight"));
 				break;
 			// tab: Cell
+			case "update-cell-data-format":
+				break;
 			case "update-cell-fill-color":
 				// font color
 				value = Color.rgbToHex(Anchor.css("background-color")).slice(0,-2);
 				Els.el.find(`.color-preset_[data-change="set-cell-fill-color"]`)
 					.css({ "--preset-color": value });
+				break;
+			case "update-cell-border-options":
+				allEl = Els.el.find(`.borders[data-click="select-cell-border"] > span`);
+				arg = ["outline", "all", "left", "right", "top", "bottom"];
+				value = Table.table.selected;
+				// conditional checks on selected cells
+				if (value.yNum.length > 1) arg.push("middle");
+				if (value.xNum.length > 1) arg.push("center");
+				if (value.xNum.length > 1 && value.yNum.length > 1) arg.push("inside");
+				// toggle border buttons
+				allEl.map(span => $(span).toggleClass("disabled", arg.includes(span.dataset.arg)));
+				allEl.get(0).addClass("active")
 				break;
 			// tab: Text
 			case "update-cell-font":
@@ -372,9 +388,24 @@
 					.css({ "--preset-color": event.value });
 				break;
 			case "cell-border-style-preset":
+				// preset-1
+				// preset-2
+				// preset-3
+				// preset-4
+				// preset-5
+				// preset-6
+				// preset-7
+				// preset-8
+				// default
+				// none
 				console.log(event);
 				break;
-			case "set-cell-border":
+			case "select-cell-border":
+				// reset border buttons
+				event.el.find("span").removeClass("active");
+				// make sekected button active
+				$(event.target).addClass("active");
+				break;
 			case "set-cell-border-width":
 			case "set-cell-border-style":
 			case "set-cell-border-color":

@@ -396,7 +396,7 @@
 
 	<svg id="icon-border-1" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" width="15" height="1"/>
 		<rect x="3" y="9" class="st0" width="13" height="1"/>
@@ -408,7 +408,7 @@
 
 	<svg id="icon-border-2" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" class="st0" width="15" height="1"/>
 		<rect x="3" y="9" class="st1" width="13" height="1"/>
@@ -429,7 +429,7 @@
 
 	<svg id="icon-border-4" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" class="st0" width="15" height="1"/>
 		<rect x="3" y="9" class="st0" width="13" height="1"/>
@@ -441,7 +441,7 @@
 
 	<svg id="icon-border-5" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" class="st0" width="15" height="1"/>
 		<rect x="3" y="9" class="st0" width="13" height="1"/>
@@ -453,7 +453,7 @@
 
 	<svg id="icon-border-6" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" class="st0" width="15" height="1"/>
 		<rect x="3" y="9" class="st0" width="13" height="1"/>
@@ -465,7 +465,7 @@
 
 	<svg id="icon-border-7" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" width="15" height="1"/>
 		<rect x="3" y="9" class="st0" width="13" height="1"/>
@@ -477,7 +477,7 @@
 
 	<svg id="icon-border-8" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" class="st0" width="15" height="1"/>
 		<rect x="2" y="9" width="15" height="1"/>
@@ -489,7 +489,7 @@
 
 	<svg id="icon-border-9" viewBox="0 0 19 19">
 		<style type="text/css">
-			.st0{opacity:.2;}
+			.st0{opacity:.125;}
 		</style>
 		<rect x="2" y="2" class="st0" width="15" height="1"/>
 		<rect x="3" y="9" class="st0" width="13" height="1"/>
@@ -1052,6 +1052,14 @@
 	</svg>
 
 	<svg id="border-preset-7" viewBox="0 0 60 19">
+		<rect fill="#292" x="25" y="8" width="9" height="3"/>
+		<rect fill="#292" x="13" y="8" width="9" height="3"/>
+		<rect fill="#292" x="1" y="8" width="9" height="3"/>
+		<rect fill="#292" x="37" y="8" width="9" height="3"/>
+		<rect fill="#292" x="49" y="8" width="9" height="3"/>
+	</svg>
+
+	<svg id="border-preset-8" viewBox="0 0 60 19">
 		<rect fill="#f90" x="19" y="8" width="3" height="3"/>
 		<rect fill="#f90" x="31" y="8" width="3" height="3"/>
 		<rect fill="#f90" x="25" y="8" width="3" height="3"/>
@@ -1063,15 +1071,6 @@
 		<rect fill="#f90" x="49" y="8" width="3" height="3"/>
 		<rect fill="#f90" x="43" y="8" width="3" height="3"/>
 	</svg>
-
-	<svg id="border-preset-8" viewBox="0 0 60 19">
-		<rect fill="#292" x="25" y="8" width="9" height="3"/>
-		<rect fill="#292" x="13" y="8" width="9" height="3"/>
-		<rect fill="#292" x="1" y="8" width="9" height="3"/>
-		<rect fill="#292" x="37" y="8" width="9" height="3"/>
-		<rect fill="#292" x="49" y="8" width="9" height="3"/>
-	</svg>
-
 
 	<svg id="table-outline-solid" viewBox="0 0 60 19">
 		<rect x="0" y="8" width="60" height="3"/>

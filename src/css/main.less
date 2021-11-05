@@ -1320,7 +1320,7 @@ sidebar {
 				}
 			}
 
-			&.cell-border-options {
+			&.cell-border-settings {
 				.flex-col {
 					selectbox {
 						margin-bottom: 6px;
@@ -1466,7 +1466,7 @@ sidebar {
 			background: #fff;
 			width: 83px;
 			height: 83px;
-			border-radius: 4px;
+			border-radius: 5px;
 			border: 1px solid @outline_color;
 			box-shadow: 0 1px 1px rgba(0,0,0,0.075);
 			padding: 3px 0 0 3px;
@@ -1483,10 +1483,11 @@ sidebar {
 				margin: 3px;
 				// padding: 4px 0 0 4px;
 				vertical-align: middle;
-				border-radius: 2px;
+				border-radius: .5px;
 
 				&.active {
-					background-color: rgba(0,0,0,.125);
+					background-color: rgba(0,0,0,.1);
+					box-shadow: 0 0 0 2px rgba(0,0,0,.1);
 				}
 
 				&.disabled {
