@@ -179,28 +179,28 @@
 				switch (el.data("arg")) {
 					case "image":
 						data = {
-							png: file => Self.dispatch({ type: "insert-image", file }),
-							jpg: file => Self.dispatch({ type: "insert-image", file }),
-							gif: file => Self.dispatch({ type: "insert-image", file }),
+							png: file => Self.dispatch({ type: "insert-image-file", file }),
+							jpg: file => Self.dispatch({ type: "insert-image-file", file }),
+							gif: file => Self.dispatch({ type: "insert-image-file", file }),
 						};
 						break;
 					case "shape":
 						data = {
-							svg: file => Self.dispatch({ type: "insert-shape", file }),
+							svg: file => Self.dispatch({ type: "insert-shape-file", file }),
 						};
 						break;
 					case "csv":
 						data = {
-							csv: file => Self.dispatch({ type: "insert-csv", file }),
+							csv: file => Self.dispatch({ type: "insert-csv-file", file }),
 						};
 						break;
 				}
 				// show dialog
 				window.dialog.open({ type: "import", ...data });
 				break;
-			case "insert-image":
+			case "insert-image-file":
 				let img = new Image();
-
+				// onload handle to find out image dimensions
 				img.onload = e => {
 					let dim = {
 							width: img.width,
@@ -227,7 +227,7 @@
 				// preload image to find out height & width
 				img.src = event.file.path;
 				break;
-			case "insert-shape":
+			case "insert-shape-file":
 				event.file.open({ responseType: "text" })
 					.then(svg => {
 						let str = svg.data.match(/<svg .*?<\/svg>/gms),
@@ -254,7 +254,7 @@
 							.trigger("mousedown").trigger("mouseup");
 					});
 				break;
-			case "insert-csv":
+			case "insert-csv-file":
 				event.file.open({ responseType: "text" })
 					.then(file => {
 						let data = CSV.parse(file.data),
