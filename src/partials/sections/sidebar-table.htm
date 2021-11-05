@@ -225,20 +225,20 @@
 		<div class="group-row cell-border-options">
 			<legend>Border</legend>
 			<div class="flex-row">
-				<div class="borders">
-					<span class="icon-border-1"></span>
-					<span class="icon-border-2"></span>
-					<span class="icon-border-3"></span>
-					<span class="icon-border-4"></span>
-					<span class="icon-border-5"></span>
-					<span class="icon-border-6"></span>
-					<span class="icon-border-7"></span>
-					<span class="icon-border-8"></span>
-					<span class="icon-border-9"></span>
+				<div class="borders" data-click="set-cell-border">
+					<span class="icon-border-1 active" data-arg="outline"></span>
+					<span class="icon-border-2 disabled" data-arg="inside"></span>
+					<span class="icon-border-3 disabled" data-arg="all"></span>
+					<span class="icon-border-4 disabled" data-arg="left"></span>
+					<span class="icon-border-5 disabled" data-arg="center"></span>
+					<span class="icon-border-6 disabled" data-arg="right"></span>
+					<span class="icon-border-7 disabled" data-arg="top"></span>
+					<span class="icon-border-8 disabled" data-arg="middle"></span>
+					<span class="icon-border-9 disabled" data-arg="bottom"></span>
 				</div>
 
 				<div class="flex-col w60">
-					<selectbox data-menu="table-header-rows">
+					<selectbox data-menu="table-cell-border-styles">
 						<option selected="1" value="border-styles">Border Styles</option>
 					</selectbox>
 
@@ -249,6 +249,7 @@
 					<div class="flex-row">
 						<div class="color-preset_" data-click="popup-color-palette" data-change="set-cell-border-color" style="--preset-color: #000000;"></div>
 						<div data-suffix="px">
+							<input type="number" name="cell-border-width" min="1" max="7" step="1" value="1" data-change="set-cell-border-width"/>
 							<input type="number" value="1"/>
 							<div>
 								<span></span>

@@ -371,6 +371,9 @@
 				Els.el.find(`.color-preset_[data-change="set-cell-fill-color"]`)
 					.css({ "--preset-color": event.value });
 				break;
+			case "set-cell-border":
+			case "set-cell-border-width":
+			case "set-cell-border-style":
 			case "set-cell-border-color":
 				break;
 			// tab: Text

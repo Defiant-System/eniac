@@ -114,6 +114,16 @@
 		<Menu name="None" click="set-table-outline-style" check-group="table-outline" arg="none"/>
 	</Menu>
 
+	<Menu for="table-cell-border-styles">
+		<Menu type="caption" name="Border Styles"/>
+		<Menu type="icon" name="~/icons/table-outline-solid.png"/>
+		<Menu type="icon" name="~/icons/table-outline-dashed.png"/>
+		<Menu type="icon" name="~/icons/table-outline-dotted.png"/>
+		<Menu type="divider"/>
+		<Menu name="Default Style" is-checked="1"/>
+		<Menu name="No Border"/>
+	</Menu>
+
 	<Menu for="table-cell-border">
 		<Menu type="icon" name="~/icons/table-outline-solid.png" arg="solid" click="set-cell-border-style" check-group="cell-border" is-checked="1"/>
 		<Menu type="icon" name="~/icons/table-outline-dashed.png" arg="dashed" click="set-cell-border-style" check-group="cell-border"/>
