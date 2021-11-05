@@ -147,10 +147,17 @@
 	</Menu>
 
 	<Menu for="text-line-height">
-		<Menu name="1.0 - Single" click="set-text-line-height" arg="1.0" check-group="line-height" is-checked="1"/>
-		<Menu name="1.2" click="set-text-line-height" arg="1.2" check-group="line-height"/>
-		<Menu name="1.5" click="set-text-line-height" arg="1.5" check-group="line-height"/>
-		<Menu name="2.0 - Double" click="set-text-line-height" arg="2.0" check-group="line-height"/>
+		<Menu name="1.0 - Single" click="set-text-line-height" arg="1.0" check-group="text-line-height" is-checked="1"/>
+		<Menu name="1.2" click="set-text-line-height" arg="1.2" check-group="text-line-height"/>
+		<Menu name="1.5" click="set-text-line-height" arg="1.5" check-group="text-line-height"/>
+		<Menu name="2.0 - Double" click="set-text-line-height" arg="2.0" check-group="text-line-height"/>
+	</Menu>
+
+	<Menu for="cell-line-height">
+		<Menu name="1.0 - Single" click="set-cell-line-height" arg="1.0" check-group="cell-line-height" is-checked="1"/>
+		<Menu name="1.2" click="set-cell-line-height" arg="1.2" check-group="cell-line-height"/>
+		<Menu name="1.5" click="set-cell-line-height" arg="1.5" check-group="cell-line-height"/>
+		<Menu name="2.0 - Double" click="set-cell-line-height" arg="2.0" check-group="cell-line-height"/>
 	</Menu>
 
 </MenuBar>

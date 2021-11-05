@@ -52,7 +52,8 @@
 				Self.els.el.addClass(event.type);
 				// trigger populate event
 				name = event.type.split("-")[1];
-				Self[name].dispatch({ ...event, type: `populate-${name}-values` });
+				// push populate command to "next tick"
+				setTimeout(() => Self[name].dispatch({ ...event, type: `populate-${name}-values` }));
 				break;
 			case "select-tab":
 				event.el.find(".active").removeClass("active");

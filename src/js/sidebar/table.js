@@ -28,6 +28,7 @@
 			Tools = APP.tools,
 			Els = APP.sidebar.els,
 			Table = Tools.table,
+			Anchor = Table.table.selected ? Table.table.selected.anchor.el : false,
 			TblEl = event.table || Table.table._el,
 			xNum, yNum,
 			layout,
@@ -46,7 +47,10 @@
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
 
-				Self.dispatch({ ...event, type: "update-font-family" });
+				Self.dispatch({ ...event, type: "update-cell-font" });
+				Self.dispatch({ ...event, type: "update-cell-color" });
+				Self.dispatch({ ...event, type: "update-cell-alignment" });
+				Self.dispatch({ ...event, type: "update-cell-line-height" });
 
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				Self.dispatch({ ...event, type: "update-table-box-size" });
@@ -141,6 +145,51 @@
 				pEl = Els.el.find(".table-cell-dimensions")
 				pEl.find(`input[data-change="set-cell-width"]`).val(el.prop("offsetWidth"));
 				pEl.find(`input[data-change="set-cell-height"]`).val(el.prop("offsetHeight"));
+				break;
+			// tab: Text
+			case "update-cell-font":
+				pEl = Els.el.find(`.cell-font-options`);
+
+				// TODO: font-family
+				value = Anchor.css("font-family");
+
+				// font style
+				["bold", "italic", "underline", "strike"].map(type => {
+					let value = Anchor.hasClass(type);
+					pEl.find(`.option-buttons_ span[data-name="${type}"]`).toggleClass("active_", !value);
+				});
+				value = parseInt(Anchor.css("font-size"), 10);
+				pEl.find(`input[name="cell-font-size"]`).val(value);
+				break;
+			case "update-cell-color":
+				// font color
+				value = Color.rgbToHex(Anchor.css("color")).slice(0,-2);
+				Els.el.find(`.color-preset_[data-change="set-cell-color"]`)
+					.css({ "--preset-color": value });
+				break;
+			case "update-cell-alignment":
+				pEl = Els.el.find(`.cell-hv-alignment`);
+				// reset all options
+				pEl.find(".active_").removeClass("active_");
+
+				value = Anchor.prop("className").split(" ");
+				if (["start", "left"].includes(Anchor.css("text-align"))) {
+					// if default "text align left"
+					value.push("left");
+				}
+				value.map(name =>
+					pEl.find(`[data-click="set-cell-hAlign"] span[data-name="${name}"]`).addClass("active_"));
+				value.map(name =>
+					pEl.find(`[data-click="set-cell-vAlign"] span[data-name="${name}"]`).addClass("active_"));
+				break;
+			case "update-cell-line-height":
+				// translate to decimal value
+				value = {
+					fS: parseInt(Anchor.css("font-size"), 10),
+					lH: parseInt(Anchor.css("line-height"), 10),
+				};
+				value.v = (value.lH / value.fS).toFixed(1).toString();
+				Els.el.find(`selectbox[data-menu="cell-line-height"]`).val(value.v);
 				break;
 			// tab: Arrange
 			case "update-table-arrange":
@@ -304,6 +353,16 @@
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
 				TblEl[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
+				break;
+			// tab: Text
+			case "set-cell-font-family":
+			case "set-cell-font-size":
+			case "set-cell-font-style":
+			case "set-cell-color":
+			case "set-cell-hAlign":
+			case "set-cell-vAlign":
+			case "set-cell-line-height":
+				console.log(event);
 				break;
 			// tab: Arrange
 			case "set-table-arrange":
