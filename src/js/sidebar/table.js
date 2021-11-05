@@ -356,13 +356,40 @@
 				break;
 			// tab: Text
 			case "set-cell-font-family":
-			case "set-cell-font-size":
-			case "set-cell-font-style":
-			case "set-cell-color":
-			case "set-cell-hAlign":
-			case "set-cell-vAlign":
-			case "set-cell-line-height":
 				console.log(event);
+				break;
+			case "set-cell-font-size":
+				Anchor.css({ "font-size": event.value +"px" });
+				break;
+			case "set-cell-font-style":
+				el = $(event.target);
+				value = el.hasClass("active_");
+				Anchor.toggleClass(el.data("name"), value);
+				// update text vertical alignment
+				Self.dispatch({ type: "update-cell-font" });
+				break;
+			case "set-cell-color":
+				Anchor.css({ "color": event.value });
+				// sidebar font color preset
+				Els.el.find(`.color-preset_[data-change="set-cell-color"]`)
+					.css({ "--preset-color": event.value });
+				break;
+			case "set-cell-hAlign":
+				el = $(event.target);
+				Anchor.removeClass("left center right justify").addClass(el.data("name"));
+				// update text vertical alignment
+				Self.dispatch({ type: "update-cell-alignment" });
+				break;
+			case "set-cell-vAlign":
+				el = $(event.target);
+				Anchor.removeClass("top middle bottom").addClass(el.data("name"));
+				// update text vertical alignment
+				Self.dispatch({ type: "update-cell-alignment" });
+				break;
+			case "set-cell-line-height":
+				Anchor.css({ "line-height": event.arg });
+				// re-focus on anchor
+				Tools.table.dispatch({ type: "focus-cell", el: Anchor });
 				break;
 			// tab: Arrange
 			case "set-table-arrange":
