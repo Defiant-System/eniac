@@ -1028,23 +1028,50 @@
 	</svg>
 
 	<svg id="border-preset-1" viewBox="0 0 60 19">
+		<rect x="0" y="10" width="60" height="1"/>
 	</svg>
-	
+
 	<svg id="border-preset-2" viewBox="0 0 60 19">
+		<rect fill="#f00" x="0" y="10" width="60" height="1"/>
 	</svg>
-	
+
 	<svg id="border-preset-3" viewBox="0 0 60 19">
+		<rect fill="#00f" x="0" y="10" width="60" height="1"/>
 	</svg>
-	
+
 	<svg id="border-preset-4" viewBox="0 0 60 19">
+		<rect x="0" y="9" width="60" height="2"/>
 	</svg>
-	
+
 	<svg id="border-preset-5" viewBox="0 0 60 19">
+		<rect fill="#f00" x="0" y="9" width="60" height="2"/>
 	</svg>
-	
+
 	<svg id="border-preset-6" viewBox="0 0 60 19">
+		<rect fill="#00f" x="0" y="9" width="60" height="2"/>
 	</svg>
-	
+
+	<svg id="border-preset-7" viewBox="0 0 60 19">
+		<rect fill="#f90" x="19" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="31" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="25" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="7" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="13" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="1" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="37" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="55" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="49" y="8" width="3" height="3"/>
+		<rect fill="#f90" x="43" y="8" width="3" height="3"/>
+	</svg>
+
+	<svg id="border-preset-8" viewBox="0 0 60 19">
+		<rect fill="#292" x="25" y="8" width="9" height="3"/>
+		<rect fill="#292" x="13" y="8" width="9" height="3"/>
+		<rect fill="#292" x="1" y="8" width="9" height="3"/>
+		<rect fill="#292" x="37" y="8" width="9" height="3"/>
+		<rect fill="#292" x="49" y="8" width="9" height="3"/>
+	</svg>
+
 
 	<svg id="table-outline-solid" viewBox="0 0 60 19">
 		<rect x="0" y="8" width="60" height="3"/>
