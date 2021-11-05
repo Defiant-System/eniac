@@ -48,7 +48,7 @@
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
 				// tab: Cell
-				
+				Self.dispatch({ ...event, type: "update-cell-fill-color" });
 				// tab: Text
 				Self.dispatch({ ...event, type: "update-cell-font" });
 				Self.dispatch({ ...event, type: "update-cell-color" });
@@ -148,6 +148,13 @@
 				pEl = Els.el.find(".table-cell-dimensions")
 				pEl.find(`input[data-change="set-cell-width"]`).val(el.prop("offsetWidth"));
 				pEl.find(`input[data-change="set-cell-height"]`).val(el.prop("offsetHeight"));
+				break;
+			// tab: Cell
+			case "update-cell-fill-color":
+				// font color
+				value = Color.rgbToHex(Anchor.css("background-color")).slice(0,-2);
+				Els.el.find(`.color-preset_[data-change="set-cell-fill-color"]`)
+					.css({ "--preset-color": value });
 				break;
 			// tab: Text
 			case "update-cell-font":
@@ -356,6 +363,15 @@
 				// toggle button and table UI
 				el[ value ? "removeClass" : "addClass" ]("active_");
 				TblEl[ value ? "addClass" : "removeClass" ]( Self.glHash[el.data("name")] );
+				break;
+			// tab: Cell
+			case "set-cell-fill-color":
+				Anchor.css({ "background": event.value });
+				// sidebar font color preset
+				Els.el.find(`.color-preset_[data-change="set-cell-fill-color"]`)
+					.css({ "--preset-color": event.value });
+				break;
+			case "set-cell-border-color":
 				break;
 			// tab: Text
 			case "set-cell-font-family":

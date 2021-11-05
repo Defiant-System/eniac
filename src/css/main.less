@@ -1320,6 +1320,18 @@ sidebar {
 				}
 			}
 
+			&.cell-border-options {
+				.flex-col {
+					selectbox {
+						margin-bottom: 6px;
+
+						&.table-cell-border {
+							margin-bottom: 5px;
+						}
+					}
+				}
+			}
+
 			.gradient-options {
 				overflow-y: hidden;
 
@@ -1420,6 +1432,7 @@ sidebar {
 			&.text-border,
 			&.line-stroke,
 			&.shape-outline,
+			&.table-cell-border,
 			&.table-outline {
 				option {
 					padding-left: 5px;
@@ -1433,6 +1446,12 @@ sidebar {
 						width: 60px;
 					}
 				}
+			}
+
+			&.table-cell-border option.prefix-icon:before {
+				width: 113px;
+				background-size: auto 100%;
+				background-repeat: repeat-x;
 			}
 		}
 
