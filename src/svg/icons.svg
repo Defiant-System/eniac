@@ -1027,6 +1027,25 @@
 		<polygon class="st0" points="12.2,10.8 8.2,6.8 10,5 5,5 5,10 6.8,8.2 10.8,12.2 9,14 14,14 14,9"/>
 	</svg>
 
+	<svg id="border-preset-1" viewBox="0 0 60 19">
+	</svg>
+	
+	<svg id="border-preset-2" viewBox="0 0 60 19">
+	</svg>
+	
+	<svg id="border-preset-3" viewBox="0 0 60 19">
+	</svg>
+	
+	<svg id="border-preset-4" viewBox="0 0 60 19">
+	</svg>
+	
+	<svg id="border-preset-5" viewBox="0 0 60 19">
+	</svg>
+	
+	<svg id="border-preset-6" viewBox="0 0 60 19">
+	</svg>
+	
+
 	<svg id="table-outline-solid" viewBox="0 0 60 19">
 		<rect x="0" y="8" width="60" height="3"/>
 	</svg>
