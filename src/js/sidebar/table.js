@@ -172,9 +172,14 @@
 				// toggle border buttons
 				allEl.map(span => $(span).toggleClass("disabled", arg.includes(span.dataset.arg)));
 				allEl.get(0).addClass("active");
+				// border style
+				value = Anchor.css("--border-style").split(" ");
+				console.log( value );
 				// border color
-				value = Anchor.css("border-color").replace(/, /g, ",").split(" ").map(rgb =>
-					Color.rgbToHex(rgb));
+				value = Anchor.css("--border-colors").split(" ");
+				console.log( value );
+				// border color
+				value = Anchor.css("--border-width").split(" ");
 				console.log( value );
 				break;
 			// tab: Text

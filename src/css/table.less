@@ -281,6 +281,26 @@ table {
 			padding-right: 5px;
 		}
 
+		&.has-border {
+			position: relative;
+			// --border-colors: #ff0000 #ff0000 #ff0000 #ff0000;
+			// --border-width: 2px 2px 2px 2px;
+			// --border-style: solid solid solid solid;
+
+			&:before {
+				content: "";
+				pointer-events: none;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				border-color: var(--border-colors);
+				border-width: var(--border-width);
+				border-style: var(--border-style);
+			}
+		}
+
 		&.bold      { font-weight: bold; }
 		&.italic    { font-style: italic; }
 		&.underline { text-decoration: underline; }
