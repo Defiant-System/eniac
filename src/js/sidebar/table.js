@@ -161,8 +161,9 @@
 					.css({ "--preset-color": value });
 				break;
 			case "update-cell-border-options":
+				pEl = Els.el.find(".cell-border-settings");
 				// border buttons
-				allEl = Els.el.find(`.borders[data-click="select-cell-border"] > span`);
+				allEl = pEl.find(`.borders[data-click="select-cell-border"] > span`);
 				arg = ["outline", "all", "left", "right", "top", "bottom"];
 				value = Table.table.selected;
 				// conditional checks on selected cells
@@ -181,6 +182,8 @@
 				// border color
 				value = Anchor.css("--border-width").split(" ");
 				console.log( value );
+
+				pEl.find("selectbox.table-cell-border").val("Multiple");
 				break;
 			// tab: Text
 			case "update-cell-font":
