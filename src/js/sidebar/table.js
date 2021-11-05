@@ -161,6 +161,7 @@
 					.css({ "--preset-color": value });
 				break;
 			case "update-cell-border-options":
+				// border buttons
 				allEl = Els.el.find(`.borders[data-click="select-cell-border"] > span`);
 				arg = ["outline", "all", "left", "right", "top", "bottom"];
 				value = Table.table.selected;
@@ -170,7 +171,11 @@
 				if (value.xNum.length > 1 && value.yNum.length > 1) arg.push("inside");
 				// toggle border buttons
 				allEl.map(span => $(span).toggleClass("disabled", arg.includes(span.dataset.arg)));
-				allEl.get(0).addClass("active")
+				allEl.get(0).addClass("active");
+				// border color
+				value = Anchor.css("border-color").replace(/, /g, ",").split(" ").map(rgb =>
+					Color.rgbToHex(rgb));
+				console.log( value );
 				break;
 			// tab: Text
 			case "update-cell-font":

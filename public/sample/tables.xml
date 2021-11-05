@@ -3,7 +3,7 @@
 		<Table style="top: 40px; left: 40px;">
 			<R tp="2">
 				<C cn="bold middle center" style="height: 45px; width: 155px; font-size: 16px; color: #ff0000; background: #eee;"><![CDATA[more text]]></C>
-				<C cn="italic underline right bottom" style="height: 35px; width: 120px; font-size: 12px;"><![CDATA[text]]></C>
+				<C cn="italic underline right bottom" style="height: 35px; font-size: 12px;"><![CDATA[text]]></C>
 				<C/>
 				<C/>
 			</R>
