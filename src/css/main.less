@@ -1207,6 +1207,14 @@ sidebar {
 
 						&.has-caption:after { top: 17px; }
 
+						&.mixed-value {
+							input,
+							&:after {
+								color: #aaa;
+								font-style: italic;
+							}
+						}
+
 						&:after {
 							content: "";
 							position: absolute;
@@ -1442,6 +1450,7 @@ sidebar {
 					&[value="dashed"] { --icon-prefix: url(~/icons/table-outline-dashed.png); }
 
 					&.prefix-icon:before {
+						background-position: 0px 50%;
 						left: 6px;
 						width: 60px;
 					}

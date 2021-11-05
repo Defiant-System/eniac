@@ -9,7 +9,7 @@
 			</R>
 			<R tp="2">
 				<C/>
-				<C rs="2" cs="2" cn="has-border" style="background: #eee; --border-colors: #ff0000 #ff0000 #ff0000 #ff0000; --border-width: 2px 2px 2px 2px; --border-style: solid solid solid solid;"><![CDATA[text]]></C>
+				<C rs="2" cs="2" cn="has-border" style="background: #eee; --border-colors: #ff0000 #0000ff #ff0000 #ff0000; --border-width: 2px 4px 2px 2px; --border-style: solid dotted solid solid;"><![CDATA[text]]></C>
 				<C/>
 			</R>
 			<R tp="2"><C/><C/></R>

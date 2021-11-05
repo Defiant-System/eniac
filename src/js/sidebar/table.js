@@ -173,17 +173,26 @@
 				// toggle border buttons
 				allEl.map(span => $(span).toggleClass("disabled", arg.includes(span.dataset.arg)));
 				allEl.get(0).addClass("active");
+				
 				// border style
 				value = Anchor.css("--border-style").split(" ");
-				console.log( value );
+				arg = new Set(value); // keep unique entries
+				el = pEl.find("selectbox.table-cell-border").removeClass("has-prefix-icon");
+				if (arg.size === 1) el.addClass("has-prefix-icon").val(value[0]);
+				else el.val("Multiple");
+
 				// border color
 				value = Anchor.css("--border-colors").split(" ");
-				console.log( value );
-				// border color
-				value = Anchor.css("--border-width").split(" ");
-				console.log( value );
+				arg = new Set(value); // keep unique entries
+				el = Els.el.find(`.color-preset_[data-change="set-cell-border-color"]`).removeClass("multiple_");
+				if (arg.size === 1) el.css({ "--preset-color": value[0] });
+				else el.addClass("multiple_");
 
-				pEl.find("selectbox.table-cell-border").val("Multiple");
+				// border width
+				value = Anchor.css("--border-width").split(" ").map(n => parseInt(n, 10));
+				arg = new Set(value); // keep unique entries
+				el = pEl.find(`input[name="cell-border-width"]`).val(value[0]);
+				if (arg.size > 1) el.parent().addClass("mixed-value");
 				break;
 			// tab: Text
 			case "update-cell-font":
@@ -420,8 +429,26 @@
 				$(event.target).addClass("active");
 				break;
 			case "set-cell-border-width":
+				Els.el.find(`.cell-border-settings input[name="cell-border-width"]`)
+					.parent().removeClass("mixed-value");
+				// assemble & apply cell border
+				Self.dispatch({ type: "apply-cell-border" });
+				break;
 			case "set-cell-border-style":
+				// assemble & apply cell border
+				Self.dispatch({ type: "apply-cell-border" });
+				break;
 			case "set-cell-border-color":
+				// sidebar font color preset
+				Els.el.find(`.color-preset_[data-change="set-cell-border-color"]`)
+					.removeClass("multiple_")
+					.css({ "--preset-color": event.value });
+				// assemble & apply cell border
+				Self.dispatch({ type: "apply-cell-border" });
+				break;
+			case "apply-cell-border":
+				// TODO
+				pEl = Els.el.find(".cell-border-settings");
 				break;
 			// tab: Text
 			case "set-cell-font-family":
