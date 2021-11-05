@@ -25,13 +25,13 @@
 		switch (event.type) {
 			case "populate-line-values":
 				event.values = Self.dispatch({ ...event, type: "collect-line-values" });
-
+				// tab: Style
 				Self.dispatch({ ...event, type: "update-line-style" });
 				Self.dispatch({ ...event, type: "update-line-stroke" });
 				Self.dispatch({ ...event, type: "update-line-shadow" });
 				Self.dispatch({ ...event, type: "update-line-reflection" });
 				Self.dispatch({ ...event, type: "update-line-opacity" });
-
+				// tab: Arrange
 				Self.dispatch({ ...event, type: "update-line-arrange" });
 				break;
 			case "collect-line-values": {

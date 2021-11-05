@@ -30,14 +30,16 @@
 		switch (event.type) {
 			case "populate-image-values":
 				event.values = Self.dispatch({ ...event, type: "collect-image-values" });
-
+				// tab: Style
 				Self.dispatch({ ...event, type: "update-image-styles" });
 				Self.dispatch({ ...event, type: "update-image-title-caption" });
 				Self.dispatch({ ...event, type: "update-image-outline" });
 				Self.dispatch({ ...event, type: "update-image-shadow" });
 				Self.dispatch({ ...event, type: "update-image-reflection" });
 				Self.dispatch({ ...event, type: "update-image-opacity" });
+				// tab: Image
 				Self.dispatch({ ...event, type: "update-filter-adjustments" });
+				// tab: Arrange
 				Self.dispatch({ ...event, type: "update-image-arrange" });
 				Self.dispatch({ ...event, type: "update-image-box-size" });
 				Self.dispatch({ ...event, type: "update-image-box-position" });

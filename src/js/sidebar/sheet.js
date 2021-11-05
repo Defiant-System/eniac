@@ -20,6 +20,7 @@
 		// console.log(event);
 		switch (event.type) {
 			case "populate-sheet-values":
+				// tab: Sheet
 				Self.dispatch({ type: "update-sheet-name" });
 				Self.dispatch({ type: "update-sheet-background" });
 				Self.dispatch({ type: "update-sheet-buttons" });

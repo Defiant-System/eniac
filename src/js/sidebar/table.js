@@ -8,7 +8,7 @@
 
 		// temp
 		setTimeout(() => {
-			parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
+			parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
 		}, 200);
 
 		// setTimeout(() => {
@@ -39,6 +39,7 @@
 			el;
 		switch (event.type) {
 			case "populate-table-values":
+				// tab: Table
 				Self.dispatch({ ...event, type: "update-table-style" });
 				Self.dispatch({ ...event, type: "update-table-title-caption" });
 				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
@@ -46,12 +47,14 @@
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
-
+				// tab: Cell
+				
+				// tab: Text
 				Self.dispatch({ ...event, type: "update-cell-font" });
 				Self.dispatch({ ...event, type: "update-cell-color" });
 				Self.dispatch({ ...event, type: "update-cell-alignment" });
 				Self.dispatch({ ...event, type: "update-cell-line-height" });
-
+				// tab: Arrange
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				Self.dispatch({ ...event, type: "update-table-box-size" });
 				Self.dispatch({ ...event, type: "update-table-box-position" });

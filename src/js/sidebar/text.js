@@ -42,17 +42,19 @@
 				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
-
+				// tab: Style
 				Self.dispatch({ ...event, type: "update-text-style" });
 				Self.dispatch({ ...event, type: "update-text-fill" });
 				Self.dispatch({ ...event, type: "update-text-border" });
 				Self.dispatch({ ...event, type: "update-text-shadow" });
 				Self.dispatch({ ...event, type: "update-text-reflection" });
 				Self.dispatch({ ...event, type: "update-text-opacity" });
+				// tab: Text
 				Self.dispatch({ ...event, type: "update-text-font" });
 				Self.dispatch({ ...event, type: "update-text-color" });
 				Self.dispatch({ ...event, type: "update-text-alignment" });
 				Self.dispatch({ ...event, type: "update-text-line-height" });
+				// tab: Arrange
 				Self.dispatch({ ...event, type: "update-text-arrange" });
 				Self.dispatch({ ...event, type: "update-text-box-size" });
 				Self.dispatch({ ...event, type: "update-text-box-position" });

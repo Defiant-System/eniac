@@ -48,13 +48,14 @@
 				break;
 			case "populate-shape-values":
 				event.values = Self.dispatch({ ...event, type: "collect-shape-values" });
-
+				// tab: Styles
 				Self.dispatch({ ...event, type: "update-shape-style" });
 				Self.dispatch({ ...event, type: "update-shape-fill" });
 				Self.dispatch({ ...event, type: "update-shape-outline" });
 				Self.dispatch({ ...event, type: "update-shape-shadow" });
 				Self.dispatch({ ...event, type: "update-shape-reflection" });
 				Self.dispatch({ ...event, type: "update-shape-opacity" });
+				// tab: Arrange
 				Self.dispatch({ ...event, type: "update-shape-arrange" });
 				Self.dispatch({ ...event, type: "update-shape-box-size" });
 				Self.dispatch({ ...event, type: "update-shape-box-position" });
