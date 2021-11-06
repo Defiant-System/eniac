@@ -8,11 +8,12 @@
 		.tbl-root {
 			.tbl-col-head {
 				tr:last-child td:before {
-					--border-color: @table_border @table_border #404040 @table_border;
+					--border-color: #999 #999 #404040 #999;
 				}
 				
 				td {
 					background-color: #bec0bf;
+					--border-color: #999 #999 #999 #999;
 				}
 			}
 
@@ -27,8 +28,6 @@
 							}
 						}
 					}
-
-					&:nth-child(2) { }
 				}
 			}
 
@@ -53,74 +52,39 @@
 
 		.tbl-root {
 			.tbl-col-head {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #fff;
-
-					table {
-						border-right-color: transparent;
-						
-						tr {
-							// fallback border color
-							border-color: #fff;
-
-							&:last-child td {
-								border-bottom-color: #404040;
-							}
-						}
-
-						td {
-							background-color: #fff;
-							border-right-color: transparent;
-						}
-					}
+				tr:last-child td:before {
+					--border-color: #fff #fff #404040 #fff;
+				}
+				
+				td {
+					background-color: #fff;
+					--border-color: #fff #fff #fff #fff;
 				}
 			}
 
-			.tbl-body {			
+			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						table:after {
-							border-right-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #3FA9F570;
-						}
-
 						td {
 							background-color: #3FA9F570;
-							border-bottom-color: #3FA9F5;
-							border-right-color: #3FA9F5;
+							--border-color: #3FA9F5 #3FA9F5 #3FA9F5 #3FA9F5;
+
+							&:last-child {
+								--border-color: #3FA9F5 #404040 #3FA9F5 #3FA9F5;
+							}
 						}
 					}
-
-					&:nth-child(2) { }
 				}
 			}
 
 			.tbl-col-foot {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #fff;
-
-					table {
-						border-right-color: transparent;
-
-						&:after {
-							border-top-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #fff;
-						}
+				> div {
+					tr:first-child td:before {
+						--border-color: #404040 #fff #fff #fff;
 					}
 
 					td {
 						background-color: #fff;
-						border-right-color: transparent;
 					}
 				}
 			}
@@ -131,80 +95,50 @@
 		--tbl-border-color: #404040;
 		--tbl-border-style: solid;
 		--tbl-border-width: 1px;
-		// --alt-row-bg: #f2f2f2;
 		--alt-row-color: #f2f2f2;
 
 		.tbl-root {
 			.tbl-col-head {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #95d0ae;
-
-					table {
-						border-right-color: #65a481;
+				tr:last-child td:before {
+					--border-color: #65a481 #65a481 #404040 #65a481;
+				}
 				
-						tr {
-							// fallback border color
-							border-color: #95d0ae;
-
-							&:last-child td {
-								border-bottom-color: #404040;
-							}
-						}
-
-						td {
-							background-color: #95d0ae;
-							border-bottom-color: #65a481;
-
-							&:last-child {
-								border-right-color: #95d0ae;
-							}
-						}
-					}
+				td {
+					background-color: #95d0ae;
+					--border-color: #65a481 #65a481 #65a481 #65a481;
 				}
 			}
 
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						table:after {
-							border-right-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #dcdcdc;
-						}
-
 						td {
 							background-color: #dcdcdc;
+							--border-color: @table_border @table_border @table_border @table_border;
+
+							&:last-child {
+								--border-color: @table_border #404040 @table_border @table_border;
+							}
+						}
+					}
+
+					&:nth-child(2) {
+						tr:nth-child(even) {
+							background-color: #f2f2f2;
 						}
 					}
 				}
 			}
 
 			.tbl-col-foot {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #95d0ae;
-					
-					table {
-						border-right-color: #65a481;
-
-						&:after {
-							border-top-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #95d0ae;
-						}
+				> div {
+					tr:first-child td:before {
+						--border-color: #404040 #65a481 #65a481 #65a481;
 					}
 
 					td {
 						background-color: #95d0ae;
-						border-right-color: #65a481;
-						border-bottom-color: #65a481;
+						--border-color: #65a481 #65a481 #65a481 #65a481;
 					}
 				}
 			}
@@ -218,58 +152,30 @@
 
 		.tbl-root {
 			.tbl-col-head {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #94c1e2;
-
-					table {
-						border-right-color: #6595b6;
+				tr:last-child td:before {
+					--border-color: #6595b6 #6595b6 #404040 #6595b6;
+				}
 				
-						tr {
-							// fallback border color
-							border-color: #94c1e2;
-
-							&:last-child td {
-								border-bottom-color: #404040;
-							}
-						}
-					}
-
-					td {
-						background-color: #94c1e2;
-						border-right-color: #6595b6;
-						border-bottom-color: #6595b6;
-					}
+				td {
+					background-color: #94c1e2;
+					--border-color: #6595b6 #6595b6 #6595b6 #6595b6;
 				}
 			}
 
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						table:after {
-							border-right-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #dcdcdc;
-						}
-
 						td {
 							background-color: #dcdcdc;
+							--border-color: @table_border @table_border @table_border @table_border;
+
+							&:last-child {
+								--border-color: @table_border #404040 @table_border @table_border;
+							}
 						}
 					}
 
 					&:nth-child(2) {
-						tr {
-							border-right-color: #fff;
-							border-bottom-color: #f2f2f2;
-
-							&:nth-child(even) {
-								border-right-color: #f2f2f2;
-							}
-						}
-
 						tr:nth-child(even) {
 							background-color: #f2f2f2;
 						}
@@ -278,27 +184,14 @@
 			}
 
 			.tbl-col-foot {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #94c1e2;
-
-					table {
-						border-right-color: #6595b6;
-
-						&:after {
-							border-top-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #94c1e2;
-						}
+				> div {
+					tr:first-child td:before {
+						--border-color: #404040 #76aec6 #76aec6 #76aec6;
 					}
 
 					td {
-						background-color: #94c1e2;
-						border-right-color: #6595b6;
-						border-bottom-color: #6595b6;
+						background-color: #a4daf2;
+						--border-color: #76aec6 #76aec6 #76aec6 #76aec6;
 					}
 				}
 			}
@@ -312,91 +205,50 @@
 
 		.tbl-root {
 			.tbl-col-head {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #fbd0a2;
-
-					table {
-						border-right-color: #cfa472;
+				tr:last-child td:before {
+					--border-color: #cfa472 #cfa472 #404040 #cfa472;
+				}
 				
-						tr {
-							// fallback border color
-							border-color: #fbd0a2;
-
-							&:last-child td {
-								border-bottom-color: #404040;
-							}
-						}
-					}
-
-					td {
-						background-color: #fbd0a2;
-						border-right-color: #cfa472;
-						border-bottom-color: #cfa472;
-					}
+				td {
+					background-color: #fbd0a2;
+					--border-color: #cfa472 #cfa472 #cfa472 #cfa472;
 				}
 			}
 
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						table:after {
-							border-right-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #dcdcdc;
-						}
-
 						td {
 							background-color: #dcdcdc;
+							--border-color: @table_border @table_border @table_border @table_border;
+
+							&:last-child {
+								--border-color: @table_border #404040 @table_border @table_border;
+							}
 						}
 					}
 
 					&:nth-child(2) {
-						tr {
-							border-right-color: #fff;
-							border-bottom-color: #f2f2f2;
-
-							&:nth-child(even) {
-								border-right-color: #f2f2f2;
-							}
-						}
-
 						tr:nth-child(even) {
 							background-color: #f2f2f2;
-						}
-
-						td {
-							border-style: dashed;
+							
+							td:before {
+								--border-style: dashed dashed dashed dashed;
+							}
 						}
 					}
 				}
 			}
 
 			.tbl-col-foot {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #fbd0a2;
-					
-					table {
-						border-right-color: #cfa472;
-
-						&:after {
-							border-top-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #fbd0a2;
-						}
+				> div {
+					tr:first-child td:before {
+						--border-color: #404040 #cfa472 #cfa472 #cfa472;
 					}
 
 					td {
 						background-color: #fbd0a2;
-						border-right-color: #cfa472;
-						border-bottom-color: #cfa472;
+						--border-color: #cfa472 #cfa472 #cfa472 #cfa472;
 					}
 				}
 			}
@@ -410,89 +262,50 @@
 		
 		.tbl-root {
 			.tbl-col-head {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #fff;
-
-					table {
-						border-right-color: #d3d3d3;
+				tr:last-child td:before {
+					--border-color: #d3d3d3 #d3d3d3 #404040 #d3d3d3;
+				}
 				
-						tr {
-							// fallback border color
-							border-color: #fff;
-
-							&:last-child td {
-								border-bottom-color: #404040;
-							}
-						}
-					}
-
-					td {
-						background-color: #fff;
-						border-right-color: #d3d3d3;
-						border-bottom-color: #d3d3d3;
-					}
+				td {
+					background-color: #fff;
+					--border-color: #d3d3d3 #d3d3d3 #d3d3d3 #d3d3d3;
 				}
 			}
 
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						table:after {
-							border-right-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #fff;
-						}
-
 						td {
 							background-color: #fff;
-							border-right-color: #d3d3d3;
-							border-bottom-color: #d3d3d3;
+							--border-color: @table_border @table_border @table_border @table_border;
+
+							&:last-child {
+								--border-color: @table_border #404040 @table_border @table_border;
+							}
 						}
 					}
 
 					&:nth-child(2) {
-						tr {
-							border-right-color: #fff;
-							border-bottom-color: #fff;
-
-							&:nth-child(even) {
-								border-right-color: #fff;
+						tr:nth-child(even) {
+							background-color: #f2f2f2;
+							
+							td:before {
+								--border-style: dashed dashed dashed dashed;
 							}
-						}
-
-						td {
-							border-style: dashed;
 						}
 					}
 				}
 			}
 
 			.tbl-col-foot {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #fff;
-
-					table {
-						border-right-color: #d3d3d3;
-
-						&:after {
-							border-top-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #fff;
-						}
+				> div {
+					tr:first-child td:before {
+						--border-color: #404040 #d3d3d3 #d3d3d3 #d3d3d3;
 					}
 
 					td {
 						background-color: #fff;
-						border-right-color: #d3d3d3;
-						border-bottom-color: #d3d3d3;
+						--border-color: #d3d3d3 #d3d3d3 #d3d3d3 #d3d3d3;
 					}
 				}
 			}
