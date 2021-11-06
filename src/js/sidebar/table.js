@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="right"]`).addClass("active");
+			pEl.find(`> span[data-arg="center"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -574,6 +574,7 @@
 				selected.yNum.map(x => cells.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
 				break;
 			case "inside":
+				// cells
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
 						if (y !== selected.yNum[0]) cells.top.push({ el: $(rows[y][x]) });
@@ -584,6 +585,7 @@
 				});
 				break;
 			case "all":
+				// cells
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
 						cells.top.push({ el: $(rows[y][x]) });
@@ -602,6 +604,7 @@
 				selected.yNum.map(x => cells.left.push({ el: $(rows[x][selected.xNum[0]]) }));
 				break;
 			case "center":
+				// cells
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
 						if (x !== selected.xNum[0]) cells.left.push({ el: $(rows[y][x]) });
@@ -618,9 +621,11 @@
 				selected.yNum.map(x => cells.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
 				break;
 			case "top":
+				// cells
 				selected.xNum.map(x => cells.top.push({ el: $(rows[selected.yNum[0]][x]) }));
 				break;
 			case "middle":
+				// cells
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
 						if (y !== selected.yNum[0]) cells.top.push({ el: $(rows[y][x]) });
@@ -629,6 +634,7 @@
 				});
 				break;
 			case "bottom":
+				// cells
 				selected.xNum.map(x => cells.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
 				break;
 		}
