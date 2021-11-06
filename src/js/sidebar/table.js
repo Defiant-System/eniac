@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="outline"]`).addClass("active");
+			pEl.find(`> span[data-arg="right"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -462,22 +462,13 @@
 			case "apply-cell-border":
 				pEl = Els.el.find(".cell-border-settings");
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
-				layout = Self.getCellMatrix(Table.table, arg);
-
-				console.log( layout );
-
-				// .map((n,i) => r2[i] || n)
-
 				value = {
-					"--border-color": ["#ff0000", "", "", ""],
-					"--border-width": ["2px", "", "", ""],
-					"--border-style": ["solid", "", "", ""],
+					color: "#ff0000",
+					width: "2px",
+					style: "solid",
 				};
-
-				// layout.top.map(item => {
-				// 	let el = $(item);
-				// 	el.css(value);
-				// });
+				// apply values to appropriate cells
+				Self.applyCellMatrix(Table.table, arg, value);
 				break;
 			// tab: Text
 			case "set-cell-font-family":
@@ -542,81 +533,122 @@
 				break;
 		}
 	},
-	getCellMatrix(Table, arg) {
+	applyCellMatrix(Table, arg, value) {
 		let rows = Table.rows,
 			selected = Table.selected,
-			grid = {
+			cells = {
 				top: [],
 				left: [],
 				right: [],
 				bottom: [],
+			},
+			matrix = {};
+		// scaffold empty matrix
+		["top", "left", "right", "bottom"].map(d => {
+			matrix[d] = {
+				"--border-color": Array(4),
+				"--border-width": Array(4),
+				"--border-style": Array(4),
 			};
+		});
 		// assemble cells matrix
 		switch (arg) {
 			case "outline":
-				selected.xNum.map(x => grid.top.push({ el: $(rows[selected.yNum[0]][x]) } ));
-				selected.xNum.map(x => grid.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
-				selected.yNum.map(x => grid.left.push({ el: $(rows[x][selected.xNum[0]]) }));
-				selected.yNum.map(x => grid.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
+				// matrix
+				matrix.top["--border-color"][0] = 
+				matrix.right["--border-color"][1] = 
+				matrix.bottom["--border-color"][2] = 
+				matrix.left["--border-color"][3] = value.color;
+				matrix.top["--border-width"][0] = 
+				matrix.right["--border-width"][1] = 
+				matrix.bottom["--border-width"][2] = 
+				matrix.left["--border-width"][3] = value.width;
+				matrix.top["--border-style"][0] = 
+				matrix.right["--border-style"][1] = 
+				matrix.bottom["--border-style"][2] = 
+				matrix.left["--border-style"][3] = value.style;
+				// cells
+				selected.xNum.map(x => cells.top.push({ el: $(rows[selected.yNum[0]][x]) } ));
+				selected.xNum.map(x => cells.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
+				selected.yNum.map(x => cells.left.push({ el: $(rows[x][selected.xNum[0]]) }));
+				selected.yNum.map(x => cells.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
 				break;
 			case "inside":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						if (y !== selected.yNum[0]) grid.top.push({ el: $(rows[y][x]) });
-						if (x !== selected.xNum[0]) grid.left.push({ el: $(rows[y][x]) });
-						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push({ el: $(rows[y][x]) });
-						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push({ el: $(rows[y][x]) });
+						if (y !== selected.yNum[0]) cells.top.push({ el: $(rows[y][x]) });
+						if (x !== selected.xNum[0]) cells.left.push({ el: $(rows[y][x]) });
+						if (x !== selected.xNum[selected.xNum.length-1]) cells.right.push({ el: $(rows[y][x]) });
+						if (y !== selected.yNum[selected.yNum.length-1]) cells.bottom.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "all":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						grid.top.push({ el: $(rows[y][x]) });
-						grid.left.push({ el: $(rows[y][x]) });
-						grid.right.push({ el: $(rows[y][x]) });
-						grid.bottom.push({ el: $(rows[y][x]) });
+						cells.top.push({ el: $(rows[y][x]) });
+						cells.left.push({ el: $(rows[y][x]) });
+						cells.right.push({ el: $(rows[y][x]) });
+						cells.bottom.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "left":
-				selected.yNum.map(x => grid.left.push({ el: $(rows[x][selected.xNum[0]]) }));
+				// matrix
+				matrix.left["--border-color"][3] = value.color;
+				matrix.left["--border-width"][3] = value.width;
+				matrix.left["--border-style"][3] = value.style;
+				// cells
+				selected.yNum.map(x => cells.left.push({ el: $(rows[x][selected.xNum[0]]) }));
 				break;
 			case "center":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						if (x !== selected.xNum[0]) grid.left.push({ el: $(rows[y][x]) });
-						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push({ el: $(rows[y][x]) });
+						if (x !== selected.xNum[0]) cells.left.push({ el: $(rows[y][x]) });
+						if (x !== selected.xNum[selected.xNum.length-1]) cells.right.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "right":
-				selected.yNum.map(x => grid.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
+				// matrix
+				matrix.right["--border-color"][1] = value.color;
+				matrix.right["--border-width"][1] = value.width;
+				matrix.right["--border-style"][1] = value.style;
+				// cells
+				selected.yNum.map(x => cells.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
 				break;
 			case "top":
-				selected.xNum.map(x => grid.top.push({ el: $(rows[selected.yNum[0]][x]) }));
+				selected.xNum.map(x => cells.top.push({ el: $(rows[selected.yNum[0]][x]) }));
 				break;
 			case "middle":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						if (y !== selected.yNum[0]) grid.top.push({ el: $(rows[y][x]) });
-						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push({ el: $(rows[y][x]) });
+						if (y !== selected.yNum[0]) cells.top.push({ el: $(rows[y][x]) });
+						if (y !== selected.yNum[selected.yNum.length-1]) cells.bottom.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "bottom":
-				selected.xNum.map(x => grid.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
+				selected.xNum.map(x => cells.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
 				break;
 		}
-		for (let key in grid) {
-			grid[key].map(item => {
+		// assemble cell border details
+		for (let key in cells) {
+			cells[key].map(item => {
 				item.border = {
 					width: item.el.cssProp("--border-width").split(" "),
 					style: item.el.cssProp("--border-style").split(" "),
 					color: item.el.cssProp("--border-color").split(" "),
 				};
+				// apply matrix values on cells
+				item.el.css({
+					"--border-width": item.border.width.map((n, i) => matrix[key]["--border-width"][i] || n).join(" "),
+					"--border-style": item.border.style.map((n, i) => matrix[key]["--border-style"][i] || n).join(" "),
+					"--border-color": item.border.color.map((n, i) => matrix[key]["--border-color"][i] || n).join(" "),
+				});
 			});
 		}
-		return grid;
+
+		return { cells, matrix };
 	}
 }
