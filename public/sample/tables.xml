@@ -38,29 +38,23 @@
 
 		<Table title="Clipped Table" class="gray-table-1" width1="320" height1="201" style="top: 390px; left: 40px;">
 			<R tp="1">
-				<C tp="4"/><C tp="4"/><C/><C/>
+				<C tp="4"/><C/><C/><C/>
 			</R>
-			<R tp="1">
-				<C tp="4"/><C tp="4"/><C/><C/>
-			</R>
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
-			<!-- <R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R> -->
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C tp="4"/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<!-- <R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R> -->
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
+			<R tp="2"><C tp="4"/><C/><C/><C/></R>
 			<R tp="3">
-				<C tp="4"/><C tp="4"/><C/><C/>
-			</R>
-			<R tp="3">
-				<C tp="4"/><C tp="4"/><C/><C/>
+				<C tp="4"/><C/><C/><C/>
 			</R>
 		</Table>
 
-		<Table title="Clipped (No Column)" class="blue-table-2" style="top: 390px; left: 480px;">
+		<Table title="Clipped (No Column)" class="orange-table-1" style="top: 390px; left: 480px;">
 			<R tp="1">
 				<C tp="4"/><C/><C/><C/>
 			</R>
