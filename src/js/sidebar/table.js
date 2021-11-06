@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="bottom"]`).addClass("active");
+			pEl.find(`> span[data-arg="middle"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -462,40 +462,9 @@
 			case "apply-cell-border":
 				pEl = Els.el.find(".cell-border-settings");
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
-				
-				let rows = Table.table.rows,
-					selected = Table.table.selected,
-					grid = {
-						top: [],
-						left: [],
-						right: [],
-						bottom: [],
-					};
-				switch (arg) {
-					case "outline":
-						selected.xNum.map(n => grid.top.push(rows[selected.yNum[0]][n]));
-						selected.xNum.map(n => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][n]));
-						selected.yNum.map(n => grid.left.push(rows[n][selected.xNum[0]]));
-						selected.yNum.map(n => grid.right.push(rows[n][selected.xNum[selected.xNum.length-1]]));
-						break;
-					case "inside": break;
-					case "all": break;
-					case "left":
-						selected.yNum.map(n => grid.left.push(rows[n][selected.xNum[0]]));
-						break;
-					case "center": break;
-					case "right":
-						selected.yNum.map(n => grid.right.push(rows[n][selected.xNum[selected.xNum.length-1]]));
-						break;
-					case "top":
-						selected.xNum.map(n => grid.top.push(rows[selected.yNum[0]][n]));
-						break;
-					case "middle": break;
-					case "bottom":
-						selected.xNum.map(n => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][n]));
-						break;
-				}
-				console.log( grid );
+				layout = Self.getCellMatrix(Table.table, arg);
+
+				console.log( layout );
 				break;
 			// tab: Text
 			case "set-cell-font-family":
@@ -559,5 +528,73 @@
 				Tools.table.dispatch({ type: "focus-table", el: TblEl });
 				break;
 		}
+	},
+	getCellMatrix(Table, arg) {
+		let rows = Table.rows,
+			selected = Table.selected,
+			grid = {
+				top: [],
+				left: [],
+				right: [],
+				bottom: [],
+			};
+		// assemble cells matrix
+		switch (arg) {
+			case "outline":
+				selected.xNum.map(x => grid.top.push(rows[selected.yNum[0]][x]));
+				selected.xNum.map(x => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][x]));
+				selected.yNum.map(x => grid.left.push(rows[x][selected.xNum[0]]));
+				selected.yNum.map(x => grid.right.push(rows[x][selected.xNum[selected.xNum.length-1]]));
+				break;
+			case "inside":
+				selected.xNum.map(x => {
+					selected.yNum.map(y => {
+						if (y !== selected.yNum[0]) grid.top.push(rows[y][x]);
+						if (x !== selected.xNum[0]) grid.left.push(rows[y][x]);
+						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push(rows[y][x]);
+						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push(rows[y][x]);
+					});
+				});
+				break;
+			case "all":
+				selected.xNum.map(x => {
+					selected.yNum.map(y => {
+						grid.top.push(rows[y][x]);
+						grid.left.push(rows[y][x]);
+						grid.right.push(rows[y][x]);
+						grid.bottom.push(rows[y][x]);
+					});
+				});
+				break;
+			case "left":
+				selected.yNum.map(x => grid.left.push(rows[x][selected.xNum[0]]));
+				break;
+			case "center":
+				selected.xNum.map(x => {
+					selected.yNum.map(y => {
+						if (x !== selected.xNum[0]) grid.left.push(rows[y][x]);
+						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push(rows[y][x]);
+					});
+				});
+				break;
+			case "right":
+				selected.yNum.map(x => grid.right.push(rows[x][selected.xNum[selected.xNum.length-1]]));
+				break;
+			case "top":
+				selected.xNum.map(x => grid.top.push(rows[selected.yNum[0]][x]));
+				break;
+			case "middle":
+				selected.xNum.map(x => {
+					selected.yNum.map(y => {
+						if (y !== selected.yNum[0]) grid.top.push(rows[y][x]);
+						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push(rows[y][x]);
+					});
+				});
+				break;
+			case "bottom":
+				selected.xNum.map(x => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][x]));
+				break;
+		}
+		return grid;
 	}
 }
