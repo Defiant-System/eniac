@@ -159,15 +159,21 @@ table {
 					flex: 1;
 					z-index: 1;
 					overflow: auto;
+
+					td:last-child:before {
+						--border-width: 0 0 1px 0;
+					}
+
+					td:last-child:before {
+						--border-width: 1px 0 0 0;
+					}
 				}
 
-				table {
-					tr:last-child {
-						height: 24px;
+				tr:last-child {
+					height: 24px;
 
-						td:before {
-							--border-width: 1px 1px 0 0;
-						}
+					td:before {
+						--border-width: 1px 1px 0 0;
 					}
 				}
 			}

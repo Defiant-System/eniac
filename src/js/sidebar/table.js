@@ -118,13 +118,13 @@
 				break;
 			case "update-table-outlines":
 				// border style
-				value = TblEl.cssProp("--tbl-border-style");
+				value = TblEl.cssProp("--tbl-border-style").trim();
 				Els.el.find(".table-outline option").prop({ value });
 				// border style
-				value = TblEl.cssProp("--tbl-border-color");
+				value = TblEl.cssProp("--tbl-border-color").trim();
 				Els.el.find(".table-outline-details .color-preset_").css({ "--preset-color": value });
 				// border style
-				value = parseInt(TblEl.cssProp("--tbl-border-width"), 10);
+				value = parseInt(TblEl.cssProp("--tbl-border-width").trim(), 10);
 				Els.el.find(".table-outline-details input").prop({ value });
 				// checkbox values
 				value = TblEl.find(".table-title").hasClass("title-outline");
