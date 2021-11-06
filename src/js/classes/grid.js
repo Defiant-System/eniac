@@ -307,8 +307,8 @@ class Grid {
 			cols.map(x => {
 				let td = _rows[y][x],
 					offset = this.getOffset(td),
-					top = offset.top - 2,
-					left = offset.left - 2,
+					top = offset.top - 3,
+					left = offset.left - 3,
 					height = top + offset.height + 5,
 					width = left + offset.width + 5,
 					el = $(td);

@@ -195,7 +195,7 @@
 				} else el.val("Multiple");
 
 				// border color
-				value = Anchor.css("--border-colors").split(" ");
+				value = Anchor.css("--border-color").split(" ");
 				arg = new Set(value); // keep unique entries
 				el = Els.el.find(`.color-preset_[data-change="set-cell-border-color"]`).removeClass("multiple_");
 				if (arg.size === 1) el.css({ "--preset-color": value[0] });
@@ -465,7 +465,7 @@
 				layout = Self.getCellMatrix(Table.table, arg);
 
 				// value = {
-				// 	"--border-colors": `#ff0000 transparent transparent transparent`,
+				// 	"--border-color": `#ff0000 transparent transparent transparent`,
 				// 	"--border-width": `2px 0 0 0`,
 				// 	"--border-style": `solid solid solid solid`,
 				// };
