@@ -118,13 +118,13 @@
 				break;
 			case "update-table-outlines":
 				// border style
-				value = TblEl.cssProp("--border-style");
+				value = TblEl.cssProp("--tbl-border-style");
 				Els.el.find(".table-outline option").prop({ value });
 				// border style
-				value = TblEl.cssProp("--border-color");
+				value = TblEl.cssProp("--tbl-border-color");
 				Els.el.find(".table-outline-details .color-preset_").css({ "--preset-color": value });
 				// border style
-				value = parseInt(TblEl.cssProp("--border-width"), 10);
+				value = parseInt(TblEl.cssProp("--tbl-border-width"), 10);
 				Els.el.find(".table-outline-details input").prop({ value });
 				// checkbox values
 				value = TblEl.find(".table-title").hasClass("title-outline");
@@ -392,15 +392,15 @@
 				break;
 			case "set-table-outline-style":
 				value = event.arg;
-				TblEl.css({ "--border-style": value });
+				TblEl.css({ "--tbl-border-style": value });
 				break;
 			case "set-table-outline-color":
 				value = event.value;
-				TblEl.css({ "--border-color": value });
+				TblEl.css({ "--tbl-border-color": value });
 				break;
 			case "set-table-outline-width":
 				value = event.value +"px";
-				TblEl.css({ "--border-width": value });
+				TblEl.css({ "--tbl-border-width": value });
 				break;
 			case "toggle-table-title-outline":
 				// toggle title outline
