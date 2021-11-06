@@ -16,9 +16,9 @@ table {
 	font-family: 'Helvetica Neue';
 	font-size: 13px;
 	color: #333;
-	--border-color: @table_border;
-	--border-style: solid;
-	--border-width: 1px;
+	--tbl-border-color: @table_border;
+	--tbl-border-style: solid;
+	--tbl-border-width: 1px;
 
 	&.temp-0 {
 		top: 40px;
@@ -72,13 +72,13 @@ table {
 			display: none;
 			content: "";
 			position: absolute;
-			top: calc( var(--border-width) / -2 );
-			left: calc( var(--border-width) / -2 );
-			right: calc( var(--border-width) / -2 );
-			bottom: calc( var(--border-width) / -2 );
-			border-color: var(--border-color);
-			border-style: var(--border-style);
-			border-width: var(--border-width);
+			top: calc( var(--tbl-border-width) / -2 );
+			left: calc( var(--tbl-border-width) / -2 );
+			right: calc( var(--tbl-border-width) / -2 );
+			bottom: calc( var(--tbl-border-width) / -2 );
+			border-color: var(--tbl-border-color);
+			border-style: var(--tbl-border-style);
+			border-width: var(--tbl-border-width);
 			border-bottom: 0;
 			z-index: 2;
 			pointer-events: none;
@@ -111,13 +111,13 @@ table {
 		&:before {
 			content: "";
 			position: absolute;
-			top: calc( var(--border-width) / -2 );
-			left: calc( var(--border-width) / -2 );
-			right: calc( calc( var(--border-width) / -2 ) + 1px);
-			bottom: calc( calc( var(--border-width) / -2 ) + 1px);
-			border-color: var(--border-color);
-			border-style: var(--border-style);
-			border-width: var(--border-width);
+			top: calc( var(--tbl-border-width) / -2 );
+			left: calc( var(--tbl-border-width) / -2 );
+			right: calc( calc( var(--tbl-border-width) / -2 ) + 1px);
+			bottom: calc( calc( var(--tbl-border-width) / -2 ) + 1px);
+			border-color: var(--tbl-border-color);
+			border-style: var(--tbl-border-style);
+			border-width: var(--tbl-border-width);
 			z-index: 2;
 			pointer-events: none;
 		}
@@ -164,7 +164,7 @@ table {
 				table {
 					tr:last-child {
 						height: 24px;
-						
+
 						td:before {
 							--border-width: 1px 1px 0 0;
 						}
