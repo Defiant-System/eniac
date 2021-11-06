@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="middle"]`).addClass("active");
+			pEl.find(`> span[data-arg="outline"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -464,7 +464,16 @@
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
 				layout = Self.getCellMatrix(Table.table, arg);
 
-				console.log( layout );
+				value = {
+					"--border-colors": `#ff0000 transparent transparent transparent`,
+					"--border-width": `2px 0 0 0`,
+					"--border-style": `solid solid solid solid`,
+				};
+
+				layout.top.map(item => {
+					let el = $(item).addClass("has-border");
+					el.css(value);
+				});
 				break;
 			// tab: Text
 			case "set-cell-font-family":
