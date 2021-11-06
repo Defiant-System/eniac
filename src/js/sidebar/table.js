@@ -14,14 +14,14 @@
 		setTimeout(() => {
 			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
 			eniac.tools.table.table.select({
-				anchor: { y: 1, x: 1 },
-				yNum: [1,2,3,4],
-				xNum: [1,2,2],
+				anchor: { y: 2, x: 0 },
+				yNum: [2,3,4],
+				xNum: [0,1,2,3],
 			});
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="center"]`).addClass("active");
+			pEl.find(`> span[data-arg="outline"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
