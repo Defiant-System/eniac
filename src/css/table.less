@@ -255,8 +255,9 @@ table {
 
 	th,
 	td {
-		border-right: 1px solid @table_border;
-		border-bottom: 1px solid @table_border;
+		position: relative;
+		// border-right: 1px solid @table_border;
+		// border-bottom: 1px solid @table_border;
 		padding: 1px 7px 1px 5px;
 		vertical-align: middle;
 		white-space: nowrap;
@@ -268,8 +269,25 @@ table {
 			color: transparent;
 		}
 
+		&:before {
+			content: "";
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-color: transparent @table_border @table_border transparent;
+			border-width: 0 1px 1px 0;
+			border-style: solid solid solid solid;
+		}
+
 		&:last-child {
-			border-right-color: transparent;
+			// border-right-color: transparent;
+
+			&:before {
+				border-width: 0 0 1px 0;
+			}
 		}
 
 		&[t="s"] { }
@@ -282,12 +300,11 @@ table {
 		}
 
 		&.has-border {
-			position: relative;
 			// --border-colors: #ff0000 #ff0000 #ff0000 #ff0000;
 			// --border-width: 2px 2px 2px 2px;
 			// --border-style: solid solid solid solid;
 
-			&:before {
+			&:after {
 				content: "";
 				pointer-events: none;
 				position: absolute;
