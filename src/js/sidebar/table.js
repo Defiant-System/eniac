@@ -11,9 +11,14 @@
 			parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
 		}, 200);
 
-		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-		// }, 300);
+		setTimeout(() => {
+			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+			eniac.tools.table.table.select({
+				anchor: { y: 1, x: 1 },
+				yNum: [1,2,3],
+				xNum: [1,2,3],
+			});
+		}, 300);
 	},
 	glHash: {
 		"h-gridlines": "hide-hg-lines",
@@ -174,12 +179,17 @@
 				allEl.map(span => $(span).toggleClass("disabled", arg.includes(span.dataset.arg)));
 				allEl.get(0).addClass("active");
 				
+				// temp
+				Self.dispatch({ type: "apply-cell-border" });
+
 				// border style
 				value = Anchor.css("--border-style").split(" ");
 				arg = new Set(value); // keep unique entries
 				el = pEl.find("selectbox.table-cell-border").removeClass("has-prefix-icon");
-				if (arg.size === 1) el.addClass("has-prefix-icon").val(value[0]);
-				else el.val("Multiple");
+				if (arg.size === 1) {
+					if (value[0]) el.addClass("has-prefix-icon").val(value[0]);
+					else el.val(["none", "None"]);
+				} else el.val("Multiple");
 
 				// border color
 				value = Anchor.css("--border-colors").split(" ");
@@ -447,8 +457,21 @@
 				Self.dispatch({ type: "apply-cell-border" });
 				break;
 			case "apply-cell-border":
-				// TODO
 				pEl = Els.el.find(".cell-border-settings");
+				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
+				value = Table.table.selected;
+				console.log( value );
+				switch (arg) {
+					case "outline": break;
+					case "inside": break;
+					case "all": break;
+					case "left": break;
+					case "center": break;
+					case "right": break;
+					case "top": break;
+					case "middle": break;
+					case "bottom": break;
+				}
 				break;
 			// tab: Text
 			case "set-cell-font-family":
