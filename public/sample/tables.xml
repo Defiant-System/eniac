@@ -1,6 +1,6 @@
 <Workbook>
 	<Sheet name="Tables">
-		<Table style="top: 40px; left: 40px;">
+		<!-- <Table style="top: 40px; left: 40px;">
 			<R tp="2">
 				<C cn="bold middle center" style="height: 45px; width: 155px; font-size: 16px; color: #ff0000;"><![CDATA[more text]]></C>
 				<C cn="italic underline right bottom" style="height: 35px; font-size: 12px;"><![CDATA[text]]></C>
@@ -19,11 +19,22 @@
 			<R tp="2"><C/><C/><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>
-		</Table>
+		</Table> -->
 
-		<Text class="middle italic" style="top: 100px; left: 540px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
+		<!-- <Text class="middle italic" style="top: 100px; left: 540px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
 			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
-		</Text>
+		</Text> -->
+
+		<Table style="top: 40px; left: 40px;">
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2"><C/><C/><C/><C/></R>
+		</Table>
 
 		<Table title="Clipped Table" class="gray-table-1" width="320" height="200" style="top: 390px; left: 40px;">
 			<R tp="1">
@@ -43,7 +54,7 @@
 			</R>
 		</Table>
 
-		<!-- <Table title="Clipped (No Column)" class="blue-table-2" style="top: 390px; left: 480px;">
+		<Table title="Clipped (No Column)" class="blue-table-2" style="top: 390px; left: 480px;">
 			<R tp="1">
 				<C tp="4"/><C/><C/><C/>
 			</R>
@@ -71,6 +82,6 @@
 			<R tp="3">
 				<C/><C/><C/><C/>
 			</R>
-		</Table> -->
+		</Table>
 	</Sheet>
 </Workbook>

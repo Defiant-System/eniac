@@ -7,24 +7,24 @@
 		this.parent = parent;
 
 		// temp
-		setTimeout(() => {
-			parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
-		}, 200);
+		// setTimeout(() => {
+		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
+		// }, 200);
 
-		setTimeout(() => {
-			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-			eniac.tools.table.table.select({
-				anchor: { y: 1, x: 1 },
-				yNum: [1,2,3],
-				xNum: [1,2,3],
-			});
+		// setTimeout(() => {
+		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+		// 	eniac.tools.table.table.select({
+		// 		anchor: { y: 1, x: 1 },
+		// 		yNum: [1,2,3],
+		// 		xNum: [1,2,3],
+		// 	});
 
-			let pEl = eniac.sidebar.els.el.find(`.borders`);
-			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="outline"]`).addClass("active");
+		// 	let pEl = eniac.sidebar.els.el.find(`.borders`);
+		// 	pEl.find(".active, .disabled").removeClass("active disabled");
+		// 	pEl.find(`> span[data-arg="outline"]`).addClass("active");
 
-			this.dispatch({ type: "apply-cell-border" });
-		}, 300);
+		// 	this.dispatch({ type: "apply-cell-border" });
+		// }, 300);
 	},
 	glHash: {
 		"h-gridlines": "hide-hg-lines",
@@ -464,16 +464,16 @@
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
 				layout = Self.getCellMatrix(Table.table, arg);
 
-				value = {
-					"--border-colors": `#ff0000 transparent transparent transparent`,
-					"--border-width": `2px 0 0 0`,
-					"--border-style": `solid solid solid solid`,
-				};
+				// value = {
+				// 	"--border-colors": `#ff0000 transparent transparent transparent`,
+				// 	"--border-width": `2px 0 0 0`,
+				// 	"--border-style": `solid solid solid solid`,
+				// };
 
-				layout.top.map(item => {
-					let el = $(item).addClass("has-border");
-					el.css(value);
-				});
+				// layout.top.map(item => {
+				// 	let el = $(item).addClass("has-border");
+				// 	el.css(value);
+				// });
 				break;
 			// tab: Text
 			case "set-cell-font-family":
