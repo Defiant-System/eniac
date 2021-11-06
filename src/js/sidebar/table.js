@@ -7,24 +7,24 @@
 		this.parent = parent;
 
 		// temp
-		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
-		// }, 200);
+		setTimeout(() => {
+			parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
+		}, 200);
 
-		// setTimeout(() => {
-		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-		// 	eniac.tools.table.table.select({
-		// 		anchor: { y: 1, x: 1 },
-		// 		yNum: [1,2,3],
-		// 		xNum: [1,2,3],
-		// 	});
+		setTimeout(() => {
+			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+			eniac.tools.table.table.select({
+				anchor: { y: 1, x: 1 },
+				yNum: [1,2,3,4],
+				xNum: [1,2,2],
+			});
 
-		// 	let pEl = eniac.sidebar.els.el.find(`.borders`);
-		// 	pEl.find(".active, .disabled").removeClass("active disabled");
-		// 	pEl.find(`> span[data-arg="outline"]`).addClass("active");
+			let pEl = eniac.sidebar.els.el.find(`.borders`);
+			pEl.find(".active, .disabled").removeClass("active disabled");
+			pEl.find(`> span[data-arg="outline"]`).addClass("active");
 
-		// 	this.dispatch({ type: "apply-cell-border" });
-		// }, 300);
+			this.dispatch({ type: "apply-cell-border" });
+		}, 300);
 	},
 	glHash: {
 		"h-gridlines": "hide-hg-lines",
@@ -464,14 +464,18 @@
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
 				layout = Self.getCellMatrix(Table.table, arg);
 
-				// value = {
-				// 	"--border-color": `#ff0000 transparent transparent transparent`,
-				// 	"--border-width": `2px 0 0 0`,
-				// 	"--border-style": `solid solid solid solid`,
-				// };
+				console.log( layout );
+
+				// .map((n,i) => r2[i] || n)
+
+				value = {
+					"--border-color": ["#ff0000", "", "", ""],
+					"--border-width": ["2px", "", "", ""],
+					"--border-style": ["solid", "", "", ""],
+				};
 
 				// layout.top.map(item => {
-				// 	let el = $(item).addClass("has-border");
+				// 	let el = $(item);
 				// 	el.css(value);
 				// });
 				break;
@@ -550,59 +554,68 @@
 		// assemble cells matrix
 		switch (arg) {
 			case "outline":
-				selected.xNum.map(x => grid.top.push(rows[selected.yNum[0]][x]));
-				selected.xNum.map(x => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][x]));
-				selected.yNum.map(x => grid.left.push(rows[x][selected.xNum[0]]));
-				selected.yNum.map(x => grid.right.push(rows[x][selected.xNum[selected.xNum.length-1]]));
+				selected.xNum.map(x => grid.top.push({ el: $(rows[selected.yNum[0]][x]) } ));
+				selected.xNum.map(x => grid.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
+				selected.yNum.map(x => grid.left.push({ el: $(rows[x][selected.xNum[0]]) }));
+				selected.yNum.map(x => grid.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
 				break;
 			case "inside":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						if (y !== selected.yNum[0]) grid.top.push(rows[y][x]);
-						if (x !== selected.xNum[0]) grid.left.push(rows[y][x]);
-						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push(rows[y][x]);
-						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push(rows[y][x]);
+						if (y !== selected.yNum[0]) grid.top.push({ el: $(rows[y][x]) });
+						if (x !== selected.xNum[0]) grid.left.push({ el: $(rows[y][x]) });
+						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push({ el: $(rows[y][x]) });
+						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "all":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						grid.top.push(rows[y][x]);
-						grid.left.push(rows[y][x]);
-						grid.right.push(rows[y][x]);
-						grid.bottom.push(rows[y][x]);
+						grid.top.push({ el: $(rows[y][x]) });
+						grid.left.push({ el: $(rows[y][x]) });
+						grid.right.push({ el: $(rows[y][x]) });
+						grid.bottom.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "left":
-				selected.yNum.map(x => grid.left.push(rows[x][selected.xNum[0]]));
+				selected.yNum.map(x => grid.left.push({ el: $(rows[x][selected.xNum[0]]) }));
 				break;
 			case "center":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						if (x !== selected.xNum[0]) grid.left.push(rows[y][x]);
-						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push(rows[y][x]);
+						if (x !== selected.xNum[0]) grid.left.push({ el: $(rows[y][x]) });
+						if (x !== selected.xNum[selected.xNum.length-1]) grid.right.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "right":
-				selected.yNum.map(x => grid.right.push(rows[x][selected.xNum[selected.xNum.length-1]]));
+				selected.yNum.map(x => grid.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
 				break;
 			case "top":
-				selected.xNum.map(x => grid.top.push(rows[selected.yNum[0]][x]));
+				selected.xNum.map(x => grid.top.push({ el: $(rows[selected.yNum[0]][x]) }));
 				break;
 			case "middle":
 				selected.xNum.map(x => {
 					selected.yNum.map(y => {
-						if (y !== selected.yNum[0]) grid.top.push(rows[y][x]);
-						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push(rows[y][x]);
+						if (y !== selected.yNum[0]) grid.top.push({ el: $(rows[y][x]) });
+						if (y !== selected.yNum[selected.yNum.length-1]) grid.bottom.push({ el: $(rows[y][x]) });
 					});
 				});
 				break;
 			case "bottom":
-				selected.xNum.map(x => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][x]));
+				selected.xNum.map(x => grid.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
 				break;
+		}
+		for (let key in grid) {
+			grid[key].map(item => {
+				item.border = {
+					width: item.el.cssProp("--border-width").split(" "),
+					style: item.el.cssProp("--border-style").split(" "),
+					color: item.el.cssProp("--border-color").split(" "),
+				};
+			});
 		}
 		return grid;
 	}
