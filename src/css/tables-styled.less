@@ -7,45 +7,24 @@
 
 		.tbl-root {
 			.tbl-col-head {
-				> div {
-					&:nth-child(n) {
-						// fallback border color
-						border-color: #bec0bf;
-
-						tr {
-							// fallback border color
-							border-color: #bec0bf;
-						}
-					}
-				}
-				
-				tr:last-child td {
-					border-bottom-color: #404040;
+				tr:last-child td:before {
+					--border-color: @table_border @table_border #404040 @table_border;
 				}
 				
 				td {
 					background-color: #bec0bf;
-
-					&:last-child {
-						border-right-color: #bec0bf;
-					}
 				}
 			}
 
 			.tbl-body {
 				> div {
 					&:nth-child(1) {
-						table:after {
-							border-right-color: #404040;
-						}
-
-						tr {
-							// fallback border color
-							border-color: #dcdcdc;
-						}
-
 						td {
 							background-color: #dcdcdc;
+
+							&:last-child {
+								--border-color: @table_border #404040 @table_border @table_border;
+							}
 						}
 					}
 
@@ -54,19 +33,9 @@
 			}
 
 			.tbl-col-foot {
-				> div:nth-child(n) {
-					// fallback border color
-					border-color: #eee;
-
-					table {
-						&:after {
-							border-top-color: #404040;
-						}
-					}
-
-					tr {
-						// fallback border color
-						border-color: #eee;
+				> div {
+					tr:first-child td:before {
+						--border-color: #404040 @table_border @table_border @table_border;
 					}
 
 					td {
