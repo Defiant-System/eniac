@@ -18,6 +18,12 @@
 				yNum: [1,2,3],
 				xNum: [1,2,3],
 			});
+
+			let pEl = eniac.sidebar.els.el.find(`.borders`);
+			pEl.find(".active, .disabled").removeClass("active disabled");
+			pEl.find(`> span[data-arg="bottom"]`).addClass("active");
+
+			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
 	},
 	glHash: {
@@ -179,9 +185,6 @@
 				allEl.map(span => $(span).toggleClass("disabled", arg.includes(span.dataset.arg)));
 				allEl.get(0).addClass("active");
 				
-				// temp
-				Self.dispatch({ type: "apply-cell-border" });
-
 				// border style
 				value = Anchor.css("--border-style").split(" ");
 				arg = new Set(value); // keep unique entries
@@ -459,19 +462,40 @@
 			case "apply-cell-border":
 				pEl = Els.el.find(".cell-border-settings");
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
-				value = Table.table.selected;
-				console.log( value );
+				
+				let rows = Table.table.rows,
+					selected = Table.table.selected,
+					grid = {
+						top: [],
+						left: [],
+						right: [],
+						bottom: [],
+					};
 				switch (arg) {
-					case "outline": break;
+					case "outline":
+						selected.xNum.map(n => grid.top.push(rows[selected.yNum[0]][n]));
+						selected.xNum.map(n => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][n]));
+						selected.yNum.map(n => grid.left.push(rows[n][selected.xNum[0]]));
+						selected.yNum.map(n => grid.right.push(rows[n][selected.xNum[selected.xNum.length-1]]));
+						break;
 					case "inside": break;
 					case "all": break;
-					case "left": break;
+					case "left":
+						selected.yNum.map(n => grid.left.push(rows[n][selected.xNum[0]]));
+						break;
 					case "center": break;
-					case "right": break;
-					case "top": break;
+					case "right":
+						selected.yNum.map(n => grid.right.push(rows[n][selected.xNum[selected.xNum.length-1]]));
+						break;
+					case "top":
+						selected.xNum.map(n => grid.top.push(rows[selected.yNum[0]][n]));
+						break;
 					case "middle": break;
-					case "bottom": break;
+					case "bottom":
+						selected.xNum.map(n => grid.bottom.push(rows[selected.yNum[selected.yNum.length-1]][n]));
+						break;
 				}
+				console.log( grid );
 				break;
 			// tab: Text
 			case "set-cell-font-family":
