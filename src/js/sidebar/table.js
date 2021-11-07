@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="middle"]`).addClass("active");
+			pEl.find(`> span[data-arg="inside"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -540,18 +540,18 @@
 				selected = Table.selected,
 				scaffold = this.getScaffold(arg),
 				cells = [],
+				fallsThrough = false,
 				n;
 			// assemble cells matrix
 			switch (arg) {
 				case "inside":
-					console.log( cells );
-					return;
+					fallsThrough = true;
 				case "center":
 					cells = selected.yNum.map(y => selected.xNum.filter((n,i) => i > 0).map(x => rows[y][x])).flat();
 					this.apply(Table, "left", value, cells);
 					cells = selected.yNum.map(y => selected.xNum.filter((n,i) => i < selected.xNum.length-1).map(x => rows[y][x])).flat();
 					this.apply(Table, "right", value, cells);
-					return;
+					if (!fallsThrough) return;
 				case "middle":
 					cells = selected.yNum.filter((n,i) => i > 0).map(y => rows[y]).flat();
 					this.apply(Table, "top", value, cells);
