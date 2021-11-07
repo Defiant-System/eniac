@@ -535,7 +535,7 @@
 	},
 	cellMatrix: {
 		keys: ["--border-color", "--border-width", "--border-style"],
-		apply(Table, arg, value) {
+		apply(Table, arg, value, c) {
 			let rows = Table.rows,
 				selected = Table.selected,
 				scaffold = this.getScaffold(arg),
@@ -543,25 +543,29 @@
 				n;
 			// assemble cells matrix
 			switch (arg) {
+				case "inside":
+					console.log( cells );
+					return;
+				case "center":
+					cells = selected.yNum.map(y => selected.xNum.filter((n,i) => i > 0).map(x => rows[y][x])).flat();
+					this.apply(Table, "left", value, cells);
+					cells = selected.yNum.map(y => selected.xNum.filter((n,i) => i < selected.xNum.length-1).map(x => rows[y][x])).flat();
+					this.apply(Table, "right", value, cells);
+					return;
+				case "middle":
+					cells = selected.yNum.filter((n,i) => i > 0).map(y => rows[y]).flat();
+					this.apply(Table, "top", value, cells);
+					cells = selected.yNum.filter((n,i) => i < selected.yNum.length-1).map(y => rows[y]).flat();
+					this.apply(Table, "bottom", value, cells);
+					return;
 				case "all":
 					selected.xNum.map(x =>
 						selected.yNum.map(y =>
 							cells.push(rows[y][x])));
-					console.log( cells );
-					return;
-				case "middle":
-					selected.xNum.map(x => {
-						selected.yNum.map(y => {
-							
-						});
-					});
-					console.log( cells );
-					return;
-				case "center":
-					console.log( cells );
-					return;
-				case "inside":
-					console.log( cells );
+					this.apply(Table, "top", value, cells);
+					this.apply(Table, "left", value, cells);
+					this.apply(Table, "right", value, cells);
+					this.apply(Table, "bottom", value, cells);
 					return;
 				case "outline":
 					this.apply(Table, "top", value);
@@ -569,10 +573,10 @@
 					this.apply(Table, "right", value);
 					this.apply(Table, "bottom", value);
 					return;
-				case "top":    n = 0; cells = selected.xNum.map(x => rows[selected.yNum[0]][x]); break;
-				case "left":   n = 3; cells = selected.yNum.map(x => rows[x][selected.xNum[0]]); break;
-				case "right":  n = 1; cells = selected.yNum.map(x => rows[x][selected.xNum[selected.xNum.length-1]]); break;
-				case "bottom": n = 2; cells = selected.xNum.map(x => rows[selected.yNum[selected.yNum.length-1]][x]); break;
+				case "top":    n = 0; cells = c || selected.xNum.map(x => rows[selected.yNum[0]][x]); break;
+				case "left":   n = 3; cells = c || selected.yNum.map(y => rows[y][selected.xNum[0]]); break;
+				case "right":  n = 1; cells = c || selected.yNum.map(y => rows[y][selected.xNum[selected.xNum.length-1]]); break;
+				case "bottom": n = 2; cells = c || selected.xNum.map(x => rows[selected.yNum[selected.yNum.length-1]][x]); break;
 			}
 			// matrix scaffold
 			scaffold[arg][this.keys[0]][n] = value.color;
