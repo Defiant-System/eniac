@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="outline"]`).addClass("active");
+			pEl.find(`> span[data-arg="bottom"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -621,6 +621,10 @@
 				selected.yNum.map(x => cells.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
 				break;
 			case "top":
+				// matrix
+				matrix.top["--border-color"][0] = value.color;
+				matrix.top["--border-width"][0] = value.width;
+				matrix.top["--border-style"][0] = value.style;
 				// cells
 				selected.xNum.map(x => cells.top.push({ el: $(rows[selected.yNum[0]][x]) }));
 				break;
@@ -634,6 +638,10 @@
 				});
 				break;
 			case "bottom":
+				// matrix
+				matrix.bottom["--border-color"][2] = value.color;
+				matrix.bottom["--border-width"][2] = value.width;
+				matrix.bottom["--border-style"][2] = value.style;
 				// cells
 				selected.xNum.map(x => cells.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
 				break;

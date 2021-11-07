@@ -241,6 +241,10 @@ table {
 			border-style: var(--border-style);
 		}
 
+		&[style*="--border"]:before {
+			z-index: 2;
+		}
+
 		&[t="s"] { }
 		&[t="z"],
 		&[t="n"] {
