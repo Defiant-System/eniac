@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="top"]`).addClass("active");
+			pEl.find(`> span[data-arg="outline"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -468,7 +468,7 @@
 					style: "solid",
 				};
 				// apply values to appropriate cells
-				Self.cellMatrix.init(Table.table, arg, value);
+				Self.cellMatrix.apply(Table.table, arg, value);
 				break;
 			// tab: Text
 			case "set-cell-font-family":
@@ -535,45 +535,44 @@
 	},
 	cellMatrix: {
 		keys: ["--border-color", "--border-width", "--border-style"],
-		init(Table, arg, value) {
+		apply(Table, arg, value) {
 			let rows = Table.rows,
 				selected = Table.selected,
-				scaffold = this.getScaffold(),
-				cells;
+				scaffold = this.getScaffold(arg),
+				cells,
+				n;
 			// assemble cells matrix
 			switch (arg) {
+				case "all":
 				case "middle":
 				case "center":
-				case "all":
 				case "inside":
 				case "outline":
-					break;
-				case "top":
-					// matrix scaffold
-					scaffold.top[this.keys[0]][0] = value.color;
-					scaffold.top[this.keys[1]][0] = value.width;
-					scaffold.top[this.keys[2]][0] = value.style;
-					// cells
-					cells = selected.xNum.map(x => rows[selected.yNum[0]][x]);
-					// apply matrix to cells
-					this.apply(cells, scaffold, arg);
-					break;
-				case "left":
-				case "right":
-				case "bottom":
-					break;
+					this.apply(Table, "top", value);
+					this.apply(Table, "left", value);
+					this.apply(Table, "right", value);
+					this.apply(Table, "bottom", value);
+					return;
+				case "top":    n = 0; cells = selected.xNum.map(x => rows[selected.yNum[0]][x]); break;
+				case "left":   n = 3; cells = selected.yNum.map(x => rows[x][selected.xNum[0]]); break;
+				case "right":  n = 1; cells = selected.yNum.map(x => rows[x][selected.xNum[selected.xNum.length-1]]); break;
+				case "bottom": n = 2; cells = selected.xNum.map(x => rows[selected.yNum[selected.yNum.length-1]][x]); break;
 			}
+			// matrix scaffold
+			scaffold[arg][this.keys[0]][n] = value.color;
+			scaffold[arg][this.keys[1]][n] = value.width;
+			scaffold[arg][this.keys[2]][n] = value.style;
+			// apply matrix to cells
+			this.applyCells(cells, scaffold, arg);
 		},
-		getScaffold() {
+		getScaffold(side) {
 			let matrix = {};
 			// scaffold empty matrix
-			["top", "left", "right", "bottom"].map(k => {
-				matrix[k] = {};
-				this.keys.map(n => { matrix[k][n] = Array(4); });
-			});
+			matrix[side] = {};
+			this.keys.map(n => { matrix[side][n] = Array(4); });
 			return matrix;
 		},
-		apply(cells, matrix, dir) {
+		applyCells(cells, matrix, dir) {
 			cells.map(cell => {
 				let el = $(cell),
 					current = {},
