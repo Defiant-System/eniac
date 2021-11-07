@@ -21,7 +21,7 @@
 
 			let pEl = eniac.sidebar.els.el.find(`.borders`);
 			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="bottom"]`).addClass("active");
+			pEl.find(`> span[data-arg="top"]`).addClass("active");
 
 			this.dispatch({ type: "apply-cell-border" });
 		}, 300);
@@ -468,7 +468,7 @@
 					style: "solid",
 				};
 				// apply values to appropriate cells
-				Self.applyCellMatrix(Table.table, arg, value);
+				Self.cellMatrix.init(Table.table, arg, value);
 				break;
 			// tab: Text
 			case "set-cell-font-family":
@@ -533,136 +533,58 @@
 				break;
 		}
 	},
-	applyCellMatrix(Table, arg, value) {
-		let rows = Table.rows,
-			selected = Table.selected,
-			cells = {
-				top: [],
-				left: [],
-				right: [],
-				bottom: [],
-			},
-			matrix = {};
-		// scaffold empty matrix
-		["top", "left", "right", "bottom"].map(d => {
-			matrix[d] = {
-				"--border-color": Array(4),
-				"--border-width": Array(4),
-				"--border-style": Array(4),
-			};
-		});
-		// assemble cells matrix
-		switch (arg) {
-			case "outline":
-				// matrix
-				matrix.top["--border-color"][0] = 
-				matrix.right["--border-color"][1] = 
-				matrix.bottom["--border-color"][2] = 
-				matrix.left["--border-color"][3] = value.color;
-				matrix.top["--border-width"][0] = 
-				matrix.right["--border-width"][1] = 
-				matrix.bottom["--border-width"][2] = 
-				matrix.left["--border-width"][3] = value.width;
-				matrix.top["--border-style"][0] = 
-				matrix.right["--border-style"][1] = 
-				matrix.bottom["--border-style"][2] = 
-				matrix.left["--border-style"][3] = value.style;
-				// cells
-				selected.xNum.map(x => cells.top.push({ el: $(rows[selected.yNum[0]][x]) } ));
-				selected.xNum.map(x => cells.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
-				selected.yNum.map(x => cells.left.push({ el: $(rows[x][selected.xNum[0]]) }));
-				selected.yNum.map(x => cells.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
-				break;
-			case "inside":
-				// cells
-				selected.xNum.map(x => {
-					selected.yNum.map(y => {
-						if (y !== selected.yNum[0]) cells.top.push({ el: $(rows[y][x]) });
-						if (x !== selected.xNum[0]) cells.left.push({ el: $(rows[y][x]) });
-						if (x !== selected.xNum[selected.xNum.length-1]) cells.right.push({ el: $(rows[y][x]) });
-						if (y !== selected.yNum[selected.yNum.length-1]) cells.bottom.push({ el: $(rows[y][x]) });
-					});
-				});
-				break;
-			case "all":
-				// cells
-				selected.xNum.map(x => {
-					selected.yNum.map(y => {
-						cells.top.push({ el: $(rows[y][x]) });
-						cells.left.push({ el: $(rows[y][x]) });
-						cells.right.push({ el: $(rows[y][x]) });
-						cells.bottom.push({ el: $(rows[y][x]) });
-					});
-				});
-				break;
-			case "left":
-				// matrix
-				matrix.left["--border-color"][3] = value.color;
-				matrix.left["--border-width"][3] = value.width;
-				matrix.left["--border-style"][3] = value.style;
-				// cells
-				selected.yNum.map(x => cells.left.push({ el: $(rows[x][selected.xNum[0]]) }));
-				break;
-			case "center":
-				// cells
-				selected.xNum.map(x => {
-					selected.yNum.map(y => {
-						if (x !== selected.xNum[0]) cells.left.push({ el: $(rows[y][x]) });
-						if (x !== selected.xNum[selected.xNum.length-1]) cells.right.push({ el: $(rows[y][x]) });
-					});
-				});
-				break;
-			case "right":
-				// matrix
-				matrix.right["--border-color"][1] = value.color;
-				matrix.right["--border-width"][1] = value.width;
-				matrix.right["--border-style"][1] = value.style;
-				// cells
-				selected.yNum.map(x => cells.right.push({ el: $(rows[x][selected.xNum[selected.xNum.length-1]]) }));
-				break;
-			case "top":
-				// matrix
-				matrix.top["--border-color"][0] = value.color;
-				matrix.top["--border-width"][0] = value.width;
-				matrix.top["--border-style"][0] = value.style;
-				// cells
-				selected.xNum.map(x => cells.top.push({ el: $(rows[selected.yNum[0]][x]) }));
-				break;
-			case "middle":
-				// cells
-				selected.xNum.map(x => {
-					selected.yNum.map(y => {
-						if (y !== selected.yNum[0]) cells.top.push({ el: $(rows[y][x]) });
-						if (y !== selected.yNum[selected.yNum.length-1]) cells.bottom.push({ el: $(rows[y][x]) });
-					});
-				});
-				break;
-			case "bottom":
-				// matrix
-				matrix.bottom["--border-color"][2] = value.color;
-				matrix.bottom["--border-width"][2] = value.width;
-				matrix.bottom["--border-style"][2] = value.style;
-				// cells
-				selected.xNum.map(x => cells.bottom.push({ el: $(rows[selected.yNum[selected.yNum.length-1]][x]) }));
-				break;
-		}
-		// assemble cell border details
-		for (let key in cells) {
-			cells[key].map(item => {
-				item.border = {
-					width: item.el.cssProp("--border-width").split(" "),
-					style: item.el.cssProp("--border-style").split(" "),
-					color: item.el.cssProp("--border-color").split(" "),
-				};
+	cellMatrix: {
+		keys: ["--border-color", "--border-width", "--border-style"],
+		init(Table, arg, value) {
+			let rows = Table.rows,
+				selected = Table.selected,
+				scaffold = this.getScaffold(),
+				cells;
+			// assemble cells matrix
+			switch (arg) {
+				case "middle":
+				case "center":
+				case "all":
+				case "inside":
+				case "outline":
+					break;
+				case "top":
+					// matrix scaffold
+					scaffold.top[this.keys[0]][0] = value.color;
+					scaffold.top[this.keys[1]][0] = value.width;
+					scaffold.top[this.keys[2]][0] = value.style;
+					// cells
+					cells = selected.xNum.map(x => rows[selected.yNum[0]][x]);
+					// apply matrix to cells
+					this.apply(cells, scaffold, arg);
+					break;
+				case "left":
+				case "right":
+				case "bottom":
+					break;
+			}
+		},
+		getScaffold() {
+			let matrix = {};
+			// scaffold empty matrix
+			["top", "left", "right", "bottom"].map(k => {
+				matrix[k] = {};
+				this.keys.map(n => { matrix[k][n] = Array(4); });
+			});
+			return matrix;
+		},
+		apply(cells, matrix, dir) {
+			cells.map(cell => {
+				let el = $(cell),
+					current = {},
+					applied = {};
+				// prepare current values
+				this.keys.map(k => current[k] = el.cssProp(k).split(" "));
+				// apply new values
+				this.keys.map(k => applied[k] = current[k].map((n, i) => matrix[dir][k][i] || n).join(" "));
 				// apply matrix values on cells
-				item.el.css({
-					"--border-width": item.border.width.map((n, i) => matrix[key]["--border-width"][i] || n).join(" "),
-					"--border-style": item.border.style.map((n, i) => matrix[key]["--border-style"][i] || n).join(" "),
-					"--border-color": item.border.color.map((n, i) => matrix[key]["--border-color"][i] || n).join(" "),
-				});
+				el.css(applied);
 			});
 		}
-
-		return { cells, matrix };
 	}
 }
