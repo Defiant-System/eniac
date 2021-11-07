@@ -546,6 +546,7 @@
 			switch (arg) {
 				case "inside":
 					fallsThrough = true;
+					/* falls through */
 				case "center":
 					cells = selected.yNum.map(y => selected.xNum.filter((n,i) => i > 0).map(x => rows[y][x])).flat();
 					this.apply(Table, "left", value, cells);
@@ -583,16 +584,6 @@
 			scaffold[arg][this.keys[1]][n] = value.width;
 			scaffold[arg][this.keys[2]][n] = value.style;
 			// apply matrix to cells
-			this.applyCells(cells, scaffold, arg);
-		},
-		getScaffold(side) {
-			let matrix = {};
-			// scaffold empty matrix
-			matrix[side] = {};
-			this.keys.map(n => { matrix[side][n] = Array(4); });
-			return matrix;
-		},
-		applyCells(cells, matrix, dir) {
 			cells.map(cell => {
 				let el = $(cell),
 					current = {},
@@ -600,10 +591,17 @@
 				// prepare current values
 				this.keys.map(k => current[k] = el.cssProp(k).split(" "));
 				// apply new values
-				this.keys.map(k => applied[k] = current[k].map((n, i) => matrix[dir][k][i] || n).join(" "));
+				this.keys.map(k => applied[k] = current[k].map((n, i) => scaffold[arg][k][i] || n).join(" "));
 				// apply matrix values on cells
 				el.css(applied);
 			});
+		},
+		getScaffold(side) {
+			let matrix = {};
+			// scaffold empty matrix
+			matrix[side] = {};
+			this.keys.map(n => { matrix[side][n] = Array(4); });
+			return matrix;
 		}
 	}
 }
