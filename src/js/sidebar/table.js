@@ -11,20 +11,21 @@
 			parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
 		}, 200);
 
-		setTimeout(() => {
-			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-			eniac.tools.table.table.select({
-				anchor: { y: 2, x: 1 },
-				yNum: [2,3,4],
-				xNum: [1,2],
-			});
+		// setTimeout(() => {
+		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+		// 	eniac.tools.table.table.select({
+		// 		anchor: { y: 2, x: 1 },
+		// 		yNum: [2,3,4],
+		// 		xNum: [1,2],
+		// 	});
 
-			let pEl = eniac.sidebar.els.el.find(`.borders`);
-			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="inside"]`).addClass("active");
+		// 	let pEl = eniac.sidebar.els.el.find(`.borders`);
+		// 	pEl.find(".active, .disabled").removeClass("active disabled");
+		// 	pEl.find(`> span[data-arg="middle"]`).addClass("active");
 
-			this.dispatch({ type: "apply-cell-border" });
-		}, 300);
+		// 	// this.dispatch({ type: "apply-cell-border" });
+		// 	this.dispatch({ type: "cell-border-style-preset", arg: "preset-8" });
+		// }, 300);
 
 		// setTimeout(() => {
 		// 	this.dispatch({ type: "cell-border-style-preset", arg: "preset-8" });
@@ -581,9 +582,15 @@
 					this.apply(Table, "right", value, cells);
 					if (!fallsThrough) return;
 				case "middle":
-					cells = selected.yNum.filter((n,i) => i > 0).map(y => rows[y]).flat();
+					cells = selected.yNum.filter((n,i) => i > 0)
+								.map(y => rows[y])
+								.map(row => row.filter((n,i) => i >= selected.xNum[0] && i <= selected.xNum[selected.xNum.length-1]))
+								.flat();
 					this.apply(Table, "top", value, cells);
-					cells = selected.yNum.filter((n,i) => i < selected.yNum.length-1).map(y => rows[y]).flat();
+					cells = selected.yNum.filter((n,i) => i < selected.yNum.length-1)
+								.map(y => rows[y])
+								.map(row => row.filter((n,i) => i >= selected.xNum[0] && i <= selected.xNum[selected.xNum.length-1]))
+								.flat();
 					this.apply(Table, "bottom", value, cells);
 					return;
 				case "all":
