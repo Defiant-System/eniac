@@ -65,16 +65,7 @@
 
 				Self.origin = null;
 				break;
-			case "do-grid-navigation":
-				el = $(event.target);
-				if (el.hasClass("active")) return;
-				// navigation dots UI change
-				el.parent().find(".active").removeClass("active");
-				el.addClass("active");
-				// trigger change in reel
-				event.el.prevAll(".options-reel").data({ step: el.index() + 1 });
-				break;
-			case "do-palette-navigation":
+			case "do-popup-navigation":
 				el = $(event.target);
 				if (el.hasClass("active")) return;
 				// navigation dots UI change

@@ -344,6 +344,7 @@ layout {
 			.palette-reel {
 				position: relative;
 				overflow: hidden;
+				transition: height 100ms ease-in-out;
 
 				.reel {
 					position: relative;
@@ -643,13 +644,15 @@ layout {
 				}
 			}
 
+			&.popup-insert-chart-options {
+				&[data-step="1"] .options-reel .reel { left: 0px; }
+				&[data-step="2"] .options-reel .reel { left: -188px; }
+				&[data-step="3"] .options-reel .reel { left: -376px; }
+			}
+
 			.options-reel {
 				position: relative;
 				overflow: hidden;
-
-				&[data-step="1"] .reel { left: 0px; }
-				&[data-step="2"] .reel { left: -188px; }
-				&[data-step="3"] .reel { left: -376px; }
 
 				.reel {
 					position: relative;
