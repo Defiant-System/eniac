@@ -21,11 +21,15 @@
 			<R tp="2"><C/><C/><C/><C/></R>
 		</Table>
 
+		<Text style="top: 440px; left: 530px; width: 220px; color: #ffff00; background-image: radial-gradient(60px at 150px 40px, rgba(50,176,240,1) 0%, rgba(131,58,180,1) 100%);">
+			<![CDATA[Nostrum voluptas quis ipsam quia. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
+		</Text>
+
 		<!-- <Text class="middle italic" style="top: 100px; left: 540px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
 			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 		</Text> -->
 
-		<Table title="Clipped Table" class="gray-table-1" width="320" height="200" style="top: 390px; left: 40px;">
+		<!-- <Table title="Clipped Table" class="gray-table-1" width="320" height="200" style="top: 390px; left: 40px;">
 			<R tp="1">
 				<C tp="4"/><C/><C/><C/><C/>
 			</R>
@@ -71,6 +75,6 @@
 			<R tp="3">
 				<C tp="4"/><C/><C/><C/>
 			</R>
-		</Table>
+		</Table> -->
 	</Sheet>
 </Workbook>

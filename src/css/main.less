@@ -134,7 +134,7 @@ layout {
 		content {
 			.foot {
 				max-height: 37px;
-				border-top-color: lighten(@layout_outline, 7%);
+				border-top-width: 1px;
 			}
 		}
 	}
@@ -306,7 +306,9 @@ layout {
 
 		&.popup-palette {
 			&.pop {
-				transition: all 100ms ease-in-out;
+				transition: width 100ms ease-in-out,
+							height 100ms ease-in-out,
+							margin 100ms ease-in-out;
 
 				.palette-reel {
 					transition: height 100ms ease-in-out;
@@ -917,7 +919,7 @@ content {
 		display: flex;
 		height: 36px;
 		// bottom: -37px;
-		border-top: 1px solid transparent;
+		border-top: 0 solid lighten(@layout_outline, 7%);
 		transition: max-height 150ms ease-in-out;
 		max-height: 0;
 		//--color-1: #333;

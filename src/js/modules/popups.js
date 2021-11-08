@@ -64,6 +64,10 @@
 				Self.els.root.find("> div.pop")
 					.cssSequence("pop-hide", "animationend", el => el.removeClass("pop pop-hide"));
 
+				if (Self.origin) {
+					// reset origin el
+					Self.origin.el.removeClass("active_");
+				}
 				Self.origin = null;
 				break;
 			case "do-popup-navigation":
@@ -89,10 +93,10 @@
 				dim = pEl[0].getBoundingClientRect();
 				pos = Self.getPosition(event.target, Self.els.layout[0]);
 				top = pos.top + event.target.offsetHeight + 13;
-				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 12;
+				left = Math.round(pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 25);
 
 				// prepare popup contents
-				el = $(event.target);
+				el = $(event.target).addClass("active_");
 				value = el.cssProp(el.hasClass("color-preset_") ? "--preset-color" : "--color");
 				Self.origin = { el, value };
 				let [hue, sat, lgh, alpha] = Color.hexToHsl(value.trim());
@@ -340,8 +344,20 @@
 						handler: APP.sidebar[section].dispatch,
 						name: oParent.data("change"),
 						gradient: APP.tools[APP.tools.active].gradient,
+					},
+					apply = (Self, value) => {
+						if (Self.origin.hasClass("color-preset_")) {
+							// dispatch event to active sidebar
+							Self.event.handler({ type: "set-sheet-bgcolor", value });
+						} else {
+							// update selected xl-element
+							Self.stops[Self.stopIndex].color = value;
+							Self.event.gradient.update(Self.stops);
+							// update sidebar strip
+							let strip = Self.stops.map(s => `${s.color} ${s.offset}%`);
+							Self.oParent.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+						}
 					};
-
 				// create drag object
 				Self.drag = {
 					el,
@@ -350,6 +366,7 @@
 					box,
 					type,
 					origin,
+					apply,
 					stops,
 					stopIndex,
 					hue, sat, lgh, alpha,
@@ -422,18 +439,11 @@
 				}
 				hex = Color.hslToHex(Drag.hue, Drag.sat, Drag.lgh, Drag.alpha);
 				Drag.root.css({ "--color": hex, "--color-opaque": hex.slice(0,-2) });
-
 				// rgba = [...rgb, Drag.alpha];
 				Drag.origin.css({ "--preset-color": hex });
 				Self.origin.value = hex;
-
-				// // update selected xl-element
-				// Drag.stops[Drag.stopIndex].color = hex;
-				// Drag.event.gradient.update(Drag.stops);
-
-				// // update sidebar strip
-				// let strip = Drag.stops.map(s => `${s.color} ${s.offset}%`);
-				// Drag.oParent.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
+				// apply color
+				Drag.apply(Drag, hex);
 				break;
 			case "mouseup":
 				// uncover layout
