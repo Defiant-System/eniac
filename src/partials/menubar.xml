@@ -116,17 +116,17 @@
 
 	<Menu for="table-cell-border-styles">
 		<Menu type="caption" name="Border Styles"/>
-		<Menu type="icon" name="~/icons/border-preset-1.png" arg="preset-1" click="cell-border-style-preset" check-group="cell-border-style"/>
-		<Menu type="icon" name="~/icons/border-preset-2.png" arg="preset-2" click="cell-border-style-preset" check-group="cell-border-style"/>
-		<Menu type="icon" name="~/icons/border-preset-3.png" arg="preset-3" click="cell-border-style-preset" check-group="cell-border-style"/>
-		<Menu type="icon" name="~/icons/border-preset-4.png" arg="preset-4" click="cell-border-style-preset" check-group="cell-border-style"/>
-		<Menu type="icon" name="~/icons/border-preset-5.png" arg="preset-5" click="cell-border-style-preset" check-group="cell-border-style"/>
-		<Menu type="icon" name="~/icons/border-preset-6.png" arg="preset-6" click="cell-border-style-preset" check-group="cell-border-style"/>
-		<Menu type="icon" name="~/icons/border-preset-7.png" arg="preset-7" click="cell-border-style-preset" check-group="cell-border-style"/>
-		<Menu type="icon" name="~/icons/border-preset-8.png" arg="preset-8" click="cell-border-style-preset" check-group="cell-border-style"/>
+		<Menu type="icon" name="~/icons/border-preset-1.png" arg="preset-1" click="cell-border-style-preset"/>
+		<Menu type="icon" name="~/icons/border-preset-2.png" arg="preset-2" click="cell-border-style-preset"/>
+		<Menu type="icon" name="~/icons/border-preset-3.png" arg="preset-3" click="cell-border-style-preset"/>
+		<Menu type="icon" name="~/icons/border-preset-4.png" arg="preset-4" click="cell-border-style-preset"/>
+		<Menu type="icon" name="~/icons/border-preset-5.png" arg="preset-5" click="cell-border-style-preset"/>
+		<Menu type="icon" name="~/icons/border-preset-6.png" arg="preset-6" click="cell-border-style-preset"/>
+		<Menu type="icon" name="~/icons/border-preset-7.png" arg="preset-7" click="cell-border-style-preset"/>
+		<Menu type="icon" name="~/icons/border-preset-8.png" arg="preset-8" click="cell-border-style-preset"/>
 		<Menu type="divider"/>
-		<Menu name="Default Style" arg="default" click="cell-border-style-preset" check-group="cell-border-style" is-checked="1"/>
-		<Menu name="No Border" arg="none" click="cell-border-style-preset" check-group="cell-border-style"/>
+		<Menu name="Default Style" arg="default" click="cell-border-style-preset"/>
+		<Menu name="No Border" arg="none" click="cell-border-style-preset"/>
 	</Menu>
 
 	<Menu for="table-cell-border">

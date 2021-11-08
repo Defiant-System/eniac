@@ -11,19 +11,23 @@
 			parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
 		}, 200);
 
+		setTimeout(() => {
+			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+			eniac.tools.table.table.select({
+				anchor: { y: 2, x: 1 },
+				yNum: [2,3,4],
+				xNum: [1,2],
+			});
+
+			let pEl = eniac.sidebar.els.el.find(`.borders`);
+			pEl.find(".active, .disabled").removeClass("active disabled");
+			pEl.find(`> span[data-arg="inside"]`).addClass("active");
+
+			this.dispatch({ type: "apply-cell-border" });
+		}, 300);
+
 		// setTimeout(() => {
-		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-		// 	eniac.tools.table.table.select({
-		// 		anchor: { y: 2, x: 0 },
-		// 		yNum: [2,3,4],
-		// 		xNum: [0,1,2,3],
-		// 	});
-
-		// 	let pEl = eniac.sidebar.els.el.find(`.borders`);
-		// 	pEl.find(".active, .disabled").removeClass("active disabled");
-		// 	pEl.find(`> span[data-arg="outline"]`).addClass("active");
-
-		// 	this.dispatch({ type: "apply-cell-border" });
+		// 	this.dispatch({ type: "cell-border-style-preset", arg: "preset-8" });
 		// }, 300);
 	},
 	glHash: {
@@ -42,8 +46,8 @@
 		"preset-6": "2px solid #0000ff",
 		"preset-7": "2px dashed #229922",
 		"preset-8": "2px dotted #ff9900",
-		"default":  "",
-		"none":     "0px solid transparent",
+		"default":  "1px solid transparent",
+		"none":     "0px none transparent",
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -439,9 +443,15 @@
 					.css({ "--preset-color": event.value });
 				break;
 			case "cell-border-style-preset":
+				pEl = Els.el.find(".cell-border-settings");
 				value = Self.borderPresets[event.arg];
-				console.log(value);
-				console.log(event);
+				
+				let [bW, bS, bC] = value.split(" ");
+				el = pEl.find(`input[name="cell-border-width"]`).val(parseInt(bW, 10));
+				pEl.find(`selectbox.table-cell-border`).val(bS);
+				pEl.find(`.color-preset_[data-click="popup-color-palette"]`).css({ "--preset-color": bC });
+				// trigger change on element
+				el.trigger("change");
 				return false;
 			case "select-cell-border":
 				// reset border buttons
