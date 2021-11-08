@@ -8,6 +8,9 @@
 
 		// temp
 		// this.sheet.css({ "background-color": "#eee" });
+		setTimeout(() => {
+			eniac.sidebar.els.el.find(`.color-preset_[data-change="set-sheet-bgcolor"]`).trigger("click");
+		}, 150);
 	},
 	dispatch(event) {
 		let APP = eniac,
