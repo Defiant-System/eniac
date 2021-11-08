@@ -450,7 +450,7 @@
 				let [bW, bS, bC] = value.split(" ");
 				el = pEl.find(`input[name="cell-border-width"]`).val(parseInt(bW, 10));
 				pEl.find(`selectbox.table-cell-border`).val(bS);
-				pEl.find(`.color-preset_[data-click="popup-color-palette"]`).css({ "--preset-color": bC });
+				pEl.find(`.color-preset_[data-click="popup-color-palette-1"]`).css({ "--preset-color": bC });
 				// trigger change on element
 				el.trigger("change");
 				return false;
@@ -484,7 +484,7 @@
 				pEl = Els.el.find(".cell-border-settings");
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
 				value = {
-					color: pEl.find(`.color-preset_[data-click="popup-color-palette"]`).css("--preset-color") || "transparent",
+					color: pEl.find(`.color-preset_[data-click="popup-color-palette-1"]`).css("--preset-color") || "transparent",
 					width: pEl.find(`input[name="cell-border-width"]`).val() +"px",
 					style: pEl.find(`selectbox.table-cell-border`).val() || "",
 				};

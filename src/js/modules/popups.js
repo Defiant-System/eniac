@@ -17,7 +17,7 @@
 			palette: window.find(".popups .popup-palette"),
 		};
 		// bind event handlers
-		this.els.colorRing.on("mousedown", this.doColorRing);
+		this.els.palette.on("mousedown", this.doColorRing);
 
 		// temp
 		// setTimeout(() => {
@@ -28,6 +28,7 @@
 		let APP = eniac,
 			Self = APP.popups,
 			dim, pos, top, left,
+			step,
 			data,
 			name,
 			value,
@@ -74,36 +75,25 @@
 				// trigger change in reel
 				event.el.parent().data({ step: el.index() + 1 });
 				break;
-			case "popup-color-palette":
-				pEl = Self.els.palette;
-				dim = pEl[0].getBoundingClientRect();
-				pos = Self.getPosition(event.target, Self.els.layout[0]);
-				top = pos.top + event.target.offsetHeight + 16;
-				left = pos.left - (dim.width / 2) + ((event.target.offsetWidth - 22) / 2) - 2;
-
-				// remember for later
-				el = $(event.target).addClass("active_");
-				value = el.css("--preset-color");
-				Self.origin = { el, value };
-
-				// prepare popup contents
-				pEl.find(".palette-wrapper .active").removeClass("active");
-				el = pEl.find(`span[style="background: ${value};"]`);
-				if (el.length) el.addClass("active");
-
-				pEl.css({ top, left }).addClass("pop");
-				Self.els.layout.addClass("cover");
-				break;
+			case "popup-color-palette-1":
+			case "popup-color-palette-2":
+			case "popup-color-palette-3":
 			case "popup-color-ring":
-				pEl = Self.els.colorRing.parent();
+				pEl = Self.els.palette;
+				step = event.type.split("-")[3] || "4";
+				pEl.data({ step });
+				// correctify navigation
+				pEl.find(".grid-nav li.active").removeClass("active");
+				pEl.find(`.grid-nav li:nth(${step-1})`).addClass("active");
+
 				dim = pEl[0].getBoundingClientRect();
 				pos = Self.getPosition(event.target, Self.els.layout[0]);
 				top = pos.top + event.target.offsetHeight + 13;
 				left = pos.left - (dim.width / 2) + (event.target.offsetWidth / 2) - 12;
-				
+
 				// prepare popup contents
 				el = $(event.target);
-				value = el.cssProp("--color");
+				value = el.cssProp(el.hasClass("color-preset_") ? "--preset-color" : "--color");
 				Self.origin = { el, value };
 				let [hue, sat, lgh, alpha] = Color.hexToHsl(value.trim());
 
@@ -434,25 +424,16 @@
 				Drag.root.css({ "--color": hex, "--color-opaque": hex.slice(0,-2) });
 
 				// rgba = [...rgb, Drag.alpha];
-				Drag.origin.css({ "--color": hex });
+				Drag.origin.css({ "--preset-color": hex });
 				Self.origin.value = hex;
 
-				// update selected xl-element
-				Drag.stops[Drag.stopIndex].color = hex;
-				Drag.event.gradient.update(Drag.stops);
+				// // update selected xl-element
+				// Drag.stops[Drag.stopIndex].color = hex;
+				// Drag.event.gradient.update(Drag.stops);
 
-				// update sidebar strip
-				let strip = Drag.stops.map(s => `${s.color} ${s.offset}%`);
-				Drag.oParent.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
-
-				// route event
-				// Drag.event.handler({
-				// 	type: Drag.event.name,
-				// 	el: Drag.oParent,
-				// 	point: Drag.origin,
-				// 	stops: Drag.stops,
-				// 	hex
-				// });
+				// // update sidebar strip
+				// let strip = Drag.stops.map(s => `${s.color} ${s.offset}%`);
+				// Drag.oParent.css({ "--gradient": `linear-gradient(to right, ${strip.join(",")})` });
 				break;
 			case "mouseup":
 				// uncover layout

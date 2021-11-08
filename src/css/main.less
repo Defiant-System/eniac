@@ -305,10 +305,20 @@ layout {
 		}
 
 		&.popup-palette {
-			transition: all 100ms ease-in-out;
+			&.pop {
+				transition: all 100ms ease-in-out;
+
+				.palette-reel {
+					transition: height 100ms ease-in-out;
+
+					.reel {
+						transition: left 150ms ease-in-out;
+					}
+				}
+			}
 
 			&[data-step="1"] {
-				width: 252px;
+				width: 253px;
 				height: 169px;
 
 				.palette-reel {
@@ -319,7 +329,7 @@ layout {
 			}
 
 			&[data-step="2"] {
-				width: 252px;
+				width: 253px;
 				height: 169px;
 
 				.palette-reel {
@@ -330,27 +340,36 @@ layout {
 			}
 
 			&[data-step="3"] {
-				width: 228px;
+				width: 253px;
+				height: 169px;
+
+				.palette-reel {
+					height: 127px;
+
+					.reel { left: -462px; }
+				}
+			}
+
+			&[data-step="4"] {
+				width: 229px;
 				height: 217px;
 				margin-left: 12px;
 
 				.palette-reel {
 					height: 176px;
 
-					.reel { left: -461px; }
+					.reel { left: -691px; }
 				}
 			}
 
 			.palette-reel {
 				position: relative;
 				overflow: hidden;
-				transition: height 100ms ease-in-out;
 
 				.reel {
 					position: relative;
 					width: 999px;
 					left: 0;
-					transition: left 150ms ease-in-out;
 
 					> div {
 						float: left;
