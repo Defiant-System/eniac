@@ -100,7 +100,7 @@
 	</div>
 
 	<!-- Sidebar popups -->
-	<div class="popup-colour-ring">
+	<!-- <div class="popup-colour-ring">
 		<div class="ring-wrapper">
 			<div class="color-ring" data-el="ring">
 				<span class="ring-cursor"></span>
@@ -112,82 +112,100 @@
 				<span class="alpha-cursor"></span>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<div class="popup-palette" data-click="select-color">
+	<div class="popup-palette" data-step="1">
 		<div class="palette-reel">
-			<div class="palette-wrapper">
-				<span style="background: #5cc2fc;"></span>
-				<span style="background: #79fce9;"></span>
-				<span style="background: #8cf85a;"></span>
-				<span style="background: #feef63;"></span>
-				<span style="background: #fd978f;"></span>
-				<span style="background: #fd97ca;"></span>
-				
-				<span style="background: #1ca4fc;"></span>
-				<span style="background: #2fe6cf;"></span>
-				<span style="background: #65d643;"></span>
-				<span style="background: #fed846;"></span>
-				<span style="background: #fc6554;"></span>
-				<span style="background: #fc48a1;"></span>
-				
-				<span style="background: #1177b8;"></span>
-				<span style="background: #1aaa8e;"></span>
-				<span style="background: #29af1d;"></span>
-				<span style="background: #fcad2a;"></span>
-				<span style="background: #eb261f;"></span>
-				<span style="background: #d12177;"></span>
-				
-				<span style="background: #084e7e;"></span>
-				<span style="background: #0c6c65;"></span>
-				<span style="background: #0d700f;"></span>
-				<span style="background: #f07220;"></span>
-				<span style="background: #b31a10;"></span>
-				<span style="background: #951453;"></span>
-				
-				<span style="background: #ffffff;"></span>
-				<span style="background: #d5d5d5;"></span>
-				<span style="background: #929292;"></span>
-				<span style="background: #5e5e5e;"></span>
-				<span style="background: #000000;"></span>
-			</div>
-			<div class="palette-wrapper">
-				<span style="background: #416895;"></span>
-				<span style="background: #984140;"></span>
-				<span style="background: #7d954c;"></span>
-				<span style="background: #665180;"></span>
-				<span style="background: #408a9d;"></span>
-				<span style="background: #c4783f;"></span>
-				
-				<span style="background: #5182bb;"></span>
-				<span style="background: #be5150;"></span>
-				<span style="background: #9cba5f;"></span>
-				<span style="background: #8066a0;"></span>
-				<span style="background: #50acc4;"></span>
-				<span style="background: #f5964f;"></span>
-				
-				<span style="background: #7ca1cc;"></span>
-				<span style="background: #ce7c7b;"></span>
-				<span style="background: #b4cb86;"></span>
-				<span style="background: #9f8cb8;"></span>
-				<span style="background: #7bc1d3;"></span>
-				<span style="background: #f7b079;"></span>
-				
-				<span style="background: #a8c0dd;"></span>
-				<span style="background: #dea8a7;"></span>
-				<span style="background: #cddcae;"></span>
-				<span style="background: #bfb2d0;"></span>
-				<span style="background: #a7d6e2;"></span>
-				<span style="background: #facaa5;"></span>
-				
-				<span style="background: #000000;" class="active"></span>
-				<span style="background: #535353;"></span>
-				<span style="background: #a7a7a7;"></span>
-				<span style="background: #dddddd;"></span>
-				<span style="background: #ffffff;"></span>
+			<div class="reel">
+				<!-- palette 1 -->
+				<div class="palette-wrapper" data-click="select-color">
+					<span style="background: #5cc2fc;"></span>
+					<span style="background: #79fce9;"></span>
+					<span style="background: #8cf85a;"></span>
+					<span style="background: #feef63;"></span>
+					<span style="background: #fd978f;"></span>
+					<span style="background: #fd97ca;"></span>
+					
+					<span style="background: #1ca4fc;"></span>
+					<span style="background: #2fe6cf;"></span>
+					<span style="background: #65d643;"></span>
+					<span style="background: #fed846;"></span>
+					<span style="background: #fc6554;"></span>
+					<span style="background: #fc48a1;"></span>
+					
+					<span style="background: #1177b8;"></span>
+					<span style="background: #1aaa8e;"></span>
+					<span style="background: #29af1d;"></span>
+					<span style="background: #fcad2a;"></span>
+					<span style="background: #eb261f;"></span>
+					<span style="background: #d12177;"></span>
+					
+					<span style="background: #084e7e;"></span>
+					<span style="background: #0c6c65;"></span>
+					<span style="background: #0d700f;"></span>
+					<span style="background: #f07220;"></span>
+					<span style="background: #b31a10;"></span>
+					<span style="background: #951453;"></span>
+					
+					<span style="background: #ffffff;"></span>
+					<span style="background: #d5d5d5;"></span>
+					<span style="background: #929292;"></span>
+					<span style="background: #5e5e5e;"></span>
+					<span style="background: #000000;"></span>
+				</div>
+				<!-- palette 2 -->
+				<div class="palette-wrapper" data-click="select-color">
+					<span style="background: #416895;"></span>
+					<span style="background: #984140;"></span>
+					<span style="background: #7d954c;"></span>
+					<span style="background: #665180;"></span>
+					<span style="background: #408a9d;"></span>
+					<span style="background: #c4783f;"></span>
+					
+					<span style="background: #5182bb;"></span>
+					<span style="background: #be5150;"></span>
+					<span style="background: #9cba5f;"></span>
+					<span style="background: #8066a0;"></span>
+					<span style="background: #50acc4;"></span>
+					<span style="background: #f5964f;"></span>
+					
+					<span style="background: #7ca1cc;"></span>
+					<span style="background: #ce7c7b;"></span>
+					<span style="background: #b4cb86;"></span>
+					<span style="background: #9f8cb8;"></span>
+					<span style="background: #7bc1d3;"></span>
+					<span style="background: #f7b079;"></span>
+					
+					<span style="background: #a8c0dd;"></span>
+					<span style="background: #dea8a7;"></span>
+					<span style="background: #cddcae;"></span>
+					<span style="background: #bfb2d0;"></span>
+					<span style="background: #a7d6e2;"></span>
+					<span style="background: #facaa5;"></span>
+					
+					<span style="background: #000000;" class="active"></span>
+					<span style="background: #535353;"></span>
+					<span style="background: #a7a7a7;"></span>
+					<span style="background: #dddddd;"></span>
+					<span style="background: #ffffff;"></span>
+				</div>
+				<!-- color ring palette -->
+				<div class="popup-colour-ring">
+					<div class="ring-wrapper">
+						<div class="color-ring" data-el="ring">
+							<span class="ring-cursor"></span>
+						</div>
+						<div class="color-box" data-el="box">
+							<span class="box-cursor"></span>
+						</div>
+						<div class="color-alpha" data-el="range">
+							<span class="alpha-cursor"></span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<ul class="grid-nav" data-click="do-grid-navigation">
+		<ul class="grid-nav" data-click="do-palette-navigation">
 			<li class="active"></li>
 			<li></li>
 			<li></li>

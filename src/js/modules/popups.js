@@ -41,7 +41,7 @@
 				el = $(event.target);
 				value = el.attr("style").match(/#.[\w\d]+/)[0];
 				
-				Self.els.palette.find(".active").removeClass("active");
+				Self.els.palette.find(".palette-wrapper .active").removeClass("active");
 				el.addClass("active");
 
 				if (Self.origin) {
@@ -74,6 +74,15 @@
 				// trigger change in reel
 				event.el.prevAll(".options-reel").data({ step: el.index() + 1 });
 				break;
+			case "do-palette-navigation":
+				el = $(event.target);
+				if (el.hasClass("active")) return;
+				// navigation dots UI change
+				el.parent().find(".active").removeClass("active");
+				el.addClass("active");
+				// trigger change in reel
+				event.el.parent().data({ step: el.index() + 1 });
+				break;
 			case "popup-color-palette":
 				pEl = Self.els.palette;
 				dim = pEl[0].getBoundingClientRect();
@@ -87,7 +96,7 @@
 				Self.origin = { el, value };
 
 				// prepare popup contents
-				pEl.find(".active").removeClass("active");
+				pEl.find(".palette-wrapper .active").removeClass("active");
 				el = pEl.find(`span[style="background: ${value};"]`);
 				if (el.length) el.addClass("active");
 

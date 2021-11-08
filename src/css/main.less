@@ -304,14 +304,116 @@ layout {
 			border-bottom: 14px solid rgba(250,250,250,.825);
 		}
 
-		&.popup-colour-ring {
-			width: 224px;
-			padding-bottom: 12px;
+		&.popup-palette {
+			transition: all 100ms ease-in-out;
 
+			&[data-step="1"] {
+				width: 252px;
+				height: 169px;
+
+				.palette-reel {
+					height: 127px;
+
+					.reel { left: 0px; }
+				}
+			}
+
+			&[data-step="2"] {
+				width: 252px;
+				height: 169px;
+
+				.palette-reel {
+					height: 127px;
+
+					.reel { left: -231px; }
+				}
+			}
+
+			&[data-step="3"] {
+				width: 228px;
+				height: 217px;
+				margin-left: 12px;
+
+				.palette-reel {
+					height: 176px;
+
+					.reel { left: -461px; }
+				}
+			}
+
+			.palette-reel {
+				position: relative;
+				overflow: hidden;
+
+				.reel {
+					position: relative;
+					width: 999px;
+					left: 0;
+					transition: left 150ms ease-in-out;
+
+					> div {
+						float: left;
+						margin-right: 7px;
+
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+				}
+			}
+
+			.palette-wrapper {
+				width: 224px;
+				padding: 5px 0 0 4px;
+
+				span {
+					position: relative;
+					display: inline-block;
+					width: 35px;
+					height: 21px;
+					margin: 0 2px 2px 0;
+					cursor: pointer;
+
+					&:nth-child(6n) {
+						margin-right: 0;
+					}
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						border: 1px solid rgba(0,0,0,.2);
+					}
+
+					&.active {
+						cursor: default;
+
+						&:after {
+		 					content: "";
+							position: absolute;
+							top: -3px;
+							left: -3px;
+							right: -3px;
+							bottom: -3px;
+							border: 3px solid #fff;
+							border-radius: 2px;
+							box-shadow: 0 0 2px rgba(0,0,0,.65);
+							z-index: 2;
+						}
+					}
+				}
+			}
+		}
+
+		.popup-colour-ring {
 			.ring-wrapper {
 				position: relative;
 				width: 166px;
 				height: 166px;
+				margin-bottom: 11px;
 				--color: #ff0000;
 				--color-opaque: #ff0000;
 			}
@@ -439,48 +541,6 @@ layout {
 					pointer-events: none;
 					box-shadow: 0 0 0 1px #000,
 								inset 0 0 0 1px #fff;
-				}
-			}
-		}
-
-		&.popup-palette {
-			span {
-				position: relative;
-				display: inline-block;
-				width: 37px;
-				height: 20px;
-				margin: 0 2px 2px 0;
-				cursor: pointer;
-
-				&:nth-child(6n) {
-					margin-right: 0;
-				}
-
-				&:before {
-					content: "";
-					position: absolute;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					border: 1px solid rgba(0,0,0,.2);
-				}
-
-				&.active {
-					cursor: default;
-
-					&:after {
-	 					content: "";
-						position: absolute;
-						top: -3px;
-						left: -3px;
-						right: -3px;
-						bottom: -3px;
-						border: 3px solid #fff;
-						border-radius: 2px;
-						box-shadow: 0 0 2px rgba(0,0,0,.65);
-						z-index: 2;
-					}
 				}
 			}
 		}
@@ -643,42 +703,42 @@ layout {
 					}
 				}
 			}
+		}
 
-			.grid-nav {
-				display: block;
-				text-align: center;
-				margin: 4px 0;
+		.grid-nav {
+			display: block;
+			text-align: center;
+			margin: 4px 0;
 
-				li {
-					position: relative;
-					display: inline-block;
-					width: 13px;
-					height: 13px;
-					margin: 0 3px;
-					border-radius: 50%;
-					background: rgba(0,0,0,.125);
-					box-shadow: inset 0 1px 1px rgba(0,0,0,.15),
-								0 1px 0 rgba(255,255,255,.35);
-					cursor: pointer;
+			li {
+				position: relative;
+				display: inline-block;
+				width: 13px;
+				height: 13px;
+				margin: 0 3px;
+				border-radius: 50%;
+				background: rgba(0,0,0,.125);
+				box-shadow: inset 0 1px 1px rgba(0,0,0,.15),
+							0 1px 0 rgba(255,255,255,.35);
+				cursor: pointer;
+
+				&:before {
+					content: "";
+					opacity: 0;
+					position: absolute;
+					top: 4px;
+					left: 4px;
+					width: 5px;
+					height: 5px;
+					border-radius: inherit;
+					background: rgba(0,0,0,.35);
+				}
+
+				&.active {
+					cursor: default;
 
 					&:before {
-						content: "";
-						opacity: 0;
-						position: absolute;
-						top: 4px;
-						left: 4px;
-						width: 5px;
-						height: 5px;
-						border-radius: inherit;
-						background: rgba(0,0,0,.35);
-					}
-
-					&.active {
-						cursor: default;
-
-						&:before {
-							opacity: 1;
-						}
+						opacity: 1;
 					}
 				}
 			}
