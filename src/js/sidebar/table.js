@@ -33,6 +33,18 @@
 		"vg-body":     "hide-vgb-lines",
 		"vg-footer":   "hide-vgf-lines",
 	},
+	borderPresets: {
+		"preset-1": "1px solid #000000",
+		"preset-2": "1px solid #ff0000",
+		"preset-3": "1px solid #0000ff",
+		"preset-4": "2px solid #000000",
+		"preset-5": "2px solid #ff0000",
+		"preset-6": "2px solid #0000ff",
+		"preset-7": "2px dashed #229922",
+		"preset-8": "2px dotted #ff9900",
+		"default":  "",
+		"none":     "0px solid transparent",
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.table,
@@ -427,16 +439,8 @@
 					.css({ "--preset-color": event.value });
 				break;
 			case "cell-border-style-preset":
-				// preset-1
-				// preset-2
-				// preset-3
-				// preset-4
-				// preset-5
-				// preset-6
-				// preset-7
-				// preset-8
-				// default
-				// none
+				value = Self.borderPresets[event.arg];
+				console.log(value);
 				console.log(event);
 				return false;
 			case "select-cell-border":
