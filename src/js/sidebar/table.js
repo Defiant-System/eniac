@@ -438,7 +438,7 @@
 				// default
 				// none
 				console.log(event);
-				break;
+				return false;
 			case "select-cell-border":
 				// reset border buttons
 				event.el.find(".active").removeClass("active");
