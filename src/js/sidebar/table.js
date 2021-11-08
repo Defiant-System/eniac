@@ -11,20 +11,20 @@
 			parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
 		}, 200);
 
-		setTimeout(() => {
-			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-			eniac.tools.table.table.select({
-				anchor: { y: 2, x: 0 },
-				yNum: [2,3,4],
-				xNum: [0,1,2,3],
-			});
+		// setTimeout(() => {
+		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+		// 	eniac.tools.table.table.select({
+		// 		anchor: { y: 2, x: 0 },
+		// 		yNum: [2,3,4],
+		// 		xNum: [0,1,2,3],
+		// 	});
 
-			let pEl = eniac.sidebar.els.el.find(`.borders`);
-			pEl.find(".active, .disabled").removeClass("active disabled");
-			pEl.find(`> span[data-arg="inside"]`).addClass("active");
+		// 	let pEl = eniac.sidebar.els.el.find(`.borders`);
+		// 	pEl.find(".active, .disabled").removeClass("active disabled");
+		// 	pEl.find(`> span[data-arg="outline"]`).addClass("active");
 
-			this.dispatch({ type: "apply-cell-border" });
-		}, 300);
+		// 	this.dispatch({ type: "apply-cell-border" });
+		// }, 300);
 	},
 	glHash: {
 		"h-gridlines": "hide-hg-lines",
@@ -44,6 +44,7 @@
 			xNum, yNum,
 			layout,
 			value,
+			index,
 			arg,
 			allEl,
 			pEl,
@@ -175,6 +176,7 @@
 				pEl = Els.el.find(".cell-border-settings");
 				// border buttons
 				allEl = pEl.find(`.borders[data-click="select-cell-border"] > span`);
+				index = pEl.find(`.borders[data-click="select-cell-border"] > .active`).index();
 				arg = ["outline", "all", "left", "right", "top", "bottom"];
 				value = Table.table.selected;
 				// conditional checks on selected cells
@@ -183,10 +185,12 @@
 				if (value.xNum.length > 1 && value.yNum.length > 1) arg.push("inside");
 				// toggle border buttons
 				allEl.map(span => $(span).toggleClass("disabled", arg.includes(span.dataset.arg)));
-				allEl.get(0).addClass("active");
+				if (allEl.get(index).hasClass("disabled")) index = 0;
+				allEl.removeClass("active")
+				allEl.get(index).addClass("active");
 				
 				// border style
-				value = Anchor.css("--border-style").split(" ");
+				value = Anchor.cssProp("--border-style").split(" ");
 				arg = new Set(value); // keep unique entries
 				el = pEl.find("selectbox.table-cell-border").removeClass("has-prefix-icon");
 				if (arg.size === 1) {
@@ -195,16 +199,16 @@
 				} else el.val("Multiple");
 
 				// border color
-				value = Anchor.css("--border-color").split(" ");
+				value = Anchor.cssProp("--border-color").split(" ");
 				arg = new Set(value); // keep unique entries
 				el = Els.el.find(`.color-preset_[data-change="set-cell-border-color"]`).removeClass("multiple_");
 				if (arg.size === 1) el.css({ "--preset-color": value[0] });
 				else el.addClass("multiple_");
 
 				// border width
-				value = Anchor.css("--border-width").split(" ").map(n => parseInt(n, 10));
+				value = Anchor.cssProp("--border-width").split(" ").map(n => parseInt(n, 10));
+				el = pEl.find(`input[name="cell-border-width"]`).val(Math.max(...value));
 				arg = new Set(value); // keep unique entries
-				el = pEl.find(`input[name="cell-border-width"]`).val(value[0]);
 				if (arg.size > 1) el.parent().addClass("mixed-value");
 				break;
 			// tab: Text
@@ -437,9 +441,11 @@
 				break;
 			case "select-cell-border":
 				// reset border buttons
-				event.el.find("span").removeClass("active");
+				event.el.find(".active").removeClass("active");
 				// make sekected button active
 				$(event.target).addClass("active");
+				// refresh cell border values
+				Self.dispatch({ type: "reset-cell-border-box" });
 				break;
 			case "set-cell-border-width":
 				Els.el.find(`.cell-border-settings input[name="cell-border-width"]`)
@@ -463,9 +469,9 @@
 				pEl = Els.el.find(".cell-border-settings");
 				arg = pEl.find(`.borders[data-click="select-cell-border"] .active`).data("arg");
 				value = {
-					color: "#ff0000",
-					width: "2px",
-					style: "solid",
+					color: pEl.find(`.color-preset_[data-click="popup-color-palette"]`).css("--preset-color") || "transparent",
+					width: pEl.find(`input[name="cell-border-width"]`).val() +"px",
+					style: pEl.find(`selectbox.table-cell-border`).val() || "",
 				};
 				// apply values to appropriate cells
 				Self.cellMatrix.apply(Table.table, arg, value);
@@ -535,6 +541,13 @@
 	},
 	cellMatrix: {
 		keys: ["--border-color", "--border-width", "--border-style"],
+		getScaffold(side) {
+			let matrix = {};
+			// scaffold empty matrix
+			matrix[side] = {};
+			this.keys.map(n => { matrix[side][n] = Array(4); });
+			return matrix;
+		},
 		apply(Table, arg, value, c) {
 			let rows = Table.rows,
 				selected = Table.selected,
@@ -595,13 +608,6 @@
 				// apply matrix values on cells
 				el.css(applied);
 			});
-		},
-		getScaffold(side) {
-			let matrix = {};
-			// scaffold empty matrix
-			matrix[side] = {};
-			this.keys.map(n => { matrix[side][n] = Array(4); });
-			return matrix;
 		}
 	}
 }
