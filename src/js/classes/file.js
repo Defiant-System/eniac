@@ -119,11 +119,23 @@ class File {
 		let sheet, str;
 		switch (this._file.kind) {
 			case "xlsx":
-				// let { html, css } = XLSX.utils.sheet_to_html_css(sheet, this.book);
-				// str = `${html}<style>${css}</style>`;
-				// return str;
 			case "csv":
 			case "xml":
+				// add cell coords as ID to cell node
+				this._file.workbook.selectNodes(`/Workbook/Sheet/Table`).map(xTable => {
+					if (xTable.selectSingleNode(`./R[1]/C[1][@id]`)) return;
+					xTable.selectNodes(`./R`).map((xRow, rI) => {
+						xRow.selectNodes(`./C`).map((xCell, cI) => {
+							var col = cI + 1,
+								s = "";
+							for (; col; col=((col - 1) / 26) | 0) {
+								s = String.fromCharCode(((col - 1) % 26) + 65) + s;
+							}
+							xCell.setAttribute("id", s+(rI+1));
+						});
+					});
+				});
+				// render
 				str = window.render({
 					data: this._file.workbook,
 					match: `/Workbook/Sheet[@name="${name}"]`,
