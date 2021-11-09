@@ -187,8 +187,6 @@
 
 				// update sidebar cell values
 				APP.sidebar.table.dispatch({ type: "update-table-cell-size", table });
-				// show footer
-				APP.foot.dispatch({ type: "render-cell" });
 				break;
 			case "blur-cell":
 				// reset reference to cell
@@ -704,6 +702,8 @@
 			case "mouseup":
 				// no shiftKey - single cell selection
 				APP.sidebar.table.dispatch({ type: "update-cell-border-options" });
+				// show footer
+				APP.foot.dispatch({ type: "render-cell" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events

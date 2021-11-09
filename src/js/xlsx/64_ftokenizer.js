@@ -1,4 +1,8 @@
 
+/*
+ * Rewrite of: https://github.com/psalaets/excel-formula-tokenizer
+ */
+
 let tokenize = (function() {
 
 	var languages = {

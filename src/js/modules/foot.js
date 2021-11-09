@@ -16,12 +16,24 @@
 		// 	"B3": { v: 3 },
 		// };
 		// console.log( XLSX.utils.evalFormula("SUM(B1:B3)", data) );
-		console.log( XLSX.utils.evalFormula("CONCAT(\"hello\"; 123)") );
+		// console.log( XLSX.utils.evalFormula("CONCAT(\"hello\"; 123)") );
+
+		setTimeout(() => {
+			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
+			eniac.tools.table.table.select({
+				anchor: { y: 0, x: 1 },
+				yNum: [0,1,2,3],
+				xNum: [1],
+			});
+
+			this.dispatch({ type: "render-cells" });
+		}, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.foot,
-			Selection = APP.tools.table.table.selected,
+			Table = APP.tools.table,
+			Selection = Table.table.selected,
 			Anchor = Selection ? Selection.anchor.el : false,
 			formula,
 			value,
@@ -34,17 +46,35 @@
 			case "hide":
 				Self.els.layout.removeClass("show-footer");
 				break;
+			case "render-cells":
+				value = [];
+				// accumulate selected cell & values
+				Table.table._el.find(".selected").map(cell => {
+					let el = $(cell),
+						t = el.attr("t"),
+						v = el.text();
+					value.push(`<i type="${t}"><![CDATA[${v}]]></i>`);
+				});
+				str = `<i type="selection">${value.join("")}</i>`;
+				data = $.nodeFromString(str);
+				// render cell data
+				Self.dispatch({ type: "render-data", data });
+				break;
 			case "render-cell":
+				if (Selection.yNum.length > 1 || Selection.xNum.length > 1) {
+					return Self.dispatch({ type: "render-cells" });
+				}
 				type = Anchor.attr("t") || "s";
 				value = `<![CDATA[${Anchor.text()}]]>`;
-				formula = Anchor.attr("f"); //.replace(/;/g, ",");
+				formula = Anchor.attr("f");
 				if (formula) {
 					type = "f";
 					value = Self.strToFormula(formula).flat(1e2).join("");
 				}
 				str = `<i type="${type}">${value}</i>`;
 				data = $.nodeFromString(str);
-				console.log( data );
+				// console.log( data );
+
 				// render cell data
 				Self.dispatch({ type: "render-data", data });
 				break;
