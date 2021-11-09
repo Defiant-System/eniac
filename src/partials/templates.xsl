@@ -285,9 +285,13 @@
 	<div class="selection-type">Formula</div>
 	<div class="selection-value">
 		<div class="formula">
-			<span class="formula-method">Sum</span>
-			<span class="formula-value">D1:D15</span>
-			<span class="para-close"></span>
+			<span class="f-group" data-func="avg">
+				<span class="f-group" data-func="sum">
+					<span class="f-value">D1:D15</span>
+				</span>
+				<i>+</i>
+				<span class="f-value">B5</span>
+			</span>
 		</div>
 	</div>
 </xsl:template>

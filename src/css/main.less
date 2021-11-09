@@ -966,39 +966,50 @@ content {
 
 		.selection-value {
 			flex: auto;
-			padding: 11px 13px 0;
+			padding: 12px 13px 0;
+			font-size: 12px;
+			color: #555;
 
 			.formula {
-				border-radius: 30px;
+				.f-group {
+					border-radius: 30px;
 
-				.formula-method {
-					background: #e2e2e2;
-					color: #555;
-					padding: 2px 23px 2px 9px;
-					border-radius: inherit;
-					border-top-right-radius: 0;
-					border-bottom-right-radius: 0;
-					text-transform: uppercase;
-					-webkit-mask-image: radial-gradient(circle at right, transparent 0, transparent 13px, black 14px);
+					&:before {
+						content: attr(data-func);
+						background: #e2e2e2;
+						padding: 3px 21px 2px 9px;
+						border-radius: inherit;
+						border-top-right-radius: 0;
+						border-bottom-right-radius: 0;
+						text-transform: uppercase;
+						margin-right: -9px;
+						-webkit-mask-image: radial-gradient(circle at right, transparent 0, transparent 13px, black 14px);
+					}
+
+					&:after {
+						content: "";
+						background: #e2e2e2;
+						padding: 3px 13px 2px 11px;
+						margin-left: -9px;
+						border-radius: inherit;
+						border-top-left-radius: 0;
+						border-bottom-left-radius: 0;
+						-webkit-mask-image: radial-gradient(circle at left, transparent 0, transparent 13px, black 14px);
+					}
 				}
 
-				.formula-value {
+				.f-value {
 					background: #cfdbf2;
-					border-radius: inherit;
-					padding: 2px 11px;
-					margin: 0 -9px 0 -9px;
+					border-radius: 30px;
+					padding: 3px 11px 2px;
 					border: 1px solid #a3bef3;
 					text-transform: uppercase;
 					cursor: pointer;
 				}
 
-				.para-close {
-					padding: 2px 13px 2px 11px;
-					border-radius: inherit;
-					border-top-left-radius: 0;
-					border-bottom-left-radius: 0;
-					background: #e2e2e2;
-					-webkit-mask-image: radial-gradient(circle at left, transparent 0, transparent 13px, black 14px);
+				i {
+					font-style: normal;
+					margin: 0 3px;
 				}
 			}
 		}
