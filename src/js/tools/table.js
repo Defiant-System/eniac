@@ -185,6 +185,8 @@
 
 				// update sidebar cell values
 				APP.sidebar.table.dispatch({ type: "update-table-cell-size", table });
+				// show footer
+				APP.foot.dispatch({ type: "show" });
 				break;
 			case "blur-cell":
 				// reset reference to cell
@@ -205,6 +207,8 @@
 				}
 				Self.table = {};
 				Self.els.root.addClass("hidden");
+				// show footer
+				APP.foot.dispatch({ type: "hide" });
 				break;
 			case "set-table":
 				el = event.table || Self.table._el;

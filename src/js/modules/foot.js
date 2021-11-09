@@ -20,6 +20,9 @@
 			case "hide":
 				Self.els.layout.removeClass("show-footer");
 				break;
+			case "show":
+				Self.els.layout.addClass("show-footer");
+				break;
 		}
 	}
 }

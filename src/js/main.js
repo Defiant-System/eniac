@@ -71,7 +71,7 @@ const eniac = {
 				Self.file = new File(req.result);
 				break;
 			case "open.file":
-				// return Self.dispatch({ type: "new-file" });
+				return Self.dispatch({ type: "new-file" });
 
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
