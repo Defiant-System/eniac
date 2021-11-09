@@ -92,6 +92,8 @@
 					data.anchor = { y: anchor.y, x: anchor.x };
 					// move selection
 					Self.table.select(data);
+					// dispatch focus event
+					Self.dispatch({ type: "focus-cell", el: Self.table.selected.anchor.el });
 				}
 				break;
 			// native events

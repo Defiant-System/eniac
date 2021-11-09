@@ -195,6 +195,9 @@
 	<td>
 		<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 		<xsl:attribute name="t"><xsl:value-of select="@t"/></xsl:attribute>
+		<xsl:if test="@f">
+			<xsl:attribute name="f"><xsl:value-of select="@f"/></xsl:attribute>
+		</xsl:if>
 		<xsl:if test="@rs">
 			<xsl:attribute name="rowspan"><xsl:value-of select="@rs"/></xsl:attribute>
 		</xsl:if>
@@ -285,15 +288,26 @@
 	<div class="selection-type">Formula</div>
 	<div class="selection-value">
 		<div class="formula">
-			<span class="f-group" data-func="avg">
-				<span class="f-group" data-func="sum">
-					<span class="f-value">D1:D15</span>
-				</span>
-				<i>+</i>
-				<span class="f-value">B5</span>
-			</span>
+			<xsl:call-template name="parse-formula" />
 		</div>
 	</div>
+</xsl:template>
+
+
+<xsl:template name="parse-formula">
+	<xsl:for-each select="./*">
+		<xsl:choose>
+			<xsl:when test="name() = 'g'">
+				<span class="f-group">
+					<xsl:attribute name="data-func"><xsl:value-of select="@func"/></xsl:attribute>
+					<xsl:call-template name="parse-formula" />
+				</span>
+			</xsl:when>
+			<xsl:when test="name() = 't'">
+				<span class="f-value"><xsl:value-of select="@value"/></span>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:for-each>
 </xsl:template>
 
 
