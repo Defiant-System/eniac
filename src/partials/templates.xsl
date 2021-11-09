@@ -217,7 +217,7 @@
 		<xsl:when test="@type = 'selection'">
 			<xsl:call-template name="type-selection" />
 		</xsl:when>
-		<xsl:when test="@type = 'formula'">
+		<xsl:when test="@type = 'f'">
 			<xsl:call-template name="type-formula" />
 		</xsl:when>
 		<xsl:otherwise>
@@ -287,6 +287,7 @@
 		<div class="formula">
 			<span class="formula-method">Sum</span>
 			<span class="formula-value">D1:D15</span>
+			<span class="para-close"></span>
 		</div>
 	</div>
 </xsl:template>
