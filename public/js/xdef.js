@@ -17658,134 +17658,6 @@ var HTML_ = (function() {
 		return `<R tp="2">${out.join("")}</R>`;
 	}
 
-	function make_html_row(ws, r, R, o) {
-		var M = (ws["!merges"] || []),
-			oo = [];
-		for (var C=r.s.c; C<=r.e.c; ++C) {
-			var RS = 0,
-				CS = 0;
-			for (var j=0; j<M.length; ++j) {
-				if (M[j].s.r > R || M[j].s.c > C) continue;
-				if (M[j].e.r < R || M[j].e.c < C) continue;
-				if (M[j].s.r < R || M[j].s.c < C) { RS = -1; break; }
-				RS = M[j].e.r - M[j].s.r + 1; CS = M[j].e.c - M[j].s.c + 1; break;
-			}
-			if (RS < 0) continue;
-			var coord = encode_cell({ r: R, c: C }),
-				cell = o.dense ? (ws[R] || [])[C] : ws[coord],
-				/* TODO: html entities */
-				w = (cell && cell.v != null) && (cell.h || escapehtml(cell.w || (format_cell(cell), cell.w) || "")) || "",
-				sp = {};
-
-			if (RS > 1) sp.rowspan = RS;
-			if (CS > 1) sp.colspan = CS;
-			sp.t = cell && cell.t || "z";
-			if (cell && cell.f) sp.f = cell.f;
-			if (o.editable) w = `<span contenteditable="true">${w}</span>`;
-			sp.id = coord;
-			if (sp.t != "z") {
-				sp.v = cell.v;
-				if (cell.z != null) sp.z = cell.z;
-			}
-			// temp fix
-			w = w.replace(/#FF(.{6});/g, "#$1;");
-
-			oo.push(writextag("td", w, sp));
-		}
-		return `<tr>${oo.join("")}</tr>`;
-	}
-
-	function make_html_preamble(ws, R, o) {
-		return '<table' + (o && o.id ? ' id="' + o.id + '"' : "") + '>';
-	}
-
-	function sheet_to_html(ws, opts) {
-		var o = opts || {},
-			out = [],
-			r = decode_range(ws["!ref"]);
-		o.dense = Array.isArray(ws);
-		out.push(make_html_preamble(ws, r, o));
-		for (var R = r.s.r; R <= r.e.r; ++R) {
-			out.push(make_html_row(ws, r, R, o));
-		}
-		out.push("</table>");
-		return out.join("");
-	}
-
-	function sheet_to_css(ws, wb) {
-		let out = [],
-			coord = [];
-		// translate keys to two dimensional array
-		Object.keys(ws)
-			.filter(k => !k.startsWith("!"))
-			.map(key => {
-				let [n, c, r] = key.match(/(\D+)(\d+)/);
-				if (!coord[r-1]) coord[r-1] = [];
-				coord[r-1].push(key);
-			});
-		// iterate keys
-		for (let key in ws) {
-			let item = ws[key];
-			switch (key) {
-				case "!ref": break;
-				case "!rows":
-					item.map((row, i) =>
-						row.hpx > 35 ? out.push(`#${coord[i][0]} { height: ${row.hpt * (96/72)}px; }`) : null);
-					break;
-				case "!cols":
-					// console.log( JSON.stringify(item) );
-					item.map((col, i) =>
-						out.push(`#${coord[0][i]} { width: ${width2px(col.width)}px; }`));
-					break;
-				default:
-					if (!item.styleIndex) continue;
-
-					let cellCss = [],
-						style = wb.Styles.CellXf[item.styleIndex],
-						fill = wb.Styles.Fills[style.fillId],
-						font = wb.Styles.Fonts[style.fontId],
-						numFmt = wb.Styles.NumberFmt ? wb.Styles.NumberFmt[style.numFmtId] : 0,
-						border = wb.Styles.Borders[style.borderId],
-						noBorder = border.width.join("") + border.style.join("") + border.color.join(""),
-						hasBorders = noBorder !== "0000solidsolidsolidsolid000000000000";
-
-					if (font.name) cellCss.push(`font-family:${font.name},sans-serif`);
-					if (font.sz) cellCss.push(`font-size:${font.sz * (96/72)}px`);
-					if (font.bold) cellCss.push(`font-weight:bold`);
-					if (font.italic) cellCss.push(`font-style:italic`);
-					if (font.underline) cellCss.push(`text-decoration:underline`);
-					if (font.strike) cellCss.push(`text-decoration:line-through`);
-					if (font.color) cellCss.push(`color:#${font.color.rgb}`);
-					if (fill?.bgColor) cellCss.push(`background:#${fill.fgColor.rgb}`);
-					if (style.alignment) {
-						if (["right", "center"].includes(style.alignment.horizontal)) cellCss.push(`text-align:${style.alignment.horizontal}`);
-						if (["top", "bottom"].includes(style.alignment.vertical)) cellCss.push(`vertical-align:${style.alignment.vertical}`);
-						if (!style.alignment.vertical) cellCss.push(`vertical-align:bottom`);
-					}
-					if (font.vertAlign === "superscript") cellCss.push(`font-size:smaller;vertical-align:super;`);
-					if (font.vertAlign === "subscript") cellCss.push(`font-size:smaller;vertical-align:sub;`);
-					if (hasBorders) cellCss.push(`position:relative;`);
-					if (cellCss.length) out.push(`#${key} { ${cellCss.join(";")} }`);
-
-					if (hasBorders) {
-						cellCss = [`content:"";position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;`];
-						cellCss.push(`border-width:${border.width.map(i => i +"px").join(" ")};`);
-						cellCss.push(`border-style:${border.style.map(i => i).join(" ")};`);
-						cellCss.push(`border-color:${border.color.map(i => "#"+ i).join(" ")};`);
-						out.push(`#${key}:before { ${cellCss.join(";")} }`);
-					}
-			}
-		}
-		return out.join("");
-	}
-
-	function sheet_to_html_css() {
-		return {
-			html: sheet_to_html(...arguments),
-			css: sheet_to_css(...arguments),
-		}
-	}
-
 	function parse_table_css(sheet, book) {
 		let out = {},
 			coord = [];
@@ -17879,11 +17751,7 @@ var HTML_ = (function() {
 	return {
 		to_workbook: html_to_book,
 		to_sheet: html_to_sheet,
-		_row: make_html_row,
-		_preamble: make_html_preamble,
 		book_to_xml: book_to_xml,
-		from_sheet: sheet_to_html,
-		with_css_from_sheet: sheet_to_html_css,
 	};
 
 })();

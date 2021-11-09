@@ -356,8 +356,6 @@ var utils = {
 	make_formulae: sheet_to_formulae,
 	table_to_sheet: parse_dom_table,
 	book_to_xml: HTML_.book_to_xml,
-	sheet_to_html: HTML_.from_sheet,
-	sheet_to_html_css: HTML_.with_css_from_sheet,
 	sheet_to_row_object_array: sheet_to_json
 };
 
