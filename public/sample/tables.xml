@@ -3,7 +3,7 @@
 		<Table style="top: 40px; left: 40px;">
 			<R tp="2">
 				<C cn="middle center" style="font-size: 14px; color: #ff0000;"><![CDATA[more text]]></C>
-				<C cn="italic underline right top"><![CDATA[text]]></C>
+				<C t="n"><![CDATA[213]]></C>
 				<C/>
 				<C/>
 			</R>
@@ -25,7 +25,7 @@
 			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 		</Text> -->
 
-		<Table title="Clipped Table" class="gray-table-1" width="320" height="200" style="top: 390px; left: 40px;">
+		<!-- <Table title="Clipped Table" class="gray-table-1" width="320" height="200" style="top: 390px; left: 40px;">
 			<R tp="1">
 				<C tp="4"/><C/><C/><C/><C/>
 			</R>
@@ -71,6 +71,6 @@
 			<R tp="3">
 				<C tp="4"/><C/><C/><C/>
 			</R>
-		</Table>
+		</Table> -->
 	</Sheet>
 </Workbook>
