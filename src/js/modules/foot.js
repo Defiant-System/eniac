@@ -10,11 +10,11 @@
 		};
 
 		// temp
-		let data = {
-			"B1": { v: 213 },
-			"B2": { v: 27 },
-			"B3": { v: 3 },
-		};
+		// let data = {
+		// 	"B1": { v: 213 },
+		// 	"B2": { v: 27 },
+		// 	"B3": { v: 3 },
+		// };
 		// console.log( XLSX.utils.evalFormula("SUM(B1:B3)", data) );
 		// console.log( XLSX.utils.evalFormula(`IF(B1>=1; "Nonnegative"; "Negative")`, data) );
 

@@ -24,13 +24,14 @@ class File {
 		this._activeSheet = this.sheetNames[0];
 		this.dispatch({ type: "render-sheet-names" });
 		this.dispatch({ type: "render-sheet" });
+		this.dispatch({ type: "build-formula-tree" });
 
 		let APP = eniac;
 
 		// trigger first mousedown
 		setTimeout(() => APP.body.trigger("mousedown").trigger("mouseup"), 10);
 
-		setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(22)`).trigger("mousedown").trigger("mouseup"), 150);
+		setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(21)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
@@ -63,6 +64,16 @@ class File {
 					let el = $(item),
 						zIndex = parseInt(el.css("z-index"), 10);
 					if (isNaN(zIndex)) el.css({ zIndex: i+1 });
+				});
+				break;
+			case "build-formula-tree":
+				this._file.workbook.selectNodes(`//C[@f]`).map(xCell => {
+					let formula = xCell.getAttribute("f"),
+						{ tree, tokens } = XLSX.utils.parseFormula(formula);
+					// TODO: normalize references to a tree
+					// to be used on formula execution
+					// and keep track of changes and bubbling
+					console.log( tokens );
 				});
 				break;
 			case "create-new-sheet":

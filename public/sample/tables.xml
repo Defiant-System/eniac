@@ -13,8 +13,18 @@
 				<C/>
 				<C/>
 			</R>
-			<R tp="2"><C/><C/><C/><C/></R>
-			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2">
+				<C/>
+				<C/>
+				<C/>
+				<C/>
+			</R>
+			<R tp="2">
+				<C/>
+				<C/>
+				<C/>
+				<C/>
+			</R>
 			<R tp="2">
 				<C/>
 				<C f="AVG(B2:B7)"/>
@@ -27,8 +37,18 @@
 				<C f="IF(A5&lt;=0, &quot;Nonnegative&quot;, &quot;Negative&quot;)"/>
 				<C/>
 			</R>
-			<R tp="2"><C/><C/><C/><C/></R>
-			<R tp="2"><C/><C/><C/><C/></R>
+			<R tp="2">
+				<C/>
+				<C/>
+				<C/>
+				<C/>
+			</R>
+			<R tp="2">
+				<C/>
+				<C/>
+				<C/>
+				<C/>
+			</R>
 		</Table>
 
 		<Text class="middle italic" style="top: 100px; left: 540px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
