@@ -60,6 +60,9 @@
 				}
 				/* falls through */
 			case "close-popup":
+				// window contents are uncovered
+				window.covered = false;
+				// prepare to close popup
 				Self.els.layout.removeClass("cover");
 				Self.els.root.find("> div.pop")
 					.cssSequence("pop-hide", "animationend", el => el.removeClass("pop pop-hide"));
@@ -83,6 +86,9 @@
 			case "popup-color-palette-2":
 			case "popup-color-palette-3":
 			case "popup-color-ring":
+				// window contents are covered
+				window.covered = true;
+				// prepare to open popup
 				pEl = Self.els.palette;
 				step = event.type.split("-")[3] || "4";
 				pEl.data({ step });
