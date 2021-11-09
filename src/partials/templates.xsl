@@ -303,8 +303,14 @@
 					<xsl:call-template name="parse-formula" />
 				</span>
 			</xsl:when>
-			<xsl:when test="name() = 't'">
+			<xsl:when test="name() = 't' and @type = 'range'">
 				<span class="f-value"><xsl:value-of select="@value"/></span>
+			</xsl:when>
+			<xsl:when test="name() = 't' and @type = 'number'">
+				<span class="f-number"><xsl:value-of select="@value"/></span>
+			</xsl:when>
+			<xsl:when test="name() = 't' and @type = 'text'">
+				<span class="f-text">"<xsl:value-of select="@value"/>"</span>
 			</xsl:when>
 			<xsl:when test="name() = 'i'">
 				<i><xsl:value-of select="@value"/></i>

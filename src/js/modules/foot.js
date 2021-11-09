@@ -15,7 +15,8 @@
 		// 	"B2": { v: 27 },
 		// 	"B3": { v: 3 },
 		// };
-		// console.log( XLSX.utils.evalFormula("SUM(B1;B3)", data) );
+		// console.log( XLSX.utils.evalFormula("SUM(B1:B3)", data) );
+		console.log( XLSX.utils.evalFormula("CONCAT(\"hello\"; 123)") );
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -43,7 +44,7 @@
 				}
 				str = `<i type="${type}">${value}</i>`;
 				data = $.nodeFromString(str);
-				// console.log( data );
+				console.log( data );
 				// render cell data
 				Self.dispatch({ type: "render-data", data });
 				break;
@@ -72,7 +73,7 @@
 					else console.log("TODO 1: ", token);
 					break;
 				case "operand":
-					out.push(`<t value="${token.value}"/>`);
+					out.push(`<t type="${token.subtype}" value="${token.value}"/>`);
 					break;
 				case "argument":
 				case "operator-infix":

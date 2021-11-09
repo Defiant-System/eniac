@@ -15719,7 +15719,7 @@ function parseFormula(fString) {
 	return execFormula(fString);
 }
 
-function evalFormula(fString, data) {
+function evalFormula(fString, data={}) {
 	return execFormula(fString, data);
 }
 
