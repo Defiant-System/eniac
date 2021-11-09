@@ -306,6 +306,9 @@
 			<xsl:when test="name() = 't'">
 				<span class="f-value"><xsl:value-of select="@value"/></span>
 			</xsl:when>
+			<xsl:when test="name() = 'i'">
+				<i><xsl:value-of select="@value"/></i>
+			</xsl:when>
 		</xsl:choose>
 	</xsl:for-each>
 </xsl:template>

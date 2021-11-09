@@ -15136,17 +15136,17 @@ let tokenize = (function() {
 		TOK_TYPE_OP_POST   = "operator-postfix",
 		TOK_TYPE_WSPACE    = "white-space",
 		TOK_TYPE_UNKNOWN   = "unknown",
-		TOK_SUBTYPE_START       = "start",
-		TOK_SUBTYPE_STOP        = "stop",
-		TOK_SUBTYPE_TEXT        = "text",
-		TOK_SUBTYPE_NUMBER      = "number",
-		TOK_SUBTYPE_LOGICAL     = "logical",
-		TOK_SUBTYPE_ERROR       = "error",
-		TOK_SUBTYPE_RANGE       = "range",
-		TOK_SUBTYPE_MATH        = "math",
-		TOK_SUBTYPE_CONCAT      = "concatenate",
-		TOK_SUBTYPE_INTERSECT   = "intersect",
-		TOK_SUBTYPE_UNION       = "union";
+		TOK_SUBTYPE_START     = "start",
+		TOK_SUBTYPE_STOP      = "stop",
+		TOK_SUBTYPE_TEXT      = "text",
+		TOK_SUBTYPE_NUMBER    = "number",
+		TOK_SUBTYPE_LOGICAL   = "logical",
+		TOK_SUBTYPE_ERROR     = "error",
+		TOK_SUBTYPE_RANGE     = "range",
+		TOK_SUBTYPE_MATH      = "math",
+		TOK_SUBTYPE_CONCAT    = "concatenate",
+		TOK_SUBTYPE_INTERSECT = "intersect",
+		TOK_SUBTYPE_UNION     = "union";
 
 	function createToken(value, type, subtype = "") {
 		return {value, type, subtype};
@@ -15486,12 +15486,22 @@ let tokenize = (function() {
 					tokens.add(token, TOK_TYPE_OPERAND);
 					token = "";
 				}
-				tokens.addRef(tokenStack.pop());
-				tokens.add(",", TOK_TYPE_ARGUMENT);
-				tokenStack.push(tokens.add("ARRAYROW", TOK_TYPE_FUNCTION, TOK_SUBTYPE_START));
+				tokens.add(";", TOK_TYPE_ARGUMENT);
 				offset += 1;
 				continue;
 			}
+
+			// if (currentChar() == ";") {
+			// 	if (token.length > 0) {
+			// 		tokens.add(token, TOK_TYPE_OPERAND);
+			// 		token = "";
+			// 	}
+			// 	tokens.addRef(tokenStack.pop());
+			// 	tokens.add(",", TOK_TYPE_ARGUMENT);
+			// 	tokenStack.push(tokens.add("ARRAYROW", TOK_TYPE_FUNCTION, TOK_SUBTYPE_START));
+			// 	offset += 1;
+			// 	continue;
+			// }
 
 			if (currentChar() == "}") {
 				if (token.length > 0) {
@@ -15705,7 +15715,15 @@ let tokenize = (function() {
 
 })();
 
-function parseFormula(fString, data) {
+function parseFormula(fString) {
+	return execFormula(fString);
+}
+
+function evalFormula(fString, data) {
+	return execFormula(fString, data);
+}
+
+function execFormula(fString, data) {
 	let formula = fString,
 		tokens,
 		tree,
@@ -15846,7 +15864,8 @@ function parseFormula(fString, data) {
 	};
 
 	// send visitor through tree
-	visit(tree, VISITOR);
+	if (data) visit(tree, VISITOR);
+	else return { tree, tokens };
 
 	return result;
 }
@@ -18939,14 +18958,13 @@ var utils = {
 	sheet_to_json,
 	sheet_to_formulae,
 	get_formulae: sheet_to_formulae,
-	parse_formula: parseFormula,
+	parseFormula: parseFormula,
+	evalFormula: evalFormula,
 	make_csv: sheet_to_csv,
 	make_json: sheet_to_json,
 	make_formulae: sheet_to_formulae,
 	table_to_sheet: parse_dom_table,
 	book_to_xml: HTML_.book_to_xml,
-	sheet_to_html: HTML_.from_sheet,
-	sheet_to_html_css: HTML_.with_css_from_sheet,
 	sheet_to_row_object_array: sheet_to_json
 };
 
