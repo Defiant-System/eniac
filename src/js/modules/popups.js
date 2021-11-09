@@ -98,6 +98,7 @@
 				// prepare popup contents
 				el = $(event.target).addClass("active_");
 				value = el.cssProp(el.hasClass("color-preset_") ? "--preset-color" : "--color");
+				if (value === "transparent") value = "#ffffffff";
 				Self.origin = { el, value };
 				let [hue, sat, lgh, alpha] = Color.hexToHsl(value.trim());
 
@@ -340,15 +341,16 @@
 					type = pEl.data("el"),
 					el = pEl.find("span"),
 					rect = pEl[0].getBoundingClientRect(),
+					name = origin.hasClass("color-preset_") ? origin.data("change") : oParent.data("change"),
 					dragEvent = {
+						name,
 						handler: APP.sidebar[section].dispatch,
-						name: oParent.data("change"),
 						gradient: APP.tools[APP.tools.active].gradient,
 					},
 					apply = (Self, value) => {
 						if (Self.origin.hasClass("color-preset_")) {
 							// dispatch event to active sidebar
-							Self.event.handler({ type: "set-sheet-bgcolor", value });
+							Self.event.handler({ type: Self.event.name, value });
 						} else {
 							// update selected xl-element
 							Self.stops[Self.stopIndex].color = value;
