@@ -10,24 +10,22 @@
 		};
 
 		// temp
-		// let data = {
-		// 	"B1": { v: 213 },
-		// 	"B2": { v: 27 },
-		// 	"B3": { v: 3 },
-		// };
+		let data = {
+			"B1": { v: 213 },
+			"B2": { v: 27 },
+			"B3": { v: 3 },
+		};
 		// console.log( XLSX.utils.evalFormula("SUM(B1:B3)", data) );
-		// console.log( XLSX.utils.evalFormula("CONCAT(\"hello\"; 123)") );
+		// console.log( XLSX.utils.evalFormula(`IF(B1>=1; "Nonnegative"; "Negative")`, data) );
 
-		setTimeout(() => {
-			// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-			eniac.tools.table.table.select({
-				anchor: { y: 0, x: 1 },
-				yNum: [0,1,2,3],
-				xNum: [1],
-			});
-
-			this.dispatch({ type: "render-cells" });
-		}, 300);
+		// setTimeout(() => {
+		// 	eniac.tools.table.table.select({
+		// 		anchor: { y: 0, x: 1 },
+		// 		yNum: [0,1,2,3],
+		// 		xNum: [1],
+		// 	});
+		// 	this.dispatch({ type: "render-cells" });
+		// }, 300);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -95,7 +93,6 @@
 			{ tree, tokens } = XLSX.utils.parseFormula(str);
 
 		tokens.map(token => {
-			// console.log(token);
 			switch (token.type) {
 				case "function":
 					if (token.subtype === "start") out.push(`<g func="${token.value}">`);
@@ -103,11 +100,11 @@
 					else console.log("TODO 1: ", token);
 					break;
 				case "operand":
-					out.push(`<t type="${token.subtype}" value="${token.value}"/>`);
+					out.push(`<t type="${token.subtype}" value="${token.value.escapeHtml()}"/>`);
 					break;
 				case "argument":
 				case "operator-infix":
-					out.push(`<i value="${token.value}"/>`);
+					out.push(`<i value="${token.value.escapeHtml()}"/>`);
 					break;
 				default:
 					console.log("TODO 2: ", tokens);

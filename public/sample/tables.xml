@@ -15,8 +15,18 @@
 			</R>
 			<R tp="2"><C/><C/><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>
-			<R tp="2"><C/><C f="AVG(B2:B7)"/><C/><C/></R>
-			<R tp="2"><C/><C f="concat(&quot;hello&quot;; 123)"/><C/><C/></R>
+			<R tp="2">
+				<C/>
+				<C f="AVG(B2:B7)"/>
+				<C/>
+				<C/>
+			</R>
+			<R tp="2">
+				<C/>
+				<C f="concat(&quot;hello&quot;; 123)"/>
+				<C f="IF(A5&lt;=0, &quot;Nonnegative&quot;, &quot;Negative&quot;)"/>
+				<C/>
+			</R>
 			<R tp="2"><C/><C/><C/><C/></R>
 			<R tp="2"><C/><C/><C/><C/></R>
 		</Table>

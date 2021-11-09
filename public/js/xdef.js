@@ -15100,6 +15100,10 @@ let visit = (function() {
 })();
 
 	
+/*
+ * Rewrite of: https://github.com/psalaets/excel-formula-tokenizer
+ */
+
 let tokenize = (function() {
 
 	var languages = {
@@ -15793,9 +15797,9 @@ function execFormula(fString, data) {
 						args.push(VISITOR.enterFunction(item));
 						break;
 					case "binary-expression":
-						args.push(data[item.left.key].v);
+						args.push(item.left.value ?? data[item.left.key].v);
 						args.push(item.operator);
-						args.push(item.right.value);
+						args.push(item.right.value ?? data[item.right.key].v);
 						break;
 					case "text":
 					case "number":
