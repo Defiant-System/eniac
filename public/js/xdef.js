@@ -15777,7 +15777,7 @@ function execFormula(fString, getValue) {
 			SUMIF: (...args) => FUNCS.SUM(...FUNCS._FILTER(...args)),
 			CONCAT: (...args) => args.reduce((a, b) => a + b, ""),
 			CONCATENATE: (...args) => FUNCS.CONCAT(...args),
-			AVERAGE: (...args) => FUNCS.SUM(...args) / args.filter(i => i == +i).length,
+			AVERAGE: (...args) => FUNCS.SUM(...args) / args.filter(i => !!i).length,
 			COUNT: (...args) => args.filter(i => i == +i).length,
 			COUNTA: (...args) => args.length,
 			COUNTIF: (...args) => FUNCS.COUNT(...FUNCS._FILTER(...args)),

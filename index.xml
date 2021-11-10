@@ -1,6 +1,6 @@
 <Application>
 	<Build>
-		<task action1="skip" source="src/js/xlsx/main.js" destination="public/js/xdef.js"/>
+		<task action="skip" source="src/js/xlsx/main.js" destination="public/js/xdef.js"/>
 	</Build>
 	<Head>
 		<meta name="id" value="eniac"/>

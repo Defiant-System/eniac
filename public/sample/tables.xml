@@ -27,14 +27,14 @@
 			</R>
 			<R tp="2">
 				<C/>
-				<C f="AVERAGE(B1:B3)"/>
+				<C f="SUM(B1:B3)"/>
 				<C/>
 				<C/>
 			</R>
 			<R tp="2">
 				<C/>
-				<C/>
-				<C/>
+				<C f="CONCAT(&quot;hello&quot;; 123)"/>
+				<C f="IF(B5&gt;=300, &quot;Big&quot;, &quot;Small&quot;)"/>
 				<C/>
 			</R>
 			<R tp="2">
