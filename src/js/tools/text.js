@@ -21,12 +21,29 @@
 			el;
 		switch (event.type) {
 			// custom events
+			case "exit-edit-mode":
+				// stop edit mode
+				Text.removeClass("editing");
+				Text.find("> div:nth(0)").removeAttr("contentEdiable");
+				break;
 			case "blur-text":
 				Self.els.root.addClass("hidden");
 				Self.els.gradientTool.addClass("hidden");
+				if (Text) {
+					Self.dispatch({ type: "exit-edit-mode" });
+				}
+				// reset reference to element
+				Self.text = false;
 				break;
 			case "focus-text":
 				el = event.el;
+
+				if (Text && Text.isSame(el)) {
+					// enter edit mode
+					el.addClass("editing");
+					el.find("> div:nth(0)").attr({ contentEditable: true });
+					return;
+				}
 
 				// resize tools
 				let top = parseInt(el.css("top"), 10),
@@ -36,15 +53,21 @@
 				Self.els.root
 					.css({ top, left, width, height })
 					.removeClass("hidden");
+
+				// remember text element
+				Self.text = el;
 				// hide gradient tools
 				Self.els.gradientTool.addClass("hidden");
-
+				// apply fill values
+				Self.dispatch({ type: "fill-gradient" });
+				break;
+			case "fill-gradient":
 				let gradient = {},
-					bg = el.css("background"),
+					bg = Text.css("background"),
 					type = bg.match(/(linear|radial)-gradient\(([^()]*|\([^()]*\))*\)/g),
 					switchType = function(type) {
 						let el = Self.text,
-							bg = this.el.css("background-image"),
+							bg = el.css("background-image"),
 							defStops = [{ offset: 0, color: "#ffffff" }, { offset: 100, color: "#336699" }],
 							stops = this.stops || defStops,
 							str = [],
@@ -72,17 +95,17 @@
 								break;
 						}
 						Self.text.css({ background });
-						// re-focus on shape
-						Self.dispatch({ type: "focus-text", el });
+						// re-apply gradient values of shape
+						Self.dispatch({ type: "fill-gradient" });
 
-						let values = APP.sidebar.text.dispatch({ type: "collect-text-values", el });
+						let values = APP.sidebar.text.dispatch({ type: "collect-text-values", el: Text });
 						APP.sidebar.text.dispatch({ type: "update-text-fill", values });
 					};
 
 				if (type) {
 					let str = type[0].match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(1|0\.\d+))?\) \d+./g),
 						gradient = {
-							el,
+							el: Text,
 							switchType,
 							type: type[0].slice(0,6),
 							reverse() {
@@ -140,7 +163,7 @@
 						// unhide gradient tool
 						Self.els.gradientTool.removeClass("hidden");
 
-						[str, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
+						let [str, width, left, top] = bg.match(/gradient\((\d+)px at (\d+)px (\d+)px/);
 						top = +top + 2;
 						left = +left + 2;
 						width = +width + 2;
@@ -160,8 +183,6 @@
 					// reset reference
 					Self.gradient = { type: "solid", el, switchType };
 				}
-				// remember text element
-				Self.text = el;
 				break;
 		}
 	},
@@ -183,9 +204,6 @@
 					return Self.resize(event);
 				}
 
-				// cover layout
-				Self.els.layout.addClass("cover hideMouse hideTools");
-
 				let text = Self.text,
 					offset = {
 						x: el.prop("offsetLeft"),
@@ -194,6 +212,12 @@
 					click = {
 						x: event.clientX - offset.x,
 						y: event.clientY - offset.y,
+					},
+					once = () => {
+						// cover layout
+						Self.els.layout.addClass("cover hideMouse hideTools");
+						// remove reference to this function - prevent calling more than once
+						Self.drag.once = false;
 					},
 					guides = new Guides({
 						offset: {
@@ -209,6 +233,7 @@
 					sidebar: APP.sidebar.text,
 					guides,
 					click,
+					once,
 				};
 
 				// bind event
@@ -219,6 +244,8 @@
 						top: event.clientY - Drag.click.y,
 						left: event.clientX - Drag.click.x,
 					};
+				// call method only once
+				if (Self.drag.once) Self.drag.once();
 				// "filter" position with guide lines
 				Drag.guides.snapPos(pos);
 				// move dragged object

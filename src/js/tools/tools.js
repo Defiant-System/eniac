@@ -36,11 +36,17 @@
 				selected = event.selected || Self.els.body.find(".wrapper > .selected");
 				if (!selected.length) selected = Self[Self.active][Self.active];
 				
-				if (event.target && event.target.nodeName === "INPUT") {
+				if (event.target && (event.target.nodeName === "INPUT" || event.target.contentEditable)) {
 					el = $(event.target);
 					switch (event.char) {
 						case "esc":
-						case "return": el.blur(); break;
+							if (el.parents(Guides.selector).length) {
+								// blur XL element, if any
+								Self[Self.active].dispatch({ type: "exit-edit-mode" });
+							}
+						case "return":
+							el.blur();
+							break;
 					}
 					return;
 				}
@@ -154,6 +160,8 @@
 						APP.sidebar.dispatch({ type: `show-${name}` });
 						// trigger "move" mousedown event
 						Self[name].move(event);
+						break;
+					case el[0].isContentEditable:
 						break;
 					default:
 						// reference of active tool

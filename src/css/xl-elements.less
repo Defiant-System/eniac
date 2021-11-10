@@ -33,6 +33,12 @@
 			text-align: left;
 			line-height: 1;
 
+			&.editing {
+				&:after {
+					display: none;
+				}
+			}
+
 			&.selected:after {
 				content: "";
 				position: absolute;
@@ -68,6 +74,7 @@
 			// }
 
 			&:after {
+				// background: rgba(0,0,0,.1);
 				content: "";
 				position: absolute;
 				top: 0;
