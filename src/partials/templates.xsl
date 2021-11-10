@@ -194,7 +194,9 @@
 <xsl:template name="table-cell">
 	<td>
 		<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-		<xsl:attribute name="t"><xsl:value-of select="@t"/></xsl:attribute>
+		<xsl:if test="@t">
+			<xsl:attribute name="t"><xsl:value-of select="@t"/></xsl:attribute>
+		</xsl:if>
 		<xsl:if test="@f">
 			<xsl:attribute name="f"><xsl:value-of select="@f"/></xsl:attribute>
 		</xsl:if>

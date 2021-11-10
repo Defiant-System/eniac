@@ -27,14 +27,14 @@
 			</R>
 			<R tp="2">
 				<C/>
-				<C f="AVG(B2:B7)"/>
+				<C f="AVERAGE(B1:B3)"/>
 				<C/>
 				<C/>
 			</R>
 			<R tp="2">
 				<C/>
-				<C f="concat(&quot;hello&quot;; 123)"/>
-				<C f="IF(A5&lt;=0, &quot;Nonnegative&quot;, &quot;Negative&quot;)"/>
+				<C/>
+				<C/>
 				<C/>
 			</R>
 			<R tp="2">
@@ -55,7 +55,7 @@
 			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 		</Text>
 
-		<Table title="Clipped Table" class="gray-table-1" width1="320" height1="200" style="top: 330px; left: 40px;">
+		<!-- <Table title="Clipped Table" class="gray-table-1" width1="320" height1="200" style="top: 330px; left: 40px;">
 			<R tp="1">
 				<C tp="4"/><C/><C/><C/><C/>
 			</R>
@@ -71,7 +71,7 @@
 			<R tp="3">
 				<C tp="4"/><C/><C/><C/><C/>
 			</R>
-		</Table>
+		</Table> -->
 
 		<!-- <Table title="Clipped (No Column)" class="blue-table-2" style="top: 390px; left: 480px;">
 			<R tp="1">

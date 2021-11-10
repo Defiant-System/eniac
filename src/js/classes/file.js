@@ -24,7 +24,7 @@ class File {
 		this._activeSheet = this.sheetNames[0];
 		this.dispatch({ type: "render-sheet-names" });
 		this.dispatch({ type: "render-sheet" });
-		this.dispatch({ type: "build-formula-tree" });
+		// this.dispatch({ type: "build-formula-tree" });
 
 		let APP = eniac;
 
@@ -73,7 +73,7 @@ class File {
 					// TODO: normalize references to a tree
 					// to be used on formula execution
 					// and keep track of changes and bubbling
-					console.log( tokens );
+					// console.log( tokens );
 				});
 				break;
 			case "create-new-sheet":
@@ -126,33 +126,46 @@ class File {
 		return this._activeSheet;
 	}
 
+	getCellValue(coord) {
+		let v = this._file.workbook.selectSingleNode(`.//C[@id="${coord}"]`).textContent;
+		return +v;
+	}
+
 	sheet(name) {
-		let sheet, str;
+		let sheet;
 		switch (this._file.kind) {
 			case "xlsx":
 			case "csv":
 			case "xml":
 				// add cell coords as ID to cell node
 				this._file.workbook.selectNodes(`/Workbook/Sheet/Table`).map(xTable => {
-					if (xTable.selectSingleNode(`./R[1]/C[1][@id]`)) return;
-					xTable.selectNodes(`./R`).map((xRow, rI) => {
-						xRow.selectNodes(`./C`).map((xCell, cI) => {
-							var col = cI + 1,
-								s = "";
-							for (; col; col=((col - 1) / 26) | 0) {
-								s = String.fromCharCode(((col - 1) % 26) + 65) + s;
-							}
-							xCell.setAttribute("id", s+(rI+1));
+					if (!xTable.selectSingleNode(`./R[1]/C[1][@id]`)) {
+						xTable.selectNodes(`./R`).map((xRow, rI) => {
+							xRow.selectNodes(`./C`).map((xCell, cI) => {
+								var col = cI + 1,
+									s = "";
+								for (; col; col=((col - 1) / 26) | 0) {
+									s = String.fromCharCode(((col - 1) % 26) + 65) + s;
+								}
+								xCell.setAttribute("id", s+(rI+1));
+							});
 						});
+					}
+					// execute formulas before render
+					xTable.selectNodes(`.//C[@f]`).map(xCell => {
+						let formula = xCell.getAttribute("f"),
+							value = XLSX.utils.evalFormula(formula, this.getCellValue.bind(this));
+						xCell.appendChild($.cDataFromString(value));
 					});
 				});
 				// render
-				str = window.render({
+				sheet = window.render({
 					data: this._file.workbook,
 					match: `/Workbook/Sheet[@name="${name}"]`,
 					template: "xl-file",
+					vdom: true,
 				});
-				return str;
+				return sheet;
 		}
 	}
 

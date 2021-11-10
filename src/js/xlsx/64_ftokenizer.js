@@ -622,11 +622,11 @@ function parseFormula(fString) {
 	return execFormula(fString);
 }
 
-function evalFormula(fString, data={}) {
-	return execFormula(fString, data);
+function evalFormula(fString, getValue) {
+	return execFormula(fString, getValue);
 }
 
-function execFormula(fString, data) {
+function execFormula(fString, getValue) {
 	let formula = fString,
 		tokens,
 		tree,
@@ -672,11 +672,11 @@ function execFormula(fString, data) {
 			MOD: (...args) => args[0] % args[1],
 			MAX: (...args) => Math.max(...args),
 			MIN: (...args) => Math.min(...args),
-			SUM: (...args) => args.reduce((a, b) => a + b, 0),
+			SUM: (...args) => args.filter(i => i == +i).reduce((a, b) => a + b, 0),
 			SUMIF: (...args) => FUNCS.SUM(...FUNCS._FILTER(...args)),
 			CONCAT: (...args) => args.reduce((a, b) => a + b, ""),
 			CONCATENATE: (...args) => FUNCS.CONCAT(...args),
-			AVERAGE: (...args) => FUNCS.SUM(...args) / args.length,
+			AVERAGE: (...args) => FUNCS.SUM(...args) / args.filter(i => i == +i).length,
 			COUNT: (...args) => args.filter(i => i == +i).length,
 			COUNTA: (...args) => args.length,
 			COUNTIF: (...args) => FUNCS.COUNT(...FUNCS._FILTER(...args)),
@@ -696,9 +696,9 @@ function execFormula(fString, data) {
 						args.push(VISITOR.enterFunction(item));
 						break;
 					case "binary-expression":
-						args.push(item.left.value ?? data[item.left.key].v);
+						args.push(item.left.value ?? getValue(item.left.key));
 						args.push(item.operator);
-						args.push(item.right.value ?? data[item.right.key].v);
+						args.push(item.right.value ?? getValue(item.right.key));
 						break;
 					case "text":
 					case "number":
@@ -706,7 +706,7 @@ function execFormula(fString, data) {
 						else args.push(item.value);
 						break;
 					case "cell":
-						args.push(data[item.key].v);
+						args.push(getValue(item.key));
 						break;
 					case "cell-range":
 						let left = decode_cell(item.left.key),
@@ -715,7 +715,7 @@ function execFormula(fString, data) {
 						for (let c=left.c, cl=right.c+1; c<cl; c++) {
 							for (let r=left.r, rl=right.r+1; r<rl; r++) {
 								cell = encode_cell({ c: Math.max(c, 0), r: Math.max(r, 0) });
-								args.push(data[cell].v);
+								args.push(getValue(cell));
 							}
 						}
 						break;
@@ -767,7 +767,7 @@ function execFormula(fString, data) {
 	};
 
 	// send visitor through tree
-	if (data) visit(tree, VISITOR);
+	if (getValue) visit(tree, VISITOR);
 	else return { tree, tokens };
 
 	return result;
