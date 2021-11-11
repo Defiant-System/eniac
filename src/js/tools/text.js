@@ -24,6 +24,7 @@
 			// custom events
 			case "exit-edit-mode":
 				if (Text) {
+					Self.els.root.removeClass("editing");
 					// stop edit mode
 					Text.removeClass("editing");
 					Text.find("> div:nth(0)").removeAttr("contentEdiable");
@@ -33,7 +34,7 @@
 				}
 				break;
 			case "blur-text":
-				Self.els.root.addClass("hidden").removeClass("editing");
+				Self.els.root.addClass("hidden");
 				Self.els.gradientTool.addClass("hidden");
 				Self.dispatch({ type: "exit-edit-mode" });
 				// reset reference to element
@@ -41,6 +42,15 @@
 				break;
 			case "focus-text":
 				el = event.el;
+				
+				// resize tools
+				let top = parseInt(el.css("top"), 10),
+					left = parseInt(el.css("left"), 10),
+					width = parseInt(el.css("width"), 10),
+					height = parseInt(el.css("height"), 10);
+				Self.els.root
+					.css({ top, left, width, height })
+					.removeClass("hidden");
 
 				if (Text && Text.isSame(el)) {
 					// enter edit mode
@@ -54,14 +64,6 @@
 					APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
 					return;
 				}
-				// resize tools
-				let top = parseInt(el.css("top"), 10),
-					left = parseInt(el.css("left"), 10),
-					width = parseInt(el.css("width"), 10),
-					height = parseInt(el.css("height"), 10);
-				Self.els.root
-					.css({ top, left, width, height })
-					.removeClass("hidden");
 
 				// remember text element
 				Self.text = el;
