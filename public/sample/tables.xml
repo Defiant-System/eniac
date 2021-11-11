@@ -51,7 +51,7 @@
 			</R>
 		</Table>
 
-		<Text class="middle italic" style="top: 100px; left: 540px; width: 240px; height: 170px; font-size: 15px; line-height: 1.5;">
+		<Text class="middle italic" style="top: 100px; left: 540px; width: 240px; height: 170px; font-size: 15px; color: #ffffff; line-height: 1.5; background-image: radial-gradient(60px at 150px 40px, rgba(50,176,240,1) 0%, rgba(131,58,180,1) 100%);">
 			<![CDATA[This is <b>bold</b> text.<br/>More text here. Voluptate accusamus qui vitae quia quia libero in qui. Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.]]>
 		</Text>
 

@@ -42,8 +42,7 @@
 				break;
 			case "focus-text":
 				el = event.el;
-				
-				// resize tools
+				// resize/move tools (sync with selected element)
 				let top = parseInt(el.css("top"), 10),
 					left = parseInt(el.css("left"), 10),
 					width = parseInt(el.css("width"), 10),
@@ -57,7 +56,7 @@
 					el.addClass("editing");
 					el.find("> div:nth(0)").attr({ contentEditable: true });
 					// select contents
-					document.getSelection().selectAllChildren(el[0]);
+					// document.getSelection().selectAllChildren(el[0]);
 					// adjust tools UI
 					Self.els.root.addClass("editing");
 					// sidebar; switch to "Text" tab
@@ -267,6 +266,8 @@
 			case "mouseup":
 				// hide guides
 				Drag.guides.reset();
+				// reset tools
+				Self.els.root.removeClass("editing");
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse hideTools");
 				// unbind event
@@ -350,6 +351,8 @@
 			case "mouseup":
 				// re-focuses shape tools
 				Self.dispatch({ type: "focus-text", el: Self.text });
+				// reset tools
+				Self.els.root.removeClass("editing");
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind event

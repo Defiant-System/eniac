@@ -1,27 +1,27 @@
 
 <Data>
 	<Table id="template-1" style="top: 40px; left: 40px;">
-		<Row tp="2"><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell/><Cell/><Cell/></Row>
+		<R tp="2"><C/><C/><C/></R>
+		<R tp="2"><C/><C/><C/></R>
+		<R tp="2"><C/><C/><C/></R>
+		<R tp="2"><C/><C/><C/></R>
+		<R tp="2"><C/><C/><C/></R>
+		<R tp="2"><C/><C/><C/></R>
+		<R tp="2"><C/><C/><C/></R>
 	</Table>
 
 	<Table id="template-2" class="gray-table-1" style="top: 40px; left: 40px;">
-		<Row tp="1">
-			<Cell tp="4"/><Cell/><Cell/><Cell/>
-		</Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="2"><Cell tp="4"/><Cell/><Cell/><Cell/></Row>
-		<Row tp="3">
-			<Cell tp="4"/><Cell/><Cell/><Cell/>
-		</Row>
+		<R tp="1">
+			<C tp="4"/><C/><C/><C/>
+		</R>
+		<R tp="2"><C tp="4"/><C/><C/><C/></R>
+		<R tp="2"><C tp="4"/><C/><C/><C/></R>
+		<R tp="2"><C tp="4"/><C/><C/><C/></R>
+		<R tp="2"><C tp="4"/><C/><C/><C/></R>
+		<R tp="2"><C tp="4"/><C/><C/><C/></R>
+		<R tp="2"><C tp="4"/><C/><C/><C/></R>
+		<R tp="3">
+			<C tp="4"/><C/><C/><C/>
+		</R>
 	</Table>
 </Data>

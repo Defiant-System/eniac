@@ -21,7 +21,7 @@
 
 		// temp
 		// setTimeout(() => {
-		// 	window.find(".toolbar-tool_:nth(7)").trigger("click");
+		// 	window.find(".toolbar-tool_:nth(3)").trigger("click");
 		// }, 500);
 	},
 	dispatch(event) {
@@ -156,6 +156,8 @@
 				str = window.render({ template: "xl-table", match: `//Table[@id="template-2"]` });
 				str = str.replace(/gray-table-1/, name);
 				el = APP.body.append(str);
+				// make sure new table is on top
+				el.css({ zIndex: APP.body.find(Guides.selector).length });
 				// auto focus on first grid cell
 				el.find("td:nth(0)").trigger("mousedown").trigger("mouseup");
 				// close popup
