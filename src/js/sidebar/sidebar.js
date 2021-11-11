@@ -54,6 +54,13 @@
 				name = event.type.split("-")[1];
 				// push populate command to "next tick"
 				setTimeout(() => Self[name].dispatch({ ...event, type: `populate-${name}-values` }));
+				// reference to active sidebar
+				Self.active = name;
+				break;
+			case "select-nth-tab":
+				Self.els.el
+					.find(`[data-section="${Self.active}"] .sidebar-head > span:nth-child(${event.value})`)
+					.trigger("click");
 				break;
 			case "select-tab":
 				event.el.find(".active").removeClass("active");

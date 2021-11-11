@@ -50,6 +50,8 @@
 					document.getSelection().selectAllChildren(el[0]);
 					// adjust tools UI
 					Self.els.root.addClass("editing");
+					// sidebar; switch to "Text" tab
+					APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
 					return;
 				}
 				// resize tools
