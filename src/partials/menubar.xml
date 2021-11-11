@@ -183,4 +183,14 @@
 		<Menu name="2.0 - Double" click="set-cell-line-height" arg="2.0" check-group="cell-line-height"/>
 	</Menu>
 
+	<Menu for="cell-selection">
+		<Menu name="Add Row Above"/>
+		<Menu name="Add Row Below"/>
+		<Menu type="divider"/>
+		<Menu name="Add Columns Before"/>
+		<Menu name="Add Columns After"/>
+		<Menu type="divider"/>
+		<Menu name="Merge"/>
+	</Menu>
+
 </MenuBar>

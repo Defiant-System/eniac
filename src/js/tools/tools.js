@@ -101,6 +101,12 @@
 				switch (true) {
 					case event.button === 2:
 						// TODO: handle context menu
+						defiant.menu({
+							el: APP.tools.table.gridTools._selection,
+							menu: "cell-selection",
+							top: event.clientY,
+							left: event.clientX,
+						});
 						break;
 					// let other handlers handle it
 					case el.hasClass("tool"):
