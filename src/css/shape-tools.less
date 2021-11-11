@@ -39,12 +39,14 @@ layout {
 		.handle.line { display: block; }
 	}
 
-	&[data-area1="text"] {
+	&[data-area="text"].editing {
 		.handle {
 			&.n,
+			&.e,
+			&.w,
+			&.s,
 			&.nw,
 			&.sw,
-			&.s,
 			&.se,
 			&.ne { display: none; }
 		}

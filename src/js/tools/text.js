@@ -17,21 +17,25 @@
 			Tools = APP.tools,
 			Self = Tools.text,
 			Text = Self.text,
+			sel,
 			str,
 			el;
 		switch (event.type) {
 			// custom events
 			case "exit-edit-mode":
-				// stop edit mode
-				Text.removeClass("editing");
-				Text.find("> div:nth(0)").removeAttr("contentEdiable");
+				if (Text) {
+					// stop edit mode
+					Text.removeClass("editing");
+					Text.find("> div:nth(0)").removeAttr("contentEdiable");
+					// collapse & remove potential selection
+					sel = document.getSelection();
+					sel.removeAllRanges();
+				}
 				break;
 			case "blur-text":
-				Self.els.root.addClass("hidden");
+				Self.els.root.addClass("hidden").removeClass("editing");
 				Self.els.gradientTool.addClass("hidden");
-				if (Text) {
-					Self.dispatch({ type: "exit-edit-mode" });
-				}
+				Self.dispatch({ type: "exit-edit-mode" });
 				// reset reference to element
 				Self.text = false;
 				break;
@@ -42,9 +46,12 @@
 					// enter edit mode
 					el.addClass("editing");
 					el.find("> div:nth(0)").attr({ contentEditable: true });
+					// select contents
+					document.getSelection().selectAllChildren(el[0]);
+					// adjust tools UI
+					Self.els.root.addClass("editing");
 					return;
 				}
-
 				// resize tools
 				let top = parseInt(el.css("top"), 10),
 					left = parseInt(el.css("left"), 10),
