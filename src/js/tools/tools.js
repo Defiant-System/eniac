@@ -43,6 +43,8 @@
 							if (el.parents(Guides.selector).length) {
 								// blur XL element, if any
 								Self[Self.active].dispatch({ type: "exit-edit-mode" });
+								// blur XL element, if any
+								Self.dispatch({ type: "blur-focused" });
 							}
 						case "return":
 							el.blur();
@@ -97,6 +99,9 @@
 				let nodeName = el.prop("nodeName");
 
 				switch (true) {
+					case event.button === 2:
+						// TODO: handle context menu
+						break;
 					// let other handlers handle it
 					case el.hasClass("tool"):
 						switch (el.prop("className").split(" ")[1]) {

@@ -56,7 +56,7 @@
 					el.addClass("editing");
 					el.find("> div:nth(0)").attr({ contentEditable: true });
 					// select contents
-					// document.getSelection().selectAllChildren(el[0]);
+					document.getSelection().selectAllChildren(el[0]);
 					// adjust tools UI
 					Self.els.root.addClass("editing");
 					// sidebar; switch to "Text" tab
@@ -267,7 +267,7 @@
 				// hide guides
 				Drag.guides.reset();
 				// reset tools
-				Self.els.root.removeClass("editing");
+				// Self.els.root.removeClass("editing");
 				// uncover layout
 				Self.els.layout.removeClass("cover hideMouse hideTools");
 				// unbind event
