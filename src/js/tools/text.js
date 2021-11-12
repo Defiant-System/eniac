@@ -26,8 +26,6 @@
 				// enter edit mode
 				event.el.addClass("editing");
 				event.el.find("> div:nth(0)").attr({ contentEditable: true });
-				// select contents
-				// document.getSelection().selectAllChildren(event.el[0]);
 				// adjust tools UI
 				Self.els.root.addClass("editing");
 				// sidebar; switch to "Text" tab
@@ -38,7 +36,7 @@
 					Self.els.root.removeClass("editing");
 					// stop edit mode
 					Text.removeClass("editing active");
-					Text.find("> div:nth(0)").removeAttr("contentEdiable");
+					Text.find("> div:nth(0)").removeAttr("contentEditable");
 					// collapse & remove potential selection
 					sel = document.getSelection();
 					sel.removeAllRanges();
@@ -66,9 +64,8 @@
 					Self.dispatch({ type: "enter-edit-mode", el });
 					return;
 				}
-
+				// make "wrapper" div editable
 				el.find("> div:nth(0)").attr({ contentEditable: true });
-
 				// remember text element
 				Self.text = el;
 				// hide gradient tools
