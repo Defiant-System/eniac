@@ -173,7 +173,10 @@
 						Self[name].move(event);
 						break;
 					case el[0].isContentEditable:
-						Self.text.dispatch({ type: "enter-edit-mode", el: el.parent() });
+						Self[Self.active].dispatch({
+							type: "enter-edit-mode",
+							el: el.parents(Guides.selector)
+						});
 						break;
 					default:
 						// reference of active tool
