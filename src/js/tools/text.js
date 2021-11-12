@@ -54,14 +54,17 @@
 				Self.dispatch({ type: "fill-gradient" });
 				break;
 			case "enter-edit-mode":
-				// enter edit mode
-				event.el.addClass("editing");
-				event.el.find("> div:nth(0)").attr({ contentEditable: true });
-				// adjust tools UI
-				Self.els.root.addClass("editing");
-				// sidebar; switch to "Text" tab
-				APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
-
+				if (!event.el.hasClass("editing")) {
+					// enter edit mode
+					event.el.addClass("editing");
+					event.el.find("> div:nth(0)").attr({ contentEditable: true });
+					// adjust tools UI
+					Self.els.root.addClass("editing");
+					// sidebar; notify event to sidebar
+					APP.sidebar[APP.sidebar.active].dispatch(event);
+					// sidebar; switch to "Text" tab
+					APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+				}
 				// update sidebar
 				Self.dispatch({ type: "query-command-state" });
 				break;
@@ -75,6 +78,8 @@
 					sel = document.getSelection();
 					sel.removeAllRanges();
 				}
+				// sidebar; notify event to sidebar
+				APP.sidebar[APP.sidebar.active].dispatch(event);
 				break;
 			case "query-command-state":
 				let cmd = ["fontName",

@@ -40,11 +40,19 @@
 					Tools.text.gradient.switchType(el.data("arg"));
 				}
 				break;
+			case "enter-edit-mode":
+				// TODO: rename sidebar event command names
+				console.log(event);
+				break;
+			case "exit-edit-mode":
+				// TODO: reset sidebar event command names
+				console.log(event);
+				break;
 			case "content-cursor-state":
 				event.state.map(cmd => {
 					Els.el.find(`[data-name="${cmd.name}"]`).toggleClass("active_", !cmd.value);
-					// console.log(cmd.name, cmd.value);
 				});
+				// console.log(event.state);
 				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
@@ -394,6 +402,16 @@
 				Text.css({ "opacity": value / 100 });
 				// make sure all fields shows same value
 				Els.el.find(".text-opacity input").val(value);
+				break;
+			// tab: Text (if text content is in edit mode)
+			case "set-text-cursor-font-family":
+			case "set-text-cursor-font-size":
+			case "set-text-cursor-font-style":
+			case "set-text-cursor-color":
+			case "set-text-cursor-hAlign":
+			case "set-text-cursor-vAlign":
+			case "set-text-cursor-line-height":
+				console.log(event);
 				break;
 			// tab: Text
 			case "set-text-font-family":
