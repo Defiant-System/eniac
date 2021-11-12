@@ -82,21 +82,10 @@
 				APP.sidebar[APP.sidebar.active].dispatch(event);
 				break;
 			case "query-command-state":
-				let cmd = ["fontName",
-							"bold",
-							"italic",
-							"underline",
-							"justifyLeft",
-							"justifyCenter",
-							"justifyRight",
-							"justifyFull"];
 				// do command state in "next tick"
 				setTimeout(() => {
 					// update sidebar
-					APP.sidebar.text.dispatch({
-						type: "content-cursor-state",
-						state: cmd.map(name => ({ name, value: document.queryCommandState(name) }))
-					});
+					APP.sidebar.text.dispatch({ type: "content-cursor-state" });
 				});
 				break;
 			case "fill-gradient":

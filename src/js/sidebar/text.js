@@ -17,6 +17,7 @@
 			Tools = APP.tools,
 			Els = APP.sidebar.els,
 			Text = event.text || Tools.text.text,
+			data,
 			stops,
 			color,
 			width,
@@ -41,18 +42,26 @@
 				}
 				break;
 			case "enter-edit-mode":
-				// TODO: rename sidebar event command names
-				console.log(event);
+				Self.editMode = true;
 				break;
 			case "exit-edit-mode":
-				// TODO: reset sidebar event command names
-				console.log(event);
+				Self.editMode = false;
 				break;
 			case "content-cursor-state":
-				event.state.map(cmd => {
-					Els.el.find(`[data-name="${cmd.name}"]`).toggleClass("active_", !cmd.value);
+				data = ["fontName",
+						"bold",
+						"italic",
+						"underline",
+						"strikeThrough",
+						"justifyLeft",
+						"justifyCenter",
+						"justifyRight",
+						"justifyFull"];
+				// iterate
+				data.map(name => {
+					let value = document.queryCommandState(name);
+					Els.el.find(`[data-name="${name}"]`).toggleClass("active_", !value);
 				});
-				// console.log(event.state);
 				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
@@ -237,7 +246,7 @@
 				value = Text.css("font-family");
 
 				// font style
-				["bold", "italic", "underline", "strike"].map(type => {
+				["bold", "italic", "underline", "strikeThrough"].map(type => {
 					let value = Text.hasClass(type);
 					pEl.find(`.option-buttons_ span[data-name="${type}"]`).toggleClass("active_", !value);
 				});
@@ -403,16 +412,6 @@
 				// make sure all fields shows same value
 				Els.el.find(".text-opacity input").val(value);
 				break;
-			// tab: Text (if text content is in edit mode)
-			case "set-text-cursor-font-family":
-			case "set-text-cursor-font-size":
-			case "set-text-cursor-font-style":
-			case "set-text-cursor-color":
-			case "set-text-cursor-hAlign":
-			case "set-text-cursor-vAlign":
-			case "set-text-cursor-line-height":
-				console.log(event);
-				break;
 			// tab: Text
 			case "set-text-font-family":
 				console.log(event);
@@ -422,6 +421,12 @@
 				break;
 			case "set-text-font-style":
 				el = $(event.target);
+				if (Self.editMode) {
+					document.execCommand(el.data("name"), false, null);
+
+					Self.dispatch({ type: "content-cursor-state" });
+					return false;
+				}
 				value = el.hasClass("active_");
 				Text.toggleClass(el.data("name"), value);
 				// update text vertical alignment

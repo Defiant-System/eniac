@@ -236,7 +236,7 @@
 				value = Anchor.css("font-family");
 
 				// font style
-				["bold", "italic", "underline", "strike"].map(type => {
+				["bold", "italic", "underline", "strikeThrough"].map(type => {
 					let value = Anchor.hasClass(type);
 					pEl.find(`.option-buttons_ span[data-name="${type}"]`).toggleClass("active_", !value);
 				});
