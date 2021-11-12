@@ -27,7 +27,7 @@
 				event.el.addClass("editing");
 				event.el.find("> div:nth(0)").attr({ contentEditable: true });
 				// select contents
-				document.getSelection().selectAllChildren(event.el[0]);
+				// document.getSelection().selectAllChildren(event.el[0]);
 				// adjust tools UI
 				Self.els.root.addClass("editing");
 				// sidebar; switch to "Text" tab
@@ -37,7 +37,7 @@
 				if (Text) {
 					Self.els.root.removeClass("editing");
 					// stop edit mode
-					Text.removeClass("editing");
+					Text.removeClass("editing active");
 					Text.find("> div:nth(0)").removeAttr("contentEdiable");
 					// collapse & remove potential selection
 					sel = document.getSelection();
@@ -52,7 +52,7 @@
 				Self.text = false;
 				break;
 			case "focus-text":
-				el = event.el;
+				el = event.el.addClass("active");
 				// resize/move tools (sync with selected element)
 				let top = parseInt(el.css("top"), 10),
 					left = parseInt(el.css("left"), 10),
@@ -63,8 +63,11 @@
 					.removeClass("hidden");
 
 				if (Text && Text.isSame(el)) {
-					return Self.dispatch({ type: "enter-edit-mode", el });
+					Self.dispatch({ type: "enter-edit-mode", el });
+					return;
 				}
+
+				el.find("> div:nth(0)").attr({ contentEditable: true });
 
 				// remember text element
 				Self.text = el;
