@@ -22,26 +22,6 @@
 			el;
 		switch (event.type) {
 			// custom events
-			case "enter-edit-mode":
-				// enter edit mode
-				event.el.addClass("editing");
-				event.el.find("> div:nth(0)").attr({ contentEditable: true });
-				// adjust tools UI
-				Self.els.root.addClass("editing");
-				// sidebar; switch to "Text" tab
-				APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
-				break;
-			case "exit-edit-mode":
-				if (Text) {
-					Self.els.root.removeClass("editing");
-					// stop edit mode
-					Text.removeClass("editing active");
-					Text.find("> div:nth(0)").removeAttr("contentEditable");
-					// collapse & remove potential selection
-					sel = document.getSelection();
-					sel.removeAllRanges();
-				}
-				break;
 			case "blur-text":
 				Self.els.root.addClass("hidden");
 				Self.els.gradientTool.addClass("hidden");
@@ -72,6 +52,47 @@
 				Self.els.gradientTool.addClass("hidden");
 				// apply fill values
 				Self.dispatch({ type: "fill-gradient" });
+				break;
+			case "enter-edit-mode":
+				// enter edit mode
+				event.el.addClass("editing");
+				event.el.find("> div:nth(0)").attr({ contentEditable: true });
+				// adjust tools UI
+				Self.els.root.addClass("editing");
+				// sidebar; switch to "Text" tab
+				APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+
+				// update sidebar
+				Self.dispatch({ type: "query-command-state" });
+				break;
+			case "exit-edit-mode":
+				if (Text) {
+					Self.els.root.removeClass("editing");
+					// stop edit mode
+					Text.removeClass("editing active");
+					Text.find("> div:nth(0)").removeAttr("contentEditable");
+					// collapse & remove potential selection
+					sel = document.getSelection();
+					sel.removeAllRanges();
+				}
+				break;
+			case "query-command-state":
+				let cmd = ["fontName",
+							"bold",
+							"italic",
+							"underline",
+							"justifyLeft",
+							"justifyCenter",
+							"justifyRight",
+							"justifyFull"];
+				// do command state in "next tick"
+				setTimeout(() => {
+					// update sidebar
+					APP.sidebar.text.dispatch({
+						type: "content-cursor-state",
+						state: cmd.map(name => ({ name, value: document.queryCommandState(name) }))
+					});
+				});
 				break;
 			case "fill-gradient":
 				let gradient = {},

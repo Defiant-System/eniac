@@ -40,6 +40,12 @@
 					Tools.text.gradient.switchType(el.data("arg"));
 				}
 				break;
+			case "content-cursor-state":
+				event.state.map(cmd => {
+					Els.el.find(`[data-name="${cmd.name}"]`).toggleClass("active_", !cmd.value);
+					// console.log(cmd.name, cmd.value);
+				});
+				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
 				// tab: Style
