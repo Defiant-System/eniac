@@ -22,6 +22,17 @@
 			el;
 		switch (event.type) {
 			// custom events
+			case "enter-edit-mode":
+				// enter edit mode
+				event.el.addClass("editing");
+				event.el.find("> div:nth(0)").attr({ contentEditable: true });
+				// select contents
+				document.getSelection().selectAllChildren(event.el[0]);
+				// adjust tools UI
+				Self.els.root.addClass("editing");
+				// sidebar; switch to "Text" tab
+				APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+				break;
 			case "exit-edit-mode":
 				if (Text) {
 					Self.els.root.removeClass("editing");
@@ -52,16 +63,7 @@
 					.removeClass("hidden");
 
 				if (Text && Text.isSame(el)) {
-					// enter edit mode
-					el.addClass("editing");
-					el.find("> div:nth(0)").attr({ contentEditable: true });
-					// select contents
-					document.getSelection().selectAllChildren(el[0]);
-					// adjust tools UI
-					Self.els.root.addClass("editing");
-					// sidebar; switch to "Text" tab
-					APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
-					return;
+					return Self.dispatch({ type: "enter-edit-mode", el });
 				}
 
 				// remember text element
