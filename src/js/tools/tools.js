@@ -50,6 +50,8 @@
 							el.blur();
 							break;
 					}
+					// update sidebar
+					Self[Self.active].dispatch({ type: "query-command-state" });
 					return;
 				}
 				if (selected && !selected.length && ["sheet", "table"].includes(Self.active)) {
