@@ -48,6 +48,9 @@
 				Self.editMode = false;
 				break;
 			case "content-cursor-state":
+				if (event.el) {
+					document.execCommand(event.el.data("name"), false, null);
+				}
 				data = ["fontName",
 						"bold",
 						"italic",
@@ -62,7 +65,7 @@
 					let value = document.queryCommandState(name);
 					Els.el.find(`[data-name="${name}"]`).toggleClass("active_", !value);
 				});
-				break;
+				return false;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
 				// tab: Style
@@ -422,10 +425,8 @@
 			case "set-text-font-style":
 				el = $(event.target);
 				if (Self.editMode) {
-					document.execCommand(el.data("name"), false, null);
-
-					Self.dispatch({ type: "content-cursor-state" });
-					return false;
+					// udpate sidebar of cursor state
+					return Self.dispatch({ type: "content-cursor-state", el });
 				}
 				value = el.hasClass("active_");
 				Text.toggleClass(el.data("name"), value);
@@ -440,6 +441,10 @@
 				break;
 			case "set-text-hAlign":
 				el = $(event.target);
+				if (Self.editMode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({ type: "content-cursor-state", el });
+				}
 				Text.removeClass("left center right justify").addClass(el.data("name"));
 				// update text vertical alignment
 				Self.dispatch({ type: "update-text-alignment" });

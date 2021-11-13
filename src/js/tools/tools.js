@@ -25,6 +25,7 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
+			isEditable,
 			selected,
 			value,
 			name,
@@ -35,19 +36,19 @@
 				// get selected items
 				selected = event.selected || Self.els.body.find(".wrapper > .selected");
 				if (!selected.length) selected = Self[Self.active][Self.active];
-				
-				if (event.target && (event.target.nodeName === "INPUT" || event.target.contentEditable)) {
+
+				isEditable = event.target && (event.target.nodeName === "INPUT" || event.target.contentEditable);
+
+				if (event.target) {
 					el = $(event.target);
 					switch (event.char) {
 						case "esc":
-							if (el.parents(Guides.selector).length) {
+							if (isEditable && el.parents(Guides.selector).length) {
 								// blur XL element, if any
 								Self[Self.active].dispatch({ type: "exit-edit-mode" });
 								// blur XL element, if any
 								Self.dispatch({ type: "blur-focused" });
 							}
-						case "return":
-							el.blur();
 							break;
 					}
 					// update sidebar
@@ -71,6 +72,9 @@
 						data = {},
 						move;
 					switch (event.char) {
+						case "esc":
+							// blur XL element, if any
+							return Self.dispatch({ type: "blur-focused" });
 						case "up":
 						case "down":
 							move = event.char === "up" ? -1 : 1;
@@ -198,7 +202,7 @@
 				Self.els.body.find(".wrapper > .selected").removeClass("selected");
 				// notify all sub-tools
 				Self.types.map(n => {
-					if (Self.active === n) return;
+					// if (Self.active === n) return;
 					Self[n].dispatch({ type: `blur-${n}`, el: Self.els.body })
 				});
 				break;
