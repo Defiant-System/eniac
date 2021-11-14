@@ -30,26 +30,55 @@
 			this.format("styleWithCSS", true);
 		},
 		format(key, value) {
-			let name = this.keys[key] || key;
+			let name = this.keys[key] || key,
+				sel = document.getSelection(),
+				range,
+				fnNextTick = () => {
+					let sel = document.getSelection(),
+						node = sel.getRangeAt(0).commonAncestorContainer
+						range = document.createRange();
+					range.setStart(node, 0);
+					range.setEnd(node, node.length);
+					// re-select inserted node
+					sel.removeAllRanges();
+					sel.addRange(range);
+				};
+			switch (name) {
+				case "font-size":
+					range = sel.getRangeAt(0);
+					if (range.collapsed) return;
+					value = `<span style="font-size: ${value}px;">${sel}</span>`;
+					name = "insertHTML";
+					// do next tick
+					setTimeout(fnNextTick);
+					break;
+			}
 			document.execCommand(name, false, value || null);
 		},
 		state() {
 			let Els = eniac.sidebar.els.el,
-				value = Color.rgbToHex(document.queryCommandValue("ForeColor")).slice(0,-2),
 				sel = document.getSelection(),
-				el = sel.getRangeAt(0).commonAncestorContainer;
+				el = sel.getRangeAt(0).commonAncestorContainer,
+				value;
 			// make sure to get correct element
 			if (el.nodeType == 3) el = el.parentNode;
 			el = $(el);
-			// set value of font color
-			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": value });
 
-			let fontFamily = el.css("font-family"),
-				fontSize = el.css("font-size"),
-				lineHeight = el.css("line-height");
-			console.log( fontFamily );
-			console.log( fontSize );
-			console.log( lineHeight );
+			let color = Color.rgbToHex(document.queryCommandValue("ForeColor")).slice(0,-2),
+				fontFamily = el.css("font-family"),
+				fontSize = parseInt(el.css("font-size"), 10),
+				lineHeight = parseInt(el.css("line-height"), 10);
+
+			// set value of font color
+			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
+
+			// console.log( fontFamily );
+
+			// font size
+			Els.find(`input[name="text-font-size"]`).val(fontSize);
+			// line height
+			value = (lineHeight / fontSize).toFixed(1).toString();
+			Els.find(`selectbox[data-menu="text-line-height"]`).val(value);
 
 			// iterate
 			Object.keys(this.keys).map(key => {
@@ -96,7 +125,9 @@
 				break;
 			case "content-cursor-state":
 				if (event.el) {
-					Self.edit.format(event.el.data("name"));
+					let key = event.key || event.el.data("name"),
+						value = event.value;
+					Self.edit.format(key, value);
 				}
 				// update sidebar state
 				Self.edit.state();
@@ -455,6 +486,10 @@
 				console.log(event);
 				break;
 			case "set-text-font-size":
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({ ...event, type: "content-cursor-state", key: "font-size" });
+				}
 				Text.css({ "font-size": event.value +"px" });
 				break;
 			case "set-text-font-style":
