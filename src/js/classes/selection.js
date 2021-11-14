@@ -6,16 +6,23 @@ class $election {
 	}
 
 	expand(unit) {
-		let anchorNode = this._selection.anchorNode,
+		let range = document.createRange(),
+			anchorNode = this._selection.anchorNode,
 			anchorOffset = this._selection.anchorOffset,
 			endNode,
 			endOffset,
-			range = document.createRange();
+			str,
+			rx;
 		switch (unit) {
 			case "word":
-				anchorOffset = 0;
+				// find word start offset
+				str = anchorNode.nodeValue.slice(0, anchorOffset);
+				anchorOffset = str.lastIndexOf(" ") + 1;
+
 				endNode = anchorNode;
-				endOffset = 5;
+				
+				str = anchorNode.nodeValue.slice(anchorOffset);
+				endOffset = anchorOffset + str.indexOf(" ");
 
 				range.setStart(anchorNode, anchorOffset);
 				range.setEnd(endNode, endOffset);
