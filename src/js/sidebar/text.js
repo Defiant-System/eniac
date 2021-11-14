@@ -34,9 +34,9 @@
 				sel = document.getSelection(),
 				range,
 				fnNextTick = () => {
-					let sel = document.getSelection(),
-						node = sel.getRangeAt(0).commonAncestorContainer
-						range = document.createRange();
+					let range = document.createRange(),
+						sel = document.getSelection(),
+						node = sel.getRangeAt(0).commonAncestorContainer;
 					range.setStart(node, 0);
 					range.setEnd(node, node.length);
 					// re-select inserted node
@@ -44,6 +44,14 @@
 					sel.addRange(range);
 				};
 			switch (name) {
+				case "line-height":
+					range = sel.getRangeAt(0);
+					if (range.collapsed) return;
+					value = `<span style="line-height: ${value};">${sel}</span>`;
+					name = "insertHTML";
+					// do next tick
+					setTimeout(fnNextTick);
+					break;
 				case "font-size":
 					range = sel.getRangeAt(0);
 					if (range.collapsed) return;
@@ -68,18 +76,16 @@
 				fontFamily = el.css("font-family"),
 				fontSize = parseInt(el.css("font-size"), 10),
 				lineHeight = parseInt(el.css("line-height"), 10);
-
 			// set value of font color
 			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
-
-			// console.log( fontFamily );
-
+			// font family
+			console.log(fontFamily);
+			// Els.find(`selectbox[data-menu="sys:font-families"]`).val(fontFamily);
 			// font size
 			Els.find(`input[name="text-font-size"]`).val(fontSize);
 			// line height
 			value = (lineHeight / fontSize).toFixed(1).toString();
 			Els.find(`selectbox[data-menu="text-line-height"]`).val(value);
-
 			// iterate
 			Object.keys(this.keys).map(key => {
 				let name = this.keys[key],
@@ -488,7 +494,12 @@
 			case "set-text-font-size":
 				if (Self.edit.mode) {
 					// udpate sidebar of cursor state
-					return Self.dispatch({ ...event, type: "content-cursor-state", key: "font-size" });
+					return Self.dispatch({
+						type: "content-cursor-state",
+						key: "font-size",
+						value: event.value,
+						el: event.el,
+					});
 				}
 				Text.css({ "font-size": event.value +"px" });
 				break;
@@ -526,6 +537,15 @@
 				Self.dispatch({ type: "update-text-alignment" });
 				break;
 			case "set-text-line-height":
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+						type: "content-cursor-state",
+						key: "line-height",
+						value: event.arg,
+						el: event.origin.el,
+					});
+				}
 				Text.css({ "line-height": event.arg });
 				break;
 			// tab: Arrange
