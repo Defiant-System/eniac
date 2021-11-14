@@ -31,6 +31,10 @@
 			range.setEnd(anchorNode, offset);
 			sel.removeAllRanges();
 			sel.addRange(range);
+
+			setTimeout(() => {
+				window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
+			}, 100);
 		}, 300);
 	},
 	edit: {

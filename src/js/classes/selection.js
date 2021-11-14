@@ -11,6 +11,12 @@ class $election {
 			anchorOffset = this._selection.anchorOffset,
 			endNode,
 			endOffset,
+			nextNode = node => {
+				return node;
+			},
+			prevNode = node => {
+
+			},
 			str,
 			rx;
 		switch (unit) {
@@ -19,7 +25,7 @@ class $election {
 				str = anchorNode.nodeValue.slice(0, anchorOffset);
 				anchorOffset = str.lastIndexOf(" ") + 1;
 
-				endNode = anchorNode;
+				endNode = nextNode(anchorNode);
 				
 				str = anchorNode.nodeValue.slice(anchorOffset);
 				endOffset = anchorOffset + str.indexOf(" ");
@@ -30,9 +36,7 @@ class $election {
 				this._selection.removeAllRanges();
 				this._selection.addRange(range);
 				break;
-			case "sentence":
-				break;
-			case "paragraph":
+			case "node":
 				break;
 		}
 	}
