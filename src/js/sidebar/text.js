@@ -54,7 +54,10 @@
 					break;
 				case "font-size":
 					range = sel.getRangeAt(0);
-					if (range.collapsed) return;
+					if (range.collapsed) {
+						// TODO: expand to word - and collapse on next tick
+						return;
+					}
 					value = `<span style="font-size: ${value}px;">${sel}</span>`;
 					name = "insertHTML";
 					// do next tick
@@ -136,7 +139,10 @@
 					Self.edit.format(key, value);
 				}
 				// update sidebar state
-				Self.edit.state();
+				el = document.activeElement;
+				if (el && el.isContentEditable) {
+					Self.edit.state();
+				}
 				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
