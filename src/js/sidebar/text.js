@@ -48,9 +48,6 @@
 				Self.editMode = false;
 				break;
 			case "content-cursor-state":
-				if (event.el) {
-					document.execCommand(event.el.data("name"), false, null);
-				}
 				data = ["fontName",
 						"bold",
 						"italic",
@@ -60,6 +57,9 @@
 						"justifyCenter",
 						"justifyRight",
 						"justifyFull"];
+				if (event.el) {
+					document.execCommand(event.el.data("name"), false, null);
+				}
 				// iterate
 				data.map(name => {
 					let value = document.queryCommandState(name);

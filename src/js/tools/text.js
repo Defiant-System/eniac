@@ -58,6 +58,8 @@
 					// enter edit mode
 					event.el.addClass("editing");
 					event.el.find("> div:nth(0)").attr({ contentEditable: true });
+					// make sure usage of "P" instead of "DIV"
+					document.execCommand("defaultParagraphSeparator", false, "p");
 					// adjust tools UI
 					Self.els.root.addClass("editing");
 					// sidebar; notify event to sidebar
