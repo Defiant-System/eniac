@@ -6,10 +6,58 @@
 		// fast reference
 		this.parent = parent;
 
+		// initiate edit object
+		this.edit.init();
+
 		// temp
 		// setTimeout(() => {
 		// 	parent.els.el.find(".sidebar-text .sidebar-head span:nth(2)").trigger("click");
 		// }, 200);
+	},
+	edit: {
+		mode: false,
+		keys:  {
+				bold: "bold",
+				italic: "italic",
+				underline: "underline",
+				strikeThrough: "strikeThrough",
+				left: "justifyLeft",
+				center: "justifyCenter",
+				right: "justifyRight",
+				justify: "justifyFull",
+			},
+		init() {
+			this.format("styleWithCSS", true);
+		},
+		format(key, value) {
+			let name = this.keys[key] || key;
+			document.execCommand(name, false, value || null);
+		},
+		state() {
+			let Els = eniac.sidebar.els.el,
+				value = Color.rgbToHex(document.queryCommandValue("ForeColor")).slice(0,-2),
+				sel = document.getSelection(),
+				el = sel.getRangeAt(0).commonAncestorContainer;
+			// make sure to get correct element
+			if (el.nodeType == 3) el = el.parentNode;
+			el = $(el);
+			// set value of font color
+			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": value });
+
+			let fontFamily = el.css("font-family"),
+				fontSize = el.css("font-size"),
+				lineHeight = el.css("line-height");
+			console.log( fontFamily );
+			console.log( fontSize );
+			console.log( lineHeight );
+
+			// iterate
+			Object.keys(this.keys).map(key => {
+				let name = this.keys[key],
+					value = document.queryCommandState(name);
+				Els.find(`[data-name="${key}"]`).toggleClass("active_", !value);
+			});
+		}
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -17,7 +65,6 @@
 			Tools = APP.tools,
 			Els = APP.sidebar.els,
 			Text = event.text || Tools.text.text,
-			data,
 			stops,
 			color,
 			width,
@@ -42,30 +89,18 @@
 				}
 				break;
 			case "enter-edit-mode":
-				Self.editMode = true;
+				Self.edit.mode = true;
 				break;
 			case "exit-edit-mode":
-				Self.editMode = false;
+				Self.edit.mode = false;
 				break;
 			case "content-cursor-state":
-				data = ["fontName",
-						"bold",
-						"italic",
-						"underline",
-						"strikeThrough",
-						"justifyLeft",
-						"justifyCenter",
-						"justifyRight",
-						"justifyFull"];
 				if (event.el) {
-					document.execCommand(event.el.data("name"), false, null);
+					Self.edit.format(event.el.data("name"));
 				}
-				// iterate
-				data.map(name => {
-					let value = document.queryCommandState(name);
-					Els.el.find(`[data-name="${name}"]`).toggleClass("active_", !value);
-				});
-				return false;
+				// update sidebar state
+				Self.edit.state();
+				break;
 			case "populate-text-values":
 				event.values = Self.dispatch({ ...event, type: "collect-text-values" });
 				// tab: Style
@@ -424,7 +459,7 @@
 				break;
 			case "set-text-font-style":
 				el = $(event.target);
-				if (Self.editMode) {
+				if (Self.edit.mode) {
 					// udpate sidebar of cursor state
 					return Self.dispatch({ type: "content-cursor-state", el });
 				}
@@ -441,7 +476,7 @@
 				break;
 			case "set-text-hAlign":
 				el = $(event.target);
-				if (Self.editMode) {
+				if (Self.edit.mode) {
 					// udpate sidebar of cursor state
 					return Self.dispatch({ type: "content-cursor-state", el });
 				}
