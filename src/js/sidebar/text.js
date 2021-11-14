@@ -13,6 +13,25 @@
 		// setTimeout(() => {
 		// 	parent.els.el.find(".sidebar-text .sidebar-head span:nth(2)").trigger("click");
 		// }, 200);
+		
+		setTimeout(() => {
+			let APP = eniac,
+				pEl = APP.body.find(".xl-text").addClass("editing"),
+				node = pEl.find("p:nth(0)"),
+				anchorNode = node[0].firstChild,
+				offset = 1,
+				sel = document.getSelection(),
+				range = document.createRange();
+
+			APP.sidebar.active = "text";
+			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+			APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
+
+			range.setStart(anchorNode, offset);
+			range.setEnd(anchorNode, offset);
+			sel.removeAllRanges();
+			sel.addRange(range);
+		}, 300);
 	},
 	edit: {
 		mode: false,
@@ -31,37 +50,11 @@
 		},
 		format(key, value) {
 			let name = this.keys[key] || key,
-				sel = document.getSelection(),
-				range,
-				fnNextTick = () => {
-					let range = document.createRange(),
-						sel = document.getSelection(),
-						node = sel.getRangeAt(0).commonAncestorContainer;
-					range.setStart(node, 0);
-					range.setEnd(node, node.length);
-					// re-select inserted node
-					sel.removeAllRanges();
-					sel.addRange(range);
-				};
+				sel = new $election();
 			switch (name) {
-				case "line-height":
-					range = sel.getRangeAt(0);
-					if (range.collapsed) return;
-					value = `<span style="line-height: ${value};">${sel}</span>`;
-					name = "insertHTML";
-					// do next tick
-					setTimeout(fnNextTick);
-					break;
 				case "font-size":
-					range = sel.getRangeAt(0);
-					if (range.collapsed) {
-						// TODO: expand to word - and collapse on next tick
-						return;
-					}
-					value = `<span style="font-size: ${value}px;">${sel}</span>`;
-					name = "insertHTML";
-					// do next tick
-					setTimeout(fnNextTick);
+					sel.expand("word");
+					console.log( sel.toString() );
 					break;
 			}
 			document.execCommand(name, false, value || null);
@@ -82,7 +75,7 @@
 			// set value of font color
 			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
 			// font family
-			console.log(fontFamily);
+			// console.log(fontFamily);
 			// Els.find(`selectbox[data-menu="sys:font-families"]`).val(fontFamily);
 			// font size
 			Els.find(`input[name="text-font-size"]`).val(fontSize);
