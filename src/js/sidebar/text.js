@@ -17,9 +17,9 @@
 		setTimeout(() => {
 			let APP = eniac,
 				pEl = APP.body.find(".xl-text").addClass("editing"),
-				node = pEl.find("p:nth(0)"),
+				node = pEl.find("p:nth(0) b"),
 				anchorNode = node[0].firstChild,
-				offset = 1,
+				offset = 2,
 				sel = document.getSelection(),
 				range = document.createRange();
 
@@ -54,11 +54,12 @@
 		},
 		format(key, value) {
 			let name = this.keys[key] || key,
-				sel = new $election();
+				el = eniac.tools.text.text,
+				sel = el && el.length ? new $election(el.find("> div")[0]) : false;
 			switch (name) {
 				case "font-size":
 					sel.expand("word");
-					console.log( sel.toString() );
+					// console.log( sel.toString() );
 					break;
 			}
 			document.execCommand(name, false, value || null);
@@ -69,7 +70,7 @@
 				el = sel.getRangeAt(0).commonAncestorContainer,
 				value;
 			// make sure to get correct element
-			if (el.nodeType == 3) el = el.parentNode;
+			if (el.nodeType == Node.TEXT_NODE) el = el.parentNode;
 			el = $(el);
 
 			let color = Color.rgbToHex(document.queryCommandValue("ForeColor")).slice(0,-2),

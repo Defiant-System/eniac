@@ -287,7 +287,7 @@ var vtregex = (function() {
 	})();
 
 function html2xml(td) {
-	if (td.childNodes.length > 1 || (td.childNodes.length && td.childNodes[0].nodeType === 2)) {
+	if (td.childNodes.length > 1 || (td.childNodes.length && td.childNodes[0].nodeType === Node.ATTRIBUTE_NODE)) {
 		let xml = [],
 			getTextNodes = el => {
 				el.childNodes.map(el => {

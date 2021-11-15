@@ -83,7 +83,7 @@ class Grid {
 			case "tr":
 				clone = body.find("tr:nth(0)").clone(true)[0];
 				clone.childNodes.map(cell => {
-					if (cell.nodeType === 1) {
+					if (cell.nodeType === Node.ELEMENT_NODE) {
 						cell.innerHTML = "";
 						[...cell.attributes].map(a => cell.removeAttribute(a.name));
 					}

@@ -1,8 +1,12 @@
 
 class $election {
 
-	constructor() {
+	constructor(root) {
+		this._root = root;
 		this._selection = document.getSelection();
+
+		let tmp = this.getOnlyTextNodes(root);
+		console.log(tmp);
 	}
 
 	expand(unit) {
@@ -11,21 +15,24 @@ class $election {
 			anchorOffset = this._selection.anchorOffset,
 			endNode,
 			endOffset,
-			nextNode = node => {
+			goLeft = (sNode, stopChar) => {
 				return node;
 			},
-			prevNode = node => {
-
+			goRight = (node, stopChar) => {
+				return node;
 			},
 			str,
 			rx;
 		switch (unit) {
 			case "word":
+				// let { node, offset } = goLeft(anchorNode, anchorOffset, " ");
+				// console.log( node, offset );
+
 				// find word start offset
 				str = anchorNode.nodeValue.slice(0, anchorOffset);
 				anchorOffset = str.lastIndexOf(" ") + 1;
 
-				endNode = nextNode(anchorNode);
+				endNode = goRight(anchorNode, " ");
 				
 				str = anchorNode.nodeValue.slice(anchorOffset);
 				endOffset = anchorOffset + str.indexOf(" ");
@@ -39,6 +46,21 @@ class $election {
 			case "node":
 				break;
 		}
+	}
+
+	getOnlyTextNodes(pNode) {
+		let arr = [];
+		pNode.childNodes.map(node => {
+			switch (node.nodeType) {
+				case Node.TEXT_NODE:
+					arr.push(node);
+					break;
+				case Node.ELEMENT_NODE:
+					arr.push(...this.getOnlyTextNodes(node));
+					break;
+			}
+		});
+		return arr;
 	}
 
 	get container() {
