@@ -17,9 +17,11 @@
 		setTimeout(() => {
 			let APP = eniac,
 				pEl = APP.body.find(".xl-text").addClass("editing"),
-				node = pEl.find("p:nth(0) b"),
+				// node = pEl.find("p:nth(0) b"),
+				// offset = 2,
+				node = pEl.find("p:nth(0)"),
+				offset = 8,
 				anchorNode = node[0].firstChild,
-				offset = 2,
 				sel = document.getSelection(),
 				range = document.createRange();
 

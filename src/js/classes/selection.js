@@ -3,50 +3,53 @@ class $election {
 
 	constructor(className) {
 		this._selection = document.getSelection();
-
-		let root = this._selection.anchorNode;
-		if (!root) return;
-		// climb to root node
-		while (root.nodeType !== Node.ELEMENT_NODE || !root.classList.contains(className)) {
-			root = root.parentNode;
-		}
-		this._root = root;
-
-		let tmp = this.getOnlyTextNodes(root);
-		console.log(tmp);
+		this._root = this.getParent(this._selection.anchorNode, className);
 	}
 
 	expand(unit) {
 		let range = document.createRange(),
-			anchorNode = this._selection.anchorNode,
-			anchorOffset = this._selection.anchorOffset,
-			endNode,
-			endOffset,
-			goLeft = (sNode, stopChar) => {
-				return node;
-			},
-			goRight = (node, stopChar) => {
-				return node;
-			},
-			str,
-			rx;
+			startNode = this._selection.anchorNode,
+			startOffset = this._selection.anchorOffset,
+			anchorNode,
+			anchorOffset,
+			focusNode, focusOffset,
+			parentNode,
+			textNodes,
+			str;
 		switch (unit) {
 			case "word":
-				// let { node, offset } = goLeft(anchorNode, anchorOffset, " ");
-				// console.log( node, offset );
-
-				// find word start offset
-				str = anchorNode.nodeValue.slice(0, anchorOffset);
-				anchorOffset = str.lastIndexOf(" ") + 1;
-
-				endNode = goRight(anchorNode, " ");
+				parentNode = this.getParent(startNode);
+				textNodes = this.getOnlyTextNodes(parentNode);
 				
-				str = anchorNode.nodeValue.slice(anchorOffset);
-				endOffset = anchorOffset + str.indexOf(" ");
-
+				let index = textNodes.indexOf(startNode) + 1;
+				while (index--) {
+					anchorNode = textNodes[index];
+					str = anchorNode.nodeValue;
+					if (startNode === anchorNode) {
+						str = str.slice(0, startOffset);
+					}
+					anchorOffset = str.lastIndexOf(" ");
+					if (anchorOffset > -1) {
+						anchorOffset += 1;
+						break;
+					}
+				}
+				// find focusNode + focusOffset
+				for (let i=textNodes.indexOf(startNode), il=textNodes.length; i<il; i++) {
+					focusNode = textNodes[i];
+					str = focusNode.nodeValue;
+					if (startNode === focusNode) {
+						str = str.slice(startOffset);
+					}
+					focusOffset = str.indexOf(" ");
+					if (focusOffset > -1) {
+						if (anchorNode === focusNode) focusOffset += startOffset;
+						break;
+					}
+				}
+				// // create range
 				range.setStart(anchorNode, anchorOffset);
-				range.setEnd(endNode, endOffset);
-
+				range.setEnd(focusNode, focusOffset);
 				this._selection.removeAllRanges();
 				this._selection.addRange(range);
 				break;
@@ -55,9 +58,21 @@ class $election {
 		}
 	}
 
-	getOnlyTextNodes(pNode) {
-		let arr = [];
-		pNode.childNodes.map(node => {
+	getParent(node, className) {
+		if (node) {
+			// climb to root node
+			while (node.nodeType !== Node.ELEMENT_NODE || (className ? !node.classList.contains(className) : node.nodeName !== "P")) {
+				node = node.parentNode;
+			}
+		}
+		return node;
+	}
+
+	getOnlyTextNodes(node) {
+		let stayWithIn = node || this._root,
+			arr = [];
+		// get all text nodes with in node
+		stayWithIn.childNodes.map(node => {
 			switch (node.nodeType) {
 				case Node.TEXT_NODE:
 					arr.push(node);
