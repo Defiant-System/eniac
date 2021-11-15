@@ -1,9 +1,16 @@
 
 class $election {
 
-	constructor(root) {
-		this._root = root;
+	constructor(className) {
 		this._selection = document.getSelection();
+
+		let root = this._selection.anchorNode;
+		if (!root) return;
+		// climb to root node
+		while (root.nodeType !== Node.ELEMENT_NODE || !root.classList.contains(className)) {
+			root = root.parentNode;
+		}
+		this._root = root;
 
 		let tmp = this.getOnlyTextNodes(root);
 		console.log(tmp);

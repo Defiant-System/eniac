@@ -54,8 +54,7 @@
 		},
 		format(key, value) {
 			let name = this.keys[key] || key,
-				el = eniac.tools.text.text,
-				sel = el && el.length ? new $election(el.find("> div")[0]) : false;
+				sel = new $election("xl-text");
 			switch (name) {
 				case "font-size":
 					sel.expand("word");
