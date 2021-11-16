@@ -5,6 +5,8 @@ class $election {
 		this._selection = document.getSelection();
 		// select if provided
 		if (node && startOffset) this.select(...arguments);
+		// reference to root node
+		this._root = this.getRoot();
 	}
 
 	expand(unit) {
@@ -46,11 +48,21 @@ class $election {
 	}
 
 	save() {
-		
+		let textNodes = this.getOnlyTextNodes(this._root),
+			anchorNode = this._selection.anchorNode,
+			startOffset = this._selection.anchorOffset,
+			i = textNodes.indexOf(anchorNode) - 1;
+		for (; i>0; i--) {
+			startOffset += textNodes[i].nodeValue.length;
+		}
+		this._startOffset = startOffset;
+		this._endOffset = this._selection.toString().length;
 	}
 
 	restore() {
-		
+		if (!this._root) return;
+		// console.log(this._root, this._startOffset, this.endOffset);
+		this.select(this._root, this._startOffset, this.endOffset);
 	}
 
 	select(node, startOffset, endOffset) {
@@ -81,6 +93,8 @@ class $election {
 			focusNode = anchorNode;
 			focusOffset = anchorOffset;
 		}
+		console.log(anchorNode, anchorOffset);
+		console.log(focusNode, focusOffset);
 		range.setStart(anchorNode, anchorOffset);
 		range.setEnd(focusNode, focusOffset);
 		this._selection.removeAllRanges();
@@ -103,9 +117,11 @@ class $election {
 		return arr;
 	}
 
-	getRoot(node, className) {
+	getRoot() {
+		let node = this._selection.baseNode;
+		if (!node) return;
 		// climb to root node
-		while (node.nodeType !== Node.ELEMENT_NODE || (className ? !node.classList.contains(className) : node.nodeName !== "P")) {
+		while (node.nodeType !== Node.ELEMENT_NODE || !node.getAttribute("contenteditable")) {
 			node = node.parentNode;
 		}
 		return node;
