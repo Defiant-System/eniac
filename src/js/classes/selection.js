@@ -51,24 +51,24 @@ class $election {
 		let textNodes = this.getOnlyTextNodes(this._root),
 			anchorNode = this._selection.anchorNode,
 			anchorOffset = this._selection.anchorOffset,
-			startOffset = 0,
-			i = textNodes.indexOf(anchorNode),
+			len = textNodes.indexOf(anchorNode) + 1,
+			offset = 0,
 			str;
-		for (; i>0; i--) {
-			str = textNodes[i].nodeValue.toString();
-			if (textNodes[i] === anchorNode) {
+		while (len--) {
+			str = textNodes[len].nodeValue.toString();
+			if (textNodes[len] === anchorNode) {
 				str = str.slice(0, anchorOffset);
 			}
-			startOffset += str.length;
+			offset += str.length;
 		}
-		this._startOffset = startOffset;
+		this._startOffset = offset;
 		this._endOffset = this._selection.toString().length;
 	}
 
 	restore() {
 		if (!this._root) return;
-		console.log(this._root, this._startOffset, this.endOffset);
-		this.select(this._root, this._startOffset, this.endOffset);
+		// console.log(this._root, this._startOffset, this._endOffset);
+		this.select(this._root, this._startOffset, this._endOffset);
 	}
 
 	select(node, startOffset, endOffset) {
@@ -94,8 +94,8 @@ class $election {
 				if (str.length >= focusOffset) break;
 				focusOffset -= str.length;
 			}
-			if (anchorNode !== focusNode) focusOffset += 1;
-			else focusOffset += anchorOffset;
+			if (anchorNode === focusNode) focusOffset += anchorOffset;
+			// else focusOffset += 1;
 		} else {
 			focusNode = anchorNode;
 			focusOffset = anchorOffset;

@@ -16,12 +16,12 @@
 		
 		setTimeout(() => {
 			let APP = eniac,
-				pEl = APP.body.find(".xl-text").addClass("editing"),
-				node = pEl.find("div:nth(0)")[0];
+				node = APP.body.find(".xl-text").addClass("editing")[0];
 
 			// move caret / select
 			// new $election(node, 112, 7);
-			new $election(node, 3);
+			new $election(node, 9, 3);
+			// new $election(node, 91, 8);
 
 			APP.sidebar.active = "text";
 			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
