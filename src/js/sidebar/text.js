@@ -20,7 +20,7 @@
 				// node = pEl.find("p:nth(0) b"),
 				// offset = 2,
 				node = pEl.find("p:nth(0)"),
-				offset = 8,
+				offset = 9,
 				anchorNode = node[0].firstChild,
 				sel = document.getSelection(),
 				range = document.createRange();
@@ -56,28 +56,25 @@
 		},
 		format(key, value) {
 			let name = this.keys[key] || key,
-				sel = new $election("xl-text");
+				sel = new $election();
 			switch (name) {
 				case "font-size":
 					sel.expand("word");
-					// console.log( sel.toString() );
+					sel.collapse();
 					break;
 			}
 			document.execCommand(name, false, value || null);
 		},
 		state() {
 			let Els = eniac.sidebar.els.el,
-				sel = document.getSelection(),
-				el = sel.getRangeAt(0).commonAncestorContainer,
-				value;
-			// make sure to get correct element
-			if (el.nodeType == Node.TEXT_NODE) el = el.parentNode;
-			el = $(el);
-
-			let color = Color.rgbToHex(document.queryCommandValue("ForeColor")).slice(0,-2),
+				sel = new $election,
+				el = $(sel.container),
+				value,
+				color = Color.rgbToHex(document.queryCommandValue("ForeColor")).slice(0,-2),
 				fontFamily = el.css("font-family"),
 				fontSize = parseInt(el.css("font-size"), 10),
 				lineHeight = parseInt(el.css("line-height"), 10);
+			
 			// set value of font color
 			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
 			// font family
