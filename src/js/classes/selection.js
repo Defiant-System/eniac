@@ -54,6 +54,7 @@ class $election {
 			len = textNodes.indexOf(anchorNode) + 1,
 			offset = 0,
 			str;
+		// calculate "start" offset
 		while (len--) {
 			str = textNodes[len].nodeValue.toString();
 			if (textNodes[len] === anchorNode) {
@@ -62,7 +63,10 @@ class $election {
 			offset += str.length;
 		}
 		this._startOffset = offset;
-		this._endOffset = this._selection.toString().length;
+		// calculate "end" offset
+		str = this._selection.toString().replace(/\n/g, "");
+		this._endOffset = str.length;
+		console.log(this._root, this._startOffset, this._endOffset);
 	}
 
 	restore() {
