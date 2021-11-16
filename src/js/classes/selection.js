@@ -50,10 +50,16 @@ class $election {
 	save() {
 		let textNodes = this.getOnlyTextNodes(this._root),
 			anchorNode = this._selection.anchorNode,
-			startOffset = this._selection.anchorOffset,
-			i = textNodes.indexOf(anchorNode) - 1;
+			anchorOffset = this._selection.anchorOffset,
+			startOffset = 0,
+			i = textNodes.indexOf(anchorNode),
+			str;
 		for (; i>0; i--) {
-			startOffset += textNodes[i].nodeValue.length;
+			str = textNodes[i].nodeValue.toString();
+			if (textNodes[i] === anchorNode) {
+				str = str.slice(0, anchorOffset);
+			}
+			startOffset += str.length;
 		}
 		this._startOffset = startOffset;
 		this._endOffset = this._selection.toString().length;
@@ -61,7 +67,7 @@ class $election {
 
 	restore() {
 		if (!this._root) return;
-		// console.log(this._root, this._startOffset, this.endOffset);
+		console.log(this._root, this._startOffset, this.endOffset);
 		this.select(this._root, this._startOffset, this.endOffset);
 	}
 
@@ -88,13 +94,14 @@ class $election {
 				if (str.length >= focusOffset) break;
 				focusOffset -= str.length;
 			}
-			focusOffset += 1;
+			if (anchorNode !== focusNode) focusOffset += 1;
+			else focusOffset += anchorOffset;
 		} else {
 			focusNode = anchorNode;
 			focusOffset = anchorOffset;
 		}
-		console.log(anchorNode, anchorOffset);
-		console.log(focusNode, focusOffset);
+		// console.log(anchorNode, anchorOffset);
+		// console.log(focusNode, focusOffset);
 		range.setStart(anchorNode, anchorOffset);
 		range.setEnd(focusNode, focusOffset);
 		this._selection.removeAllRanges();
@@ -105,6 +112,7 @@ class $election {
 		let arr = [];
 		// get all text nodes with in node
 		node.childNodes.map(node => {
+			// console.log(node);
 			switch (node.nodeType) {
 				case Node.TEXT_NODE:
 					arr.push(node);

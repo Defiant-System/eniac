@@ -18,9 +18,10 @@
 			let APP = eniac,
 				pEl = APP.body.find(".xl-text").addClass("editing"),
 				node = pEl.find("div:nth(0)")[0];
+
 			// move caret / select
-			new $election(node, 111, 8);
-			// new $election(node, 11);
+			// new $election(node, 112, 7);
+			new $election(node, 3);
 
 			APP.sidebar.active = "text";
 			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
@@ -58,8 +59,8 @@
 					// expand to word, if selection is collapsed
 					if (sel.collapsed) sel.expand("word");
 
-					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
-					name = "insertHTML";
+					// value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
+					// name = "insertHTML";
 					break;
 			}
 			document.execCommand(name, false, value || null);

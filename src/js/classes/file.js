@@ -158,6 +158,9 @@ class File {
 						xCell.appendChild($.cDataFromString(value));
 					});
 				});
+				// make sure Text nodes are cleared from "text nodes"
+				this._file.workbook.selectNodes(`/Workbook/Sheet/Text`).map(xText =>
+					xText.childNodes.map(n => (n.nodeType === Node.TEXT_NODE) ? xText.removeChild(n) : null));
 				// render
 				sheet = window.render({
 					data: this._file.workbook,
