@@ -17,26 +17,9 @@
 		setTimeout(() => {
 			let APP = eniac,
 				pEl = APP.body.find(".xl-text").addClass("editing"),
-				// node = pEl.find("p:nth(0) b"),
-				// offset = 2,
-				node = pEl.find("p:nth(0)"),
-				offset = 9,
-				anchorNode = node[0].firstChild,
-				sel = document.getSelection(),
-				range = document.createRange();
-
-			APP.sidebar.active = "text";
-			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
-			APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
-
-			range.setStart(anchorNode, offset);
-			range.setEnd(anchorNode, offset);
-			sel.removeAllRanges();
-			sel.addRange(range);
-
-			setTimeout(() => {
-				window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
-			}, 100);
+				node = pEl.find("p:nth(0)")[0];
+			// move caret / select
+			new $election(node, 11, 8);
 		}, 300);
 	},
 	edit: {
@@ -56,18 +39,18 @@
 		},
 		format(key, value) {
 			let name = this.keys[key] || key,
-				sel = new $election();
+				sel = new $election(),
+				isCollapsed;
 			switch (name) {
 				case "font-size":
-					sel.expand("word");
-
+					if (isCollapsed = sel.collapsed) sel.expand("word");
 					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
 					name = "insertHTML";
-
-					sel.collapse();
 					break;
 			}
 			document.execCommand(name, false, value || null);
+			// collapsee selection if it was collapsed before action
+			if (isCollapsed) sel.collapse();
 		},
 		state() {
 			let Els = eniac.sidebar.els.el,

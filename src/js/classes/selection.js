@@ -1,8 +1,12 @@
 
 class $election {
 
-	constructor() {
+	constructor(node, startOffset, endOffset) {
 		this._selection = document.getSelection();
+		
+		if (node && startOffset && endOffset) {
+			this.select(node, startOffset, endOffset);
+		}
 	}
 
 	expand(unit) {
@@ -43,6 +47,56 @@ class $election {
 
 	toString() {
 		return this._selection.toString();
+	}
+
+	select(node, startOffset, endOffset) {
+		let range = document.createRange(),
+			textNodes = this.getOnlyTextNodes(node),
+			anchorNode,
+			anchorOffset = startOffset,
+			focusNode,
+			focusOffset = endOffset,
+			il = textNodes.length,
+			i = 0,
+			str;
+		for (; i<il; i++) {
+			anchorNode = textNodes[i];
+			if (anchorNode.nodeValue.length >= anchorOffset) break;
+			anchorOffset -= anchorNode.nodeValue.length;
+		}
+		if (endOffset) {
+			for (; i<il; i++) {
+				focusNode = textNodes[i];
+				str = focusNode.nodeValue;
+				if (focusNode === anchorNode) str = str.slice(anchorOffset);
+				if (str.length >= focusOffset) break;
+				focusOffset -= str.length;
+			}
+			focusOffset += 1;
+		} else {
+			focusNode = focusNode || anchorNode;
+			focusOffset = focusOffset || anchorOffset;
+		}
+		range.setStart(anchorNode, anchorOffset);
+		range.setEnd(focusNode, focusOffset);
+		this._selection.removeAllRanges();
+		this._selection.addRange(range);
+	}
+
+	getOnlyTextNodes(node) {
+		let arr = [];
+		// get all text nodes with in node
+		node.childNodes.map(node => {
+			switch (node.nodeType) {
+				case Node.TEXT_NODE:
+					arr.push(node);
+					break;
+				case Node.ELEMENT_NODE:
+					arr.push(...this.getOnlyTextNodes(node));
+					break;
+			}
+		});
+		return arr;
 	}
 
 }
