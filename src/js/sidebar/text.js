@@ -20,16 +20,16 @@
 
 			// move caret / select
 			// new $election(node, 112, 7);
-			new $election(node, 9, 3);
+			new $election(node, 98, 6);
 			// new $election(node, 91, 8);
 
 			APP.sidebar.active = "text";
 			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
 			APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
 
-			// setTimeout(() => {
-			// 	window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
-			// }, 100);
+			setTimeout(() => {
+				window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
+			}, 100);
 
 		}, 300);
 	},
@@ -59,8 +59,8 @@
 					// expand to word, if selection is collapsed
 					if (sel.collapsed) sel.expand("word");
 
-					// value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
-					// name = "insertHTML";
+					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
+					name = "insertHTML";
 					break;
 			}
 			document.execCommand(name, false, value || null);
@@ -83,7 +83,6 @@
 				fontFamily = el.css("font-family"),
 				fontSize = parseInt(el.css("font-size"), 10),
 				lineHeight = parseInt(el.css("line-height"), 10);
-			
 			// set value of font color
 			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
 			// font family

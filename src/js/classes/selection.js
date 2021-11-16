@@ -23,7 +23,7 @@ class $election {
 	}
 
 	get container() {
-		let el = this._selection.getRangeAt(0).commonAncestorContainer;
+		let el = this._selection.focusNode;
 		if (el.nodeType == Node.TEXT_NODE) el = el.parentNode;
 		return el;
 	}
