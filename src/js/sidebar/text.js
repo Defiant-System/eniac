@@ -60,6 +60,10 @@
 			switch (name) {
 				case "font-size":
 					sel.expand("word");
+
+					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
+					name = "insertHTML";
+
 					sel.collapse();
 					break;
 			}
