@@ -3,10 +3,8 @@ class $election {
 
 	constructor(node, startOffset, endOffset) {
 		this._selection = document.getSelection();
-		
-		if (node && startOffset && endOffset) {
-			this.select(node, startOffset, endOffset);
-		}
+		// select if provided
+		if (node && startOffset) this.select(...arguments);
 	}
 
 	expand(unit) {
@@ -74,8 +72,8 @@ class $election {
 			}
 			focusOffset += 1;
 		} else {
-			focusNode = focusNode || anchorNode;
-			focusOffset = focusOffset || anchorOffset;
+			focusNode = anchorNode;
+			focusOffset = anchorOffset;
 		}
 		range.setStart(anchorNode, anchorOffset);
 		range.setEnd(focusNode, focusOffset);

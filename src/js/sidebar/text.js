@@ -19,7 +19,8 @@
 				pEl = APP.body.find(".xl-text").addClass("editing"),
 				node = pEl.find("p:nth(0)")[0];
 			// move caret / select
-			new $election(node, 11, 8);
+			// new $election(node, 11, 8);
+			new $election(node, 3);
 		}, 300);
 	},
 	edit: {
