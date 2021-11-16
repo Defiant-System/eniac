@@ -11,9 +11,6 @@ class $election {
 		switch (unit) {
 			case "word":
 				// remember
-				this._anchorNode = this._selection.anchorNode;
-				this._anchorOffset = this._selection.anchorOffset;
-
 				this._selection.collapseToStart();
 				this._selection.modify("move", "backward", "word");
 				this._selection.modify("extend", "forward", "word");
@@ -38,6 +35,7 @@ class $election {
 	}
 
 	collapse(node, offset) {
+		if (this.collapsed) return;
 		node = node || this._anchorNode;
 		offset = offset || this._anchorOffset;
 		this._selection.collapse(node, offset);
@@ -45,6 +43,14 @@ class $election {
 
 	toString() {
 		return this._selection.toString();
+	}
+
+	save() {
+		
+	}
+
+	restore() {
+		
 	}
 
 	select(node, startOffset, endOffset) {
@@ -95,6 +101,14 @@ class $election {
 			}
 		});
 		return arr;
+	}
+
+	getRoot(node, className) {
+		// climb to root node
+		while (node.nodeType !== Node.ELEMENT_NODE || (className ? !node.classList.contains(className) : node.nodeName !== "P")) {
+			node = node.parentNode;
+		}
+		return node;
 	}
 
 }

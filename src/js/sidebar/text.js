@@ -20,7 +20,12 @@
 				node = pEl.find("p:nth(0)")[0];
 			// move caret / select
 			// new $election(node, 11, 8);
-			new $election(node, 3);
+			new $election(node, 11);
+
+			APP.sidebar.active = "text";
+			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+			APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
+
 		}, 300);
 	},
 	edit: {
@@ -44,14 +49,25 @@
 				isCollapsed;
 			switch (name) {
 				case "font-size":
-					if (isCollapsed = sel.collapsed) sel.expand("word");
+					// save current range
+					sel.save();
+					// expand to word, if selection is collapsed
+					if (sel.collapsed) sel.expand("word");
+					
 					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
 					name = "insertHTML";
 					break;
 			}
 			document.execCommand(name, false, value || null);
-			// collapsee selection if it was collapsed before action
-			if (isCollapsed) sel.collapse();
+			// restore range
+			sel.restore();
+
+			// collapse selection if it was collapsed before action
+			if (isCollapsed) {
+				// let node = eniac.body.find(".xl-text p:nth(0)")[0];
+				// new $election(node, 11);
+				// sel.collapse();
+			}
 		},
 		state() {
 			let Els = eniac.sidebar.els.el,
