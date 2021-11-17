@@ -90,8 +90,10 @@
 			// set value of font color
 			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
 			// font family
-			console.log(fontFamily);
-			// Els.find(`selectbox[data-menu="sys:font-families"]`).val(fontFamily);
+			if (fontFamily.startsWith('"') && fontFamily.endsWith('"')) {
+				fontFamily = fontFamily.slice(1,-1);
+			}
+			Els.find(`selectbox[data-change="set-text-font-family"]`).val(fontFamily);
 			// font size
 			Els.find(`input[name="text-font-size"]`).val(fontSize);
 			// line height
