@@ -14,23 +14,28 @@
 		// 	parent.els.el.find(".sidebar-text .sidebar-head span:nth(2)").trigger("click");
 		// }, 200);
 		
-		// setTimeout(() => {
-		// 	let APP = eniac,
-		// 		node = APP.body.find(".xl-text").addClass("editing")[0],
-		// 		// move caret / select
-		// 		// sel = new $election(node, 112, 7);
-		// 		sel = new $election(node, 98, 6);
-		// 		// sel = new $election(node, 91, 8);
+		setTimeout(() => {
+			let APP = eniac,
+				node = APP.body.find(".xl-text").addClass("editing")[0],
+				// move caret / select
+				// sel = new $election(node, 112, 7);
+				sel = new $election(node, 98, 6);
+				// sel = new $election(node, 91, 8);
 
-		// 	APP.sidebar.active = "text";
-		// 	APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
-		// 	APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
+			APP.sidebar.active = "text";
+			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+			APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
+			this.edit.state();
 
-		// 	setTimeout(() => {
-		// 		window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
-		// 	}, 100);
+			// setTimeout(() => {
+			// 	window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
+			// }, 100);
 
-		// }, 300);
+			setTimeout(() => {
+				window.find(`.color-preset_[data-change="set-text-color"]`).trigger("click");
+			}, 100);
+
+		}, 300);
 	},
 	edit: {
 		mode: false,
@@ -58,6 +63,9 @@
 				if (sel.collapsed) sel.expand("word");
 			}
 			switch (name) {
+				case "font-color":
+					name = "ForeColor";
+					break;
 				case "font-size":
 					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
 					name = "insertHTML";
@@ -518,6 +526,15 @@
 				Self.dispatch({ type: "update-text-font" });
 				break;
 			case "set-text-color":
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+							type: "content-cursor-state",
+							key: "font-color",
+							value: event.value,
+							el: event.origin.el,
+						});
+				}
 				Text.css({ "color": event.value });
 				// sidebar font color preset
 				Els.el.find(`.color-preset_[data-change="set-text-color"]`)

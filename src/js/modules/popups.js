@@ -17,12 +17,21 @@
 			palette: window.find(".popups .popup-palette"),
 		};
 		// bind event handlers
-		this.els.palette.on("mousedown", this.doColorRing);
+		this.els.colorRing.on("mousedown", this.doColorRing);
 
 		// temp
 		// setTimeout(() => {
 		// 	window.find(".toolbar-tool_:nth(3)").trigger("click");
 		// }, 500);
+	},
+	// handler listens for next click event - to close popup
+	closeHandler(event) {
+		let Self = eniac.popups;
+		// if click inside popup element
+		if ($(event.target).parents(".popups").length) return;
+		Self.dispatch({ type: "close-popup" });
+		// unbind event handler
+		Self.els.doc.unbind("mouseup", Self.closeHandler);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -32,7 +41,6 @@
 			data,
 			name,
 			value,
-			func,
 			str,
 			pEl,
 			el;
@@ -41,7 +49,6 @@
 			case "select-color":
 				el = $(event.target);
 				value = el.attr("style").match(/#.[\w\d]+/)[0];
-				
 				Self.els.palette.find(".palette-wrapper .active").removeClass("active");
 				el.addClass("active");
 
@@ -72,6 +79,8 @@
 					Self.origin.el.removeClass("active_");
 				}
 				Self.origin = null;
+				// unbind event handler
+				Self.els.doc.unbind("mouseup", Self.closeHandler);
 				break;
 			case "do-popup-navigation":
 				el = $(event.target);
@@ -129,6 +138,8 @@
 				// position popup
 				pEl.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
+				// bind event handler
+				Self.els.doc.bind("mouseup", Self.closeHandler);
 				break;
 			case "popup-view-options":
 				// reference to target popup
@@ -140,16 +151,8 @@
 				// show popup
 				el.css({ top, left }).addClass("pop");
 				Self.els.layout.addClass("cover");
-				// handler listens for next click event - to close popup
-				func = event => {
-					// if click inside popup element
-					if ($(event.target).parents(".popups").length) return;
-					Self.dispatch({ type: "close-popup" });
-					// unbind event handler
-					Self.els.doc.unbind("mouseup", func);
-				};
 				// bind event handler
-				Self.els.doc.bind("mouseup", func);
+				Self.els.doc.bind("mouseup", Self.closeHandler);
 				break;
 			case "insert-table":
 				name = event.target.getAttribute("data-arg");
@@ -358,7 +361,7 @@
 					apply = (Self, value) => {
 						if (Self.origin.hasClass("color-preset_")) {
 							// dispatch event to active sidebar
-							Self.event.handler({ type: Self.event.name, value });
+							Self.event.handler({ type: Self.event.name, origin: { el: Self.origin }, value });
 						} else {
 							// update selected xl-element
 							Self.stops[Self.stopIndex].color = value;
