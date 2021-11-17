@@ -17,8 +17,6 @@ class $election {
 				this._selection.modify("move", "backward", "word");
 				this._selection.modify("extend", "forward", "word");
 				break;
-			case "node":
-				break;
 		}
 	}
 
@@ -71,7 +69,6 @@ class $election {
 
 	restore() {
 		if (!this._root) return;
-		// console.log(this._startOffset, this._endOffset);
 		this.select(this._root, this._startOffset, this._endOffset);
 	}
 
@@ -104,8 +101,6 @@ class $election {
 			focusNode = anchorNode;
 			focusOffset = anchorOffset;
 		}
-		// console.log(anchorNode, anchorOffset);
-		// console.log(focusNode, focusOffset);
 		range.setStart(anchorNode, anchorOffset);
 		range.setEnd(focusNode, focusOffset);
 		this._selection.removeAllRanges();
