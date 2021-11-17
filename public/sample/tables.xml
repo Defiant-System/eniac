@@ -10,12 +10,12 @@
 			<R tp="2">
 				<C/>
 				<C t="n"><![CDATA[27]]></C>
-				<C/>
+				<C><![CDATA[Tests fsdflsk Delft döflks fölsdkf ösldkfs ödlfks döf lksdflk sdfölskdf söldfk södlfksdöflk sdföls kdf]]></C>
 				<C/>
 			</R>
 			<R tp="2">
 				<C/>
-				<C/>
+				<C cn="wrap"><![CDATA[Tests fsdflsk Delft döflks fölsdkf ösldkfs ödlfks döf lksdflk sdfölskdf söldfk södlfksdöflk sdföls kdf]]></C>
 				<C/>
 				<C/>
 			</R>

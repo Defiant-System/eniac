@@ -211,7 +211,7 @@ table {
 	th,
 	td {
 		position: relative;
-		padding: 1px 7px 1px 5px;
+		padding: 3px 7px 3px 5px;
 		vertical-align: middle;
 		width: 90px;
 		--border-color: @table_border @table_border @table_border @table_border;
@@ -264,6 +264,12 @@ table {
 				border-top: 7px solid rgba(255,0,0,.5);
 				border-left: 7px solid transparent;
 			}
+		}
+
+		&.wrap {
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 		}
 
 		&.bold      { font-weight: bold; }
