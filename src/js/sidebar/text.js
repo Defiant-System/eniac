@@ -31,11 +31,15 @@
 			// 	window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
 			// }, 100);
 
-			setTimeout(() => {
-				window.find(`.color-preset_[data-change="set-text-color"]`).trigger("click");
-			}, 100);
+			// setTimeout(() => {
+			// 	window.find(`.color-preset_[data-change="set-text-color"]`).trigger("click");
+			// }, 100);
 
-		}, 300);
+			// setTimeout(() => {
+			// 	window.find(`selectbox[data-change="set-text-font-family"]`).trigger("mousedown");
+			// }, 100);
+
+		}, 350);
 	},
 	edit: {
 		mode: false,
@@ -63,9 +67,8 @@
 				if (sel.collapsed) sel.expand("word");
 			}
 			switch (name) {
-				case "font-color":
-					name = "ForeColor";
-					break;
+				case "font-family": name = "fontName"; break;
+				case "font-color": name = "ForeColor"; break;
 				case "font-size":
 					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
 					name = "insertHTML";
@@ -87,7 +90,7 @@
 			// set value of font color
 			Els.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
 			// font family
-			// console.log(fontFamily);
+			console.log(fontFamily);
 			// Els.find(`selectbox[data-menu="sys:font-families"]`).val(fontFamily);
 			// font size
 			Els.find(`input[name="text-font-size"]`).val(fontSize);
@@ -500,7 +503,17 @@
 				break;
 			// tab: Text
 			case "set-text-font-family":
-				console.log(event);
+				value = event.xMenu.getAttribute("name");
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+						type: "content-cursor-state",
+						el: event.origin.el,
+						key: "font-family",
+						value,
+					});
+				}
+				Text.css({ "font-family": value });
 				break;
 			case "set-text-font-size":
 				if (Self.edit.mode) {
