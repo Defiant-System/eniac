@@ -256,7 +256,7 @@
 				pEl = Els.el.find(`.cell-hv-alignment`);
 				// reset all options
 				pEl.find(".active_").removeClass("active_");
-
+				// iterate cell class names
 				value = Anchor.prop("className").split(" ");
 				if (["start", "left"].includes(Anchor.css("text-align"))) {
 					// if default "text align left"

@@ -202,7 +202,7 @@
 				Self.els.body.find(".wrapper > .selected").removeClass("selected");
 				// notify all sub-tools
 				Self.types.map(n => {
-					// if (Self.active === n) return;
+					if (Self.active === n) return;
 					Self[n].dispatch({ type: `blur-${n}`, el: Self.els.body })
 				});
 				break;
