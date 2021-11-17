@@ -7,9 +7,9 @@
 		this.parent = parent;
 
 		// temp
-		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(1)").trigger("click");
-		// }, 200);
+		setTimeout(() => {
+			parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
+		}, 200);
 
 		// setTimeout(() => {
 		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
@@ -234,6 +234,8 @@
 
 				// TODO: font-family
 				value = Anchor.css("font-family");
+				if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1,-1);
+				pEl.find(`selectbox[data-change="set-cell-font-family"]`).val(value);
 
 				// font style
 				["bold", "italic", "underline", "strikeThrough"].map(type => {
@@ -493,7 +495,8 @@
 				break;
 			// tab: Text
 			case "set-cell-font-family":
-				console.log(event);
+				value = event.xMenu.getAttribute("name");
+				Anchor.css({ "font-family": value });
 				break;
 			case "set-cell-font-size":
 				Anchor.css({ "font-size": event.value +"px" });

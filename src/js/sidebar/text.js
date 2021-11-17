@@ -14,6 +14,7 @@
 		// 	parent.els.el.find(".sidebar-text .sidebar-head span:nth(2)").trigger("click");
 		// }, 200);
 		
+		/*
 		setTimeout(() => {
 			let APP = eniac,
 				node = APP.body.find(".xl-text").addClass("editing")[0],
@@ -40,6 +41,7 @@
 			// }, 100);
 
 		}, 350);
+		*/
 	},
 	edit: {
 		mode: false,
