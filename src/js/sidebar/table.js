@@ -268,7 +268,8 @@
 					pEl.find(`[data-click="set-cell-vAlign"] span[data-name="${name}"]`).addClass("active_"));
 				break;
 			case "update-cell-wrap":
-				console.log(event);
+				value = Anchor.hasClass("wrap");
+				Els.el.find(`.cell-font-options input#cell-text-wrap`).prop({ checked: value });
 				break;
 			case "update-cell-line-height":
 				// translate to decimal value
