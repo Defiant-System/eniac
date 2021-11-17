@@ -84,6 +84,7 @@
 				Self.dispatch({ ...event, type: "update-cell-font" });
 				Self.dispatch({ ...event, type: "update-cell-color" });
 				Self.dispatch({ ...event, type: "update-cell-alignment" });
+				Self.dispatch({ ...event, type: "update-cell-wrap" });
 				Self.dispatch({ ...event, type: "update-cell-line-height" });
 				// tab: Arrange
 				Self.dispatch({ ...event, type: "update-table-arrange" });
@@ -265,6 +266,9 @@
 					pEl.find(`[data-click="set-cell-hAlign"] span[data-name="${name}"]`).addClass("active_"));
 				value.map(name =>
 					pEl.find(`[data-click="set-cell-vAlign"] span[data-name="${name}"]`).addClass("active_"));
+				break;
+			case "update-cell-wrap":
+				console.log(event);
 				break;
 			case "update-cell-line-height":
 				// translate to decimal value
@@ -525,6 +529,9 @@
 				Anchor.removeClass("top middle bottom").addClass(el.data("name"));
 				// update text vertical alignment
 				Self.dispatch({ type: "update-cell-alignment" });
+				break;
+			case "toggle-cell-text-wrap":
+				console.log(event);
 				break;
 			case "set-cell-line-height":
 				Anchor.css({ "line-height": event.arg });
