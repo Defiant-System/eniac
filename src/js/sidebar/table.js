@@ -7,9 +7,9 @@
 		this.parent = parent;
 
 		// temp
-		setTimeout(() => {
-			parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
-		}, 200);
+		// setTimeout(() => {
+		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
+		// }, 200);
 
 		// setTimeout(() => {
 		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
@@ -533,6 +533,8 @@
 				break;
 			case "toggle-cell-text-wrap":
 				TblEl.find(".selected").toggleClass("wrap", !event.el.is(":checked"));
+				// re-sync table tools
+				Table.dispatch({ type: "sync-table-tools" });
 				// sync tools selection indicators
 				Table.dispatch({ type: "select-coords", ...Table.table.selected });
 				break;

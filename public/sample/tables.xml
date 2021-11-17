@@ -55,7 +55,7 @@
 			<![CDATA[This is <b>bold</b> text.<br/>More <i>italic text here</i>. Voluptate accusamus qui vitae quia quia libero in qui.<p style="text-align: center; color: red; font-family: Courier New; line-height: 1;">Dolor aperiam molestias officiis nostrum dolores assumenda sint qui.</p>]]>
 		</Text>
 
-		<!-- <Table title="Clipped Table" class="gray-table-1" width1="320" height1="200" style="top: 330px; left: 40px;">
+		<Table title="Clipped Table" class="gray-table-1" width1="320" height1="200" style="top: 380px; left: 40px;">
 			<R tp="1">
 				<C tp="4"/><C/><C/><C/><C/>
 			</R>
@@ -65,13 +65,10 @@
 			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
 			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
 			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
-			<R tp="2"><C tp="4"/><C/><C/><C/><C/></R>
 			<R tp="3">
 				<C tp="4"/><C/><C/><C/><C/>
 			</R>
-		</Table> -->
+		</Table>
 
 		<!-- <Table title="Clipped (No Column)" class="blue-table-2" style="top: 390px; left: 480px;">
 			<R tp="1">
