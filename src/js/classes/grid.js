@@ -330,7 +330,10 @@ class Grid {
 		css.height -= css.top;
 		css.width -= css.left;
 
-		// if (!this.layout.rows.foot) css.height += 1;
+		let td = this._el.find(".selected:last"),
+			tr = td.parent(),
+			tbl = td.parents(".tbl-body:first");
+		if (tr[0] === tr.parent().find("tr:last")[0] && tbl.length) css.height += 1;
 
 		// anchor hole
 		css["--aH"] = anchor.el.prop("offsetHeight") +"px";
