@@ -531,7 +531,9 @@
 				Self.dispatch({ type: "update-cell-alignment" });
 				break;
 			case "toggle-cell-text-wrap":
-				console.log(event);
+				TblEl.find(".selected").toggleClass("wrap", !event.el.is(":checked"));
+				// sync tools selection indicators
+				Table.dispatch({ type: "select-coords", ...Table.table.selected });
 				break;
 			case "set-cell-line-height":
 				Anchor.css({ "line-height": event.arg });
