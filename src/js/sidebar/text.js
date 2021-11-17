@@ -14,24 +14,23 @@
 		// 	parent.els.el.find(".sidebar-text .sidebar-head span:nth(2)").trigger("click");
 		// }, 200);
 		
-		setTimeout(() => {
-			let APP = eniac,
-				node = APP.body.find(".xl-text").addClass("editing")[0];
+		// setTimeout(() => {
+		// 	let APP = eniac,
+		// 		node = APP.body.find(".xl-text").addClass("editing")[0],
+		// 		// move caret / select
+		// 		// sel = new $election(node, 112, 7);
+		// 		sel = new $election(node, 98, 6);
+		// 		// sel = new $election(node, 91, 8);
 
-			// move caret / select
-			// new $election(node, 112, 7);
-			new $election(node, 98, 6);
-			// new $election(node, 91, 8);
+		// 	APP.sidebar.active = "text";
+		// 	APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+		// 	APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
 
-			APP.sidebar.active = "text";
-			APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
-			APP.sidebar.text.dispatch({ type: "enter-edit-mode" });
+		// 	setTimeout(() => {
+		// 		window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
+		// 	}, 100);
 
-			setTimeout(() => {
-				window.find(`input[name="text-font-size"] + div span:nth(0)`).trigger("click");
-			}, 100);
-
-		}, 300);
+		// }, 300);
 	},
 	edit: {
 		mode: false,
@@ -52,27 +51,21 @@
 			let name = this.keys[key] || key,
 				sel = new $election(),
 				isCollapsed;
+			// if selection, save current range
+			if (sel._root) {
+				sel.save();
+				// expand to word, if selection is collapsed
+				if (sel.collapsed) sel.expand("word");
+			}
 			switch (name) {
 				case "font-size":
-					// save current range
-					sel.save();
-					// expand to word, if selection is collapsed
-					if (sel.collapsed) sel.expand("word");
-
 					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
 					name = "insertHTML";
 					break;
 			}
 			document.execCommand(name, false, value || null);
 			// restore range
-			sel.restore();
-
-			// collapse selection if it was collapsed before action
-			if (isCollapsed) {
-				// let node = eniac.body.find(".xl-text p:nth(0)")[0];
-				// new $election(node, 11);
-				// sel.collapse();
-			}
+			if (sel._root) sel.restore();
 		},
 		state() {
 			let Els = eniac.sidebar.els.el,

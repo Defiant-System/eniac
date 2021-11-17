@@ -50,7 +50,7 @@ class $election {
 	save() {
 		let textNodes = this.getOnlyTextNodes(this._root),
 			anchorNode = this._selection.anchorNode,
-			anchorOffset = this._selection.anchorOffset,
+			anchorOffset = Math.min(this._selection.anchorOffset, this._selection.focusOffset),
 			len = textNodes.indexOf(anchorNode) + 1,
 			offset = 0,
 			str;
@@ -66,12 +66,12 @@ class $election {
 		// calculate "end" offset
 		str = this._selection.toString().replace(/\n/g, "");
 		this._endOffset = str.length;
-		console.log(this._root, this._startOffset, this._endOffset);
+		// console.log(this._startOffset, this._endOffset);
 	}
 
 	restore() {
 		if (!this._root) return;
-		// console.log(this._root, this._startOffset, this._endOffset);
+		// console.log(this._startOffset, this._endOffset);
 		this.select(this._root, this._startOffset, this._endOffset);
 	}
 
