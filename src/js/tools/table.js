@@ -193,6 +193,8 @@
 				Self.anchor = false;
 				break;
 			case "focus-table":
+				// blur any table, if any
+				if (Self.table._el) Self.dispatch({ type: "blur-table" });
 				// sync tools table
 				Self.dispatch({ ...event, type: "sync-table-tools" });
 				// update sidebar
