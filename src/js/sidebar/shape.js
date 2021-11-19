@@ -132,6 +132,7 @@
 
 						// gradient angle value
 						el = Tools.shape.els.gradientTool;
+						if (el.css("transform") === "none") return;
 						let [a, b] = el.css("transform").split("(")[1].split(")")[0].split(",");
 						value = Math.round(Math.atan2(b, a) * 180 / Math.PI);
 						Els.el.find(".shape-gradient-angle input").val(value);
