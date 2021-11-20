@@ -223,6 +223,11 @@
 				break;
 			case "focus-table-title":
 			case "focus-table-caption":
+				// remove focus from currently focused el with edit mode
+				APP.body.find(`.table-title.edit-mode, .table-caption.edit-mode`).removeClass("edit-mode");
+				// prepare element for edit-mode
+				event.el.addClass("edit-mode");
+
 				console.log(event);
 				break;
 			case "sync-table-tools":

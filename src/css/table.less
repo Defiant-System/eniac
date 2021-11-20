@@ -59,10 +59,13 @@ table {
 
 	.table-title {
 		position: relative;
-		padding: 6px 0 7px;
+		padding: 6px 5px 7px;
 		text-align: center;
 		font-size: 18px;
 		font-weight: 500;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 
 		&.title-outline:before {
 			display: block;
@@ -90,15 +93,29 @@ table {
 		top: 100%;
 		left: 0;
 		right: 0;
-		padding: 3px 0;
+		padding: 3px 5px;
 		text-align: center;
 		caption-side: bottom;
 		margin: 5px 0 0;
 		font-size: 15px;
-		border: 1px solid transparent;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 
-		&.active {
-			border-color: #39f;
+	.table-caption.edit-mode,
+	.table-title.edit-mode {
+		z-index: 2;
+		border-radius: 2px;
+		box-shadow: 0 0 0 4px #3399ff99;
+
+		&:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
 		}
 	}
 
