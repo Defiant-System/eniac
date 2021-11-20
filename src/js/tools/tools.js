@@ -125,6 +125,11 @@
 								return Self.table.move(event);
 						}
 						break;
+					case el.hasClass("table-title"):
+					case el.hasClass("table-caption"):
+						name = el.prop("className").split(" ").find(n => n.startsWith("table-"));
+						Self.table.dispatch({ type: `focus-${name}`, el });
+						break;
 					case el.hasClass("body"):
 						// reference of active tool
 						Self.active = "sheet";

@@ -221,6 +221,10 @@
 				// update active tool type
 				APP.tools.active = "table";
 				break;
+			case "focus-table-title":
+			case "focus-table-caption":
+				console.log(event);
+				break;
 			case "sync-table-tools":
 				// if (event.table && Self.table && event.table.isSame(Self.table._el)) return;
 				Self.dispatch({ ...event, type: "set-table" });
