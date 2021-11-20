@@ -205,11 +205,11 @@
 			case "blur-table":
 				// reset current table, if any
 				if (Self.table._el) {
-					Self.table._el.find(".anchor, .selected").removeClass("anchor selected");
+					Self.table._el.find(".anchor, .selected, .edit-mode").removeClass("anchor selected edit-mode");
 				}
 				Self.table = {};
 				Self.els.root.addClass("hidden");
-				// show footer
+				// hide footer
 				APP.foot.dispatch({ type: "hide" });
 				break;
 			case "set-table":
@@ -223,12 +223,12 @@
 				break;
 			case "focus-table-title":
 			case "focus-table-caption":
-				// remove focus from currently focused el with edit mode
-				APP.body.find(`.table-title.edit-mode, .table-caption.edit-mode`).removeClass("edit-mode");
 				// prepare element for edit-mode
 				event.el.addClass("edit-mode");
-
-				console.log(event);
+				// hide footer
+				APP.foot.dispatch({ type: "hide" });
+				// table._tools._selection
+				Self.table.unselect();
 				break;
 			case "sync-table-tools":
 				// if (event.table && Self.table && event.table.isSame(Self.table._el)) return;
