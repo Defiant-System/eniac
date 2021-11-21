@@ -228,7 +228,9 @@
 				// hide footer
 				APP.foot.dispatch({ type: "hide" });
 				// table._tools._selection
-				Self.table.unselect();
+				if (Self.table._el) {
+					Self.table.unselect();
+				}
 				break;
 			case "sync-table-tools":
 				// if (event.table && Self.table && event.table.isSame(Self.table._el)) return;
