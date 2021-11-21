@@ -214,7 +214,7 @@
 				break;
 			case "set-table":
 				el = event.table || Self.table._el;
-				if (!el.isSame(Self.table._el)) {
+				if (el && !el.isSame(Self.table._el)) {
 					// zip table cells ordered
 					Self.table = new Grid(el, Self.gridTools);
 				}
