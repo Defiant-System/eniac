@@ -125,9 +125,9 @@
 								return Self.table.move(event);
 						}
 						break;
-					case el.hasClass("table-title"):
-					case el.hasClass("table-caption"):
-						name = el.prop("className").split(" ").find(n => n.startsWith("table-"));
+					case el.hasClass("tbl-title"):
+					case el.hasClass("tbl-caption"):
+						name = el.prop("className").split(" ").find(n => n.startsWith("tbl-"));
 						Self.table.dispatch({ type: `focus-${name}`, el });
 						break;
 					case el.hasClass("body"):

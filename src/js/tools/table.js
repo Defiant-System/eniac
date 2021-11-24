@@ -50,7 +50,7 @@
 					return APP.body.trigger("mousedown");
 				}
 
-				if (!anchor) {
+				if (!anchor && Table._el) {
 					// this means, table need to be moved
 					return APP.tools.dispatch({ ...event, selected: Self.table._el });
 				}
@@ -184,7 +184,8 @@
 
 				[yNum, xNum] = Self.table.getCoord(anchor[0]);
 				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum], anchor });
-
+				// reset caption/title editing
+				APP.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				// update sidebar cell values
 				APP.sidebar.table.dispatch({ type: "update-table-cell-size", table });
 				break;
@@ -205,8 +206,10 @@
 			case "blur-table":
 				// reset current table, if any
 				if (Self.table._el) {
-					Self.table._el.find(".anchor, .selected, .edit-mode").removeClass("anchor selected edit-mode");
+					Self.table._el.find(".anchor, .selected").removeClass("anchor selected");
 				}
+				// reset caption/title editing
+				APP.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				Self.table = {};
 				Self.els.root.addClass("hidden");
 				// hide footer
@@ -221,8 +224,9 @@
 				// update active tool type
 				APP.tools.active = "table";
 				break;
-			case "focus-table-title":
-			case "focus-table-caption":
+			case "focus-tbl-title":
+			case "focus-tbl-caption":
+				Self.dispatch({ type: `blur-table` });
 				// prepare element for edit-mode
 				event.el.addClass("edit-mode");
 				// hide footer

@@ -97,11 +97,11 @@
 			<xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute>
 		</xsl:if>
 		<xsl:if test="@title">
-			<div class="table-title"><span><xsl:value-of select="@title"/></span></div>
+			<div class="tbl-title"><span><xsl:value-of select="@title"/></span></div>
 		</xsl:if>
 		<xsl:call-template name="scaffold-table" />
 		<xsl:if test="@caption">
-			<div class="table-caption"><xsl:value-of select="@caption"/></div>
+			<div class="tbl-caption"><xsl:value-of select="@caption"/></div>
 		</xsl:if>
 	</div>
 </xsl:template>

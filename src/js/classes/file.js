@@ -36,7 +36,7 @@ class File {
 		// setTimeout(() => APP.body.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		
-		setTimeout(() => APP.body.find(`.xl-table:nth(0) .table-title`).trigger("mousedown"), 300);
+		// setTimeout(() => APP.body.find(`.xl-table:nth(0) .table-title`).trigger("mousedown"), 300);
 	}
 
 	dispatch(event) {

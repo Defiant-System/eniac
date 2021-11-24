@@ -57,7 +57,7 @@ table {
 		}
 	}
 
-	.table-title {
+	.tbl-title {
 		position: relative;
 		height: 29px;
 
@@ -94,10 +94,11 @@ table {
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
+			pointer-events: none;
 		}
 	}
 
-	.table-caption {
+	.tbl-caption {
 		position: absolute;
 		top: 100%;
 		left: 0;
@@ -112,8 +113,8 @@ table {
 		text-overflow: ellipsis;
 	}
 
-	.table-caption.edit-mode,
-	.table-title.edit-mode {
+	.tbl-caption.edit-mode,
+	.tbl-title.edit-mode {
 		z-index: 2;
 		border-radius: 2px;
 		box-shadow: 0 0 0 4px #3399ff99;
