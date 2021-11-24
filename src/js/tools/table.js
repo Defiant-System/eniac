@@ -38,7 +38,7 @@
 			case "window.keystroke":
 				rows = Self.table.rows;
 				selected = Self.table.selected;
-				anchor = selected.anchor;
+				anchor = selected ? selected.anchor : false;
 				data = { yNum: [], xNum: [] };
 				
 				if (!anchor && ["del", "backspace"].includes(event.char)) {

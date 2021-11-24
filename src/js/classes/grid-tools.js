@@ -32,7 +32,7 @@ class GridTools {
 	}
 
 	syncDim(grid) {
-		let table = grid._el,
+		let table = grid._el || this._grid._el,
 			top = table.prop("offsetTop"),
 			left = table.prop("offsetLeft"),
 			width = table.prop("offsetWidth"),
@@ -50,7 +50,7 @@ class GridTools {
 	}
 
 	syncRowsCols(grid) {
-		let table = grid._el,
+		let table = grid._el || this._grid._el,
 			cNames = [],
 			rNames = [],
 			toolCols = this._cols.find("> div").html(""),

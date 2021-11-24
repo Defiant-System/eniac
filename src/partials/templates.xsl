@@ -97,7 +97,7 @@
 			<xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute>
 		</xsl:if>
 		<xsl:if test="@title">
-			<div class="table-title"><xsl:value-of select="@title"/></div>
+			<div class="table-title"><span><xsl:value-of select="@title"/></span></div>
 		</xsl:if>
 		<xsl:call-template name="scaffold-table" />
 		<xsl:if test="@caption">

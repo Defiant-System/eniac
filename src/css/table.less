@@ -59,13 +59,7 @@ table {
 
 	.table-title {
 		position: relative;
-		padding: 6px 5px 7px;
-		text-align: center;
-		font-size: 18px;
-		font-weight: 500;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		height: 29px;
 
 		&.title-outline:before {
 			display: block;
@@ -85,6 +79,21 @@ table {
 			border-bottom: 0;
 			z-index: 2;
 			pointer-events: none;
+		}
+
+		span {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			padding: 6px 5px 7px;
+			text-align: center;
+			font-size: 18px;
+			font-weight: 500;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 	}
 
