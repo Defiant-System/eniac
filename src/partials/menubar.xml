@@ -74,7 +74,7 @@
 		<Menu name="Hide Toolbar"/>
 	</Menu>
 	<Menu name="Help">
-		<Menu name="Send Numbers Feedback"/>
+		<Menu name="How To" click="open-help"/>
 		<Menu type="divider"/>
 		<Menu name="License"/>
 	</Menu>

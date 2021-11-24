@@ -95,6 +95,9 @@ const eniac = {
 					xml:  () => file.toBlob("xml"),
 				});
 				break;
+			case "open-help":
+				defiant.shell("fs -u '~/help/index.md'");
+				break;
 			// menubar events
 			case "set-document-zoom":
 				Self.Settings["document-zoom"] = +event.arg;
