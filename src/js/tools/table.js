@@ -180,11 +180,13 @@
 				APP.sidebar[APP.sidebar.active].dispatch(event);
 				// sidebar; switch to "Text" tab
 				APP.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
+				// update sidebar
+				Self.dispatch({ type: "query-command-state" });
 				break;
 			case "exit-edit-mode":
 				if (event.el) {
 					// reset edit element
-					event.el.find(".edit-mode span")
+					event.el.find("span[contentEditable]")
 						.removeAttr("contentEditable")
 						.parent().removeClass("edit-mode");
 				}

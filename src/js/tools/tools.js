@@ -53,8 +53,8 @@
 							break;
 						case "return":
 							if (el.parent().hasClass("tbl-title") || el.parent().hasClass("tbl-caption")) {
-								event.preventDefault();
-								console.log(11, Self.active);
+								// event.preventDefault();
+								// console.log(11, Self.active);
 								return true;
 							}
 							break;

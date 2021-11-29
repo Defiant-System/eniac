@@ -99,8 +99,6 @@
 				fontFamily = el.css("font-family"),
 				fontSize = parseInt(el.css("font-size"), 10),
 				lineHeight = parseInt(el.css("line-height"), 10);
-			console.log(Els);
-			console.log(sel.container);
 			// set value of font color
 			Els.find(`.color-preset_[data-change="set-cell-color"]`).css({ "--preset-color": color });
 			// font family
@@ -142,6 +140,9 @@
 				Self.edit.mode = true;
 				break;
 			case "exit-edit-mode":
+				el = $(document.activeElement).parents(Guides.selector);
+				Table.dispatch({ ...event, el });
+
 				Self.edit.mode = false;
 				break;
 			case "content-cursor-state":
@@ -464,7 +465,7 @@
 				break;
 			case "toggle-table-caption":
 				// toggle table caption
-				if (event.el.is(":checked")) TblEl.append(`<div class="table-caption">Caption</div>`);
+				if (event.el.is(":checked")) TblEl.append(`<div class="table-caption"><span>Caption</span></div>`);
 				else TblEl.find(".table-caption").remove();
 				break;
 			case "set-table-font-size":
@@ -590,19 +591,50 @@
 			// tab: Text
 			case "set-cell-font-family":
 				value = event.xMenu.getAttribute("name");
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+						type: "content-cursor-state",
+						el: event.origin.el,
+						key: "font-family",
+						value,
+					});
+				}
 				Anchor.css({ "font-family": value });
 				break;
 			case "set-cell-font-size":
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+						type: "content-cursor-state",
+						key: "font-size",
+						value: event.value,
+						el: event.el,
+					});
+				}
 				Anchor.css({ "font-size": event.value +"px" });
 				break;
 			case "set-cell-font-style":
 				el = $(event.target);
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({ type: "content-cursor-state", el });
+				}
 				value = el.hasClass("active_");
 				Anchor.toggleClass(el.data("name"), value);
 				// update text vertical alignment
 				Self.dispatch({ type: "update-cell-font" });
 				break;
 			case "set-cell-color":
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+							type: "content-cursor-state",
+							key: "font-color",
+							value: event.value,
+							el: event.origin.el,
+						});
+				}
 				Anchor.css({ "color": event.value });
 				// sidebar font color preset
 				Els.el.find(`.color-preset_[data-change="set-cell-color"]`)
@@ -610,6 +642,10 @@
 				break;
 			case "set-cell-hAlign":
 				el = $(event.target);
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({ type: "content-cursor-state", el });
+				}
 				Anchor.removeClass("left center right justify").addClass(el.data("name"));
 				// update text vertical alignment
 				Self.dispatch({ type: "update-cell-alignment" });
@@ -628,6 +664,15 @@
 				Table.dispatch({ type: "select-coords", ...Table.table.selected });
 				break;
 			case "set-cell-line-height":
+				if (Self.edit.mode) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+						type: "content-cursor-state",
+						key: "line-height",
+						value: event.arg,
+						el: event.origin.el,
+					});
+				}
 				Anchor.css({ "line-height": event.arg });
 				// re-focus on anchor
 				Tools.table.dispatch({ type: "focus-cell", el: Anchor });
