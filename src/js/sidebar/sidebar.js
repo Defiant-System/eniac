@@ -52,8 +52,10 @@
 				Self.els.el.addClass(event.type);
 				// trigger populate event
 				name = event.type.split("-")[1];
-				// push populate command to "next tick"
-				setTimeout(() => Self[name].dispatch({ ...event, type: `populate-${name}-values` }));
+				if (event.el) {
+					// push populate command to "next tick"
+					setTimeout(() => Self[name].dispatch({ ...event, type: `populate-${name}-values` }));
+				}
 				// reference to active sidebar
 				Self.active = name;
 				break;

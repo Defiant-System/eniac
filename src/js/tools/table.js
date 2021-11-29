@@ -175,6 +175,24 @@
 				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			// custom events
+			case "enter-edit-mode":
+				// sidebar; notify event to sidebar
+				APP.sidebar[APP.sidebar.active].dispatch(event);
+				// sidebar; switch to "Text" tab
+				APP.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
+				break;
+			case "exit-edit-mode":
+				if (event.el) {
+					// reset edit element
+					event.el.find(".edit-mode span")
+						.removeAttr("contentEditable")
+						.parent().removeClass("edit-mode");
+				}
+				// sidebar; reset to first tab for table element
+				APP.sidebar.dispatch({ type: "select-nth-tab", value: 1 });
+				// switches sidebar to show "sheet"
+				APP.body.trigger("mousedown");
+				break;
 			case "focus-cell":
 				// anchor cell
 				anchor = event.el;
@@ -229,6 +247,7 @@
 				Self.dispatch({ type: `blur-table` });
 				// prepare element for edit-mode
 				event.el.addClass("edit-mode");
+				event.el.find("span").attr({ contentEditable: true });
 				// hide footer
 				APP.foot.dispatch({ type: "hide" });
 				// table._tools._selection

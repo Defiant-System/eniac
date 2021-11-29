@@ -40,12 +40,12 @@
 				isEditable = event.target && (event.target.nodeName === "INPUT" || event.target.contentEditable);
 
 				if (event.target) {
-					el = $(event.target);
+					el = $(event.target).parents(Guides.selector);
 					switch (event.char) {
 						case "esc":
-							if (isEditable && el.parents(Guides.selector).length) {
+							if (isEditable && el.length) {
 								// blur XL element, if any
-								Self[Self.active].dispatch({ type: "exit-edit-mode" });
+								Self[Self.active].dispatch({ type: "exit-edit-mode", el });
 								// blur XL element, if any
 								Self.dispatch({ type: "blur-focused" });
 							}
@@ -131,6 +131,11 @@
 						// blur XL element, if any
 						Self[Self.active].dispatch({ type: `blur-${Self.active}` });
 						
+						// reference of active tool
+						Self.active = "table";
+						// update sidebar
+						APP.sidebar.dispatch({ type: `show-${Self.active}` });
+
 						name = el.prop("className").split(" ").find(n => n.startsWith("tbl-"));
 						Self.table.dispatch({ type: `focus-${name}`, el });
 						break;

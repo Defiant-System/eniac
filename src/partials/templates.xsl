@@ -101,7 +101,7 @@
 		</xsl:if>
 		<xsl:call-template name="scaffold-table" />
 		<xsl:if test="@caption">
-			<div class="tbl-caption"><xsl:value-of select="@caption"/></div>
+			<div class="tbl-caption"><span><xsl:value-of select="@caption"/></span></div>
 		</xsl:if>
 	</div>
 </xsl:template>
