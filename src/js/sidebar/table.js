@@ -6,6 +6,9 @@
 		// fast reference
 		this.parent = parent;
 
+		// initiate edit object
+		this.edit.init();
+
 		// temp
 		// setTimeout(() => {
 		// 	parent.els.el.find(".sidebar-table .sidebar-head span:nth(2)").trigger("click");
@@ -50,6 +53,74 @@
 		"default":  "1px solid transparent",
 		"none":     "0px none transparent",
 	},
+	edit: {
+		mode: false,
+		keys:  {
+				bold: "bold",
+				italic: "italic",
+				underline: "underline",
+				strikeThrough: "strikeThrough",
+				left: "justifyLeft",
+				center: "justifyCenter",
+				right: "justifyRight",
+				justify: "justifyFull",
+			},
+		init() {
+			this.format("styleWithCSS", true);
+		},
+		format(key, value) {
+			let name = this.keys[key] || key,
+				sel = new $election(),
+				isCollapsed;
+			// if selection, save current range
+			if (sel._root) {
+				sel.save();
+				// expand to word, if selection is collapsed
+				if (sel.collapsed) sel.expand("word");
+			}
+			switch (name) {
+				case "font-family": name = "fontName"; break;
+				case "font-color": name = "ForeColor"; break;
+				case "font-size":
+					value = `<span style="font-size: ${value}px;">${sel.toString()}</span>`;
+					name = "insertHTML";
+					break;
+			}
+			document.execCommand(name, false, value || null);
+			// restore range
+			if (sel._root) sel.restore();
+		},
+		state() {
+			let Els = eniac.sidebar.els.el,
+				sel = new $election,
+				el = $(sel.container),
+				value,
+				color = Color.rgbToHex(document.queryCommandValue("ForeColor")).slice(0,-2),
+				fontFamily = el.css("font-family"),
+				fontSize = parseInt(el.css("font-size"), 10),
+				lineHeight = parseInt(el.css("line-height"), 10);
+			console.log(Els);
+			console.log(sel.container);
+			// set value of font color
+			Els.find(`.color-preset_[data-change="set-cell-color"]`).css({ "--preset-color": color });
+			// font family
+			if (fontFamily.startsWith('"') && fontFamily.endsWith('"')) {
+				fontFamily = fontFamily.slice(1,-1);
+			}
+			Els.find(`selectbox[data-change="set-cell-font-family"]`).val(fontFamily);
+			// font size
+			Els.find(`input[name="cell-font-size"]`).val(fontSize);
+			// line height
+			value = (lineHeight / fontSize).toFixed(1).toString();
+			Els.find(`selectbox[data-menu="cell-line-height"]`).val(value);
+			// iterate
+			Object.keys(this.keys).map(key => {
+				let name = this.keys[key],
+					value = document.queryCommandState(name);
+				Els.find(`[data-name="${key}"]`).toggleClass("active_", !value);
+			});
+		}
+	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar.table,
@@ -67,6 +138,24 @@
 			pEl,
 			el;
 		switch (event.type) {
+			case "enter-edit-mode":
+				Self.edit.mode = true;
+				break;
+			case "exit-edit-mode":
+				Self.edit.mode = false;
+				break;
+			case "content-cursor-state":
+				if (event.el) {
+					let key = event.key || event.el.data("name"),
+						value = event.value;
+					Self.edit.format(key, value);
+				}
+				// update sidebar state
+				el = document.activeElement;
+				if (el && el.isContentEditable) {
+					Self.edit.state();
+				}
+				break;
 			case "populate-table-values":
 				// tab: Table
 				Self.dispatch({ ...event, type: "update-table-style" });

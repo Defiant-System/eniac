@@ -193,6 +193,13 @@
 				// switches sidebar to show "sheet"
 				APP.body.trigger("mousedown");
 				break;
+			case "query-command-state":
+				// do command state in "next tick"
+				setTimeout(() => {
+					// update sidebar
+					APP.sidebar.table.dispatch({ type: "content-cursor-state" });
+				});
+				break;
 			case "focus-cell":
 				// anchor cell
 				anchor = event.el;

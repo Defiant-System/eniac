@@ -40,14 +40,22 @@
 				isEditable = event.target && (event.target.nodeName === "INPUT" || event.target.contentEditable);
 
 				if (event.target) {
-					el = $(event.target).parents(Guides.selector);
+					el = $(event.target);
 					switch (event.char) {
 						case "esc":
+							el = el.parents(Guides.selector);
 							if (isEditable && el.length) {
 								// blur XL element, if any
 								Self[Self.active].dispatch({ type: "exit-edit-mode", el });
 								// blur XL element, if any
 								Self.dispatch({ type: "blur-focused" });
+							}
+							break;
+						case "return":
+							if (el.parent().hasClass("tbl-title") || el.parent().hasClass("tbl-caption")) {
+								event.preventDefault();
+								console.log(11, Self.active);
+								return true;
 							}
 							break;
 					}
@@ -130,7 +138,7 @@
 						Self[Self.active].dispatch({ type: "exit-edit-mode" });
 						// blur XL element, if any
 						Self[Self.active].dispatch({ type: `blur-${Self.active}` });
-						
+
 						// reference of active tool
 						Self.active = "table";
 						// update sidebar
