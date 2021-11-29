@@ -104,9 +104,9 @@
 				break;
 			case "update-table-title-caption":
 				// checkbox values
-				value = TblEl.find(".table-title").length;
+				value = TblEl.find(".tbl-title").length;
 				Els.el.find(`input#table-title`).prop({ checked: value });
-				value = TblEl.find(".table-caption").length;
+				value = TblEl.find(".tbl-caption").length;
 				Els.el.find(`input#table-caption`).prop({ checked: value });
 				break;
 			case "update-table-head-footer-rows":
@@ -146,7 +146,7 @@
 				value = parseInt(TblEl.cssProp("--tbl-border-width").trim(), 10);
 				Els.el.find(".table-outline-details input").prop({ value });
 				// checkbox values
-				value = TblEl.find(".table-title").hasClass("title-outline");
+				value = TblEl.find(".tbl-title").hasClass("title-outline");
 				Els.el.find(`input#outline-table-title`).prop({ checked: value });
 				break;
 			case "update-gridlines":
@@ -366,8 +366,8 @@
 				break;
 			case "toggle-table-title":
 				// toggle table title
-				if (event.el.is(":checked")) TblEl.prepend(`<div class="table-title">Title</div>`);
-				else TblEl.find(".table-title").remove();
+				if (event.el.is(":checked")) TblEl.prepend(`<div class="tbl-title"><span>Title</span></div>`);
+				else TblEl.find(".tbl-title").remove();
 				// sync tools table
 				Table.dispatch({ type: "sync-table-tools", table: TblEl });
 				// sync tools selection indicators
@@ -432,8 +432,8 @@
 				break;
 			case "toggle-table-title-outline":
 				// toggle title outline
-				if (event.el.is(":checked")) TblEl.find(".table-title").addClass("title-outline");
-				else TblEl.find(".table-title").removeClass("title-outline");
+				if (event.el.is(":checked")) TblEl.find(".tbl-title").addClass("tbl-outline");
+				else TblEl.find(".tbl-title").removeClass("tbl-outline");
 				break;
 			case "set-gridlines":
 				el = $(event.target);

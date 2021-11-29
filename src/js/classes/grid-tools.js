@@ -39,7 +39,7 @@ class GridTools {
 			height = table.prop("offsetHeight");
 		this._el.css({ top, left, width, height });
 		// adjust for table with "title"
-		let _title = table.find(".table-title");
+		let _title = table.find(".tbl-title");
 		top = _title.prop("offsetHeight") + parseInt(_title.css("margin-bottom"), 10);
 		top = isNaN(top) ? 0 : top;
 		this._rows.css({ "--rows-top": `${top}px` });
