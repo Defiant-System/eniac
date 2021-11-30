@@ -175,33 +175,6 @@
 				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			// custom events
-			case "enter-edit-mode":
-				// sidebar; notify event to sidebar
-				APP.sidebar[APP.sidebar.active].dispatch(event);
-				// sidebar; switch to "Text" tab
-				APP.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
-				// update sidebar
-				Self.dispatch({ type: "query-command-state" });
-				break;
-			case "exit-edit-mode":
-				if (event.el) {
-					// reset edit element
-					event.el.find("span[contentEditable]")
-						.removeAttr("contentEditable")
-						.parent().removeClass("edit-mode");
-				}
-				// sidebar; reset to first tab for table element
-				APP.sidebar.dispatch({ type: "select-nth-tab", value: 1 });
-				// switches sidebar to show "sheet"
-				APP.body.trigger("mousedown");
-				break;
-			case "query-command-state":
-				// do command state in "next tick"
-				setTimeout(() => {
-					// update sidebar
-					APP.sidebar.table.dispatch({ type: "content-cursor-state" });
-				});
-				break;
 			case "focus-cell":
 				// anchor cell
 				anchor = event.el;
