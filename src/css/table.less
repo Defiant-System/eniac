@@ -103,14 +103,23 @@ table {
 		top: 100%;
 		left: 0;
 		right: 0;
-		padding: 3px 5px;
-		text-align: center;
-		caption-side: bottom;
+		height: 23px;
 		margin: 5px 0 0;
-		font-size: 15px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+
+		> span {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			padding: 3px 5px;
+			text-align: center;
+			font-size: 15px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			pointer-events: none;
+		}
 	}
 
 	.tbl-caption.edit-mode,

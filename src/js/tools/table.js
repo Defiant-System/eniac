@@ -226,7 +226,7 @@
 				// sync tools table
 				Self.dispatch({ ...event, type: "sync-table-tools" });
 				// update sidebar
-				APP.sidebar.dispatch({ ...event, type: "show-table" });
+				APP.sidebar.dispatch({ ...event, type: "show-table", el: event.table });
 				// show tools for table
 				Self.els.root.removeClass("hidden");
 				break;

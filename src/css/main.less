@@ -1051,6 +1051,37 @@ sidebar {
 		display: block;
 	}
 
+	.sidebar-table[data-section="table"] {
+		.sidebar-head {
+			&.show-title-tab {
+				> span:nth-child(2),
+				> span:nth-child(3) {
+					display: none;
+				}
+
+				.title-tab {
+					display: block;
+				}
+			}
+			
+			&.show-caption-tab {
+				> span:nth-child(2),
+				> span:nth-child(3) {
+					display: none;
+				}
+
+				.caption-tab {
+					display: block;
+				}
+			}
+		}
+
+		.title-tab,
+		.caption-tab {
+			display: none;
+		}
+	}
+
 	.angle-ring {
 		display: none;
 	}

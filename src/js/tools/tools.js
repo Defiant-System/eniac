@@ -138,12 +138,10 @@
 						Self[Self.active].dispatch({ type: "exit-edit-mode" });
 						// blur XL element, if any
 						Self[Self.active].dispatch({ type: `blur-${Self.active}` });
-
 						// reference of active tool
 						Self.active = "table";
 						// update sidebar
 						APP.sidebar.dispatch({ type: `show-${Self.active}` });
-
 						name = el.prop("className").split(" ").find(n => n.startsWith("tbl-"));
 						Self.table.dispatch({ type: `focus-${name}`, el });
 						break;
