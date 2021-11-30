@@ -140,15 +140,15 @@
 						Self[Self.active].dispatch({ type: `blur-${Self.active}` });
 						// reference of active tool
 						Self.active = "table";
-						// update sidebar
-						APP.sidebar.dispatch({ type: `show-${Self.active}` });
-						// special UI for title & caption
-						name = el.prop("className").split(" ").find(n => n.startsWith("tbl-")).split("tbl-")[1];
-						APP.sidebar.els.tbl.addClass(`show-${name}-tab`);
-						// auto switch to tab
-						APP.sidebar.els.tbl.find(`.sidebar-head .${name}-tab`).trigger("click");
 						// focus table
 						Self[Self.active].dispatch({ type: `focus-${Self.active}`, table: el.parents(".xl-table") });
+						setTimeout(() => {
+							// special UI for title & caption
+							name = el.prop("className").split(" ").find(n => n.startsWith("tbl-")).split("tbl-")[1];
+							APP.sidebar.els.tbl.addClass(`show-${name}-tab`);
+							// auto switch to tab
+							APP.sidebar.els.tbl.find(`.sidebar-head .${name}-tab`).trigger("click");
+						});
 						break;
 					case el.hasClass("body"):
 						// reference of active tool

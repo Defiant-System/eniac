@@ -355,11 +355,157 @@
 	</div>
 
 	<div class="sidebar-body title-font-options">
-		Title
+		<div class="group-row">
+			<legend>Font</legend>
+			<div class="flex-row">
+				<div class="w63">
+					<selectbox data-menu="sys:font-families" data-change="set-title-font-family">
+						<option selected="1" value="arial">Arial</option>
+					</selectbox>
+				</div>
+				<div data-suffix="px">
+					<input type="number" name="title-font-size" min="1" max="73" step="1" value="13" data-change="set-title-font-size"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="option-buttons_" data-click="set-title-font-style">
+				<span data-name="bold" title="Bold.">
+					<span class="icon-bold c13x19"></span>
+				</span>
+				<span data-name="italic" title="Italic.">
+					<span class="icon-italic c13x19"></span>
+				</span>
+				<span data-name="underline" title="Underline.">
+					<span class="icon-underline c13x19"></span>
+				</span>
+				<span data-name="strikeThrough" title="Strike.">
+					<span class="icon-strike c13x19"></span>
+				</span>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Text Color</legend>
+				<div class="color-preset_" data-click="popup-color-palette-1" data-change="set-title-color" style="--preset-color: #000000;"></div>
+			</div>
+		</div>
+
+		<div class="group-row title-hv-alignment">
+			<legend>Alignment</legend>
+			<div class="option-buttons_" data-click="set-title-hAlign">
+				<span data-name="left" title="Align left.">
+					<span class="icon-justify-left c13x19"></span>
+				</span>
+				<span data-name="center" title="Align center.">
+					<span class="icon-justify-center c13x19"></span>
+				</span>
+				<span data-name="right" title="Align right.">
+					<span class="icon-justify-right c13x19"></span>
+				</span>
+				<span data-name="justify" title="Justify full.">
+					<span class="icon-justify-full c13x19 active"></span>
+				</span>
+			</div>
+			
+			<div class="option-buttons_" data-click="set-title-vAlign">
+				<span data-name="top" title="Vertically align top.">
+					<span class="icon-valign-top c13x19"></span>
+				</span>
+				<span data-name="middle" title="Vertically align middle.">
+					<span class="icon-valign-middle c13x19"></span>
+				</span>
+				<span data-name="bottom" title="Vertically align bottom.">
+					<span class="icon-valign-bottom c13x19"></span>
+				</span>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend>Spacing</legend>
+				<div class="w63">
+					<selectbox data-menu="title-line-height">
+						<option selected="1" value="1.0">1.0 - Single</option>
+					</selectbox>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="sidebar-body caption-font-options">
-		Caption
+		<div class="group-row">
+			<legend>Font</legend>
+			<div class="flex-row">
+				<div class="w63">
+					<selectbox data-menu="sys:font-families" data-change="set-caption-font-family">
+						<option selected="1" value="arial">Arial</option>
+					</selectbox>
+				</div>
+				<div data-suffix="px">
+					<input type="number" name="caption-font-size" min="1" max="73" step="1" value="13" data-change="set-caption-font-size"/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="option-buttons_" data-click="set-caption-font-style">
+				<span data-name="bold" title="Bold.">
+					<span class="icon-bold c13x19"></span>
+				</span>
+				<span data-name="italic" title="Italic.">
+					<span class="icon-italic c13x19"></span>
+				</span>
+				<span data-name="underline" title="Underline.">
+					<span class="icon-underline c13x19"></span>
+				</span>
+				<span data-name="strikeThrough" title="Strike.">
+					<span class="icon-strike c13x19"></span>
+				</span>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend class="bold">Text Color</legend>
+				<div class="color-preset_" data-click="popup-color-palette-1" data-change="set-caption-color" style="--preset-color: #000000;"></div>
+			</div>
+		</div>
+
+		<div class="group-row caption-hv-alignment">
+			<legend>Alignment</legend>
+			<div class="option-buttons_" data-click="set-caption-hAlign">
+				<span data-name="left" title="Align left.">
+					<span class="icon-justify-left c13x19"></span>
+				</span>
+				<span data-name="center" title="Align center.">
+					<span class="icon-justify-center c13x19"></span>
+				</span>
+				<span data-name="right" title="Align right.">
+					<span class="icon-justify-right c13x19"></span>
+				</span>
+				<span data-name="justify" title="Justify full.">
+					<span class="icon-justify-full c13x19 active"></span>
+				</span>
+			</div>
+		</div>
+
+		<div class="group-row">
+			<div class="flex-row">
+				<legend>Spacing</legend>
+				<div class="w63">
+					<selectbox data-menu="caption-line-height">
+						<option selected="1" value="1.0">1.0 - Single</option>
+					</selectbox>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- Arrange body -->

@@ -80,9 +80,7 @@
 					// tab: Cell
 					Self.dispatch({ ...event, type: "update-cell-data-format" });
 					Self.dispatch({ ...event, type: "update-cell-fill-color" });
-					// Self.dispatch({ ...event, type: "update-cell-border-options" });
 					// tab: Text
-					console.log();
 					Self.dispatch({ ...event, type: "update-cell-font" });
 					Self.dispatch({ ...event, type: "update-cell-color" });
 					Self.dispatch({ ...event, type: "update-cell-alignment" });
