@@ -55,11 +55,8 @@
 				Self.els.tbl.removeClass("show-title-tab show-caption-tab");
 				// trigger populate event
 				name = event.type.split("-")[1];
-				if (event.el) {
-					console.log(event);
-					// push populate command to "next tick"
-					setTimeout(() => Self[name].dispatch({ ...event, type: `populate-${name}-values` }));
-				}
+				// push populate command to "next tick"
+				setTimeout(() => Self[name].dispatch({ ...event, type: `populate-${name}-values` }));
 				// reference to active sidebar
 				Self.active = name;
 				break;

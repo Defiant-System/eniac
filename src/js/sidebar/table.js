@@ -76,16 +76,19 @@
 				Self.dispatch({ ...event, type: "update-table-outlines" });
 				Self.dispatch({ ...event, type: "update-gridlines" });
 				Self.dispatch({ ...event, type: "update-alt-row-bg" });
-				// tab: Cell
-				Self.dispatch({ ...event, type: "update-cell-data-format" });
-				Self.dispatch({ ...event, type: "update-cell-fill-color" });
-				// Self.dispatch({ ...event, type: "update-cell-border-options" });
-				// tab: Text
-				Self.dispatch({ ...event, type: "update-cell-font" });
-				Self.dispatch({ ...event, type: "update-cell-color" });
-				Self.dispatch({ ...event, type: "update-cell-alignment" });
-				Self.dispatch({ ...event, type: "update-cell-wrap" });
-				Self.dispatch({ ...event, type: "update-cell-line-height" });
+				if (Anchor) {
+					// tab: Cell
+					Self.dispatch({ ...event, type: "update-cell-data-format" });
+					Self.dispatch({ ...event, type: "update-cell-fill-color" });
+					// Self.dispatch({ ...event, type: "update-cell-border-options" });
+					// tab: Text
+					console.log();
+					Self.dispatch({ ...event, type: "update-cell-font" });
+					Self.dispatch({ ...event, type: "update-cell-color" });
+					Self.dispatch({ ...event, type: "update-cell-alignment" });
+					Self.dispatch({ ...event, type: "update-cell-wrap" });
+					Self.dispatch({ ...event, type: "update-cell-line-height" });
+				}
 				// tab: Arrange
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				Self.dispatch({ ...event, type: "update-table-box-size" });
