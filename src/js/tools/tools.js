@@ -135,10 +135,20 @@
 						break;
 					case el.hasClass("tbl-title"):
 					case el.hasClass("tbl-caption"):
+						// blur XL element, if any
+						Self[Self.active].dispatch({ type: "exit-edit-mode" });
+						Self[Self.active].dispatch({ type: `blur-${Self.active}` });
 						// reference of active tool
 						Self.active = "table";
 						// update sidebar
 						APP.sidebar.dispatch({ type: `show-${Self.active}` });
+						// special UI for title & caption
+						name = el.prop("className").split(" ").find(n => n.startsWith("tbl-")).split("tbl-")[1];
+						APP.sidebar.els.tbl.addClass(`show-${name}-tab`);
+						// auto switch to tab
+						APP.sidebar.els.tbl.find(`.sidebar-head .${name}-tab`).trigger("click");
+						// focus table
+						Self[Self.active].dispatch({ type: `focus-${Self.active}`, table: el.parents(".xl-table") });
 						break;
 					case el.hasClass("body"):
 						// reference of active tool
@@ -170,6 +180,8 @@
 						Self.active = "table";
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
+						// auto switch to first tab
+						APP.sidebar.els.tbl.find(`.sidebar-head span`).get(0).trigger("click");
 						// proxy event to "selection resize"
 						return Self.table.resizeSelection(event);
 					case Self.types.includes(name):

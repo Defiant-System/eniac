@@ -199,15 +199,13 @@
 				// sync tools table
 				Self.dispatch({ ...event, type: "sync-table-tools" });
 				// update sidebar
-				APP.sidebar.dispatch({ ...event, type: "show-table", el: event.table });
+				APP.sidebar.dispatch({ ...event, type: "show-table" });
 				// show tools for table
 				Self.els.root.removeClass("hidden");
 				break;
 			case "blur-table":
 				// reset current table, if any
-				if (Self.table._el) {
-					Self.table._el.find(".anchor, .selected").removeClass("anchor selected");
-				}
+				if (Self.table._el) Self.table.unselect();
 				// reset caption/title editing
 				APP.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				Self.table = {};
@@ -223,19 +221,6 @@
 				}
 				// update active tool type
 				APP.tools.active = "table";
-				break;
-			case "focus-tbl-title":
-			case "focus-tbl-caption":
-				Self.dispatch({ type: `blur-table` });
-				// prepare element for edit-mode
-				event.el.addClass("edit-mode");
-				event.el.find("span").attr({ contentEditable: true });
-				// hide footer
-				APP.foot.dispatch({ type: "hide" });
-				// table._tools._selection
-				if (Self.table._el) {
-					Self.table.unselect();
-				}
 				break;
 			case "sync-table-tools":
 				// if (event.table && Self.table && event.table.isSame(Self.table._el)) return;

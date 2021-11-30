@@ -1,6 +1,6 @@
 <Workbook>
 	<Sheet name="Tables"><!--  - a very long table sdfsdf  title goes here -->
-		<Table title="Table Title" style="top: 40px; left: 40px;">
+		<Table title="Table Title" caption="Test caption" style="top: 40px; left: 40px;">
 			<R tp="2">
 				<C cn="middle center" style="font-size: 14px; font-family: Courier New; color: #ff0000;"><![CDATA[more text]]></C>
 				<C t="n"><![CDATA[213]]></C>

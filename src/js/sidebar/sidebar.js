@@ -8,6 +8,7 @@
 			doc: $(document),
 			layout: window.find("layout"),
 			el: window.find("sidebar"),
+			tbl: window.find(".sidebar-table"),
 		};
 		
 		// init all sub-objects
@@ -50,9 +51,12 @@
 				name = ["sheet", "title", "caption", "table", "shape", "image", "text", "line", "chart", "empty"];
 				Self.els.el.removeClass(name.map(e => `show-${e}`).join(" "));
 				Self.els.el.addClass(event.type);
+				// reset table sidebar
+				Self.els.tbl.removeClass("show-title-tab show-caption-tab");
 				// trigger populate event
 				name = event.type.split("-")[1];
 				if (event.el) {
+					console.log(event);
 					// push populate command to "next tick"
 					setTimeout(() => Self[name].dispatch({ ...event, type: `populate-${name}-values` }));
 				}
