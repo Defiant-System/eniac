@@ -1,9 +1,5 @@
 
 table {
-	col {
-		// width: 123px;
-	}
-
 	tr {
 		height: 25px;
 	}
@@ -19,11 +15,6 @@ table {
 	--tbl-border-color: @table_border;
 	--tbl-border-style: solid;
 	--tbl-border-width: 1px;
-
-	&.temp-0 {
-		top: 40px;
-		left: 40px;
-	}
 
 	&.selected:after {
 		content: "";
@@ -269,10 +260,13 @@ table {
 		}
 
 		&.selected {
-			
 			> * {
 				pointer-events: all;
 			}
+		}
+		
+		&.anchor {
+			color: transparent;
 		}
 
 		&:before {
