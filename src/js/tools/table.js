@@ -94,6 +94,8 @@
 					Self.table.select(data);
 					// dispatch focus event
 					Self.dispatch({ type: "focus-cell", el: Self.table.selected.anchor.el });
+				} else {
+					console.log("TODO: collapse selection, switch to cell edit-mode");
 				}
 				break;
 			// native events

@@ -7,10 +7,8 @@
 @import "modules/csv.js"
 @import "modules/color.js"
 
-
+// defiant adapted xlsx library
 const XLSX = await window.fetch("~/js/xdef.js");
-// const XLSX = await window.fetch("~/js/xlsx.full.min.js");
-
 
 // default settings
 const DefaultSettings = {
