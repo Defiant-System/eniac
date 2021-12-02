@@ -392,14 +392,14 @@ function table_to_book(table, opts) {
 
 function is_dom_element_hidden(element) {
 	var display = "",
-		get_computed_style = get_get_computed_style_function(element);
+		get_computed_style = get_computed_style_function(element);
 	if (get_computed_style) display = get_computed_style(element).getPropertyValue("display");
 	if (!display) display = element.style.display; // Fallback for cases when getComputedStyle is not available (e.g. an old browser or some Node.js environments) or doesn't work (e.g. if the element is not inserted to a document)
 	return display === "none";
 }
 
 /* global getComputedStyle */
-function get_get_computed_style_function(element) {
+function get_computed_style_function(element) {
 	// The proper getComputedStyle implementation is the one defined in the element window
 	if (element.ownerDocument.defaultView && typeof element.ownerDocument.defaultView.getComputedStyle === "function") return element.ownerDocument.defaultView.getComputedStyle;
 	// If it is not available, try to get one from the global namespace

@@ -5,6 +5,7 @@ class GridTools {
 		this._cols = this._el.find(".table-cols");
 		this._rows = this._el.find(".table-rows");
 		this._selection = this._el.find(".selection");
+		this._cellEdit = this._selection.find(".cell-edit");
 		// selectors
 		this.parts = {
 			cHead: ".table-cols > div:nth-child(1)",
@@ -18,6 +19,20 @@ class GridTools {
 				el = this._el.find(selector);
 			this.parts[key] = { selector, el };
 		}
+	}
+
+	prepareCellEdit(anchorEl) {
+		// let cs = getComputedStyle(anchorEl);
+
+		this._cellEdit.css({
+			"padding": anchorEl.css("padding"),
+			"vertical-align": anchorEl.css("vertical-align"),
+			"text-align": anchorEl.css("text-align"),
+		});
+
+		console.log( anchorEl.css("vertical-align") );
+
+		this._cellEdit.html(anchorEl.html());
 	}
 
 	createClones() {

@@ -191,10 +191,6 @@
 				// update sidebar cell values
 				APP.sidebar.table.dispatch({ type: "update-table-cell-size", table });
 				break;
-			case "blur-cell":
-				// reset reference to cell
-				Self.anchor = false;
-				break;
 			case "focus-table":
 				// blur any table, if any
 				if (Self.table._el) Self.dispatch({ type: "blur-table" });
