@@ -5,7 +5,7 @@ class GridTools {
 		this._cols = this._el.find(".table-cols");
 		this._rows = this._el.find(".table-rows");
 		this._selection = this._el.find(".selection");
-		this._cellEdit = this._selection.find(".cell-edit");
+		this._cellEdit = this._selection.find(".cell-edit > div");
 		// selectors
 		this.parts = {
 			cHead: ".table-cols > div:nth-child(1)",
@@ -21,18 +21,29 @@ class GridTools {
 		}
 	}
 
-	prepareCellEdit(anchorEl) {
-		// let cs = getComputedStyle(anchorEl);
-
-		this._cellEdit.css({
-			"padding": anchorEl.css("padding"),
-			"vertical-align": anchorEl.css("vertical-align"),
-			"text-align": anchorEl.css("text-align"),
+	syncCellEdit(anchorEl) {
+		let sync = ["width", "height", "padding", "text-align"],
+			data = {};
+		// cell css
+		sync.map(name => {
+			let value = anchorEl.css(name);
+			if (["width", "height"].includes(name)) value = parseInt(value, 10);
+			data[name] = value;
 		});
+		
+		// cell dimensions
+		data.top = 2;
+		data.left = 2;
 
-		console.log( anchorEl.css("vertical-align") );
+		if (anchorEl.hasClass("wrap")) {
+			data.width = 270;
+		}
+		data.width -= 1;
+		data.height -= 1;
 
-		this._cellEdit.html(anchorEl.html());
+		// apply UI
+		this._cellEdit.css(data)
+			.html(anchorEl.html());
 	}
 
 	createClones() {
