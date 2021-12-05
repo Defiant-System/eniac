@@ -31,6 +31,7 @@
 			grid, cols, rows, data,
 			table, selected, anchor, offset,
 			xNum, yNum,
+			str,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -118,6 +119,15 @@
 				Self.table.unselect();
 				break;
 			// menu events
+			case "query-command-state":
+				str = Self.gridTools._cellEdit.html();
+				anchor = Self.table.selected.anchor.el;
+				anchor.html(str);
+
+				// sync table tools / selection
+				Self.dispatch({ type: "sync-table-tools" });
+				Self.dispatch({ type: "re-sync-selection", editing: true });
+				break;
 			case "sort-column-asc":
 			case "sort-column-desc":
 				console.log("TODO:", event);

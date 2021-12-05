@@ -21,7 +21,7 @@ class GridTools {
 		}
 	}
 
-	syncCellEdit(anchorEl) {
+	syncCellEdit(anchorEl, editing) {
 		let sync = ["width", "height", "padding", "text-align"],
 			data = {};
 		// cell css
@@ -42,8 +42,10 @@ class GridTools {
 		data.height -= 1;
 
 		// apply UI
-		this._cellEdit.css(data)
-			.html(anchorEl.html());
+		this._cellEdit.css(data);
+		if (!editing) {
+			this._cellEdit.html(anchorEl.html());
+		}
 	}
 
 	createClones() {

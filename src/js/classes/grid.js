@@ -349,7 +349,7 @@ class Grid {
 			.addClass(`show anchor-${anchorPos}`)
 			.css(css);
 		// clone cell contents in to cellEdit element
-		this._tools.syncCellEdit(anchor.el);
+		this._tools.syncCellEdit(anchor.el, data.editing);
 		// save reference data
 		this._selected = { xNum: cols, yNum: rows, anchor };
 		// sync grid tools
