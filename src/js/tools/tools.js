@@ -59,7 +59,7 @@
 							}
 							break;
 					}
-					// notify tools
+					// notify table tools
 					Self[Self.active].dispatch({ type: "query-command-state" });
 					return;
 				}

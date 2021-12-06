@@ -351,7 +351,9 @@ class Grid {
 			.addClass(`show anchor-${anchorPos}`)
 			.css(css);
 		// cell contents editable
-		this._tools.cellEditableOn(anchor.el);
+		if (!data.editing) {
+			this._tools.cellEditableOn(anchor.el);
+		}
 		// save reference data
 		this._selected = { xNum: cols, yNum: rows, anchor };
 		// sync grid tools
