@@ -84,7 +84,6 @@
 					reflection = {},
 					opacity = {},
 					text = {};
-				
 				// fill values
 				fill.color = Text.css("background");
 				color = Color.rgbToHex(Text.css("background-color"));

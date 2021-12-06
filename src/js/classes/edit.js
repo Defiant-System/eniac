@@ -15,6 +15,8 @@ class Edit {
 			};
 		// default formatting style
 		this.format("styleWithCSS", true);
+		// make sure usage of "P" instead of "DIV"
+		this.format("defaultParagraphSeparator", "p");
 	}
 	
 	format(key, value) {

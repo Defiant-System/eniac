@@ -117,15 +117,6 @@
 				Self.table.unselect();
 				break;
 			// menu events
-			case "query-command-state":
-				// str = Self.gridTools._cellEdit.html();
-				// anchor = Self.table.selected.anchor.el;
-				// anchor.html(str);
-
-				// sync table tools / selection
-				Self.dispatch({ type: "sync-table-tools" });
-				Self.dispatch({ type: "re-sync-selection", editing: true });
-				break;
 			case "sort-column-asc":
 			case "sort-column-desc":
 				console.log("TODO:", event);
@@ -185,6 +176,21 @@
 				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			// custom events
+			case "enter-edit-mode":
+			case "exit-edit-mode":
+				console.log(event);
+				break;
+			case "query-command-state":
+				// sync table tools / selection
+				// Self.dispatch({ type: "sync-table-tools" });
+				// Self.dispatch({ type: "re-sync-selection", editing: true });
+
+				// do command state in "next tick"
+				setTimeout(() => {
+					// update sidebar
+					APP.sidebar.table.dispatch({ type: "content-cursor-state" });
+				});
+				break;
 			case "focus-cell":
 				// anchor cell
 				anchor = event.el;
@@ -210,6 +216,8 @@
 				Self.els.root.removeClass("hidden");
 				break;
 			case "blur-table":
+				// exit edit-mode, if any
+				Self.dispatch({ type: "exit-edit-mode" });
 				// reset current table, if any
 				if (Self.table._el) Self.table.unselect();
 				// reset caption/title editing

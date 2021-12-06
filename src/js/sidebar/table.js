@@ -67,6 +67,15 @@
 			pEl,
 			el;
 		switch (event.type) {
+			case "enter-edit-mode":
+				Self.edit = new Edit({ el: Els.el });
+				break;
+			case "exit-edit-mode":
+				Self.edit = false;
+				break;
+			case "content-cursor-state":
+				console.log(event);
+				break;
 			case "populate-table-values":
 				// tab: Table
 				Self.dispatch({ ...event, type: "update-table-style" });
