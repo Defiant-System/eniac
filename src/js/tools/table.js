@@ -597,8 +597,6 @@
 				Drag.table.select({ yNum, xNum, anchor });
 				break;
 			case "mouseup":
-				// TODO
-				console.log( "trigger table sidebar; 'populate-table-values'" );
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events
