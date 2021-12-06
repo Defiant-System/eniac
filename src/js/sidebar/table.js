@@ -68,7 +68,7 @@
 			el;
 		switch (event.type) {
 			case "enter-edit-mode":
-				Self.edit = new Edit({ el: Els.el });
+				Self.edit = new Edit({ el: Els.el, type: "cell" });
 				break;
 			case "exit-edit-mode":
 				Self.edit = false;
@@ -520,19 +520,50 @@
 			// tab: Text
 			case "set-cell-font-family":
 				value = event.xMenu.getAttribute("name");
+				if (Self.edit) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+						type: "content-cursor-state",
+						el: event.origin.el,
+						key: "font-family",
+						value,
+					});
+				}
 				Anchor.css({ "font-family": value });
 				break;
 			case "set-cell-font-size":
+				if (Self.edit) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+						type: "content-cursor-state",
+						key: "font-size",
+						value: event.value,
+						el: event.el,
+					});
+				}
 				Anchor.css({ "font-size": event.value +"px" });
 				break;
 			case "set-cell-font-style":
 				el = $(event.target);
+				if (Self.edit) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({ type: "content-cursor-state", el });
+				}
 				value = el.hasClass("active_");
 				Anchor.toggleClass(el.data("name"), value);
 				// update text vertical alignment
 				Self.dispatch({ type: "update-cell-font" });
 				break;
 			case "set-cell-color":
+				if (Self.edit) {
+					// udpate sidebar of cursor state
+					return Self.dispatch({
+							type: "content-cursor-state",
+							key: "font-color",
+							value: event.value,
+							el: event.origin.el,
+						});
+				}
 				Anchor.css({ "color": event.value });
 				// sidebar font color preset
 				Els.el.find(`.color-preset_[data-change="set-cell-color"]`)

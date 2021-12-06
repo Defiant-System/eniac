@@ -41,7 +41,7 @@
 				}
 				break;
 			case "enter-edit-mode":
-				Self.edit = new Edit({ el: Els.el });
+				Self.edit = new Edit({ el: Els.el, type: "text" });
 				break;
 			case "exit-edit-mode":
 				Self.edit = false;

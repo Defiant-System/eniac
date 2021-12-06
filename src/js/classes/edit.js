@@ -3,6 +3,7 @@ class Edit {
 
 	constructor(options) {
 		this._el = options.el;
+		this._type = options.type;
 		this._keys = {
 				bold: "bold",
 				italic: "italic",
@@ -56,17 +57,17 @@ class Edit {
 			fontSize = parseInt(el.css("font-size"), 10),
 			lineHeight = parseInt(el.css("line-height"), 10);
 		// set value of font color
-		El.find(`.color-preset_[data-change="set-text-color"]`).css({ "--preset-color": color });
+		El.find(`.color-preset_[data-change="set-${this._type}-color"]`).css({ "--preset-color": color });
 		// font family
 		if (fontFamily.startsWith('"') && fontFamily.endsWith('"')) {
 			fontFamily = fontFamily.slice(1,-1);
 		}
-		El.find(`selectbox[data-change="set-text-font-family"]`).val(fontFamily);
+		El.find(`selectbox[data-change="set-${this._type}-font-family"]`).val(fontFamily);
 		// font size
-		El.find(`input[name="text-font-size"]`).val(fontSize);
+		El.find(`input[name="${this._type}-font-size"]`).val(fontSize);
 		// line height
 		value = (lineHeight / fontSize).toFixed(1).toString();
-		El.find(`selectbox[data-menu="text-line-height"]`).val(value);
+		El.find(`selectbox[data-menu="${this._type}-line-height"]`).val(value);
 		// iterate
 		Object.keys(this._keys).map(key => {
 			let name = this._keys[key],
