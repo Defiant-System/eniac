@@ -7,6 +7,49 @@ layout {
 	}
 }
 
+.formula-tools {
+	position: absolute;
+	top: 240px;
+	left: 340px;
+	width: 250px;
+	// height: 40px;
+	display: flex;
+	border-radius: 7px;
+	z-index: 99;
+	background: rgba(255,255,255,.85);
+	backdrop-filter: blur(21px);
+	// box-shadow: 0 2px 5px rgba(0,0,0,.35);
+	box-shadow: 0 0 0 1px rgba(0,0,0,.1),
+				0 19px 31px 3px rgba(0,0,0,.14),
+				0 7px 37px 8px rgba(0,0,0,.12),
+				0 9px 13px -5px rgba(0,0,0,.2);
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: -15px;
+		left: 100px;
+		width: 0;
+		height: 0;
+		border-left: 12px solid transparent;
+		border-right: 12px solid transparent;
+		border-bottom: 15px solid rgba(255,255,255,.65);
+		// filter: drop-shadow(-3px 0 5px rgba(0,0,0,.5));
+	}
+
+	.tool-head {
+		width: 50px;
+	}
+
+	.tool-body {
+		flex: 1;
+		padding: 11px 0;
+	}
+
+	.tool-buttons {
+		width: 70px;
+	}
+}
 
 .text-tools,
 .image-tools,

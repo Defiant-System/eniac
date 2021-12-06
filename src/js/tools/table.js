@@ -179,9 +179,6 @@
 			case "enter-edit-mode":
 				// sidebar; notify event to sidebar
 				APP.sidebar[APP.sidebar.active].dispatch(event);
-				// sync table tools / selection
-				Self.dispatch({ type: "sync-table-tools" });
-				Self.dispatch({ type: "re-sync-selection", editing: true });
 				// sidebar; switch to "Text" tab
 				APP.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
 				// update sidebar
@@ -195,6 +192,9 @@
 				APP.sidebar[APP.sidebar.active].dispatch(event);
 				break;
 			case "query-command-state":
+				// sync table tools / selection
+				Self.dispatch({ type: "sync-table-tools" });
+				Self.dispatch({ type: "re-sync-selection", editing: true });
 				// do command state in "next tick"
 				setTimeout(() => {
 					// update sidebar
