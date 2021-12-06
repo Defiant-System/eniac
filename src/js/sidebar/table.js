@@ -74,7 +74,16 @@
 				Self.edit = false;
 				break;
 			case "content-cursor-state":
-				console.log(event);
+				if (event.el) {
+					let key = event.key || event.el.data("name"),
+						value = event.value;
+					Self.edit.format(key, value);
+				}
+				// update sidebar state
+				el = document.activeElement;
+				if (el && el.isContentEditable) {
+					Self.edit.state();
+				}
 				break;
 			case "populate-table-values":
 				// tab: Table
