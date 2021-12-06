@@ -260,13 +260,12 @@ table {
 		}
 
 		&.selected {
-			> * {
-				pointer-events: all;
-			}
+			
 		}
 		
-		&.anchor {
-			// color: transparent;
+		&.anchor > div {
+			background: rgba(255,0,0,.15);
+			pointer-events: all;
 		}
 
 		&:before {

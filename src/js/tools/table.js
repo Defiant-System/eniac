@@ -95,8 +95,6 @@
 					Self.table.select(data);
 					// dispatch focus event
 					Self.dispatch({ type: "focus-cell", el: Self.table.selected.anchor.el });
-				} else {
-					console.log("TODO: collapse selection, switch to cell edit-mode");
 				}
 				break;
 			// native events
@@ -119,15 +117,6 @@
 				Self.table.unselect();
 				break;
 			// menu events
-			case "query-command-state":
-				str = Self.gridTools._cellEdit.html();
-				anchor = Self.table.selected.anchor.el;
-				anchor.html(str);
-
-				// sync table tools / selection
-				Self.dispatch({ type: "sync-table-tools" });
-				Self.dispatch({ type: "re-sync-selection", editing: true });
-				break;
 			case "sort-column-asc":
 			case "sort-column-desc":
 				console.log("TODO:", event);

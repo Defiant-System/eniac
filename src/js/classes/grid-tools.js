@@ -5,7 +5,6 @@ class GridTools {
 		this._cols = this._el.find(".table-cols");
 		this._rows = this._el.find(".table-rows");
 		this._selection = this._el.find(".selection");
-		this._cellEdit = this._selection.find(".cell-edit > div");
 		// selectors
 		this.parts = {
 			cHead: ".table-cols > div:nth-child(1)",
@@ -21,31 +20,20 @@ class GridTools {
 		}
 	}
 
-	syncCellEdit(anchorEl, editing) {
-		let sync = ["width", "height", "padding", "text-align"],
-			data = {};
-		// cell css
-		sync.map(name => {
-			let value = anchorEl.css(name);
-			if (["width", "height"].includes(name)) value = parseInt(value, 10);
-			data[name] = value;
-		});
-		
-		// cell dimensions
-		data.top = 2;
-		data.left = 2;
-
-		if (anchorEl.hasClass("wrap")) {
-			data.width = 270;
+	cellEditableOff() {
+		if (this._anchor) {
+			let str = this._anchor.find("> div[contenteditable]").html();
+			this._anchor.html(str);
+			// reset reference
+			this._anchor = false;
 		}
-		data.width -= 1;
-		data.height -= 1;
+	}
 
-		// apply UI
-		this._cellEdit.css(data);
-		if (!editing) {
-			this._cellEdit.html(anchorEl.html());
-		}
+	cellEditableOn(anchor) {
+		let str = `<div autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true">${anchor.html()}</div>`;
+		anchor.html(str);
+		// reference to ediable anchor
+		this._anchor = anchor;
 	}
 
 	createClones() {

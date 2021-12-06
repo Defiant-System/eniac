@@ -262,6 +262,8 @@ class Grid {
 	}
 
 	unselect() {
+		// cell contents editable
+		this._tools.cellEditableOff();
 		// reset cells
 		this._el.find(".selected, .anchor").removeClass("selected anchor");
 		// remove reference to selected
@@ -348,8 +350,8 @@ class Grid {
 			.removeClass(aPos.map(n => `anchor-${n}`).join(" "))
 			.addClass(`show anchor-${anchorPos}`)
 			.css(css);
-		// clone cell contents in to cellEdit element
-		this._tools.syncCellEdit(anchor.el, data.editing);
+		// cell contents editable
+		this._tools.cellEditableOn(anchor.el);
 		// save reference data
 		this._selected = { xNum: cols, yNum: rows, anchor };
 		// sync grid tools

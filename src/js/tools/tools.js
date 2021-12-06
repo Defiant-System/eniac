@@ -59,7 +59,7 @@
 							}
 							break;
 					}
-					// update sidebar
+					// notify tools
 					Self[Self.active].dispatch({ type: "query-command-state" });
 					return;
 				}
