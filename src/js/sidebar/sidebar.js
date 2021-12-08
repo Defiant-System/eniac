@@ -41,6 +41,8 @@
 				Self.els.layout.toggleClass("show-sidebar", value);
 				return !value;
 			case "show-sheet":
+			case "show-functions":
+			case "show-chart":
 			case "show-title":
 			case "show-caption":
 			case "show-table":
@@ -50,7 +52,7 @@
 			case "show-line":
 			case "show-chart":
 			case "show-empty":
-				name = ["sheet", "title", "caption", "table", "shape", "image", "text", "line", "chart", "empty"];
+				name = ["sheet", "functions", "chart", "title", "caption", "table", "shape", "image", "text", "line", "chart", "empty"];
 				Self.els.el.removeClass(name.map(e => `show-${e}`).join(" "));
 				Self.els.el.addClass(event.type);
 				// reset table sidebar

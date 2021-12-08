@@ -23,7 +23,7 @@
 		window.find("content > div.body").on("mousedown", this.dispatch);
 	},
 	sheet: @import "sheet.js",
-	functions: @import "functions.js",
+	formula: @import "formula.js",
 	chart: @import "chart.js",
 	table: @import "table.js",
 	shape: @import "shape.js",

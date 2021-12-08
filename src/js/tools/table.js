@@ -177,12 +177,24 @@
 				break;
 			// custom events
 			case "enter-edit-mode":
-				// sidebar; notify event to sidebar
-				APP.sidebar[APP.sidebar.active].dispatch(event);
-				// sidebar; switch to "Text" tab
-				APP.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
-				// update sidebar
-				Self.dispatch({ type: "query-command-state" });
+				anchor = Self.table.selected.anchor;
+				if (anchor.el && anchor.el.attr("f")) {
+					// update sidebar
+					APP.sidebar.dispatch({ type: `show-functions` });
+					// reset current table, if any
+					Self.table.unselect();
+					// update active tool type
+					APP.tools.active = "formula";
+					// dispatch tool event
+					APP.tools.formula.dispatch({ type: "focus-formula", el: anchor.el });
+				} else {
+					// sidebar; notify event to sidebar
+					APP.sidebar[APP.sidebar.active].dispatch(event);
+					// sidebar; switch to "Text" tab
+					APP.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
+					// update sidebar
+					Self.dispatch({ type: "query-command-state" });
+				}
 				break;
 			case "exit-edit-mode":
 				// collapse & remove potential selection

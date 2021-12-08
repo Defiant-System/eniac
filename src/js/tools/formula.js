@@ -6,7 +6,7 @@
 		// fast references
 		this.els = {
 			doc: $(document),
-			layout: window.find("layout"),
+			el: window.find(".formula-tools"),
 		};
 	},
 	dispatch(event) {
@@ -20,6 +20,8 @@
 				break;
 			// custom events
 			case "focus-formula":
+				Self.els.el.removeClass("hidden");
+				event.el;
 				break;
 			case "blur-formula":
 				break;
