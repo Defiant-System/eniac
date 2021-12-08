@@ -22,6 +22,14 @@
 		// bind event handlers
 		window.find("content > div.body").on("mousedown", this.dispatch);
 	},
+	sheet: @import "sheet.js",
+	functions: @import "functions.js",
+	chart: @import "chart.js",
+	table: @import "table.js",
+	shape: @import "shape.js",
+	image: @import "image.js",
+	text: @import "text.js",
+	line: @import "line.js",
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.tools,
@@ -234,11 +242,5 @@
 				});
 				break;
 		}
-	},
-	sheet: @import "sheet.js",
-	table: @import "table.js",
-	shape: @import "shape.js",
-	image: @import "image.js",
-	text: @import "text.js",
-	line: @import "line.js",
+	}
 }

@@ -20,12 +20,14 @@
 		this.els.el.on("mousedown", ".gradient-colors", this.gradientPoints);
 		this.els.el.on("mousedown", ".angle-ring", this.angleRing);
 	},
-	line: @import "./line.js",
 	sheet: @import "./sheet.js",
+	functions: @import "./functions.js",
+	chart: @import "./chart.js",
 	shape: @import "./shape.js",
 	table: @import "./table.js",
 	image: @import "./image.js",
 	text: @import "./text.js",
+	line: @import "./line.js",
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.sidebar,
