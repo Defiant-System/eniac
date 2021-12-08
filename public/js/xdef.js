@@ -11183,7 +11183,7 @@ var vtregex = (function() {
 	})();
 
 function html2xml(td) {
-	if (td.childNodes.length > 1 || (td.childNodes.length && td.childNodes[0].nodeType === 2)) {
+	if (td.childNodes.length > 1 || (td.childNodes.length && td.childNodes[0].nodeType === Node.ATTRIBUTE_NODE)) {
 		let xml = [],
 			getTextNodes = el => {
 				el.childNodes.map(el => {
@@ -15781,6 +15781,7 @@ function execFormula(fString, getValue) {
 			COUNT: (...args) => args.filter(i => i == +i).length,
 			COUNTA: (...args) => args.length,
 			COUNTIF: (...args) => FUNCS.COUNT(...FUNCS._FILTER(...args)),
+			ROUND: (...args) => parseFloat(args[0]).toFixed(args[1]),
 		};
 
 	// create visitor for parts of tree:
@@ -17926,14 +17927,14 @@ function table_to_book(table, opts) {
 
 function is_dom_element_hidden(element) {
 	var display = "",
-		get_computed_style = get_get_computed_style_function(element);
+		get_computed_style = get_computed_style_function(element);
 	if (get_computed_style) display = get_computed_style(element).getPropertyValue("display");
 	if (!display) display = element.style.display; // Fallback for cases when getComputedStyle is not available (e.g. an old browser or some Node.js environments) or doesn't work (e.g. if the element is not inserted to a document)
 	return display === "none";
 }
 
 /* global getComputedStyle */
-function get_get_computed_style_function(element) {
+function get_computed_style_function(element) {
 	// The proper getComputedStyle implementation is the one defined in the element window
 	if (element.ownerDocument.defaultView && typeof element.ownerDocument.defaultView.getComputedStyle === "function") return element.ownerDocument.defaultView.getComputedStyle;
 	// If it is not available, try to get one from the global namespace

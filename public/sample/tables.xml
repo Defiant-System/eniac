@@ -9,7 +9,7 @@
 			</R>
 			<R tp="2">
 				<C/>
-				<C t="n"><![CDATA[27]]></C>
+				<C t="n"><![CDATA[27.2367]]></C>
 				<C><![CDATA[Dolor aperiam molestias <b style="color:#f00;">officiis nostrum</b> dolores assumenda sint qui.]]></C>
 				<C/>
 			</R>
@@ -27,7 +27,7 @@
 			</R>
 			<R tp="2">
 				<C/>
-				<C f="SUM(B1:B3)"/>
+				<C f="ROUND(SUM(B1:B3);2)"/>
 				<C/>
 				<C/>
 			</R>

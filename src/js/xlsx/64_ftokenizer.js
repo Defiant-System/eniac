@@ -680,6 +680,7 @@ function execFormula(fString, getValue) {
 			COUNT: (...args) => args.filter(i => i == +i).length,
 			COUNTA: (...args) => args.length,
 			COUNTIF: (...args) => FUNCS.COUNT(...FUNCS._FILTER(...args)),
+			ROUND: (...args) => parseFloat(args[0]).toFixed(args[1]),
 		};
 
 	// create visitor for parts of tree:
