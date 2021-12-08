@@ -11,13 +11,11 @@ layout {
 	position: absolute;
 	top: 279px;
 	left: 184px;
-	width: 186px;
-	// height: 40px;
+	width: 185px;
 	display: flex;
 	border-radius: 7px;
 	z-index: 99;
-	background: rgba(255,255,255,.85);
-	backdrop-filter: blur(21px);
+	background: #e7e7e7;
 	box-shadow: 0 0 0 1px rgba(0,0,0,.1),
 				0 19px 31px 3px rgba(0,0,0,.14),
 				0 7px 37px 8px rgba(0,0,0,.12),
@@ -25,16 +23,51 @@ layout {
 
 	.tool-head {
 		width: 37px;
+		padding: 4px 0 0 10px;
+		cursor: move;
+
+		i {
+			display: inline-block;
+			width: 17px;
+			height: 17px;
+			background-size: 17px 17px;
+			opacity: .6;
+		}
 	}
 
 	.tool-body {
+		background: #f5f5f5;
 		flex: 1;
-		padding: 6px 3px;
+		padding: 7px 3px;
 		box-shadow: 0 0 0 1px rgba(0,0,0,.25);
+		font-size: 12px;
 	}
 
 	.tool-buttons {
-		width: 60px;
+		width: 59px;
+		font-size: 0;
+		padding: 4px 0 0 7px;
+
+		i {
+			display: inline-block;
+			width: 17px;
+			height: 17px;
+			border-radius: 50%;
+			background-size: 9px 9px;
+			cursor: pointer;
+
+			&:not(:last-child) {
+				margin-right: 5px;
+			}
+
+			&.icon-cancel {
+				background-color: #d55;
+			}
+
+			&.icon-check {
+				background-color: #3b3;
+			}
+		}
 	}
 }
 
