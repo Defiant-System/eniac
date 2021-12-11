@@ -1054,6 +1054,54 @@ sidebar {
 		display: block;
 	}
 
+	.sidebar-functions[data-section="functions"] {
+		.group-row {
+			h2 {
+				font-size: 16px;
+				padding-bottom: 5px;
+
+				[class*="icon-"],
+				[class^="icon-"] {
+					position: relative;
+					top: -1px;
+					opacity: .35;
+					width: 34px;
+					height: 34px;
+					display: inline-block;
+					background-size: contain;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+					vertical-align: middle;
+				}
+			}
+
+			p {
+				padding: 3px 0 11px;
+			}
+
+			ul {
+				list-style: none;
+				padding: 5px 0 7px;
+
+				li {
+					position: relative;
+					padding: 0 0 5px 11px;
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: 4px;
+						left: 0;
+						width: 4px;
+						height: 4px;
+						border-radius: 50%;
+						background: rgba(0,0,0,.35);
+					}
+				}
+			}
+		}
+	}
+
 	.sidebar-table[data-section="table"] {
 		&.show-title-tab .sidebar-head {
 			> span:nth-child(2),
