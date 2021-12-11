@@ -1056,6 +1056,8 @@ sidebar {
 
 	.sidebar-functions[data-section="functions"] {
 		.group-row {
+			line-height: 1.35;
+
 			h2 {
 				font-size: 16px;
 				padding-bottom: 5px;
@@ -1075,17 +1077,78 @@ sidebar {
 				}
 			}
 
+			h3 {
+				.fn-name {
+
+				}
+
+				.fn-args {
+					font-style: italic;
+					font-weight: 400;
+
+					&:before { content: "("; }
+					&:after { content: ")"; }
+
+					span {
+
+						&:not(:last-child):after {
+							content: ",";
+						}
+					}
+				}
+			}
+
 			p {
 				padding: 3px 0 11px;
+
+				&.intro {
+					padding-bottom: 13px;
+				}
 			}
 
 			ul {
 				list-style: none;
 				padding: 5px 0 7px;
 
+				&.divider:after {
+					content: "";
+					display: block;
+					height: 1px;
+					margin: 9px 0;
+					background: #ccc;
+				}
+
+				&.arguments {
+
+				}
+
+				&.notes {
+					&:after {
+						height: 2px;
+						margin-bottom: 1px;
+					}
+				}
+
+				&.examples {
+					&:before {
+						content: "";
+						display: block;
+						height: 1px;
+						margin: 1px 0 13px;
+						background: #ccc;
+					}
+
+					li {
+						padding: 0 0 7px 0;
+
+						&:before { display: none; }
+					}
+				}
+
+
 				li {
 					position: relative;
-					padding: 0 0 5px 11px;
+					padding: 0 0 7px 11px;
 
 					&:before {
 						content: "";
