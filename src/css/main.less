@@ -1055,7 +1055,29 @@ sidebar {
 	}
 
 	.sidebar-functions[data-section="functions"] {
-		.group-row {
+		.search-matches {
+			background: #fff;
+			margin: 5px 0;
+			height: 150px;
+			overflow: auto;
+			border-radius: 3px;
+			border: 1px solid rgba(0,0,0,.175);
+
+			ul {
+				padding: 1px;
+				list-style: none;
+
+				li {
+					padding: 5px 5px;
+
+					&:nth-child(odd) {
+						background: #f2f2f2;
+					}
+				}
+			}
+		}
+
+		.fn-details {
 			line-height: 1.35;
 
 			h2 {
