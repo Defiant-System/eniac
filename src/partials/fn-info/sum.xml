@@ -2,7 +2,7 @@
 	<i type="intro"><![CDATA[The SUM function returns the sum of a collection of numbers.]]></i>
 	<i type="arguments">
 		<i name="value"><![CDATA[A number value, date/time value or duration value. All values must be of the same type.]]></i>
-		<i name="value…"><![CDATA[Optionally include one or more additional values.]]></i>
+		<i name="value&#8230;"><![CDATA[Optionally include one or more additional values.]]></i>
 	</i>
 	<i type="notes">
 		<i><![CDATA[There is one case where all values do not have to be of the same value type. If exactly one date/time value is included, any number values are considered to be numbers of days and all numbers and duration values are added to the date/time value.]]></i>

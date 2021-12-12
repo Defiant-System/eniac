@@ -18,7 +18,7 @@
 
 		// temp
 		setTimeout(() => {
-			this.els.matchList.find("li:nth-child(1)").trigger("click");
+			this.els.matchList.find("li:nth-child(2)").trigger("click");
 		});
 	},
 	dispatch(event) {
@@ -36,6 +36,9 @@
 			case "show-function":
 				el = $(event.target);
 				name = el.text();
+				// indicate active element
+				el.parent().find(".active").removeClass("active");
+				el.addClass("active");
 				// function header
 				Self.els.root.find(".fn-head h2 span").html(name);
 				// render sidebar contents

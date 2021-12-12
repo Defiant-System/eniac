@@ -3,6 +3,7 @@
 <xsl:template name="functions-list">
 	<ul class="match-list">
 		<xsl:for-each select=".//Functions/*">
+			<xsl:sort select="@name" data-type="string" order="ascending"/>
 			<li><xsl:value-of select="@name"/></li>
 		</xsl:for-each>
 	</ul>
@@ -22,12 +23,12 @@
 		</span>
 	</h3>
 	<ul class="arguments divider">
-		<li>
-			<xsl:for-each select=".//*[@type='arguments']/*">
+		<xsl:for-each select=".//*[@type='arguments']/*">
+			<li>
 				<span class="arg"><xsl:value-of select="@name"/></span>
 				<xsl:value-of select="text()"/>
-			</xsl:for-each>
-		</li>
+			</li>
+		</xsl:for-each>
 	</ul>
 
 	<h4>Notes</h4>

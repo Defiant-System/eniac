@@ -1,0 +1,22 @@
+<i name="AVERAGE">
+	<i type="intro"><![CDATA[The AVERAGE function returns the average (arithmetic mean) of a set of numbers.]]></i>
+	<i type="arguments">
+		<i name="value"><![CDATA[A single value or collection. Each value must be a number value, date/time value or duration value. All values must be of the same value type.]]></i>
+		<i name="value&#8230;"><![CDATA[Optionally include one or more additional values or collections of values.]]></i>
+	</i>
+	<i type="notes">
+		<i><![CDATA[AVERAGE divides the sum of the numbers by the number of numbers.]]></i>
+		<i><![CDATA[A string value or boolean value included in a referenced cell is ignored. If you wish to include string and boolean values in the average, use the AVERAGEA function.]]></i>
+	</i>
+	<i type="examples">
+		<i><![CDATA[=AVERAGE(4, 4, 4, 6, 6, 6) returns 5.]]></i>
+		<i><![CDATA[=AVERAGE(2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4) returns 3.]]></i>
+		<i><![CDATA[=AVERAGE("3d", "6d", "4d", "7d") returns 5d, a duration value.]]></i>
+		<i><![CDATA[=AVERAGE("1/12/2010", "31/12/2011", "30/9/2013") returns 21/3/12 08:00 am, a date/time value.]]></i>
+	</i>
+	<i type="also">
+		<i name="AVERAGEA"/>
+		<i name="AVERAGEIF"/>
+		<i name="AVERAGEIFS"/>
+	</i>
+</i>
