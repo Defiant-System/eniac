@@ -1,0 +1,15 @@
+<i name="ABS">
+	<i type="intro"><![CDATA[The ABS function returns the absolute value of a number value or of a duration value.]]></i>
+	<i type="description">
+		<i name="num-dur"><![CDATA[A number value or duration value.]]></i>
+	<i type="notes">
+		<![CDATA[The result returned by ABS is either a positive number value, positive duration value, or 0.]]>
+	</i>
+	<i type="examples">
+		<i><![CDATA[=ABS(A1) returns 5, if cell A1 contains 5.]]></i>
+		<i><![CDATA[=ABS(8-5) returns 3.]]></i>
+		<i><![CDATA[=ABS(5-8) returns 3.]]></i>
+		<i><![CDATA[=ABS(0) returns 0.]]></i>
+		<i><![CDATA[=ABS(B1) returns 0, if cell B1 is empty.]]></i>
+	</i>
+</i>
