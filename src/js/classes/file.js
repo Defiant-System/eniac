@@ -33,6 +33,7 @@ class File {
 
 		setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(22)`).trigger("mousedown").trigger("mouseup"), 150);
 		setTimeout(() => APP.body.find(`.xl-table:nth(0) td.anchor div`).trigger("mousedown"), 350);
+		
 		// setTimeout(() => APP.body.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);

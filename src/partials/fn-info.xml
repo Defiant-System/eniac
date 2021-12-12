@@ -1,0 +1,4 @@
+<Functions>
+	@import "fn-info/abs.xml"
+	@import "fn-info/sum.xml"
+</Functions>

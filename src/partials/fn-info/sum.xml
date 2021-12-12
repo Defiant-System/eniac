@@ -1,0 +1,17 @@
+<i name="SUM">
+	<i type="intro"><![CDATA[The SUM function returns the sum of a collection of numbers.]]></i>
+	<i type="description">
+		<i name="value"><![CDATA[A number value, date/time value or duration value. All values must be of the same type.]]></i>
+		<i name="value…"><![CDATA[Optionally include one or more additional values.]]></i>
+	</i>
+	<i type="notes">
+		<i><![CDATA[There is one case where all values do not have to be of the same value type. If exactly one date/time value is included, any number values are considered to be numbers of days and all numbers and duration values are added to the date/time value.]]></i>
+		<i><![CDATA[Date/time values can’t be added together, so only one date/time value (as discussed above) is permitted.]]></i>
+		<i><![CDATA[The values can be in individual cells, ranges of cells, or included directly as arguments to the function.]]></i>
+	</i>
+	<i type="examples">
+		<i><![CDATA[=SUM(A1:A4) adds the numbers in cells A1, A2, A3 and A4.]]></i>
+		<i><![CDATA[=SUM(A1:D4) adds the numbers in the square collection of the sixteen cells in the range A1:D4.]]></i>
+		<i><![CDATA[=SUM(A1:A4, 100) adds the numbers in A1, A2, A3 and A4, and the number 100.]]></i>
+	</i>
+</i>

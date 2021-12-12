@@ -3,7 +3,18 @@
 
 {
 	init(parent) {
-		
+		// fast references
+		this.parent = parent;
+		this.els = {
+			matchList: window.find(".sidebar-functions .search-matches"),
+		}
+
+		// console.log( 111, window.bluePrint.selectSingleNode("//Functions"));
+		// render sidebar contents
+		window.render({
+			template: "functions-list",
+			target: this.els.matchList,
+		});
 	},
 	dispatch(event) {
 		let APP = eniac,

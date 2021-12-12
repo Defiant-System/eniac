@@ -1,5 +1,14 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:template name="functions-list">
+	<ul class="match-list">
+		<xsl:for-each select=".//Functions/*">
+			<li><xsl:value-of select="@name"/></li>
+		</xsl:for-each>
+	</ul>
+</xsl:template>
+
+
 <xsl:template name="xl-file">
 	<xsl:for-each select="./Text"><xsl:call-template name="xl-text" /></xsl:for-each>
 	<xsl:for-each select="./Image"><xsl:call-template name="xl-image" /></xsl:for-each>
