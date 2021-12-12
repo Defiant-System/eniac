@@ -1,6 +1,6 @@
 <i name="SUM">
 	<i type="intro"><![CDATA[The SUM function returns the sum of a collection of numbers.]]></i>
-	<i type="description">
+	<i type="arguments">
 		<i name="value"><![CDATA[A number value, date/time value or duration value. All values must be of the same type.]]></i>
 		<i name="value…"><![CDATA[Optionally include one or more additional values.]]></i>
 	</i>

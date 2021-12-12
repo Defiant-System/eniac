@@ -8,6 +8,52 @@
 	</ul>
 </xsl:template>
 
+<xsl:template name="function-body">
+	<p class="intro">
+		<xsl:value-of select=".//*[@type='intro']/text()"/>
+	</p>
+
+	<h3>
+		<span class="fn-name"><xsl:value-of select="@name"/></span>
+		<span class="fn-args">
+			<xsl:for-each select=".//*[@type='arguments']/*">
+				<span><xsl:value-of select="@name"/></span>
+			</xsl:for-each>
+		</span>
+	</h3>
+	<ul class="arguments divider">
+		<li>
+			<xsl:for-each select=".//*[@type='arguments']/*">
+				<span class="arg"><xsl:value-of select="@name"/></span>
+				<xsl:value-of select="text()"/>
+			</xsl:for-each>
+		</li>
+	</ul>
+
+	<h4>Notes</h4>
+	<ul class="notes divider">
+		<xsl:for-each select=".//*[@type='notes']/*">
+			<li><xsl:value-of select="text()"/></li>
+		</xsl:for-each>
+	</ul>
+
+	<h4>Examples</h4>
+	<ul class="examples divider">
+		<xsl:for-each select=".//*[@type='examples']/*">
+			<li><xsl:value-of select="text()"/></li>
+		</xsl:for-each>
+	</ul>
+
+	<xsl:if test=".//*[@type='also']">
+		<h4>See also</h4>
+		<ul class="see-also" data-click="see-also">
+			<xsl:for-each select=".//*[@type='also']/*">
+				<li><xsl:value-of select="@name"/></li>
+			</xsl:for-each>
+		</ul>
+	</xsl:if>
+</xsl:template>
+
 
 <xsl:template name="xl-file">
 	<xsl:for-each select="./Text"><xsl:call-template name="xl-text" /></xsl:for-each>

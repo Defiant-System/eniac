@@ -1,6 +1,6 @@
 <i name="ABS">
 	<i type="intro"><![CDATA[The ABS function returns the absolute value of a number value or of a duration value.]]></i>
-	<i type="description">
+	<i type="arguments">
 		<i name="num-dur"><![CDATA[A number value or duration value.]]></i>
 	</i>
 	<i type="notes">
@@ -12,5 +12,8 @@
 		<i><![CDATA[=ABS(5-8) returns 3.]]></i>
 		<i><![CDATA[=ABS(0) returns 0.]]></i>
 		<i><![CDATA[=ABS(B1) returns 0, if cell B1 is empty.]]></i>
+	</i>
+	<i type="also">
+		<i name="SUM"/>
 	</i>
 </i>

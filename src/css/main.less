@@ -1121,6 +1121,7 @@ sidebar {
 
 			h2 {
 				font-size: 16px;
+				text-transform: uppercase;
 
 				[class*="icon-"],
 				[class^="icon-"] {
@@ -1159,7 +1160,7 @@ sidebar {
 					span {
 
 						&:not(:last-child):after {
-							content: ",";
+							content: ", ";
 						}
 					}
 				}
@@ -1209,6 +1210,16 @@ sidebar {
 						padding: 0 0 7px 0;
 
 						&:before { display: none; }
+					}
+				}
+
+				&.see-also {
+					li {
+						cursor: pointer;
+
+						&:hover {
+							text-decoration: underline;
+						}
 					}
 				}
 
