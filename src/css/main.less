@@ -103,6 +103,7 @@ overflow: initial;
 .shape-hexagon:before       { background-image: url(~/icons/shape-hexagon.png); }
 
 .icon-equalizer { background-image: url(~/icons/icon-equalizer.png); }
+.icon-magnify   { background-image: url(~/icons/icon-magnify.png); }
 .icon-fx        { background-image: url(~/icons/icon-fx.png); }
 .icon-check     { background-image: url(~/icons/icon-check.png); }
 .icon-cancel    { background-image: url(~/icons/icon-cancel.png); }
@@ -1066,6 +1067,28 @@ sidebar {
 			line-height: 1.35;
 		}
 
+		.search-field {
+			position: relative;
+
+			.icon-magnify {
+				position: absolute;
+				top: 5px;
+				left: 5px;
+				width: 13px;
+				height: 13px;
+				z-index: 1;
+				opacity: .35;
+				display: inline-block;
+				background-size: contain;
+				background-position: 50% 50%;
+				background-repeat: no-repeat;
+			}
+
+			input {
+				padding-left: 23px;
+			}
+		}
+
 		.search-matches {
 			background: #fff;
 			margin: 5px 0;
@@ -1079,9 +1102,10 @@ sidebar {
 				list-style: none;
 
 				li {
-					padding: 5px 5px;
+					padding: 3px 5px;
+					cursor: pointer;
 
-					&:nth-child(odd) {
+					&:hover {
 						background: #f2f2f2;
 					}
 				}

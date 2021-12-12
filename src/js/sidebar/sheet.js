@@ -34,7 +34,7 @@
 				el.val(value);
 				break;
 			case "update-sheet-background":
-				value = APP.file.dispatch({ type: "get-sheet-background" }) || "";
+				value = APP.file.dispatch({ type: "get-sheet-background" }) || "#ffffff";
 				// update sheet background
 				Sheet.css({ "background-color": value });
 				// update sidebar color-preset
