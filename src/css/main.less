@@ -1055,6 +1055,17 @@ sidebar {
 	}
 
 	.sidebar-functions[data-section="functions"] {
+		.body-wrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			flex-direction: column;
+			line-height: 1.35;
+		}
+
 		.search-matches {
 			background: #fff;
 			margin: 5px 0;
@@ -1077,12 +1088,15 @@ sidebar {
 			}
 		}
 
-		.fn-details {
-			line-height: 1.35;
+		.fn-head {
+			padding-bottom: 0;
+
+			&:after {
+				display: none;
+			}
 
 			h2 {
 				font-size: 16px;
-				padding-bottom: 5px;
 
 				[class*="icon-"],
 				[class^="icon-"] {
@@ -1098,6 +1112,13 @@ sidebar {
 					vertical-align: middle;
 				}
 			}
+		}
+
+		.fn-body {
+			flex: 1;
+			overflow: auto;
+			padding-top: 1px;
+			margin-bottom: 0;
 
 			h3 {
 				.fn-name {
