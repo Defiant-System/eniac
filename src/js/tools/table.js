@@ -112,7 +112,14 @@
 					// selection
 					Self.table.select(data);
 					// focus caret
-					anchor.el.find("div").focus();
+					let selection = document.getSelection(),
+						range = document.createRange(),
+						textNode = anchor.el.find("div[contenteditable]")[0].firstChild.firstChild;
+					// put cursor at end of new text node
+					range.setStart(textNode, 1);
+					range.setEnd(textNode, 1);
+					selection.removeAllRanges();
+					selection.addRange(range);
 				}
 				break;
 			// native events
