@@ -47,6 +47,7 @@
 
 				isEditable = event.target && (event.target.nodeName === "INPUT" || event.target.contentEditable);
 
+				//console.log( Self.table.table.selected.anchor.el.html() );
 				if (event.target) {
 					el = $(event.target);
 					switch (event.char) {
@@ -60,10 +61,12 @@
 							}
 							break;
 						case "return":
-							if (el.parent().hasClass("tbl-title") || el.parent().hasClass("tbl-caption")) {
-								// event.preventDefault();
-								// console.log(11, Self.active);
-								return true;
+							if (isEditable) {
+								// prevent default
+								event.preventDefault();
+								// blur cursor
+								document.getSelection().removeAllRanges();
+								return false;
 							}
 							break;
 					}
