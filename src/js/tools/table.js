@@ -41,7 +41,7 @@
 				selected = Self.table.selected;
 				anchor = selected ? selected.anchor : false;
 				data = { yNum: [], xNum: [] };
-				
+
 				if (!anchor && ["del", "backspace"].includes(event.char)) {
 					// notify gracefully
 					Self.dispatch({ type: "blur-table" });
@@ -56,7 +56,8 @@
 					return APP.tools.dispatch({ ...event, selected: Self.table._el });
 				}
 
-				let isShiftKey = event.shiftKey,
+				let isSingleCellSelected = selected.xNum.length === 1 && selected.yNum.length === 1,
+					isShiftKey = event.shiftKey,
 					index;
 				// remember "old" selection
 				if (isShiftKey) {
@@ -65,6 +66,10 @@
 				}
 				// arrow keys
 				switch (event.char) {
+					case "del":
+					case "backspace":
+						console.log(event);
+						break;
 					case "up":
 						anchor.y = Math.max(anchor.y - 1, 0);
 						index = data.yNum.indexOf(anchor.y);
@@ -87,14 +92,27 @@
 						break;
 				}
 
+				data.yNum.push(anchor.y);
+				data.xNum.push(anchor.x);
+				data.anchor = { y: anchor.y, x: anchor.x };
+
 				if (index !== undefined) {
-					data.yNum.push(anchor.y);
-					data.xNum.push(anchor.x);
-					data.anchor = { y: anchor.y, x: anchor.x };
 					// move selection
 					Self.table.select(data);
 					// dispatch focus event
 					Self.dispatch({ type: "focus-cell", el: Self.table.selected.anchor.el });
+				} else if (isSingleCellSelected) {
+					// notify sidebar
+					APP.sidebar.table.dispatch({ type: "enter-edit-mode" });
+					// empty selected cell content
+					anchor.el.html(event.char);
+					// sync table tools / selection
+					Self.dispatch({ type: "sync-table-tools" });
+					Self.dispatch({ type: "re-sync-selection" });
+					// selection
+					Self.table.select(data);
+					// focus caret
+					anchor.el.find("div").focus();
 				}
 				break;
 			// native events

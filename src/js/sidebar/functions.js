@@ -18,7 +18,7 @@
 
 		// temp
 		setTimeout(() => {
-			this.els.matchList.find("li:nth-child(2)").trigger("click");
+			this.els.matchList.find("li:nth-child(1)").trigger("click");
 		});
 	},
 	dispatch(event) {
@@ -49,5 +49,8 @@
 				});
 				break;
 		}
+	},
+	move(event) {
+		
 	}
 }
