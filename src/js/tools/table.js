@@ -105,16 +105,14 @@
 					// notify sidebar
 					APP.sidebar.table.dispatch({ type: "enter-edit-mode" });
 					// empty selected cell content
-					anchor.el.html(event.char);
+					anchor.el.find("div[contenteditable]").html(event.char);
 					// sync table tools / selection
 					Self.dispatch({ type: "sync-table-tools" });
-					Self.dispatch({ type: "re-sync-selection" });
-					// selection
-					Self.table.select(data);
+					Self.dispatch({ type: "re-sync-selection", editing: true });
 					// focus caret
 					let selection = document.getSelection(),
 						range = document.createRange(),
-						textNode = anchor.el.find("div[contenteditable]")[0].firstChild.firstChild;
+						textNode = anchor.el.find("div[contenteditable]")[0];
 					// put cursor at end of new text node
 					range.setStart(textNode, 1);
 					range.setEnd(textNode, 1);
