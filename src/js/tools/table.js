@@ -66,6 +66,11 @@
 				}
 				// arrow keys
 				switch (event.char) {
+					case "alt":
+					case "ctrl":
+					case "meta":
+					case "shift":
+						return;
 					case "del":
 					case "backspace":
 						console.log(event);
