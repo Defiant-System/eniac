@@ -70,6 +70,11 @@
 					case "backspace":
 						console.log(event);
 						break;
+					case "esc":
+						// exit edit-mode, if any
+						Self.dispatch({ type: "exit-edit-mode" });
+						Self.dispatch({ type: "blur-table" });
+						return APP.tools.active = "sheet";
 					case "up":
 						anchor.y = Math.max(anchor.y - 1, 0);
 						index = data.yNum.indexOf(anchor.y);
