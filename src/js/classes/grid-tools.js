@@ -23,6 +23,10 @@ class GridTools {
 	cellEditableOff() {
 		if (this._anchor) {
 			let str = this._anchor.find("> div[contenteditable]").html();
+			// if new value is number
+			if (str == parseInt(str, 10)) this._anchor.attr({ t: "n" });
+			else this._anchor.removeAttr("t");
+			// remove "contentEditable" div
 			this._anchor.html(str);
 			// reset reference
 			this._anchor = false;

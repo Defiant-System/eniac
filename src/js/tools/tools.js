@@ -64,8 +64,8 @@
 							if (isEditable) {
 								// prevent default
 								event.preventDefault();
-								// blur cursor
-								document.getSelection().removeAllRanges();
+								// blur XL element, if any
+								Self[Self.active].dispatch({ type: "exit-edit-mode", el });
 								return false;
 							}
 							break;

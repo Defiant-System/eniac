@@ -223,6 +223,8 @@
 				// collapse & remove potential selection
 				sel = document.getSelection();
 				sel.removeAllRanges();
+				// remove selection
+				if (Self.table._el) Self.table.unselect();
 				// sidebar; notify event to sidebar
 				APP.sidebar[APP.sidebar.active].dispatch(event);
 				break;
