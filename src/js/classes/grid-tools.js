@@ -34,8 +34,10 @@ class GridTools {
 	}
 
 	cellEditableOn(anchor) {
-		let str = `<div autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true">${anchor.html()}</div>`;
-		anchor.html(str);
+		if (!anchor.find("div[contenteditable]").length) {
+			let str = `<div autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true">${anchor.html()}</div>`;
+			anchor.html(str);
+		}
 		// reference to ediable anchor
 		this._anchor = anchor;
 	}
