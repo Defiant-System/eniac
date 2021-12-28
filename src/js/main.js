@@ -36,8 +36,7 @@ const eniac = {
 			data,
 			name,
 			pEl,
-			el,
-			str;
+			el;
 		// console.log(event);
 		switch (event.type) {
 			// system events
