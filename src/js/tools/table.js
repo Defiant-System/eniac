@@ -48,7 +48,7 @@
 					// detach table from DOM
 					Table._el.remove();
 					// focus sheet root
-					return APP.body.trigger("mousedown");
+					return APP.els.body.trigger("mousedown");
 				}
 
 				if (!anchor && Table._el) {
@@ -258,7 +258,7 @@
 				[yNum, xNum] = Self.table.getCoord(anchor[0]);
 				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum], anchor });
 				// reset caption/title editing
-				APP.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
+				APP.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				// update sidebar cell values
 				APP.sidebar.table.dispatch({ type: "update-table-cell-size", table });
 				break;
@@ -278,7 +278,7 @@
 				// reset current table, if any
 				if (Self.table._el) Self.table.unselect();
 				// reset caption/title editing
-				APP.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
+				APP.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				Self.table = {};
 				Self.els.root.addClass("hidden");
 				// hide footer

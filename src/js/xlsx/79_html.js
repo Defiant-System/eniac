@@ -194,7 +194,7 @@ var HTML_ = (function() {
 					if (font.italic) cnames.push("italic");
 					if (font.underline) cnames.push("underline");
 					if (font.strike) cnames.push("strike");
-					if (fill?.bgColor) styles.push(`background:#${fill.fgColor.rgb}`);
+					if (fill && fill.bgColor) styles.push(`background:#${fill.fgColor.rgb}`);
 					if (font.color) styles.push(`color:#${font.color.rgb}`);
 					if (font.name) styles.push(`font-family:${font.name},sans-serif`);
 					if (font.sz) styles.push(`font-size:${(font.sz * (96/72) - 2)}px`);

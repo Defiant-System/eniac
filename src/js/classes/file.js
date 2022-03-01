@@ -29,17 +29,17 @@ class File {
 		let APP = eniac;
 
 		// trigger first mousedown
-		setTimeout(() => APP.body.trigger("mousedown").trigger("mouseup"), 10);
+		setTimeout(() => APP.els.body.trigger("mousedown").trigger("mouseup"), 10);
 
-		// setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(6)`).trigger("mousedown").trigger("mouseup"), 150);
-		// setTimeout(() => APP.body.find(`.xl-table:nth(0) td:nth(22)`).trigger("mousedown").trigger("mouseup"), 150);
-		// setTimeout(() => APP.body.find(`.xl-table:nth(0) td.anchor div`).trigger("mousedown"), 350);
+		// setTimeout(() => APP.els.body.find(`.xl-table:nth(0) td:nth(6)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => APP.els.body.find(`.xl-table:nth(0) td:nth(22)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => APP.els.body.find(`.xl-table:nth(0) td.anchor div`).trigger("mousedown"), 350);
 
-		// setTimeout(() => APP.body.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-		// setTimeout(() => APP.body.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
-		// setTimeout(() => APP.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => APP.els.body.find(`.xl-shape:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => APP.els.body.find(`.xl-text:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
+		// setTimeout(() => APP.els.body.find(`.xl-image:nth(0)`).trigger("mousedown").trigger("mouseup"), 150);
 		
-		// setTimeout(() => APP.body.find(`.xl-table:nth(0) .tbl-title`).trigger("mousedown"), 300);
+		// setTimeout(() => APP.els.body.find(`.xl-table:nth(0) .tbl-title`).trigger("mousedown"), 300);
 	}
 
 	dispatch(event) {
@@ -60,12 +60,12 @@ class File {
 				name = event.name || this.activeSheet;
 				this._activeSheet = name;
 				// remove existing "sheet-body"
-				APP.body.find(Guides.selector).remove();
+				APP.els.body.find(Guides.selector).remove();
 				// render & append "sheet-body"
 				str = this.sheet(name);
-				APP.body.append(str);
+				APP.els.body.append(str);
 				// make sure elements have "z-index"
-				APP.body.find(Guides.selector).map((item, i) => {
+				APP.els.body.find(Guides.selector).map((item, i) => {
 					let el = $(item),
 						zIndex = parseInt(el.css("z-index"), 10);
 					if (isNaN(zIndex)) el.css({ zIndex: i+1 });

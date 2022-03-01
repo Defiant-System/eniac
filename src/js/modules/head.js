@@ -40,7 +40,7 @@
 				name = APP.file.dispatch({ type: "create-new-sheet", index });
 				Self.dispatch({ type: "add-sheet", name, makeActive: true });
 				// empty work space
-				APP.body.find(Guides.selector).remove();
+				APP.els.body.find(Guides.selector).remove();
 				break;
 			case "add-sheet":
 				el = Self.els.reel.find(".active").removeClass("active");
@@ -73,7 +73,7 @@
 				// TODO: remember focused item and re-focus, if any
 
 				// reset (active) tools and focus on "sheet"
-				return APP.body.trigger("mousedown").trigger("mouseup");
+				return APP.els.body.trigger("mousedown").trigger("mouseup");
 		}
 	}
 }

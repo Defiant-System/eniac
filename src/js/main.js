@@ -21,7 +21,11 @@ const DefaultSettings = {
 const eniac = {
 	init() {
 		// fast references
-		this.body = window.find("content .body .wrapper");
+		this.els = {
+			layout: window.find("layout"),
+			body: window.find("content .body .wrapper"),
+			blankView: window.find(".blank-view"),
+		};
 		// get settings or use default settings
 		this.Settings = window.settings.getItem("settings") || DefaultSettings;
 		// init all sub-objects
@@ -40,9 +44,9 @@ const eniac = {
 		// console.log(event);
 		switch (event.type) {
 			// system events
-			case "window.open":
-				break;
-			case "window.close":
+			case "window.init":
+				// reset app by default - show initial view
+				Self.dispatch({ type: "reset-app" });
 				break;
 			case "window.paste":
 				let rows = [];
@@ -81,6 +85,16 @@ const eniac = {
 
 						// setTimeout(() => Self.dispatch({ type: "save-file-as" }), 500);
 					});
+				break;
+			case "reset-app":
+				// render blank view
+				window.render({
+					template: "blank-view",
+					match: `//Data`,
+					target: Self.els.blankView
+				});
+				// show blank view
+				Self.els.layout.addClass("show-blank-view");
 				break;
 			case "save-file":
 				console.log("todo");
@@ -133,6 +147,7 @@ const eniac = {
 	},
 	head: @import "modules/head.js",
 	foot: @import "modules/foot.js",
+	blankView: @import "modules/blankView.js",
 	sidebar: @import "sidebar/sidebar.js",
 	tools: @import "tools/tools.js",
 	popups: @import "modules/popups.js",

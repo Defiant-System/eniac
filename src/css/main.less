@@ -1,6 +1,8 @@
 
 // for dark theme
 @import "theme-dark";
+@import "blank-view";
+
 @import "table";
 @import "tables-styled";
 @import "xl-elements";
@@ -123,6 +125,11 @@ layout {
 	border-radius: inherit;
 	font-family: Helvetica Neue;
 
+	&.show-blank-view {
+		.blank-view { display: block; }
+		content { display: none; }
+	}
+
 	&.show-sidebar {
 		content {
 			padding-right: 270px;
@@ -206,6 +213,9 @@ layout {
 			height: 13px;
 		}
 		&.icon-add { background-size: 13px 13px; }
+
+		&.icon-folder-open { background-image: url(~/icons/icon-folder-open.png); width: 17px; height: 17px; }
+		&.icon-clipboard { background-image: url(~/icons/icon-clipboard.png); width: 17px; height: 17px; }
 	}
 
 	.icon-small-a              { background-image: url(~/icons/icon-small-a.png); }

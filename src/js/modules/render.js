@@ -29,7 +29,7 @@ const Render = {
 			this.sheet(book.SheetNames[0]);
 		}
 		// make sure elements have "z-index"
-		APP.body.find(Guides.selector).map((item, i) => {
+		APP.els.body.find(Guides.selector).map((item, i) => {
 			let el = $(item),
 				zIndex = parseInt(el.css("z-index"), 10);
 			if (isNaN(zIndex)) el.css({ zIndex: i+1 });

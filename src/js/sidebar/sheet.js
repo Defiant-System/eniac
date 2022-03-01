@@ -4,7 +4,7 @@
 {
 	init(parent) {
 		// fast references
-		this.sheet = eniac.body.parent();
+		this.sheet = eniac.els.body.parent();
 
 		// temp
 		// this.sheet.css({ "background-color": "#eee" });

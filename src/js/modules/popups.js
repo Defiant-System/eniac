@@ -158,9 +158,9 @@
 				name = event.target.getAttribute("data-arg");
 				str = window.render({ template: "xl-table", match: `//Table[@id="template-2"]` });
 				str = str.replace(/gray-table-1/, name);
-				el = APP.body.append(str);
+				el = APP.els.body.append(str);
 				// make sure new table is on top
-				el.css({ zIndex: APP.body.find(Guides.selector).length });
+				el.css({ zIndex: APP.els.body.find(Guides.selector).length });
 				// auto focus on first grid cell
 				el.find("td:nth(0)").trigger("mousedown").trigger("mouseup");
 				// close popup
@@ -211,9 +211,9 @@
 					let dim = {
 							width: img.width,
 							height: img.height,
-							top: (APP.body.parent().prop("offsetHeight") - img.height) >> 1,
-							left: (APP.body.parent().prop("offsetWidth") - img.width) >> 1,
-							zIndex: APP.body.find(Guides.selector).length,
+							top: (APP.els.body.parent().prop("offsetHeight") - img.height) >> 1,
+							left: (APP.els.body.parent().prop("offsetWidth") - img.width) >> 1,
+							zIndex: APP.els.body.find(Guides.selector).length,
 						},
 						str = `<data>
 									<Image>
@@ -226,7 +226,7 @@
 					data = $.nodeFromString(str);
 					str = window.render({ template: "xl-image", match: `//Image`, data });
 					// insert text element
-					el = APP.body.append(str);
+					el = APP.els.body.append(str);
 					// focus on shape
 					el.trigger("mousedown").trigger("mouseup");
 				};
@@ -248,13 +248,13 @@
 						[...el.attributes].map(a => (a.name !== "viewBox") ? el.removeAttribute(a.name) : null);
 						
 						// insert shape
-						el = APP.body.append(el);
+						el = APP.els.body.append(el);
 						// position element
 						el.addClass("xl-shape")
 							.css({
-								top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
-								left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
-								zIndex: APP.body.find(Guides.selector).length,
+								top: (APP.els.body.parent().prop("offsetHeight") - 100) >> 1,
+								left: (APP.els.body.parent().prop("offsetWidth") - 100) >> 1,
+								zIndex: APP.els.body.find(Guides.selector).length,
 							})
 							// focus on shape
 							.trigger("mousedown").trigger("mouseup");
@@ -266,21 +266,21 @@
 						let data = CSV.parse(file.data),
 							str = window.render({ template: "xl-table", match: `//Table`, data }),
 							// insert text element
-							el = APP.body.append(str);
+							el = APP.els.body.append(str);
 						// focus on shape
 						el.find("td:nth(0)").trigger("mousedown").trigger("mouseup");
 					});
 				break;
 			case "insert-text-box":
 				pos = {
-					top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
-					left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
-					zIndex: APP.body.find(Guides.selector).length,
+					top: (APP.els.body.parent().prop("offsetHeight") - 100) >> 1,
+					left: (APP.els.body.parent().prop("offsetWidth") - 100) >> 1,
+					zIndex: APP.els.body.find(Guides.selector).length,
 				};
 				data = $.xmlFromString(`<data><Text style="top:${pos.top}px; left:${pos.left}px; width:100px; z-index:${pos.zIndex};"><![CDATA[Text]]></Text></data>`);
 				str = window.render({ template: "xl-text", match: `//Text`, data });
 				// insert text element
-				el = APP.body.append(str);
+				el = APP.els.body.append(str);
 				// focus on shape
 				el.trigger("mousedown").trigger("mouseup");
 				break;
@@ -290,16 +290,16 @@
 				// prepare shape
 				name = $(event.target).data("arg");
 				pos = {
-					top: (APP.body.parent().prop("offsetHeight") - 100) >> 1,
-					left: (APP.body.parent().prop("offsetWidth") - 100) >> 1,
-					zIndex: APP.body.find(Guides.selector).length,
+					top: (APP.els.body.parent().prop("offsetHeight") - 100) >> 1,
+					left: (APP.els.body.parent().prop("offsetWidth") - 100) >> 1,
+					zIndex: APP.els.body.find(Guides.selector).length,
 				};
 				str = window.find(`svg#${name}`).clone(true)[0].outerHTML;
 				str = str.replace(/ id=".+?"/, ` style="top:${pos.top}px; left:${pos.left}px; width:100px; height:100px; z-index:${pos.zIndex};"`)
 						.replace(/ cache="keep"/, ` class="xl-shape"`)
 						.replace(/dsic\d+/g, m => `dsic${Date.now()}`);
 				// insert shape
-				el = APP.body.append(str);
+				el = APP.els.body.append(str);
 				el.find("rect[stroke-width]").remove();
 				// focus on shape
 				el.trigger("mousedown").trigger("mouseup");
