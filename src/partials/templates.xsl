@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="block-samples" data-click="select-sample">
-		<h3>Example</h3>
+		<h3>Templates</h3>
 		<xsl:call-template name="sample-list" />
 	</div>
 
