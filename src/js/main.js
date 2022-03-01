@@ -1,12 +1,5 @@
 
-@import "classes/grid.js"
-@import "classes/grid-tools.js"
-@import "classes/guides.js"
-@import "classes/file.js"
-@import "classes/edit.js"
-@import "classes/selection.js"
-@import "modules/csv.js"
-@import "modules/color.js"
+@import "../../public/js/bundle.min.js"
 
 // defiant adapted xlsx library
 const XLSX = await window.fetch("~/js/xdef.js");
