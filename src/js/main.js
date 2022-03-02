@@ -1,6 +1,10 @@
 
 @import "../../public/js/bundle.min.js"
 
+@import "classes/file.js"
+@import "modules/files.js"
+
+
 // defiant adapted xlsx library
 const XLSX = await window.fetch("~/js/xdef.js");
 
@@ -57,14 +61,12 @@ const eniac = {
 				// forward event to tools
 				return Self.tools.dispatch(event);
 			case "open.file":
-				// return Self.dispatch({ type: "new-file" });
-
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
 						let data = new Uint8Array(file.arrayBuffer);
 						
 						// save reference to file
-						Self.file = new File(file, data);
+						Files.activeFile = new File(file, data);
 
 						// setTimeout(() => Self.dispatch({ type: "save-file-as" }), 500);
 					});
@@ -92,16 +94,6 @@ const eniac = {
 				// show blank view
 				Self.els.layout.addClass("show-blank-view");
 				break;
-			case "new-file":
-				// save reference to file
-				// let req = await defiant.shell(`fs -ur "~/sample/year.csv"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/sheet.xml"`);
-				let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/shapes.xml"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/images.xml"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/texts.xml"`);
-				Self.file = new File(req.result);
-				break;
 			case "open-file":
 				window.dialog.open({
 					xlsx: item => Self.dispatch(item),
@@ -112,7 +104,7 @@ const eniac = {
 				console.log("todo");
 				break;
 			case "save-file-as":
-				file = Self.file;
+				file = Files.activeFile;
 				// pass on available file types
 				window.dialog.saveAs(file._file, {
 					xlsx: () => file.toBlob("xlsx"),

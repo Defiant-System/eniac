@@ -37,7 +37,7 @@
 			// custom events
 			case "new-sheet":
 				index = Self.els.reel.find(".active").index();
-				name = APP.file.dispatch({ type: "create-new-sheet", index });
+				name = Files.activeFile.dispatch({ type: "create-new-sheet", index });
 				Self.dispatch({ type: "add-sheet", name, makeActive: true });
 				// empty work space
 				APP.els.body.find(Guides.selector).remove();
@@ -68,7 +68,7 @@
 				el.addClass("active");
 				name = el.find("i").html();
 				// render clicked sheet
-				APP.file.dispatch({ type: "render-sheet", name });
+				Files.activeFile.dispatch({ type: "render-sheet", name });
 
 				// TODO: remember focused item and re-focus, if any
 

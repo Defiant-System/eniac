@@ -33,11 +33,11 @@
 				break;
 			case "update-sheet-name":
 				el = Els.el.find(`input[data-change="set-sheet-name"]`);
-				value = APP.file.activeSheet;
+				value = Files.activeFile.activeSheet;
 				el.val(value);
 				break;
 			case "update-sheet-background":
-				value = APP.file.dispatch({ type: "get-sheet-background" }) || "#ffffff";
+				value = Files.activeFile.dispatch({ type: "get-sheet-background" }) || "#ffffff";
 				// update sheet background
 				Sheet.css({ "background-color": value });
 				// update sidebar color-preset
@@ -52,30 +52,30 @@
 				}
 				break;
 			case "set-sheet-name":
-				name = APP.file.activeSheet;
+				name = Files.activeFile.activeSheet;
 				el = APP.head.els.reel.find(`span i:contains("${name}")`);
 				el.html(event.value);
 				// update file
-				APP.file.dispatch({ ...event, type: "update-sheet-name" });
+				Files.activeFile.dispatch({ ...event, type: "update-sheet-name" });
 				break;
 			case "set-sheet-bgcolor":
 				// update UI
 				Sheet.css({ "background-color": event.value });
 				// update file
-				APP.file.dispatch({ ...event, type: "update-sheet-background" });
+				Files.activeFile.dispatch({ ...event, type: "update-sheet-background" });
 				break;
 			case "duplicate-sheet":
 				// update UI
-				name = APP.file.activeSheet +"-1";
+				name = Files.activeFile.activeSheet +"-1";
 				APP.head.dispatch({ type: "add-sheet", name, makeActive: true });
 				// update file
-				APP.file.dispatch({ type: "duplicate-active-sheet", name });
+				Files.activeFile.dispatch({ type: "duplicate-active-sheet", name });
 				break;
 			case "delete-sheet":
 				// update UI
 				APP.head.dispatch({ type: "remove-sheet" });
 				// update file
-				APP.file.dispatch({ type: "delete-active-sheet" });
+				Files.activeFile.dispatch({ type: "delete-active-sheet" });
 				break;
 		}
 	}

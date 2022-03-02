@@ -29,7 +29,20 @@ const Files = {
 				.then(blob => {
 					// here the image is a blob
 					file.blob = blob;
-					resolve(file);
+					if (blob.type === "application/xml") {
+						let reader = new FileReader();
+
+						reader.addEventListener("load", () => {
+							// this will then display a text file
+							file.data = $.xmlFromString(reader.result);
+							resolve(file);
+						}, false);
+
+						reader.readAsText(blob);
+
+					} else {
+						resolve(file);
+					}
 				})
 				.catch(err => reject(err));
 		});
@@ -42,3 +55,5 @@ const Files = {
 		this.activeFile = this.stack.find(f => f._file.id === id);
 	}
 };
+
+Files.init();
