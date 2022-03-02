@@ -47,8 +47,8 @@ const Files = {
 				.catch(err => reject(err));
 		});
 	},
-	close(id) {
-		
+	close() {
+		this.activeFile.dispatch({ type: "close-file" });
 	},
 	select(id) {
 		// reference to active file

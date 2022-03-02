@@ -13,7 +13,7 @@
 		<Menu type="divider"/>
 		<Menu name="Export as PDF"/>
 		<Menu type="divider"/>
-		<Menu name="Close File"/>
+		<Menu name="Close File" click="close-file"/>
 	</Menu>
 	<Menu name="Edit">
 		<Menu name="Undo" click="history-undo" hotkey="meta+z"/>

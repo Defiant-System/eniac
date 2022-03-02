@@ -74,6 +74,9 @@
 
 				// reset (active) tools and focus on "sheet"
 				return APP.els.body.trigger("mousedown").trigger("mouseup");
+			case "clear-all-sheet":
+				Self.els.reel.find("> span").remove();
+				break;
 		}
 	}
 }

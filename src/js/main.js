@@ -22,6 +22,9 @@ const eniac = {
 			layout: window.find("layout"),
 			body: window.find("content .body .wrapper"),
 			blankView: window.find(".blank-view"),
+			tools: {
+				sidebar: window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`),
+			}
 		};
 		// get settings or use default settings
 		this.Settings = window.settings.getItem("settings") || DefaultSettings;
@@ -110,6 +113,17 @@ const eniac = {
 					xlsx: () => file.toBlob("xlsx"),
 					xml: () => file.toBlob("xml"),
 				});
+				break;
+			case "close-file":
+				file = Files.activeFile;
+				// open file + prepare workspace
+				Files.close();
+				// show blank view
+				Self.els.layout.addClass("show-blank-view");
+				// hide sidebar, if needed
+				if (Self.els.tools.sidebar.hasClass("tool-active_")) {
+					Self.els.tools.sidebar.trigger("click");
+				}
 				break;
 			case "open-help":
 				defiant.shell("fs -u '~/help/index.md'");

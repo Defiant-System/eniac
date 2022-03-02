@@ -31,6 +31,11 @@ class File {
 		// trigger first mousedown
 		setTimeout(() => APP.els.body.trigger("mousedown").trigger("mouseup"), 10);
 
+		// auto show sidebar
+		if (!APP.els.tools.sidebar.hasClass("tool-active_")) {
+			APP.els.tools.sidebar.trigger("click");
+		}
+
 		// setTimeout(() => APP.els.body.find(`.xl-table:nth(0) td:nth(6)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.els.body.find(`.xl-table:nth(0) td:nth(22)`).trigger("mousedown").trigger("mouseup"), 150);
 		// setTimeout(() => APP.els.body.find(`.xl-table:nth(0) td.anchor div`).trigger("mousedown"), 350);
@@ -80,6 +85,12 @@ class File {
 					// and keep track of changes and bubbling
 					// console.log( tokens );
 				});
+				break;
+			case "close-file":
+				// clean up sheet names
+				APP.head.dispatch({ type: "clear-all-sheet" });
+				// clean up workarea
+				APP.els.body.find(".guide-lines").nextAll("*").remove();
 				break;
 			case "create-new-sheet":
 				let i = 0,
