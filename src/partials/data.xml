@@ -1,12 +1,12 @@
 
 <Data>
 	<Samples>
-		<i width="600" height="400" path="~/img/templates/template-00.jpg"/>
-		<i width="600" height="400" path="~/img/templates/template-01.jpg"/>
-		<i width="600" height="400" path="~/img/templates/template-02.jpg"/>
-		<i width="600" height="400" path="~/img/templates/template-03.jpg"/>
-		<i width="600" height="400" path="~/img/templates/template-04.jpg"/>
-		<i width="600" height="400" path="~/img/templates/template-05.jpg"/>
+		<i path="~/sample/texts.xml" img="~/sample/img/template-00.jpg"/>
+		<i path="~/sample/basebal.csv" img="~/sample/img/template-01.jpg"/>
+		<i path="~/sample/images.xml" img="~/sample/img/template-02.jpg"/>
+		<i path="~/sample/shapes.xml" img="~/sample/img/template-03.jpg"/>
+		<i path="~/sample/sheet.xml" img="~/sample/img/template-04.jpg"/>
+		<i path="~/sample/tables.xml" img="~/sample/img/template-05.jpg"/>
 	</Samples>
 	<Recents>
 		<i name="basketball.png" filepath="/fs/Desktop/images/basketball.png"/>

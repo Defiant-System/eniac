@@ -1,5 +1,5 @@
 
-// vermeer.blankView
+// eniac.blankView
 
 {
 	init() {
@@ -25,13 +25,13 @@
 		// }, 500);
 	},
 	dispatch(event) {
-		let APP = vermeer,
+		let APP = eniac,
 			Self = APP.blankView,
 			file,
 			name,
 			value,
 			el;
-		return console.log(event);
+		// console.log(event);
 		switch (event.type) {
 			case "open-filesystem":
 				APP.dispatch({ type: "open-file" });

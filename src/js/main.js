@@ -56,18 +56,8 @@ const eniac = {
 			case "window.keystroke":
 				// forward event to tools
 				return Self.tools.dispatch(event);
-			case "new-file":
-				// save reference to file
-				// let req = await defiant.shell(`fs -ur "~/sample/year.csv"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/sheet.xml"`);
-				let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/shapes.xml"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/images.xml"`);
-				// let req = await defiant.shell(`fs -ur "~/sample/texts.xml"`);
-				Self.file = new File(req.result);
-				break;
 			case "open.file":
-				return Self.dispatch({ type: "new-file" });
+				// return Self.dispatch({ type: "new-file" });
 
 				event.open({ responseType: "arrayBuffer" })
 					.then(file => {
@@ -79,6 +69,19 @@ const eniac = {
 						// setTimeout(() => Self.dispatch({ type: "save-file-as" }), 500);
 					});
 				break;
+			// custom events
+			case "prepare-file":
+				// add file to "recent" list
+				Self.blankView.dispatch({ ...event, type: "add-recent-file" });
+				// set up workspace
+				Self.dispatch({ ...event, type: "setup-workspace" });
+				break;
+			case "setup-workspace":
+				// show blank view
+				Self.els.layout.removeClass("show-blank-view");
+				// open file + prepare workspace
+				Files.open(event.file, event);
+				break;
 			case "reset-app":
 				// render blank view
 				window.render({
@@ -89,6 +92,22 @@ const eniac = {
 				// show blank view
 				Self.els.layout.addClass("show-blank-view");
 				break;
+			case "new-file":
+				// save reference to file
+				// let req = await defiant.shell(`fs -ur "~/sample/year.csv"`);
+				// let req = await defiant.shell(`fs -ur "~/sample/sheet.xml"`);
+				let req = await defiant.shell(`fs -ur "~/sample/tables.xml"`);
+				// let req = await defiant.shell(`fs -ur "~/sample/shapes.xml"`);
+				// let req = await defiant.shell(`fs -ur "~/sample/images.xml"`);
+				// let req = await defiant.shell(`fs -ur "~/sample/texts.xml"`);
+				Self.file = new File(req.result);
+				break;
+			case "open-file":
+				window.dialog.open({
+					xlsx: item => Self.dispatch(item),
+					xml: item => Self.dispatch(item),
+				});
+				break;
 			case "save-file":
 				console.log("todo");
 				break;
@@ -97,11 +116,14 @@ const eniac = {
 				// pass on available file types
 				window.dialog.saveAs(file._file, {
 					xlsx: () => file.toBlob("xlsx"),
-					xml:  () => file.toBlob("xml"),
+					xml: () => file.toBlob("xml"),
 				});
 				break;
 			case "open-help":
 				defiant.shell("fs -u '~/help/index.md'");
+				break;
+			case "toggle-toolbars":
+				// console.log(event);
 				break;
 			// menubar events
 			case "set-document-zoom":
@@ -115,7 +137,6 @@ const eniac = {
 			// system menu events
 			case "before-menu:sheet-tab":
 				return Self.head.dispatch(event);
-			// custom events
 			case "popup-view-options":
 			case "insert-text-box":
 				return Self.popups.dispatch(event);

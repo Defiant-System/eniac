@@ -5,5 +5,6 @@
 @import "classes/file.js"
 @import "classes/edit.js"
 @import "classes/selection.js"
+@import "modules/files.js"
 @import "modules/csv.js"
 @import "modules/color.js"
