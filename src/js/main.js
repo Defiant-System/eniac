@@ -32,6 +32,13 @@ const eniac = {
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init());
+		
+		// render blank view
+		window.render({
+			template: "blank-view",
+			match: `//Data`,
+			target: this.els.blankView
+		});
 	},
 	async dispatch(event) {
 		let Self = eniac,
@@ -88,12 +95,6 @@ const eniac = {
 				Files.open(event.file, event);
 				break;
 			case "reset-app":
-				// render blank view
-				window.render({
-					template: "blank-view",
-					match: `//Data`,
-					target: Self.els.blankView
-				});
 				// show blank view
 				Self.els.layout.addClass("show-blank-view");
 				break;
