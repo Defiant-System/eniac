@@ -116,8 +116,7 @@ const eniac = {
 				});
 				break;
 			case "close-file":
-				file = Files.activeFile;
-				// open file + prepare workspace
+				// close file + prepare workspace
 				Files.close();
 				// show blank view
 				Self.els.layout.addClass("show-blank-view");
