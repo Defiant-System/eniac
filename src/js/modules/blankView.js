@@ -20,7 +20,7 @@
 		// add recent files in to data-section
 		xSamples.parentNode.append(this.xRecent);
 
-		// setTimeout(() => window.find(".sample:nth(0)").trigger("click"), 500);
+		setTimeout(() => window.find(".sample:nth(0)").trigger("click"), 500);
 		// setTimeout(() => eniac.dispatch({ type: "close-file" }), 800);
 	},
 	dispatch(event) {

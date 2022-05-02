@@ -22,6 +22,13 @@ const eniac = {
 			body: window.find("content .body .wrapper"),
 			blankView: window.find(".blank-view"),
 			tools: {
+				selZoom: window.find(`.toolbar-selectbox_[data-menu="view-zoom"]`),
+				toolFormula: window.find(`.toolbar-tool_[data-arg="formula"]`),
+				toolGrid: window.find(`.toolbar-tool_[data-arg="grid"]`),
+				toolChart: window.find(`.toolbar-tool_[data-arg="chart"]`),
+				toolText: window.find(`.toolbar-tool_[data-click="insert-text-box"]`),
+				toolShape: window.find(`.toolbar-tool_[data-arg="shape"]`),
+				toolImage: window.find(`.toolbar-tool_[data-arg="image"]`),
 				sidebar: window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`),
 			}
 		};
@@ -45,6 +52,7 @@ const eniac = {
 			table,
 			data,
 			name,
+			value,
 			pEl,
 			el;
 		// console.log(event);
@@ -90,6 +98,8 @@ const eniac = {
 			case "setup-workspace":
 				// show blank view
 				Self.els.layout.removeClass("show-blank-view");
+				// enable toolbar
+				Self.dispatch({ type: "toggle-toolbars", value: true });
 				// open file + prepare workspace
 				Files.open(event.file, event);
 				break;
@@ -122,13 +132,18 @@ const eniac = {
 				// hide sidebar, if needed
 				if (Self.els.tools.sidebar.hasClass("tool-active_")) {
 					Self.els.tools.sidebar.trigger("click");
+					Self.els.tools.sidebar.removeClass("tool-active_");
 				}
+				// disable toolbar
+				Self.dispatch({ type: "toggle-toolbars", value: null });
 				break;
 			case "open-help":
 				defiant.shell("fs -u '~/help/index.md'");
 				break;
 			case "toggle-toolbars":
-				// console.log(event);
+				for (name in Self.els.tools) {
+					Self.els.tools[name][event.value ? "removeClass" : "addClass"]("tool-disabled_");
+				}
 				break;
 			// menubar events
 			case "set-document-zoom":
