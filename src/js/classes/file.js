@@ -7,9 +7,13 @@ class File {
 
 		switch (this._file.kind) {
 			case "csv":
-				// parse CSV file into workbook
-				this._file.workbook = CSV.parse(this._file.data);
-				break;
+				let reader = new FileReader();
+				reader.addEventListener("load", async () => {
+					this._file.data = reader.result;
+					// parse CSV file into workbook
+					this._file.workbook = CSV.parse(this._file.data);
+				}, false);
+				return reader.readAsText(this._file.blob);
 			case "xlsx":
 				let book = XLSX.read(data, { type: "array", cellStyles: true });
 				this._file.workbook = XLSX.utils.book_to_xml(book);
