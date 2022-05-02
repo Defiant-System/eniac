@@ -4,7 +4,7 @@ class $election {
 	constructor(node, startOffset, endOffset) {
 		this._selection = document.getSelection();
 		// select if provided
-		if (node && startOffset) this.select(...arguments);
+		if (node && startOffset !== false) this.select(...arguments);
 		// reference to root node
 		this._root = this.getRoot();
 	}
@@ -74,7 +74,7 @@ class $election {
 
 	select(node, startOffset, endOffset) {
 		let range = document.createRange(),
-			textNodes = this.getOnlyTextNodes(node),
+			textNodes = node.nodeType === 3 ? [node] : this.getOnlyTextNodes(node),
 			anchorNode,
 			anchorOffset = startOffset,
 			focusNode,

@@ -22,7 +22,7 @@ class Edit {
 	
 	format(key, value) {
 		let name = this._keys[key] || key,
-			sel = new $election(),
+			sel = new $election,
 			isCollapsed;
 		// if selection, save current range
 		if (sel._root) {

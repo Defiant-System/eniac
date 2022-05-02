@@ -5,17 +5,17 @@
 			<Tool symbol="icon-redo" click="history-redo" state="disabled"/>
 		</Options>
 		<!-- <Tool symbol="icon-sidebar"/> -->
-		<Select name="100%" width="35" menu="view-zoom"></Select>
+		<Select name="100%" width="35" menu="view-zoom" state="disabled"></Select>
 	</Group>
 	<Group width="40%" align="center">
-		<Tool symbol="icon-formula" click="popup-view-options" arg="formula"/>
-		<Tool symbol="icon-table" click="popup-view-options" arg="grid"/>
-		<Tool symbol="icon-chart" click="popup-view-options" arg="chart"/>
-		<Tool symbol="icon-text" click="insert-text-box"/>
-		<Tool symbol="icon-shape" click="popup-view-options" arg="shape"/>
-		<Tool symbol="icon-image" click="popup-view-options" arg="image"/>
+		<Tool symbol="icon-formula" click="popup-view-options" arg="formula" state="disabled"/>
+		<Tool symbol="icon-table" click="popup-view-options" arg="grid" state="disabled"/>
+		<Tool symbol="icon-chart" click="popup-view-options" arg="chart" state="disabled"/>
+		<Tool symbol="icon-text" click="insert-text-box" state="disabled"/>
+		<Tool symbol="icon-shape" click="popup-view-options" arg="shape" state="disabled"/>
+		<Tool symbol="icon-image" click="popup-view-options" arg="image" state="disabled"/>
 	</Group>
 	<Group width="30%">
-		<Tool symbol="icon-format" click="toggle-sidebar"/>
+		<Tool symbol="icon-format" click="toggle-sidebar" state="disabled"/>
 	</Group>
 </ToolBar>
