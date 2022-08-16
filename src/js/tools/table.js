@@ -366,13 +366,13 @@
 					} else {
 						// table tool "contextmenu arrow" is clicked
 						if (isTableRows) {
-							defiant.menu({
+							karaqu.menu({
 								el,
 								menu: "table-tool-rows",
 								add: { top: -4, left: 16 }
 							});
 						} else {
-							defiant.menu({
+							karaqu.menu({
 								el,
 								menu: "table-tool-cols",
 								add: { top: -1, left: 73 }

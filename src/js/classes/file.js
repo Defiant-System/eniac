@@ -3,7 +3,7 @@ class File {
 
 	constructor(fsFile, data) {
 		// save reference to original FS file
-		this._file = fsFile || new defiant.File();
+		this._file = fsFile || new karaqu.File();
 
 		switch (this._file.kind) {
 			case "csv":

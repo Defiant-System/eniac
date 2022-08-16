@@ -52,7 +52,7 @@
 				el = $(event.target);
 				if (!el.hasClass("recent-file")) return;
 				
-				defiant.shell(`fs -o '${el.data("file")}' null`)
+				karaqu.shell(`fs -o '${el.data("file")}' null`)
 					.then(exec => APP.dispatch(exec.result));
 				break;
 			case "add-recent-file":

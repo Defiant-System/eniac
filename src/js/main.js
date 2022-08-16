@@ -4,7 +4,7 @@
 @import "modules/files.js"
 
 
-// defiant adapted xlsx library
+// karaqu adapted xlsx library
 const XLSX = await window.fetch("~/js/xdef.js");
 
 // default settings
@@ -138,7 +138,7 @@ const eniac = {
 				Self.dispatch({ type: "toggle-toolbars", value: null });
 				break;
 			case "open-help":
-				defiant.shell("fs -u '~/help/index.md'");
+				karaqu.shell("fs -u '~/help/index.md'");
 				break;
 			case "toggle-toolbars":
 				for (name in Self.els.tools) {

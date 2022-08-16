@@ -20,7 +20,7 @@ const Files = {
 	openLocal(url) {
 		let parts = url.slice(url.lastIndexOf("/") + 1),
 			[ name, kind ] = parts.split("."),
-			file = new defiant.File({ name, kind });
+			file = new karaqu.File({ name, kind });
 		// return promise
 		return new Promise((resolve, reject) => {
 			// fetch image and transform it to a "fake" file
