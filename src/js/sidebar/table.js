@@ -52,9 +52,9 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.sidebar.table,
-			Tools = APP.tools,
-			Els = APP.sidebar.els,
+			Self = APP.spawn.sidebar.table,
+			Tools = APP.spawn.tools,
+			Els = APP.spawn.sidebar.els,
 			Table = Tools.table,
 			Anchor = Table.table.selected ? Table.table.selected.anchor.el : false,
 			TblEl = event.table || Table.table._el,

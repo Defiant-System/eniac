@@ -7,6 +7,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
+			Spawn = event.spawn,
 			Self = APP.spawn.tools.table,
 			Table = Self.table,
 			top, left, width, height,
@@ -95,7 +96,7 @@
 					Self.dispatch({ type: "focus-cell", el: Self.table.selected.anchor.el });
 				} else if (isSingleCellSelected) {
 					// notify sidebar
-					APP.sidebar.table.dispatch({ type: "enter-edit-mode" });
+					APP.spawn.sidebar.table.dispatch({ type: "enter-edit-mode" });
 					// empty selected cell content
 					anchor.el.find("div[contenteditable]").html(event.char);
 					// sync table tools / selection
@@ -153,7 +154,7 @@
 					resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
 				};
 				// instantiate table tools
-				Self.gridTools = new GridTools();
+				Self.gridTools = new GridTools(Spawn);
 				// placeholder
 				Self.table = {};
 				// bind event handlers
@@ -172,8 +173,8 @@
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
 				// update sidebar
-				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
-				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
+				APP.spawn.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.spawn.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "add-column-after":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
@@ -182,8 +183,8 @@
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
 				// update sidebar
-				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
-				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
+				APP.spawn.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.spawn.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "delete-column":
 				xNum = Self.gridTools.getColIndex(event.origin.el[0]);
@@ -192,8 +193,8 @@
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
 				// update sidebar
-				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
-				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
+				APP.spawn.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.spawn.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "add-row-above":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
@@ -202,29 +203,29 @@
 				Self.dispatch({ type: "sync-table-tools" });
 				Self.dispatch({ type: "re-sync-selection" });
 				// update sidebar
-				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
-				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
+				APP.spawn.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.spawn.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "add-row-below":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
 				Self.table.addRow(yNum, "after");
 				// update sidebar
-				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
-				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
+				APP.spawn.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.spawn.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			case "delete-row":
 				yNum = Self.gridTools.getRowIndex(event.origin.el[0]);
 				Self.table.removeRow(yNum);
 				// update sidebar
-				APP.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
-				APP.sidebar.table.dispatch({ type: "update-table-row-col" });
+				APP.spawn.sidebar.table.dispatch({ ...event, type: "update-table-head-footer-rows" });
+				APP.spawn.sidebar.table.dispatch({ type: "update-table-row-col" });
 				break;
 			// custom events
 			case "enter-edit-mode":
 				anchor = Self.table.selected.anchor;
 				if (anchor.el && anchor.el.attr("f")) {
 					// update sidebar
-					APP.sidebar.dispatch({ type: `show-functions` });
+					APP.spawn.sidebar.dispatch({ type: `show-functions` });
 					// reset current table, if any
 					Self.table.unselect();
 					// update active tool type
@@ -233,9 +234,9 @@
 					APP.tools.formula.dispatch({ type: "focus-formula", el: anchor.el });
 				} else {
 					// sidebar; notify event to sidebar
-					APP.sidebar[APP.sidebar.active].dispatch(event);
+					APP.spawn.sidebar[APP.spawn.sidebar.active].dispatch(event);
 					// sidebar; switch to "Text" tab
-					APP.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
+					APP.spawn.sidebar.dispatch({ type: "select-nth-tab", value: 3 });
 					// update sidebar
 					Self.dispatch({ type: "query-command-state" });
 				}
@@ -247,7 +248,7 @@
 				// remove selection
 				if (Self.table._el) Self.table.unselect();
 				// sidebar; notify event to sidebar
-				APP.sidebar[APP.sidebar.active].dispatch(event);
+				APP.spawn.sidebar[APP.spawn.sidebar.active].dispatch(event);
 				break;
 			case "query-command-state":
 				// sync table tools / selection
@@ -256,7 +257,7 @@
 				// do command state in "next tick"
 				setTimeout(() => {
 					// update sidebar
-					APP.sidebar.table.dispatch({ type: "content-cursor-state" });
+					APP.spawn.sidebar.table.dispatch({ type: "content-cursor-state" });
 				});
 				break;
 			case "focus-cell":
@@ -271,7 +272,7 @@
 				// reset caption/title editing
 				APP.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				// update sidebar cell values
-				APP.sidebar.table.dispatch({ type: "update-table-cell-size", table });
+				APP.spawn.sidebar.table.dispatch({ type: "update-table-cell-size", table });
 				break;
 			case "focus-table":
 				// blur any table, if any
@@ -279,7 +280,7 @@
 				// sync tools table
 				Self.dispatch({ ...event, type: "sync-table-tools" });
 				// update sidebar
-				APP.sidebar.dispatch({ ...event, type: "show-table" });
+				APP.spawn.sidebar.dispatch({ ...event, type: "show-table" });
 				// show tools for table
 				Self.els.root.removeClass("hidden");
 				break;
@@ -352,7 +353,7 @@
 						tbl,
 						grid: Self.table,
 						root: Self.els.root,
-						sidebar: APP.sidebar.table,
+						sidebar: APP.spawn.sidebar.table,
 						clickX: event.clientX,
 						clickY: event.clientY,
 						minX: 30,
@@ -443,7 +444,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover");
 
-				let sEl = APP.sidebar.els.el,
+				let sEl = APP.spawn.sidebar.els.el,
 					table = Self.table._el.find(".tbl-root"),
 					type = event.target.className.split(" ")[1].split("-")[0];
 
@@ -451,7 +452,7 @@
 				Self.cDrag = {
 					el,
 					table,
-					sidebar: APP.sidebar.table,
+					sidebar: APP.spawn.sidebar.table,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
 					clickX: event.clientX,
@@ -542,7 +543,7 @@
 					click,
 					vResize: type.includes("v"),
 					hResize: type.includes("h"),
-					sidebar: APP.sidebar.table,
+					sidebar: APP.spawn.sidebar.table,
 					_max: Math.max,
 					_floor: Math.floor,
 				};
@@ -784,7 +785,7 @@
 				break;
 			case "mouseup":
 				// no shiftKey - single cell selection
-				APP.sidebar.table.dispatch({ type: "update-cell-border-options" });
+				APP.spawn.sidebar.table.dispatch({ type: "update-cell-border-options" });
 				// show footer
 				APP.foot.dispatch({ type: "render-cell" });
 				// uncover layout
@@ -823,7 +824,7 @@
 				Self.drag = {
 					el,
 					guides,
-					sidebar: APP.sidebar.table,
+					sidebar: APP.spawn.sidebar.table,
 					clickTime: Date.now(),
 					click: {
 						y: event.clientY - offset.y,

@@ -7,6 +7,12 @@
 		this.active = "sheet";
 		this.types = ["table", "shape", "line", "image", "text"];
 		this.shapeTypes = ["circle", "ellipse", "rect", "polygon", "polyline", "path", "line", "bezier", "image"];
+		
+		// init all sub-objects
+		Object.keys(this)
+			.filter(i => typeof this[i].init === "function")
+			.map(i => this[i].init());
+
 	},
 	sheet: @import "sheet.js",
 	formula: @import "formula.js",
@@ -39,10 +45,10 @@
 					root: Spawn.find(".shape-tools"),
 					body: Spawn.find("content > div.body"),
 				};
-				// init all sub-objects
+				// forward event to sub-objects
 				Object.keys(Self)
-					.filter(i => typeof Self[i].init === "function")
-					.map(i => Self[i].init());
+					.filter(i => typeof Self[i].dispatch === "function")
+					.map(i => Self[i].dispatch(event));
 
 				// bind event handlers
 				Self.els.body.on("mousedown", Self.dispatch);

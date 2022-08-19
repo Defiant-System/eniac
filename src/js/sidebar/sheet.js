@@ -1,10 +1,10 @@
 
-// eniac.sidebar.sheet
+// eniac.spawn.sidebar.sheet
 
 {
 	init(parent) {
 		// fast references
-		this.sheet = eniac.els.body.parent();
+		// this.sheet = eniac.els.body.parent();
 
 		// temp
 		// this.sheet.css({ "background-color": "#eee" });
@@ -17,14 +17,20 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.sidebar.sheet,
-			Els = APP.sidebar.els,
-			Sheet = Self.sheet,
+			Spawn = event.spawn,
+			Self = APP.spawn.sidebar.sheet,
+			Els = APP.spawn.sidebar.els,
+			Sheet = Spawn.data.tabs._active ? Spawn.data.tabs._active.bodyEl : null,
 			name,
 			value,
 			el;
 		// console.log(event);
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+			case "spawn.focus":
+				break;
+			// custom events
 			case "populate-sheet-values":
 				// tab: Sheet
 				Self.dispatch({ type: "update-sheet-name" });

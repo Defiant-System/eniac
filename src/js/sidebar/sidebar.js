@@ -33,8 +33,8 @@
 				};
 				// init all sub-objects
 				Object.keys(Self)
-					.filter(i => typeof Self[i].init === "function")
-					.map(i => Self[i].init());
+					.filter(i => typeof Self[i].dispatch === "function")
+					.map(i => Self[i].dispatch(event));
 
 				// bind event handlers
 				Self.els.el.on("mousedown", ".gradient-colors", Self.gradientPoints);

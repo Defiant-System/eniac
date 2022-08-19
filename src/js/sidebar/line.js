@@ -13,9 +13,9 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.sidebar.line,
-			Els = APP.sidebar.els,
-			Line = event.shape || APP.tools.line,
+			Self = APP.spawn.sidebar.line,
+			Els = APP.spawn.sidebar.els,
+			Line = event.shape || APP.spawn.tools.line,
 			color,
 			value,
 			allEl,

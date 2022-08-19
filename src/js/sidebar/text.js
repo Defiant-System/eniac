@@ -13,9 +13,9 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.sidebar.text,
-			Tools = APP.tools,
-			Els = APP.sidebar.els,
+			Self = APP.spawn.sidebar.text,
+			Tools = APP.spawn.tools,
+			Els = APP.spawn.sidebar.els,
 			Text = event.text || Tools.text.text,
 			stops,
 			color,

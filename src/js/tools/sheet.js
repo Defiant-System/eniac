@@ -4,14 +4,7 @@
 {
 	init() {
 		// fast references
-		this.els = {
-			doc: $(document),
-			layout: window.find("layout"),
-			lasso: window.find(".sheet-lasso"),
-		};
-
-		// temp
-		// eniac.sidebar.els.el.find(`input[data-change="set-sheet-name"]`).focus();
+		this.els = {};
 	},
 	get layout() {
 		let body = this.els.layout.find("content > .body"),
@@ -23,12 +16,24 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools.sheet,
+			Self = APP.spawn.tools.sheet,
+			Spawn = event.spawn,
 			el;
 		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.keystroke":
+				break;
+			case "spawn.blur":
+				// reset fast references
+				Self.els = {};
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					layout: Spawn.find("layout"),
+					lasso: Spawn.find(".sheet-lasso"),
+				};
 				break;
 			// custom events
 			case "focus-sheet":

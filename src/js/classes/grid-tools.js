@@ -1,7 +1,7 @@
 
 class GridTools {
-	constructor() {
-		this._el = window.find(".table-tools");
+	constructor(Spawn) {
+		this._el = Spawn.find(".table-tools");
 		this._cols = this._el.find(".table-cols");
 		this._rows = this._el.find(".table-rows");
 		this._selection = this._el.find(".selection");

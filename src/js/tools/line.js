@@ -10,6 +10,7 @@
 		let APP = eniac,
 			Self = APP.spawn.tools.line,
 			Line = Self.line,
+			Spawn = event.spawn,
 			el;
 		switch (event.type) {
 			// system events

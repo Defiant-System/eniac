@@ -4,9 +4,7 @@
 {
 	init() {
 		// fast references
-		this.els = {
-			doc: $(document),
-		};
+		this.els = {};
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -14,6 +12,16 @@
 			el;
 		// console.log(event);
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+				Self.els = {};
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					doc: $(document),
+				};
+				break;
 			// custom events
 			case "focus-chart":
 				break;

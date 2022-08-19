@@ -12,6 +12,7 @@
 		let APP = eniac,
 			Self = APP.spawn.tools.image,
 			Image = Self.image,
+			Spawn = event.spawn,
 			el;
 		switch (event.type) {
 			// system events
@@ -27,7 +28,7 @@
 				};
 				break;
 
-			// csutom events
+			// custom events
 			case "blur-image":
 				if (!Self.els.root) return;
 				if (Image.length) Image.removeClass("masking");
