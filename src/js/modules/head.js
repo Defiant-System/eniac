@@ -19,6 +19,7 @@
 			name, cn, str,
 			index,
 			el;
+		// console.log(event);
 		switch (event.type) {
 			// native events
 			case "wheel":
@@ -40,17 +41,19 @@
 				// fast references
 				Self.els = {
 					root: Spawn.find("content > .head > div"),
+					head: Spawn.find("content > .head"),
 					reel: Spawn.find("content > .head .sheet-reel"),
 				};
 				break;
 
 			// custom events
 			case "new-sheet":
-				index = Self.els.reel.find(".active").index();
-				name = Files.activeFile.dispatch({ type: "create-new-sheet", index });
-				Self.dispatch({ type: "add-sheet", name, makeActive: true });
-				// empty work space
-				APP.els.body.find(Guides.selector).remove();
+				// TODO
+				// index = Self.els.reel.find(".active").index();
+				// name = Files.activeFile.dispatch({ type: "create-new-sheet", index });
+				// Self.dispatch({ type: "add-sheet", name, makeActive: true });
+				// // empty work space
+				// APP.els.body.find(Guides.selector).remove();
 				break;
 			case "add-sheet":
 				el = Self.els.reel.find(".active").removeClass("active");
@@ -59,6 +62,9 @@
 				if (el.length) el.after(str);
 				else Self.els.reel.prepend(str);
 				// TODO: add sheet to file & UI
+
+				// enable animation later
+				setTimeout(() => Self.els.head.removeClass("empty"), 100);
 				break;
 			case "remove-sheet":
 				el = event.origin ? event.origin.el.parents("span") : Self.els.reel.find(".active");
@@ -85,6 +91,9 @@
 				// reset (active) tools and focus on "sheet"
 				return APP.els.body.trigger("mousedown").trigger("mouseup");
 			case "clear-all-sheet":
+				// prevent animation
+				Self.els.head.addClass("empty");
+				// reset tabs
 				Self.els.reel.find("> span").remove();
 				break;
 		}

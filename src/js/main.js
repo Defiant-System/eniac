@@ -1,4 +1,5 @@
 
+@import "../../public/js/bundle.min.js"
 @import "classes/file.js"
 @import "classes/tabs.js"
 

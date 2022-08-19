@@ -3,7 +3,10 @@
 
 {
 	init() {
-
+		// init all sub-objects
+		Object.keys(this)
+			.filter(i => typeof this[i].init === "function")
+			.map(i => this[i].init());
 	},
 	dispose(event) {
 		// let Spawn = event.spawn;
@@ -31,11 +34,6 @@
 			// system events
 			case "spawn.open":
 				Spawn.data.tabs = new Tabs(Self, Spawn);
-
-				// init all sub-objects
-				// Object.keys(this)
-				// 	.filter(i => typeof this[i].init === "function")
-				// 	.map(i => this[i].init(Spawn));
 
 				// temp
 				// setTimeout(() => Self.dispatch({ type: "new-tab", spawn: Spawn }), 300);
@@ -71,6 +69,22 @@
 			case "tab-close":
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
+			
+			// forwards events
+			default:
+				el = event.el || (event.origin && event.origin.el);
+				if (el) {
+					pEl = el.data("area") ? el : el.parents("[data-area]");
+					name = pEl.data("area");
+					if (pEl.length) {
+						if (Self[name] && Self[name].dispatch) {
+							return Self[name].dispatch(event);
+						}
+						if (Self.tools[name].dispatch) {
+							return Self.tools[name].dispatch(event);
+						}
+					}
+				}
 		}
 	},
 	head: @import "./head.js",

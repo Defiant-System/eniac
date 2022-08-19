@@ -31,6 +31,9 @@ class Tabs {
 		// add element to DOM + append file contents
 		bodyEl.attr({ "data-id": tId }).html(data);
 		bodyEl = this._content.append(bodyEl);
+
+		file.bodyEl = bodyEl;
+
 		// save reference to tab
 		this._stack[tId] = { tId, tabEl, bodyEl, history, file };
 		// focus on file
@@ -71,5 +74,6 @@ class Tabs {
 		spawn.title = active.file.base;
 		
 		active.file.dispatch({ type: "render-sheet-names", spawn });
+		active.file.dispatch({ type: "render-sheet", spawn });
 	}
 }

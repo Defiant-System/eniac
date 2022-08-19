@@ -798,6 +798,19 @@ content {
 		display: flex;
 		color: #777;
 
+		&.empty {
+			> div {
+				.sheet-reel {
+					span {
+						&:not(.icon-add),
+						&.remove-sheet {
+							animation-duration: 0s;
+						}
+					}
+				}
+			}
+		}
+
 		span {
 			position: relative;
 			padding: 8px 0 0;
