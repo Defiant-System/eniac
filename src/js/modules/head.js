@@ -3,11 +3,7 @@
 
 {
 	init() {
-		// fast references
-		this.els = {
-			root: window.find("content > .head > div"),
-			reel: window.find("content > .head .sheet-reel"),
-		};
+		return;
 
 		// bind event handlers
 		this.els.root.on("wheel", this.dispatch);
@@ -17,7 +13,8 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.head,
+			Self = APP.spawn,head,
+			Spawn = event.spawn,
 			max, delta, left,
 			name, cn, str,
 			index,
@@ -34,6 +31,19 @@
 			case "before-menu:sheet-tab":
 				console.log( "make adjustments to menu", event.xMenu );
 				break;
+
+			case "spawn.blur":
+				// reset fast references
+				Self.els = {};
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					root: Spawn.find("content > .head > div"),
+					reel: Spawn.find("content > .head .sheet-reel"),
+				};
+				break;
+
 			// custom events
 			case "new-sheet":
 				index = Self.els.reel.find(".active").index();

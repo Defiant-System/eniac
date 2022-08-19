@@ -1,5 +1,10 @@
 
-@import "./classes/tabs.js"
+@import "classes/file.js"
+@import "classes/tabs.js"
+
+
+// karaqu adapted xlsx library
+const XLSX = await window.fetch("~/js/xdef.js");
 
 
 const eniac = {

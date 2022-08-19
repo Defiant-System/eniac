@@ -26,7 +26,7 @@ class Tabs {
 			history = new window.History,
 			tabEl = this._spawn.tabs.add(file.base, tId),
 			bodyEl = this._template.clone(),
-			data = "file: "+ tId; // file.data;
+			data = ""; // file.data;
 
 		// add element to DOM + append file contents
 		bodyEl.attr({ "data-id": tId }).html(data);
@@ -47,9 +47,13 @@ class Tabs {
 	}
 
 	focus(tId) {
-		if (this._active) {
+		let spawn = this._spawn,
+			active = this._active;
+		if (active) {
+			// reset sheetnames
+			active.file.dispatch({ type: "reset-sheet-names", spawn });
 			// hide blurred body
-			this._active.bodyEl.addClass("hidden");
+			active.bodyEl.addClass("hidden");
 		}
 		// reference to active tab
 		this._active = this._stack[tId];
@@ -58,12 +62,14 @@ class Tabs {
 	}
 
 	update() {
-		let active = this._active;
+		let spawn = this._spawn,
+			active = this._active;
 		// unhide focused body
 		active.bodyEl.removeClass("hidden");
 
 		// update spawn window title
-		this._spawn.title = active.file.base;
+		spawn.title = active.file.base;
 		
+		active.file.dispatch({ type: "render-sheet-names", spawn });
 	}
 }
