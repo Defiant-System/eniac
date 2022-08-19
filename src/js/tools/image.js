@@ -1,25 +1,35 @@
 
-// eniac.tools.image
+// eniac.spawn.tools.image
 
 {
 	init() {
 		// fast references
-		this.els = {
-			root: window.find(".image-tools"),
-			doc: $(document),
-			layout: window.find("layout"),
-		};
+		this.els = {};
 		// default value
 		this.image = {};
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools.image,
+			Self = APP.spawn.tools.image,
 			Image = Self.image,
 			el;
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+				Self.els = {};
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					doc: $(document),
+					root: Spawn.find(".image-tools"),
+					layout: Spawn.find("layout"),
+				};
+				break;
+
 			// csutom events
 			case "blur-image":
+				if (!Self.els.root) return;
 				if (Image.length) Image.removeClass("masking");
 				Self.els.root.addClass("hidden").removeClass("mask-mode");
 				Self.image = {};

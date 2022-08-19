@@ -4,20 +4,7 @@
 {
 	init() {
 		// fast references
-		this.els = {
-			doc: $(document),
-			layout: window.find("layout"),
-			root: window.find(".popups"),
-			formulaOptions: window.find(".popups .popup-insert-formula-options"),
-			gridOptions: window.find(".popups .popup-insert-grid-options"),
-			chartOptions: window.find(".popups .popup-insert-chart-options"),
-			shapeOptions: window.find(".popups .popup-insert-shape-options"),
-			imageOptions: window.find(".popups .popup-insert-image-options"),
-			colorRing: window.find(".popups .popup-colour-ring .ring-wrapper"),
-			palette: window.find(".popups .popup-palette"),
-		};
-		// bind event handlers
-		this.els.colorRing.on("mousedown", this.doColorRing);
+		this.els = {};
 
 		// temp
 		// setTimeout(() => {
@@ -35,7 +22,8 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.popups,
+			Self = APP.spawn.popups,
+			Spawn = event.spawn,
 			dim, pos, top, left,
 			step,
 			data,
@@ -46,6 +34,31 @@
 			el;
 		// console.log(event);
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+				// reset fast references
+				Self.els = {};
+				// unbind event handlers
+				Self.els.body.off("mousedown", Self.dispatch);
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					doc: $(document),
+					layout: Spawn.find("layout"),
+					root: Spawn.find(".popups"),
+					formulaOptions: Spawn.find(".popups .popup-insert-formula-options"),
+					gridOptions: Spawn.find(".popups .popup-insert-grid-options"),
+					chartOptions: Spawn.find(".popups .popup-insert-chart-options"),
+					shapeOptions: Spawn.find(".popups .popup-insert-shape-options"),
+					imageOptions: Spawn.find(".popups .popup-insert-image-options"),
+					colorRing: Spawn.find(".popups .popup-colour-ring .ring-wrapper"),
+					palette: Spawn.find(".popups .popup-palette"),
+				};
+				// bind event handlers
+				Self.els.colorRing.on("mousedown", Self.doColorRing);
+				break;
+				
 			case "select-color":
 				el = $(event.target);
 				value = el.attr("style").match(/#.[\w\d]+/)[0];

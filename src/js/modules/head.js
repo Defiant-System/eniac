@@ -1,19 +1,14 @@
 
-// eniac.head
+// eniac.spawn.head
 
 {
 	init() {
-		return;
-
-		// bind event handlers
-		this.els.root.on("wheel", this.dispatch);
-
 		// temp
 		// setTimeout(() => this.els.reel.find("> span:nth(2)").trigger("click"), 100);
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.spawn,head,
+			Self = APP.spawn.head,
 			Spawn = event.spawn,
 			max, delta, left,
 			name, cn, str,
@@ -28,14 +23,12 @@
 				left = Math.min(Math.max(Self.els.reel.prop("offsetLeft") - delta, max), 0);
 				Self.els.reel.css({ left });
 				break;
-			// system menu events
-			case "before-menu:sheet-tab":
-				console.log( "make adjustments to menu", event.xMenu );
-				break;
-
+			// system events
 			case "spawn.blur":
 				// reset fast references
 				Self.els = {};
+				// unbind event handlers
+				Self.els.root.off("wheel", Self.dispatch);
 				break;
 			case "spawn.focus":
 				// fast references
@@ -44,6 +37,12 @@
 					head: Spawn.find("content > .head"),
 					reel: Spawn.find("content > .head .sheet-reel"),
 				};
+				// bind event handlers
+				Self.els.root.on("wheel", Self.dispatch);
+				break;
+			// system menu events
+			case "before-menu:sheet-tab":
+				console.log( "make adjustments to menu", event.xMenu );
 				break;
 
 			// custom events

@@ -1,23 +1,34 @@
 
-// eniac.tools.line
+// eniac.spawn.tools.line
 
 {
 	init() {
 		// fast references
-		this.els = {
-			root: window.find(".shape-tools"),
-			doc: $(document),
-			layout: window.find("layout"),
-		};
+		this.els = {};
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools.line,
+			Self = APP.spawn.tools.line,
 			Line = Self.line,
 			el;
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+				Self.els = {};
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					doc: $(document),
+					root: Spawn.find(".shape-tools"),
+					layout: Spawn.find("layout"),
+				};
+				break;
+
 			// custom events
 			case "blur-line":
+				if (!Self.els.root) return;
+
 				Self.els.root.addClass("hidden");
 				// forget line
 				Self.line = false;

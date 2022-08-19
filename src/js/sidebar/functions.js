@@ -1,5 +1,5 @@
 
-// eniac.sidebar.functions
+// eniac.spawn.sidebar.functions
 
 {
 	init(parent) {
@@ -23,7 +23,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.sidebar.functions,
+			Self = APP.spawn.sidebar.functions,
 			name,
 			value,
 			el;

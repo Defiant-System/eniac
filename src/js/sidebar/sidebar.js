@@ -1,33 +1,46 @@
 
-// eniac.sidebar
+// eniac.spawn.sidebar
 
 {
 	init() {
 		// fast references
-		this.els = {
-			doc: $(document),
-			layout: window.find("layout"),
-			el: window.find("sidebar"),
-			tbl: window.find(".sidebar-table"),
-		};
-		
-		// init all sub-objects
-		Object.keys(this)
-			.filter(i => typeof this[i].init === "function")
-			.map(i => this[i].init(this));
-
-		// bind event handlers
-		this.els.el.on("mousedown", ".gradient-colors", this.gradientPoints);
-		this.els.el.on("mousedown", ".angle-ring", this.angleRing);
+		this.els = {};
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.sidebar,
+			Self = APP.spawn.sidebar,
+			Spawn = event.spawn,
 			name,
 			value,
 			pEl,
 			el;
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+				// reset fast references
+				Self.els = {};
+				// unbind event handlers
+				Self.els.el.off("mousedown", ".gradient-colors", Self.gradientPoints);
+				Self.els.el.off("mousedown", ".angle-ring", Self.angleRing);
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					doc: $(document),
+					layout: Spawn.find("layout"),
+					el: Spawn.find("sidebar"),
+					tbl: Spawn.find(".sidebar-table"),
+				};
+				// init all sub-objects
+				Object.keys(Self)
+					.filter(i => typeof Self[i].init === "function")
+					.map(i => Self[i].init());
+
+				// bind event handlers
+				Self.els.el.on("mousedown", ".gradient-colors", Self.gradientPoints);
+				Self.els.el.on("mousedown", ".angle-ring", Self.angleRing);
+				break;
+
 			case "toggle-sidebar":
 				value = Self.els.layout.hasClass("show-sidebar");
 				Self.els.layout.toggleClass("show-sidebar", value);

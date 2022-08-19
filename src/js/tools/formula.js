@@ -1,5 +1,5 @@
 
-// eniac.tools.formula
+// eniac.spawn.tools.formula
 
 {
 	init() {
@@ -11,7 +11,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools.formula,
+			Self = APP.spawn.tools.formula,
 			el;
 		// console.log(event);
 		switch (event.type) {

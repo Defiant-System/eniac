@@ -1,5 +1,5 @@
 
-// eniac.sidebar.chart
+// eniac.spawn.sidebar.chart
 
 {
 	init(parent) {
@@ -7,7 +7,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.sidebar.chart,
+			Self = APP.spawn.sidebar.chart,
 			name,
 			value,
 			el;

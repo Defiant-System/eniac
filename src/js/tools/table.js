@@ -1,31 +1,13 @@
 
-// eniac.tools.table
+// eniac.spawn.tools.table
 
 {
 	init() {
-		// fast references
-		let root = window.find(".table-tools");
-		this.els = {
-			root,
-			doc: $(document),
-			layout: window.find("layout"),
-			cols: root.find(".table-cols"),
-			rows: root.find(".table-rows"),
-			move: root.find(".tool.move"),
-			selection: root.find(".selection"),
-			resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
-		};
-		// instantiate table tools
-		this.gridTools = new GridTools();
-		// placeholder
-		this.table = {};
-
-		// bind event handlers
-		this.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", this.dispatch);
+		
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools.table,
+			Self = APP.spawn.tools.table,
 			Table = Self.table,
 			top, left, width, height,
 			grid, cols, rows, data,
@@ -149,6 +131,35 @@
 				// remove selection
 				Self.table.unselect();
 				break;
+			
+			// system events
+			case "spawn.blur":
+				// reset fast references
+				Self.els = {};
+				// unbind event handlers
+				Self.els.layout.off("scroll", ".tbl-body > div:nth-child(2)", Self.dispatch);
+				break;
+			case "spawn.focus":
+				// fast references
+				let root = Spawn.find(".table-tools");
+				Self.els = {
+					root,
+					doc: $(document),
+					layout: Spawn.find("layout"),
+					cols: root.find(".table-cols"),
+					rows: root.find(".table-rows"),
+					move: root.find(".tool.move"),
+					selection: root.find(".selection"),
+					resizes: root.find(".tool.hv-resize, .tool.v-resize, .tool.h-resize"),
+				};
+				// instantiate table tools
+				Self.gridTools = new GridTools();
+				// placeholder
+				Self.table = {};
+				// bind event handlers
+				Self.els.layout.on("scroll", ".tbl-body > div:nth-child(2)", Self.dispatch);
+				break;
+
 			// menu events
 			case "sort-column-asc":
 			case "sort-column-desc":

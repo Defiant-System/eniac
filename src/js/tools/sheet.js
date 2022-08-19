@@ -1,5 +1,5 @@
 
-// eniac.tools.sheet
+// eniac.spawn.tools.sheet
 
 {
 	init() {
@@ -39,7 +39,7 @@
 	},
 	lasso(event) {
 		let APP = eniac,
-			Self = APP.tools.sheet,
+			Self = APP.spawn.tools.sheet,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":

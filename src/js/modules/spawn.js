@@ -32,6 +32,9 @@
 		// console.log(event);
 		switch (event.type) {
 			// system events
+			case "window.keystroke":
+				// forward event to tools
+				return Self.tools.dispatch(event);
 			case "spawn.open":
 				Spawn.data.tabs = new Tabs(Self, Spawn);
 
@@ -44,9 +47,9 @@
 			case "spawn.blur":
 			case "spawn.focus":
 				// forward event to all sub-objects
-				Object.keys(this)
-					.filter(i => typeof this[i].dispatch === "function")
-					.map(i => this[i].dispatch(event));
+				Object.keys(Self)
+					.filter(i => typeof Self[i].dispatch === "function")
+					.map(i => Self[i].dispatch(event));
 				break;
 			case "open.file":
 				(event.files || [event]).map(async fHandle => {
@@ -59,7 +62,7 @@
 				break;
 			case "load-samples":
 				event.samples.map(async path => {
-					let fItem = await Spawn.data.tabs.openLocal(`~/sample/${path.slice(1)}`),
+					let fItem = await Spawn.data.tabs.openLocal(`~/sample/${path}`),
 						file = new File(fItem, data);
 					// auto add first base "tab"
 					Self.dispatch({ ...event, file, type: "new-tab" });
@@ -96,4 +99,9 @@
 		}
 	},
 	head: @import "./head.js",
+	foot: @import "./foot.js",
+	popups: @import "./popups.js",
+	blankView: @import "./blankView.js",
+	tools: @import "../tools/tools.js",
+	sidebar: @import "../sidebar/sidebar.js",
 }

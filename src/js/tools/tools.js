@@ -1,26 +1,12 @@
 
-// eniac.tools
+// eniac.spawn.tools
 
 {
 	init() {
-		// fast references
-		this.els = {
-			root: window.find(".shape-tools"),
-			body: window.find("content > div.body"),
-		};
-
 		// default tools
 		this.active = "sheet";
 		this.types = ["table", "shape", "line", "image", "text"];
 		this.shapeTypes = ["circle", "ellipse", "rect", "polygon", "polyline", "path", "line", "bezier", "image"];
-
-		// init all sub-objects
-		Object.keys(this)
-			.filter(i => typeof this[i].init === "function")
-			.map(i => this[i].init());
-
-		// bind event handlers
-		window.find("content > div.body").on("mousedown", this.dispatch);
 	},
 	sheet: @import "sheet.js",
 	formula: @import "formula.js",
@@ -32,7 +18,8 @@
 	line: @import "line.js",
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools,
+			Self = APP.spawn.tools,
+			Spawn = event.spawn,
 			isEditable,
 			selected,
 			value,
@@ -40,6 +27,26 @@
 			el;
 		switch (event.type) {
 			// system events
+			case "spawn.blur":
+				// reset fast references
+				Self.els = {};
+				// unbind event handlers
+				Self.els.body.off("mousedown", Self.dispatch);
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					root: Spawn.find(".shape-tools"),
+					body: Spawn.find("content > div.body"),
+				};
+				// init all sub-objects
+				Object.keys(Self)
+					.filter(i => typeof Self[i].init === "function")
+					.map(i => Self[i].init());
+
+				// bind event handlers
+				Self.els.body.on("mousedown", Self.dispatch);
+				break;
 			case "window.keystroke":
 				// get selected items
 				selected = event.selected || Self.els.body.find(".wrapper > .selected");
@@ -156,9 +163,9 @@
 						setTimeout(() => {
 							// special UI for title & caption
 							name = el.prop("className").split(" ").find(n => n.startsWith("tbl-")).split("tbl-")[1];
-							APP.sidebar.els.tbl.addClass(`show-${name}-tab`);
+							APP.spawn.sidebar.els.tbl.addClass(`show-${name}-tab`);
 							// auto switch to tab
-							APP.sidebar.els.tbl.find(`.sidebar-head .${name}-tab`).trigger("click");
+							APP.spawn.sidebar.els.tbl.find(`.sidebar-head .${name}-tab`).trigger("click");
 						});
 						break;
 					case el.hasClass("body"):
@@ -192,7 +199,7 @@
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
 						// auto switch to first tab
-						APP.sidebar.els.tbl.find(`.sidebar-head span`).get(0).trigger("click");
+						APP.spawn.sidebar.els.tbl.find(`.sidebar-head span`).get(0).trigger("click");
 						// proxy event to "selection resize"
 						return Self.table.resizeSelection(event);
 					case Self.types.includes(name):
@@ -212,7 +219,7 @@
 						// focus shape
 						Self[name].dispatch({ type: `focus-${name}`, el });
 						// update sidebar
-						APP.sidebar.dispatch({ type: `show-${name}` });
+						APP.spawn.sidebar.dispatch({ type: `show-${name}` });
 						// trigger "move" mousedown event
 						Self[name].move(event);
 						break;
@@ -226,7 +233,7 @@
 						// reference of active tool
 						Self.active = "sheet";
 						// update sidebar
-						APP.sidebar.dispatch({ type: "show-sheet" });
+						APP.spawn.sidebar.dispatch({ type: "show-sheet" });
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
 				}

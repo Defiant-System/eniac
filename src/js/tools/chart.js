@@ -1,5 +1,5 @@
 
-// eniac.tools.chart
+// eniac.spawn.tools.chart
 
 {
 	init() {
@@ -10,7 +10,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.tools.chart,
+			Self = APP.spawn.tools.chart,
 			el;
 		// console.log(event);
 		switch (event.type) {

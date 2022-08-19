@@ -1,23 +1,17 @@
 
-// eniac.foot
+// eniac.spawn.foot
 
 {
 	init() {
-		// fast references
-		this.els = {
-			root: window.find("content > .foot"),
-			layout: window.find("layout"),
-		};
-
 		// temp
-		let func = coord => {
-			let data = {
-					"B1": { v: 213 },
-					"B2": { v: 27 },
-					"B3": { v: "" },
-				};
-			return data[coord];
-		};
+		// let func = coord => {
+		// 	let data = {
+		// 			"B1": { v: 213 },
+		// 			"B2": { v: 27 },
+		// 			"B3": { v: "" },
+		// 		};
+		// 	return data[coord];
+		// };
 		// console.log( XLSX.utils.evalFormula("AVERAGE(B1:B3)", func) );
 		// console.log( XLSX.utils.evalFormula(`IF(B1>=1; "Nonnegative"; "Negative")`, data) );
 
@@ -32,10 +26,11 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.foot,
-			Table = APP.tools.table,
-			Selection = Table.table.selected,
-			Anchor = Selection ? Selection.anchor.el : false,
+			Self = APP.spawn.foot,
+			Table = APP.spawn.tools.table,
+			// Selection = Table.table.selected,
+			// Anchor = Selection ? Selection.anchor.el : false,
+			Spawn = event.spawn,
 			formula,
 			value,
 			type,
@@ -43,7 +38,21 @@
 			sel,
 			str,
 			el;
+		// console.log( event );
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+				// reset fast references
+				Self.els = {};
+				break;
+			case "spawn.focus":
+				// fast references
+				Self.els = {
+					root: Spawn.find("content > .foot"),
+					layout: Spawn.find("layout"),
+				};
+				break;
+			// custom events
 			case "hide":
 				Self.els.layout.removeClass("show-footer");
 				break;

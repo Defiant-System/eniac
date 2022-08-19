@@ -1,28 +1,39 @@
 
-// eniac.tools.text
+// eniac.spawn.tools.text
 
 {
 	init() {
-		// fast references
-		let root = window.find(".text-tools");
-		this.els = {
-			root,
-			doc: $(document),
-			layout: window.find("layout"),
-			gradientTool: root.find(".gradient-tool"),
-		};
+		this.els = {};
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Tools = APP.tools,
+			Tools = APP.spawn.tools,
 			Self = Tools.text,
 			Text = Self.text,
+			Spawn = event.spawn,
 			sel,
 			str,
 			el;
 		switch (event.type) {
+			// system events
+			case "spawn.blur":
+				Self.els = {};
+				break;
+			case "spawn.focus":
+				// fast references
+				let root = Spawn.find(".text-tools");
+				Self.els = {
+					root,
+					doc: $(document),
+					layout: Spawn.find("layout"),
+					gradientTool: root.find(".gradient-tool"),
+				};
+				break;
+
 			// custom events
 			case "blur-text":
+				if (!Self.els.root) return;
+				
 				Self.els.root.addClass("hidden");
 				Self.els.gradientTool.addClass("hidden");
 				Self.dispatch({ type: "exit-edit-mode" });

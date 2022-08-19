@@ -74,6 +74,11 @@ class File {
 		this._el = el;
 	}
 
+	getCellValue(coord) {
+		let v = this._file.workbook.selectSingleNode(`.//C[@id="${coord}"]`).textContent;
+		return +v;
+	}
+
 	sheet(name) {
 		let sheet;
 		switch (this._file.kind) {
