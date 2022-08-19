@@ -17,11 +17,11 @@
 		switch (event.type) {
 			// system events
 			case "spawn.blur":
-				// reset fast references
-				Self.els = {};
 				// unbind event handlers
 				Self.els.el.off("mousedown", ".gradient-colors", Self.gradientPoints);
 				Self.els.el.off("mousedown", ".angle-ring", Self.angleRing);
+				// reset fast references
+				Self.els = {};
 				break;
 			case "spawn.focus":
 				// fast references

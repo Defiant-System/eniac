@@ -1,5 +1,5 @@
 
-// eniac.popups
+// eniac.spawn.popups
 
 {
 	init() {
@@ -36,10 +36,10 @@
 		switch (event.type) {
 			// system events
 			case "spawn.blur":
+				// unbind event handlers
+				Self.els.colorRing.off("mousedown", Self.doColorRing);
 				// reset fast references
 				Self.els = {};
-				// unbind event handlers
-				Self.els.body.off("mousedown", Self.dispatch);
 				break;
 			case "spawn.focus":
 				// fast references
