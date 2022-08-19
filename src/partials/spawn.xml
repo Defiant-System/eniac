@@ -1,0 +1,17 @@
+<Spawn id="spawn">
+	<Head>
+		<meta name="title" value="New File"/>
+		<meta name="width" value="1020" min="720"/>
+		<meta name="height" value="700" min="420"/>
+		<meta name="top" value="90"/>
+		<meta name="left" value="70"/>
+		<meta name="minimize"/>
+		<meta name="maximize"/>
+		<meta name="resize"/>
+		<meta name="allowTabs"/>
+		<meta name="style" value="../css/main.less"/>
+		<meta name="content" value="content.htm"/>
+
+		@import "toolbar.xml"
+	</Head>
+</Spawn>
