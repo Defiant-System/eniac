@@ -52,6 +52,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
+			Spawn = event.spawn || karaqu.getSpawn(event.target),
 			Self = APP.spawn.sidebar.table,
 			Tools = APP.spawn.tools,
 			Els = APP.spawn.sidebar.els,
@@ -87,28 +88,28 @@
 				break;
 			case "populate-table-values":
 				// tab: Table
-				Self.dispatch({ ...event, type: "update-table-style" });
-				Self.dispatch({ ...event, type: "update-table-title-caption" });
-				Self.dispatch({ ...event, type: "update-table-head-footer-rows" });
-				Self.dispatch({ ...event, type: "update-table-row-col" });
-				Self.dispatch({ ...event, type: "update-table-outlines" });
-				Self.dispatch({ ...event, type: "update-gridlines" });
-				Self.dispatch({ ...event, type: "update-alt-row-bg" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-style" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-title-caption" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-head-footer-rows" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-row-col" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-outlines" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-gridlines" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-alt-row-bg" });
 				if (Anchor) {
 					// tab: Cell
-					Self.dispatch({ ...event, type: "update-cell-data-format" });
-					Self.dispatch({ ...event, type: "update-cell-fill-color" });
+					Self.dispatch({ ...event, spawn: Spawn, type: "update-cell-data-format" });
+					Self.dispatch({ ...event, spawn: Spawn, type: "update-cell-fill-color" });
 					// tab: Text
-					Self.dispatch({ ...event, type: "update-cell-font" });
-					Self.dispatch({ ...event, type: "update-cell-color" });
-					Self.dispatch({ ...event, type: "update-cell-alignment" });
-					Self.dispatch({ ...event, type: "update-cell-wrap" });
-					Self.dispatch({ ...event, type: "update-cell-line-height" });
+					Self.dispatch({ ...event, spawn: Spawn, type: "update-cell-font" });
+					Self.dispatch({ ...event, spawn: Spawn, type: "update-cell-color" });
+					Self.dispatch({ ...event, spawn: Spawn, type: "update-cell-alignment" });
+					Self.dispatch({ ...event, spawn: Spawn, type: "update-cell-wrap" });
+					Self.dispatch({ ...event, spawn: Spawn, type: "update-cell-line-height" });
 				}
 				// tab: Arrange
-				Self.dispatch({ ...event, type: "update-table-arrange" });
-				Self.dispatch({ ...event, type: "update-table-box-size" });
-				Self.dispatch({ ...event, type: "update-table-box-position" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-arrange" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-box-size" });
+				Self.dispatch({ ...event, spawn: Spawn, type: "update-table-box-position" });
 				break;
 			// tab: Table
 			case "update-table-style":

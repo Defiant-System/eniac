@@ -36,7 +36,7 @@
 
 				if (!anchor && Table._el) {
 					// this means, table need to be moved
-					return APP.tools.dispatch({ ...event, selected: Self.table._el });
+					return APP.spawn.tools.dispatch({ ...event, selected: Self.table._el });
 				}
 
 				let isSingleCellSelected = selected.xNum.length === 1 && selected.yNum.length === 1,
@@ -62,7 +62,7 @@
 						// exit edit-mode, if any
 						Self.dispatch({ type: "exit-edit-mode", spawn: Spawn });
 						Self.dispatch({ type: "blur-table" });
-						return APP.tools.active = "sheet";
+						return APP.spawn.tools.active = "sheet";
 					case "up":
 						anchor.y = Math.max(anchor.y - 1, 0);
 						index = data.yNum.indexOf(anchor.y);
@@ -229,9 +229,9 @@
 					// reset current table, if any
 					Self.table.unselect();
 					// update active tool type
-					APP.tools.active = "formula";
+					APP.spawn.tools.active = "formula";
 					// dispatch tool event
-					APP.tools.formula.dispatch({ type: "focus-formula", el: anchor.el });
+					APP.spawn.tools.formula.dispatch({ type: "focus-formula", el: anchor.el });
 				} else {
 					// sidebar; notify event to sidebar
 					APP.spawn.sidebar[APP.spawn.sidebar.active].dispatch(event);
@@ -303,7 +303,7 @@
 					Self.table = new Grid(el, Self.gridTools);
 				}
 				// update active tool type
-				APP.tools.active = "table";
+				APP.spawn.tools.active = "table";
 				break;
 			case "sync-table-tools":
 				// if (event.table && Self.table && event.table.isSame(Self.table._el)) return;
@@ -337,7 +337,7 @@
 	},
 	resizeColRow(event) {
 		let APP = eniac,
-			Self = APP.tools.table,
+			Self = APP.spawn.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -430,7 +430,7 @@
 	},
 	resizeClip(event) {
 		let APP = eniac,
-			Self = APP.tools.table,
+			Self = APP.spawn.tools.table,
 			Drag = Self.cDrag,
 			el;
 		switch (event.type) {
@@ -509,7 +509,7 @@
 	},
 	resizeGrid(event) {
 		let APP = eniac,
-			Self = APP.tools.table,
+			Self = APP.spawn.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown": {
@@ -547,6 +547,7 @@
 					_max: Math.max,
 					_floor: Math.floor,
 				};
+
 				// bind events
 				Self.els.doc.on("mousemove mouseup", Self.resizeGrid);
 				break; }
@@ -683,7 +684,7 @@
 	},
 	resizeSelection(event) {
 		let APP = eniac,
-			Self = APP.tools.table,
+			Self = APP.spawn.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -693,7 +694,8 @@
 				Self.els.layout.addClass("cover");
 
 				// auto focus cell
-				let el = $(event.target);
+				let el = $(event.target),
+					Spawn = karaqu.getSpawn(event.target);
 				if (Self.table.selected && event.shiftKey) {
 					let { yNum, xNum } = Self.table.selected,
 						[y, x] = Self.table.getCoord(el[0]),
@@ -713,7 +715,7 @@
 					el = Self.table.getCoordCell(yNum[0], xNum[0]);
 				} else {
 					// no shiftKey - single cell selection
-					Self.dispatch({ type: "focus-cell", el });
+					Self.dispatch({ type: "focus-cell", spawn: Spawn, el });
 				}
 				// collect info about event
 				let table = Self.table,
@@ -797,7 +799,7 @@
 	},
 	move(event) {
 		let APP = eniac,
-			Self = APP.tools.table,
+			Self = APP.spawn.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":

@@ -70,7 +70,7 @@
 								// blur XL element, if any
 								Self[Self.active].dispatch({ type: "exit-edit-mode", spawn: Spawn, el });
 								// blur XL element, if any
-								Self.dispatch({ type: "blur-focused" });
+								Self.dispatch({ type: "blur-focused", spawn: Spawn });
 							}
 							break;
 						case "return":
@@ -106,7 +106,7 @@
 					switch (event.char) {
 						case "esc":
 							// blur XL element, if any
-							return Self.dispatch({ type: "blur-focused" });
+							return Self.dispatch({ type: "blur-focused", spawn: Spawn });
 						case "up":
 						case "down":
 							move = event.char === "up" ? -1 : 1;
@@ -178,7 +178,7 @@
 						// reference of active tool
 						Self.active = "sheet";
 						// blur XL element, if any
-						Self.dispatch({ type: "blur-focused" });
+						Self.dispatch({ type: "blur-focused", spawn: Spawn });
 						// focus shape
 						Self.sheet.dispatch({ type: `focus-sheet`, spawn: Spawn, el });
 						// forward event to lasso
@@ -203,7 +203,7 @@
 						// reference of active tool
 						Self.active = "table";
 						// blur XL element, if any
-						Self.dispatch({ type: "blur-focused" });
+						Self.dispatch({ type: "blur-focused", spawn: Spawn });
 						// auto switch to first tab
 						APP.spawn.sidebar.els.tbl.find(`.sidebar-head span`).get(0).trigger("click");
 						// proxy event to "selection resize"
@@ -219,13 +219,13 @@
 						// reference of active tool
 						Self.active = name;
 						// blur XL element, if any
-						Self.dispatch({ type: "blur-focused" });
+						Self.dispatch({ type: "blur-focused", spawn: Spawn });
 						// switch context for Self
 						Self.els.root.data({ "area": name });
 						// focus shape
 						Self[name].dispatch({ type: `focus-${name}`, spawn: Spawn, el });
 						// update sidebar
-						APP.spawn.sidebar.dispatch({ type: `show-${name}` });
+						APP.spawn.sidebar.dispatch({ type: `show-${name}`, spawn: Spawn });
 						// trigger "move" mousedown event
 						Self[name].move(event);
 						break;
