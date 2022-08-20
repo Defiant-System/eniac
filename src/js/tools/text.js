@@ -72,7 +72,7 @@
 					// adjust tools UI
 					Self.els.root.addClass("editing");
 					// sidebar; notify event to sidebar
-					APP.sidebar[APP.sidebar.active].dispatch(event);
+					APP.spawn.sidebar[APP.spawn.sidebar.active].dispatch(event);
 					// sidebar; switch to "Text" tab
 					APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
 				}
@@ -90,7 +90,7 @@
 					sel.removeAllRanges();
 				}
 				// sidebar; notify event to sidebar
-				APP.sidebar[APP.sidebar.active].dispatch(event);
+				APP.spawn.sidebar[APP.spawn.sidebar.active].dispatch(event);
 				break;
 			case "query-command-state":
 				// do command state in "next tick"

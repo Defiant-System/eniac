@@ -25,7 +25,7 @@
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.spawn.tools,
-			Spawn = event.spawn,
+			Spawn = event.spawn || karaqu.getSpawn(event.target),
 			isEditable,
 			selected,
 			value,
@@ -239,9 +239,9 @@
 						// reference of active tool
 						Self.active = "sheet";
 						// update sidebar
-						APP.spawn.sidebar.dispatch({ type: "show-sheet" });
+						APP.spawn.sidebar.dispatch({ type: "show-sheet", spawn: Spawn });
 						// blur XL element, if any
-						Self.dispatch({ type: "blur-focused" });
+						// Self.dispatch({ type: "blur-focused", spawn: Spawn });
 				}
 				break;
 			// csutom events

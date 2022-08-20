@@ -7,9 +7,18 @@
 // karaqu adapted xlsx library
 const XLSX = await window.fetch("~/js/xdef.js");
 
+// default settings
+const DefaultSettings = {
+	"document-zoom": 100,
+	"guides-snap-sensitivity": 7,
+};
+
 
 const eniac = {
 	init() {
+		// get settings or use default settings
+		this.Settings = window.settings.getItem("settings") || DefaultSettings;
+
 		// init all sub-objects
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")

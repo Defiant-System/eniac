@@ -37,7 +37,7 @@
 				return Self.tools.dispatch(event);
 			case "spawn.open":
 				Spawn.data.tabs = new Tabs(Self, Spawn);
-
+				
 				// temp
 				// setTimeout(() => Self.dispatch({ type: "new-tab", spawn: Spawn }), 300);
 				break;
@@ -45,11 +45,42 @@
 				Self.dispatch({ ...event, type: "new-tab" });
 				break;
 			case "spawn.blur":
+				// forward event to all sub-objects
+				Object.keys(Self)
+					.filter(i => typeof Self[i].dispatch === "function")
+					.map(i => Self[i].dispatch(event));
+				break;
 			case "spawn.focus":
 				// forward event to all sub-objects
 				Object.keys(Self)
 					.filter(i => typeof Self[i].dispatch === "function")
 					.map(i => Self[i].dispatch(event));
+
+				// fast references
+				Self.els = {
+					layout: Spawn.find("layout"),
+					body: Spawn.find("content .body .wrapper"),
+					blankView: Spawn.find(".blank-view"),
+					tools: {
+						selZoom: Spawn.find(`.toolbar-selectbox_[data-menu="view-zoom"]`),
+						toolFormula: Spawn.find(`.toolbar-tool_[data-arg="formula"]`),
+						toolGrid: Spawn.find(`.toolbar-tool_[data-arg="grid"]`),
+						toolChart: Spawn.find(`.toolbar-tool_[data-arg="chart"]`),
+						toolText: Spawn.find(`.toolbar-tool_[data-click="insert-text-box"]`),
+						toolShape: Spawn.find(`.toolbar-tool_[data-arg="shape"]`),
+						toolImage: Spawn.find(`.toolbar-tool_[data-arg="image"]`),
+						sidebar: Spawn.find(`.toolbar-tool_[data-click="toggle-sidebar"]`),
+					}
+				};
+
+				if (!Self.els.blankView.find(".div").length) {
+					// render blank view
+					window.render({
+						template: "blank-view",
+						match: `//Data`,
+						target: Self.els.blankView
+					});
+				}
 				break;
 			case "open.file":
 				(event.files || [event]).map(async fHandle => {

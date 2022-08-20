@@ -110,7 +110,7 @@
 					// reset "selectable" elements
 					Drag.selectable.map(r => r.el.removeClass("selected"));
 					// update sidebar
-					APP.sidebar.dispatch({ type: "show-sheet" });
+					APP.spawn.sidebar.dispatch({ type: "show-sheet" });
 				}
 				// reset lasso element
 				Drag.el

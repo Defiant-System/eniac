@@ -75,6 +75,18 @@ class Tabs {
 		
 		active.file.dispatch({ type: "render-sheet-names", spawn });
 		active.file.dispatch({ type: "render-sheet", spawn });
+
+
+		let APP = eniac.spawn;
+		// trigger first mousedown
+		setTimeout(() => {
+			APP.els.body.trigger("mousedown").trigger("mouseup");
+		}, 10);
+
+		// auto show sidebar
+		// if (!APP.els.tools.sidebar.hasClass("tool-active_")) {
+		// 	APP.els.tools.sidebar.trigger("click");
+		// }
 	}
 
 	openLocal(url) {

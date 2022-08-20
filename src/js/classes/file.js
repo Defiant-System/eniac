@@ -53,6 +53,12 @@ class File {
 				// render & append "sheet-body"
 				str = this.sheet(name);
 				this._el.html(str);
+				// make sure elements have "z-index"
+				spawn.data.tabs._active.bodyEl.find(Guides.selector).map((item, i) => {
+					let el = $(item),
+						zIndex = parseInt(el.css("z-index"), 10);
+					if (isNaN(zIndex)) el.css({ zIndex: i+1 });
+				});
 				break;
 		}
 	}

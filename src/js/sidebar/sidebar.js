@@ -40,7 +40,7 @@
 				Self.els.el.on("mousedown", ".gradient-colors", Self.gradientPoints);
 				Self.els.el.on("mousedown", ".angle-ring", Self.angleRing);
 				break;
-
+			// custom events
 			case "toggle-sidebar":
 				value = Self.els.layout.hasClass("show-sidebar");
 				Self.els.layout.toggleClass("show-sidebar", value);

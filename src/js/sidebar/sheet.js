@@ -33,17 +33,17 @@
 			// custom events
 			case "populate-sheet-values":
 				// tab: Sheet
-				Self.dispatch({ type: "update-sheet-name" });
-				Self.dispatch({ type: "update-sheet-background" });
-				Self.dispatch({ type: "update-sheet-buttons" });
+				Self.dispatch({ ...event, type: "update-sheet-name" });
+				Self.dispatch({ ...event, type: "update-sheet-background" });
+				Self.dispatch({ ...event, type: "update-sheet-buttons" });
 				break;
 			case "update-sheet-name":
 				el = Els.el.find(`input[data-change="set-sheet-name"]`);
-				value = Files.activeFile.activeSheet;
+				value = Spawn.data.tabs._active.file.activeSheet;
 				el.val(value);
 				break;
 			case "update-sheet-background":
-				value = Files.activeFile.dispatch({ type: "get-sheet-background" }) || "#ffffff";
+				value = Spawn.data.tabs._active.file.dispatch({ type: "get-sheet-background" }) || "#ffffff";
 				// update sheet background
 				Sheet.css({ "background-color": value });
 				// update sidebar color-preset
@@ -51,37 +51,37 @@
 					.css({ "--preset-color": value });
 				break;
 			case "update-sheet-buttons":
-				if (APP.head.els.reel.find("> span:not(.remove-sheet)").length > 1) {
+				if (APP.spawn.head.els.reel.find("> span:not(.remove-sheet)").length > 1) {
 					Els.el.find(`button[data-click="delete-sheet"]`).removeAttr("disabled");
 				} else {
 					Els.el.find(`button[data-click="delete-sheet"]`).attr({ disabled: true });
 				}
 				break;
 			case "set-sheet-name":
-				name = Files.activeFile.activeSheet;
-				el = APP.head.els.reel.find(`span i:contains("${name}")`);
+				name = Spawn.data.tabs._active.file.activeSheet;
+				el = APP.spawn.head.els.reel.find(`span i:contains("${name}")`);
 				el.html(event.value);
 				// update file
-				Files.activeFile.dispatch({ ...event, type: "update-sheet-name" });
+				Spawn.data.tabs._active.file.dispatch({ ...event, type: "update-sheet-name" });
 				break;
 			case "set-sheet-bgcolor":
 				// update UI
 				Sheet.css({ "background-color": event.value });
 				// update file
-				Files.activeFile.dispatch({ ...event, type: "update-sheet-background" });
+				Spawn.data.tabs._active.file.dispatch({ ...event, type: "update-sheet-background" });
 				break;
 			case "duplicate-sheet":
 				// update UI
-				name = Files.activeFile.activeSheet +"-1";
-				APP.head.dispatch({ type: "add-sheet", name, makeActive: true });
+				name = Spawn.data.tabs._active.file.activeSheet +"-1";
+				APP.spawn.head.dispatch({ type: "add-sheet", name, makeActive: true });
 				// update file
-				Files.activeFile.dispatch({ type: "duplicate-active-sheet", name });
+				Spawn.data.tabs._active.file.dispatch({ type: "duplicate-active-sheet", name });
 				break;
 			case "delete-sheet":
 				// update UI
-				APP.head.dispatch({ type: "remove-sheet" });
+				APP.spawn.head.dispatch({ type: "remove-sheet" });
 				// update file
-				Files.activeFile.dispatch({ type: "delete-active-sheet" });
+				Spawn.data.tabs._active.file.dispatch({ type: "delete-active-sheet" });
 				break;
 		}
 	}
