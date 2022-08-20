@@ -68,7 +68,7 @@
 							el = el.parents(Guides.selector);
 							if (isEditable && el.length) {
 								// blur XL element, if any
-								Self[Self.active].dispatch({ type: "exit-edit-mode", el });
+								Self[Self.active].dispatch({ type: "exit-edit-mode", spawn: Spawn, el });
 								// blur XL element, if any
 								Self.dispatch({ type: "blur-focused" });
 							}
@@ -78,7 +78,7 @@
 								// prevent default
 								event.preventDefault();
 								// blur XL element, if any
-								Self[Self.active].dispatch({ type: "exit-edit-mode", el });
+								Self[Self.active].dispatch({ type: "exit-edit-mode", spawn: Spawn, el });
 								return false;
 							}
 							break;
@@ -122,7 +122,7 @@
 					el.css(data);
 					if (selected.length === 1) {
 						// focus shape
-						Self[name].dispatch({ type: `focus-${name}`, el });
+						Self[name].dispatch({ type: `focus-${name}`, spawn: Spawn, el });
 					}
 				});
 				break;
@@ -160,8 +160,8 @@
 					case el.hasClass("tbl-title"):
 					case el.hasClass("tbl-caption"):
 						// blur XL element, if any
-						Self[Self.active].dispatch({ type: "exit-edit-mode" });
-						Self[Self.active].dispatch({ type: `blur-${Self.active}` });
+						Self[Self.active].dispatch({ type: "exit-edit-mode", spawn: Spawn });
+						Self[Self.active].dispatch({ type: `blur-${Self.active}`, spawn: Spawn });
 						// reference of active tool
 						Self.active = "table";
 						// focus table
@@ -180,7 +180,7 @@
 						// blur XL element, if any
 						Self.dispatch({ type: "blur-focused" });
 						// focus shape
-						Self.sheet.dispatch({ type: `focus-sheet`, el });
+						Self.sheet.dispatch({ type: `focus-sheet`, spawn: Spawn, el });
 						// forward event to lasso
 						return Self.sheet.lasso(event);
 					case el.hasClass("img-wrapper"):
@@ -223,7 +223,7 @@
 						// switch context for Self
 						Self.els.root.data({ "area": name });
 						// focus shape
-						Self[name].dispatch({ type: `focus-${name}`, el });
+						Self[name].dispatch({ type: `focus-${name}`, spawn: Spawn, el });
 						// update sidebar
 						APP.spawn.sidebar.dispatch({ type: `show-${name}` });
 						// trigger "move" mousedown event
@@ -241,7 +241,7 @@
 						// update sidebar
 						APP.spawn.sidebar.dispatch({ type: "show-sheet", spawn: Spawn });
 						// blur XL element, if any
-						// Self.dispatch({ type: "blur-focused", spawn: Spawn });
+						Self.dispatch({ type: "blur-focused", spawn: Spawn });
 				}
 				break;
 			// csutom events
@@ -254,7 +254,7 @@
 				// notify all sub-tools
 				Self.types.map(n => {
 					if (Self.active === n) return;
-					Self[n].dispatch({ type: `blur-${n}`, el: Self.els.body })
+					Self[n].dispatch({ type: `blur-${n}`, el: Self.els.body, spawn: Spawn })
 				});
 				break;
 		}

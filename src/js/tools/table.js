@@ -31,7 +31,7 @@
 					// detach table from DOM
 					Table._el.remove();
 					// focus sheet root
-					return APP.els.body.trigger("mousedown");
+					return APP.spawn.els.body.trigger("mousedown");
 				}
 
 				if (!anchor && Table._el) {
@@ -60,7 +60,7 @@
 						break;
 					case "esc":
 						// exit edit-mode, if any
-						Self.dispatch({ type: "exit-edit-mode" });
+						Self.dispatch({ type: "exit-edit-mode", spawn: Spawn });
 						Self.dispatch({ type: "blur-table" });
 						return APP.tools.active = "sheet";
 					case "up":
@@ -270,7 +270,7 @@
 				[yNum, xNum] = Self.table.getCoord(anchor[0]);
 				Self.dispatch({ type: "select-coords", yNum: [yNum], xNum: [xNum], anchor });
 				// reset caption/title editing
-				APP.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
+				APP.spawn.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				// update sidebar cell values
 				APP.spawn.sidebar.table.dispatch({ type: "update-table-cell-size", table });
 				break;
@@ -286,15 +286,15 @@
 				break;
 			case "blur-table":
 				// exit edit-mode, if any
-				Self.dispatch({ type: "exit-edit-mode" });
+				Self.dispatch({ type: "exit-edit-mode", spawn: Spawn });
 				// reset current table, if any
 				if (Self.table._el) Self.table.unselect();
 				// reset caption/title editing
-				APP.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
+				APP.spawn.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				Self.table = {};
 				Self.els.root.addClass("hidden");
 				// hide footer
-				APP.foot.dispatch({ type: "hide" });
+				APP.spawn.foot.dispatch({ type: "hide" });
 				break;
 			case "set-table":
 				el = event.table || Self.table._el;
@@ -787,7 +787,7 @@
 				// no shiftKey - single cell selection
 				APP.spawn.sidebar.table.dispatch({ type: "update-cell-border-options" });
 				// show footer
-				APP.foot.dispatch({ type: "render-cell" });
+				APP.spawn.foot.dispatch({ type: "render-cell" });
 				// uncover layout
 				Self.els.layout.removeClass("cover");
 				// unbind events

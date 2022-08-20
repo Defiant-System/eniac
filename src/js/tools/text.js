@@ -36,7 +36,7 @@
 				
 				Self.els.root.addClass("hidden");
 				Self.els.gradientTool.addClass("hidden");
-				Self.dispatch({ type: "exit-edit-mode" });
+				Self.dispatch({ type: "exit-edit-mode", spawn: Spawn });
 				// reset reference to element
 				Self.text = false;
 				break;
