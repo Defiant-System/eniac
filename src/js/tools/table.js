@@ -272,7 +272,7 @@
 				// reset caption/title editing
 				APP.spawn.els.body.find(".tbl-title.edit-mode, .tbl-caption.edit-mode").removeClass("edit-mode");
 				// update sidebar cell values
-				APP.spawn.sidebar.table.dispatch({ type: "update-table-cell-size", table });
+				// APP.spawn.sidebar.table.dispatch({ type: "update-table-cell-size", table });
 				break;
 			case "focus-table":
 				// blur any table, if any
@@ -691,7 +691,7 @@
 				// prevent default behaviour
 				event.preventDefault();
 				// cover layout
-				Self.els.layout.addClass("cover");
+				// Self.els.layout.addClass("cover");
 
 				// auto focus cell
 				let el = $(event.target),
@@ -787,7 +787,7 @@
 				break;
 			case "mouseup":
 				// no shiftKey - single cell selection
-				APP.spawn.sidebar.table.dispatch({ type: "update-cell-border-options" });
+				// APP.spawn.sidebar.table.dispatch({ type: "update-cell-border-options" });
 				// show footer
 				APP.spawn.foot.dispatch({ type: "render-cell" });
 				// uncover layout
