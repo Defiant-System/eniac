@@ -3,7 +3,7 @@ class File {
 
 	constructor(fsFile, data) {
 		// save reference to original FS file
-		this._file = fsFile || new karaqu.File();
+		this._file = fsFile || new karaqu.File({ kind: "xml" });
 		
 		switch (this._file.kind) {
 			case "csv":
@@ -20,6 +20,10 @@ class File {
 				// console.log( this._file.workbook );
 				break;
 			case "xml":
+				if (!this._file.data) {
+					let xStr = `<Workbook><Sheet name="Sheet 1" /></Workbook>`;
+					this._file.data = $.xmlFromString(xStr).documentElement;
+				}
 				this._file.workbook = this._file.data;
 				break;
 		}

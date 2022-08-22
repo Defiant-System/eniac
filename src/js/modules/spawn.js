@@ -102,7 +102,7 @@
 
 			// tab related events
 			case "tab-new":
-				file = event.file || new karaqu.File({ kind: "xml", data: "" });
+				file = event.file || new File();
 				Spawn.data.tabs.add(file);
 				break;
 			case "tab-clicked":
