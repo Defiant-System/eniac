@@ -24,12 +24,12 @@ class Tabs {
 	add(file) {
 		let tId = "f"+ Date.now(),
 			history = new window.History,
-			tabEl = this._spawn.tabs.add(file.base, tId),
-			bodyEl = this._template.clone(),
-			data = ""; // file.data;
+			spawn = this._spawn,
+			tabEl = spawn.tabs.add(file.base, tId),
+			bodyEl = this._template.clone();
 
 		// add element to DOM + append file contents
-		bodyEl.attr({ "data-id": tId }).html(data);
+		bodyEl.attr({ "data-id": tId });
 		bodyEl = this._content.append(bodyEl);
 
 		file.bodyEl = bodyEl;
@@ -38,6 +38,10 @@ class Tabs {
 		this._stack[tId] = { tId, tabEl, bodyEl, history, file };
 		// focus on file
 		this.focus(tId);
+		
+		// default renders
+		file.dispatch({ type: "render-sheet-names", spawn });
+		file.dispatch({ type: "render-sheet", spawn });
 	}
 
 	merge(ref) {
@@ -69,15 +73,18 @@ class Tabs {
 
 	update() {
 		let spawn = this._spawn,
-			active = this._active;
+			active = this._active,
+			focusEl = active.focusEl || active.bodyEl;
 		// unhide focused body
 		active.bodyEl.removeClass("hidden");
-
 		// update spawn window title
 		spawn.title = active.file.base;
-		
-		active.file.dispatch({ type: "render-sheet-names", spawn });
-		active.file.dispatch({ type: "render-sheet", spawn });
+		// focus element
+		focusEl.trigger("mousedown").trigger("mouseup");
+	}
+
+	setFocus(el) {
+		this._active.focusEl = el;
 	}
 
 	openLocal(url) {

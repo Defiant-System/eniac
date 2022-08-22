@@ -200,6 +200,8 @@
 					case nodeName === "TD":
 						// if table-tool related; let it be handled by "others"
 						if (el.parents(".table-tool").length) return;
+						// set file focus on element - used when switching between tabs
+						Spawn.data.tabs.setFocus(el);
 						// reference of active tool
 						Self.active = "table";
 						// blur XL element, if any
@@ -216,6 +218,8 @@
 						if (name === "shape" && Self.shape.isLine(el)) {
 							name = "line";
 						}
+						// set file focus on element - used when switching between tabs
+						Spawn.data.tabs.setFocus(el);
 						// reference of active tool
 						Self.active = name;
 						// blur XL element, if any
@@ -236,6 +240,8 @@
 						});
 						break;
 					default:
+						// set file focus on element - used when switching between tabs
+						Spawn.data.tabs.setFocus(el);
 						// reference of active tool
 						Self.active = "sheet";
 						// update sidebar

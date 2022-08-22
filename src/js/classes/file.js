@@ -32,10 +32,10 @@ class File {
 		this._activeSheet = this.sheetNames[0];
 
 
-		let APP = eniac.spawn,
-			Body = APP.els.body;
-		// trigger first mousedown
-		setTimeout(() => Body.trigger("mousedown").trigger("mouseup"), 10);
+		// let APP = eniac.spawn,
+		// 	Body = APP.els.body;
+		// // trigger first mousedown
+		// setTimeout(() => Body.trigger("mousedown").trigger("mouseup"), 10);
 
 		// auto show sidebar
 		// if (!APP.els.tools.sidebar.hasClass("tool-active_")) {
