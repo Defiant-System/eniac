@@ -39,10 +39,10 @@
 				Spawn.data.tabs = new Tabs(Self, Spawn);
 				
 				// temp
-				// setTimeout(() => Self.dispatch({ type: "new-tab", spawn: Spawn }), 300);
+				// setTimeout(() => Self.dispatch({ type: "tab-new", spawn: Spawn }), 300);
 				break;
 			case "spawn.init":
-				Self.dispatch({ ...event, type: "new-tab" });
+				Self.dispatch({ ...event, type: "tab-new" });
 				break;
 			case "spawn.blur":
 				// forward event to all sub-objects
@@ -88,7 +88,7 @@
 						data = new Uint8Array(fItem.arrayBuffer),
 						file = new File(fItem, data);
 					// auto add first base "tab"
-					Self.dispatch({ ...event, file, type: "new-tab" });
+					Self.dispatch({ ...event, file, type: "tab-new" });
 				});
 				break;
 			case "load-samples":
@@ -96,13 +96,13 @@
 					let fItem = await Spawn.data.tabs.openLocal(`~/sample/${path}`),
 						file = new File(fItem, data);
 					// auto add first base "tab"
-					Self.dispatch({ ...event, file, type: "new-tab" });
+					Self.dispatch({ ...event, file, type: "tab-new" });
 				});
 				break;
 
 			// tab related events
-			case "new-tab":
-				file = event.file || new karaqu.File({ kind: "xlsx", data: "" });
+			case "tab-new":
+				file = event.file || new karaqu.File({ kind: "xml", data: "" });
 				Spawn.data.tabs.add(file);
 				break;
 			case "tab-clicked":
