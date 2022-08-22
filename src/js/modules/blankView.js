@@ -38,7 +38,9 @@
 				if (!el.hasClass("recent-file")) return;
 				
 				karaqu.shell(`fs -o '${el.data("file")}' null`)
-					.then(exec => APP.dispatch(exec.result));
+					.then(exec => {
+						APP.spawn.dispatch({ type: "open.file", files: [exec.result] });
+					});
 				break;
 			case "add-recent-file":
 				if (!event.file.path) return;

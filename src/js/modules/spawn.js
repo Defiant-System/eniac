@@ -60,7 +60,7 @@
 				}
 				
 				// temp
-				setTimeout(() => Self.dispatch({ type: "tab-new", spawn: Spawn }), 300);
+				// setTimeout(() => Self.dispatch({ type: "tab-new", spawn: Spawn }), 300);
 				break;
 			case "spawn.init":
 				Self.dispatch({ ...event, type: "tab-new" });

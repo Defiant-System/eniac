@@ -43,7 +43,6 @@ class Tabs {
 		
 		if (file._file) {
 			// default renders
-			file.dispatch({ type: "render-sheet-names", spawn: this._spawn });
 			file.dispatch({ type: "render-sheet", spawn: this._spawn });
 		}
 	}
@@ -107,8 +106,11 @@ class Tabs {
 		active.bodyEl.removeClass("hidden");
 		// update spawn window title
 		spawn.title = active.file.base;
-		// focus element
+		
 		if (active.file._file) {
+			// default renders
+			active.file.dispatch({ type: "render-sheet-names", spawn });
+			// focus element
 			focusEl.trigger("mousedown").trigger("mouseup");
 		}
 	}

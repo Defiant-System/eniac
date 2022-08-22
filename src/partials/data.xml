@@ -9,8 +9,8 @@
 	</Samples>
 
 	<Recents>
-		<i path="~/Desktop/excell files/sheetjs.xlsx" img="~/img/template-00.jpg"/>
-		<i path="~/Desktop/excell files/google-2.xlsx" img="~/img/template-00.jpg"/>
+		<i path="/fs/Desktop/excell files/sheetjs.xlsx" img="~/img/template-00.jpg"/>
+		<i path="/fs/Desktop/excell files/google-2.xlsx" img="~/img/template-00.jpg"/>
 	</Recents>
 
 	<Table id="template-1" style="top: 40px; left: 40px;">

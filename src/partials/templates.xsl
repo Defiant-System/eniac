@@ -42,7 +42,7 @@
 <xsl:template name="recent-list">
 	<xsl:for-each select="./Recents/*">
 		<div class="recent-file">
-			<xsl:attribute name="data-file"><xsl:value-of select="@filepath"/></xsl:attribute>
+			<xsl:attribute name="data-file"><xsl:value-of select="@path"/></xsl:attribute>
 			<span class="thumbnail">
 				<xsl:attribute name="style">background-image: url(<xsl:value-of select="@img"/>);</xsl:attribute>
 			</span>
