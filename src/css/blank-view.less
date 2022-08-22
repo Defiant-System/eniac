@@ -98,7 +98,7 @@
 			width: 113px;
 			height: 113px;
 			margin: 0 21px 13px 0;
-			border-radius: 5px;
+			border-radius: 7px;
 			cursor: pointer;
 			box-shadow: 0 0 0 3px #ccc,
 						inset 0 0 0 3px #ccc;
@@ -123,44 +123,26 @@
 				left: 2px;
 				right: 2px;
 				bottom: 2px;
-				border-radius: 3px;
+				border-radius: 5px;
 			}
 		}
 	}
 
 	.block-recent {
 		flex: 1;
+		width: 697px;
 
 		.recent-file {
-			background: rgba(0,0,0,.075);
 			display: inline-block;
+			background-color: #ccc;
+			background-size: 0 0;
 			position: relative;
-			width: 173px;
-			height: 151px;
-			margin: 0 17px 47px 0;
-			padding: 5px 0 0;
+			width: 113px;
+			height: 113px;
+			margin: 0 21px 13px 0;
+			border-radius: 9px;
 			text-align: center;
-			border-radius: 11px;
 			cursor: pointer;
-
-			&:before {
-				content: "";
-				position: absolute;
-				top: 5px;
-				left: 5px;
-				right: 5px;
-				bottom: 5px;
-				border-radius: 7px;
-				// background: rgba(255,255,255,.35);
-				background: linear-gradient(45deg, rgba(0, 0, 0, 0.0980392) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.0980392) 75%, rgba(0, 0, 0, 0.0980392) 0), linear-gradient(45deg, rgba(0, 0, 0, 0.0980392) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.0980392) 75%, rgba(0, 0, 0, 0.0980392) 0), white;
-				background-repeat: repeat, repeat;
-				background-position: 0px 0, 6px 6px;
-				background-origin: padding-box, padding-box;
-				background-clip: border-box, border-box;
-				background-size: 12px 12px, 12px 12px;
-				transform: scaleX(1) scaleY(1) scaleZ(1);
-				pointer-events: none;
-			}
 
 			&:hover {
 				box-shadow: 0 0 0 3px #489bf770,
@@ -173,7 +155,7 @@
 				left: 5px;
 				right: 5px;
 				bottom: 5px;
-				border-radius: 7px;
+				border-radius: 5px;
 				pointer-events: none;
 				background-position: 50% 50%;
 				background-size: contain;
@@ -188,6 +170,7 @@
 				padding-top: 5px;
 				font-size: 13px;
 				pointer-events: none;
+				// white-space: nowrap;
 			}
 		}
 	}

@@ -44,11 +44,28 @@
 		<div class="recent-file">
 			<xsl:attribute name="data-file"><xsl:value-of select="@filepath"/></xsl:attribute>
 			<span class="thumbnail">
-				<xsl:attribute name="style">background-image: url(<xsl:value-of select="@filepath"/>);</xsl:attribute>
+				<xsl:attribute name="style">background-image: url(<xsl:value-of select="@img"/>);</xsl:attribute>
 			</span>
-			<span class="name"><xsl:value-of select="@name"/></span>
+			<span class="name"><xsl:call-template name="get-file-name">
+									<xsl:with-param name="path" select="@path"/>
+								</xsl:call-template></span>
 		</div>
 	</xsl:for-each>
+</xsl:template>
+
+
+<xsl:template name="get-file-name">
+	<xsl:param name="path"/>
+	<xsl:choose>
+		<xsl:when test="contains($path, '/')">
+			<xsl:call-template name="get-file-name">
+				<xsl:with-param name="path" select="substring-after($path, '/')"/>
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$path"/>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 
@@ -380,21 +397,21 @@
 
 <xsl:template name="getViewboxValue">
 	<xsl:param name="text"/>
-    <xsl:param name="index"/>
+	<xsl:param name="index"/>
 	<xsl:param name="i" select="1"/>
-    <xsl:choose>
-    	<xsl:when test="$index = $i">
-    		<xsl:value-of select="substring-before( $text, ' ' )"/>
-    		<xsl:if test="not( contains( $text, ' ' ) )"><xsl:value-of select="$text"/></xsl:if>
-    	</xsl:when>
-    	<xsl:otherwise>
-    		<xsl:call-template name="getViewboxValue">
+	<xsl:choose>
+		<xsl:when test="$index = $i">
+			<xsl:value-of select="substring-before( $text, ' ' )"/>
+			<xsl:if test="not( contains( $text, ' ' ) )"><xsl:value-of select="$text"/></xsl:if>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:call-template name="getViewboxValue">
 				<xsl:with-param name="text" select="substring-after( $text, ' ' )"/>
 				<xsl:with-param name="index" select="$index"/>
 				<xsl:with-param name="i" select="$i + 1"/>
 			</xsl:call-template>
-    	</xsl:otherwise>
-    </xsl:choose>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 

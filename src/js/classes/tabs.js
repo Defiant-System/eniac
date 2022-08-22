@@ -21,27 +21,31 @@ class Tabs {
 		return Object.keys(this._stack).length;
 	}
 
-	add(file) {
-		let tId = "f"+ Date.now(),
-			history = new window.History,
-			spawn = this._spawn,
-			tabEl = spawn.tabs.add(file.base, tId),
-			bodyEl = this._template.clone();
+	add(fItem) {
+		// let file = fItem || new File();
+		let file = fItem || { base: "Blank" },
+			tId = "f"+ Date.now(),
+			tName = file ? file.base : "Blank",
+			tabEl = this._spawn.tabs.add(tName, tId),
+			bodyEl = this._template.clone(),
+			history = new window.History;
 
 		// add element to DOM + append file contents
 		bodyEl.attr({ "data-id": tId });
 		bodyEl = this._content.append(bodyEl);
 
-		file.bodyEl = bodyEl;
+		if (file._file) file.bodyEl = bodyEl;
 
 		// save reference to tab
 		this._stack[tId] = { tId, tabEl, bodyEl, history, file };
 		// focus on file
 		this.focus(tId);
 		
-		// default renders
-		file.dispatch({ type: "render-sheet-names", spawn });
-		file.dispatch({ type: "render-sheet", spawn });
+		if (file._file) {
+			// default renders
+			file.dispatch({ type: "render-sheet-names", spawn: this._spawn });
+			file.dispatch({ type: "render-sheet", spawn: this._spawn });
+		}
 	}
 
 	merge(ref) {
@@ -60,8 +64,10 @@ class Tabs {
 		let spawn = this._spawn,
 			active = this._active;
 		if (active) {
-			// reset sheetnames
-			active.file.dispatch({ type: "reset-sheet-names", spawn });
+			if (active.file._file) {
+				// reset sheetnames
+				active.file.dispatch({ type: "reset-sheet-names", spawn });
+			}
 			// hide blurred body
 			active.bodyEl.addClass("hidden");
 		}
@@ -69,6 +75,23 @@ class Tabs {
 		this._active = this._stack[tId];
 		// UI update
 		this.update();
+
+		if (this._active.file._file) {
+			// hide blank view
+			this._parent.els.layout.removeClass("show-blank-view");
+			// enable toolbar
+			this._parent.dispatch({ type: "toggle-toolbars", value: true });
+		} else {
+			// show blank view
+			this._parent.els.layout.addClass("show-blank-view");
+			// hide sidebar, if needed
+			if (this._parent.els.tools.sidebar.hasClass("tool-active_")) {
+				this._parent.els.tools.sidebar.trigger("click");
+				this._parent.els.tools.sidebar.removeClass("tool-active_");
+			}
+			// disable toolbar
+			this._parent.dispatch({ type: "toggle-toolbars", value: null });
+		}
 	}
 
 	setFocusElement(el) {
@@ -85,7 +108,9 @@ class Tabs {
 		// update spawn window title
 		spawn.title = active.file.base;
 		// focus element
-		focusEl.trigger("mousedown").trigger("mouseup");
+		if (active.file._file) {
+			focusEl.trigger("mousedown").trigger("mouseup");
+		}
 	}
 
 	openLocal(url) {

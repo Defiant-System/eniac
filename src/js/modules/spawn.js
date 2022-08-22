@@ -114,24 +114,8 @@
 
 			// tab related events
 			case "tab-new":
-				if (!event.file) {
-					// show blank view
-					Self.els.layout.addClass("show-blank-view");
-					// hide sidebar, if needed
-					if (Self.els.tools.sidebar.hasClass("tool-active_")) {
-						Self.els.tools.sidebar.trigger("click");
-						Self.els.tools.sidebar.removeClass("tool-active_");
-					}
-					// disable toolbar
-					Self.dispatch({ type: "toggle-toolbars", value: null });
-				} else {
-					// hide blank view
-					Self.els.layout.removeClass("show-blank-view");
-					// load / show file
-					Spawn.data.tabs.add(event.file);
-					// enable toolbar
-					Self.dispatch({ type: "toggle-toolbars", value: true });
-				}
+				// load / show file
+				Spawn.data.tabs.add(event.file);
 				break;
 			case "tab-clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));
@@ -140,6 +124,14 @@
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 
+			case "close-tab":
+				value = Spawn.data.tabs.length;
+				if (value > 1) {
+					Spawn.data.tabs._active.tabEl.find(`[sys-click]`).trigger("click");
+				} else if (value === 1) {
+					Self.dispatch({ ...event, type: "close-spawn" });
+				}
+				break;
 			case "toggle-toolbars":
 				for (name in Self.els.tools) {
 					Self.els.tools[name][event.value ? "removeClass" : "addClass"]("tool-disabled_");

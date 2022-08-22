@@ -24,7 +24,9 @@
 			case "select-sample":
 				el = $(event.target);
 				if (!el.hasClass("sample")) return;
-
+				// close "current tab"
+				APP.spawn.dispatch({ type: "close-tab", spawn: Spawn });
+				// load sample
 				APP.spawn.dispatch({
 					type: "load-samples",
 					samples: [el.data("url")],
