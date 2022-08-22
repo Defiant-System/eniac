@@ -12,6 +12,7 @@ class Guides {
 	constructor(opt={}) {
 		// reference to root application
 		let APP = eniac,
+			Spawn = karaqu.getSpawn(opt.offset.el),
 			opts = {
 				// default selector & context
 				selector: opt.selector || Guides.selector,
@@ -33,7 +34,7 @@ class Guides {
 		// default properties
 		this.els = [...opts.lines];
 		// selector = "#shape-rounded";
-		window.find(opts.selector, opts.context).map(elem => {
+		Spawn.find(opts.selector, opts.context).map(elem => {
 				let el = $(elem),
 					y = parseInt(el.css("top"), 10),
 					x = parseInt(el.css("left"), 10),
@@ -54,9 +55,9 @@ class Guides {
 
 		// add guide line element to "this"
 		this.lines = {
-			horizontal: window.find(".guide-lines .horizontal"),
-			vertical: window.find(".guide-lines .vertical"),
-			diagonal: window.find(".guide-lines .diagonal"),
+			horizontal: Spawn.find(".guide-lines .horizontal"),
+			vertical: Spawn.find(".guide-lines .vertical"),
+			diagonal: Spawn.find(".guide-lines .diagonal"),
 		};
 		// add guide line element to "this"
 		this.opts = opts;

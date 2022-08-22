@@ -52,7 +52,7 @@
 				// name = Files.activeFile.dispatch({ type: "create-new-sheet", index });
 				// Self.dispatch({ type: "add-sheet", name, makeActive: true });
 				// // empty work space
-				// APP.els.body.find(Guides.selector).remove();
+				// APP.spawn.els.body.find(Guides.selector).remove();
 				break;
 			case "add-sheet":
 				el = Self.els.reel.find(".active").removeClass("active");
@@ -83,12 +83,12 @@
 				el.addClass("active");
 				name = el.find("i").html();
 				// render clicked sheet
-				Files.activeFile.dispatch({ type: "render-sheet", name });
+				APP.spawn.data.tabs._active.file.dispatch({ type: "render-sheet", name });
 
 				// TODO: remember focused item and re-focus, if any
 
 				// reset (active) tools and focus on "sheet"
-				return APP.els.body.trigger("mousedown").trigger("mouseup");
+				return APP.spawn.els.body.trigger("mousedown").trigger("mouseup");
 			case "clear-all-sheet":
 				// prevent animation
 				Self.els.head.addClass("empty");

@@ -61,7 +61,7 @@
 	},
 	move(event) {
 		let APP = eniac,
-			Self = APP.tools.image,
+			Self = APP.spawn.tools.image,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -103,7 +103,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([image[0], Self.els.root[0]]),
-					sidebar: APP.sidebar.image,
+					sidebar: APP.spawn.sidebar.image,
 					guides,
 					click,
 				};
@@ -135,7 +135,7 @@
 	},
 	resize(event) {
 		let APP = eniac,
-			Self = APP.tools.image,
+			Self = APP.spawn.tools.image,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -174,7 +174,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([image[0], Self.els.root[0]]),
-					sidebar: APP.sidebar.image,
+					sidebar: APP.spawn.sidebar.image,
 					min,
 					type,
 					image,
@@ -255,7 +255,7 @@
 	},
 	maskMove(event) {
 		let APP = eniac,
-			Self = APP.tools.image,
+			Self = APP.spawn.tools.image,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown": {
@@ -350,7 +350,7 @@
 	},
 	maskResize(event) {
 		let APP = eniac,
-			Self = APP.tools.image,
+			Self = APP.spawn.tools.image,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown": {
@@ -382,7 +382,7 @@
 						x: event.clientX,
 					},
 					ratio = iOffset.w / iOffset.h,
-					layout = APP.tools.sheet.layout,
+					layout = APP.spawn.tools.sheet.layout,
 					min = {},
 					max = {},
 					future = {};

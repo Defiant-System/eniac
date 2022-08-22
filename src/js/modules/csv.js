@@ -6,9 +6,9 @@ const CSV = {
 			str = [],
 			width = 400,
 			height = 190,
-			top = (APP.els.body.parent().prop("offsetHeight") - height) >> 1,
-			left = (APP.els.body.parent().prop("offsetWidth") - width) >> 1,
-			zIndex = APP.els.body.find(Guides.selector).length,
+			top = (APP.spawn.els.body.parent().prop("offsetHeight") - height) >> 1,
+			left = (APP.spawn.els.body.parent().prop("offsetWidth") - width) >> 1,
+			zIndex = APP.spawn.els.body.find(Guides.selector).length,
 			style = `top:${top}px; left:${left}px; z-index:${zIndex}`,
 			delimiter = this.detectDelimiter(data);
 		// prepare workbook XML

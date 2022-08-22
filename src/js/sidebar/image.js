@@ -161,7 +161,7 @@
 			case "update-image-arrange":
 				pEl = Els.el.find(`.flex-row[data-click="set-image-arrange"]`);
 				// disable all options if single element
-				allEl = APP.els.body.find(Guides.selector);
+				allEl = APP.spawn.els.body.find(Guides.selector);
 				pEl.find(".option-buttons_ span").toggleClass("disabled_", allEl.length !== 1);
 
 				// disable "back" + "backward" option, if active element is already in the back
