@@ -1,31 +1,14 @@
 
-// eniac.blankView
+// eniac.spawn.blankView
 
 {
-	init() {
-		// fast references
-		this.els = {
-			doc: $(document),
-			content: window.find("content"),
-			el: window.find(".blank-view"),
-		};
-
-		// window.settings.clear();
+	init1() {
 		
-		// get settings, if any
-		let xList = $.xmlFromString(`<Recents/>`);
-		let xSamples = window.bluePrint.selectSingleNode(`//Samples`);
-
-		this.xRecent = window.settings.getItem("recents") || xList.documentElement;
-		// add recent files in to data-section
-		xSamples.parentNode.append(this.xRecent);
-
-		// setTimeout(() => window.find(".sample:nth(0)").trigger("click"), 500);
-		// setTimeout(() => eniac.dispatch({ type: "close-file" }), 800);
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Self = APP.blankView,
+			Spawn = event.spawn,
+			Self = APP.spawn.blankView,
 			file,
 			name,
 			value,
@@ -41,12 +24,12 @@
 			case "select-sample":
 				el = $(event.target);
 				if (!el.hasClass("sample")) return;
-				// opening image file from application package
-				Files.openLocal(el.data("url"))
-					.then(file => {
-						// forward event to app
-						APP.dispatch({ type: "prepare-file", file })
-					});
+
+				APP.spawn.dispatch({
+					type: "load-samples",
+					samples: [el.data("url")],
+					spawn: Spawn,
+				});
 				break;
 			case "select-recent-file":
 				el = $(event.target);

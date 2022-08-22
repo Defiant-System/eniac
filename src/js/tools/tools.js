@@ -201,7 +201,7 @@
 						// if table-tool related; let it be handled by "others"
 						if (el.parents(".table-tool").length) return;
 						// set file focus on element - used when switching between tabs
-						Spawn.data.tabs.setFocus(el);
+						Spawn.data.tabs.setFocusElement(el);
 						// reference of active tool
 						Self.active = "table";
 						// blur XL element, if any
@@ -219,7 +219,7 @@
 							name = "line";
 						}
 						// set file focus on element - used when switching between tabs
-						Spawn.data.tabs.setFocus(el);
+						Spawn.data.tabs.setFocusElement(el);
 						// reference of active tool
 						Self.active = name;
 						// blur XL element, if any
@@ -241,7 +241,7 @@
 						break;
 					default:
 						// set file focus on element - used when switching between tabs
-						Spawn.data.tabs.setFocus(el);
+						Spawn.data.tabs.setFocusElement(el);
 						// reference of active tool
 						Self.active = "sheet";
 						// update sidebar

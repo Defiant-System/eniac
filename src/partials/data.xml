@@ -1,16 +1,17 @@
 
 <Data>
 	<Samples>
-		<i path="~/sample/texts.xml" img="~/img/template-00.jpg"/>
-		<i path="~/sample/images.xml" img="~/img/template-01.jpg"/>
-		<i path="~/sample/shapes.xml" img="~/img/template-02.jpg"/>
-		<i path="~/sample/sheet.xml" img="~/img/template-03.jpg"/>
-		<i path="~/sample/tables.xml" img="~/img/template-04.jpg"/>
+		<i path="texts.xml" img="~/img/template-00.jpg"/>
+		<i path="images.xml" img="~/img/template-01.jpg"/>
+		<i path="shapes.xml" img="~/img/template-02.jpg"/>
+		<i path="sheet.xml" img="~/img/template-03.jpg"/>
+		<i path="tables.xml" img="~/img/template-04.jpg"/>
 	</Samples>
-	<!-- <Recents>
-		<i name="basketball.png" filepath="/fs/Desktop/images/basketball.png"/>
-		<i name="coast.jpg" filepath="/fs/Desktop/coast.jpg"/>
-	</Recents> -->
+
+	<Recents>
+		<i name="texts.xml" filepath="~/Desktop/excell files/sheetjs.xlsx"/>
+		<i name="images.xml" filepath="~/Desktop/excell files/google-2.xlsx"/>
+	</Recents>
 
 	<Table id="template-1" style="top: 40px; left: 40px;">
 		<R tp="2"><C/><C/><C/></R>

@@ -71,6 +71,11 @@ class Tabs {
 		this.update();
 	}
 
+	setFocusElement(el) {
+		// focus element
+		this._active.focusEl = el;
+	}
+
 	update() {
 		let spawn = this._spawn,
 			active = this._active,
@@ -81,10 +86,6 @@ class Tabs {
 		spawn.title = active.file.base;
 		// focus element
 		focusEl.trigger("mousedown").trigger("mouseup");
-	}
-
-	setFocus(el) {
-		this._active.focusEl = el;
 	}
 
 	openLocal(url) {

@@ -38,8 +38,29 @@
 			case "spawn.open":
 				Spawn.data.tabs = new Tabs(Self, Spawn);
 				
+				// blank view
+				el = Spawn.find(".blank-view");
+				if (!el.find(".div").length) {
+					// window.settings.clear();
+		
+					// get settings, if any
+					let xList = $.xmlFromString(`<Recents/>`);
+					let xSamples = window.bluePrint.selectSingleNode(`//Samples`);
+
+					Self.blankView.xRecent = window.settings.getItem("recents") || xList.documentElement;
+					// add recent files in to data-section
+					xSamples.parentNode.append(Self.blankView.xRecent);
+
+					// render blank view
+					window.render({
+						template: "blank-view",
+						match: `//Data`,
+						target: el,
+					});
+				}
+				
 				// temp
-				// setTimeout(() => Self.dispatch({ type: "tab-new", spawn: Spawn }), 300);
+				setTimeout(() => Self.dispatch({ type: "tab-new", spawn: Spawn }), 300);
 				break;
 			case "spawn.init":
 				Self.dispatch({ ...event, type: "tab-new" });
@@ -72,15 +93,6 @@
 						sidebar: Spawn.find(`.toolbar-tool_[data-click="toggle-sidebar"]`),
 					}
 				};
-
-				if (!Self.els.blankView.find(".div").length) {
-					// render blank view
-					window.render({
-						template: "blank-view",
-						match: `//Data`,
-						target: Self.els.blankView
-					});
-				}
 				break;
 			case "open.file":
 				(event.files || [event]).map(async fHandle => {
@@ -102,8 +114,24 @@
 
 			// tab related events
 			case "tab-new":
-				file = event.file || new File();
-				Spawn.data.tabs.add(file);
+				if (!event.file) {
+					// show blank view
+					Self.els.layout.addClass("show-blank-view");
+					// hide sidebar, if needed
+					if (Self.els.tools.sidebar.hasClass("tool-active_")) {
+						Self.els.tools.sidebar.trigger("click");
+						Self.els.tools.sidebar.removeClass("tool-active_");
+					}
+					// disable toolbar
+					Self.dispatch({ type: "toggle-toolbars", value: null });
+				} else {
+					// hide blank view
+					Self.els.layout.removeClass("show-blank-view");
+					// load / show file
+					Spawn.data.tabs.add(event.file);
+					// enable toolbar
+					Self.dispatch({ type: "toggle-toolbars", value: true });
+				}
 				break;
 			case "tab-clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));
@@ -111,6 +139,14 @@
 			case "tab-close":
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
+
+			case "toggle-toolbars":
+				for (name in Self.els.tools) {
+					Self.els.tools[name][event.value ? "removeClass" : "addClass"]("tool-disabled_");
+				}
+				break;
+			case "toggle-sidebar":
+				return Self.sidebar.dispatch(event);
 
 			// forwards events
 			default:
