@@ -153,6 +153,13 @@ layout {
 		.blank-view { display: block; }
 		content { display: none; }
 	}
+	
+	&.no-anim {
+		content,
+		sidebar {
+			transition-duration: 0s;
+		}
+	}
 
 	&.show-sidebar {
 		content {

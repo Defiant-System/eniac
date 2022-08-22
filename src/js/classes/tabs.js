@@ -21,6 +21,19 @@ class Tabs {
 		return Object.keys(this._stack).length;
 	}
 
+	get sidebar() {
+		return this._active.sidebar;
+	}
+
+	set sidebar(value) {
+		this._active.sidebar = !value;
+	}
+
+	setFocusElement(el) {
+		// focus element
+		this._active.focusEl = el;
+	}
+
 	add(fItem) {
 		// let file = fItem || new File();
 		let file = fItem || { base: "Blank" },
@@ -28,7 +41,8 @@ class Tabs {
 			tName = file ? file.base : "Blank",
 			tabEl = this._spawn.tabs.add(tName, tId),
 			bodyEl = this._template.clone(),
-			history = new window.History;
+			history = new window.History,
+			sidebar = false;
 
 		// add element to DOM + append file contents
 		bodyEl.attr({ "data-id": tId });
@@ -37,7 +51,7 @@ class Tabs {
 		if (file._file) file.bodyEl = bodyEl;
 
 		// save reference to tab
-		this._stack[tId] = { tId, tabEl, bodyEl, history, file };
+		this._stack[tId] = { tId, tabEl, bodyEl, history, file, sidebar };
 		// focus on file
 		this.focus(tId);
 		
@@ -75,6 +89,11 @@ class Tabs {
 		// UI update
 		this.update();
 
+		this._parent.sidebar.dispatch({
+			type: "toggle-sidebar",
+			isOn: !this._active.sidebar,
+		});
+
 		if (this._active.file._file) {
 			// hide blank view
 			this._parent.els.layout.removeClass("show-blank-view");
@@ -85,17 +104,13 @@ class Tabs {
 			this._parent.els.layout.addClass("show-blank-view");
 			// hide sidebar, if needed
 			if (this._parent.els.tools.sidebar.hasClass("tool-active_")) {
-				this._parent.els.tools.sidebar.trigger("click");
+				// this._parent.els.tools.sidebar.trigger("click");
 				this._parent.els.tools.sidebar.removeClass("tool-active_");
 			}
+
 			// disable toolbar
 			this._parent.dispatch({ type: "toggle-toolbars", value: null });
 		}
-	}
-
-	setFocusElement(el) {
-		// focus element
-		this._active.focusEl = el;
 	}
 
 	update() {

@@ -47,8 +47,20 @@
 				break;
 			// custom events
 			case "toggle-sidebar":
-				value = Self.els.layout.hasClass("show-sidebar");
+				value = event.isOn !== undefined ? event.isOn : Self.els.layout.hasClass("show-sidebar");
+				if (!event.el) {
+					let method = value ? "removeClass" : "addClass";
+					APP.spawn.els.tools.sidebar[method]("tool-active_");
+					Self.els.layout.addClass("no-anim");
+				}
+				if (Spawn) {
+					Spawn.data.tabs.sidebar = value;
+				}
+				// apply class name
 				Self.els.layout.toggleClass("show-sidebar", value);
+				if (!event.el) {
+					setTimeout(() => Self.els.layout.removeClass("no-anim"), 400);
+				}
 				return !value;
 			case "show-sheet":
 			case "show-functions":
