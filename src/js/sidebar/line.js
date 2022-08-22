@@ -1,5 +1,5 @@
 
-// eniac.sidebar.line
+// eniac.spawn.sidebar.line
 
 {
 	init(parent) {
@@ -246,7 +246,7 @@
 			case "set-line-arrange":
 				el = $(event.target);
 				value = el.data("name").split("-")[1];
-				APP.sidebar.zIndexArrange(Line.line, value);
+				APP.spawn.sidebar.zIndexArrange(Line.line, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-line-arrange" });
 				break;

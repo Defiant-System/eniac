@@ -1,5 +1,5 @@
 
-// eniac.sidebar.text
+// eniac.spawn.sidebar.text
 
 {
 	init(parent) {
@@ -490,7 +490,7 @@
 			case "set-text-arrange":
 				el = $(event.target);
 				value = el.data("name").split("-")[1];
-				APP.sidebar.zIndexArrange(Text, value);
+				APP.spawn.sidebar.zIndexArrange(Text, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-text-arrange" });
 				break;

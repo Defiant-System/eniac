@@ -140,7 +140,7 @@
 					case event.button === 2:
 						// TODO: handle context menu
 						karaqu.menu({
-							el: APP.tools.table.gridTools._selection,
+							el: APP.spawn.tools.table.gridTools._selection,
 							menu: "cell-selection",
 							top: event.clientY,
 							left: event.clientX,

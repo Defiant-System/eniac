@@ -74,7 +74,7 @@
 					// sidebar; notify event to sidebar
 					APP.spawn.sidebar[APP.spawn.sidebar.active].dispatch(event);
 					// sidebar; switch to "Text" tab
-					APP.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
+					APP.spawn.sidebar.dispatch({ type: "select-nth-tab", value: 2 });
 				}
 				// update sidebar
 				Self.dispatch({ type: "query-command-state" });
@@ -96,7 +96,7 @@
 				// do command state in "next tick"
 				setTimeout(() => {
 					// update sidebar
-					APP.sidebar.text.dispatch({ type: "content-cursor-state" });
+					APP.spawn.sidebar.text.dispatch({ type: "content-cursor-state" });
 				});
 				break;
 			case "fill-gradient":
@@ -136,8 +136,8 @@
 						// re-apply gradient values of shape
 						Self.dispatch({ type: "fill-gradient" });
 
-						let values = APP.sidebar.text.dispatch({ type: "collect-text-values", el: Text });
-						APP.sidebar.text.dispatch({ type: "update-text-fill", values });
+						let values = APP.spawn.sidebar.text.dispatch({ type: "collect-text-values", el: Text });
+						APP.spawn.sidebar.text.dispatch({ type: "update-text-fill", values });
 					};
 
 				if (type) {
@@ -226,7 +226,7 @@
 	},
 	move(event) {
 		let APP = eniac,
-			Self = APP.tools.text,
+			Self = APP.spawn.tools.text,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -268,7 +268,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([text[0], Self.els.root[0]]),
-					sidebar: APP.sidebar.text,
+					sidebar: APP.spawn.sidebar.text,
 					guides,
 					click,
 					once,
@@ -305,7 +305,7 @@
 	},
 	resize(event) {
 		let APP = eniac,
-			Self = APP.tools.text,
+			Self = APP.spawn.tools.text,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -332,7 +332,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([text[0], Self.els.root[0]]),
-					sidebar: APP.sidebar.text,
+					sidebar: APP.spawn.sidebar.text,
 					text,
 					min,
 					type,
@@ -390,7 +390,7 @@
 	},
 	gradientMove(event) {
 		let APP = eniac,
-			Self = APP.tools.text,
+			Self = APP.spawn.tools.text,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -402,7 +402,7 @@
 				let el = $(event.target.parentNode),
 					type = event.target.className.split(" ")[1],
 					tEl = Self.text,
-					iEl = APP.sidebar.els.el.find(".text-fill-options #text-gradient-angle"),
+					iEl = APP.spawn.sidebar.els.el.find(".text-fill-options #text-gradient-angle"),
 					x = +el.prop("offsetLeft"),
 					y = +el.prop("offsetTop"),
 					r = +el.prop("offsetWidth") - 2,

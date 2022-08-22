@@ -1,10 +1,15 @@
 
-// eniac.spawn.sidebar
+// eniac.spawn.spawn.sidebar
 
 {
 	init() {
 		// fast references
 		this.els = {};
+
+		// init all sub-objects
+		Object.keys(this)
+			.filter(i => typeof this[i].init === "function")
+			.map(i => this[i].init(this));
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -106,7 +111,7 @@
 	},
 	gradientPoints(event) {
 		let APP = eniac,
-			Self = APP.sidebar,
+			Self = APP.spawn.sidebar,
 			Parent = Self.parent,
 			Drag = Self.drag,
 			stops;
@@ -120,7 +125,7 @@
 					pEl = el.parent(),
 					index = el.index(),
 					siblings = pEl.find("span"),
-					gradient = APP.tools[APP.tools.active].gradient,
+					gradient = APP.spawn.tools[APP.spawn.tools.active].gradient,
 					discardable = gradient.stops.length > 2;
 
 				// create drag object
@@ -225,7 +230,7 @@
 	},
 	angleRing(event) {
 		let APP = eniac,
-			Self = APP.sidebar,
+			Self = APP.spawn.sidebar,
 			Parent = Self.parent,
 			Drag = Self.drag,
 			stops;

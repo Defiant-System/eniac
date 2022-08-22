@@ -1,5 +1,5 @@
 
-// eniac.sidebar.shape
+// eniac.spawn.sidebar.shape
 
 {
 	init(parent) {
@@ -381,7 +381,7 @@
 			case "set-shape-arrange":
 				el = $(event.target);
 				value = el.data("name").split("-")[1];
-				APP.sidebar.zIndexArrange(Shape.shape, value);
+				APP.spawn.sidebar.zIndexArrange(Shape.shape, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-shape-arrange" });
 				break;

@@ -189,7 +189,7 @@
 					Self.els.gradientTool.addClass("hidden");
 				}
 				// update sidebar
-				APP.sidebar.dispatch({ ...event, type: "show-shape" });
+				APP.spawn.sidebar.dispatch({ ...event, type: "show-shape" });
 				break;
 			case "update-gradient-rotation":
 				let Y1 = +Self.gradient.xNode.attr("y1"),
@@ -208,7 +208,8 @@
 		}
 	},
 	isLine(shape) {
-		let lineItem = shape.find(eniac.tools.shapeTypes.join(",")),
+		let Tools = eniac.spawn.tools,
+			lineItem = shape.find(Tools.shapeTypes.join(",")),
 			name = lineItem.prop("nodeName"),
 			d = (name === "path") ? lineItem.attr("d").split(" ") : false,
 			type = name === "line" ? "line" : "shape";
@@ -219,7 +220,7 @@
 	},
 	move(event) {
 		let APP = eniac,
-			Self = APP.tools.shape,
+			Self = APP.spawn.tools.shape,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -253,7 +254,7 @@
 				// create drag object
 				Self.drag = {
 					el: $([shape[0], Self.els.root[0]]),
-					sidebar: APP.sidebar.shape,
+					sidebar: APP.spawn.sidebar.shape,
 					guides,
 					click: {
 						x: event.clientX - parseInt(shape.css("left"), 10),
@@ -287,7 +288,7 @@
 	},
 	resize(event) {
 		let APP = eniac,
-			Self = APP.tools.shape,
+			Self = APP.spawn.tools.shape,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -328,7 +329,7 @@
 					click,
 					offset,
 					guides,
-					sidebar: APP.sidebar.shape,
+					sidebar: APP.spawn.sidebar.shape,
 					_min: Math.min,
 				};
 				// bind event
@@ -385,7 +386,7 @@
 	},
 	rectCornersMove(event) {
 		let APP = eniac,
-			Self = APP.tools.shape,
+			Self = APP.spawn.tools.shape,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -478,7 +479,7 @@
 	},
 	gradientMove(event) {
 		let APP = eniac,
-			Self = APP.tools.shape,
+			Self = APP.spawn.tools.shape,
 			Drag = Self.drag,
 			Gradient = Self.gradient;
 		switch (event.type) {
@@ -488,7 +489,7 @@
 				// cover layout
 				Self.els.layout.addClass("cover hideMouse");
 
-				let input = APP.sidebar.els.el.find(".shape-gradient-angle input"),
+				let input = APP.spawn.sidebar.els.el.find(".shape-gradient-angle input"),
 					el = $(event.target.parentNode),
 					type = event.target.className.split(" ")[1],
 					[a, b] = el.css("transform").split("(")[1].split(")")[0].split(","),

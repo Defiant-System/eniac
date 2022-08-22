@@ -47,7 +47,7 @@
 
 				// remember shape
 				Self.line = event.el;
-				Self.lineItem = event.el.find(APP.tools.shapeTypes.join(","));
+				Self.lineItem = event.el.find(APP.spawn.tools.shapeTypes.join(","));
 
 				let name = Self.lineItem.prop("nodeName");
 				Self.els.root
@@ -61,13 +61,13 @@
 					Self.bezierMove({ type: "position-tool-anchors", d });
 				}
 				// update sidebar
-				APP.sidebar.dispatch({ ...event, type: "show-line" });
+				APP.spawn.sidebar.dispatch({ ...event, type: "show-line" });
 				break;
 		}
 	},
 	move(event) {
 		let APP = eniac,
-			Self = APP.tools.line,
+			Self = APP.spawn.tools.line,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -129,7 +129,7 @@
 	},
 	lineAnchorMove(event) {
 		let APP = eniac,
-			Self = APP.tools.line,
+			Self = APP.spawn.tools.line,
 			Drag = Self.drag;
 		switch (event.type) {
 			// native events
@@ -268,7 +268,7 @@
 	},
 	bezierMove(event) {
 		let APP = eniac,
-			Self = APP.tools.line,
+			Self = APP.spawn.tools.line,
 			Drag = Self.drag;
 		switch (event.type) {
 			// native events

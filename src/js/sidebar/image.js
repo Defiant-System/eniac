@@ -1,5 +1,5 @@
 
-// eniac.sidebar.image
+// eniac.spawn.sidebar.image
 
 {
 	init(parent) {
@@ -297,7 +297,7 @@
 						"--mH": Image.css("--mH") || `${Image.height()}px`,
 					};
 				// console.log(vars);
-				APP.tools.image.dispatch({ type: "set-image-mask-mode", value, vars });
+				APP.spawn.tools.image.dispatch({ type: "set-image-mask-mode", value, vars });
 				break;
 			case "set-image-brightness":
 				// make sure all fields shows same value
@@ -342,7 +342,7 @@
 			case "set-image-arrange":
 				el = $(event.target);
 				value = el.data("name").split("-")[1];
-				APP.sidebar.zIndexArrange(Image, value);
+				APP.spawn.sidebar.zIndexArrange(Image, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-image-arrange" });
 				break;

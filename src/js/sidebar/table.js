@@ -1,5 +1,5 @@
 
-// eniac.sidebar.table
+// eniac.spawn.sidebar.table
 
 {
 	init(parent) {
@@ -598,7 +598,7 @@
 			case "set-table-arrange":
 				el = $(event.target);
 				value = el.data("name").split("-")[1];
-				APP.sidebar.zIndexArrange(TblEl, value);
+				APP.spawn.sidebar.zIndexArrange(TblEl, value);
 				// update arrange buttons
 				Self.dispatch({ ...event, type: "update-table-arrange" });
 				break;
