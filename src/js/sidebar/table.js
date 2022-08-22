@@ -52,7 +52,7 @@
 	},
 	dispatch(event) {
 		let APP = eniac,
-			Spawn = event.spawn || karaqu.getSpawn(event.target),
+			Spawn = event.spawn,
 			Self = APP.spawn.sidebar.table,
 			Tools = APP.spawn.tools,
 			Els = APP.spawn.sidebar.els,
@@ -197,7 +197,7 @@
 			case "update-table-cell-size":
 				if (!Table.table.selected) return;
 				el = Table.table.selected.anchor.el;
-				pEl = Els.el.find(".table-cell-dimensions")
+				pEl = Els.el.find(".table-cell-dimensions");
 				pEl.find(`input[data-change="set-cell-width"]`).val(el.prop("offsetWidth"));
 				pEl.find(`input[data-change="set-cell-height"]`).val(el.prop("offsetHeight"));
 				break;
@@ -304,7 +304,7 @@
 			case "update-table-arrange":
 				pEl = Els.el.find(`.flex-row[data-click="set-table-arrange"]`);
 				// disable all options if single element
-				allEl = APP.els.body.find(Guides.selector);
+				allEl = APP.spawn.els.body.find(Guides.selector);
 				pEl.find(".option-buttons_ span").toggleClass("disabled_", allEl.length !== 1);
 
 				// disable "back" + "backward" option, if active element is already in the back
