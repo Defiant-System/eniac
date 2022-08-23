@@ -395,8 +395,8 @@
 				break;
 			case "toggle-table-caption":
 				// toggle table caption
-				if (event.el.is(":checked")) TblEl.append(`<div class="table-caption"><span>Caption</span></div>`);
-				else TblEl.find(".table-caption").remove();
+				if (event.el.is(":checked")) TblEl.append(`<div class="tbl-caption"><span>Caption</span></div>`);
+				else TblEl.find(".tbl-caption").remove();
 				break;
 			case "set-table-font-size":
 				console.log(event);
