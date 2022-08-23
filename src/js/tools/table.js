@@ -19,7 +19,7 @@
 		// console.log(event);
 		switch (event.type) {
 			// system events
-			case "window.keystroke":
+			case "spawn.keystroke":
 				rows = Self.table.rows;
 				selected = Self.table.selected;
 				anchor = selected ? selected.anchor : false;

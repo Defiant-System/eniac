@@ -22,7 +22,7 @@
 		// console.log(event);
 		switch (event.type) {
 			// system events
-			case "window.keystroke":
+			case "spawn.keystroke":
 				break;
 			case "spawn.blur":
 				// reset fast references

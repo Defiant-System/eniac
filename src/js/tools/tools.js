@@ -53,7 +53,7 @@
 				// bind event handlers
 				Self.els.body.on("mousedown", Self.dispatch);
 				break;
-			case "window.keystroke":
+			case "spawn.keystroke":
 				// get selected items
 				selected = event.selected || Self.els.body.find(".wrapper > .selected");
 				if (!selected.length) selected = Self[Self.active][Self.active];

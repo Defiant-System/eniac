@@ -32,7 +32,7 @@
 		// console.log(event);
 		switch (event.type) {
 			// system events
-			case "window.keystroke":
+			case "spawn.keystroke":
 				// forward event to tools
 				return Self.tools.dispatch(event);
 			case "spawn.open":
@@ -126,6 +126,10 @@
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 
+			// system menu events
+			case "before-menu:sheet-tab":
+				return Self.head.dispatch(event);
+
 			// from menubar
 			case "merge-all-windows":
 				Spawn.siblings.map(oSpawn => {
@@ -150,6 +154,9 @@
 					Self.els.tools[name][event.value ? "removeClass" : "addClass"]("tool-disabled_");
 				}
 				break;
+			case "popup-view-options":
+			case "insert-text-box":
+				return Self.popups.dispatch(event);
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
 

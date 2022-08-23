@@ -180,22 +180,22 @@
 				// auto focus on first grid cell
 				el.find("td:nth(0)").trigger("mousedown").trigger("mouseup");
 				// close popup
-				Self.dispatch({ type: "close-popup" });
+				Self.dispatch({ type: "close-popup", spawn: Spawn });
 				break;
 			case "insert-formula":
 				// close popup
-				Self.dispatch({ type: "close-popup" });
+				Self.dispatch({ type: "close-popup", spawn: Spawn });
 				el = $(event.target);
 				console.log( el.data("arg") );
 				break;
 			case "insert-chart":
 				// close popup
-				Self.dispatch({ type: "close-popup" });
+				Self.dispatch({ type: "close-popup", spawn: Spawn });
 				console.log(event);
 				break;
 			case "import-file":
 				// close popup
-				Self.dispatch({ type: "close-popup" });
+				Self.dispatch({ type: "close-popup", spawn: Spawn });
 				el = $(event.target);
 				// type of import
 				switch (el.data("arg")) {
@@ -302,7 +302,7 @@
 				break;
 			case "insert-shape":
 				// close popup
-				Self.dispatch({ type: "close-popup" });
+				Self.dispatch({ type: "close-popup", spawn: Spawn });
 				// prepare shape
 				name = $(event.target).data("arg");
 				pos = {

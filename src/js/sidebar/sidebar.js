@@ -82,7 +82,7 @@
 				Self.els.tbl.removeClass("show-title-tab show-caption-tab");
 				// trigger populate event
 				name = event.type.split("-")[1];
-				Spawn = Spawn || karaqu.getSpawn(event.el);
+				if (event.el) Spawn = karaqu.getSpawn(event.el);
 				// push populate command to "next tick"
 				setTimeout(() => Self[name].dispatch({ ...event, spawn: Spawn, type: `populate-${name}-values` }));
 				// reference to active sidebar
