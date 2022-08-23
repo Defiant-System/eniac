@@ -73,10 +73,10 @@
 					// proxy event
 					pEl = Self.origin.el.parents("[data-area]");
 					name = pEl.data("area");
-					if (pEl.length && APP[name].dispatch) {
+					if (pEl.length && APP.spawn[name].dispatch) {
 						let type = Self.origin.el.data("change"),
 							origin = Self.origin;
-						APP[name].dispatch({ type, value, origin });
+						APP.spawn[name].dispatch({ type, value, origin, spawn: Spawn });
 					}
 				}
 				/* falls through */
