@@ -328,7 +328,7 @@
 				// reset (active) tools
 				Tools.dispatch({ type: "reset-tools" });
 				// insert image by forwarding event to "popups"
-				APP.popups.dispatch(event);
+				APP.spawn.popups.dispatch(event);
 				break;
 			case "reset-image-filters":
 				Els.el.find(".image-brightness input").val(0);

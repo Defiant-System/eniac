@@ -111,7 +111,7 @@
 			case "popup-color-palette-1":
 			case "popup-color-palette-2":
 			case "popup-color-palette-3":
-				APP.popups.dispatch(event);
+				APP.spawn.popups.dispatch(event);
 				break;
 			default:
 				el = event.el || (event.origin && event.origin.el) || $(event.target);
@@ -223,7 +223,11 @@
 				if (Date.now() - Drag.clickTime < 250) {
 					// time check for "click"
 					setTimeout(() =>
-						APP.popups.dispatch({ type: "popup-color-ring", target: event.target }));
+						APP.spawn.popups.dispatch({
+							type: "popup-color-ring",
+							target: event.target,
+							spawn: karaqu.getSpawn(event.target),
+						}));
 				}
 
 				// reset dragged element

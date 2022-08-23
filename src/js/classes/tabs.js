@@ -111,11 +111,6 @@ class Tabs {
 		} else {
 			// show blank view
 			this._parent.els.layout.addClass("show-blank-view");
-			// hide sidebar, if needed
-			if (this._parent.els.tools.sidebar.hasClass("tool-active_")) {
-				// this._parent.els.tools.sidebar.trigger("click");
-				this._parent.els.tools.sidebar.removeClass("tool-active_");
-			}
 			// disable toolbar
 			this._parent.dispatch({ type: "toggle-toolbars", value: null });
 		}

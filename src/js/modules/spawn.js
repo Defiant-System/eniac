@@ -61,6 +61,8 @@
 				
 				// temp
 				// setTimeout(() => Self.dispatch({ type: "tab-new", spawn: Spawn }), 300);
+				setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
+				// setTimeout(() => Spawn.find(".xl-shape:nth(0)").trigger("mousedown").trigger("mouseup"), 150);
 				break;
 			case "spawn.init":
 				Self.dispatch({ ...event, type: "tab-new" });

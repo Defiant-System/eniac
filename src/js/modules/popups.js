@@ -13,17 +13,18 @@
 	},
 	// handler listens for next click event - to close popup
 	closeHandler(event) {
-		let Self = eniac.popups;
+		let Self = eniac.spawn.popups,
+			Spawn = karaqu.getSpawn(event.target);
 		// if click inside popup element
 		if ($(event.target).parents(".popups").length) return;
-		Self.dispatch({ type: "close-popup" });
+		Self.dispatch({ type: "close-popup", spawn: Spawn });
 		// unbind event handler
 		Self.els.doc.unbind("mouseup", Self.closeHandler);
 	},
 	dispatch(event) {
 		let APP = eniac,
 			Self = APP.spawn.popups,
-			Spawn = event.spawn,
+			Spawn = event.spawn || Self.spawn,
 			dim, pos, top, left,
 			step,
 			data,
@@ -81,7 +82,7 @@
 				/* falls through */
 			case "close-popup":
 				// window contents are uncovered
-				window.covered = false;
+				Spawn.covered = false;
 				// prepare to close popup
 				Self.els.layout.removeClass("cover");
 				Self.els.root.find("> div.pop")
@@ -108,8 +109,10 @@
 			case "popup-color-palette-2":
 			case "popup-color-palette-3":
 			case "popup-color-ring":
+				// save reference to Spawn
+				Self.spawn = Spawn;
 				// window contents are covered
-				window.covered = true;
+				Spawn.covered = true;
 				// prepare to open popup
 				pEl = Self.els.palette;
 				step = event.type.split("-")[3] || "4";
@@ -340,7 +343,7 @@
 	},
 	doColorRing(event) {
 		let APP = eniac,
-			Self = APP.popups,
+			Self = APP.spawn.popups,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
@@ -372,9 +375,10 @@
 						gradient: APP.spawn.tools[APP.spawn.tools.active].gradient,
 					},
 					apply = (Self, value) => {
+						let spawn = APP.spawn.popups.spawn;
 						if (Self.origin.hasClass("color-preset_")) {
 							// dispatch event to active sidebar
-							Self.event.handler({ type: Self.event.name, origin: { el: Self.origin }, value });
+							Self.event.handler({ type: Self.event.name, origin: { el: Self.origin }, spawn, value });
 						} else {
 							// update selected xl-element
 							Self.stops[Self.stopIndex].color = value;
