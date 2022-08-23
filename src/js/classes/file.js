@@ -78,6 +78,50 @@ class File {
 					if (isNaN(zIndex)) el.css({ zIndex: i+1 });
 				});
 				break;
+			case "close-file":
+				// clean up sheet names
+				APP.spawn.head.dispatch({ type: "clear-all-sheet" });
+				// clean up workarea
+				APP.spawn.els.body.find(".guide-lines").nextAll("*").remove();
+				break;
+			case "create-new-sheet":
+				let i = 0,
+					xSiblings = this._file.workbook.selectNodes("//Sheet"),
+					xReference = xSiblings[event.index];
+				do {
+					i++;
+				} while (this._file.workbook.selectSingleNode(`//Sheet[@name="Sheet ${i}"]`));
+				// add new sheet node to workbook
+				xSheet = $.nodeFromString(`<Sheet name="Sheet ${i}"/>`);
+				xReference.parentNode.insertBefore(xSheet, xReference.nextSibling);
+				// return name of new sheet
+				return xSheet.getAttribute("name");
+			case "duplicate-active-sheet":
+				xSheet = this._file.workbook.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xClone = xSheet.cloneNode(true);
+				xClone.setAttribute("name", event.name);
+				xSheet.parentNode.insertBefore(xClone, xSheet.nextSibling);
+				break;
+			case "delete-active-sheet":
+				xSheet = this._file.workbook.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xSheet.parentNode.removeChild(xSheet);
+				break;
+			case "update-sheet-name":
+				// update XML
+				xSheet = this._file.workbook.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xSheet.setAttribute("name", event.value);
+				// internal reference to active sheet
+				this._activeSheet = event.value;
+				break;
+			case "update-sheet-background":
+				// update XML
+				xSheet = this._file.workbook.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				xSheet.setAttribute("background", event.value);
+				break;
+			case "get-sheet-background":
+				// update XML
+				xSheet = this._file.workbook.selectSingleNode(`//Sheet[@name="${this._activeSheet}"]`);
+				return xSheet.getAttribute("background");
 		}
 	}
 

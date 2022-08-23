@@ -47,12 +47,11 @@
 
 			// custom events
 			case "new-sheet":
-				// TODO
-				// index = Self.els.reel.find(".active").index();
-				// name = Files.activeFile.dispatch({ type: "create-new-sheet", index });
-				// Self.dispatch({ type: "add-sheet", name, makeActive: true });
-				// // empty work space
-				// APP.spawn.els.body.find(Guides.selector).remove();
+				index = Self.els.reel.find(".active").index();
+				name = Spawn.data.tabs._active.file.dispatch({ type: "create-new-sheet", index });
+				Self.dispatch({ type: "add-sheet", name, makeActive: true });
+				// empty work space
+				APP.spawn.els.body.find(Guides.selector).remove();
 				break;
 			case "add-sheet":
 				el = Self.els.reel.find(".active").removeClass("active");
@@ -83,7 +82,7 @@
 				el.addClass("active");
 				name = el.find("i").html();
 				// render clicked sheet
-				APP.spawn.data.tabs._active.file.dispatch({ type: "render-sheet", name });
+				Spawn.data.tabs._active.file.dispatch({ type: "render-sheet", spawn: Spawn, name });
 
 				// TODO: remember focused item and re-focus, if any
 
