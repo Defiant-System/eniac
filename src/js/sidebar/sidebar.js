@@ -289,7 +289,7 @@
 		}
 	},
 	zIndexArrange(el, type) {
-		let siblings = eniac.els.body.find(Guides.selector).filter(item => item !== el[0]),
+		let siblings = eniac.spawn.els.body.find(Guides.selector).filter(item => item !== el[0]),
 			value = +el.css("z-index");
 		switch (type) {
 			case "back":
