@@ -3,16 +3,14 @@
 
 {
 	init(parent) {
-		// fast references
+		// fast reference
+		this.parent = parent;
 		// this.sheet = eniac.els.body.parent();
 
 		// temp
 		// this.sheet.css({ "background-color": "#eee" });
 		// setTimeout(() => {
 		// 	eniac.sidebar.els.el.find(`.color-preset_[data-change="set-sheet-bgcolor"]`).trigger("click");
-		// }, 150);
-		// setTimeout(() => {
-		// 	window.find(`input[data-change="set-sheet-name"]`).focus();
 		// }, 150);
 	},
 	dispatch(event) {

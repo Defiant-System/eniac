@@ -581,7 +581,7 @@
 		}
 	},
 	selectionHandles(event) {
-		let Self = eniac.tools.table,
+		let Self = eniac.spawn.tools.table,
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":

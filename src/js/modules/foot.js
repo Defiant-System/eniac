@@ -16,7 +16,7 @@
 		// console.log( XLSX.utils.evalFormula(`IF(B1>=1; "Nonnegative"; "Negative")`, data) );
 
 		// setTimeout(() => {
-		// 	eniac.tools.table.table.select({
+		// 	eniac.spawn.tools.table.table.select({
 		// 		anchor: { y: 0, x: 1 },
 		// 		yNum: [0,1,2,3],
 		// 		xNum: [1],

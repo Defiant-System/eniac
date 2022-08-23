@@ -5,11 +5,6 @@
 	init() {
 		// fast references
 		this.els = {};
-
-		// temp
-		// setTimeout(() => {
-		// 	window.find(".toolbar-tool_:nth(3)").trigger("click");
-		// }, 500);
 	},
 	// handler listens for next click event - to close popup
 	closeHandler(event) {
@@ -310,7 +305,7 @@
 					left: (APP.spawn.els.body.parent().prop("offsetWidth") - 100) >> 1,
 					zIndex: APP.spawn.els.body.find(Guides.selector).length,
 				};
-				str = window.find(`svg#${name}`).clone(true)[0].outerHTML;
+				str = Spawn.find(`svg#${name}`).clone(true)[0].outerHTML;
 				str = str.replace(/ id=".+?"/, ` style="top:${pos.top}px; left:${pos.left}px; width:100px; height:100px; z-index:${pos.zIndex};"`)
 						.replace(/ cache="keep"/, ` class="xl-shape"`)
 						.replace(/dsic\d+/g, m => `dsic${Date.now()}`);

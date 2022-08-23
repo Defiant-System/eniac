@@ -13,7 +13,7 @@
 
 		// setTimeout(() => {
 		// 	// parent.els.el.find(".sidebar-table input#table-clip").trigger("click");
-		// 	eniac.tools.table.table.select({
+		// 	eniac.spawn.tools.table.table.select({
 		// 		anchor: { y: 2, x: 1 },
 		// 		yNum: [2,3,4],
 		// 		xNum: [1,2],
