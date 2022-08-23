@@ -60,12 +60,12 @@
 				}
 				
 				// temp
-				// setTimeout(() => Self.dispatch({ type: "tab-new", spawn: Spawn }), 300);
-				setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
+				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
+				// setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
 				// setTimeout(() => Spawn.find(".xl-shape:nth(0)").trigger("mousedown").trigger("mouseup"), 150);
 				break;
 			case "spawn.init":
-				Self.dispatch({ ...event, type: "tab-new" });
+				Self.dispatch({ ...event, type: "tab.new" });
 				break;
 			case "spawn.blur":
 				// forward event to all sub-objects
@@ -102,7 +102,7 @@
 						data = new Uint8Array(fItem.arrayBuffer),
 						file = new File(fItem, data);
 					// auto add first base "tab"
-					Self.dispatch({ ...event, file, type: "tab-new" });
+					Self.dispatch({ ...event, file, type: "tab.new" });
 				});
 				break;
 			case "load-samples":
@@ -110,19 +110,19 @@
 					let fItem = await Spawn.data.tabs.openLocal(`~/sample/${path}`),
 						file = new File(fItem, data);
 					// auto add first base "tab"
-					Self.dispatch({ ...event, file, type: "tab-new" });
+					Self.dispatch({ ...event, file, type: "tab.new" });
 				});
 				break;
 
 			// tab related events
-			case "tab-new":
+			case "tab.new":
 				// add "file" to tab row
 				requestAnimationFrame(() => Spawn.data.tabs.add(event.file));
 				break;
-			case "tab-clicked":
+			case "tab.clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));
 				break;
-			case "tab-close":
+			case "tab.close":
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 
@@ -131,6 +131,9 @@
 				return Self.head.dispatch(event);
 
 			// from menubar
+			case "new-spawn":
+				APP.dispatch({ type: "new", id: "spawn" });
+				break;
 			case "merge-all-windows":
 				Spawn.siblings.map(oSpawn => {
 					for (let key in oSpawn.data.tabs._stack) {
@@ -148,6 +151,10 @@
 				} else if (value === 1) {
 					Self.dispatch({ ...event, type: "close-spawn" });
 				}
+				break;
+			case "close-spawn":
+				// system close window / spawn
+				karaqu.shell("win -c");
 				break;
 			case "toggle-toolbars":
 				for (name in Self.els.tools) {
