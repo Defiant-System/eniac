@@ -62,7 +62,16 @@ class Tabs {
 	}
 
 	merge(ref) {
-		
+		let tId = ref.tId,
+			file = ref.file,
+			history = ref.history,
+			sidebar = ref.sidebar,
+			bodyEl = ref.bodyEl.clone(true).addClass("hidden"),
+			tabEl = this._spawn.tabs.add(file.base, tId, true);
+		// clone & append original bodyEl
+		bodyEl = this._content.append(bodyEl);
+		// save reference to this spawns stack
+		this._stack[tId] = { tId, tabEl, bodyEl, history, file, sidebar };
 	}
 
 	remove(tId) {
@@ -107,7 +116,6 @@ class Tabs {
 				// this._parent.els.tools.sidebar.trigger("click");
 				this._parent.els.tools.sidebar.removeClass("tool-active_");
 			}
-
 			// disable toolbar
 			this._parent.dispatch({ type: "toggle-toolbars", value: null });
 		}

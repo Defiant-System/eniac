@@ -73,6 +73,16 @@
 		<Menu type="divider"/>
 		<Menu name="Hide Toolbar"/>
 	</Menu>
+	<Menu name="Window">
+		<Menu name="New Window" click="new-spawn" hotkey="alt+n"/>
+		<Menu name="New Tab" click="tab-new" hotkey="alt+t"/>
+		<Menu name="Merge All Windows" click="merge-all-windows" hotkey="alt+c"/>
+		<Menu type="divider"/>
+		<Menu name="Minimize" shell="win -s min"/>
+		<Menu name="Maximize" shell="win -s max"/>
+		<Menu type="divider"/>
+		<Menu name="Close Window" click="close-clone-window" hotkey="alt+w"/>
+	</Menu>
 	<Menu name="Help">
 		<Menu name="How To" click="open-help"/>
 		<Menu type="divider"/>

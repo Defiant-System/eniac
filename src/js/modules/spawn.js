@@ -114,8 +114,8 @@
 
 			// tab related events
 			case "tab-new":
-				// load / show file
-				Spawn.data.tabs.add(event.file);
+				// add "file" to tab row
+				requestAnimationFrame(() => Spawn.data.tabs.add(event.file));
 				break;
 			case "tab-clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));
@@ -124,6 +124,17 @@
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 
+			// from menubar
+			case "merge-all-windows":
+				Spawn.siblings.map(oSpawn => {
+					for (let key in oSpawn.data.tabs._stack) {
+						let ref = oSpawn.data.tabs._stack[key];
+						Spawn.data.tabs.merge(ref);
+					}
+					// close sibling spawn
+					oSpawn.close();
+				});
+				break;
 			case "close-tab":
 				value = Spawn.data.tabs.length;
 				if (value > 1) {

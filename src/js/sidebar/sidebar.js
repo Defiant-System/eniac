@@ -48,7 +48,7 @@
 			// custom events
 			case "toggle-sidebar":
 				value = event.isOn !== undefined ? event.isOn : Self.els.layout.hasClass("show-sidebar");
-				if (!event.el) {
+				if (!event.el && APP.spawn.els) {
 					let method = value ? "removeClass" : "addClass";
 					APP.spawn.els.tools.sidebar[method]("tool-active_");
 					Self.els.layout.addClass("no-anim");
@@ -56,6 +56,7 @@
 				if (Spawn) {
 					Spawn.data.tabs.sidebar = value;
 				}
+				if (!Self.els.layout) return;
 				// apply class name
 				Self.els.layout.toggleClass("show-sidebar", value);
 				if (!event.el) {
