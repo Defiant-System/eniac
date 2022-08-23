@@ -109,10 +109,12 @@ class Tabs {
 			// enable toolbar
 			this._parent.dispatch({ type: "toggle-toolbars", value: true });
 		} else {
-			// show blank view
-			this._parent.els.layout.addClass("show-blank-view");
-			// disable toolbar
-			this._parent.dispatch({ type: "toggle-toolbars", value: null });
+			setTimeout(() => {
+				// show blank view
+				this._parent.els.layout.addClass("show-blank-view");
+				// disable toolbar
+				this._parent.dispatch({ type: "toggle-toolbars", value: null });
+			}, 10);
 		}
 	}
 

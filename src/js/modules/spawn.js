@@ -117,7 +117,7 @@
 			// tab related events
 			case "tab.new":
 				// add "file" to tab row
-				requestAnimationFrame(() => Spawn.data.tabs.add(event.file));
+				Spawn.data.tabs.add(event.file);
 				break;
 			case "tab.clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));

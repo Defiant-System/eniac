@@ -25,7 +25,7 @@
 				el = $(event.target);
 				if (!el.hasClass("sample")) return;
 				// close "current tab"
-				APP.spawn.dispatch({ type: "close-tab", spawn: Spawn });
+				APP.spawn.dispatch({ type: "close-tab", spawn: Spawn, delayed: true });
 				// load sample
 				APP.spawn.dispatch({
 					type: "load-samples",
