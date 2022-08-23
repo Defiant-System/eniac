@@ -31,7 +31,6 @@ class File {
 		// render workbook
 		this._activeSheet = this.sheetNames[0];
 
-
 		// let APP = eniac.spawn,
 		// 	Body = APP.els.body;
 		// // trigger first mousedown
@@ -59,10 +58,8 @@ class File {
 				APP.spawn.head.dispatch({ type: "clear-all-sheet", spawn });
 				break;
 			case "render-sheet-names":
-				this.sheetNames.reverse().map(name => {
-					let makeActive = name === this._activeSheet;
-					APP.spawn.head.dispatch({ type: "add-sheet", spawn, name, makeActive });
-				});
+				this.sheetNames.reverse().map(name => APP.spawn.head.dispatch({ type: "add-sheet", spawn, name }));
+				APP.spawn.head.dispatch({ type: "make-active", name: this._activeSheet, spawn });
 				break;
 			case "render-sheet":
 				// keep track of active sheet name
@@ -83,6 +80,9 @@ class File {
 				APP.spawn.head.dispatch({ type: "clear-all-sheet" });
 				// clean up workarea
 				APP.spawn.els.body.find(".guide-lines").nextAll("*").remove();
+				break;
+			case "select-sheet":
+				this._activeSheet = event.name || this._activeSheet;
 				break;
 			case "create-new-sheet":
 				let i = 0,

@@ -4,7 +4,9 @@
 {
 	init() {
 		// temp
-		// setTimeout(() => this.els.reel.find("> span:nth(2)").trigger("click"), 100);
+		setTimeout(() => {
+			this.els.reel.find("> span:nth(1)").trigger("click");
+		}, 200);
 	},
 	dispatch(event) {
 		let APP = eniac,
@@ -13,6 +15,7 @@
 			max, delta, left,
 			name, cn, str,
 			index,
+			file,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -48,7 +51,8 @@
 			// custom events
 			case "new-sheet":
 				index = Self.els.reel.find(".active").index();
-				name = Spawn.data.tabs._active.file.dispatch({ type: "create-new-sheet", index });
+				file = Spawn.data.tabs._active.file;
+				name = file.dispatch({ type: "create-new-sheet", index });
 				Self.dispatch({ type: "add-sheet", name, makeActive: true });
 				// empty work space
 				APP.spawn.els.body.find(Guides.selector).remove();
@@ -75,16 +79,24 @@
 					// TODO: remove sheet from file
 				});
 				break;
+			case "make-active":
+				Self.els.reel.find(".active").removeClass("active");
+				Self.els.reel.find("> span").map(elem => {
+					let el = $(elem);
+					if (el.find("> i").text() === event.name) el.addClass("active");
+				});
+				break;
 			case "select-sheet":
 				el = $(event.target);
 				if (el.prop("nodeName") !== "SPAN" || el.hasClass("active")) return;
 				event.el.find(".active").removeClass("active");
 				el.addClass("active");
 				name = el.find("i").html();
+				file = Spawn.data.tabs._active.file;
 				// render clicked sheet
-				Spawn.data.tabs._active.file.dispatch({ type: "render-sheet", spawn: Spawn, name });
-
-				// TODO: remember focused item and re-focus, if any
+				file.dispatch({ type: "render-sheet", spawn: Spawn, name });
+				// remember focused item and re-focus, if any
+				file.dispatch({ type: "select-sheet", spawn: Spawn, name });
 
 				// reset (active) tools and focus on "sheet"
 				return APP.spawn.els.body.trigger("mousedown").trigger("mouseup");
