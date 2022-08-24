@@ -66,7 +66,7 @@
 				// setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
 				// setTimeout(() => Spawn.find(".xl-shape:nth(0)").trigger("mousedown").trigger("mouseup"), 150);
 				
-				setTimeout(() => Spawn.find(".block-buttons .btn:nth(0)").trigger("click"), 300);
+				// setTimeout(() => Spawn.find(".block-buttons .btn:nth(0)").trigger("click"), 300);
 				// setTimeout(() => Spawn.find(".recent-file:nth(0)").trigger("click"), 300);
 				// setTimeout(() => Spawn.find(".sample:nth(1)").trigger("click"), 300);
 				break;
