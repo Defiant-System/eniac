@@ -151,20 +151,6 @@
 					oSpawn.close();
 				});
 				break;
-
-			case "get-response-type":
-				// default
-				value = { responseType: "arrayBuffer" };
-				// options
-				data = {
-					csv: "text",
-					xml: "text",
-				};
-				if (data[event.fHandle.kind]) {
-					value.responseType = data[event.fHandle.kind];
-				}
-				return value;
-
 			case "open-file":
 				let fsHandler = fsItem => {
 						Self.dispatch({ type: "close-tab", spawn: Spawn, delayed: true });
@@ -187,7 +173,6 @@
 					xml: () => file.toBlob("xml"),
 				});
 				break;
-
 			case "close-tab":
 				value = Spawn.data.tabs.length;
 				if (event.delayed) {
@@ -212,7 +197,18 @@
 				return Self.popups.dispatch(event);
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
-
+			case "get-response-type":
+				// default
+				value = { responseType: "arrayBuffer" };
+				// options
+				data = {
+					csv: "text",
+					xml: "text",
+				};
+				if (data[event.fHandle.kind]) {
+					value.responseType = data[event.fHandle.kind];
+				}
+				return value;
 			// forwards events
 			default:
 				el = event.el || (event.origin && event.origin.el);
