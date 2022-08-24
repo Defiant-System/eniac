@@ -104,7 +104,8 @@
 				break;
 			case "open.file":
 				(event.files || [event]).map(async fHandle => {
-					let fItem = await fHandle.open({ responseType: "arrayBuffer" }),
+					let resType = Self.dispatch({ type: "get-response-type", fHandle }),
+						fItem = await fHandle.open(resType),
 						data = new Uint8Array(fItem.arrayBuffer),
 						file = new File(fItem, data);
 					// auto add first base "tab"
@@ -151,10 +152,23 @@
 				});
 				break;
 
+			case "get-response-type":
+				// default
+				value = { responseType: "arrayBuffer" };
+				// options
+				data = {
+					csv: "text",
+					xml: "text",
+				};
+				if (data[event.fHandle.kind]) {
+					value.responseType = data[event.fHandle.kind];
+				}
+				return value;
+
 			case "open-file":
-				let fsHandler = item => {
+				let fsHandler = fsItem => {
 						Self.dispatch({ type: "close-tab", spawn: Spawn, delayed: true });
-						Self.dispatch(item);
+						Self.dispatch(fsItem);
 					};
 				Spawn.dialog.open({
 					xlsx: fsHandler,

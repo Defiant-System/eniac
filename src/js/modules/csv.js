@@ -6,8 +6,10 @@ const CSV = {
 			str = [],
 			width = 400,
 			height = 190,
-			top = (APP.spawn.els.body.parent().prop("offsetHeight") - height) >> 1,
-			left = (APP.spawn.els.body.parent().prop("offsetWidth") - width) >> 1,
+			// top = (APP.spawn.els.body.parent().prop("offsetHeight") - height) >> 1,
+			// left = (APP.spawn.els.body.parent().prop("offsetWidth") - width) >> 1,
+			top = 40,
+			left = 40,
 			zIndex = APP.spawn.els.body.find(Guides.selector).length,
 			style = `top:${top}px; left:${left}px; z-index:${zIndex}`,
 			delimiter = this.detectDelimiter(data);
@@ -23,7 +25,7 @@ const CSV = {
 				if (v.startsWith('"') && v.endsWith('"')) {
 					v = v.slice(1,-1);
 				}
-				xRow += `<C v="${v}"/>`;
+				xRow += `<C><![CDATA[${v}]]></C>`;
 			});
 			str.push(`<R tp="2">${xRow}</R>`);
 		});
