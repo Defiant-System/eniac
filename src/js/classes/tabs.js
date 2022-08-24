@@ -34,6 +34,11 @@ class Tabs {
 		this._active.focusEl = el;
 	}
 
+	removeDelayed() {
+		let el = this._active.tabEl;
+		this._spawn.tabs.wait(el);
+	}
+
 	add(fItem) {
 		// let file = fItem || new File();
 		let file = fItem || { base: "Blank" },
@@ -97,7 +102,7 @@ class Tabs {
 		this._active = this._stack[tId];
 		// UI update
 		this.update();
-
+		// toggle sidebar
 		this._parent.sidebar.dispatch({
 			type: "toggle-sidebar",
 			isOn: !this._active.sidebar,

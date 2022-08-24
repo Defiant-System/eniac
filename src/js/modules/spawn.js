@@ -63,6 +63,7 @@
 				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
 				// setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
 				// setTimeout(() => Spawn.find(".xl-shape:nth(0)").trigger("mousedown").trigger("mouseup"), 150);
+				// setTimeout(() => Spawn.find(".sample:nth(1)").trigger("click"), 300);
 				break;
 			case "spawn.init":
 				Self.dispatch({ ...event, type: "tab.new" });
@@ -146,7 +147,9 @@
 				break;
 			case "close-tab":
 				value = Spawn.data.tabs.length;
-				if (value > 1) {
+				if (event.delayed) {
+					Spawn.data.tabs.removeDelayed();
+				} else if (value > 1) {
 					Spawn.data.tabs._active.tabEl.find(`[sys-click]`).trigger("click");
 				} else if (value === 1) {
 					Self.dispatch({ ...event, type: "close-spawn" });

@@ -12,7 +12,7 @@
 			<Shadow x="7" y="7" blur="13" color="#22222270"/>
 			<Border style="solid" width="2" color="#222222"/>
 			<!-- <Filter brightness="1" saturate="2" reflection=".15" opacity="0.45"/> -->
-			<Dim x="390" y="470" w="300" h="200"/>
+			<Dim x="390" y="410" w="300" h="200"/>
 			<Mask x="0" y="0" w="300" h="200"/>
 			<Text caption="Image Caption"/>
 			<![CDATA[/fs/Desktop/coast.jpg]]>
