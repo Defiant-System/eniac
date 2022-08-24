@@ -16,7 +16,8 @@
 		// console.log(event);
 		switch (event.type) {
 			case "open-filesystem":
-				APP.dispatch({ type: "open-file" });
+				// open fs dialog
+				APP.spawn.dispatch(event);
 				break;
 			case "from-clipboard":
 				// TODO

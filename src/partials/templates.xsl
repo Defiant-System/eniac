@@ -4,7 +4,7 @@
 	<h2>Welcome to Eniac.</h2>
 
 	<div class="block-buttons">
-		<div class="btn" data-click="open-filesystem">
+		<div class="btn" data-click="open-file">
 			<i class="icon-folder-open"></i>
 			Open&#8230;
 		</div>

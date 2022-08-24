@@ -66,6 +66,7 @@
 				// setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
 				// setTimeout(() => Spawn.find(".xl-shape:nth(0)").trigger("mousedown").trigger("mouseup"), 150);
 				
+				setTimeout(() => Spawn.find(".block-buttons .btn:nth(0)").trigger("click"), 300);
 				// setTimeout(() => Spawn.find(".recent-file:nth(0)").trigger("click"), 300);
 				// setTimeout(() => Spawn.find(".sample:nth(1)").trigger("click"), 300);
 				break;
@@ -149,6 +150,30 @@
 					oSpawn.close();
 				});
 				break;
+
+			case "open-file":
+				let fsHandler = item => {
+						Self.dispatch({ type: "close-tab", spawn: Spawn, delayed: true });
+						Self.dispatch(item);
+					};
+				Spawn.dialog.open({
+					xlsx: fsHandler,
+					xml: fsHandler,
+					csv: fsHandler,
+				});
+				break;
+			case "save-file":
+				console.log("todo");
+				break;
+			case "save-file-as":
+				file = Files.activeFile;
+				// pass on available file types
+				window.dialog.saveAs(file._file, {
+					xlsx: () => file.toBlob("xlsx"),
+					xml: () => file.toBlob("xml"),
+				});
+				break;
+
 			case "close-tab":
 				value = Spawn.data.tabs.length;
 				if (event.delayed) {
