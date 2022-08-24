@@ -9,13 +9,15 @@
 			.map(i => this[i].init());
 	},
 	dispose(event) {
-		// let Spawn = event.spawn;
-		// let cmd = { type: "open.file", files: [] };
-		// for (let key in Spawn.data.tabs._stack) {
-		// 	let tab = Spawn.data.tabs._stack[key];
-		// 	cmd.files.push(tab.file.path);
-		// }
-		// return cmd;
+		let Spawn = event.spawn;
+		let cmd = { type: "open.file", files: [] };
+		for (let key in Spawn.data.tabs._stack) {
+			let tab = Spawn.data.tabs._stack[key];
+			if (tab.file._file) {
+				cmd.files.push(tab.file._file.path);
+			}
+		}
+		return cmd.files.length ? cmd : { "type": "tab.new" };
 	},
 	dispatch(event) {
 		let APP = eniac,
