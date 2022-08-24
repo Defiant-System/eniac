@@ -65,6 +65,8 @@
 				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
 				// setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
 				// setTimeout(() => Spawn.find(".xl-shape:nth(0)").trigger("mousedown").trigger("mouseup"), 150);
+				
+				// setTimeout(() => Spawn.find(".recent-file:nth(0)").trigger("click"), 300);
 				// setTimeout(() => Spawn.find(".sample:nth(1)").trigger("click"), 300);
 				break;
 			case "spawn.init":
@@ -105,7 +107,7 @@
 						data = new Uint8Array(fItem.arrayBuffer),
 						file = new File(fItem, data);
 					// auto add first base "tab"
-					Self.dispatch({ ...event, file, type: "tab.new" });
+					Self.dispatch({ type: "tab.new", spawn: Spawn, file });
 				});
 				break;
 			case "load-samples":

@@ -36,11 +36,17 @@
 			case "select-recent-file":
 				el = $(event.target);
 				if (!el.hasClass("recent-file")) return;
-				
+
+				// close "current tab"
+				APP.spawn.dispatch({ type: "close-tab", spawn: Spawn, delayed: true });
+				// get FS handle from karaqu
 				karaqu.shell(`fs -o '${el.data("file")}' null`)
-					.then(exec => {
-						APP.spawn.dispatch({ type: "open.file", files: [exec.result] });
-					});
+					.then(exec =>
+						APP.spawn.dispatch({
+							type: "open.file",
+							files: [exec.result],
+							spawn: Spawn,
+						}));
 				break;
 			case "add-recent-file":
 				if (!event.file.path) return;
