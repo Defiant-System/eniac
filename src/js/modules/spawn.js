@@ -39,27 +39,8 @@
 				return Self.tools.dispatch(event);
 			case "spawn.open":
 				Spawn.data.tabs = new Tabs(Self, Spawn);
-				
-				// blank view
-				el = Spawn.find(".blank-view");
-				if (!el.find(".div").length) {
-					// window.settings.clear();
-		
-					// get settings, if any
-					let xList = $.xmlFromString(`<Recents/>`);
-					let xSamples = window.bluePrint.selectSingleNode(`//Samples`);
-
-					Self.blankView.xRecent = window.settings.getItem("recents") || xList.documentElement;
-					// add recent files in to data-section
-					xSamples.parentNode.append(Self.blankView.xRecent);
-
-					// render blank view
-					window.render({
-						template: "blank-view",
-						match: `//Data`,
-						target: el,
-					});
-				}
+				// init blank view
+				Self.blankView.dispatch({ ...event, type: "init-blank-view" });
 				
 				// temp
 				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
@@ -191,6 +172,9 @@
 				for (name in Self.els.tools) {
 					Self.els.tools[name][event.value ? "removeClass" : "addClass"]("tool-disabled_");
 				}
+				break;
+			case "open-help":
+				karaqu.shell("fs -u '~/help/index.md'");
 				break;
 			case "popup-view-options":
 			case "insert-text-box":

@@ -15,6 +15,26 @@
 			el;
 		// console.log(event);
 		switch (event.type) {
+			case "init-blank-view":
+				// blank view
+				el = Spawn.find(".blank-view");
+				if (!el.find(".div").length) {
+					// get settings, if any
+					let xList = $.xmlFromString(`<Recents/>`);
+					let xSamples = window.bluePrint.selectSingleNode(`//Samples`);
+
+					Self.xRecent = window.settings.getItem("recents") || xList.documentElement;
+					// add recent files in to data-section
+					xSamples.parentNode.append(Self.xRecent);
+
+					// render blank view
+					window.render({
+						template: "blank-view",
+						match: `//Data`,
+						target: el,
+					});
+				}
+				break;
 			case "open-filesystem":
 				// open fs dialog
 				APP.spawn.dispatch(event);
