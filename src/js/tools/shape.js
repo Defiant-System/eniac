@@ -292,9 +292,7 @@
 			Drag = Self.drag;
 		switch (event.type) {
 			case "mousedown":
-				// cover layout
-				Self.els.layout.addClass("cover resize-only hideMouse");
-
+				// prepare values
 				let svg = Self.shape,
 					shape = Self.shapeItem,
 					rect = Self.shapeItem.prop("nodeName") === "rect",
@@ -332,6 +330,8 @@
 					sidebar: APP.spawn.sidebar.shape,
 					_min: Math.min,
 				};
+				// cover layout
+				Self.els.layout.addClass("cover resize-only hideMouse");
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.resize);
 				break;
@@ -392,8 +392,6 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
-				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
 
 				let el = $(event.target),
 					pEl = el.parents(".shape-tools"),
@@ -459,6 +457,8 @@
 						return min(Math.max(o.r-v, 0), o.r);
 					},
 				};
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.rectCornersMove);
 				break;

@@ -196,7 +196,7 @@
 
 <xsl:template name="xl-shape">
 	<svg>
-		<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+		<xsl:if test="@id"><xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute></xsl:if>
 		<xsl:attribute name="class">xl-shape <xsl:value-of select="@class"/></xsl:attribute>
 		<xsl:attribute name="viewBox"><xsl:value-of select="@viewBox"/></xsl:attribute>
 		<xsl:attribute name="style">
