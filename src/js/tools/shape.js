@@ -486,8 +486,6 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
-				// cover layout
-				Self.els.layout.addClass("cover hideMouse");
 
 				let input = APP.spawn.sidebar.els.el.find(".shape-gradient-angle input"),
 					el = $(event.target.parentNode),
@@ -529,6 +527,8 @@
 					Gradient.moveP1 = (x1, y1, x2, y2) => Gradient.xNode.attr({ x1, y1, x2, y2 });
 					Gradient.moveP2 = (x2, y2) => Gradient.xNode.attr({ x2, y2 });
 				}
+				// cover layout
+				Self.els.layout.addClass("cover hideMouse");
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.gradientMove);
 				break;
