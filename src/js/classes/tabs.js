@@ -34,11 +34,6 @@ class Tabs {
 		this._active.focusEl = el;
 	}
 
-	removeDelayed() {
-		let el = this._active.tabEl;
-		this._spawn.tabs.wait(el);
-	}
-
 	add(fItem) {
 		// let file = fItem || new File();
 		let file = fItem || { base: "Blank" },
@@ -77,6 +72,11 @@ class Tabs {
 		bodyEl = this._content.append(bodyEl);
 		// save reference to this spawns stack
 		this._stack[tId] = { tId, tabEl, bodyEl, history, file, sidebar };
+	}
+
+	removeDelayed() {
+		let el = this._active.tabEl;
+		this._spawn.tabs.wait(el);
 	}
 
 	remove(tId) {
