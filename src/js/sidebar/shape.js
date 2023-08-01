@@ -5,17 +5,6 @@
 	init(parent) {
 		// fast reference
 		this.parent = parent;
-		
-		// temp
-		// setTimeout(() => {
-		// 	let target = this.parent.els.el.find(".gradient-colors .point:nth(0)")[0];
-		// 	eniac.popups.dispatch({ type: "popup-color-ring", target });
-		// }, 500);
-
-		// temp
-		// setTimeout(() => {
-		// 	parent.els.el.find(".sidebar-shape .sidebar-head span:nth(1)").trigger("click");
-		// }, 200);
 	},
 	dispatch(event) {
 		let APP = eniac,

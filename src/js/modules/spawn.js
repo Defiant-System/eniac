@@ -41,15 +41,10 @@
 				Spawn.data.tabs = new Tabs(Self, Spawn);
 				// init blank view
 				Self.blankView.dispatch({ ...event, type: "init-blank-view" });
-				
-				// temp
-				// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
-				// setTimeout(() => Self.dispatch({ type: "toggle-sidebar", value: true }), 300);
-				// setTimeout(() => Spawn.find(".xl-shape:nth(0)").trigger("mousedown").trigger("mouseup"), 150);
-				
-				// setTimeout(() => Spawn.find(".block-buttons .btn:nth(0)").trigger("click"), 300);
-				// setTimeout(() => Spawn.find(".recent-file:nth(0)").trigger("click"), 300);
-				// setTimeout(() => Spawn.find(".sample:nth(1)").trigger("click"), 300);
+
+				// DEV-ONLY-START
+				Test.init(APP, Spawn);
+				// DEV-ONLY-END
 				break;
 			case "spawn.init":
 				Self.dispatch({ ...event, type: "tab.new" });

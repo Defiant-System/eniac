@@ -1,5 +1,5 @@
 <Workbook>
-	<Sheet name="Shapes">
+	<Sheet name="Shapes" background="#ffffff00">
 		<Shape viewBox="0 0 100 100" style="top: 150px; left: 420px;"><![CDATA[
 			<style type="text/css">
 				.st1{
