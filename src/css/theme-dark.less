@@ -18,12 +18,36 @@
 		}
 		
 		sidebar {
+			&:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				width: 1px;
+				opacity: .175;
+				background: linear-gradient(0deg, transparent 0%, #fff 50%, transparent 100%);
+			}
+
 			&:after {
-				border-color: var( --sidebar-border );
+				left: -1px;
+				border-color: rgba(#000,.35);
 			}
 
 			.sidebar-head {
-				border-bottom-color: var( --sidebar-border );
+				border-bottom-color: rgba(#000,.35);
+
+				span {
+					&:not(:first-child) {
+						border-left-color: transparent;
+					}
+					
+					&.active {
+						&:after {
+							border-color: transparent;
+						}
+					}
+				}
 			}
 
 			.sidebar-body {
@@ -39,7 +63,7 @@
 		content {
 			.head {
 				background: rgba(0,0,0,.125);
-				border-bottom-color: var( --sidebar-border );
+				border-bottom-color: rgba(#000,.35);
 				color: var( --content-fg );
 			}
 		}
@@ -93,8 +117,8 @@
 
 
 	layout {
-		// background: transparent;
-		background: var( --content-bg );
+		background: transparent;
+		// background: var( --content-bg );
 		color: var( --content-fg );
 		text-shadow: var( --text-shadow );
 	}
@@ -106,7 +130,8 @@
 
 		> .container {
 			> div {
-				background: var( --sidebar-bg );
+				// background: var( --sidebar-bg );
+				background: transparent;
 			}
 		}
 
@@ -117,15 +142,30 @@
 
 			span {
 				&:not(:first-child) {
-					border-left-color: var( --sidebar-border );
+					border-left-color: transparent;
 				}
 			}
 		}
 
 		.sidebar-body {
 			.group-row {
-				&:not(:last-child):after {
-					background: var( --sidebar-border );
+				&:not(:last-child) {
+					&:before {
+						content: "";
+						position: absolute;
+						left: 17px;
+						right: 17px;
+						bottom: -1px;
+						height: 1px;
+						opacity: .175;
+						background: linear-gradient(90deg, transparent 0%, #fff 50%, transparent 100%);
+					}
+
+					&:after {
+						// background: var( --sidebar-border );
+						opacity: .3;
+						background: linear-gradient(90deg, transparent 0%, #000 50%, transparent 100%);
+					}
 				}
 			}
 
