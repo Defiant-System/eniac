@@ -186,8 +186,22 @@
 			}
 
 			.styles {
-				background: var( --sidebar-bg );
-				border-bottom-color: var( --sidebar-border );
+				position: relative;
+				// background: var( --sidebar-bg );
+				// border-bottom-color: var( --sidebar-border );
+				background: rgba(255,255,255,.015);
+				border-bottom-color: rgba(#000,.25);
+
+				&:after {
+					content: "";
+					position: absolute;
+					left: 0;
+					right: 0;
+					bottom: -2px;
+					height: 1px;
+					opacity: .175;
+					background: linear-gradient(90deg, transparent 0%, #fff 50%, transparent 100%);
+				}
 			}
 		}
 	}
