@@ -44,10 +44,16 @@
 					}
 					
 					&.active {
+						background: rgba(#fff,.1);
+						color: #fff;
+						
 						&:after {
 							border-color: transparent;
 						}
 					}
+
+					&:hover:not(.active),
+					&:active:not(.active) { color: rgba(#fff,.75); }
 				}
 			}
 
@@ -145,6 +151,14 @@
 				&:not(:first-child) {
 					border-left-color: transparent;
 				}
+
+				&.active {
+					background: rgba(#fff,.1);
+					color: #fff;
+				}
+
+				&:hover:not(.active),
+				&:active:not(.active) { color: rgba(#fff,.75); }
 			}
 		}
 
@@ -213,10 +227,25 @@
 		.head {
 			background: rgba(0,0,0,.125);
 			border-bottom-color: var( --sidebar-border );
-			color: var( --content-fg );
 
 			.icon-add {
 				filter: invert() brightness(1.5) drop-shadow(0 1px 0 #333);
+			}
+
+			> div {
+				.sheet-reel {
+					color: rgba(#fff,.5);
+
+					span {
+						&.active {
+							background: rgba(#fff,.1);
+							color: #fff;
+						}
+
+						&:hover:not(.active),
+						&:active:not(.active) { color: rgba(#fff,.75); }
+					}
+				}
 			}
 		}
 
