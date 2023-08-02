@@ -25,13 +25,14 @@
 				bottom: 0;
 				left: 0;
 				width: 1px;
-				opacity: .175;
+				opacity: .5;
 				background: linear-gradient(0deg, transparent 0%, #fff 50%, transparent 100%);
+				mix-blend-mode: overlay;
 			}
 
 			&:after {
 				left: -1px;
-				border-color: rgba(#000,.35);
+				border-color: rgba(#000,.4);
 			}
 
 			.sidebar-head {
@@ -90,7 +91,7 @@
 				padding-bottom: 5px;
 				background: rgba(0,0,0,.25);
 				box-shadow: inset 0 1px 0 rgba(0,0,0,.075),
-							0 0 0 2px rgba(255,255,255,.35);
+							0 0 0 2px rgba(#fff,.35);
 
 				&:hover:not(.disabled_) {
 					box-shadow: 0 0 0 3px #489bf770,
@@ -110,7 +111,7 @@
 			color: #888;
 
 			.sample {
-				background-color: rgba(255,255,255,.15);
+				background-color: rgba(#fff,.15);
 			}
 		}
 	}
@@ -157,8 +158,9 @@
 						right: 17px;
 						bottom: -1px;
 						height: 1px;
-						opacity: .175;
+						opacity: .75;
 						background: linear-gradient(90deg, transparent 0%, #fff 50%, transparent 100%);
+						mix-blend-mode: overlay;
 					}
 
 					&:after {
@@ -172,8 +174,8 @@
 			.options {
 				background: linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.175));
 				border-color: rgba(0,0,0,.175);
-				box-shadow: inset 0 1px 0 rgba(255,255,255,.075),
-							0 1px 0 rgba(255,255,255,.075);
+				box-shadow: inset 0 1px 0 rgba(#fff,.075),
+							0 1px 0 rgba(#fff,.075);
 
 				> span {
 					border-right-color: transparent;
@@ -189,7 +191,7 @@
 				position: relative;
 				// background: var( --sidebar-bg );
 				// border-bottom-color: var( --sidebar-border );
-				background: rgba(255,255,255,.015);
+				background: rgba(#fff,.015);
 				border-bottom-color: rgba(#000,.25);
 
 				&:after {
@@ -199,8 +201,9 @@
 					right: 0;
 					bottom: -2px;
 					height: 1px;
-					opacity: .175;
+					opacity: .75;
 					background: linear-gradient(90deg, transparent 0%, #fff 50%, transparent 100%);
+					mix-blend-mode: overlay;
 				}
 			}
 		}
@@ -303,7 +306,7 @@
 			&.table-cols {
 				filter: brightness(1.1) saturate(1.15);
 				background: var( --content-bg );
-				background-image: linear-gradient(to bottom, rgba(255,255,255,.05), rgba(0,0,0,.075));
+				background-image: linear-gradient(to bottom, rgba(#fff,.05), rgba(0,0,0,.075));
 				box-shadow: 0 0 0 1px rgba(0,0,0,.15),
 							0 1px 3px rgba(0,0,0,.25);
 
@@ -325,10 +328,10 @@
 			&.table-rows {
 				filter: brightness(1.1) saturate(1.15);
 				background: var( --content-bg );
-				background-image: linear-gradient(to right, rgba(0,0,0,.075), rgba(255,255,255,.025), rgba(0,0,0,.075));
+				background-image: linear-gradient(to right, rgba(0,0,0,.075), rgba(#fff,.025), rgba(0,0,0,.075));
 				box-shadow: 0 0 0 1px rgba(0,0,0,.15),
 							0 1px 3px rgba(0,0,0,.25),
-							inset 0 3px 3px rgba(255,255,255,.05),
+							inset 0 3px 3px rgba(#fff,.05),
 							inset 0 -3px 3px rgba(0,0,0,.05);
 
 				tr {
