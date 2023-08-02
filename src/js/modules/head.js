@@ -63,7 +63,7 @@
 				// TODO: add sheet to file & UI
 
 				// enable animation later
-				setTimeout(() => Self.els.head.removeClass("empty"), 100);
+				setTimeout(() => Self.els.head.removeClass("empty"), 150);
 				break;
 			case "remove-sheet":
 				el = event.origin ? event.origin.el.parents("span") : Self.els.reel.find(".active");
