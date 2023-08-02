@@ -73,6 +73,12 @@
 				border-bottom-color: rgba(#000,.35);
 				color: var( --content-fg );
 			}
+
+			.foot {
+				.selection-type {
+					border-color: rgba(#000,.4);
+				}
+			}
 		}
 	}
 
@@ -229,6 +235,21 @@
 					mix-blend-mode: overlay;
 				}
 			}
+
+			selectbox {
+				&.image-outline,
+				&.text-border,
+				&.line-stroke,
+				&.shape-outline,
+				&.table-cell-border,
+				&.table-outline {
+					option {
+						&.prefix-icon:before {
+							filter: invert() drop-shadow(0 1px 0 #333);
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -267,6 +288,26 @@
 			background: rgba(0,0,0,.125);
 			border-top-color: var( --sidebar-border );
 
+			.selection-type {
+				border-color: rgba(#000,.3);
+
+				&:after {
+					content: "";
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					right: -2px;
+					width: 1px;
+					opacity: .75;
+					background: linear-gradient(0deg, transparent 0%, #fff 50%, transparent 100%);
+					mix-blend-mode: overlay;
+				}
+			}
+
+			.selection-value {
+				color: #eee;
+			}
+
 			.cell-type {
 				color: var( --content-fg );
 				border-right-color: rgba(0,0,0,.15);
@@ -288,6 +329,7 @@
 					}
 				}
 			}
+
 		}
 	}
 
@@ -375,6 +417,7 @@
 
 			&:before {
 				filter: brightness(2) grayscale(1) drop-shadow(0 1px 0 rgba(#000,.5));
+				background-color: rgba(#fff,.125);
 			}
 
 			&.selection {
