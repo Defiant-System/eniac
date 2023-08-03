@@ -18,18 +18,6 @@
 		}
 		
 		sidebar {
-			&:before {
-				content: "";
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				width: 1px;
-				opacity: .5;
-				background: linear-gradient(0deg, transparent 0%, #fff 50%, transparent 100%);
-				mix-blend-mode: overlay;
-			}
-
 			&:after {
 				left: -1px;
 				border-color: rgba(#000,.4);
@@ -137,8 +125,23 @@
 	}
 
 	sidebar {
+		background: rgba(#fff,.025);
+		
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			width: 1px;
+			opacity: .5;
+			background: linear-gradient(0deg, transparent 0%, #fff 50%, transparent 100%);
+			mix-blend-mode: overlay;
+		}
+
 		&:after {
-			border-color: var( --sidebar-border );
+			left: -1px;
+			border-color: rgba(#000,.4);
 		}
 
 		> .container {
@@ -151,7 +154,7 @@
 		.sidebar-head {
 			background: rgba(0,0,0,.1);
 			color: var( --sidebar-fg );
-			border-bottom-color: var( --sidebar-border );
+			border-bottom-color: rgba(#000,.35);
 
 			span {
 				&:not(:first-child) {
@@ -262,7 +265,7 @@
 	content {
 		.head {
 			background: rgba(0,0,0,.125);
-			border-bottom-color: var( --sidebar-border );
+			border-bottom-color: rgba(#000,.35);
 
 			.icon-add {
 				filter: invert() brightness(1.5) drop-shadow(0 1px 0 #333);
@@ -507,6 +510,10 @@
 		th,
 		td {
 			--border-color: rgba(#fff,.25);
+
+			&[f]:after {
+				border-top-color: rgba(#fff,.25);
+			}
 		}
 	}
 }
