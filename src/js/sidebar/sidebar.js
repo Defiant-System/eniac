@@ -23,8 +23,10 @@
 			// system events
 			case "spawn.blur":
 				// unbind event handlers
-				Self.els.el.off("mousedown", ".gradient-colors", Self.gradientPoints);
-				Self.els.el.off("mousedown", ".angle-ring", Self.angleRing);
+				if (Self.els.el) {
+					Self.els.el.off("mousedown", ".gradient-colors", Self.gradientPoints);
+					Self.els.el.off("mousedown", ".angle-ring", Self.angleRing);
+				}
 				// reset fast references
 				Self.els = {};
 				break;
@@ -57,6 +59,8 @@
 					Spawn.data.tabs.sidebar = value;
 				}
 				if (!Self.els.layout) return;
+				// no sidebar, if blank-view is shown
+				if (Self.els.layout.hasClass("show-blank-view")) value = true;
 				// apply class name
 				Self.els.layout.toggleClass("show-sidebar", value);
 				if (!event.el) {

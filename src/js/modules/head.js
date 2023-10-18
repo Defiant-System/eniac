@@ -26,7 +26,7 @@
 			// system events
 			case "spawn.blur":
 				// unbind event handlers
-				Self.els.root.off("wheel", Self.dispatch);
+				if (Self.els.root) Self.els.root.off("wheel", Self.dispatch);
 				// reset fast references
 				Self.els = {};
 				break;

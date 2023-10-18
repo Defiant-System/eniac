@@ -33,7 +33,7 @@
 			// system events
 			case "spawn.blur":
 				// unbind event handlers
-				Self.els.colorRing.off("mousedown", Self.doColorRing);
+				if (Self.els.colorRing) Self.els.colorRing.off("mousedown", Self.doColorRing);
 				// reset fast references
 				Self.els = {};
 				break;

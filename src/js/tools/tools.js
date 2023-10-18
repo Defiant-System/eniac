@@ -35,7 +35,7 @@
 			// system events
 			case "spawn.blur":
 				// unbind event handlers
-				Self.els.body.off("mousedown", Self.dispatch);
+				if (Self.els.body) Self.els.body.off("mousedown", Self.dispatch);
 				// reset fast references
 				Self.els = {};
 				break;
