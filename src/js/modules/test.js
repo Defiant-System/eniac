@@ -14,10 +14,7 @@ let Test = {
 
 		// SHAPES
 		setTimeout(() => {
-			// $(".def-desktop_").trigger("mousedown").trigger("mouseup");
-			
 			// spawn.el.find(`.toolbar-tool_:nth(3)`).trigger("click");
-			// spawn.el.find(`.sidebar-sheet .color-preset_:nth(0)`).trigger("click");
 
 			spawn.find(`.tbl-body > div:nth(1) td:nth(5)`).trigger("mousedown").trigger("mouseup");
 
@@ -29,6 +26,7 @@ let Test = {
 			// spawn.find("sidebar .form-checkbox_:nth(0) input").trigger("click");
 
 			// setTimeout(() => $(".def-desktop_").trigger("mousedown").trigger("mouseup"), 500);
+			setTimeout(() => spawn.el.find(`.sidebar-table .color-preset_:nth(0)`).trigger("click"), 100);
 
 		}, 700);
 

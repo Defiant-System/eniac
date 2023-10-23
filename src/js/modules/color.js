@@ -28,6 +28,7 @@ const Color = {
 		return this.rgbToHex(`rgba(${rgb.join(",")})`);
 	},
 	hexToHsl(hex) {
+		if (hex.startsWith("rgb")) hex = this.rgbToHex(hex);
 		let rgb = this.hexToRgb(hex);
 		return this.rgbToHsl(...rgb);
 	},

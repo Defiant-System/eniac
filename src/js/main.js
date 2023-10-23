@@ -1,5 +1,5 @@
 
-@import "../../public/js/bundle.min.js"
+@import "../../public/js/bundle.js"
 @import "./classes/file.js"
 @import "./classes/tabs.js"
 @import "./modules/test.js"
