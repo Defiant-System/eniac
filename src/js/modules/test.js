@@ -1,7 +1,7 @@
 
 let Test = {
 	init(APP, spawn) {
-		// return;
+		return;
 
 		// temp
 		// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
@@ -26,7 +26,11 @@ let Test = {
 			// spawn.find("sidebar .form-checkbox_:nth(0) input").trigger("click");
 
 			// setTimeout(() => $(".def-desktop_").trigger("mousedown").trigger("mouseup"), 500);
-			setTimeout(() => spawn.el.find(`.sidebar-table .color-preset_:nth(0)`).trigger("click"), 100);
+			// setTimeout(() => {
+			// 	let el = spawn.el.find(`.sidebar-table .color-preset_:nth(0)`);
+			// 	el.data({ click: "popup-color-ring" });
+			// 	el.trigger("click");
+			// }, 100);
 
 		}, 700);
 

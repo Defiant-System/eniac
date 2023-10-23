@@ -134,15 +134,15 @@
 				pEl.find(".color-ring span").css({ transform: `rotate(${hue}deg)` });
 				// box
 				let hsv = Color.hexToHsv(value.trim()),
-					w = +Self.els.colorRing.find(".color-box").prop("offsetWidth") - 1;
-				pEl.find(".color-box span").css({
-					left: w * hsv[1],
-					top: w * (1-hsv[2]),
-				});
+					hex = Color.hslToHex(hue, sat, lgh, alpha),
+					w = +Self.els.colorRing.find(".color-box").prop("offsetWidth") - 1,
+					l = w * hsv[1],
+					t = w * (1-hsv[2]);
+				if (hex.slice(0, -2) === "#ffffff") t = l = 0;
+				pEl.find(".color-box span").css({ left: l, top: t });
 				// alpha
 				pEl.find(".color-alpha span").css({ top: `${alpha * 159}px` });
 				// root element css variables
-				let hex = Color.hslToHex(hue, sat, lgh, alpha);
 				Self.els.colorRing.css({
 					"--hue-color": Color.hslToHex(hue, 1, .5),
 					"--color": hex,
