@@ -28,7 +28,7 @@
 
 				span {
 					&:not(:first-child) {
-						border-left-color: transparent;
+						border-left-color: rgba(#000,.125);
 					}
 					
 					&.active {
@@ -36,7 +36,8 @@
 						color: #fff;
 						
 						&:after {
-							border-color: transparent;
+							border-color: rgba(#000,.125);
+							border-right-color: transparent;
 						}
 					}
 
