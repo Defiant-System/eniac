@@ -39,6 +39,8 @@
 					return APP.spawn.tools.dispatch({ ...event, selected: Self.table._el });
 				}
 
+				if (!selected) return;
+				
 				let isSingleCellSelected = selected.xNum.length === 1 && selected.yNum.length === 1,
 					isShiftKey = event.shiftKey,
 					index;

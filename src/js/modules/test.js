@@ -13,7 +13,9 @@ let Test = {
 
 		// SHAPES
 		setTimeout(() => {
-			spawn.find(`.tbl-body > div:nth(1) td:nth(5)`).trigger("mousedown").trigger("mouseup");
+			spawn.el.find(`.sidebar-sheet .color-preset_:nth(0)`).trigger("click");
+
+			// spawn.find(`.tbl-body > div:nth(1) td:nth(5)`).trigger("mousedown").trigger("mouseup");
 
 			// spawn.find(`.file-sheet span > svg:nth(0)`).trigger("mousedown").trigger("mouseup");
 			// eniac.spawn.sidebar.shape.parent.els.el.find(".sidebar-shape .sidebar-head span:nth(1)").trigger("click");
@@ -24,7 +26,7 @@ let Test = {
 
 			// setTimeout(() => $(".def-desktop_").trigger("mousedown").trigger("mouseup"), 500);
 
-		}, 300);
+		}, 700);
 
 		// setTimeout(() => {
 		// 	let target = eniac.spawn.sidebar.shape.parent.els.el.find(".gradient-colors .point:nth(0)")[0];

@@ -34,6 +34,8 @@
 			case "spawn.blur":
 				// unbind event handlers
 				if (Self.els.colorRing) Self.els.colorRing.off("mousedown", Self.doColorRing);
+				// close popup, if open
+				Self.dispatch({ type: "close-popup" });
 				// reset fast references
 				Self.els = {};
 				break;
