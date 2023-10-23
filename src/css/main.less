@@ -167,6 +167,8 @@ layout {
 
 		sidebar {
 			right: 0;
+
+			&:after { border-color: lighten(@layout_outline, 9%); }
 		}
 	}
 
@@ -290,7 +292,7 @@ layout {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 110;
+	z-index: 1110;
 
 	> div {
 		visibility: hidden;
@@ -1115,7 +1117,7 @@ sidebar {
 	&.show-empty .container .sidebar-empty { display: flex; }
 
 	&:after {
-		border-color: lighten(@layout_outline, 9%);
+		border-color: transparent;
 	}
 
 	&:hover .angle-ring {

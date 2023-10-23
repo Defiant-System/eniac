@@ -17,10 +17,18 @@
 			}
 		}
 		
+		layout {
+			&.show-sidebar {
+				sidebar {
+					&:after { border-color: rgba(#000,.4); }
+				}
+			}
+		}
+
 		sidebar {
 			&:after {
 				left: -1px;
-				border-color: rgba(#000,.4);
+				border-color: transparent;
 			}
 
 			.sidebar-head {
@@ -123,6 +131,12 @@
 		// background: var( --content-bg );
 		color: var( --content-fg );
 		text-shadow: var( --text-shadow );
+
+		&.show-sidebar {
+			sidebar {
+				&:after { border-color: rgba(#000,.2); }
+			}
+		}
 	}
 
 	sidebar {
@@ -155,7 +169,7 @@
 		.sidebar-head {
 			background: rgba(#000,.1);
 			color: var( --sidebar-fg );
-			border-bottom-color: rgba(#000,.35);
+			border-bottom-color: rgba(#000,.2);
 
 			span {
 				&:not(:first-child) {
@@ -287,7 +301,7 @@
 	content {
 		.head {
 			background: rgba(#000,.125);
-			border-bottom-color: rgba(#000,.35);
+			border-bottom-color: rgba(#000,.15);
 
 			.icon-add {
 				filter: invert() brightness(1.5) drop-shadow(0 1px 0 rgba(#000,.25));

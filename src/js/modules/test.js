@@ -1,6 +1,7 @@
 
 let Test = {
 	init(APP, spawn) {
+		// return;
 
 		// temp
 		// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
@@ -13,9 +14,12 @@ let Test = {
 
 		// SHAPES
 		setTimeout(() => {
-			spawn.el.find(`.sidebar-sheet .color-preset_:nth(0)`).trigger("click");
+			// $(".def-desktop_").trigger("mousedown").trigger("mouseup");
+			
+			// spawn.el.find(`.toolbar-tool_:nth(3)`).trigger("click");
+			// spawn.el.find(`.sidebar-sheet .color-preset_:nth(0)`).trigger("click");
 
-			// spawn.find(`.tbl-body > div:nth(1) td:nth(5)`).trigger("mousedown").trigger("mouseup");
+			spawn.find(`.tbl-body > div:nth(1) td:nth(5)`).trigger("mousedown").trigger("mouseup");
 
 			// spawn.find(`.file-sheet span > svg:nth(0)`).trigger("mousedown").trigger("mouseup");
 			// eniac.spawn.sidebar.shape.parent.els.el.find(".sidebar-shape .sidebar-head span:nth(1)").trigger("click");
