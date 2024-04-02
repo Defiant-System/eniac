@@ -4,7 +4,7 @@ class File {
 	constructor(fsFile, data) {
 		// save reference to original FS file
 		this._file = fsFile || new karaqu.File({ kind: "xml" });
-		
+
 		switch (this._file.kind) {
 			case "csv":
 				// parse CSV file into workbook
@@ -19,6 +19,13 @@ class File {
 				if (!this._file.data) {
 					let xStr = `<Workbook><Sheet name="Sheet 1" /></Workbook>`;
 					this._file.data = $.xmlFromString(xStr).documentElement;
+
+					setTimeout(() => {
+						eniac.spawn.popups.dispatch({
+							type: "insert-table",
+							arg: "gray-table-1",
+						})
+					}, 200);
 				}
 				this._file.workbook = this._file.data;
 				break;

@@ -1,8 +1,11 @@
 
 let Test = {
 	init(APP, spawn) {
+
 		return;
 
+		setTimeout(() => spawn.find(`.btn[data-click="new-file"]`).trigger("click"), 500);
+		
 		// temp
 		// setTimeout(() => Self.dispatch({ type: "tab.new", spawn: Spawn }), 300);
 		setTimeout(() => eniac.spawn.dispatch({ type: "toggle-sidebar", value: true, spawn }), 500);

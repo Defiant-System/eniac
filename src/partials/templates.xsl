@@ -4,6 +4,11 @@
 	<h2>Welcome to Eniac.</h2>
 
 	<div class="block-buttons">
+		<div class="btn" data-click="new-file">
+			<i class="icon-new-file"></i>
+			New
+		</div>
+		
 		<div class="btn" data-click="open-file">
 			<i class="icon-folder-open"></i>
 			Open&#8230;

@@ -98,6 +98,7 @@
 				break;
 
 			// tab related events
+			case "show-blank-view":
 			case "tab.new":
 				// add "file" to tab row
 				Spawn.data.tabs.add(event.file);
@@ -126,6 +127,10 @@
 					// close sibling spawn
 					oSpawn.close();
 				});
+				break;
+			case "new-file":
+				Self.dispatch({ type: "close-tab", spawn: Spawn, delayed: true });
+				Self.dispatch({ type: "tab.new", spawn: Spawn, file: new File() });
 				break;
 			case "open-file":
 				let fsHandler = fsItem => {

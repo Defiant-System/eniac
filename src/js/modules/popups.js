@@ -168,7 +168,7 @@
 				Self.els.doc.bind("mouseup", Self.closeHandler);
 				break;
 			case "insert-table":
-				name = event.target.getAttribute("data-arg");
+				name = event.arg || event.target.getAttribute("data-arg");
 				str = window.render({ template: "xl-table", match: `//Table[@id="template-2"]` });
 				str = str.replace(/gray-table-1/, name);
 				el = APP.spawn.els.body.append(str);
@@ -177,7 +177,7 @@
 				// auto focus on first grid cell
 				el.find("td:nth(0)").trigger("mousedown").trigger("mouseup");
 				// close popup
-				Self.dispatch({ type: "close-popup", spawn: Spawn });
+				if (Spawn) Self.dispatch({ type: "close-popup", spawn: Spawn });
 				break;
 			case "insert-formula":
 				// close popup

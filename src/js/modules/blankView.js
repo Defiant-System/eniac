@@ -35,6 +35,9 @@
 					});
 				}
 				break;
+			case "new-file":
+				APP.dispatch({ ...event, type: "new-file" });
+				break;
 			case "open-filesystem":
 				// open fs dialog
 				APP.spawn.dispatch(event);
