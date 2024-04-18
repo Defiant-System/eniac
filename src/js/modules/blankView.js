@@ -2,7 +2,7 @@
 // eniac.spawn.blankView
 
 {
-	init1() {
+	init() {
 		
 	},
 	dispatch(event) {
