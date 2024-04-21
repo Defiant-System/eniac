@@ -186,12 +186,4 @@ class File {
 		
 	}
 
-	undo() {
-		
-	}
-
-	redo() {
-		
-	}
-
 }

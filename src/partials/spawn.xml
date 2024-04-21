@@ -1,6 +1,6 @@
 <Spawn id="spawn">
 	<Head>
-		<meta name="title" value="New File"/>
+		<meta name="title" value="Eniac"/>
 		<meta name="width" value="1020" min="720"/>
 		<meta name="height" value="700" min="420"/>
 		<meta name="top" value="90"/>

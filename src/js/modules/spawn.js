@@ -47,7 +47,8 @@
 				// DEV-ONLY-END
 				break;
 			case "spawn.init":
-				Self.dispatch({ ...event, type: "tab.new" });
+				// makes sure "tab.new" comes after "spawn.focus"
+				requestAnimationFrame(() => Self.dispatch({ ...event, type: "tab.new" }));
 				break;
 			case "spawn.blur":
 				// forward event to all sub-objects
