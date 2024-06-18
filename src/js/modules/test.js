@@ -2,8 +2,8 @@
 let Test = {
 	init(APP, spawn) {
 
-		setTimeout(() => spawn.find(`.toolbar-tool_[data-arg="grid"]`).trigger("click"), 500);
 		return;
+		setTimeout(() => spawn.find(`.toolbar-tool_[data-arg="grid"]`).trigger("click"), 500);
 
 		setTimeout(() => spawn.find(`.btn[data-click="new-file"]`).trigger("click"), 500);
 		

@@ -157,7 +157,7 @@ class Tabs {
 
 						reader.addEventListener("load", () => {
 							// this will then display a text file
-							file.data = $.xmlFromString(reader.result);
+							file.data = $.xmlFromString(reader.result).documentElement;
 							resolve(file);
 						}, false);
 

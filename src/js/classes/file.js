@@ -16,19 +16,23 @@ class File {
 				// console.log( this._file.workbook );
 				break;
 			case "xml":
-				if (!this._file.data) {
-					let xStr = `<Workbook><Sheet name="Sheet 1" /></Workbook>`;
-					this._file.data = $.xmlFromString(xStr).documentElement;
-
-					setTimeout(() => {
-						eniac.spawn.popups.dispatch({
-							type: "insert-table",
-							arg: "gray-table-1",
-						})
-					}, 200);
-				}
+				// file workbook
 				this._file.workbook = this._file.data;
 				break;
+		}
+
+		if (!this._file.data) {
+			let xStr = `<Workbook><Sheet name="Sheet 1" /></Workbook>`;
+			this._file.data = $.xmlFromString(xStr).documentElement;
+			// if empty / blank / new file - add gray table to file
+			setTimeout(() => {
+				eniac.spawn.popups.dispatch({
+					type: "insert-table",
+					arg: "gray-table-1",
+				})
+			}, 200);
+			// file workbook
+			this._file.workbook = this._file.data;
 		}
 
 		// render workbook

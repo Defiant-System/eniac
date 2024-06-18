@@ -103,6 +103,10 @@
 			case "tab.new":
 				// add "file" to tab row
 				Spawn.data.tabs.add(event.file);
+				// open sidebar, if not open
+				if (Self.els && !Self.els.tools.sidebar.hasClass("tool-active_")) {
+					setTimeout(() => Self.els.tools.sidebar.trigger("click"), 500);
+				}
 				break;
 			case "tab.clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));
