@@ -146,11 +146,11 @@ class Tabs {
 			file = new karaqu.File({ name, kind });
 		// return promise
 		return new Promise((resolve, reject) => {
-			// fetch image and transform it to a "fake" file
+			// fetch item and transform it to a "fake" file
 			fetch(url)
 				.then(resp => resp.blob())
 				.then(blob => {
-					// here the image is a blob
+					// here the file as a blob
 					file.blob = blob;
 					if (blob.type === "application/xml") {
 						let reader = new FileReader();
